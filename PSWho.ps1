@@ -132,7 +132,8 @@ Function Get-PSWho {
     }
 
     if ($AsString) {
-      $who | Out-String
+      $out = $who | Out-String
+      $out.Trim()
     }
     else {
       $who

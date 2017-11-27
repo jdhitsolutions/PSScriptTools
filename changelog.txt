@@ -1,4 +1,12 @@
 #Changelog for PSScriptTools
 
+v0.2.0
+modified verbose output to use Write-Detail
+expanded aliases to full cmdlet names
+modified Get-PSWho to trim when using -AsString
+Added Out-ConditionalColor
+Added Get-RandomFileName
+Added New-CustomFileName
+
 v0.1.0
 initial module

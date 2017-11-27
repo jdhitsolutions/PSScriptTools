@@ -3,7 +3,7 @@
 # https://gist.github.com/jdhitsolutions/0bbd6b64c107d7da23e65359c4d0e25c
 
 Function Add-Border {
-<#
+    <#
 .Synopsis
 Create a text border around a string.
 
@@ -60,104 +60,95 @@ PS C:\> add-border -textblock (get-service win* | out-string).trim()
 
 Create a border around the output of a Get-Service command.
 #>
-[CmdletBinding(DefaultParameterSetName="single")]
-Param(
- # The string of text to process
- [Parameter(Position = 0, Mandatory,ValueFromPipeline,ParameterSetName='single')]
- [ValidateNotNullOrEmpty()]
- [string]$Text,
+    [CmdletBinding(DefaultParameterSetName = "single")]
+    Param(
+        # The string of text to process
+        [Parameter(Position = 0, Mandatory, ValueFromPipeline, ParameterSetName = 'single')]
+        [ValidateNotNullOrEmpty()]
+        [string]$Text,
 
- [Parameter(Position = 0, Mandatory,ParameterSetName='block')]
- [ValidateNotNullOrEmpty()]
- [string[]]$TextBlock,
+        [Parameter(Position = 0, Mandatory, ParameterSetName = 'block')]
+        [ValidateNotNullOrEmpty()]
+        [string[]]$TextBlock,
 
- # The character to use for the border. It must be a single character.
- [ValidateNotNullOrEmpty()]
- [validateScript({$_.length -eq 1})]
- [string]$Character = "*",
+        # The character to use for the border. It must be a single character.
+        [ValidateNotNullOrEmpty()]
+        [validateScript( {$_.length -eq 1})]
+        [string]$Character = "*",
 
- # add blank lines before and after text
- [Switch]$InsertBlanks,
+        # add blank lines before and after text
+        [Switch]$InsertBlanks,
 
-# insert X number of tabs
- [int]$Tab = 0
-)
+        # insert X number of tabs
+        [int]$Tab = 0
+    )
 
-Begin {
-    Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
-    $tabs = "`t"*$tab
-    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using a tab of $tab"
-} #begin
+    Begin {
+        Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Write-Verbose
+        $tabs = "`t" * $tab
+        Write-Detail "Using a tab of $tab" -Prefix BEGIN | Write-Verbose
+    } #begin
 
-Process {
+    Process {
 
-    if ($pscmdlet.ParameterSetName -eq 'single') {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing '$text'"
-        #get length of text
-        $len = $text.Length
-    }
-    else {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing text block"
-        $txtarray = $textblock.split("`n").Trim()
-        $len = $txtarray | sort-object -property length -Descending | select-object -first 1 -expandProperty length
-}
+        if ($pscmdlet.ParameterSetName -eq 'single') {
+            Write-Detail "Processing '$text'" -Prefix PROCESS | write-Verbose
+            #get length of text
+            $len = $text.Length
+        }
+        else {
+            Write-Detail "Processing text block" -Prefix PROCESS| Write-Verbose
+            $txtarray = $textblock.split("`n").Trim()
+            $len = $txtarray | sort-object -property length -Descending | select-object -first 1 -expandProperty length
+        }
     
-    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using a length of $len"
-    #define a horizontal line
-    $line = $Character * ($len+4)
+        Write-Detail "Using a length of $len" | Write-Verbose
+        #define a horizontal line
+        $line = $Character * ($len + 4)
 
-    if ($insertBlanks -and ($pscmdlet.ParameterSetName -eq 'single')) {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Inserting blank lines"
-        $body = @"
+        if ($insertBlanks -and ($pscmdlet.ParameterSetName -eq 'single')) {
+            Write-Detail "Inserting blank lines" -Prefix PROCESS | write-verbose
+            $body = @"
 $tabs$character $((" ")*$len) $character
 $tabs$Character $text $Character
 $tabs$character $((" ")*$len) $character
 "@
-    }
-    elseif ($insertBlanks -and ($pscmdlet.ParameterSetName -eq 'block')) {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Inserting blank lines in the block"
-          $body = @"
+        }
+        elseif ($insertBlanks -and ($pscmdlet.ParameterSetName -eq 'block')) {
+            Write-Deail "Inserting blank lines in the block" -prefix Process | write-Verbose
+            $body = @"
 $tabs$character $((" ")*$len) $character
 "@
 
-foreach ($line in $txtarray) {
-$body+="$tabs$Character  $(($item).PadRight($len)) $Character"
-}
+            foreach ($line in $txtarray) {
+                $body += "$tabs$Character  $(($item).PadRight($len)) $Character"
+            }
 
-$body+="$tabs$character $((" ")*$len) $character"
+            $body += "$tabs$character $((" ")*$len) $character"
 
-    }
-    elseif ($pscmdlet.ParameterSetName -eq 'single') {
-        $body = "$tabs$Character $text $Character"
-    }
-    else {
-        
-        [string[]]$body=""
-        foreach ($item in $txtarray) {
-            $body+="$tabs$Character $(($item).PadRight($len)) $Character`r"
         }
-    }
+        elseif ($pscmdlet.ParameterSetName -eq 'single') {
+            $body = "$tabs$Character $text $Character"
+        }
+        else {
+        
+            [string[]]$body = ""
+            foreach ($item in $txtarray) {
+                $body += "$tabs$Character $(($item).PadRight($len)) $Character`r"
+            }
+        }
 
-#define a here string with the final result
-<#
-$out = @"
-$tabs$line
-$(($body | out-string).Trim())
-$tabs$line
-"@
-#>
+        [string[]]$out = "`n$tabs$line"
+        foreach ($b in $body.split("`n")) {
+            $out += $b
+        }
+        $out += "$tabs$line"
+        #write the result to the pipeline
+        $out
+    } #process
 
-    [string[]]$out = "`n$tabs$line"
-    foreach ($b in $body.split("`n")) {
-        $out+=$b
-    }
-    $out += "$tabs$line"
-    #write the result to the pipeline
-    $out
-} #process
-
-End {
-    Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
-} #end
+    End {
+        Write-Detail "Ending $($myinvocation.mycommand)" -prefix END | Write-Verbose
+    } #end
 
 } #close function
