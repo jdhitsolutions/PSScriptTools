@@ -1,6 +1,11 @@
 # PSScriptTools
 
-This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files
+This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
+
+## Current Release
+The current BETA release is [https://github.com/jdhitsolutions/PSScriptTools/tree/v0.3.0](https://github.com/jdhitsolutions/PSScriptTools/tree/v0.3.0 "PSScriptTools-v0.3.0-beta")
+
+Please post any questions, problems or feedback in Issues. Any input is greatly appreciated.
 
 ## Add-Border
 This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
