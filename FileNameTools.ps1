@@ -1,18 +1,31 @@
 
-#TODO: aDD OPTION TO WRITE TO HOME FOLDER OR DOCUMENTS
-
 Function New-RandomFileName {
-    [cmdletbinding()]
+    [cmdletbinding(DefaultParameterSetName="none")]
     Param(
         [parameter(Position = 0)]
+        [Parameter(ParameterSetName = 'none')]
+        [Parameter(ParameterSetName = 'home')]
+        [Parameter(ParameterSetName = 'temp')]
         #enter an extension without the leading period e.g 'bak'
         [string]$Extension,
+        [Parameter(ParameterSetName = 'temp')]
         [alias("temp")]
-        [Switch]$UseTempFolder
+        [Switch]$UseTempFolder,
+        [Parameter(ParameterSetName = 'home')]
+        [alias("home")]
+        [Switch]$UseHomeFolder
     )
 
     if ($UseTempFolder) {
         $filename = [system.io.path]::GetTempFileName()
+    }
+    elseif ($UseHomeFolder) {
+        if ($PSVersionTable.PSEdition -eq 'Core' -AND $PSVersionTable.OS -notmatch "Windows") {
+           $filename = Join-Path -Path $env:HOME -ChildPath ([system.io.path]::GetRandomFileName())
+        }
+        else {
+            $filename = Join-Path -Path $env:USERPROFILE\Documents -ChildPath ([system.io.path]::GetRandomFileName())
+        }
     }
     else {
         $filename = [system.io.path]::GetRandomFileName()
@@ -27,30 +40,31 @@ Function New-RandomFileName {
         $filename
     }
 
-} #end Get-RandomFilename
+} #end New-RandomFilename
 
-<#
-create a custom file name from any combination of elements
-computername
-username
-month
-day
-year
-time (hour:minute:second)
 
-specify a separate like - _ or none
-#>
 Function New-CustomFileName {
     [cmdletbinding()]
     Param (
-        [Parameter(Position = 0)]
+        [Parameter(Position = 0,Mandatory)]
+        [ValidateNotNullOrEmpty()]
         [string]$Template,
         [ValidateSet("Lower", "Upper", "Default")]
         [string]$Case = "default"
     )
 
-    [string]$filename = $Template.toLower()
+    #convert placeholders to lower case but leave everything else as is
+    [regex]$rx="%\w+(?=%|-|\.|\s|\(|\)|\[|\])"
+   
+    Write-Detail "Starting $($myinvocation.MyCommand)" | Write-Verbose
+    Write-Detail "Processing template: $template" | Write-Verbose
+    $rx.matches($Template) | foreach-object {
+        Write-Detail "Converting $($_.value) to lower case" | Write-Verbose
+        $Template = $Template.replace($_.value,$_.value.tolower())
+    }
 
+    [string]$filename = $Template
+    Write-Detail "Using filename: $filename" | Write-Verbose
     $now = Get-Date
     if ($env:USERNAME) {
         $user = $env:USERNAME
@@ -67,23 +81,36 @@ Function New-CustomFileName {
         '%username'     = $user
         '%computername' = (hostname)
         '%year'         = $now.Year
-        '%monthname'  = ("{0:MMM}" -f $now)
+        '%yr'           = "{0:yy}" -f $now
+        '%monthname'    = ("{0:MMM}" -f $now)
         '%month'        = $now.month
         '%dayofweek'    = $now.DayOfWeek
         '%day'          = $now.Day
         '%hour'         = $now.hour
         '%minute'       = $now.minute
         '%time'         = "{0}{1}{2}" -f $now.hour, $now.minute, $now.Second
+        '%string'       = ([system.io.path]::GetRandomFileName()).split(".")[0]
+        '%guid'         = [System.Guid]::NewGuid().guid
     }
 
     $hash.GetEnumerator() | foreach-object { 
-        write-verbose "Testing $filename for ($($_.key))"
+        Write-Detail "Testing $filename for $($_.key)" | Write-Verbose
         if ($filename -match "($($_.key))") {
-          write-verbose "replacing $($_.key) with $($_.value)"
+          Write-Detail "replacing $($_.key) with $($_.value)" | Write-Verbose
           $filename = $filename -replace "($($_.key))",$_.value
         }
     }
 
+    #handle ### number replacement
+    [regex]$rx = '%#+'
+    if ($rx.IsMatch($filename)) {
+        $count = $rx.Match($filename).Value.length -1
+        $num = (0..9 | Get-Random -Count 10 | Get-Random -count $count) -join ""
+        Write-Detail "replacing # with $num" | Write-Verbose
+        $filename = $rx.Replace($filename,$num)
+    }
+
+    Write-Detail "Converting case to $Case" | Write-Verbose
     Switch ($Case) {
         "Upper" {
             $filename.toUpper()
@@ -95,8 +122,7 @@ Function New-CustomFileName {
             $filename
         }   
     } #close switch
+
+    Write-Detail "Ending $($myinvocation.MyCommand)" | Write-Verbose
 } #end New-CustomFileName
 
-#New-CustomFileName '%Username-%DayofWeek.log' -Verbose
-
-#New-CustomFileName '%UserName_%Computername_%Year%monthname%day-%time.txt' -case default -Verbose

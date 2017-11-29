@@ -18,7 +18,7 @@ Function Write-Detail {
     $Text = "$dt [$pfx] $Message"
     Write-Output $Text
 
-}
+} #close Write-Detail
 
 Function Out-VerboseTee {
     [CmdletBinding()]
@@ -30,7 +30,10 @@ Function Out-VerboseTee {
      [System.Text.Encoding]$Encoding,
      [switch]$Append
     )
-    Begin { }
+    Begin { 
+        #turn on verbose pipeline since if you are running this command you intend for it to be on
+        $VerbosePreference = "continue"
+    }
     Process {
         #only run if Verbose is turned on
         if ($VerbosePreference -eq "continue") {
@@ -44,6 +47,8 @@ Function Out-VerboseTee {
             }
         }
     }
-    End {}
-}
+    End {
+        $VerbosePreference = "silentlycontinue"
+    }
+} #close Out-VerboseTee
 

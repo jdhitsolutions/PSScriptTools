@@ -1,5 +1,13 @@
 #Changelog for PSScriptTools
 
+v0.3.0
+Added help documentation
+updated README
+Added samples
+Reverted Get-PSWho to not trim when using -AsString
+Added code to New-CustomFileName to preserve case for non-placeholders
+Modified Out-VerboseTee to turn on VerboseTee
+
 v0.2.0
 modified verbose output to use Write-Detail
 expanded aliases to full cmdlet names

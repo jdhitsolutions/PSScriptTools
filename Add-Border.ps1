@@ -1,7 +1,10 @@
 #add a border around a string of text
 
-# https://gist.github.com/jdhitsolutions/0bbd6b64c107d7da23e65359c4d0e25c
+<#
+originally published at
+ https://gist.github.com/jdhitsolutions/0bbd6b64c107d7da23e65359c4d0e25c
 
+ #>
 Function Add-Border {
     <#
 .Synopsis
@@ -92,7 +95,7 @@ Create a border around the output of a Get-Service command.
     Process {
 
         if ($pscmdlet.ParameterSetName -eq 'single') {
-            Write-Detail "Processing '$text'" -Prefix PROCESS | write-Verbose
+            Write-Detail "Processing '$text'" -Prefix PROCESS | Write-Verbose
             #get length of text
             $len = $text.Length
         }
