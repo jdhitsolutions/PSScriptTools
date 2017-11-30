@@ -1,5 +1,12 @@
 #Changelog for PSScriptTools
 
+v0.4.0
+added Copy-Command (Issue #2)
+updated Copy-Command to open new file in the ISE or VSCode
+Added Format functions (Issue #3)
+updated help
+added new sample files
+
 v0.3.0
 Added help documentation
 updated README

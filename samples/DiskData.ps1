@@ -18,7 +18,7 @@ Param(
             $data = Get-CimInstance -Class Win32_logicaldisk -Filter "DriveType=3" -ComputerName $Computername -ErrorAction Stop
             $data | Foreach-Object {
                 Write-Detail "Calculating PctFree for $($_.DeviceID)" -prefix process -NoDate | Write-Verbose
-                $_ | Add-Member -MemberType ScriptProperty -Name PctFree -value {($this.freespace/$this.size)*100} -force
+                $_ | Add-Member -MemberType ScriptProperty -Name PctFree -value { format-percent -value $this.freespace -total $this.size -decimal 2} -force
             }
             $data
         }   
@@ -33,7 +33,7 @@ Param(
 
 }
 
-# Get-DiskData -verbose
+# Get-DiskData -verbose | Select DeviceID,Size,PctFree
 
 <#
 $condition =  [ordered]@{{$psitem.pctfree -le 40}='yellow'}

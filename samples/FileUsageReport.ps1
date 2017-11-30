@@ -9,6 +9,11 @@ Param(
     [switch]$Recurse
 )
 
+#create a transcript if -Verbose is used
+if ($VerbosePreference -eq 'Continue') {
+    $transcript = New-CustomFileName -Template "Transcript-$($myinvocation.MyCommand)-%Year%Month%Day%Time.log"
+    Start-Transcript -Path $transcript -IncludeInvocationHeader
+}
 $PSDefaultParameterValues."write-detail:nodate" = $True
 Write-Detail "Starting $($myinvocation.mycommand)" | Write-Verbose
 Write-Detail "Execution metadata" | Write-Verbose
@@ -39,11 +44,16 @@ $c = [ordered]@{
     {$psitem.size -ge 250KB} = "yellow"
     {$psitem.size -le 10KB} = "green"
 }
+
 $grouped | Sort-object -property Name | Out-Conditionalcolor -Conditions $c -OutVariable data
 
 Write-Detail "Saving data to log file $log" | Write-Verbose
 Set-Content -Path $log -Value "Usage Report for $Path"
 Add-Content -path $log -value (Get-Date)
 $data | Select-object Count, Name, Size | Out-String | Add-Content -Path $log
-Write-detail "Ending $($myinvocation.mycommand)" | Write-Verbose
+Write-Detail "Ending $($myinvocation.mycommand)" | Write-Verbose
 $PSDefaultParameterValues.Remove("write-detail:nodate")
+if (Test-Path $Transcript) {
+    Stop-Transcript
+    Write-Verbose "See $transcript for a transcript of this script."
+}

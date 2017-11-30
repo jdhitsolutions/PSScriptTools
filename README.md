@@ -130,7 +130,20 @@ Or you can specify an ordered hashtable for more complex processing.
 
 This command doesn't always work depending on the type of object you pipe to it. The problem appears to be related to the formatting system. Development and testing is ongoing.
 
+## Copy-Command
+This command will copy a PowerShell command, including parameters and help to a new user-specified command. You can use this to create a "wrapper" function or to easily create a proxy function. The default behavior is to create a copy of the command complete with the original comment-based help block.
+
+## Format-Functions
+A set of simple commands to make it easier to format values.
+```
+PS C:\> format-percent -Value 123.5646MB -total 1GB -Decimal 4
+12.0669
+PS C:\> format-string "powershell" -Reverse -Case Proper
+Llehsrewop
+PS C:\>  format-value 1235465676 -Unit kb
+1206509
+```
 ### Compatibility
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 29 November 2017*
+*last updated 30 November 2017*
