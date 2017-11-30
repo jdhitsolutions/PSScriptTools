@@ -3,7 +3,7 @@
 This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
 
 ## Current Release
-The current BETA release is [PSScriptTools-v0.3.0-beta](https://github.com/jdhitsolutions/PSScriptTools/archive/v0.3.0.zip)
+The current BETA release is [PSScriptTools-v0.4.0-beta](https://github.com/jdhitsolutions/PSScriptTools/archive/v0.4.0.zip)
 
 Please post any questions, problems or feedback in Issues. Any input is greatly appreciated.
 
