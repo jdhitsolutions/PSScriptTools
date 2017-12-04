@@ -15,7 +15,7 @@ $aliases+= Set-Alias -name fs -value Format-String -PassThru
 $exportParams = @{
     Function = 'Add-Border','Tee-Verbose','Write-Detail','Out-VerboseTee',
     'Get-PSWho','Out-ConditionalColor','New-RandomFileName','New-CustomFileName',
-    'Copy-Command','Format-Value','Format-String','Format-Percent'
+    'Copy-Command','Format-Value','Format-String','Format-Percent','Get-PSLocation'
     Alias = $aliases.Name
 }
 
