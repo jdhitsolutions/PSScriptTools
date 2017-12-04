@@ -1,4 +1,4 @@
-# PSScriptTools
+# ![](./images/toolbox-thumbnail.png)  PSScriptTools
 
 This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
 
@@ -143,7 +143,13 @@ Llehsrewop
 PS C:\>  format-value 1235465676 -Unit kb
 1206509
 ```
+
+## Get-PSLocation
+A simple function to get common locations. This can be useful with cross-platform scripting.
+
+![](./images/pslocation-win.png)
+![](./images/pslocation-linux.png)
 ### Compatibility
-Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
+Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
 *last updated 30 November 2017*
