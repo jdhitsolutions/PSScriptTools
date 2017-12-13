@@ -149,7 +149,55 @@ A simple function to get common locations. This can be useful with cross-platfor
 
 ![](./images/pslocation-win.png)
 ![](./images/pslocation-linux.png)
+
+## Get-PowerShellEngine
+Use this command to quickly get the path to the PowerShell executable. In Windows you should get a result like this:
+```
+PS C:\> Get-PowerShellEngine
+C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+```
+But PowerShell Core is a bit different:
+```
+PS /home/jhicks> Get-PowerShellEngine                                                              /opt/microsoft/powershell/6.0.0-rc/pwsh
+```
+## Out-More
+This command provides a PowerShell alternative to the cmd.exe MORE command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
+```
+get-service | out-more
+```
+![](./images/out-more.png)
+This also works in PowerShell Core.
+
+## Invoke-InputBox
+This function is a graphical replacement for Read-Host. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.
+```
+$name = Invoke-InputBox -Prompt "Enter a user name" -Title "New User Setup"
+```
+![](./images/ibx-1.png)
+
+You can also capture a secure string.
+```
+Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -BackgroundColor red
+```
+![](./images/ibx-2.png)
+
+This example also demonstrates that you can change form's background color.
+This function will not work in PowerShell Core.
+
+## ToDo
+Because this module is intended to make scripting easier for you, it adds options to insert ToDo statements into PowerShell files. If you are using the PowerShell ISE or VS Code and import this module, it will add the capability to insert a line like this:
+```
+# [12/13/2017 16:52:40] TODO: Add parameters
+```
+In the PowerShell ISE, you will get a new menu under Add-Ons
+![](./images/todo-1.png)
+
+You can use the menu or keyboard shortcut which will launch an input box.
+![](./images/todo-2.png)
+
+The comment will be inserted at the current cursor location.
+In VS Code, access the command palette (Ctrl+Shift+P) and then "PowerShell: Show Additional Commands from PowerShell Modules". Select "Insert ToDo" from the list and you'll get the same input box. Note that this will only work for PowerShell files.
 ### Compatibility
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
-*last updated 30 November 2017*
+*last updated 5 December 2017*
