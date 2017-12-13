@@ -3,7 +3,12 @@
 This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
 
 ## Current Release
-The current BETA release is [PSScriptTools-v0.4.0-beta](https://github.com/jdhitsolutions/PSScriptTools/archive/v0.4.0.zip)
+The current release is [PSScriptTools-v1.0.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.0.0.zip)
+
+You can also install this from the PowerShell Gallery:
+```
+Install-Module PSScriptTools
+```
 
 Please post any questions, problems or feedback in Issues. Any input is greatly appreciated.
 
@@ -200,4 +205,4 @@ In VS Code, access the command palette (Ctrl+Shift+P) and then "PowerShell: Show
 ### Compatibility
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
-*last updated 5 December 2017*
+*last updated 13 December 2017*
