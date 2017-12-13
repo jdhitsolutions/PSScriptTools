@@ -1,9 +1,14 @@
 #Changelog for PSScriptTools
 
 v0.5.0
-Added Get-PSLocation function
+Added Get-PSLocation function (Issue #4)
+Added Get-PowerShellEngine function (Issue #5)
+Added Out-More and alias om (Issue #10)
 added icon to manifest
+added Invoke-InputBox and alias ibx
+added code to insert ToDo comments for the ISE and VSCode (Issue #7)
 Updated README
+updated documentation
 
 v0.4.0
 added Copy-Command (Issue #2)
