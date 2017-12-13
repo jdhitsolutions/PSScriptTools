@@ -1,5 +1,8 @@
 #Changelog for PSScriptTools
 
+v1.0.0
+initial release to the PowerShell Gallery
+
 v0.5.0
 Added Get-PSLocation function (Issue #4)
 Added Get-PowerShellEngine function (Issue #5)
