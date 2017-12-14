@@ -14,6 +14,7 @@ Options for formatting strings.
 
 ```
 Format-String [-Text] <String> [-Reverse] [-Case <String>] [-Replace <Hashtable>] [-Randomize]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,38 +29,42 @@ They are applied in this order:
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\> "P@ssw0rd" | format-string -Reverse
 
 dr0wss@P
 ```
-### Example 2
+
+### EXAMPLE 2
 ```
 PS C:\> "P@ssw0rd" | format-string -Reverse -Randomize
 
 rs0Pd@ws
 ```
-### Example 3
+
+### EXAMPLE 3
 ```
 PS C:\> $env:computername | format-string -Case Lower
 
 win81-ent-01
 ```
-### Example 4
+
+### EXAMPLE 4
 ```
 PS C:\> format-string "p*wer2she!!" -Case Alternate
 
 P*WeR2ShE!!
 ```
-### Example 5
+
+### EXAMPLE 5
 ```
 PS C:\> format-string "alphabet" -Randomize -Replace @{a="@";e=3} -Case Alternate
 
 3bPl@tH@
 ```
 
-### Example 6
+### EXAMPLE 6
 ```
 PS C:\> "pOWERSHELL" | Format-string -Case Toggle
 
@@ -152,6 +157,9 @@ Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

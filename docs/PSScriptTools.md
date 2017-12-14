@@ -8,9 +8,8 @@ Locale: en-US
 
 # PSScriptTools Module
 ## Description
-This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. T
+This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. It is intended to work with both Windows PowerShell and PowerShell Core as much as possible.
 
-## PSScriptTools Cmdlets
 ### [Add-Border](Add-Border.md)
 This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
 
@@ -25,6 +24,7 @@ Use this command to apply different types of formatting to strings such as rever
 
 ### [Format-Value](Format-Value.md)
 This command will format a given numeric value. By default it will treat the number as an integer. Or you can specify a certain number of decimal places. The command will also allow you to format the value in KB, MB, etc.
+
 ### [Get-PSWho](Get-PSWho.md)
 This command will provide a summary of relevant information for the current user in a PowerShell Session. You might use this to troubleshoot an end-user problem running a script or command.
 
@@ -43,3 +43,14 @@ This command is intended to let you see your verbose output and write the verbos
 ### [Write-Detail](Write-Detail.md)
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output.
 
+### [Get-PSLocation](Get-PSLocation.md)
+A simple function to get common locations. This can be useful with cross-platform scripting.
+
+### [Get-PowerShellEngine](Get-PowerShellEngine.md)
+Use this command to quickly get the path to the PowerShell executable with an option for detailed information. 
+
+### [Out-More](Out-More.md)
+This command provides a PowerShell alternative to the cmd.exe MORE command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
+
+### [Invoke-InputBox](Invoke-InputBox.md)
+This function is a graphical replacement for Read-Host. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.  It can be either a string or a secure string. You can customize the form's title, prompt and background color.

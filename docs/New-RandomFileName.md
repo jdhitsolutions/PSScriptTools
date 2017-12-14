@@ -14,17 +14,17 @@ Create a random file name.
 
 ### none (Default)
 ```
-New-RandomFileName [-Extension <String>]
+New-RandomFileName [-Extension <String>] [<CommonParameters>]
 ```
 
 ### temp
 ```
-New-RandomFileName [-Extension <String>] [-UseTempFolder]
+New-RandomFileName [-Extension <String>] [-UseTempFolder] [<CommonParameters>]
 ```
 
 ### home
 ```
-New-RandomFileName [-Extension <String>] [-UseHomeFolder]
+New-RandomFileName [-Extension <String>] [-UseHomeFolder] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,30 +34,34 @@ This command does not create the file, it only generates a name for you to use.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\> new-randomfilename
 fykxecvh.ipw
 ```
-### Example 2
+
+### EXAMPLE 2
 ```
 PS C:\> new-randomfilename -extension dat
 emevgq3r.dat
 ```
+
 Specify a file extension.
 
-### Example 3
+### EXAMPLE 3
 ```
 PS C:\> new-randomfilename -extension log -UseHomeFolder
 C:\Users\Jeff\Documents\kbyw4fda.log
 ```
+
 Create a random file name using the user's home folder. In Windows this will be the Documents folder.
 
-### Example 4
+### EXAMPLE 4
 ```
 PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
 /home/jhicks/oces0epq.tmp
 ```
+
 Create a random file name using the user's home folder on a Linux installation.
 
 ## PARAMETERS
@@ -107,6 +111,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### None
@@ -119,4 +126,5 @@ Accept wildcard characters: False
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
 [New-CustomFileName]()

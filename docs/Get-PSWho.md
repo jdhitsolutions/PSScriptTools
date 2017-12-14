@@ -13,7 +13,7 @@ Get PowerShell user summary information
 ## SYNTAX
 
 ```
-Get-PSWho [-AsString]
+Get-PSWho [-AsString] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,7 +23,7 @@ The default behavior is to write an object to the pipeline, but you can use the 
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\> Get-PSWho
 
@@ -39,7 +39,8 @@ WSMan           : 3.0
 ExecutionPolicy : RemoteSigned
 Culture         : en-US
 ```
-### Example 2
+
+### EXAMPLE 2
 ```
 PS /home/jhicks> Get-PSWho
 
@@ -56,7 +57,7 @@ ExecutionPolicy : Unrestricted
 Culture         : en-US
 ```
 
-### Example 3
+### EXAMPLE 3
 ```
 PS C:\> Get-PSWho
 
@@ -73,7 +74,7 @@ ExecutionPolicy : RemoteSigned
 Culture         : en-US
 ```
 
-### Example 4
+### EXAMPLE 4
 ```
 PS C:\> Get-PSWho -asString | Set-Content c:\test\who.txt
 ```
@@ -95,6 +96,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### none
@@ -102,6 +106,7 @@ Accept wildcard characters: False
 ## OUTPUTS
 
 ### [pscustomobject]
+
 ### [system.string]
 
 ## NOTES

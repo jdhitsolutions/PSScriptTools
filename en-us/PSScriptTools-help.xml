@@ -115,6 +115,30 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:Description>
+          <maml:para>A single line of text that will be wrapped in a border.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>TextBlock</maml:name>
+        <maml:Description>
+          <maml:para>A multiline block of text. You might want to trim blank lines from the beginning, end or both.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Character</maml:name>
         <maml:Description>
@@ -150,30 +174,6 @@
           <maml:uri />
         </dev:type>
         <dev:defaultValue>0</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
-        <maml:name>Text</maml:name>
-        <maml:Description>
-          <maml:para>A single line of text that will be wrapped in a border.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>TextBlock</maml:name>
-        <maml:Description>
-          <maml:para>A multiline block of text. You might want to trim blank lines from the beginning, end or both.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -1194,6 +1194,217 @@ $3,456.57</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-PowerShellEngine</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PowerShellEngine</command:noun>
+      <maml:description>
+        <maml:para>Get the path to the current PowerShell engine</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to find the path to the PowerShell executable, or engine that is running your current session. The path for PowerShell 6 is different than previous versions.</maml:para>
+      <maml:para>The default is to provide the path only. But you can also get detailed information.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PowerShellEngine</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Detail</maml:name>
+          <maml:Description>
+            <maml:para>Include additional information. Not all properties may have values depending on operating system and PowerShell version.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Detail</maml:name>
+        <maml:Description>
+          <maml:para>Include additional information. Not all properties may have values depending on operating system and PowerShell version.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[string]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[pscustomobject]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>EXAMPLE 1 </maml:title>
+        <dev:code>PS C:\&gt; Get-PowerShellEngine</dev:code>
+        <dev:remarks>
+          <maml:para>C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>EXAMPLE 2 </maml:title>
+        <dev:code>PS C:\&gt; Get-PowerShellEngine -detail</dev:code>
+        <dev:remarks>
+          <maml:para>
+Path           : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe 
+FileVersion    : 10.0.15063.0 (WinBuild.160101.0800) 
+PSVersion      : 5.1.15063.502 ProductVersion : 10.0.15063.0 
+Edition        : Desktop 
+Host           : Visual Studio Code Host 
+Culture        : en-US 
+Platform       :</maml:para>
+          <maml:para>Result from running in the Visual Studio Code integrated PowerShell terminal</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>EXAMPLE 3 </maml:title>
+        <dev:code>PS C:\&gt;Get-PowerShellEngine -detail</dev:code>
+        <dev:remarks>
+          <maml:para>
+Path           : C:\Program Files\PowerShell\6.0.0-rc\pwsh.exe 
+FileVersion    : 
+PSVersion      : 6.0.0-rc 
+ProductVersion : 6.0.0-rc
+Edition        : Core 
+Host           : ConsoleHost 
+Culture        : en-US 
+Platform       : Win32NT
+</maml:para>
+          <maml:para>Result from running in a PowerShell 6 session on Windows 10</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>EXAMPLE 4 </maml:title>
+        <dev:code>PS /home/jhicks&gt;get-powershellengine -Detail</dev:code>
+        <dev:remarks>
+          <maml:para>
+Path           : /opt/microsoft/powershell/6.0.0-rc/pwsh
+FileVersion    :   
+PSVersion      : 6.0.0-rc  
+ProductVersion :   
+Edition        : Core  
+Host           : ConsoleHost  
+Culture        : en-US  
+Platform       : Unix
+</maml:para>
+          <maml:para> Result from running in a PowerShell session on Linux</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>$PSVersionTable</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>$Host</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Process</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-PSLocation</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSLocation</command:noun>
+      <maml:description>
+        <maml:para>Get common location values</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will write an object to the pipeline that displays the values of common file locations. You might find this helpful when scripting cross-platform.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSLocation</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>EXAMPLE 1</maml:title>
+        <dev:code>PS C:\&gt; get-pslocation | format-list
+
+Temp       : C:\Users\Jeff\AppData\Local\Temp\
+Home       : C:\Users\Jeff\Documents
+Desktop    : C:\Users\Jeff\Desktop
+PowerShell : C:\Users\Jeff\Documents\WindowsPowerShell</dev:code>
+        <dev:remarks>
+          <maml:para>Results on a Windows system.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>EXAMPLE 2</maml:title>
+        <dev:code>PS C:\&gt; get-pslocation | format-list
+
+Temp       : /tmp/
+Home       : /home/jhicks
+Desktop    :
+PowerShell : /home/jhicks/.config/powershell</dev:code>
+        <dev:remarks>
+          <maml:para>Results on a Linux system running PowerShell Core.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-PSWho</command:name>
       <command:verb>Get</command:verb>
       <command:noun>PSWho</command:noun>
@@ -1270,7 +1481,7 @@ $3,456.57</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>EXAMPLE 1</maml:title>
         <dev:code>PS C:\&gt; Get-PSWho
 
 User            : BOVINE320\Jeff
@@ -1289,7 +1500,7 @@ Culture         : en-US</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>EXAMPLE 2</maml:title>
         <dev:code>PS /home/jhicks&gt; Get-PSWho
 
 User            : jhicks
@@ -1308,7 +1519,7 @@ Culture         : en-US</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>EXAMPLE 3</maml:title>
         <dev:code>PS C:\&gt; Get-PSWho
 
 User            : BOVINE320\Jeff
@@ -1327,7 +1538,7 @@ Culture         : en-US</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
+        <maml:title>EXAMPLE 4</maml:title>
         <dev:code>PS C:\&gt; Get-PSWho -asString | Set-Content c:\test\who.txt</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
@@ -1355,6 +1566,177 @@ Culture         : en-US</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Invoke-InputBox</command:name>
+      <command:verb>Invoke</command:verb>
+      <command:noun>InputBox</command:noun>
+      <maml:description>
+        <maml:para>Launch a graphical input box</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command as a graphical replacement for Read-Host. The command will write either a string or a secure string to the pipeline. You can customize the prompt, title and background color.</maml:para>
+      <maml:para>This command will not work in PowerShell Core.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Invoke-InputBox</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsSecureString</maml:name>
+          <maml:Description>
+            <maml:para>Use to mask the entry and return a secure string.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>BackgroundColor</maml:name>
+          <maml:Description>
+            <maml:para>Set the form background color. You can use a value like 'red' or a '#c0c0c0'</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>White</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Prompt</maml:name>
+          <maml:Description>
+            <maml:para>Enter a prompt. No more than 50 characters.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>"Please enter a value"</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:Description>
+            <maml:para>Enter the title for the input box. No more than 25 characters.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>"User Input"</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsSecureString</maml:name>
+        <maml:Description>
+          <maml:para>Use to mask the entry and return a secure string.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>BackgroundColor</maml:name>
+        <maml:Description>
+          <maml:para>Set the form background color. You can use a value like 'red' or a '#c0c0c0'</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>White</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Prompt</maml:name>
+        <maml:Description>
+          <maml:para>Enter a prompt. No more than 50 characters.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>"Please enter a value"</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Title</maml:name>
+        <maml:Description>
+          <maml:para>Enter the title for the input box. No more than 25 characters.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>"User Input"</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Security.SecureString</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>EXAMPLE 1</maml:title>
+        <dev:code>PS C:\&gt; $name = Invoke-Inputbox -prompt "Enter a user name" -title "New User"</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>EXAMPLE 2</maml:title>
+        <dev:code>PS C:\&gt; $pass = Invoke-Inputbox -prompt "Enter a new password" -title "New User" -asSecureString -background red</dev:code>
+        <dev:remarks>
+          <maml:para>Get a secure string value from the user. This example also changes the form background to red.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Read-Host</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>New-CustomFileName</command:name>
       <command:verb>New</command:verb>
       <command:noun>CustomFileName</command:noun>
@@ -1364,10 +1746,9 @@ Culture         : en-US</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command will generate a custom file name based on a template string that you provide. You can create a template string using any of these variables. Most of these should be self-explanatory</maml:para>
-      <maml:para>
-- %username
-- %computername 
-- %year  - 4 digit year
+      <maml:para>- %username
+- %computername </maml:para>
+      <maml:para>- %year  - 4 digit year
 - %yr  - 2 digit year
 - %monthname - The abbreviated month name
 - %month  - The month number
@@ -1378,20 +1759,12 @@ Culture         : en-US</dev:code>
 - %time  - A compact string of HourMinuteSecond
 - %string - A random string
 - %guid
-
 You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.</maml:para>
       <maml:para>The command will attempt to preserve case for any non pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.</maml:para>
-      <maml:para>
-      New-CustomFilename "%Year_LOG-%computername.txt"     
-      2017_log-Bovine320.txt</maml:para>
-      <maml:para>
-      New-CustomFilename "%Year-LOG-%computername.txt"
-      2017-LOG-Bovine320.txt</maml:para>
+      <maml:para>    New-CustomFilename "%Year_LOG-%computername.txt"     2017_log-Bovine320.txt</maml:para>
+      <maml:para>    New-CustomFilename "%Year-LOG-%computername.txt"     2017-LOG-Bovine320.txt</maml:para>
       <maml:para>Another option, is to turn the entire name into upper or lower case.</maml:para>
-      <maml:para>
-      New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower
-      2017nov-log-bovine320[jeff].txt
-      </maml:para>
+      <maml:para>    New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower     2017nov-log-bovine320[jeff].txt</maml:para>
       <maml:para>This command does not create the file, it only generates a name for you to use.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1481,7 +1854,7 @@ You can also insert a random number using %### with a # character for each digit
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>EXAMPLE 1</maml:title>
         <dev:code>PS C:\&gt; New-CustomFileName %computername_%day%monthname%yr-%time.log
 COWPC_28Nov17-142138.log</dev:code>
         <dev:remarks>
@@ -1489,7 +1862,7 @@ COWPC_28Nov17-142138.log</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>EXAMPLE 2</maml:title>
         <dev:code>PS C:\&gt; New-CustomFileName %dayofweek-%####.dat
 Tuesday-3128.dat</dev:code>
         <dev:remarks>
@@ -1497,7 +1870,7 @@ Tuesday-3128.dat</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>EXAMPLE 3</maml:title>
         <dev:code>PS C:\&gt; New-CustomFileName %username-%string.tmp -Case Upper
 JEFF-Z0XUXMFS.TMP</dev:code>
         <dev:remarks>
@@ -1644,7 +2017,7 @@ JEFF-Z0XUXMFS.TMP</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>EXAMPLE 1</maml:title>
         <dev:code>PS C:\&gt; new-randomfilename
 fykxecvh.ipw</dev:code>
         <dev:remarks>
@@ -1652,7 +2025,7 @@ fykxecvh.ipw</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>EXAMPLE 2</maml:title>
         <dev:code>PS C:\&gt; new-randomfilename -extension dat
 emevgq3r.dat</dev:code>
         <dev:remarks>
@@ -1660,7 +2033,7 @@ emevgq3r.dat</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>EXAMPLE 3</maml:title>
         <dev:code>PS C:\&gt; new-randomfilename -extension log -UseHomeFolder
 C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
         <dev:remarks>
@@ -1668,7 +2041,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
+        <maml:title>EXAMPLE 4</maml:title>
         <dev:code>PS /mnt/c/scripts&gt; new-randomfilename -home -Extension tmp
 /home/jhicks/oces0epq.tmp</dev:code>
         <dev:remarks>
@@ -1701,13 +2074,11 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
       <maml:para>Or you can do more complex processing with an ordered hash table constructed using this format:</maml:para>
       <maml:para>    [ordered]@{ &lt;comparison scriptblock&gt; = &lt;color&gt;}</maml:para>
       <maml:para>The comparison scriptblock can use $PSitem.</maml:para>
-      <maml:para>
-      $h=[ordered]@{
-        {$psitem.ws -gt 500mb}='red'
-        {$psitem.ws -gt 300mb}='yellow'
-        {$psitem.ws -gt 200mb}='cyan'
-      }
-     </maml:para>
+      <maml:para>    $h=[ordered]@{         
+{$psitem.ws -gt 500mb}='red'         
+{$psitem.ws -gt 300mb}='yellow'         
+$psitem.ws -gt 200mb}='cyan'     
+}</maml:para>
       <maml:para>When doing a complex comparison you must use an [ordered] hashtable as each key will be processed in order using an If/ElseIf statement.</maml:para>
       <maml:para>This command should be the last part of any pipelined expression. If you pipe to anything else, such as Sort-Object, you will lose your color formatting. Do any other sorting or filtering before piping to this command.</maml:para>
       <maml:para>This command works best in the PowerShell console. It won't do anything in the PowerShell ISE.</maml:para>
@@ -1860,21 +2231,21 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>EXAMPLE 1</maml:title>
         <dev:code>PS C:\&gt; get-service -displayname windows* | out-conditionalcolor -propertyconditions @{Stopped='Red'} -property Status</dev:code>
         <dev:remarks>
           <maml:para>Get all services where the displayname starts with windows and display stopped services in red.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 2</maml:title>
+        <maml:title>EXAMPLE 2</maml:title>
         <dev:code>PS C:\&gt; get-service -displayname windows* | out-conditionalcolor @{Stopped='Red'} status -ov winstop</dev:code>
         <dev:remarks>
           <maml:para>Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be coloredized. This example uses the parameters positionally.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 3</maml:title>
+        <maml:title>EXAMPLE 3</maml:title>
         <dev:code>PS C:\&gt; get-eventlog system -newest 50 | out-conditionalcolor @{error='red';warning='yellow'}
 Enter a property name: entrytype</dev:code>
         <dev:remarks>
@@ -1882,14 +2253,14 @@ Enter a property name: entrytype</dev:code>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 4</maml:title>
-        <dev:code>PS C:\&gt; $c =[ordered]@{{$psitem.length -ge 1mb}='red';{$psitem.length -ge 500KB}='yellow';{$psitem.length -ge 100KB}='cyan'}</dev:code>
+        <maml:title>EXAMPLE 4</maml:title>
+        <dev:code>PS C:\&gt; $c =[ordered]@{ {$psitem.length -ge 1mb}='red';{$psitem.length -ge 500KB}='yellow';{$psitem.length -ge 100KB}='cyan'}</dev:code>
         <dev:remarks>
           <maml:para>The first command creates an ordered hashtable based on the Length property.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>Example 5</maml:title>
+        <maml:title>EXAMPLE 5</maml:title>
         <dev:code>PS C:\&gt; dir c:\scripts\*.doc,c:\scripts\*.pdf,c:\scripts\*.xml |  out-conditionalcolor $c</dev:code>
         <dev:remarks>
           <maml:para>The next command uses it to get certain file types in the scripts folder and display the selected properties in color depending on the file size.</maml:para>
@@ -1905,6 +2276,160 @@ Enter a property name: entrytype</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Out-More</command:name>
+      <command:verb>Out</command:verb>
+      <command:noun>More</command:noun>
+      <maml:description>
+        <maml:para>Send "pages" of objects to the pipeline.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This function is designed to display groups or "pages" of objects to the PowerShell pipeline. It is modeled after the legacy More.com command line utility. By default the command will write out objects out to the pipeline in groups of 50. You will be prompted after each grouping.</maml:para>
+      <maml:para>Pressing M or Enter will get the next group. Pressing A will stop paging and display all of the remaining objects. Pressing N will display the next object. Press Q to stop writing anything else to the pipeline.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Out-More</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para></maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Object[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i">
+          <maml:name>Count</maml:name>
+          <maml:Description>
+            <maml:para>The number of objects to group together in a page.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>50</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cls">
+          <maml:name>ClearScreen</maml:name>
+          <maml:Description>
+            <maml:para>Clear the screen prior to writing data to the pipeline.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para></maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+        <dev:type>
+          <maml:name>Object[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i">
+        <maml:name>Count</maml:name>
+        <maml:Description>
+          <maml:para>The number of objects to group together in a page.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>50</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cls">
+        <maml:name>ClearScreen</maml:name>
+        <maml:Description>
+          <maml:para>Clear the screen prior to writing data to the pipeline.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Object[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>This command was first demonstrated at http://jdhitsolutions.com/blog/powershell/4707/a-better-powershell-more/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>EXAMPLE 1</maml:title>
+        <dev:code>PS C:\&gt; get-process | out-more -count 10
+
+Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName 
+-------  ------    -----      ----- -----   ------     --  -- ----------- 
+   1031      75   122588      81092   841    31.30   1872   1 BoxSync
+     57       3      488        968    12     0.02   1068   1 BoxSyncMonitor
+    103       9     1448       4220    67     0.02   1632   0 BtwRSupportService
+     80       9     3008       8588 ...27    21.00   5192   1 conhost
+     40       5      752       2780 ...82     0.00   5248   0 conhost
+     53       7      972       3808 ...07     0.02   6876   1 conhost
+    482      17     1932       3692    56     0.91    708   0 csrss
+    520      30     2488     134628   180    31.67    784   1 csrss
+    408      18     6496      12436 ...35     0.56   1684   0 dasHost
+    180      14     3348       6748    66     0.50   4688   0 devmonsrv
+\[M\]ore \[A\]ll \[N\]ext \[Q\]uit</dev:code>
+        <dev:remarks>
+          <maml:para>Display processes in groups of 10.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>EXAMPLE 2</maml:title>
+        <dev:code>PS C:\&gt; dir c:\work -file -Recurse | out-more -ClearScreen | tee -Variable work</dev:code>
+        <dev:remarks>
+          <maml:para>List all files in C:\Work and page them to Out-More using the default count, but after clearing the screen first. The results are then piped to Tee-Object which saves them to a variable.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://jdhitsolutions.com/blog/powershell/4707/a-better-powershell-more/</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Out-VerboseTee</command:name>
       <command:verb>Out</command:verb>
       <command:noun>VerboseTee</command:noun>
@@ -1915,14 +2440,13 @@ Enter a property name: entrytype</dev:code>
     <maml:description>
       <maml:para>This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.</maml:para>
       <maml:para>This command has an alias of Tee-Verbose.</maml:para>
-      <maml:para>
-  Begin {     
-  $log = New-RandomFilename -useTemp -extension log
-  Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log
-  Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append
-  Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append
-  $data = @()
-  } #begin</maml:para>
+      <maml:para>Begin {     
+$log = New-RandomFilename -useTemp -extension log     
+Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log     
+Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append     
+Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append     
+$data = @() 
+} #begin</maml:para>
       <maml:para>When the command is run with -Verbose you will see the verbose output and it will be saved to the specified log file.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2054,7 +2578,7 @@ Enter a property name: entrytype</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>EXAMPLE 1</maml:title>
         <dev:code>PS C:\&gt; $VerbosePreference= "continue"
 PS C:\&gt; $log = New-CustomFileName ".\VerboseLog_%time.txt"
 PS C:\&gt; Write-Detail "This is a verbose log test" | Out-VerboseTee -path $log
@@ -2089,13 +2613,11 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
     <maml:description>
       <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output will include a full time stamp, although you can shorten it to be only a time string which includes a millisecond value.</maml:para>
       <maml:para>In a script you might use it like this:</maml:para>
-      <maml:para>
-Begin {         
+      <maml:para>    Begin {         
 Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Write-Verbose
-$tabs = "`t" * $tab
-Write-Detail "Using a tab of $tab" -Prefix begin | Write-Verbose
-} #begin
-      </maml:para>
+$tabs = "`t" * $tab         
+Write-Detail "Using a tab of $tab" -Prefix begin | Write-Verbose     
+} #begin</maml:para>
       <maml:para>If you don't specify a prefix, it will default to PROCESS.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2208,7 +2730,7 @@ Write-Detail "Using a tab of $tab" -Prefix begin | Write-Verbose
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>Example 1</maml:title>
+        <maml:title>EXAMPLE 1</maml:title>
         <dev:code>PS C:\&gt;write-detail "Getting file information" -Prefix Process -NoDate
 02:39:18:4874 [PROCESS] Getting file information</dev:code>
         <dev:remarks>

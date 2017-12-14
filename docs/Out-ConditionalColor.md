@@ -15,11 +15,12 @@ Display colorized pipelined output.
 ### property (Default)
 ```
 Out-ConditionalColor [-PropertyConditions] <Hashtable> -Property <String> -InputObject <PSObject[]>
+ [<CommonParameters>]
 ```
 
 ### conditions
 ```
-Out-ConditionalColor [-Conditions] <OrderedDictionary> -InputObject <PSObject[]>
+Out-ConditionalColor [-Conditions] <OrderedDictionary> -InputObject <PSObject[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -57,20 +58,21 @@ Due to the nature of PowerShell's formatting system there are some limitations w
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\> get-service -displayname windows* | out-conditionalcolor -propertyconditions @{Stopped='Red'} -property Status
 ```
 
 Get all services where the displayname starts with windows and display stopped services in red.
 
-### Example 2
+### EXAMPLE 2
 ```
 PS C:\> get-service -displayname windows* | out-conditionalcolor @{Stopped='Red'} status -ov winstop
 ```
-Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be coloredized. This example uses the parameters positionally.
 
-### Example 3
+Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be coloredized. This exampleExamples uses the parameters positionally.
+
+### EXAMPLE 3
 ```
 PS C:\> get-eventlog system -newest 50 | out-conditionalcolor @{error='red';warning='yellow'}
 Enter a property name: entrytype
@@ -78,16 +80,18 @@ Enter a property name: entrytype
 
 Get the newest 50 entries from the System event log. Display errors in red and warnings in yellow. If you don't specify a property you will be prompted.
 
-### Example 4
+### EXAMPLE 4
 ```
 PS C:\> $c =[ordered]@{{$psitem.length -ge 1mb}='red';{$psitem.length -ge 500KB}='yellow';{$psitem.length -ge 100KB}='cyan'}
 ```
+
 The first command creates an ordered hashtable based on the Length property. 
 
-### Example 5
+### EXAMPLE 5
 ```
 PS C:\> dir c:\scripts\*.doc,c:\scripts\*.pdf,c:\scripts\*.xml |  out-conditionalcolor $c
 ```
+
 The next command uses it to get certain file types in the scripts folder and display the selected properties in color depending on the file size.
 
 ## PARAMETERS
@@ -108,7 +112,7 @@ Accept wildcard characters: False
 ```
 
 ### -InputObject
-Output from a PowerShell expression that you want to colorize
+Output from a PowerShell expression that you want to colorize.
 
 ```yaml
 Type: PSObject[]
@@ -152,6 +156,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### System.Management.Automation.PSObject[]
@@ -167,4 +174,5 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 Originally published at: http://jdhitsolutions.com/blog/powershell/3462/friday-fun-out-conditionalcolor/
 
 ## RELATED LINKS
+
 [About_Hash_Tables]()

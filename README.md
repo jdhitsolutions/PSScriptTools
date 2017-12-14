@@ -202,6 +202,7 @@ You can use the menu or keyboard shortcut which will launch an input box.
 
 The comment will be inserted at the current cursor location.
 In VS Code, access the command palette (Ctrl+Shift+P) and then "PowerShell: Show Additional Commands from PowerShell Modules". Select "Insert ToDo" from the list and you'll get the same input box. Note that this will only work for PowerShell files.
+
 ### Compatibility
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
