@@ -14,12 +14,12 @@ Create a text border around a string.
 
 ### single (Default)
 ```
-Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks] [-Tab <Int32>]
+Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [<CommonParameters>]
 ```
 
 ### block
 ```
-Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <Int32>]
+Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +28,7 @@ You might use this to create a formatted text report or to improve the display o
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\> add-border "PowerShell Wins!"
 
@@ -36,7 +36,8 @@ PS C:\> add-border "PowerShell Wins!"
 * PowerShell Wins! *
 ********************
 ```
-### Example 2
+
+### EXAMPLE 2
 ```
 PS C:\> add-border "PowerShell Wins!" -tab 1
 
@@ -44,9 +45,10 @@ PS C:\> add-border "PowerShell Wins!" -tab 1
      * PowerShell Wins! *
      ********************
 ```
-Note that this example may not format properly in the console.
 
-### Example 3
+Note that this EXAMPLE may not format properly in the console.
+
+### EXAMPLE 3
 ```
 PS C:\> add-border "PowerShell Wins!" -character "-" -insertBlanks
 
@@ -57,7 +59,7 @@ PS C:\> add-border "PowerShell Wins!" -character "-" -insertBlanks
 --------------------
 ```
 
-### Example 4
+### EXAMPLE 4
 ```
 PS C:\> add-border -textblock (get-service win* | out-string).trim()
 
@@ -70,9 +72,41 @@ PS C:\> add-border -textblock (get-service win* | out-string).trim()
 * Stopped  WinRM              Windows Remote Management (WS-Manag... *
 **********************************************************************
 ```
+
 Create a border around the output of a Get-Service command.
 
 ## PARAMETERS
+
+### -Text
+A single line of text that will be wrapped in a border.
+
+```yaml
+Type: String
+Parameter Sets: single
+Aliases: 
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -TextBlock
+A multiline block of text.
+You might want to trim blank lines from the beginning, end or both.
+
+```yaml
+Type: String[]
+Parameter Sets: block
+Aliases: 
+
+Required: True
+Position: 1
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -Character
 The character to use for the border. It must be a single character.
@@ -119,42 +153,19 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Text
-A single line of text that will be wrapped in a border.
-
-```yaml
-Type: String
-Parameter Sets: single
-Aliases: 
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: True (ByValue)
-Accept wildcard characters: False
-```
-
-### -TextBlock
-A multiline block of text.
-You might want to trim blank lines from the beginning, end or both.
-
-```yaml
-Type: String[]
-Parameter Sets: block
-Aliases: 
-
-Required: True
-Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
+
 ### None
+
 ## OUTPUTS
+
 ### System.String
+
 ## NOTES
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+
 ## RELATED LINKS
 

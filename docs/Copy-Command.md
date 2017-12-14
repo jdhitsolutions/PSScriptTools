@@ -14,6 +14,7 @@ Copy a PowerShell command.
 
 ```
 Copy-Command [-Command] <String> [[-NewName] <String>] [-IncludeDynamic] [-AsProxy] [-UseForwardHelp]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -23,21 +24,21 @@ For best results, run this in the PowerShell ISE of Visual Studio code, the copi
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\> Copy-Command Get-Process Get-MyProcess
 ```
 
 Create a copy of Get-Process called Get-MyProcess.
 
-### Example 2
+### EXAMPLE 2
 ```
 PS C:\> Copy-Command Get-Eventlog -asproxy -useforwardhelp
 ```
 
 Create a proxy function for Get-Eventlog and use forwarded help links.
 
-### Example 3
+### EXAMPLE 3
 ```
 PS C:\> Copy-Command Get-ADComputer Get-MyADComputer -includedynamic
 ```
@@ -120,6 +121,9 @@ Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
+
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

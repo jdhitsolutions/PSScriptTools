@@ -14,22 +14,22 @@ Format a numeric value
 
 ### Default (Default)
 ```
-Format-Value [-InputObject] <Object> [[-Unit] <String>] [-Decimal <Int32>]
+Format-Value [-InputObject] <Object> [[-Unit] <String>] [-Decimal <Int32>] [<CommonParameters>]
 ```
 
 ### Number
 ```
-Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-AsNumber]
+Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-AsNumber] [<CommonParameters>]
 ```
 
 ### Auto
 ```
-Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-Autodetect]
+Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-Autodetect] [<CommonParameters>]
 ```
 
 ### Currency
 ```
-Format-Value [-InputObject] <Object> [-AsCurrency]
+Format-Value [-InputObject] <Object> [-AsCurrency] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -71,6 +71,7 @@ PS C:\> 3456.5689 | format-value -AsCurrency
 
 $3,456.57
 ```
+
 Format a value as currency.
 
 ### Example 4
@@ -79,13 +80,12 @@ PS C:\> 1234567.8973 | format-value -AsNumber -Decimal 2
 
 1,234,567.90
 ```
+
 Format the value as a number to 2 decimal points.
 
 ## PARAMETERS
 
 ### -InputObject
-
-
 ```yaml
 Type: Object
 Parameter Sets: (All)
@@ -177,9 +177,15 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
+
 ### System.object
+
 ## OUTPUTS
+
 ### System.object
 
 ## NOTES

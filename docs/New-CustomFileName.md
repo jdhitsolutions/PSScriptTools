@@ -13,7 +13,7 @@ Create a custom file name based on a template.
 ## SYNTAX
 
 ```
-New-CustomFileName [[-Template] <String>] [-Case <String>]
+New-CustomFileName [-Template] <String> [-Case <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -52,14 +52,13 @@ This command does not create the file, it only generates a name for you to use.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\> New-CustomFileName %computername_%day%monthname%yr-%time.log
 COWPC_28Nov17-142138.log
-
 ```
 
-### Example 2
+### EXAMPLE 2
 ```
 PS C:\> New-CustomFileName %dayofweek-%####.dat
 Tuesday-3128.dat
@@ -67,13 +66,14 @@ Tuesday-3128.dat
 
 Create a custom file name using the day of the week and a 4 digit random number.
 
-### Example 3
+### EXAMPLE 3
 ```
 PS C:\> New-CustomFileName %username-%string.tmp -Case Upper
 JEFF-Z0XUXMFS.TMP
 ```
 
 Create an upper case custom file name. The %string placeholder will be replaced with a random 8 character string.
+
 ## PARAMETERS
 
 ### -Case
@@ -107,6 +107,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### None
@@ -119,4 +122,5 @@ Accept wildcard characters: False
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
 [New-RandomFileName]()

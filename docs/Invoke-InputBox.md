@@ -1,0 +1,120 @@
+---
+external help file: PSScriptTools-help.xml
+Module Name: PSScriptTools
+online version: 
+schema: 2.0.0
+---
+
+# Invoke-InputBox
+
+## SYNOPSIS
+Launch a graphical input box
+
+## SYNTAX
+
+### plain (Default)
+```
+Invoke-InputBox [-Title <String>] [-Prompt <String>] [-BackgroundColor <String>]
+```
+
+### secure
+```
+Invoke-InputBox [-Title <String>] [-Prompt <String>] [-AsSecureString] [-BackgroundColor <String>]
+```
+
+## DESCRIPTION
+Use this command as a graphical replacement for Read-Host. The command will write either a string or a secure string to the pipeline. You can customize the prompt, title and background color.
+
+This command will not work in PowerShell Core.
+
+## EXAMPLES
+
+### EXAMPLE 1
+```
+PS C:\> $name = Invoke-Inputbox -prompt "Enter a user name" -title "New User"
+```
+
+### EXAMPLE 2
+```
+PS C:\> $pass = Invoke-Inputbox -prompt "Enter a new password" -title "New User" -asSecureString -background red
+```
+
+Get a secure string value from the user. This example also changes the form background to red.
+## PARAMETERS
+
+### -AsSecureString
+Use to mask the entry and return a secure string.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: secure
+Aliases: 
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -BackgroundColor
+Set the form background color. You can use a value like 'red' or a '#c0c0c0'.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: White
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Prompt
+Enter a prompt. No more than 50 characters.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: "Please enter a value"
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Title
+Enter the title for the input box. No more than 25 characters.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases: 
+
+Required: False
+Position: Named
+Default value: "User Input"
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+## INPUTS
+
+### None
+
+## OUTPUTS
+
+### System.String
+### System.Security.SecureString
+
+
+## NOTES
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+
+## RELATED LINKS
+[Read-Host]()
+

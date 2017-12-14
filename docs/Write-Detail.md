@@ -13,7 +13,7 @@ Write a detailed message string
 ## SYNTAX
 
 ```
-Write-Detail [-Message] <String> [-Prefix <String>] [-NoDate]
+Write-Detail [-Message] <String> [-Prefix <String>] [-NoDate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -31,7 +31,7 @@ If you don't specify a prefix, it will default to PROCESS.
 
 ## EXAMPLES
 
-### Example 1
+### EXAMPLE 1
 ```
 PS C:\>write-detail "Getting file information" -Prefix Process -NoDate
 02:39:18:4874 [PROCESS] Getting file information
@@ -87,6 +87,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### None
@@ -99,4 +102,5 @@ Accept wildcard characters: False
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
 [Write-Verbose]()
