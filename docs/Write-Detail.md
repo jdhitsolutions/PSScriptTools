@@ -8,15 +8,17 @@ schema: 2.0.0
 # Write-Detail
 
 ## SYNOPSIS
-Write a detailed message string
+
+Write a detailed message string.
 
 ## SYNTAX
 
-```
+```yaml
 Write-Detail [-Message] <String> [-Prefix <String>] [-NoDate] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output will include a full time stamp, although you can shorten it to be only a time string which includes a millisecond value.
 
 In a script you might use it like this:
@@ -32,7 +34,8 @@ If you don't specify a prefix, it will default to PROCESS.
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+
+```powershell
 PS C:\>write-detail "Getting file information" -Prefix Process -NoDate
 02:39:18:4874 [PROCESS] Getting file information
 ```
@@ -42,6 +45,7 @@ Normally you would use this command in a function, but here is an example from t
 ## PARAMETERS
 
 ### -Message
+
 The message to display after the time stamp and prefix.
 
 ```yaml
@@ -57,6 +61,7 @@ Accept wildcard characters: False
 ```
 
 ### -NoDate
+
 Don't display the full date, only the time.
 
 ```yaml
@@ -72,6 +77,7 @@ Accept wildcard characters: False
 ```
 
 ### -Prefix
+
 Indicate whether you are in the BEGIN, PROCESS or END script block.
 
 ```yaml
@@ -88,6 +94,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -99,6 +106,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ## NOTES
+
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS

@@ -8,28 +8,33 @@ schema: 2.0.0
 # Add-Border
 
 ## SYNOPSIS
+
 Create a text border around a string.
 
 ## SYNTAX
 
 ### single (Default)
-```
+
+```yaml
 Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [<CommonParameters>]
 ```
 
 ### block
-```
+
+```yaml
 Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 This command will create a character or text based border around a line of text.
 You might use this to create a formatted text report or to improve the display of information to the screen.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+
+```powershell
 PS C:\> add-border "PowerShell Wins!"
 
 ********************
@@ -38,7 +43,8 @@ PS C:\> add-border "PowerShell Wins!"
 ```
 
 ### EXAMPLE 2
-```
+
+```powershell
 PS C:\> add-border "PowerShell Wins!" -tab 1
 
      ********************
@@ -49,7 +55,8 @@ PS C:\> add-border "PowerShell Wins!" -tab 1
 Note that this EXAMPLE may not format properly in the console.
 
 ### EXAMPLE 3
-```
+
+```powershell
 PS C:\> add-border "PowerShell Wins!" -character "-" -insertBlanks
 
 --------------------
@@ -60,7 +67,8 @@ PS C:\> add-border "PowerShell Wins!" -character "-" -insertBlanks
 ```
 
 ### EXAMPLE 4
-```
+
+```powershell
 PS C:\> add-border -textblock (get-service win* | out-string).trim()
 
 **********************************************************************
@@ -78,6 +86,7 @@ Create a border around the output of a Get-Service command.
 ## PARAMETERS
 
 ### -Text
+
 A single line of text that will be wrapped in a border.
 
 ```yaml
@@ -93,8 +102,8 @@ Accept wildcard characters: False
 ```
 
 ### -TextBlock
-A multiline block of text.
-You might want to trim blank lines from the beginning, end or both.
+
+A multiline block of text. You might want to trim blank lines from the beginning, end or both.
 
 ```yaml
 Type: String[]
@@ -109,6 +118,7 @@ Accept wildcard characters: False
 ```
 
 ### -Character
+
 The character to use for the border. It must be a single character.
 
 ```yaml
@@ -124,6 +134,7 @@ Accept wildcard characters: False
 ```
 
 ### -InsertBlanks
+
 Insert blank lines before and after the text. The default behavior is to create a border box close to the text. See examples.
 
 ```yaml
@@ -139,7 +150,8 @@ Accept wildcard characters: False
 ```
 
 ### -Tab
-insert X number of tabs
+
+Insert X number of tabs.
 
 ```yaml
 Type: Int32
@@ -154,6 +166,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -165,7 +178,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ## NOTES
+
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
-
