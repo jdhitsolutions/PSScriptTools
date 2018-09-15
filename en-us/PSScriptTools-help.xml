@@ -2580,15 +2580,15 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output will include a full time stamp, although you can shorten it to be only a time string which includes a millisecond value.</maml:para>
+      <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full time stamp, or a time string which includes a millisecond value.</maml:para>
       <maml:para>In a script you might use it like this:</maml:para>
-      <maml:para>    Begin {         Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Write-Verbose         $tabs = "`t" * $tab         Write-Detail "Using a tab of $tab" -Prefix begin | Write-Verbose     } #begin</maml:para>
+      <maml:para>    Begin {         Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin -time | Write-Verbose         $tabs = "`t" * $tab         Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose     } #begin</maml:para>
       <maml:para>If you don't specify a prefix, it will default to PROCESS.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Write-Detail</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Message</maml:name>
           <maml:Description>
             <maml:para>The message to display after the time stamp and prefix.</maml:para>
@@ -2601,26 +2601,10 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>NoDate</maml:name>
-          <maml:Description>
-            <maml:para>Don't display the full date, only the time.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Prefix</maml:name>
           <maml:Description>
-            <maml:para>Indicate whether you are in the BEGIN, PROCESS or END script block.</maml:para>
+            <maml:para>Indicate whether you are in the BEGIN, PROCESS or END script block. Although you can specify any text. It will be displayed in upper case.</maml:para>
           </maml:Description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">BEGIN</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">PROCESS</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">END</command:parameterValue>
-          </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
             <maml:name>String</maml:name>
@@ -2628,10 +2612,59 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
           </dev:type>
           <dev:defaultValue>PROCESS</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Date</maml:name>
+          <maml:Description>
+            <maml:para>Display a date value like 9/15/2018 11:36:41</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Write-Detail</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Message</maml:name>
+          <maml:Description>
+            <maml:para>The message to display after the time stamp and prefix.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Prefix</maml:name>
+          <maml:Description>
+            <maml:para>Indicate whether you are in the BEGIN, PROCESS or END script block. Although you can specify any text. It will be displayed in upper case.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>PROCESS</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Time</maml:name>
+          <maml:Description>
+            <maml:para>Display a time value with milliseconds like 11:37:01:4029.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Message</maml:name>
         <maml:Description>
           <maml:para>The message to display after the time stamp and prefix.</maml:para>
@@ -2644,9 +2677,21 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>NoDate</maml:name>
+        <maml:name>Prefix</maml:name>
         <maml:Description>
-          <maml:para>Don't display the full date, only the time.</maml:para>
+          <maml:para>Indicate whether you are in the BEGIN, PROCESS or END script block. Although you can specify any text. It will be displayed in upper case.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>PROCESS</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Date</maml:name>
+        <maml:Description>
+          <maml:para>Display a date value like 9/15/2018 11:36:41</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -2656,16 +2701,16 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Prefix</maml:name>
+        <maml:name>Time</maml:name>
         <maml:Description>
-          <maml:para>Indicate whether you are in the BEGIN, PROCESS or END script block.</maml:para>
+          <maml:para>Display a time value with milliseconds like 11:37:01:4029.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>SwitchParameter</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>PROCESS</dev:defaultValue>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -2696,8 +2741,8 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt;write-detail "Getting file information" -Prefix Process -NoDate
-02:39:18:4874 [PROCESS] Getting file information</dev:code>
+        <dev:code>PS C:\&gt;write-detail "Getting file information" -Prefix Process 
+[PROCESS] Getting file information</dev:code>
         <dev:remarks>
           <maml:para>Normally you would use this command in a function, but here is an example from the console so that you can see what to expect.</maml:para>
         </dev:remarks>
