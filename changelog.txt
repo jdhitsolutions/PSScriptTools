@@ -1,5 +1,9 @@
 #Changelog for PSScriptTools
 
+v1.1.0
+Cleaned up ToDo code (Issue #12)
+Updated README
+
 v1.0.1
 fixed version number mistake
 updated README.md
