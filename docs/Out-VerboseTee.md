@@ -8,15 +8,17 @@ schema: 2.0.0
 # Out-VerboseTee
 
 ## SYNOPSIS
-Write to Verbose stream and a file
+
+Write to the Verbose stream and a file.
 
 ## SYNTAX
 
-```
+```yaml
 Out-VerboseTee -Value <Object> [-Path] <String> [-Encoding <Encoding>] [-Append] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.
 
 This command has an alias of Tee-Verbose.
@@ -34,7 +36,8 @@ When the command is run with -Verbose you will see the verbose output and it wil
 ## EXAMPLES
 
 ### Example 1
-```
+
+```powershell
 PS C:\> $VerbosePreference= "continue"
 PS C:\> $log = New-CustomFileName ".\VerboseLog_%time.txt"
 PS C:\> Write-Detail "This is a verbose log test" | Out-VerboseTee -path $log
@@ -48,6 +51,7 @@ Normally you would use this command inside a function or script, but you can run
 ## PARAMETERS
 
 ### -Append
+
 Append to the specified text file.
 
 ```yaml
@@ -63,6 +67,7 @@ Accept wildcard characters: False
 ```
 
 ### -Encoding
+
 Specify a file encoding.
 
 ```yaml
@@ -78,6 +83,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
+
 The path for the output file.
 
 ```yaml
@@ -93,6 +99,7 @@ Accept wildcard characters: False
 ```
 
 ### -Value
+
 The message to be displayed as a verbose message and saved to the file.
 
 ```yaml
@@ -108,6 +115,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -119,6 +127,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Object
 
 ## NOTES
+
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS

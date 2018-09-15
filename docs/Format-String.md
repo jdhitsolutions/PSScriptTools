@@ -8,16 +8,18 @@ schema: 2.0.0
 # Format-String
 
 ## SYNOPSIS
+
 Options for formatting strings.
 
 ## SYNTAX
 
-```
+```yaml
 Format-String [-Text] <String> [-Reverse] [-Case <String>] [-Replace <Hashtable>] [-Randomize]
  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 Use this command to apply different types of formatting to strings. You can apply multiple transformations.
 
 They are applied in this order:
@@ -30,42 +32,48 @@ They are applied in this order:
 ## EXAMPLES
 
 ### EXAMPLE 1
-```
+
+```powershell
 PS C:\> "P@ssw0rd" | format-string -Reverse
 
 dr0wss@P
 ```
 
 ### EXAMPLE 2
-```
+
+```powershell
 PS C:\> "P@ssw0rd" | format-string -Reverse -Randomize
 
 rs0Pd@ws
 ```
 
 ### EXAMPLE 3
-```
+
+```powershell
 PS C:\> $env:computername | format-string -Case Lower
 
 win81-ent-01
 ```
 
 ### EXAMPLE 4
-```
+
+```powershell
 PS C:\> format-string "p*wer2she!!" -Case Alternate
 
 P*WeR2ShE!!
 ```
 
 ### EXAMPLE 5
-```
+
+```powershell
 PS C:\> format-string "alphabet" -Randomize -Replace @{a="@";e=3} -Case Alternate
 
 3bPl@tH@
 ```
 
 ### EXAMPLE 6
-```
+
+```powershell
 PS C:\> "pOWERSHELL" | Format-string -Case Toggle
 
 Powershell
@@ -74,6 +82,7 @@ Powershell
 ## PARAMETERS
 
 ### -Text
+
 Any string you want to format.
 
 ```yaml
@@ -89,6 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -Reverse
+
 Reverse the text string.
 
 ```yaml
@@ -104,6 +114,7 @@ Accept wildcard characters: False
 ```
 
 ### -Case
+
 Valid values are Upper, Lower, Proper, Alternate, and Toggle. 
 
 Proper case will capitalize the first letter of the string.
@@ -127,9 +138,9 @@ Accept wildcard characters: False
 ```
 
 ### -Replace
+
 Specify a hashtable of replacement values. The hashtable key is the string you want to replace and the value is the replacement (see examples).
 Replacement keys are CASE SENSITIVE.
-
 
 ```yaml
 Type: Hashtable
@@ -144,7 +155,8 @@ Accept wildcard characters: False
 ```
 
 ### -Randomize
-re-arrange the text in a random order.
+
+Re-arrange the text in a random order.
 
 ```yaml
 Type: SwitchParameter
@@ -159,6 +171,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -170,6 +183,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ## NOTES
+
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS

@@ -8,15 +8,17 @@ schema: 2.0.0
 # Get-PowerShellEngine
 
 ## SYNOPSIS
+
 Get the path to the current PowerShell engine
 
 ## SYNTAX
 
-```
+```yaml
 Get-PowerShellEngine [-Detail]
 ```
 
 ## DESCRIPTION
+
 Use this command to find the path to the PowerShell executable, or engine that is running your current session. The path for PowerShell 6 is different than previous versions.
 
 The default is to provide the path only. But you can also get detailed information
@@ -24,14 +26,16 @@ The default is to provide the path only. But you can also get detailed informati
 ## EXAMPLES
 
 ### EXAMPLE 1 
-```
+
+```powershell
 PS C:\> Get-PowerShellEngine
 ```
 
 C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
 
-###  EXAMPLE 2 
-```
+###  EXAMPLE 2
+
+```powershell
 PS C:\> Get-PowerShellEngine -detail
 ```
 
@@ -47,14 +51,15 @@ Platform       :
 Result from running in the Visual Studio Code integrated PowerShell terminal
 
 ###  EXAMPLE 3 
-```
+
+```powershell
 Get-PowerShellEngine -detail
 ```
 
-Path           : C:\Program Files\PowerShell\6.0.0-rc\pwsh.exe
-FileVersion    : 6.0.0
-PSVersion      : 6.0.0-rc
-ProductVersion : 6.0.0-rc
+Path           : C:\Program Files\PowerShell\6\pwsh.exe
+FileVersion    : 6.1.0
+PSVersion      : 6.1.0
+ProductVersion : 6.1.0
 Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
@@ -62,25 +67,11 @@ Platform       : Win32NT
 
 Result from running in a PowerShell 6 session on Windows 10
 
-###  EXAMPLE 4 
-```
-get-powershellengine -Detail
-```
-
-Path           : /opt/microsoft/powershell/6.0.0-rc/pwsh
-FileVersion    : 
-PSVersion      : 6.0.0-rc
-ProductVersion : 
-Edition        : Core
-Host           : ConsoleHost
-Culture        : en-US
-Platform       : Unix
-
- Result from running in a PowerShell session on Linux
 
 ## PARAMETERS
 
 ### -Detail
+
 Include additional information. Not all properties may have values depending on operating system and PowerShell version.
 
 ```yaml
@@ -100,9 +91,11 @@ Accept wildcard characters: False
 ## OUTPUTS
 
 ### [string]
+
 ### [pscustomobject]
 
 ## NOTES
+
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
