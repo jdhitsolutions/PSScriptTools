@@ -9,6 +9,11 @@ You can also install this from the PowerShell Gallery:
 ```
 Install-Module PSScriptTools
 ```
+or in PowerShell Core:
+```
+Install-Module PSScriptTools -scope currentuser
+```
+
 
 Please post any questions, problems or feedback in Issues. Any input is greatly appreciated.
 
@@ -153,7 +158,9 @@ PS C:\>  format-value 1235465676 -Unit kb
 A simple function to get common locations. This can be useful with cross-platform scripting.
 
 ![](./images/pslocation-win.png)
+
 ![](./images/pslocation-linux.png)
+
 
 ## Get-PowerShellEngine
 Use this command to quickly get the path to the PowerShell executable. In Windows you should get a result like this:
@@ -163,14 +170,25 @@ C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 ```
 But PowerShell Core is a bit different:
 ```
-PS /home/jhicks> Get-PowerShellEngine                                                              /opt/microsoft/powershell/6.0.0-rc/pwsh
+PS /home/jhicks> Get-PowerShellEngine 
+/opt/microsoft/powershell/6.0.0-rc/pwsh
 ```
+
+You can also get detailed information.
+![Windows PowerShell](./images/get-powershellengine1.png)
+
+![PowerShell Core on Windows](./images/get-powershellengine2.png)
+
+![PowerShell Core on Linux](./images/get-powershellengine3.png)
+
+Results will vary depending on whether you are running Windows PowerShell or PowerShell Core.
 ## Out-More
 This command provides a PowerShell alternative to the cmd.exe MORE command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
 ```
 get-service | out-more
 ```
 ![](./images/out-more.png)
+
 This also works in PowerShell Core.
 
 ## Invoke-InputBox
@@ -187,7 +205,7 @@ Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -Background
 ![](./images/ibx-2.png)
 
 This example also demonstrates that you can change form's background color.
-This function will not work in PowerShell Core.
+This function will **not** work in PowerShell Core.
 
 ## ToDo
 Because this module is intended to make scripting easier for you, it adds options to insert ToDo statements into PowerShell files. If you are using the PowerShell ISE or VS Code and import this module, it will add the capability to insert a line like this:
@@ -195,9 +213,11 @@ Because this module is intended to make scripting easier for you, it adds option
 # [12/13/2017 16:52:40] TODO: Add parameters
 ```
 In the PowerShell ISE, you will get a new menu under Add-Ons
+
 ![](./images/todo-1.png)
 
 You can use the menu or keyboard shortcut which will launch an input box.
+
 ![](./images/todo-2.png)
 
 The comment will be inserted at the current cursor location.
@@ -206,4 +226,4 @@ In VS Code, access the command palette (Ctrl+Shift+P) and then "PowerShell: Show
 ### Compatibility
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
-*last updated 13 December 2017*
+*last updated 14 December 2017*

@@ -70,7 +70,7 @@ Get all services where the displayname starts with windows and display stopped s
 PS C:\> get-service -displayname windows* | out-conditionalcolor @{Stopped='Red'} status -ov winstop
 ```
 
-Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be coloredized. This exampleExamples uses the parameters positionally.
+Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be coloredized. This example uses the parameters positionally.
 
 ### EXAMPLE 3
 ```
