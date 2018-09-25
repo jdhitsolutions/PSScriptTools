@@ -1,6 +1,8 @@
 ﻿
+#region private functions
 Function Get-CommandParameter {
     [cmdletbinding()]
+
     Param(
         [Parameter(ValueFromPipeline, Mandatory, HelpMessage = "Enter the name of a command")]
         [ValidateNotNullOrEmpty()]
@@ -88,10 +90,13 @@ Function Get-CommandMetadata {
 
 } #close Get-CommandMetadata
 
-
+#endregion
 Function Copy-Command {
 
     [cmdletbinding()]
+    [alias("cc")]
+    [OutputType([string[]])]
+
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a PowerShell command")]
         [ValidateNotNullorEmpty()]

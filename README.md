@@ -3,7 +3,8 @@
 This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
 
 ## Current Release
-The current release is [PSScriptTools-v1.0.1](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.0.1.zip)
+
+The current release is [PSScriptTools-v1.3.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.3.0)
 
 You can also install this from the PowerShell Gallery:
 
@@ -110,6 +111,7 @@ On Linux machines it will be the home folder.
 PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
 /home/jhicks/oces0epq.tmp
 ```
+
 ## Write-Detail
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
@@ -133,7 +135,7 @@ Begin {
 
 This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.
 
-This command has an alias of Tee-Verbose.
+This command has an alias of `Tee-Verbose`.
 
 ```powershell
 Begin {
@@ -184,7 +186,6 @@ A simple function to get common locations. This can be useful with cross-platfor
 ![](./images/pslocation-win.png)
 
 ![](./images/pslocation-linux.png)
-
 
 ## Get-PowerShellEngine
 
@@ -264,8 +265,110 @@ The comment will be inserted at the current cursor location.
 
 In VS Code, access the command palette (Ctrl+Shift+P) and then "PowerShell: Show Additional Commands from PowerShell Modules". Select "Insert ToDo" from the list and you'll get the same input box. Note that this will only work for PowerShell files.
 
-### Compatibility
+## Test-Expression
+
+The primary command can be used to test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests.
+
+### Why?
+
+When you run a single test with `Measure-Command` the result might be affected by any number of factors. Likewise, running multiple tests may also be influenced by things such as caching. The goal in this module is to provide a test framework where you can run a test repeatedly with either a static or random interval between each test. The results are aggregated and analyzed. Hopefully, this will provide a more meaningful or realistic result.
+
+ 
+### Examples
+
+The output will also show the median and trimmed values as well as some metadata about the current PowerShell session.
+
+```powershell
+PS C:\> $cred = Get-credential globomantics\administrator
+PS C:\> Test-Expression {param($cred) get-wmiobject win32_logicaldisk -computer chi-dc01 -credential $cred } -argumentList $cred
+   
+Tests        : 1
+TestInterval : 0.5
+AverageMS    : 1990.6779
+MinimumMS    : 1990.6779
+MaximumMS    : 1990.6779
+MedianMS     : 1990.6779
+TrimmedMS    : 
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+``` 
+
+You can also run multiple tests with random time intervals.
+
+```powershell
+PS C:\>Test-expression {param([string[]]$Names) get-service $names} -count 5 -IncludeExpression -argumentlist @('bits','wuauserv','winrm') -RandomMinimum .5 -RandomMaximum 5.5
+
+Tests        : 5
+TestInterval : Random
+AverageMS    : 1.91406
+MinimumMS    : 0.4657
+MaximumMS    : 7.5746
+MedianMS     : 0.4806
+TrimmedMS    : 0.51
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+Expression   : param([string[]]$Names) get-service $names
+Arguments    : {bits, wuauserv, winrm}
+```
+
+For very long running tests, you can run them as a background job.
+
+### Graphical Testing
+
+The module also includes a graphical command called `Test-ExpressionForm`. This is intended to serve as both an entry and results form.
+
+![Test Expression](images/testexpressionform.png)
+
+When you quit the form the last result will be written to the pipeline including all metadata, the scriptblock and any arguments.
+
+## Find-CimClass
+
+This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. `Find-CimClass` will recursively search for a given classname. You can use wildcards and search remote computers.
+
+![find-cimclass](images/find-cimclass.png)
+
+## ConvertTo-Markdown
+
+This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output. You can run a command like this:
+
+```powershell
+ Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"  -postcontent "_report $(Get-Date)_"
+ ```
+
+which generates this markdown:
+
+    # Service Check
+
+    ## BOVINE320
+
+    ```text
+
+    Status   Name               DisplayName
+    ------   ----               -----------
+    Running  Bits               Background Intelligent Transfer Ser...
+    Running  Winrm              Windows Remote Management (WS-Manag...
+    ```
+
+    _report 09/25/2018 09:57:12_
+
+Because the function writes markdown to the pipeline you will need to pipe it to a command `Out-File` to create a file.
+
+## ConvertTo-WPFGrid
+
+This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in a data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
+
+```powershell
+get-eventlog -list -ComputerName DOM1,SRV1,SRV2 |
+Select Machinename,Log,MaximumKilobytes,Overflowaction,
+@{Name="RetentionDays";Expression={$_.MinimumRetentionDays}},
+@{Name="Entries";Expression = {$_.entries.count}} | 
+ConvertTo-WPFGrid -Title "Event Log Report"
+```
+
+![wpfgrid](images/wpfgrid.png)
+
+## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
-*last updated 15 September 2018*
+*last updated 25 September 2018*

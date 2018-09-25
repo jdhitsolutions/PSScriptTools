@@ -68,7 +68,7 @@
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>TextBlock</maml:name>
           <maml:Description>
-            <maml:para>A multiline block of text. You might want to trim blank lines from the beginning, end or both.</maml:para>
+            <maml:para>A multi-line block of text. You might want to trim blank lines from the beginning, end or both.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -130,7 +130,7 @@
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>TextBlock</maml:name>
         <maml:Description>
-          <maml:para>A multiline block of text. You might want to trim blank lines from the beginning, end or both.</maml:para>
+          <maml:para>A multi-line block of text. You might want to trim blank lines from the beginning, end or both.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -255,6 +255,461 @@
       </command:example>
     </command:examples>
     <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>ConvertTo-Markdown</command:name>
+      <command:verb>ConvertTo</command:verb>
+      <command:noun>Markdown</command:noun>
+      <maml:description>
+        <maml:para>Convert pipeline output to a markdown document.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output.</maml:para>
+      <maml:para>The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-Markdown</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>Inputobject</maml:name>
+          <maml:Description>
+            <maml:para>Typically the results of a PowerShell command or expression.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:Description>
+            <maml:para>Specify a top level title. You do not need to include any markdown.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PreContent</maml:name>
+          <maml:Description>
+            <maml:para>Enter whatever content you want to appear before converted input. You can use whatever markdown you wish.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PostContent</maml:name>
+          <maml:Description>
+            <maml:para>Enter whatever content you want to appear after converted input. You can use whatever markdown you wish.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Width</maml:name>
+          <maml:Description>
+            <maml:para>Specify the document width. Depending on what you intend to do with the markdown from this command you may want to adjust this value.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>80</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>Inputobject</maml:name>
+        <maml:Description>
+          <maml:para>Typically the results of a PowerShell command or expression.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Title</maml:name>
+        <maml:Description>
+          <maml:para>Specify a top level title. You do not need to include any markdown.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>PreContent</maml:name>
+        <maml:Description>
+          <maml:para>Enter whatever content you want to appear before converted input. You can use whatever markdown you wish.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>PostContent</maml:name>
+        <maml:Description>
+          <maml:para>Enter whatever content you want to appear after converted input. You can use whatever markdown you wish.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Width</maml:name>
+        <maml:Description>
+          <maml:para>Specify the document width. Depending on what you intend to do with the markdown from this command you may want to adjust this value.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>80</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[object]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"
+
+# Service Check
+
+## THINK51
+
+```text
+
+Status   Name               DisplayName
+------   ----               -----------
+Running  Bits               Background Intelligent Transfer Ser...
+Running  Winrm              Windows Remote Management (WS-Manag...
+```
+</dev:code>
+        <dev:remarks>
+          <maml:para>Create markdown output from a Get-Service command.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md</dev:code>
+        <dev:remarks>
+          <maml:para>Re-run the previous command and save output to a file.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $computers = "srv1","srv2","srv4"
+PS C:\&gt; $Title = "System Report"
+PS C:\&gt; $footer = "_report run $(Get-Date) by $($env:USERDOMAIN)\$($env:USERNAME)_"
+PS C:\&gt; $sb =  {
+&gt;&gt; $os = get-ciminstance -classname win32_operatingsystem -property caption,lastbootUptime
+&gt;&gt; \[PSCustomObject\]@{
+&gt;&gt; PSVersion = $PSVersionTable.PSVersion
+&gt;&gt; OS = $os.caption
+&gt;&gt; Uptime = (Get-Date) - $os.lastbootUpTime
+&gt;&gt; SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
+&gt;&gt; }
+&gt;&gt; }
+PS C:\&gt; $out = Convertto-Markdown -title $Title
+PS C:\&gt; foreach ($computer in $computers) {
+&gt;&gt;  $out+= Invoke-command -scriptblock $sb -ComputerName $computer -HideComputerName |
+&gt;&gt;  Select-Object -Property * -ExcludeProperty RunspaceID |
+&gt;&gt;  ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
+&gt;&gt; }
+PS C:\&gt;$out += ConvertTo-Markdown -PostContent $footer
+PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
+        <dev:remarks>
+          <maml:para>Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Convertto-HTML</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Out-File</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>ConvertTo-WPFGrid</command:name>
+      <command:verb>ConvertTo</command:verb>
+      <command:noun>WPFGrid</command:noun>
+      <maml:description>
+        <maml:para>Send command output to an interactive WPF-based grid.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in a data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.</maml:para>
+      <maml:para>You will want to be selective about which properties you pipe through to this command. See examples.</maml:para>
+      <maml:para>Unlike Out-Gridview, your PowerShell prompt will be blocked until the WPF-based grid is closed.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-WPFGrid</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>Typically the results of a PowerShell command or expression. You should select the specific properties you wish to display.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:Description>
+            <maml:para>Specify a title for your form.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>ConvertTo-WPFGrid</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:Description>
+            <maml:para>By default the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds. The minimum accepted value is 5 seconds. Because the timer ticks in 5 second intervals it is recommended that your time out value also be a multiple of 5.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+          <maml:name>Width</maml:name>
+          <maml:Description>
+            <maml:para>Specify a width in pixels for your form.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>1024</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+          <maml:name>Height</maml:name>
+          <maml:Description>
+            <maml:para>Specify a height in pixels for your form.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>768</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CenterScreen</maml:name>
+          <maml:Description>
+            <maml:para>Windows will display the form in the center of your screen.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>Typically the results of a PowerShell command or expression. You should select the specific properties you wish to display.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Title</maml:name>
+        <maml:Description>
+          <maml:para>Specify a title for your form.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>ConvertTo-WPFGrid</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>Timeout</maml:name>
+        <maml:Description>
+          <maml:para>By default the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds. The minimum accepted value is 5 seconds. Because the timer ticks in 5 second intervals it is recommended that your time out value also be a multiple of 5.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="4" aliases="none">
+        <maml:name>Width</maml:name>
+        <maml:Description>
+          <maml:para>Specify a width in pixels for your form.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>1024</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="5" aliases="none">
+        <maml:name>Height</maml:name>
+        <maml:Description>
+          <maml:para>Specify a height in pixels for your form.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>768</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CenterScreen</maml:name>
+        <maml:Description>
+          <maml:para>Windows will display the form in the center of your screen.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[PSObject]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\ Get-Service -computername Server1 | Select Name,Status,Displayname,StartType,Machinename | ConvertTo-WPFGrid -centerscreen</dev:code>
+        <dev:remarks>
+          <maml:para>Get all services from Server1 and display selected properties in a grid which will be centered on the screen.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $vmhost = "CHI-HVR2"
+PS C:\&gt; Get-VM -computername $VMHost | Select Name,State,Uptime,
+@{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as \[int\]}},
+@{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as \[int\]}} |
+ConvertTo-WPFGrid -title "VM Report $VMHost" -Width 500 -height 200 -timeout 20</dev:code>
+        <dev:remarks>
+          <maml:para>Get Hyper-V virtual machine information and display in a resized grid for 20 seconds.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Out-GridView</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>ConvertTo-HTML</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>ConvertTo-Markdown</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -444,6 +899,171 @@
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Get-Command</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Find-CimClass</command:name>
+      <command:verb>Find</command:verb>
+      <command:noun>CimClass</command:noun>
+      <maml:description>
+        <maml:para>Search CIM for a class</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. `Find-CimClass` will recursively search for a given classname. You can use wildcards and search remote computers.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Find-CimClass</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Classname</maml:name>
+          <maml:Description>
+            <maml:para>Enter the name of a CIM/WMI class. Wildcards are permitted.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Computername</maml:name>
+          <maml:Description>
+            <maml:para>Enter the name of a computer to search.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>localhost</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Exclude</maml:name>
+          <maml:Description>
+            <maml:para>Enter a pattern for class names to EXCLUDE from the results. You can use wildcards or regular expressions.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Classname</maml:name>
+        <maml:Description>
+          <maml:para>Enter the name of a CIM/WMI class. Wildcards are permitted.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Computername</maml:name>
+        <maml:Description>
+          <maml:para>Enter the name of a computer to search.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>localhost</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Exclude</maml:name>
+        <maml:Description>
+          <maml:para>Enter a pattern for class names to EXCLUDE from the results. You can use wildcards or regular expressions.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Microsoft.Management.Infrastructure.CimClass</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; find-cimclass -Classname *protection*
+
+
+   NameSpace: Root/CIMV2/mdm/dmmap
+
+CimClassName                        CimClassMethods      CimClassProperties
+------------                        ---------------      ------------------
+MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
+MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
+MDM_EnterpriseDataProtection        {}                   {InstanceID, ParentID, Status}
+MDM_EnterpriseDataProtection_Set... {}                   {AllowAzureRMSForEDP, AllowUserDecryption, DataRecoveryCert...
+MDM_Policy_Config01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
+MDM_Policy_Result01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
+MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, LogCount, Logs, ParentID...}
+MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, Logs, ParentID, StartTime...}
+MDM_WindowsAdvancedThreatProtection {}                   {InstanceID, Offboarding, Onboarding, ParentID}
+MDM_WindowsAdvancedThreatProtect... {}                   {GroupIds, InstanceID, ParentID, SampleSharing...}
+MDM_WindowsAdvancedThreatProtect... {}                   {Criticality, Group, IdMethod, InstanceID...}
+MDM_WindowsAdvancedThreatProtect... {}                   {InstanceID, LastConnected, OnboardingState, OrgId...}
+
+
+   NameSpace: Root/Microsoft/SecurityClient
+
+CimClassName                        CimClassMethods      CimClassProperties
+------------                        ---------------      ------------------
+ProtectionTechnologyStatus          {}                   {PackedXml, SchemaVersion, Enabled, Name...}
+...</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; find-cimclass -Classname *volume* -Exclude "win32_Perf*"</dev:code>
+        <dev:remarks>
+          <maml:para>Search for any class with 'volume' in the name but exclude anything that starts with 'win32_Perf'.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-CimClass</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -887,7 +1507,7 @@ Powershell</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command will format a given numeric value. By default it will treat the number as an integer. Or you can specify a certain number of decimal places. The command will also allow you to format the value in KB, MB, etc.</maml:para>
-      <maml:para>You can let the command autodetect the value and divide by an appropriate value.</maml:para>
+      <maml:para>You can let the command auto-detect the value and divide by an appropriate value.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1113,7 +1733,7 @@ Powershell</dev:code>
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>System.object</maml:name>
+          <maml:name>System.Object</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -1123,7 +1743,7 @@ Powershell</dev:code>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.object</maml:name>
+          <maml:name>System.Object</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -1202,7 +1822,7 @@ $3,456.57</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>PowerShellEngine</command:noun>
       <maml:description>
-        <maml:para>Get the path to the current PowerShell engine</maml:para>
+        <maml:para>Get the path to the current PowerShell engine.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1273,17 +1893,35 @@ $3,456.57</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-PowerShellEngine -detail</dev:code>
+        <dev:code>PS C:\&gt; Get-PowerShellEngine -detail
+
+
+Path           : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
+FileVersion    : 10.0.15063.0 (WinBuild.160101.0800)
+PSVersion      : 5.1.15063.502
+ProductVersion : 10.0.15063.0
+Edition        : Desktop
+Host           : Visual Studio Code Host
+Culture        : en-US
+Platform       :</dev:code>
         <dev:remarks>
-          <maml:para>Path           : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe FileVersion    : 10.0.15063.0 (WinBuild.160101.0800) PSVersion      : 5.1.15063.502 ProductVersion : 10.0.15063.0 Edition        : Desktop Host           : Visual Studio Code Host Culture        : en-US Platform       :</maml:para>
           <maml:para>Result from running in the Visual Studio Code integrated PowerShell terminal</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>Get-PowerShellEngine -detail</dev:code>
+        <dev:code>PS C:\&gt; Get-PowerShellEngine -detail
+
+
+Path           : C:\Program Files\PowerShell\6\pwsh.exe
+FileVersion    : 6.1.0
+PSVersion      : 6.1.0
+ProductVersion : 6.1.0
+Edition        : Core
+Host           : ConsoleHost
+Culture        : en-US
+Platform       : Win32NT</dev:code>
         <dev:remarks>
-          <maml:para>Path           : C:\Program Files\PowerShell\6\pwsh.exe FileVersion    : 6.1.0 PSVersion      : 6.1.0 ProductVersion : 6.1.0 Edition        : Core Host           : ConsoleHost Culture        : en-US Platform       : Win32NT</maml:para>
           <maml:para>Result from running in a PowerShell 6 session on Windows 10</maml:para>
         </dev:remarks>
       </command:example>
@@ -1385,7 +2023,7 @@ PowerShell : /home/jhicks/.config/powershell</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>PSWho</command:noun>
       <maml:description>
-        <maml:para>Get PowerShell user summary information</maml:para>
+        <maml:para>Get PowerShell user summary information.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1721,27 +2359,33 @@ Culture         : en-US</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will generate a custom file name based on a template string that you provide. You can create a template string using any of these variables. Most of these should be self-explanatory</maml:para>
-      <maml:para>- %username</maml:para>
-      <maml:para>- %computername</maml:para>
-      <maml:para>- %year  - 4 digit year</maml:para>
-      <maml:para>- %yr  - 2 digit year</maml:para>
-      <maml:para>- %monthname - The abbreviated month name</maml:para>
-      <maml:para>- %month  - The month number</maml:para>
-      <maml:para>- %dayofweek - The full name of the week day</maml:para>
-      <maml:para>- %day</maml:para>
-      <maml:para>- %hour</maml:para>
-      <maml:para>- %minute</maml:para>
-      <maml:para>- %time  - A compact string of HourMinuteSecond</maml:para>
-      <maml:para>- %string - A random string</maml:para>
-      <maml:para>- %guid</maml:para>
+      <maml:para>This command will generate a custom file name based on a template string that you provide. You can create a template string using any of these variables. Most of these should be self-explanatory
+
+      - %username
+      - %computername
+      - %year  - 4 digit year
+      - %yr  - 2 digit year
+      - %monthname - The abbreviated month name
+      - %month  - The month number
+      - %dayofweek - The full name of the week day
+      - %day
+      - %hour
+      - %minute
+      - %time  - A compact string of HourMinuteSecond
+      - %string - A random string
+      - %guid
+      </maml:para>
       <maml:para></maml:para>
       <maml:para>You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.</maml:para>
       <maml:para>The command will attempt to preserve case for any non pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.</maml:para>
-      <maml:para>    New-CustomFilename "%Year_LOG-%computername.txt"     2017_log-Bovine320.txt</maml:para>
-      <maml:para>    New-CustomFilename "%Year-LOG-%computername.txt"     2017-LOG-Bovine320.txt</maml:para>
+      <maml:para>New-CustomFilename "%Year_LOG-%computername.txt"     
+2017_log-Bovine320.txt</maml:para>
+      <maml:para>New-CustomFilename "%Year-LOG-%computername.txt"     
+2017-LOG-Bovine320.txt</maml:para>
       <maml:para>Another option, is to turn the entire name into upper or lower case.</maml:para>
-      <maml:para>    New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower     2017nov-log-bovine320[jeff].txt</maml:para>
+      <maml:para>New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower     
+2017nov-log-bovine320[jeff].txt</maml:para>
+<maml:para></maml:para>
       <maml:para>This command does not create the file, it only generates a name for you to use.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2047,11 +2691,17 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
       <maml:para>The default behavior is to use a hash table with a property name and color. The color must be one of the standard console colors used with Write-Host.</maml:para>
       <maml:para>    $c = @{Stopped='Red';Running='Green'}</maml:para>
       <maml:para>You can then pipe an expression to this command, specifying a property name and the hash table. If the property matches the key name, the output for that object will be colored using the corresponding hash table value.</maml:para>
-      <maml:para>    get-service -diplayname windows* | out-conditionalcolor $c -property status </maml:para>
+      <maml:para>    get-service -displayname windows* | out-conditionalcolor $c -property status</maml:para>
       <maml:para>Or you can do more complex processing with an ordered hash table constructed using this format:</maml:para>
       <maml:para>    [ordered]@{ &lt;comparison scriptblock&gt; = &lt;color&gt;}</maml:para>
       <maml:para>The comparison scriptblock can use $PSitem.</maml:para>
-      <maml:para>    $h=[ordered]@{         {$psitem.ws -gt 500mb}='red'         {$psitem.ws -gt 300mb}='yellow'         {$psitem.ws -gt 200mb}='cyan'     }</maml:para>
+      <maml:para>$h=[ordered]@{      
+        {$psitem.ws -gt 500mb}='red'
+        {$psitem.ws -gt 300mb}='yellow'       
+        {$psitem.ws -gt 200mb}='cyan'
+      }
+           </maml:para>
+      <maml:para>    get-process | out-conditionalcolor $h</maml:para>
       <maml:para>When doing a complex comparison you must use an [ordered] hashtable as each key will be processed in order using an If/ElseIf statement.</maml:para>
       <maml:para>This command should be the last part of any pipelined expression. If you pipe to anything else, such as Sort-Object, you will lose your color formatting. Do any other sorting or filtering before piping to this command.</maml:para>
       <maml:para>This command works best in the PowerShell console. It won't do anything in the PowerShell ISE.</maml:para>
@@ -2214,7 +2864,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; get-service -displayname windows* | out-conditionalcolor @{Stopped='Red'} status -ov winstop</dev:code>
         <dev:remarks>
-          <maml:para>Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be coloredized. This example uses the parameters positionally.</maml:para>
+          <maml:para>Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be colorized. This example uses the parameters positionally.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -2415,7 +3065,13 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <maml:description>
       <maml:para>This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.</maml:para>
       <maml:para>This command has an alias of Tee-Verbose.</maml:para>
-      <maml:para>Begin {     $log = New-RandomFilename -useTemp -extension log     Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log     Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append     Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append     $data = @() } #begin</maml:para>
+      <maml:para>Begin {     
+         $log = New-RandomFilename -useTemp -extension log     
+         Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log     
+         Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append     
+         Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append     
+         $data = @() 
+      } #begin</maml:para>
       <maml:para>When the command is run with -Verbose you will see the verbose output and it will be saved to the specified log file.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2572,6 +3228,489 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Test-Expression</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>Expression</command:noun>
+      <maml:description>
+        <maml:para>Test a PowerShell expression over a period of time.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.</maml:para>
+      <maml:para>The median is calculated by sorting the values in ascending order and selecting the value in the center of the array. If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-Expression</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
+          <maml:name>Expression</maml:name>
+          <maml:Description>
+            <maml:para>The scriptblock you want to test.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ArgumentList</maml:name>
+          <maml:Description>
+            <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Object[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsJob</maml:name>
+          <maml:Description>
+            <maml:para>Run the tests as a background job.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
+          <maml:name>Count</maml:name>
+          <maml:Description>
+            <maml:para>The number of times to test the scriptblock.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>1</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
+          <maml:name>IncludeExpression</maml:name>
+          <maml:Description>
+            <maml:para>Include the test scriptblock in the output.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="sleep">
+          <maml:name>Interval</maml:name>
+          <maml:Description>
+            <maml:para>How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+          <dev:type>
+            <maml:name>Double</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0.5</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Test-Expression</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
+          <maml:name>Expression</maml:name>
+          <maml:Description>
+            <maml:para>The scriptblock you want to test.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ArgumentList</maml:name>
+          <maml:Description>
+            <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Object[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsJob</maml:name>
+          <maml:Description>
+            <maml:para>Run the tests as a background job.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
+          <maml:name>Count</maml:name>
+          <maml:Description>
+            <maml:para>The number of times to test the scriptblock.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>1</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
+          <maml:name>IncludeExpression</maml:name>
+          <maml:Description>
+            <maml:para>Include the test scriptblock in the output.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="max">
+          <maml:name>RandomMaximum</maml:name>
+          <maml:Description>
+            <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+          <dev:type>
+            <maml:name>Double</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="min">
+          <maml:name>RandomMinimum</maml:name>
+          <maml:Description>
+            <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+          <dev:type>
+            <maml:name>Double</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ArgumentList</maml:name>
+        <maml:Description>
+          <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+        <dev:type>
+          <maml:name>Object[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsJob</maml:name>
+        <maml:Description>
+          <maml:para>Run the tests as a background job.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
+        <maml:name>Count</maml:name>
+        <maml:Description>
+          <maml:para>The number of times to test the scriptblock.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>1</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
+        <maml:name>Expression</maml:name>
+        <maml:Description>
+          <maml:para>The scriptblock you want to test.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
+        <maml:name>IncludeExpression</maml:name>
+        <maml:Description>
+          <maml:para>Include the test scriptblock in the output.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="sleep">
+        <maml:name>Interval</maml:name>
+        <maml:Description>
+          <maml:para>How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+        <dev:type>
+          <maml:name>Double</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0.5</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="max">
+        <maml:name>RandomMaximum</maml:name>
+        <maml:Description>
+          <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+        <dev:type>
+          <maml:name>Double</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="min">
+        <maml:name>RandomMinimum</maml:name>
+        <maml:Description>
+          <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+        <dev:type>
+          <maml:name>Double</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>scriptblock</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Custom measurement object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/ This command was first described at https://github.com/jdhitsolutions/Test-Expression/blob/master/docs/Test-Expression.md)</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $cred = Get-credential globomantics\administrator
+PS C:\&gt; $c = "chi-dc01","chi-dc04"
+PS C:\&gt; Test-Expression {param ([string[]]$computer,$cred) get-wmiobject -class win32_logicaldisk -computername $computer -credential $cred } -argumentList $c,$cred
+
+
+Tests        : 1
+TestInterval : 0.5
+AverageMS    : 1990.6779
+MinimumMS    : 1990.6779
+MaximumMS    : 1990.6779
+MedianMS     : 1990.6779
+TrimmedMS    :
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+        <dev:remarks>
+          <maml:para>Test a command once passing an argument to the scriptblock. There is no TrimmedMS value because there was only one test.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $sb = {1..1000 | foreach {$_*2}}
+PS C:\&gt; test-expression $sb -count 10 -interval 2
+
+Tests        : 10
+TestInterval : 2
+AverageMS    : 72.78199
+MinimumMS    : 29.4449
+MaximumMS    : 110.6553
+MedianMS     : 90.3509
+TrimmedMS    : 73.4649625
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+
+
+PS C:\&gt; $sb2 = { foreach ($i in (1..1000)) {$_*2}}
+PS C:\&gt; test-expression $sb2 -Count 10 -interval 2
+
+Tests        : 10
+TestInterval : 2
+AverageMS    : 6.40283
+MinimumMS    : 0.7466
+MaximumMS    : 22.968
+MedianMS     : 2.781
+TrimmedMS    : 5.0392125
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+        <dev:remarks>
+          <maml:para>These examples are testing two different approaches that yield the same results over a span of 10 test runs, pausing for 2 seconds between each test. The values for Average, Minimum and Maximum are in milliseconds.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Test-expression {Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer} -count 5 -IncludeExpression -argumentList chi-hvr2
+
+
+Tests        : 5
+TestInterval : 500
+AverageMS    : 15.53376
+MinimumMS    : 11.6745
+MaximumMS    : 24.9331
+MedianMS     : 13.8928
+TrimmedMS    : 13.6870666666667
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+Expression   : Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer
+Arguments    : {chi-hvr2}</dev:code>
+        <dev:remarks>
+          <maml:para>Include the tested expression in the output.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Test-Expression { get-eventlog -list } -count 10 -Interval 5 -asjob
+
+
+Id     Name            PSJobTypeName   State         HasMoreData     Location             Command
+--     ----            -------------   -----         -----------     --------             -------
+184    Job184          RemoteJob       Running       True            WIN81-ENT-01         ...
+
+PS C:\&gt; receive-job 184 -keep
+
+Tests        : 10
+TestInterval : 5
+AverageMS    : 2.80256
+MinimumMS    : 0.7967
+MaximumMS    : 14.911
+MedianMS     : 1.4469
+TrimmedMS    : 1.5397375
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+RunspaceId   : f30eb879-fe8f-4ad0-8d70-d4c8b6b4eccc</dev:code>
+        <dev:remarks>
+          <maml:para>Run the test as a background job. When the job is complete, get the results.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; {1..1000} | Test-Expression -count 10 -randomminimum 1 -randommaximum 10
+
+Tests        : 10
+TestInterval : Random
+AverageMS    : 0.63899
+MinimumMS    : 0.2253
+MaximumMS    : 3.9062
+MedianMS     : 0.24475
+TrimmedMS    : 0.2823
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+        <dev:remarks>
+          <maml:para>Pipe a scriptblock to be tested.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Measure-Command</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Test-ExpressionForm</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Test-ExpressionForm</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>ExpressionForm</command:noun>
+      <maml:description>
+        <maml:para>Display a graphical test form for Test-Expression.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will display a WPF-based form that you can use to enter in testing information. Testing intervals are in seconds. All of the values are then passed to the Test-Expression command. Results will be displayed in the form.</maml:para>
+      <maml:para>When you close the form, the last result object will be passed to the pipeline, including all metadata, the scriptblock and arguments.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-ExpressionForm</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/ This command was first explained at https://github.com/jdhitsolutions/Test-Expression/blob/master/docs/Test-ExpressionForm.md</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; test-expressionform</dev:code>
+        <dev:remarks>
+          <maml:para>Launch the form.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Test-Expression</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Write-Detail</command:name>
       <command:verb>Write</command:verb>
       <command:noun>Detail</command:noun>
@@ -2582,7 +3721,12 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
     <maml:description>
       <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full time stamp, or a time string which includes a millisecond value.</maml:para>
       <maml:para>In a script you might use it like this:</maml:para>
-      <maml:para>    Begin {         Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin -time | Write-Verbose         $tabs = "`t" * $tab         Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose     } #begin</maml:para>
+      <maml:para>Begin {     
+          Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin -time | Write-Verbose     
+          $tabs = "`t" * $tab     
+          Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose 
+          } #begin
+          </maml:para>
       <maml:para>If you don't specify a prefix, it will default to PROCESS.</maml:para>
     </maml:description>
     <command:syntax>

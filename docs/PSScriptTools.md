@@ -62,7 +62,7 @@ A simple function to get common locations. This can be useful with cross-platfor
 
 ### [Get-PowerShellEngine](Get-PowerShellEngine.md)
 
-Use this command to quickly get the path to the PowerShell executable with an option for detailed information. 
+Use this command to quickly get the path to the PowerShell executable with an option for detailed information.
 
 ### [Out-More](Out-More.md)
 
@@ -71,3 +71,23 @@ This command provides a PowerShell alternative to the cmd.exe MORE command, whic
 ### [Invoke-InputBox](Invoke-InputBox.md)
 
 This function is a graphical replacement for Read-Host. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.  It can be either a string or a secure string. You can customize the form's title, prompt and background color.
+
+### [Test-Expression](Test-Expression.md)
+
+This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.
+
+### [Test-ExpressionForm](Test-ExpressionForm.md)
+
+A WPF front end to `Test-Expression`.
+
+### [Find-CimClass](Find-CimClass.md)
+
+This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. `Find-CimClass` will recursively search for a given classname. You can use wildcards.
+
+### [ConvertTo-Markdown](ConvertTo-Markdown.md)
+
+This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output.
+
+### [ConvertTo-WPFGrid(ConvertTo-WPFGrid.md)]
+
+This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in a data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.

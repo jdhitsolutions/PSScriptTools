@@ -123,7 +123,6 @@ Accept wildcard characters: False
 
 ### System.Security.SecureString
 
-
 ## NOTES
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/

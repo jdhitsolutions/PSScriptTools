@@ -22,9 +22,9 @@ Function Get-PSLocation {
     }
 
     [PSCustomObject]@{
-        Temp = [system.io.path]::GetTempPath()
-        Home = $ThisHome
-        Desktop = [system.environment]::GetFolderPath("Desktop")
+        Temp       = [system.io.path]::GetTempPath()
+        Home       = $ThisHome
+        Desktop    = [system.environment]::GetFolderPath("Desktop")
         PowerShell = Split-Path $profile
     }
 

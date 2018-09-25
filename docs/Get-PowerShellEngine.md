@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get the path to the current PowerShell engine
+Get the path to the current PowerShell engine.
 
 ## SYNTAX
 
@@ -37,7 +37,7 @@ C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
 
 ```powershell
 PS C:\> Get-PowerShellEngine -detail
-```
+
 
 Path           : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
 FileVersion    : 10.0.15063.0 (WinBuild.160101.0800)
@@ -47,14 +47,15 @@ Edition        : Desktop
 Host           : Visual Studio Code Host
 Culture        : en-US
 Platform       :
+```
 
 Result from running in the Visual Studio Code integrated PowerShell terminal
 
 ###  EXAMPLE 3 
 
 ```powershell
-Get-PowerShellEngine -detail
-```
+PS C:\> Get-PowerShellEngine -detail
+
 
 Path           : C:\Program Files\PowerShell\6\pwsh.exe
 FileVersion    : 6.1.0
@@ -64,9 +65,9 @@ Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
 Platform       : Win32NT
+```
 
 Result from running in a PowerShell 6 session on Windows 10
-
 
 ## PARAMETERS
 
