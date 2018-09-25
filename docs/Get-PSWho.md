@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get PowerShell user summary information
+Get PowerShell user summary information.
 
 ## SYNTAX
 

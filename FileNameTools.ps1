@@ -1,6 +1,7 @@
 
 Function New-RandomFileName {
-    [cmdletbinding(DefaultParameterSetName="none")]
+    [cmdletbinding(DefaultParameterSetName = "none")]
+    [outputtype([string])]
     Param(
         [parameter(Position = 0)]
         [Parameter(ParameterSetName = 'none')]
@@ -21,7 +22,7 @@ Function New-RandomFileName {
     }
     elseif ($UseHomeFolder) {
         if ($PSVersionTable.PSEdition -eq 'Core' -AND $PSVersionTable.OS -notmatch "Windows") {
-           $filename = Join-Path -Path $env:HOME -ChildPath ([system.io.path]::GetRandomFileName())
+            $filename = Join-Path -Path $env:HOME -ChildPath ([system.io.path]::GetRandomFileName())
         }
         else {
             $filename = Join-Path -Path $env:USERPROFILE\Documents -ChildPath ([system.io.path]::GetRandomFileName())
@@ -45,8 +46,9 @@ Function New-RandomFileName {
 
 Function New-CustomFileName {
     [cmdletbinding()]
+    [outputtype([string])]
     Param (
-        [Parameter(Position = 0,Mandatory)]
+        [Parameter(Position = 0, Mandatory)]
         [ValidateNotNullOrEmpty()]
         [string]$Template,
         [ValidateSet("Lower", "Upper", "Default")]
@@ -54,13 +56,13 @@ Function New-CustomFileName {
     )
 
     #convert placeholders to lower case but leave everything else as is
-    [regex]$rx="%\w+(?=%|-|\.|\s|\(|\)|\[|\])"
+    [regex]$rx = "%\w+(?=%|-|\.|\s|\(|\)|\[|\])"
    
     Write-Detail "Starting $($myinvocation.MyCommand)" | Write-Verbose
     Write-Detail "Processing template: $template" | Write-Verbose
     $rx.matches($Template) | foreach-object {
         Write-Detail "Converting $($_.value) to lower case" | Write-Verbose
-        $Template = $Template.replace($_.value,$_.value.tolower())
+        $Template = $Template.replace($_.value, $_.value.tolower())
     }
 
     [string]$filename = $Template
@@ -96,18 +98,18 @@ Function New-CustomFileName {
     $hash.GetEnumerator() | foreach-object { 
         Write-Detail "Testing $filename for $($_.key)" | Write-Verbose
         if ($filename -match "($($_.key))") {
-          Write-Detail "replacing $($_.key) with $($_.value)" | Write-Verbose
-          $filename = $filename -replace "($($_.key))",$_.value
+            Write-Detail "replacing $($_.key) with $($_.value)" | Write-Verbose
+            $filename = $filename -replace "($($_.key))", $_.value
         }
     }
 
     #handle ### number replacement
     [regex]$rx = '%#+'
     if ($rx.IsMatch($filename)) {
-        $count = $rx.Match($filename).Value.length -1
+        $count = $rx.Match($filename).Value.length - 1
         $num = (0..9 | Get-Random -Count 10 | Get-Random -count $count) -join ""
         Write-Detail "replacing # with $num" | Write-Verbose
-        $filename = $rx.Replace($filename,$num)
+        $filename = $rx.Replace($filename, $num)
     }
 
     Write-Detail "Converting case to $Case" | Write-Verbose

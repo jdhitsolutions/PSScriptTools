@@ -2,6 +2,7 @@
 Function Format-Percent {
 
     [cmdletbinding(DefaultParameterSetName = "None")]
+    [alias("fp")]
     [OutputType([Double], ParameterSetName = "None")]
     [OutputType([String], ParameterSetName = "String")]
     Param(
@@ -20,12 +21,12 @@ Function Format-Percent {
         [Switch]$AsString
     )
 
-    Write-Debug "STARTING: $($MyInvocation.Mycommand)"  
-    Write-Debug "STATUS: Calculating percentage from $Value/$Total to $decimal places"
+    Write-Verbose "STARTING: $($MyInvocation.Mycommand)"  
+    Write-Verbose "STATUS: Calculating percentage from $Value/$Total to $decimal places"
     $result = $Value / $Total
 
     if ($AsString) {
-        Write-Debug "STATUS: Writing string result"
+        Write-Verbose "STATUS: Writing string result"
         #use the -F operator to build a percent string to X number of decimal places
         $pctstring = "{0:p$Decimal}" -f $result
         #remove the space before the % symbol
@@ -33,18 +34,19 @@ Function Format-Percent {
 
     }
     else {
-        Write-Debug "STATUS: Writing numeric result"
+        Write-Verbose "STATUS: Writing numeric result"
         #round the result to the specified number of decimal places
         [math]::Round( ($result * 100), $Decimal)
     }
 
-    Write-Debug "ENDING: $($MyInvocation.Mycommand)"
+    Write-Verbose "ENDING: $($MyInvocation.Mycommand)"
 
 } #end function
 
 Function Format-Value {
 
     [cmdletbinding(DefaultParameterSetName = "Default")]
+    [alias("fv")]
 
     Param(
         [Parameter(Position = 1, Mandatory, ValueFromPipeline)]
@@ -67,12 +69,12 @@ Function Format-Value {
     )
 
     Begin {
-        Write-Debug "STARTING: $($MyInvocation.Mycommand)"  
-        Write-Debug "STATUS: Using parameter set $($PSCmdlet.ParameterSetName)"
+        Write-Verbose "STARTING: $($MyInvocation.Mycommand)"  
+        Write-Verbose "STATUS: Using parameter set $($PSCmdlet.ParameterSetName)"
     } #begin
 
     Process {
-        Write-Debug "STATUS: Formatting $Inputobject"
+        Write-Verbose "STATUS: Formatting $Inputobject"
 
         <#
         divide the incoming value by the specified unit
@@ -81,7 +83,7 @@ Function Format-Value {
         #>
         Switch ($PSCmdlet.ParameterSetName) {
             "Default" {
-                Write-Debug "..as $Unit"
+                Write-Verbose "..as $Unit"
                 Switch ($Unit) {
                     "KB" { $value = $Inputobject / 1KB ; break }
                     "MB" { $value = $Inputobject / 1MB ; break }
@@ -95,42 +97,42 @@ Function Format-Value {
                 } #default
             }
             "Auto" {
-                Write-Debug "STATUS: Using Autodetect"
+                Write-Verbose "STATUS: Using Autodetect"
       
                 if ($InputObject -ge 1PB) {
-                    Write-Debug "..as PB"
+                    Write-Verbose "..as PB"
                     $value = $Inputobject / 1PB
                 }
                 elseif ($InputObject -ge 1TB) {
-                    Write-Debug "..as TB"
+                    Write-Verbose "..as TB"
                     $value = $Inputobject / 1TB
                 }
                 elseif ($InputObject -ge 1GB) {
-                    Write-Debug "..as GB"
+                    Write-Verbose "..as GB"
                     $value = $Inputobject / 1GB
                 }
                 elseif ($InputObject -ge 1MB) {
-                    Write-Debug "..as MB"
+                    Write-Verbose "..as MB"
                     $value = $Inputobject / 1MB
                 }
                 elseif ($InputObject -ge 1KB) {
-                    Write-Debug "..as KB"
+                    Write-Verbose "..as KB"
                     $value = $Inputobject / 1KB
                 }
                 else { 
-                    Write-Debug "..as bytes"
+                    Write-Verbose "..as bytes"
                     $value = $InputObject
                 }
                 Break
             } #Auto
             "Currency" {
-                Write-Debug "...as currency"
+                Write-Verbose "...as currency"
                 "{0:c}" -f $InputObject
                 #if using currency no other code in the Process block will be run
                 Break
             }#Currency
             "Number" {
-                Write-Debug "...as number"
+                Write-Verbose "...as number"
                 #if -Decimal not used explicitly set it to 0
                 if (-Not $Decimal) {
                     $Decimal = 0
@@ -142,29 +144,30 @@ Function Format-Value {
         } #switch parameterset name
 
         if ($PSCmdlet.ParameterSetName -notmatch "Currency|Number") {
-            Write-Debug "STATUS: Reformatting $value"
+            Write-Verbose "STATUS: Reformatting $value"
             if ($decimal) {
-                Write-Debug "..to $decimal decimal places"
+                Write-Verbose "..to $decimal decimal places"
                 #round the number to the specified number of decimal places
                 [math]::Round($value, $decimal)
             }
             else {
                 #if not a currency and not using a decimal then treat the value as an integer
                 #and write the result to the pipeline
-                Write-Debug "..as [int]"
+                Write-Verbose "..as [int]"
                 $value -as [int]
             }
         } #parameter set <> currency
     } #process
 
     End {
-        Write-Debug "ENDING: $($MyInvocation.Mycommand)"
+        Write-Verbose "ENDING: $($MyInvocation.Mycommand)"
     } #end
 } 
 
 Function Format-String {
 
     [cmdletbinding()]
+    [alias("fs")]
     [OutputType([string])]
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
@@ -178,14 +181,14 @@ Function Format-String {
     )
 
     Begin {
-        Write-Debug "STARTING: $($MyInvocation.Mycommand)"  
-        Write-Debug "STATUS: Using parameter set $($PSCmdlet.parameterSetName)"
+        Write-Verbose "STARTING: $($MyInvocation.Mycommand)"  
+        Write-Verbose "STATUS: Using parameter set $($PSCmdlet.parameterSetName)"
     } #begin
 
     Process {
-        Write-Debug "STATUS: Processing $Text"
+        Write-Verbose "STATUS: Processing $Text"
         if ($Reverse) {
-            Write-Debug "STATUS: Reversing $($Text.length) characters"
+            Write-Verbose "STATUS: Reversing $($Text.length) characters"
             $rev = for ($i = $Text.length; $i -ge 0 ; $i--) { $Text[$i]}
             #join the reverse array back into a string
             $str = $rev -join ""
@@ -196,7 +199,7 @@ Function Format-String {
         } 
 
         if ($Randomize) {
-            Write-Debug "STATUS: Randomizing text"
+            Write-Verbose "STATUS: Randomizing text"
             #get a random number of characters that is the same length as the original string
             #and join them back together
             $str = ($str.ToCharArray() | Get-Random -count $str.length) -join ""
@@ -204,25 +207,25 @@ Function Format-String {
 
         if ($Replace) {
             foreach ($key in $Replace.keys) {
-                Write-Debug "STATUS: Replacing $key with $($replace.item($key))"
+                Write-Verbose "STATUS: Replacing $key with $($replace.item($key))"
                 $str = $str.replace($key, $replace.item($key))
             } #foreach
         } #replace
         Switch ($case) {
             "Upper" {
-                Write-Debug "STATUS: Setting to upper case"
+                Write-Verbose "STATUS: Setting to upper case"
                 $str = $str.ToUpper()
             } #upper
             "Lower" {
-                Write-Debug "STATUS: Setting to lower case"
+                Write-Verbose "STATUS: Setting to lower case"
                 $str = $str.ToLower()
             } #lower
             "Proper" {
-                Write-Debug "STATUS: Setting to proper case"
+                Write-Verbose "STATUS: Setting to proper case"
                 $str = "{0}{1}" -f $str[0].toString().toUpper(), -join $str.Substring(1).ToLower()
             } #proper
             "Alternate" {
-                Write-Debug "STATUS: Setting to alternate case"
+                Write-Verbose "STATUS: Setting to alternate case"
                 $alter = for ($i = 0 ; $i -lt $str.length ; $i++) {
                     #Odd numbers are uppercase
                     if ($i % 2) {
@@ -235,7 +238,7 @@ Function Format-String {
                 $str = $alter -join ""
             } #alternate
             "Toggle" {
-                Write-Debug "STATUS: setting to toggle case"
+                Write-Verbose "STATUS: setting to toggle case"
                 <#
             use a regular expression pattern for a case sensitive match
             Other characters like ! and numbers will fail the test 
@@ -255,7 +258,7 @@ Function Format-String {
             } #toggle
 
             Default {
-                Write-Debug "STATUS: no further formatting"
+                Write-Verbose "STATUS: no further formatting"
             }
         }
         #write result to the pipeline
@@ -264,7 +267,7 @@ Function Format-String {
     } #process
 
     End {
-        Write-Debug "ENDING: $($MyInvocation.Mycommand)"
+        Write-Verbose "ENDING: $($MyInvocation.Mycommand)"
     } #end
 }
 

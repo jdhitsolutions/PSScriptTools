@@ -1,21 +1,21 @@
 Function Write-Detail {
-    [cmdletbinding(DefaultParameterSetName="Default")]
+    [cmdletbinding(DefaultParameterSetName = "Default")]
     Param(
         [Parameter(Position = 0, Mandatory)]
-        [Parameter(ParameterSetName="Default")]
-        [Parameter(ParameterSetName="Date")]
-        [Parameter(ParameterSetName="Time")]
+        [Parameter(ParameterSetName = "Default")]
+        [Parameter(ParameterSetName = "Date")]
+        [Parameter(ParameterSetName = "Time")]
         [ValidateNotNullorEmpty()]
         [string]$Message,
 
-        [Parameter(ParameterSetName="Default")]
-        [Parameter(ParameterSetName="Date")]
-        [Parameter(ParameterSetName="Time")]
+        [Parameter(ParameterSetName = "Default")]
+        [Parameter(ParameterSetName = "Date")]
+        [Parameter(ParameterSetName = "Time")]
         [string]$Prefix = "PROCESS",
 
-        [Parameter(ParameterSetName="Date")]
+        [Parameter(ParameterSetName = "Date")]
         [switch]$Date,
-        [Parameter(ParameterSetName="Time")]
+        [Parameter(ParameterSetName = "Time")]
         [Switch]$Time
     )
 
@@ -24,7 +24,7 @@ Function Write-Detail {
         $dt = (Get-Date -Format "hh:mm:ss:ffff")
     }
     elseif ($Date) {
-        $dt = "{0} {1}" -f (Get-Date).ToShortDateString(),(Get-Date -Format "hh:mm:ss")
+        $dt = "{0} {1}" -f (Get-Date).ToShortDateString(), (Get-Date -Format "hh:mm:ss")
     }
     
     if ($PSCmdlet.ParameterSetName -eq 'Default') {
@@ -40,13 +40,14 @@ Function Write-Detail {
 
 Function Out-VerboseTee {
     [CmdletBinding()]
+    [alias("tee-verbose")]
     Param(
-     [Parameter(Mandatory,ValueFromPipeline)]   
-     [object]$Value,
-     [Parameter(Position=0,Mandatory)]
-     [string]$Path,
-     [System.Text.Encoding]$Encoding,
-     [switch]$Append
+        [Parameter(Mandatory, ValueFromPipeline)]   
+        [object]$Value,
+        [Parameter(Position = 0, Mandatory)]
+        [string]$Path,
+        [System.Text.Encoding]$Encoding,
+        [switch]$Append
     )
     Begin { 
         #turn on verbose pipeline since if you are running this command you intend for it to be on

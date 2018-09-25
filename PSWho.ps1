@@ -6,14 +6,16 @@ https://gist.github.com/jdhitsolutions/3ecc6193ab0982d907c2db3f7d2bd15d
 Function Get-PSWho {
   
     [CmdletBinding()]
+    [alias("pswho")]
+    
     Param(
-      [switch]$AsString
+        [switch]$AsString
     )
 
     if ($PSVersionTable.PSEdition -eq "desktop" -OR $PSVersionTable.OS -match "Windows") {
       
         #get some basic information about the operating system
-        $cimos = Get-CimInstance win32_operatingsystem -Property Caption, Version,OSArchitecture
+        $cimos = Get-CimInstance win32_operatingsystem -Property Caption, Version, OSArchitecture
         $os = "$($cimos.Caption) [$($cimos.OSArchitecture)]"
         $osver = $cimos.Version
 
@@ -25,13 +27,13 @@ Function Get-PSWho {
         $computer = $env:COMPUTERNAME
     }
     else {
-     #non-Windows values
-      $os = $PSVersionTable.OS
-      $lsb = lsb_release -d
-      $osver =   ($lsb -split ":")[1].Trim()
-      $elevated = "NA"
-      $user = $env:USER
-      $computer = $env:NAME
+        #non-Windows values
+        $os = $PSVersionTable.OS
+        $lsb = lsb_release -d
+        $osver = ($lsb -split ":")[1].Trim()
+        $elevated = "NA"
+        $user = $env:USER
+        $computer = $env:NAME
     }
 
     #object properties will be displayed in the order they are listed here
@@ -50,9 +52,9 @@ Function Get-PSWho {
     }
 
     if ($AsString) {
-      $who | Out-String
+        $who | Out-String
     }
     else {
-      $who
+        $who
     }
 } #end Get-PSWho 

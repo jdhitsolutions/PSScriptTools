@@ -103,12 +103,12 @@ Accept wildcard characters: False
 
 ### -TextBlock
 
-A multiline block of text. You might want to trim blank lines from the beginning, end or both.
+A multi-line block of text. You might want to trim blank lines from the beginning, end or both.
 
 ```yaml
 Type: String[]
 Parameter Sets: block
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
