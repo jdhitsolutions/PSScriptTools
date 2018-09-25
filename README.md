@@ -4,7 +4,7 @@ This PowerShell module contains a number of functions you might use to enhance y
 
 ## Current Release
 
-The current release is [PSScriptTools-v1.3.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.3.0)
+The current release is [PSScriptTools-v1.3.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.3.0.zip)
 
 You can also install this from the PowerShell Gallery:
 
