@@ -258,6 +258,483 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Convert-CommandtoHashtable</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>CommandtoHashtable</command:noun>
+      <maml:description>
+        <maml:para>Convert a PowerShell expression into a hashtable.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-CommandtoHashtable</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:Description>
+            <maml:para>A PowerShell expression, preferably with named parameters.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:Description>
+          <maml:para>A PowerShell expression, preferably with named parameters.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[Hashtable]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Convert-CommandtoHashtable -Text "get-eventlog -listlog -computername a,b,c,d -erroraction stop"
+
+$paramHash = @{
+  listlog = $True
+   computername = "a","b","c","d"
+   erroraction = "stop"
+}
+
+Get-EventLog @paramHash</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Convert-HashtableString</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>HashtableString</command:noun>
+      <maml:description>
+        <maml:para>Convert a hashtable string into a hashtable object.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-HashtableString</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:Description>
+            <maml:para>Enter your hashtable string.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:Description>
+          <maml:para>Enter your hashtable string.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[hashtable]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-HashtableString
+
+Name                           Value
+----                           -----
+CreatedBy                      BOVINE320\Jeff
+CreatedAt                      10/02/2018 21:28:47 UTC
+Computername                   Think51
+Error
+Completed                      True
+Date                           10/02/2018 21:29:35 UTC
+Scriptblock                    restart-service spooler -force
+CreatedOn                      BOVINE320</dev:code>
+        <dev:remarks>
+          <maml:para>The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Import-PowerShellDatafile</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Convert-HashtabletoCode</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Convert-HashTableToCode</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>HashTableToCode</command:noun>
+      <maml:description>
+        <maml:para>Convert a hashtable to a string representation.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to convert a hashtable into its text or string equivalent.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-HashTableToCode</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Hashtable</maml:name>
+          <maml:Description>
+            <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <dev:type>
+            <maml:name>Hashtable</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Hashtable</maml:name>
+        <maml:Description>
+          <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+        <dev:type>
+          <maml:name>Hashtable</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Collections.Hashtable</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
+PS C:\&gt; convert-hashtabletocode $h
+@{
+        Name = 'SRV1'
+        Asset = 123454
+        Location = 'Omaha'
+}</dev:code>
+        <dev:remarks>
+          <maml:para>Convert a hashtable object to a string equivalent that you can copy into your script.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Convert-HashtableString</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>ConvertTo-HashTable</command:name>
+      <command:verb>ConvertTo</command:verb>
+      <command:noun>HashTable</command:noun>
+      <maml:description>
+        <maml:para>Convert an object into a hashtable.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-HashTable</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>A PowerShell object to convert to a hashtable.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>NoEmpty</maml:name>
+          <maml:Description>
+            <maml:para>Do not include object properties that have no value.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Exclude</maml:name>
+          <maml:Description>
+            <maml:para>An array of property names to exclude from the hashtable.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Alphabetical</maml:name>
+          <maml:Description>
+            <maml:para>Create a hashtable with property names arranged alphabetically.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>A PowerShell object to convert to a hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>NoEmpty</maml:name>
+        <maml:Description>
+          <maml:para>Do not include object properties that have no value.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Exclude</maml:name>
+        <maml:Description>
+          <maml:para>An array of property names to exclude from the hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Alphabetical</maml:name>
+        <maml:Description>
+          <maml:para>Create a hashtable with property names arranged alphabetically.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[Object]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[System.Collections.Specialized.OrderedDictionary]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>This was originally described at: http://jdhitsolutions.com/blog/2013/01/convert-powershell-object-to-hashtable-revised</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
+
+Name                           Value
+----                           -----
+WorkingSet                     418377728
+Name                           powershell_ise
+Id                             3456
+Handles                        958</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $hash = get-service spooler | ConvertTo-Hashtable -Exclude CanStop,CanPauseandContinue -NoEmpty
+PS C:\&gt; $hash
+
+Name                           Value
+----                           -----
+ServiceType                    Win32OwnProcess, InteractiveProcess
+ServiceName                    spooler
+ServiceHandle                  SafeServiceHandle
+DependentServices              {Fax}
+ServicesDependedOn             {RPCSS, http}
+Name                           spooler
+Status                         Running
+MachineName                    .
+RequiredServices               {RPCSS, http}
+DisplayName                    Print Spooler</dev:code>
+        <dev:remarks>
+          <maml:para>This created a hashtable from the Spooler service object, skipping empty properties and excluding CanStop and CanPauseAndContinue.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-service bits | select Name,Displayname,Status,@{Name="Computername";Expression={$_.Machinename}} | ConvertTo-HashTable -Alphabetical
+
+Name                           Value
+----                           -----
+Computername                   .
+DisplayName                    Background Intelligent Transfer Service
+Name                           bits
+Status                         Running</dev:code>
+        <dev:remarks>
+          <maml:para>Convert an object to a hashtable and order the properties alphabetically.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>About_Hash_Tables</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Member</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertTo-Markdown</command:name>
       <command:verb>ConvertTo</command:verb>
       <command:noun>Markdown</command:noun>
@@ -430,14 +907,13 @@
 
 ## THINK51
 
-```text
+\`\`\`text
 
 Status   Name               DisplayName
 ------   ----               -----------
 Running  Bits               Background Intelligent Transfer Ser...
 Running  Winrm              Windows Remote Management (WS-Manag...
-```
-</dev:code>
+\`\`\`</dev:code>
         <dev:remarks>
           <maml:para>Create markdown output from a Get-Service command.</maml:para>
         </dev:remarks>
@@ -2351,6 +2827,170 @@ Culture         : en-US</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Join-Hashtable</command:name>
+      <command:verb>Join</command:verb>
+      <command:noun>Hashtable</command:noun>
+      <maml:description>
+        <maml:para>Combine two hashtables into one.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will combine two hashtables into a single hashtable. Normally this is as easy as $hash1+$hash2. But if there are duplicate keys, this will fail. Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.</maml:para>
+      <maml:para>The original hashtables will not be modified.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Join-Hashtable</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>First</maml:name>
+          <maml:Description>
+            <maml:para>The primary hashtable. If there are any duplicate keys and you use -Force, values from this hashtable will be kept.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <dev:type>
+            <maml:name>Hashtable</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Second</maml:name>
+          <maml:Description>
+            <maml:para>The secondary hashtable.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <dev:type>
+            <maml:name>Hashtable</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:Description>
+            <maml:para>Do not prompt for conflicts. Always keep the key from the first hashtable.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>First</maml:name>
+        <maml:Description>
+          <maml:para>The primary hashtable. If there are any duplicate keys and you use -Force, values from this hashtable will be kept.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+        <dev:type>
+          <maml:name>Hashtable</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Second</maml:name>
+        <maml:Description>
+          <maml:para>The secondary hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+        <dev:type>
+          <maml:name>Hashtable</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Force</maml:name>
+        <maml:Description>
+          <maml:para>Do not prompt for conflicts. Always keep the key from the first hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[hashtable]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[hashtable]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $a=@{Name="Jeff";Count=3;Color="Green"}
+PS C:\&gt; $b=@{Computer="HAL";Enabled=$True;Year=2020;Color="Red"}
+PS C:\&gt; join-hashtable $a $b
+Duplicate key Color
+A Green
+B Red
+Which key do you want to KEEP \[AB\]?: A
+
+Name                           Value
+----                           -----
+Year                           2020
+Name                           Jeff
+Enabled                        True
+Color                          Green
+Computer                       HAL
+Count                          3</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt;$c = join-hashtable $a $b -force
+PS C:\&gt; $c
+
+Name                           Value
+----                           -----
+Year                           2020
+Name                           Jeff
+Enabled                        True
+Color                          Green
+Computer                       HAL
+Count                          3</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>About_Hash_Tables</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>New-CustomFileName</command:name>
       <command:verb>New</command:verb>
       <command:noun>CustomFileName</command:noun>
@@ -2359,33 +2999,27 @@ Culture         : en-US</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will generate a custom file name based on a template string that you provide. You can create a template string using any of these variables. Most of these should be self-explanatory
-
-      - %username
-      - %computername
-      - %year  - 4 digit year
-      - %yr  - 2 digit year
-      - %monthname - The abbreviated month name
-      - %month  - The month number
-      - %dayofweek - The full name of the week day
-      - %day
-      - %hour
-      - %minute
-      - %time  - A compact string of HourMinuteSecond
-      - %string - A random string
-      - %guid
-      </maml:para>
+      <maml:para>This command will generate a custom file name based on a template string that you provide. You can create a template string using any of these variables. Most of these should be self-explanatory</maml:para>
+      <maml:para>- %username</maml:para>
+      <maml:para>- %computername</maml:para>
+      <maml:para>- %year  - 4 digit year</maml:para>
+      <maml:para>- %yr  - 2 digit year</maml:para>
+      <maml:para>- %monthname - The abbreviated month name</maml:para>
+      <maml:para>- %month  - The month number</maml:para>
+      <maml:para>- %dayofweek - The full name of the week day</maml:para>
+      <maml:para>- %day</maml:para>
+      <maml:para>- %hour</maml:para>
+      <maml:para>- %minute</maml:para>
+      <maml:para>- %time  - A compact string of HourMinuteSecond</maml:para>
+      <maml:para>- %string - A random string</maml:para>
+      <maml:para>- %guid</maml:para>
       <maml:para></maml:para>
       <maml:para>You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.</maml:para>
       <maml:para>The command will attempt to preserve case for any non pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.</maml:para>
-      <maml:para>New-CustomFilename "%Year_LOG-%computername.txt"     
-2017_log-Bovine320.txt</maml:para>
-      <maml:para>New-CustomFilename "%Year-LOG-%computername.txt"     
-2017-LOG-Bovine320.txt</maml:para>
+      <maml:para>    New-CustomFilename "%Year_LOG-%computername.txt"     2017_log-Bovine320.txt</maml:para>
+      <maml:para>    New-CustomFilename "%Year-LOG-%computername.txt"     2017-LOG-Bovine320.txt</maml:para>
       <maml:para>Another option, is to turn the entire name into upper or lower case.</maml:para>
-      <maml:para>New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower     
-2017nov-log-bovine320[jeff].txt</maml:para>
-<maml:para></maml:para>
+      <maml:para>    New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower     2017nov-log-bovine320[jeff].txt</maml:para>
       <maml:para>This command does not create the file, it only generates a name for you to use.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2695,12 +3329,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
       <maml:para>Or you can do more complex processing with an ordered hash table constructed using this format:</maml:para>
       <maml:para>    [ordered]@{ &lt;comparison scriptblock&gt; = &lt;color&gt;}</maml:para>
       <maml:para>The comparison scriptblock can use $PSitem.</maml:para>
-      <maml:para>$h=[ordered]@{      
-        {$psitem.ws -gt 500mb}='red'
-        {$psitem.ws -gt 300mb}='yellow'       
-        {$psitem.ws -gt 200mb}='cyan'
-      }
-           </maml:para>
+      <maml:para>    $h=[ordered]@{         {$psitem.ws -gt 500mb}='red'         {$psitem.ws -gt 300mb}='yellow'         {$psitem.ws -gt 200mb}='cyan'     }</maml:para>
       <maml:para>    get-process | out-conditionalcolor $h</maml:para>
       <maml:para>When doing a complex comparison you must use an [ordered] hashtable as each key will be processed in order using an If/ElseIf statement.</maml:para>
       <maml:para>This command should be the last part of any pipelined expression. If you pipe to anything else, such as Sort-Object, you will lose your color formatting. Do any other sorting or filtering before piping to this command.</maml:para>
@@ -3065,13 +3694,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <maml:description>
       <maml:para>This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.</maml:para>
       <maml:para>This command has an alias of Tee-Verbose.</maml:para>
-      <maml:para>Begin {     
-         $log = New-RandomFilename -useTemp -extension log     
-         Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log     
-         Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append     
-         Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append     
-         $data = @() 
-      } #begin</maml:para>
+      <maml:para>Begin {     $log = New-RandomFilename -useTemp -extension log     Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log     Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append     Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append     $data = @() } #begin</maml:para>
       <maml:para>When the command is run with -Verbose you will see the verbose output and it will be saved to the specified log file.</maml:para>
     </maml:description>
     <command:syntax>
@@ -3721,12 +4344,7 @@ OS           : Microsoft Windows 8.1 Enterprise</dev:code>
     <maml:description>
       <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full time stamp, or a time string which includes a millisecond value.</maml:para>
       <maml:para>In a script you might use it like this:</maml:para>
-      <maml:para>Begin {     
-          Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin -time | Write-Verbose     
-          $tabs = "`t" * $tab     
-          Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose 
-          } #begin
-          </maml:para>
+      <maml:para>Begin {     Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin -time | Write-Verbose     $tabs = "`t" * $tab     Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose } #begin</maml:para>
       <maml:para>If you don't specify a prefix, it will default to PROCESS.</maml:para>
     </maml:description>
     <command:syntax>

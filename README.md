@@ -4,7 +4,7 @@ This PowerShell module contains a number of functions you might use to enhance y
 
 ## Current Release
 
-The current release is [PSScriptTools-v1.3.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.3.0.zip)
+The current release is [PSScriptTools-v1.4.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.4.0.zip)
 
 You can also install this from the PowerShell Gallery:
 
@@ -273,7 +273,6 @@ The primary command can be used to test a PowerShell expression or scriptblock f
 
 When you run a single test with `Measure-Command` the result might be affected by any number of factors. Likewise, running multiple tests may also be influenced by things such as caching. The goal in this module is to provide a test framework where you can run a test repeatedly with either a static or random interval between each test. The results are aggregated and analyzed. Hopefully, this will provide a more meaningful or realistic result.
 
- 
 ### Examples
 
 The output will also show the median and trimmed values as well as some metadata about the current PowerShell session.
@@ -367,8 +366,102 @@ ConvertTo-WPFGrid -Title "Event Log Report"
 
 ![wpfgrid](images/wpfgrid.png)
 
+## Convert-CommandtoHashtable
+
+This command is intended to convert a long PowerShell expression with named parameters into a splatting
+alternative.
+
+```powershell
+PS C:\> Convert-CommandtoHashtable -Text "get-eventlog -listlog -computername a,b,c,d -erroraction stop"
+
+$paramHash = @{
+  listlog = $True
+   computername = "a","b","c","d"
+   erroraction = "stop"
+}
+
+Get-EventLog @paramHash
+```
+
+## Convert-HashtableString
+
+This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command 
+will take any hashtable-formatted string and convert it into an actual hashtable.
+
+```powershell
+PS C:\> get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-HashtableString
+
+Name                           Value
+----                           -----
+CreatedBy                      BOVINE320\Jeff
+CreatedAt                      10/02/2018 21:28:47 UTC
+Computername                   Think51
+Error
+Completed                      True
+Date                           10/02/2018 21:29:35 UTC
+Scriptblock                    restart-service spooler -force
+CreatedOn                      BOVINE320
+```
+
+The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.
+
+## Convert-HashTableToCode
+
+Use this command to convert a hashtable into its text or string equivalent.
+
+```powershell
+PS C:\> $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
+PS C:\> convert-hashtabletocode $h
+@{
+        Name = 'SRV1'
+        Asset = 123454
+        Location = 'Omaha'
+}
+```
+
+Convert a hashtable object to a string equivalent that you can copy into your script.
+
+## ConvertTo-HashTable
+
+This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
+
+
+```powershell
+PS C:\> get-process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
+
+Name                           Value
+----                           -----
+WorkingSet                     418377728
+Name                           powershell_ise
+Id                             3456
+Handles                        958
+```
+
+## Join-Hashtable
+
+This command will combine two hashtables into a single hashtable.Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
+
+```powershell
+PS C:\> $a=@{Name="Jeff";Count=3;Color="Green"}
+PS C:\> $b=@{Computer="HAL";Enabled=$True;Year=2020;Color="Red"}
+PS C:\> join-hashtable $a $b
+Duplicate key Color
+A Green
+B Red
+Which key do you want to KEEP \[AB\]?: A
+
+Name                           Value
+----                           -----
+Year                           2020
+Name                           Jeff
+Enabled                        True
+Color                          Green
+Computer                       HAL
+Count                          3
+```
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
-*last updated 25 September 2018*
+*last updated 12 October 2018*

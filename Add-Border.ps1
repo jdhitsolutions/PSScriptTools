@@ -7,6 +7,7 @@ originally published at
  #>
 Function Add-Border {
     [CmdletBinding(DefaultParameterSetName = "single")]
+    
     Param(
         # The string of text to process
         [Parameter(Position = 0, Mandatory, ValueFromPipeline, ParameterSetName = 'single')]

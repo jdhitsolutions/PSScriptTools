@@ -1,4 +1,10 @@
-# Changelog for PSScriptTools
+# Change Log for PSScriptTools
+
+## v1.4.0
+
++ Added hashtable tools
++ Updated `README.md`
++ minor code cleanup
 
 ## v1.3.0
 
