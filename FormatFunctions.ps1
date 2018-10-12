@@ -2,9 +2,10 @@
 Function Format-Percent {
 
     [cmdletbinding(DefaultParameterSetName = "None")]
-    [alias("fp")]
     [OutputType([Double], ParameterSetName = "None")]
     [OutputType([String], ParameterSetName = "String")]
+    [alias("fp")]
+
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "What is the value?")]
         [ValidateNotNullorEmpty()]
@@ -167,8 +168,9 @@ Function Format-Value {
 Function Format-String {
 
     [cmdletbinding()]
-    [alias("fs")]
     [OutputType([string])]
+    [alias("fs")]
+    
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
         [ValidateNotNullorEmpty()]
