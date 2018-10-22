@@ -1,5 +1,9 @@
 # Change Log for PSScriptTools
 
+## v1.5.1
+
++ code cleanup for the published module in the PowerShell Gallery
+
 ## v1.5.0
 
 + Added `Select-First` and its alias `first`
