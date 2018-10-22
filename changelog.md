@@ -1,5 +1,13 @@
 # Change Log for PSScriptTools
 
+## v1.5.0
+
++ Added `Select-First` and its alias `first`
++ Added `Select-Last` and its alias `last`
++ Added `Get-MyVariable` and its alias `gmv`
++ Added `New-PSDriveHere` and its alias `npsd`
++ Updated `README.md`
+
 ## v1.4.0
 
 + Added hashtable tools
