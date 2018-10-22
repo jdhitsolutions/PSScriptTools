@@ -1,10 +1,10 @@
-# ![](./images/toolbox-thumbnail.png)  PSScriptTools
+# ![toolbox](./images/toolbox-thumbnail.png) PSScriptTools
 
 This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
 
 ## Current Release
 
-The current release is [PSScriptTools-v1.4.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.4.0.zip)
+The current release is [PSScriptTools-v1.5.0](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.5.0.zip)
 
 You can also install this from the PowerShell Gallery:
 
@@ -280,7 +280,7 @@ The output will also show the median and trimmed values as well as some metadata
 ```powershell
 PS C:\> $cred = Get-credential globomantics\administrator
 PS C:\> Test-Expression {param($cred) get-wmiobject win32_logicaldisk -computer chi-dc01 -credential $cred } -argumentList $cred
-   
+
 Tests        : 1
 TestInterval : 0.5
 AverageMS    : 1990.6779
@@ -425,7 +425,6 @@ Convert a hashtable object to a string equivalent that you can copy into your sc
 
 This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
 
-
 ```powershell
 PS C:\> get-process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
 
@@ -460,8 +459,58 @@ Computer                       HAL
 Count                          3
 ```
 
+## Select Functions
+
+The module contains 2 functions which simplify the use of `Select-Object`. The commands are intended to make it easier to select the first or last X number of objects. The commands include features so that you can sort the incoming objects on a given property first.
+
+```powershell
+PS C:\> get-process | select-first 5 -Property WS -Descending
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    696      89   615944     426852     391.97   7352   0 sqlservr
+    541      78   262532     274576     278.41   6208   8 Code
+   1015      70   227824     269504     137.39  16484   8 powershell_ise
+   1578     111   204852     254640      98.58  21332   8 firefox
+    884      44   221872     245712     249.23  12456   8 googledrivesync
+```
+
+## New-PSDriveHere
+
+This function will create a new PSDrive at the specified location. The default is the current location, but you
+can specify any PSPath. The function will take the last word of the path and use it as the name of the new
+PSDrive.
+
+```powershell
+PS C:\users\jeff\documents\Enterprise Mgmt Webinar> new-psdrivehere
+
+Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
+----           ---------     --------- --------      ----                                 ---------------
+Webinar                         146.57 FileSystem    C:\users\jeff\Documents\Enter...
+```
+
+## Get-MyVariable
+
+This function will return all variables not defined by PowerShell or by this function itself. The default is to
+return all user-created variables from the global scope but you can also specify a scope such as script, local or
+a number 0 through 5.
+
+```powershell
+PS C:\> Get-MyVariable
+
+NName Value                  Type
+---- -----                  ----
+a    bits                   ServiceController
+dt   10/22/2018 10:49:38 AM DateTime
+foo  123                    Int32
+r    {1, 2, 3, 4...}        Object[]
+...
+```
+
+Depending on the value and how PowerShell chooses to display it, you may not see the type.
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
 
-*last updated 12 October 2018*
+*last updated 22 October 2018*
