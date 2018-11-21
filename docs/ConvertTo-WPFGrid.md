@@ -170,4 +170,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [ConvertTo-HTML]()
 
-[ConvertTo-Markdown]()
+[ConvertTo-Markdown](./ConvertTo-Markdown.md)

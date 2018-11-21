@@ -100,7 +100,7 @@ Format the value as a number to 2 decimal points.
 ```yaml
 Type: Object
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 2
@@ -111,15 +111,14 @@ Accept wildcard characters: False
 
 ### -Unit
 
-The unit of measurement for your value.
-Valid choices are "KB","MB","GB","TB", and "PB".
+The unit of measurement for your value. Valid choices are "KB","MB","GB","TB", and "PB".
 
 If you don't specify a unit, the value will remain as is, although you can still specify the number of decimal places.
 
 ```yaml
 Type: String
 Parameter Sets: Default
-Aliases: 
+Aliases:
 
 Required: False
 Position: 1
@@ -135,7 +134,7 @@ The number of decimal places to return between 0 and 15.
 ```yaml
 Type: Int32
 Parameter Sets: Default, Number, Auto
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -151,7 +150,7 @@ Attempt to autodetect and format the value.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Auto
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -167,7 +166,7 @@ Format the numeric value as currency using detected cultural settings. The outpu
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Currency
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -186,7 +185,7 @@ The output will be a string.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: Number
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -213,7 +212,7 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Format-String]()
+[Format-String](./Format-String.md)
 
-[Format-Percent]()
+[Format-Percent](./Format-Percent.md)
 

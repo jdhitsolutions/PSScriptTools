@@ -509,8 +509,22 @@ r    {1, 2, 3, 4...}        Object[]
 
 Depending on the value and how PowerShell chooses to display it, you may not see the type.
 
+## Optimize-Text
+
+Use this command to clean and optimize content from text files. Sometimes text files have blank lines or the content has trailing spaces. These sorts of issues can cause problems when passing the content to other commands.
+
+This command will strip out any lines that are blank or have nothing by white space, and trim leading and trailing spaces. The optimized text is then written back to the pipeline. Optionally, you can specify a property name. This can be useful when your text file is a list of computer names and you want to take advantage of pipeline binding.
+
+## Show-Tree
+
+Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry.
+
+By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.
+
+![show file system tree](images/show-tree1.png)
+
 ## Compatibility
 
-Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems,have suggestions or other feedback, please post an issue.
+Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 22 October 2018*
+*last updated 21 November 2018*

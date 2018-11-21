@@ -152,3 +152,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Select-Object]()
+
+[Select-Last](./Select-Last.md)

@@ -92,7 +92,7 @@ A single line of text that will be wrapped in a border.
 ```yaml
 Type: String
 Parameter Sets: single
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -124,7 +124,7 @@ The character to use for the border. It must be a single character.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -156,7 +156,7 @@ Insert X number of tabs.
 ```yaml
 Type: Int32
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

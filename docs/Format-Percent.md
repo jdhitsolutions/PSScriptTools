@@ -65,7 +65,7 @@ chi-dc04                                  1738292           23.92%
 
 ### -Value
 
-The numerator value. 
+The numerator value.
 
 ```yaml
 Type: Object
@@ -102,7 +102,7 @@ The number of decimal places to return between 0 and 15.
 ```yaml
 Type: Int32
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -118,7 +118,7 @@ Write the result as a string.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: String
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -147,6 +147,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Format-Value]()
+[Format-Value](./Format-Value.md)
 
-[Format-String]()
+[Format-String](./Format-String.md)
