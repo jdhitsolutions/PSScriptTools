@@ -4,9 +4,7 @@ This PowerShell module contains a number of functions you might use to enhance y
 
 ## Current Release
 
-The current release is [PSScriptTools-v1.5.1](https://github.com/jdhitsolutions/PSScriptTools/archive/v1.5.1.zip)
-
-You can also install this from the PowerShell Gallery:
+You can get the current release from this repository or install this from the PowerShell Gallery:
 
 ```powershell
 Install-Module PSScriptTools
