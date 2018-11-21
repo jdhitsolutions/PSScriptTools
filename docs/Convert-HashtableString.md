@@ -79,6 +79,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Import-PowerShellDatafile]()
+[Import-PowerShellDatafile]())
 
-[Convert-HashtabletoCode]()
+[Convert-HashtabletoCode](./Convert-HashtabletoCode.md)

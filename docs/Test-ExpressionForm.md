@@ -54,4 +54,6 @@ This command was first explained at https://github.com/jdhitsolutions/Test-Expre
 
 ## RELATED LINKS
 
-[Test-Expression]()
+[Test-Expression](./Test-Expression)
+
+[Measure-Command]()

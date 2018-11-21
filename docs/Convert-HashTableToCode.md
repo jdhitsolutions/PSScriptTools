@@ -74,4 +74,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Convert-HashtableString]()
+[Convert-HashtableString](./Convert-HashtableString.md)

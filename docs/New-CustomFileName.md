@@ -88,7 +88,7 @@ Some values like username or computername might be in different case than what y
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 Accepted values: Lower, Upper, Default
 
 Required: False
@@ -105,7 +105,7 @@ A string that defines the naming pattern based on a set of placeholders.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 0
@@ -132,4 +132,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[New-RandomFileName]()
+[New-RandomFileName](./New-RandomFileName.md)

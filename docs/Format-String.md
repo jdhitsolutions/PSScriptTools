@@ -88,7 +88,7 @@ Any string you want to format.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1
@@ -104,7 +104,7 @@ Reverse the text string.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -128,7 +128,7 @@ Powershell -\> pOWERSHELL
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -139,13 +139,12 @@ Accept wildcard characters: False
 
 ### -Replace
 
-Specify a hashtable of replacement values. The hashtable key is the string you want to replace and the value is the replacement (see examples).
-Replacement keys are CASE SENSITIVE.
+Specify a hashtable of replacement values. The hashtable key is the string you want to replace and the value is the replacement (see examples). Replacement keys are CASE SENSITIVE.
 
 ```yaml
 Type: Hashtable
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -161,7 +160,7 @@ Re-arrange the text in a random order.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -188,7 +187,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Format-Value]()
+[Format-Value](./Format-Value.md)
 
-[Format-Percent]()
-
+[Format-Percent](./Format-Percent.md)

@@ -113,9 +113,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### [pscustomobject]
+### [PSCustomObject]
 
-### [system.string]
+### [System.String]
 
 ## NOTES
 
@@ -130,4 +130,3 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [$PSVersionTable]()
 
 [$Host]()
-

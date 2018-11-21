@@ -2,7 +2,7 @@
 Module Name: PSScriptTools
 Module Guid: f8deaba5-5c23-43aa-a59f-f508e7369a30
 Download Help Link: {{Please enter FwLink manually}}
-Help Version: 1.0
+Help Version: 2.0
 Locale: en-US
 ---
 
@@ -38,7 +38,7 @@ This command will provide a summary of relevant information for the current user
 
 ### [New-CustomFileName](New-CustomFileName.md)
 
-This command will generate a custom file name based on a template string that you provide. 
+This command will generate a custom file name based on a template string that you provide.
 
 ### [New-RandomFileName](New-RandomFileName.md)
 
@@ -91,3 +91,47 @@ This command is designed to accept pipelined output and create a markdown docume
 ### [ConvertTo-WPFGrid(ConvertTo-WPFGrid.md)]
 
 This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in a data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
+
+### [Show-Tree](Show-Tree.md)
+
+Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry.
+
+### [Optimize-Text](Optimize-Text.md)
+
+Use this command to clean and optimize content from text files. Sometimes text files have blank lines or the content has trailing spaces. These sorts of issues can cause problems when passing the content to other commands.
+
+### [Convert-CommandtoHashtable](.Convert-CommandtoHashtable.md)
+
+This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative.
+
+### [Convert-HashtableString](.Convert-HashtableString.md)
+
+This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.
+
+### [Convert-HashTableToCode](.Convert-HashTableToCode.md)
+
+Use this command to convert a hashtable into its text or string equivalent.
+
+### [ConvertTo-HashTable](.ConvertTo-HashTable.md)
+
+This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
+
+### [Get-MyVariable](.Get-MyVariable.md)
+
+ This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local or a number 0 through 5.
+
+### [Join-Hashtable](.Join-Hashtable.md)
+
+This command will combine two hashtables into a single hashtable. Normally this is as easy as $hash1+$hash2. But if there are duplicate keys, this will fail. Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep.
+
+### [New-PSDriveHere](.New-PSDriveHere.md)
+
+This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new PSDrive.
+
+### [Select-First](.Select-First.md)
+
+This command takes pipelined input and selects the first specified number of objects which are then written to the pipeline. You also have the option to sort on the specified property.
+
+### [Select-Last](.Select-Last.md)
+
+This is a script version of `Select-Object` designed to select the last X number of objects. The command takes pipelined input and selects the last specified number of objects which are then written to the pipeline. You have an option to first sort on the specified property.

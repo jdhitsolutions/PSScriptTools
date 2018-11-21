@@ -177,6 +177,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 ### System.String[]
 
 ## NOTES
+
 Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
@@ -184,4 +185,3 @@ Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershel
 [Convertto-HTML]()
 
 [Out-File]()
-

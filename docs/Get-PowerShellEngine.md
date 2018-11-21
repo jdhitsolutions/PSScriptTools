@@ -25,7 +25,7 @@ The default is to provide the path only. But you can also get detailed informati
 
 ## EXAMPLES
 
-### EXAMPLE 1 
+### EXAMPLE 1
 
 ```powershell
 PS C:\> Get-PowerShellEngine
@@ -33,7 +33,7 @@ PS C:\> Get-PowerShellEngine
 
 C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
 
-###  EXAMPLE 2
+### EXAMPLE 2
 
 ```powershell
 PS C:\> Get-PowerShellEngine -detail
@@ -51,7 +51,7 @@ Platform       :
 
 Result from running in the Visual Studio Code integrated PowerShell terminal
 
-###  EXAMPLE 3 
+### EXAMPLE 3
 
 ```powershell
 PS C:\> Get-PowerShellEngine -detail
@@ -93,7 +93,7 @@ Accept wildcard characters: False
 
 ### [string]
 
-### [pscustomobject]
+### [PSCustomObject]
 
 ## NOTES
 
@@ -106,4 +106,3 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [$Host]()
 
 [Get-Process]()
-

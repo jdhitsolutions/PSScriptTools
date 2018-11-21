@@ -1,5 +1,11 @@
 # Change Log for PSScriptTools
 
+## v1.6.0
+
++ Added `Optimize-Text` and its alias `ot`
++ Added `Show-Tree`
++ Help and documentation updates
+
 ## v1.5.1
 
 + code cleanup for the published module in the PowerShell Gallery

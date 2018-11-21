@@ -82,7 +82,7 @@ Use a specific extension. Do not include the period.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named
@@ -141,4 +141,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[New-CustomFileName]()
+[New-CustomFileName](./New-CustomFileName.md)
