@@ -3,7 +3,7 @@
 #this is a demonstration script
 [cmdletbinding()]
 Param(
-    [Parameter(Position = 0, Mandatory)]    
+    [Parameter(Position = 0, Mandatory)]
     [ValidateScript( {Test-Path $_})]
     [string]$Path,
     [switch]$Recurse
@@ -33,7 +33,7 @@ $files = Get-Childitem @PSBoundParameters
 
 Write-Detail "Found $($files.count) files" | Write-Verbose
 $grouped = $files | Group-object -property {
-    if (-Not $_.extension) { "N/A" } 
+    if (-Not $_.extension) { "N/A" }
     else { $_.Extension.Substring(1)}
 }
 Write-Detail "Processing data" | Write-Verbose
@@ -50,7 +50,7 @@ $grouped | Sort-object -property Name | Out-Conditionalcolor -Conditions $c -Out
 Write-Detail "Saving data to log file $log" | Write-Verbose
 Set-Content -Path $log -Value "Usage Report for $Path"
 Add-Content -path $log -value (Get-Date)
-$data | Select-object Count, Name, Size | Out-String | Add-Content -Path $log
+$data | Select-Object Count, Name, Size | Out-String | Add-Content -Path $log
 Write-Detail "Ending $($myinvocation.mycommand)" | Write-Verbose
 $PSDefaultParameterValues.Remove("write-detail:nodate")
 if (Test-Path $Transcript) {
