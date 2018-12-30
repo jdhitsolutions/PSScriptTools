@@ -1,5 +1,12 @@
 # Change Log for PSScriptTools
 
+## v1.7.0
+
++ Added `New-WPFMessagebox` function. (Issue #11)
++ Added alias `nmb` for `New-WPFMessageBox`
++ Added icon files for WPF Message box
++ Updated `README.md`
+
 ## v1.6.0
 
 + Added `Optimize-Text` and its alias `ot`
