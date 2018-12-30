@@ -5,7 +5,7 @@ Function Get-DiskData {
 Param(
     [Parameter(ValueFromPipeline)]
     [ValidateNotNullOrEmpty()]
-    [string]$Computername = $env:computername    
+    [string]$Computername = $env:computername
    )
 
    Begin {
@@ -18,10 +18,10 @@ Param(
             $data = Get-CimInstance -Class Win32_logicaldisk -Filter "DriveType=3" -ComputerName $Computername -ErrorAction Stop
             $data | Foreach-Object {
                 Write-Detail "Calculating PctFree for $($_.DeviceID)" -prefix process -NoDate | Write-Verbose
-                $_ | Add-Member -MemberType ScriptProperty -Name PctFree -value { format-percent -value $this.freespace -total $this.size -decimal 2} -force
+                $_ | Add-Member -MemberType ScriptProperty -Name PctFree -value { Format-Percent -value $this.freespace -total $this.size -decimal 2} -force
             }
             $data
-        }   
+        }
         Catch {
             Throw $_
         }
