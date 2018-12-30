@@ -52,7 +52,7 @@ Culture         : en-US
 
 ## New-CustomFileName
 
-This command will generate a custom file name based on a template string that you provide. 
+This command will generate a custom file name based on a template string that you provide.
 
 ```powershell
 PS C:\> New-CustomFileName %computername_%day%monthname%yr-%time.log
@@ -65,7 +65,7 @@ Tuesday-3128.dat
 You can create a template string using any of these variables. Most of these should be self-explanatory
 
 - %username
-- %computername 
+- %computername
 - %year  - 4 digit year
 - %yr  - 2 digit year
 - %monthname - The abbreviated month name
@@ -149,7 +149,7 @@ When the command is run with -Verbose you will see the verbose output and it wil
 
 ## Out-ConditionalColor
 
-This command is designed to take pipeline input and display it in a colorized format,based on a set of conditions. Unlike Write-Host which doesn't write to the pipeline, this command will write to the pipeline. 
+This command is designed to take pipeline input and display it in a colorized format,based on a set of conditions. Unlike Write-Host which doesn't write to the pipeline, this command will write to the pipeline.
 
 You can use a simple hashtable to define a color if the given property matches the hashtable key.
 
@@ -197,7 +197,7 @@ C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 But PowerShell Core is a bit different:
 
 ```powershell
-PS /home/jhicks> Get-PowerShellEngine 
+PS /home/jhicks> Get-PowerShellEngine
 /opt/microsoft/powershell/6/pwsh
 ```
 
@@ -285,10 +285,10 @@ AverageMS    : 1990.6779
 MinimumMS    : 1990.6779
 MaximumMS    : 1990.6779
 MedianMS     : 1990.6779
-TrimmedMS    : 
+TrimmedMS    :
 PSVersion    : 5.1.14409.1005
 OS           : Microsoft Windows 8.1 Enterprise
-``` 
+```
 
 You can also run multiple tests with random time intervals.
 
@@ -358,7 +358,7 @@ This command is an alternative to `Out-Gridview`. It works much the same way. Ru
 get-eventlog -list -ComputerName DOM1,SRV1,SRV2 |
 Select Machinename,Log,MaximumKilobytes,Overflowaction,
 @{Name="RetentionDays";Expression={$_.MinimumRetentionDays}},
-@{Name="Entries";Expression = {$_.entries.count}} | 
+@{Name="Entries";Expression = {$_.entries.count}} |
 ConvertTo-WPFGrid -Title "Event Log Report"
 ```
 
@@ -383,7 +383,7 @@ Get-EventLog @paramHash
 
 ## Convert-HashtableString
 
-This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command 
+This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command
 will take any hashtable-formatted string and convert it into an actual hashtable.
 
 ```powershell
@@ -521,8 +521,36 @@ By default, the output will only show directory or equivalent structures. But yo
 
 ![show file system tree](images/show-tree1.png)
 
+## New-WPFMessageBox
+
+This function creates a Windows Presentation Foundation (WPF) based message box. This is intended to replace the legacy MsgBox function from VBScript and the Windows Forms library. The command uses a set of predefined button sets, each of which will close the form and write a value to the pipeline.
+
+    OK     = 1
+
+    Cancel = 0
+
+    Yes    = $True
+
+    No     = $False
+
+You can also create an ordered hashtable of your own buttons and values. It is assumed you will typically use this function in a script where you can capture the output and take some action based on the value.
+
+```powershell
+PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
+```
+
+![A YesNo WPF Message box](/images/wpfbox-1.png)
+
+You can also create your own custom button set as well as modify the background color.
+
+```powershell
+PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
+```
+
+![A customized WPF Message box](/images/wpfbox-2.png)
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 21 November 2018*
+*last updated 30 December 2018*
