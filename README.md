@@ -37,12 +37,12 @@ This command will provide a summary of relevant information for the current user
 ```powershell
 PS C:\> Get-PSWho
 
-User            : COWPC\Jeff
+User            : BOVINE320\Jeff
 Elevated        : True
-Computername    : COWPC
+Computername    : BOVINE320
 OperatingSystem : Microsoft Windows 10 Pro [64-bit]
-OSVersion       : 10.0.16299
-PSVersion       : 5.1.16299.64
+OSVersion       : 10.0.17763
+PSVersion       : 5.1.17763.134
 Edition         : Desktop
 PSHost          : ConsoleHost
 WSMan           : 3.0
@@ -56,7 +56,7 @@ This command will generate a custom file name based on a template string that yo
 
 ```powershell
 PS C:\> New-CustomFileName %computername_%day%monthname%yr-%time.log
-COWPC_28Nov17-142138.log
+COWPC_28Nov19-142138.log
 
 PS C:\> New-CustomFileName %dayofweek-%####.dat
 Tuesday-3128.dat
@@ -145,11 +145,11 @@ Begin {
 } #begin
 ```
 
-When the command is run with -Verbose you will see the verbose output and it will be saved to the specified log file.
+When the command is run with -Verbose you will see the verbose output **and** it will be saved to the specified log file.
 
 ## Out-ConditionalColor
 
-This command is designed to take pipeline input and display it in a colorized format,based on a set of conditions. Unlike Write-Host which doesn't write to the pipeline, this command will write to the pipeline.
+This command is designed to take pipeline input and display it in a colorized format,based on a set of conditions. Unlike `Write-Host` which doesn't write to the pipeline, this command will write to the pipeline.
 
 You can use a simple hashtable to define a color if the given property matches the hashtable key.
 
@@ -202,6 +202,7 @@ PS /home/jhicks> Get-PowerShellEngine
 ```
 
 You can also get detailed information.
+
 ![Windows PowerShell](./images/get-powershellengine1.png)
 
 ![PowerShell Core on Windows](./images/get-powershellengine2.png)
@@ -212,7 +213,7 @@ Results will vary depending on whether you are running Windows PowerShell or Pow
 
 ## Out-More
 
-This command provides a PowerShell alternative to the cmd.exe MORE command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
+This command provides a PowerShell alternative to the cmd.exe **MORE** command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
 
 ```powershell
 get-service | out-more
@@ -240,15 +241,14 @@ Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -Background
 
 ![](./images/ibx-2.png)
 
-This example also demonstrates that you can change form's background color.
-This function will **not** work in PowerShell Core.
+This example also demonstrates that you can change form's background color. This function will **not** work in PowerShell Core.
 
 ## ToDo
 
 Because this module is intended to make scripting easier for you, it adds options to insert ToDo statements into PowerShell files. If you are using the PowerShell ISE or VS Code and import this module, it will add the capability to insert a line like this:
 
 ```yaml
-# [12/13/2017 16:52:40] TODO: Add parameters
+# [12/13/2018 16:52:40] TODO: Add parameters
 ```
 
 In the PowerShell ISE, you will get a new menu under Add-Ons
@@ -286,8 +286,8 @@ MinimumMS    : 1990.6779
 MaximumMS    : 1990.6779
 MedianMS     : 1990.6779
 TrimmedMS    :
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
+PSVersion    :5.1.17763.134
+OS           : Microsoft Windows 10 Pro
 ```
 
 You can also run multiple tests with random time intervals.
@@ -302,8 +302,8 @@ MinimumMS    : 0.4657
 MaximumMS    : 7.5746
 MedianMS     : 0.4806
 TrimmedMS    : 0.51
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
+PSVersion    : 5.1.17763.134
+OS           : Microsoft Windows 10 Pro
 Expression   : param([string[]]$Names) get-service $names
 Arguments    : {bits, wuauserv, winrm}
 ```
@@ -383,7 +383,7 @@ Get-EventLog @paramHash
 
 ## Convert-HashtableString
 
-This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command
+This function is similar to `Import-PowerShellDataFile`. But where that command can only process a file, this command
 will take any hashtable-formatted string and convert it into an actual hashtable.
 
 ```powershell
