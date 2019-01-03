@@ -62,7 +62,7 @@ $tabs$character $((" ")*$len) $character
 "@
         }
         elseif ($insertBlanks -and ($pscmdlet.ParameterSetName -eq 'block')) {
-            Write-Deail "Inserting blank lines in the block" -prefix Process | write-Verbose
+            Write-Detail "Inserting blank lines in the block" -prefix Process | write-Verbose
             $body = @"
 $tabs$character $((" ")*$len) $character
 "@
