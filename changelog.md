@@ -1,5 +1,17 @@
 # Change Log for PSScriptTools
 
+## v1.8.0
+
++ fixed typo in `Write-Detail` (Thanks @AndrewPla)
++ Added `Compare-Module` function (Issue #19)
++ Added `Get-WindowsVersion` function (Issue #20)
++ Added `Get-WindowsVersionString` function
++ Updated `README.md`
++ Updated module manifest
++ reorganized module
++ Updated Pester test for `Test-Expression`
++ Updated external help file
+
 ## v1.7.0
 
 + Added `New-WPFMessagebox` function. (Issue #11)

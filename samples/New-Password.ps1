@@ -3,9 +3,9 @@
 Function New-Password {
     [cmdletbinding()]
     Param(
-        [Parameter(Position=0,Mandatory,ValueFromPipeline,HelpMessage = "Enter a 8 character string to 'seed' the password.")]
+        [Parameter(Position = 0, Mandatory, ValueFromPipeline, HelpMessage = "Enter a 8+ character string to 'seed' the password.")]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript({$_.length -ge 8})]
+        [ValidateScript( {$_.length -ge 8})]
         [string]$SeedText
     )
     Begin {
@@ -33,7 +33,7 @@ Function New-Password {
     End {
         Write-Detail "See $tmpfile for results." -prefix end | Write-Verbose
         Write-Detail "Ending $($myinvocation.mycommand)" -prefix end | Write-Verbose
-    } #end 
+    } #end
 
 } #close New-Password
 
