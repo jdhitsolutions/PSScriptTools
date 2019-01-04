@@ -1,11 +1,9 @@
 #pester tests for Test-Expression
 
-Import-Module ..\Test-Expression -force
-
-InModuleScope Test-Expression {
+Import-Module $PSScriptRoot\..\functions\Test-Expression.ps1 -force
 
 Describe "Test-Expression" {
-   
+
     It "Should have an alias" {
       (Get-Alias tex).ResolvedCommand.Name | Should Be "Test-Expression"
     }
@@ -48,4 +46,3 @@ Describe "Test-Expression" {
 } #Describe
 
 
-} #module scope

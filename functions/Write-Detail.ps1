@@ -26,7 +26,7 @@ Function Write-Detail {
     elseif ($Date) {
         $dt = "{0} {1}" -f (Get-Date).ToShortDateString(), (Get-Date -Format "hh:mm:ss")
     }
-    
+
     if ($PSCmdlet.ParameterSetName -eq 'Default') {
         $Text = "[$($prefix.ToUpper())] $Message"
 
@@ -40,16 +40,16 @@ Function Write-Detail {
 
 Function Out-VerboseTee {
     [CmdletBinding()]
-    [alias("tee-verbose")]
+    [alias("Tee-Verbose")]
     Param(
-        [Parameter(Mandatory, ValueFromPipeline)]   
+        [Parameter(Mandatory, ValueFromPipeline)]
         [object]$Value,
         [Parameter(Position = 0, Mandatory)]
         [string]$Path,
         [System.Text.Encoding]$Encoding,
         [switch]$Append
     )
-    Begin { 
+    Begin {
         #turn on verbose pipeline since if you are running this command you intend for it to be on
         $VerbosePreference = "continue"
     }

@@ -1,5 +1,5 @@
 
-Get-ChildItem -path $PSScriptRoot\*.ps1 | foreach-object -process {
+Get-ChildItem -path $PSScriptRoot\functions\*.ps1 | foreach-object -process {
     . $_.FullName
 }
 
@@ -9,7 +9,7 @@ if ($psEditor) {
         Param(
             [Microsoft.PowerShell.EditorServices.Extensions.EditorContext]$context
         )
-    
+
         $prompt = "What do you need to do?"
         $title = "To Do"
         $item = Invoke-Inputbox -Title $title -Prompt $prompt
@@ -17,11 +17,11 @@ if ($psEditor) {
         $context.CurrentFile.InsertText($todo)
     }
     Register-EditorCommand -Name "Insert.ToDo" -DisplayName "Insert ToDo" -ScriptBlock $sb -SuppressOutput
-    
+
 }
 elseif ($psise) {
-    $action = { 
-       
+    $action = {
+
         $prompt = "What do you need to do?"
         $title = "To Do"
         $item = Invoke-Inputbox -Title $title -Prompt $prompt
@@ -30,7 +30,7 @@ elseif ($psise) {
         #jump cursor to the end
         $psise.CurrentFile.editor.SetCaretPosition($psise.CurrentFile.Editor.CaretLine,$psise.CurrentFile.Editor.CaretColumn)
     }
-    
+
     #add the action to the Add-Ons menu
     $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("ToDo",$Action,"Ctrl+Alt+2" ) | Out-Null
 }

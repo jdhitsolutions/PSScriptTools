@@ -549,8 +549,41 @@ PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" 
 
 ![A customized WPF Message box](/images/wpfbox-2.png)
 
+## Compare-Module
+
+Use this command to compare module versions between what is installed against an online repository like the PSGallery
+
+```powershell
+PS C:\> Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select modules to update" -outputMode multiple | Foreach { Update-Module $_.name }
+```
+
+Compare modules and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what modules to update.
+
+## Get-WindowsVersion
+
+This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.
+
+```powershell
+PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd | format-table
+
+ProductName                             EditionID          ReleaseId Build      InstalledUTC          Computername
+-----------                             ---------          --------- -----      ------------          ------------
+Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:07:25 PM SRV1
+Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:08:07 PM SRV2
+Windows 10 Enterprise Evaluation        EnterpriseEval     1703      15063.1387 12/26/2018 4:08:11 PM WIN10
+```
+
+### Get-WindowsVersionString
+
+This command is a variation of `Get-WindowsVersion` that returns a formatted string with version information.
+
+```powershell
+PS C:\> Get-WindowsVersionString
+Windows 10 Pro Version 1809 (OS Build 17763.195)
+```
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 30 December 2018*
+*last updated 3 January 2019*
