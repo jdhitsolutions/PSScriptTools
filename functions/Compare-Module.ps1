@@ -58,7 +58,7 @@ Function Compare-Module {
                 $fmoParams.Add("Name", $Name)
             }
             Try {
-                $online = Find-Module @fmoParams
+                $online = @(Find-Module @fmoParams)
             }
             Catch {
                 Write-Warning "Failed to find online module(s). $($_.Exception.message)"
@@ -67,7 +67,7 @@ Function Compare-Module {
             $progParam.percentComplete = 80
             Write-Progress @progParam
 
-            $data = $online | Where-Object {$installed.name -contains $_.name} |
+            $data = ($online).Where( {$installed.name -contains $_.name}) |
                 Select-Object -property Name,
             @{Name = "OnlineVersion"; Expression = {$_.Version}},
             @{Name = "InstalledVersion"; Expression = {
@@ -78,15 +78,17 @@ Function Compare-Module {
             PublishedDate,
             @{Name = "UpdateNeeded"; Expression = {
                     $name = $_.Name
-                    #there could me multiple versions installed
-                    $installedVersions = $installed.Where( {$_.name -eq $name}).Version | Sort-Object
-                    foreach ($item in $installedVersions) {
-                        If ($_.Version -gt $item) {
-                            $result = $True
-                        }
-                        else {
-                            $result = $False
-                        }
+                    #there could be multiple versions installed
+                    #only need to compare the last one
+                    $mostRecentVersion = $installed.Where( {$_.name -eq $name}).Version |
+                    Sort-Object -Descending | Select-Object -first 1
+
+                    #need to ensure that PowerShell compares version objects and not strings
+                    If ([version]$_.Version -gt [version]$mostRecentVersion) {
+                        $result = $True
+                    }
+                    else {
+                        $result = $False
                     }
                     $result
                 }
@@ -102,7 +104,6 @@ Function Compare-Module {
         else {
             Write-Warning "No local module or modules found"
         }
-
     } #Progress
 
     End {
