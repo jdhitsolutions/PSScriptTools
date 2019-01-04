@@ -1,5 +1,9 @@
 # Change Log for PSScriptTools
 
+## v1.8.1
+
++ minor corrections to `Compare-Module` (Issue #21)
+
 ## v1.8.0
 
 + fixed typo in `Write-Detail` (Thanks @AndrewPla)
