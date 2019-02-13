@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -13,28 +13,28 @@ Send command output to an interactive WPF-based grid.
 
 ## SYNTAX
 
-```powershell
-ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [[-Width] <Int32>]
- [[-Height] <Int32>] [-CenterScreen] [<CommonParameters>]
+```yaml
+ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in a data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
+This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.
 
-You will want to be selective about which properties you pipe through to this command. See examples.
+You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid.
 
-Unlike Out-Gridview, your PowerShell prompt will be blocked until the WPF-based grid is closed.
+This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
 ```powershell
-PS C:\ Get-Service -computername Server1 | Select Name,Status,Displayname,StartType,Machinename | ConvertTo-WPFGrid -centerscreen
+PS C:\> get-process | sort-object WS -Descending | Select -first 20 ID,Name,WS,VM,PM,Handles,StartTime | Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 ```
 
-Get all services from Server1 and display selected properties in a grid which will be centered on the screen.
+Get the top 20 processes based on the value of the WorkingSet property and display selected properties in the WPF Grid. The contents will automatically refresh every 20 seconds. You will need to manually close the form.
 
 ### EXAMPLE 2
 
@@ -43,10 +43,10 @@ PS C:\> $vmhost = "CHI-HVR2"
 PS C:\> Get-VM -computername $VMHost | Select Name,State,Uptime,
 @{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as \[int\]}},
 @{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as \[int\]}} |
-ConvertTo-WPFGrid -title "VM Report $VMHost" -Width 500 -height 200 -timeout 20
+ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20
 ```
 
-Get Hyper-V virtual machine information and display in a resized grid for 20 seconds.
+Get Hyper-V virtual machine information and display for 20 seconds before automatically closing.
 
 ## PARAMETERS
 
@@ -85,7 +85,7 @@ Accept wildcard characters: False
 ### -Timeout
 
 By default the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds.
-The minimum accepted value is 5 seconds. Because the timer ticks in 5 second intervals it is recommended that your time out value also be a multiple of 5.
+The minimum accepted value is 5 seconds. If you use this parameter with -Refresh, then the datagrid will be refreshed with results of the PowerShell expression you piped to ConvertTo-WPFGrid.
 
 ```yaml
 Type: Int32
@@ -99,41 +99,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Width
+### -Refresh
 
-Specify a width in pixels for your form.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: 1024
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Height
-
-Specify a height in pixels for your form.
-
-```yaml
-Type: Int32
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 5
-Default value: 768
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -CenterScreen
-
-Windows will display the form in the center of your screen.
+If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.
 
 ```yaml
 Type: SwitchParameter
@@ -142,15 +110,14 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

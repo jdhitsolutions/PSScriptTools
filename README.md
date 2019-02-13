@@ -18,7 +18,7 @@ Install-Module PSScriptTools -scope currentuser
 
 Please post any questions, problems or feedback in Issues. Any input is greatly appreciated.
 
-## Add-Border
+## [Add-Border](docs/Add-Border.md)
 
 This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
 
@@ -30,7 +30,7 @@ PS C:\> add-border $env:computername
 *************
 ```
 
-## Get-PSWho
+## [Get-PSWho](docs/Get-PSWho.md)
 
 This command will provide a summary of relevant information for the current user in a PowerShell Session. You might use this to troubleshoot an end-user problem running a script or command.
 
@@ -50,7 +50,7 @@ ExecutionPolicy : RemoteSigned
 Culture         : en-US
 ```
 
-## New-CustomFileName
+## [New-CustomFileName](docs/New-CustomFileName.md)
 
 This command will generate a custom file name based on a template string that you provide.
 
@@ -80,7 +80,7 @@ You can create a template string using any of these variables. Most of these sho
 
 You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.
 
-## New-RandomFileName
+## [New-RandomFileName](docs/New-RandomFileName.md)
 
 Create a new random file name. The default is a completely random name including the extension.
 
@@ -110,7 +110,7 @@ PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
 /home/jhicks/oces0epq.tmp
 ```
 
-## Write-Detail
+## [Write-Detail](docs/Write-Detail.md)
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
 
@@ -129,7 +129,7 @@ Begin {
 } #begin
 ```
 
-## Out-VerboseTee
+## [Out-VerboseTee](docs/Out-VerboseTee.md)
 
 This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.
 
@@ -147,7 +147,7 @@ Begin {
 
 When the command is run with -Verbose you will see the verbose output **and** it will be saved to the specified log file.
 
-## Out-ConditionalColor
+## [Out-ConditionalColor](docs/Out-ConditionalColor.md)
 
 This command is designed to take pipeline input and display it in a colorized format,based on a set of conditions. Unlike `Write-Host` which doesn't write to the pipeline, this command will write to the pipeline.
 
@@ -160,7 +160,7 @@ Or you can specify an ordered hashtable for more complex processing.
 
 This command doesn't always work depending on the type of object you pipe to it. The problem appears to be related to the formatting system. Development and testing is ongoing.
 
-## Copy-Command
+## [Copy-Command](docs/Copy-Command.md)
 
 This command will copy a PowerShell command, including parameters and help to a new user-specified command. You can use this to create a "wrapper" function or to easily create a proxy function. The default behavior is to create a copy of the command complete with the original comment-based help block.
 
@@ -177,7 +177,7 @@ PS C:\>  format-value 1235465676 -Unit kb
 1206509
 ```
 
-## Get-PSLocation
+## [Get-PSLocation](docs/Get-PSLocation.md)
 
 A simple function to get common locations. This can be useful with cross-platform scripting.
 
@@ -185,7 +185,7 @@ A simple function to get common locations. This can be useful with cross-platfor
 
 ![](./images/pslocation-linux.png)
 
-## Get-PowerShellEngine
+## [Get-PowerShellEngine](docs/Get-PowerShellEngine.md)
 
 Use this command to quickly get the path to the PowerShell executable. In Windows you should get a result like this:
 
@@ -211,7 +211,7 @@ You can also get detailed information.
 
 Results will vary depending on whether you are running Windows PowerShell or PowerShell Core.
 
-## Out-More
+## [Out-More](docs/Out-More.md)
 
 This command provides a PowerShell alternative to the cmd.exe **MORE** command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
 
@@ -223,9 +223,9 @@ get-service | out-more
 
 This also works in PowerShell Core.
 
-## Invoke-InputBox
+## [Invoke-InputBox](docs/Invoke-InputBox.md)
 
-This function is a graphical replacement for Read-Host. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.
+This function is a graphical replacement for `Read-Host`. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.
 
 ```powershell
 $name = Invoke-InputBox -Prompt "Enter a user name" -Title "New User Setup"
@@ -263,7 +263,7 @@ The comment will be inserted at the current cursor location.
 
 In VS Code, access the command palette (Ctrl+Shift+P) and then "PowerShell: Show Additional Commands from PowerShell Modules". Select "Insert ToDo" from the list and you'll get the same input box. Note that this will only work for PowerShell files.
 
-## Test-Expression
+## [Test-Expression](docs/Test-Expression.md)
 
 The primary command can be used to test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests.
 
@@ -318,13 +318,13 @@ The module also includes a graphical command called `Test-ExpressionForm`. This 
 
 When you quit the form the last result will be written to the pipeline including all metadata, the scriptblock and any arguments.
 
-## Find-CimClass
+## [Find-CimClass](docs/Find-CimClass.md)
 
 This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. `Find-CimClass` will recursively search for a given classname. You can use wildcards and search remote computers.
 
 ![find-cimclass](images/find-cimclass.png)
 
-## ConvertTo-Markdown
+## [ConvertTo-Markdown](docs/ConvertTo-Markdown.md)
 
 This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output. You can run a command like this:
 
@@ -350,9 +350,9 @@ which generates this markdown:
 
 Because the function writes markdown to the pipeline you will need to pipe it to a command `Out-File` to create a file.
 
-## ConvertTo-WPFGrid
+## [ConvertTo-WPFGrid](docs/ConvertTo-WPFGrid.md)
 
-This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in a data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
+This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
 
 ```powershell
 get-eventlog -list -ComputerName DOM1,SRV1,SRV2 |
@@ -362,9 +362,17 @@ Select Machinename,Log,MaximumKilobytes,Overflowaction,
 ConvertTo-WPFGrid -Title "Event Log Report"
 ```
 
-![wpfgrid](images/wpfgrid.png)
+![Displaying Eventlog Info](images/wpfgrid.png)
 
-## Convert-CommandtoHashtable
+You can also have automatically refresh the data.
+```powershell
+get-process | sort-object WS -Descending | Select -first 20 ID,Name,WS,VM,PM,Handles,StartTime |
+Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
+```
+
+![Displaying Top Processes](images/wpfgrid2.png)
+
+## [Convert-CommandtoHashtable](docs/Convert-CommandtoHashtable.md)
 
 This command is intended to convert a long PowerShell expression with named parameters into a splatting
 alternative.
@@ -381,7 +389,7 @@ $paramHash = @{
 Get-EventLog @paramHash
 ```
 
-## Convert-HashtableString
+## [Convert-HashtableString](docs/Convert-HashtableString.md)
 
 This function is similar to `Import-PowerShellDataFile`. But where that command can only process a file, this command
 will take any hashtable-formatted string and convert it into an actual hashtable.
@@ -403,7 +411,7 @@ CreatedOn                      BOVINE320
 
 The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.
 
-## Convert-HashTableToCode
+## [Convert-HashTableToCode](docs/Convert-HashTableToCode.md)
 
 Use this command to convert a hashtable into its text or string equivalent.
 
@@ -419,7 +427,7 @@ PS C:\> convert-hashtabletocode $h
 
 Convert a hashtable object to a string equivalent that you can copy into your script.
 
-## ConvertTo-HashTable
+## [ConvertTo-HashTable](docs/ConvertTo-HashTable.md)
 
 This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
 
@@ -434,7 +442,7 @@ Id                             3456
 Handles                        958
 ```
 
-## Join-Hashtable
+## [Join-Hashtable](docs/Join-Hashtable.md)
 
 This command will combine two hashtables into a single hashtable.Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
 
@@ -473,7 +481,7 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
     884      44   221872     245712     249.23  12456   8 googledrivesync
 ```
 
-## New-PSDriveHere
+## [New-PSDriveHere](docs/New-PSDriveHere.md)
 
 This function will create a new PSDrive at the specified location. The default is the current location, but you
 can specify any PSPath. The function will take the last word of the path and use it as the name of the new
@@ -487,7 +495,7 @@ Name           Used (GB)     Free (GB) Provider      Root                       
 Webinar                         146.57 FileSystem    C:\users\jeff\Documents\Enter...
 ```
 
-## Get-MyVariable
+## [Get-MyVariable](docs/Get-MyVariable.md)
 
 This function will return all variables not defined by PowerShell or by this function itself. The default is to
 return all user-created variables from the global scope but you can also specify a scope such as script, local or
@@ -507,13 +515,13 @@ r    {1, 2, 3, 4...}        Object[]
 
 Depending on the value and how PowerShell chooses to display it, you may not see the type.
 
-## Optimize-Text
+## [Optimize-Text](docs/Optimize-Text.md)
 
 Use this command to clean and optimize content from text files. Sometimes text files have blank lines or the content has trailing spaces. These sorts of issues can cause problems when passing the content to other commands.
 
 This command will strip out any lines that are blank or have nothing by white space, and trim leading and trailing spaces. The optimized text is then written back to the pipeline. Optionally, you can specify a property name. This can be useful when your text file is a list of computer names and you want to take advantage of pipeline binding.
 
-## Show-Tree
+## [Show-Tree](docs/Show-Tree.md)
 
 Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry.
 
@@ -521,7 +529,7 @@ By default, the output will only show directory or equivalent structures. But yo
 
 ![show file system tree](images/show-tree1.png)
 
-## New-WPFMessageBox
+## [New-WPFMessageBox](docs/New-WPFMessageBox.md)
 
 This function creates a Windows Presentation Foundation (WPF) based message box. This is intended to replace the legacy MsgBox function from VBScript and the Windows Forms library. The command uses a set of predefined button sets, each of which will close the form and write a value to the pipeline.
 
@@ -549,7 +557,7 @@ PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" 
 
 ![A customized WPF Message box](/images/wpfbox-2.png)
 
-## Compare-Module
+## [Compare-Module](docs/Compare-Module.md)
 
 Use this command to compare module versions between what is installed against an online repository like the PSGallery
 
@@ -559,9 +567,9 @@ PS C:\> Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select module
 
 Compare modules and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what modules to update.
 
-## Get-WindowsVersion
+## [Get-WindowsVersion](docs/Get-WindowsVersion.md)
 
-This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.
+This is a PowerShell version of the `winver.exe` utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.
 
 ```powershell
 PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd | format-table
@@ -573,7 +581,7 @@ Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 
 Windows 10 Enterprise Evaluation        EnterpriseEval     1703      15063.1387 12/26/2018 4:08:11 PM WIN10
 ```
 
-### Get-WindowsVersionString
+### [Get-WindowsVersionString](docs/Get-WindowsVersionString.md)
 
 This command is a variation of `Get-WindowsVersion` that returns a formatted string with version information.
 
@@ -582,8 +590,82 @@ PS C:\> Get-WindowsVersionString
 Windows 10 Pro Version 1809 (OS Build 17763.195)
 ```
 
+## [New-PSFormatXML](docs/New-PSFormatXML.md)
+
+When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.
+
+Define a custom object:
+
+```powershell
+$tname = "myThing"
+$obj = [PSCustomObject]@{
+    PSTypeName   = $tname
+    Name         = "Jeff"
+    Date         = (Get-Date)
+    Computername = $env:computername
+    OS           = (get-ciminstance win32_operatingsystem -Property Caption).caption
+}
+Update-TypeData -TypeName $tname -MemberType "ScriptProperty" -MemberName "Runtime" -value {(Get-Date) - [datetime]"1/1/2019"} -force
+```
+
+That looks like this by default:
+
+```powershell
+PS C:\> $obj
+
+Name         : Jeff
+Date         : 2/10/2019 8:49:10 PM
+Computername : BOVINE320
+OS           : Microsoft Windows 10 Pro
+Runtime      : 40.20:49:43.9205882
+```
+
+Now you can create new formatting directives.
+
+```powershell
+PS C:\> $obj | New-PSFormatXML -Properties Name, Date, Computername, OS -FormatType Table -path "C:\work\$tname.format.ps1xml"
+PS C:\> $obj | New-PSFormatXML -Properties Name, OS, Runtime -FormatType Table -view runtime -path "C:\work\$tname.format.ps1xml" -append
+PS C:\> $obj | New-PSFormatXML -FormatType List -path "C:\work\$tname.format.ps1xml" -append
+PS C:\> Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
+```
+
+And here is what the object looks like now:
+
+```powershell
+PS C:\> $obj
+
+Name Date                 Computername Operating System
+---- ----                 ------------ ----------------
+Jeff 2/10/2019 8:49:10 PM BOVINE320    Microsoft Windows 10 Pro
+
+PS C:\> $obj | format-table -View runtime
+
+Name OS Runtime
+---- -- -------
+Jeff    40.20:56:24.5411481
+
+PS C:\> $obj | format-list
+
+
+Name            : Jeff
+Date            : Sunday, February 10, 2019
+Computername    : BOVINE320
+OperatingSystem : Microsoft Windows 10 Pro
+Runtime         : 40.21:12:01
+```
+
+## [Remove-Runspace](docs/Remove-Runspace.md)
+
+During the course of your PowerShell work, you may discover that some commands and scripts can leave behind runspaces. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces.
+
+```powershell
+PS C:\> get-runspace | where ID -gt 1 | Remove-Runspace
+```
+
+Get all runspaces with an ID greater than 1, which is typically your session, and remove the runspace.
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 3 January 2019*
+*last updated 12 February 2019*
