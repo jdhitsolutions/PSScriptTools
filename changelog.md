@@ -1,5 +1,17 @@
 # Change Log for PSScriptTools
 
+## v2.0.0
+
++ Added `New-PSFormatXml` and its alias `nfx`
++ Raised minimum PowerShell version to 5.1
++ Modified manifest to support both `Desktop` and `Core`
++ Added `Remove-Runspace`
++ Modified `ConvertTo-WPFGrid` to autosize the display and support an automatic refresh
++ Modified `ConvertTo-WPFGrid` to use a runspace (Issue #22)
++ Updated `README.md`
++ Updated help documentation
++ Raised version number to reflect a number of potentially breaking changes.
+
 ## v1.8.1
 
 + minor corrections to `Compare-Module` (Issue #21)

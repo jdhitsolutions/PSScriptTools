@@ -1,10 +1,10 @@
-#requires -version 5.0
+
 Function ConvertTo-Markdown {
-    
+
 [cmdletbinding()]
     [outputtype([string[]])]
     [alias('ctm')]
-    
+
     Param(
         [Parameter(Position = 0, ValueFromPipeline)]
         [object]$Inputobject,
