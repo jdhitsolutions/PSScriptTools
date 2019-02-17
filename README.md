@@ -664,8 +664,26 @@ PS C:\> get-runspace | where ID -gt 1 | Remove-Runspace
 
 Get all runspaces with an ID greater than 1, which is typically your session, and remove the runspace.
 
+## [Get-ParameterInfo](docs/Get-ParameterInfo.md)
+
+Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. Get-ParameterInfo returns a custom object with the most useful information an administrator might need to know.
+
+```powershell
+PS C:\> Get-ParameterInfo -Command Get-Counter -Parameter computername
+
+
+Name                            : computername
+Aliases                         : Cn
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+Type                            : System.String[]
+ParameterSet                    : __AllParameterSets
+```
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 12 February 2019*
+*last updated 17 February 2019*

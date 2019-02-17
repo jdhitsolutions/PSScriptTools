@@ -1,24 +1,35 @@
 ﻿Function Optimize-Text {
 
-    [cmdletbinding(DefaultParameterSetName = "Default")]
-    [OutputType([System.String], ParameterSetName = "Default")]
+    [cmdletbinding(DefaultParameterSetName = "default")]
+    [OutputType([System.String], ParameterSetName = "default")]
     [OutputType([psobject], ParameterSetName = "object")]
     [Alias("ot")]
 
     Param(
-        [Parameter(Position = 0, HelpMessage = "Enter some text", ValueFromPipeline = $True)]
+        [Parameter(Position = 0, HelpMessage = "Enter some text", ValueFromPipeline, ParameterSetName = "default")]
+        [Parameter(ParameterSetName = "object")]
         [string[]]$Text,
+
+        [Parameter(ParameterSetName = "object")]
+        [Parameter(ParameterSetName = "default")]
         [regex]$Filter,
+
         [Parameter(ParameterSetName = "object")]
         [string]$PropertyName,
+
         [Alias("comment")]
+        [Parameter(ParameterSetName = "object")]
+        [Parameter(ParameterSetName = "default")]
         [string]$Ignore,
+
+        [Parameter(ParameterSetName = "object")]
+        [Parameter(ParameterSetName = "default")]
         [switch]$ToUpper
     )
 
     Begin {
-        Write-Verbose "Starting $($MyInvocation.Mycommand)"  
- 
+        Write-Verbose "Starting $($MyInvocation.Mycommand)"
+
     } #begin
 
     Process {
@@ -57,7 +68,7 @@
                     } #else not ignoring
                 } #if output
             } #if item matches non-whitespce
-        } #foreach 
+        } #foreach
 
     } #process
 

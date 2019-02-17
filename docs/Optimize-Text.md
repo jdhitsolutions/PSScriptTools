@@ -1,6 +1,6 @@
 ---
 external help file: PSScriptTools-help.xml
-Module Name: psscripttools
+Module Name: PSScriptTools
 online version:
 schema: 2.0.0
 ---
@@ -13,7 +13,7 @@ Clean and optimize text input.
 
 ## SYNTAX
 
-### Default (Default)
+### default (Default)
 
 ```yaml
 Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-Ignore <String>] [-ToUpper] [<CommonParameters>]
@@ -22,7 +22,7 @@ Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-Ignore <String>] [-ToUppe
 ### object
 
 ```yaml
-Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-PropertyName <String>] [-Ignore <String>] [-ToUpper]
+Optimize-Text [[-Text] <String[]>] [-Filter <Regex>][-Ignore <String>] [-ToUpper]  [-PropertyName <String>] 
  [<CommonParameters>]
 ```
 
@@ -49,7 +49,7 @@ srv1
 dc01
 
 app02
-  
+
 
 
 PS C:\> get-content c:\scripts\computers.txt | optimize-text
@@ -74,7 +74,6 @@ srv1
 quark
 dc01
 app02
-
 ```
 
 Using the same text file, the command creates a custom object using the Computername property.
@@ -134,7 +133,19 @@ The text to be optimized. Typically read in from a file.
 
 ```yaml
 Type: String[]
-Parameter Sets: (All)
+Parameter Sets: default
+Aliases:
+
+Required: False
+Position: 1
+Default value: None
+Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+```yaml
+Type: String[]
+Parameter Sets: object
 Aliases:
 
 Required: False
@@ -211,8 +222,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

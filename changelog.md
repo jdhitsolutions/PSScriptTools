@@ -1,5 +1,13 @@
 # Change Log for PSScriptTools
 
+## v2.1.0
+
++ Added parameter to allow user to specify a type name with `New-PSFormatXML` (Issue #26)
++ Added `Get-ParameterInfo` command with an alias of `gpi`
++ Updated help for `Optimize-Text`
++ Help updates
++ Updated `README.md`
+
 ## v2.0.0
 
 + Added `New-PSFormatXml` and its alias `nfx`

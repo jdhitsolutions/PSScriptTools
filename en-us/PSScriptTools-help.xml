@@ -2584,6 +2584,252 @@ up                                 Param(\[string\]$computername=$env:com...</de
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-ParameterInfo</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ParameterInfo</command:noun>
+      <maml:description>
+        <maml:para>Retrieve command parameter information.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. Get-ParameterInfo returns a custom object with the most useful information an administrator might need to know. See examples.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ParameterInfo</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="name">
+          <maml:name>Command</maml:name>
+          <maml:Description>
+            <maml:para>The name of a cmdlet or function. The parameter has an alias of Name.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Parameter</maml:name>
+          <maml:Description>
+            <maml:para>{{Fill Parameter Description}}</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="name">
+        <maml:name>Command</maml:name>
+        <maml:Description>
+          <maml:para>The name of a cmdlet or function. The parameter has an alias of Name.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Parameter</maml:name>
+        <maml:Description>
+          <maml:para>{{Fill Parameter Description}}</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[string]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>custom object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-parameterinfo get-service
+
+
+Name                            : Name
+Aliases                         : ServiceName
+Mandatory                       : False
+Position                        : 0
+ValueFromPipeline               : True
+ValueFromPipelineByPropertyName : True
+Type                            : System.String[]
+ParameterSet                    : Default
+
+Name                            : ComputerName
+Aliases                         : Cn
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : True
+Type                            : System.String[]
+ParameterSet                    : __AllParameterSets
+
+Name                            : DependentServices
+Aliases                         : DS
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+Type                            : System.Management.Automation.SwitchParameter
+ParameterSet                    : __AllParameterSets
+
+Name                            : RequiredServices
+Aliases                         : SDO,ServicesDependedOn
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+Type                            : System.Management.Automation.SwitchParameter
+ParameterSet                    : __AllParameterSets
+
+Name                            : DisplayName
+Aliases                         :
+Mandatory                       : True
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+Type                            : System.String[]
+ParameterSet                    : DisplayName
+
+Name                            : Include
+Aliases                         :
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+Type                            : System.String[]
+ParameterSet                    : __AllParameterSets
+
+Name                            : Exclude
+Aliases                         :
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+Type                            : System.String[]
+ParameterSet                    : __AllParameterSets
+
+Name                            : InputObject
+Aliases                         :
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : True
+ValueFromPipelineByPropertyName : False
+Type                            : System.ServiceProcess.ServiceController[]
+ParameterSet                    : InputObject</dev:code>
+        <dev:remarks>
+          <maml:para>Return parameter information for Get-Service</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-parameterinfo mkdir  | Select Name,Type,Position,parameterset
+
+Name           Type                                         Position ParameterSet
+----           ----                                         -------- ------------
+Path           System.String[]                                     0 pathSet
+Path           System.String[]                                     0 nameSet
+Name           System.String                                   Named nameSet
+Value          System.Object                                   Named __AllParameterSets
+Force          System.Management.Automation.SwitchParameter    Named __AllParameterSets
+Credential     System.Management.Automation.PSCredential       Named __AllParameterSets
+UseTransaction System.Management.Automation.SwitchParameter    Named __AllParameterSets</dev:code>
+        <dev:remarks>
+          <maml:para>Get selected parameter information for the mkdir command.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-parameterinfo get-ciminstance | sort parameterset | format-table -GroupBy ParameterSet -Property Name,Mandatory,Alias,Position,Type
+
+   ParameterSet: __AllParameterSets
+
+Name                Mandatory Alias Position Type
+----                --------- ----- -------- ----
+OperationTimeoutSec     False       Named    System.UInt32
+
+
+   ParameterSet: CimInstanceComputerSet
+
+Name         Mandatory Alias Position Type
+----         --------- ----- -------- ----
+ResourceUri      False       Named    System.Uri
+InputObject       True       0        Microsoft.Management.Infrastructure.CimInstance
+ComputerName     False       Named    System.String[]
+
+
+   ParameterSet: CimInstanceSessionSet
+
+Name        Mandatory Alias Position Type
+----        --------- ----- -------- ----
+CimSession       True       Named    Microsoft.Management.Infrastructure.CimSession[]
+InputObject      True       0        Microsoft.Management.Infrastructure.CimInstance
+ResourceUri     False       Named    System.Uri...</dev:code>
+        <dev:remarks>
+          <maml:para>Get all parameters from Get-CimInstance and display details as a formatted table.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ParameterInfo -Command Get-Counter -Parameter computername
+
+
+Name                            : computername
+Aliases                         : Cn
+Mandatory                       : False
+Position                        : Named
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+Type                            : System.String[]
+ParameterSet                    : __AllParameterSets</dev:code>
+        <dev:remarks>
+          <maml:para>Get details on the Computername parameter of the Get-Counter cmdlet.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-Command</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-PowerShellEngine</command:name>
       <command:verb>Get</command:verb>
       <command:noun>PowerShellEngine</command:noun>
@@ -4352,6 +4598,18 @@ PS DeepDive:\&gt;</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Typename</maml:name>
+          <maml:Description>
+            <maml:para>Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -4462,6 +4720,18 @@ PS DeepDive:\&gt;</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Typename</maml:name>
+        <maml:Description>
+          <maml:para>Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -5130,6 +5400,56 @@ False</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="comment">
+          <maml:name>Ignore</maml:name>
+          <maml:Description>
+            <maml:para>Specify a character that will be interpreted as a comment character. It must be the first word character in a line. These lines will be ignored. This parameter has an alias of 'comment'.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ToUpper</maml:name>
+          <maml:Description>
+            <maml:para>Write text output as upper case.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Optimize-Text</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:Description>
+            <maml:para>The text to be optimized. Typically read in from a file.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Filter</maml:name>
+          <maml:Description>
+            <maml:para>Use a regular expression pattern to filter. The filtering is applied after leading and trailing spaces have been trimmed and before text can be converted to upper case.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Regex</command:parameterValue>
+          <dev:type>
+            <maml:name>Regex</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PropertyName</maml:name>
           <maml:Description>
@@ -5274,7 +5594,7 @@ srv1
 dc01
 
 app02
-  
+
 
 
 PS C:\&gt; get-content c:\scripts\computers.txt | optimize-text

@@ -14,8 +14,9 @@ Create or modify a format.ps1xml file
 ## SYNTAX
 
 ```yaml
-New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>] [[-FormatType] <String>]
- [[-ViewName] <String>] [-Path] <String> [-Append] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>] [-Typename <String>]
+ [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-Append] [-Passthru] [-WhatIf] [-Confirm]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -236,10 +237,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Typename
+
+Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
