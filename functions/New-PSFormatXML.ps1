@@ -9,6 +9,8 @@ Function New-PSFormatXML {
         [object]$InputObject,
         [Parameter(HelpMessage = "Enter a set of properties to include. The default is all.")]
         [string[]]$Properties,
+        [Parameter(HelpMessage = "Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.")]
+        [string]$Typename,
         [Parameter(HelpMessage = "Specify whether to create a table or list view")]
         [ValidateSet("Table", "List")]
         [string]$FormatType = "Table",
@@ -81,7 +83,12 @@ by $env:USERDOMAIN\$env:username
     Process {
         If ($counter -eq 0) {
 
-            $tname = $Inputobject.psobject.typenames[0]
+            if ($Typename) {
+                $tname = $TypeName
+            }
+            else {
+                $tname = $Inputobject.psobject.typenames[0]
+            }
             $tnameElement = $doc.CreateElement("TypeName")
             $tnameElement.InnerText = $tname
             $select.AppendChild($tnameElement) | Out-Null
