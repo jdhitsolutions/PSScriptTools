@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+format type data generated 02/20/2019 15:46:14
+by BOVINE320\Jeff
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 02/20/2019 15:46:14 by BOVINE320\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>psLocation</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <Scriptblock>$_.foo /1mb -as [int]</Scriptblock>
+-->
+              <ListItem>
+                <Label>Temp</Label>
+                <PropertyName>Temp</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Home</Label>
+                <PropertyName>Home</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Desktop</Label>
+                <PropertyName>Desktop</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>PowerShell</Label>
+                <PropertyName>PowerShell</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

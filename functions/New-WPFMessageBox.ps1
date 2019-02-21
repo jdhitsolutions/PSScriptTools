@@ -24,6 +24,12 @@ Function New-WPFMessageBox {
         [switch]$Quiet
     )
 
+    if ($PSEdition -eq 'Core') {
+        Write-Warning "Sorry. This command will not run on PowerShell Core."
+        #bail out
+        Return
+    }
+
     # It may not be necessary to add these types but it doesn't hurt to include them
     # but if they can't be laoded then this function will never work anwyway
     Try {

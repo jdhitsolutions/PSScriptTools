@@ -22,7 +22,7 @@ ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <I
 
 This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.
 
-You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid.
+You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt.
 
 This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.
 
@@ -46,7 +46,7 @@ PS C:\> Get-VM -computername $VMHost | Select Name,State,Uptime,
 ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20
 ```
 
-Get Hyper-V virtual machine information and display for 20 seconds before automatically closing.
+Get Hyper-V virtual machine information and display for 20 seconds before automatically closing. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.
 
 ## PARAMETERS
 
@@ -84,8 +84,7 @@ Accept wildcard characters: False
 
 ### -Timeout
 
-By default the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds.
-The minimum accepted value is 5 seconds. If you use this parameter with -Refresh, then the datagrid will be refreshed with results of the PowerShell expression you piped to ConvertTo-WPFGrid.
+By default the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds. The minimum accepted value is 5 seconds. If you use this parameter with -Refresh, then the datagrid will be refreshed with results of the PowerShell expression you piped to ConvertTo-WPFGrid.
 
 ```yaml
 Type: Int32

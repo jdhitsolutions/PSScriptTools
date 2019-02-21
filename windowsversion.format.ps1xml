@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+format type data generated 02/20/2019 16:16:06
+by BOVINE320\Jeff
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 02/20/2019 16:16:06 by BOVINE320\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>WindowsVersion</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>ProductName</Label>
+            <Width>17</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>EditionID</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Build</Label>
+            <Width>12</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>InstalledUTC</Label>
+            <Width>24</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Computername</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <Scriptblock>$_.foo /1mb -as [int]</Scriptblock>
+-->
+              <TableColumnItem>
+                <PropertyName>ProductName</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>EditionID</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Build</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>InstalledUTC</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Computername</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

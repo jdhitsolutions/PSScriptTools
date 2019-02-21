@@ -67,11 +67,8 @@ You can then import this xml file in another session to restore these variables.
 
 ```powershell
 PS C:\> function foo { . c:\scripts\get-myvariable2.ps1;$a=4;$b=2;$c=$a*$b;get-MyVariable -notypeinformation -scope 1 -verbose;$c}
-```
 
-This sample function dot sources the script with this function. Within the function, Get-MyVariable is called specifying scope 1, or the parent scope. Scope 0 would be the scope of the Get-MyVariable function. Here's the result.
-
-PS S:\> foo
+PS C:\> foo
 VERBOSE: Getting system defined variables
 VERBOSE: Found 49
 VERBOSE: Getting current variables in 1 scope
@@ -85,6 +82,8 @@ b                              2
 c                              8
 VERBOSE: Finished getting my variables
 8
+```
+This sample function dot sources the script with this function. Within the function, Get-MyVariable is called specifying scope 1, or the parent scope. Scope 0 would be the scope of the Get-MyVariable function. Here's the result.
 
 ### EXAMPLE 5
 

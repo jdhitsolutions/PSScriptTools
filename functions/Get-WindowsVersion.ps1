@@ -37,6 +37,11 @@ Function Get-WindowsVersion {
     } #begin
 
     Process {
+        if ((-NOT $IsWindows) -AND ($PSVersionTable.psedition -ne 'Desktop')) {
+            Write-Warning "This requires a Windows platform"
+            #bail out
+            return
+        }
         Write-Verbose "[PROCESS] Invoking command"
         if (-Not $PSBoundParameters.ContainsKey("Computername")) {
             #add the default value if nothing was specified
@@ -44,14 +49,18 @@ Function Get-WindowsVersion {
         }
         $PSBoundParameters | Out-String | Write-Verbose
         $results = Invoke-Command @PSBoundParameters | Select-Object -Property * -ExcludeProperty RunspaceID, PS*
-        if ($AsString) {
-            #write a version string for each computer
-`           foreach ($result in $results) {
-                "{0} Version {1} (OS Build {2})" -f $result.ProductName, $result.releaseID, $result.build
+        if ($Results) {
+            foreach ($item in $results) {
+
+                [pscustomobject]@{
+                    PSTypeName   = "WindowsVersion"
+                    ProductName  = $item.ProductName
+                    EditionID    = $item.EditionID
+                    Build        = $item.Build
+                    InstalledUTC = $item.InstalledUTC
+                    Computername = $item.Computername
+                }
             }
-        }
-        else {
-            $results
         }
 
     } #process
@@ -93,14 +102,12 @@ Function Get-WindowsVersionString {
 
         #write a version string for each computer
     `   foreach ($result in $results) {
-            "{0} Version {1} (OS Build {2})" -f $result.ProductName, $result.releaseID, $result.build
+            "{3} {0} Version {1} (OS Build {2})" -f $result.ProductName, $result.EditionID, $result.build,$result.computername
         }
 
     } #process
 
     End {
-
         Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
-
     } #end
 }

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -27,8 +27,7 @@ Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <
 
 ## DESCRIPTION
 
-This command will create a character or text based border around a line of text.
-You might use this to create a formatted text report or to improve the display of information to the screen.
+This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
 
 ## EXAMPLES
 
@@ -140,7 +139,7 @@ Insert blank lines before and after the text. The default behavior is to create 
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: False
 Position: Named

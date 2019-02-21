@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -151,4 +151,3 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-Command]()
-

@@ -12,18 +12,11 @@ PowerShell (location of $profile)
 Function Get-PSLocation {
     [cmdletbinding()]
     Param()
-   
-    if ($isLinux) {
-        $ThisHome = $Env:HOME
-    }
-    else {
-        #must be running Windows
-        $ThisHome = Join-Path -Path $env:UserProfile -ChildPath Documents
-    }
 
     [PSCustomObject]@{
+        PSTypename = "psLocation"
+        Home       = [Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
         Temp       = [system.io.path]::GetTempPath()
-        Home       = $ThisHome
         Desktop    = [system.environment]::GetFolderPath("Desktop")
         PowerShell = Split-Path $profile
     }
