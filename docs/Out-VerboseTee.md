@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -23,12 +23,20 @@ This command is intended to let you see your verbose output and write the verbos
 
 This command has an alias of Tee-Verbose.
 
+You might use it like this in a script.
+
 Begin {
+
     $log = New-RandomFilename -useTemp -extension log
+
     Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log
+
     Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append
+
     Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append
+
     $data = @()
+
 } #begin
 
 When the command is run with -Verbose you will see the verbose output and it will be saved to the specified log file.

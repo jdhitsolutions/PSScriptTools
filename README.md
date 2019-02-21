@@ -16,7 +16,14 @@ or in PowerShell Core:
 Install-Module PSScriptTools -scope currentuser
 ```
 
-Please post any questions, problems or feedback in Issues. Any input is greatly appreciated.
+Starting in v2.2.0, the module was restructured to better support Desktop and Core editions. It is recommended that you uninstall any version older than 2.2.0 and then install the latest version from the PowerShell Gallery.
+
+```powershell
+Uninstall-Module PSScriptTools -allversions
+```
+Any command that uses WPF will not run on PowerShell Core and is not exported.
+
+Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any input is greatly appreciated.
 
 ## [Add-Border](docs/Add-Border.md)
 
@@ -565,20 +572,20 @@ Use this command to compare module versions between what is installed against an
 PS C:\> Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select modules to update" -outputMode multiple | Foreach { Update-Module $_.name }
 ```
 
-Compare modules and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what modules to update.
+Compare modules and send results to `Out-Gridview`. Use `Out-Gridview` as an object picker to decide what modules to update.
 
 ## [Get-WindowsVersion](docs/Get-WindowsVersion.md)
 
 This is a PowerShell version of the `winver.exe` utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.
 
 ```powershell
-PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd | format-table
+PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
 
-ProductName                             EditionID          ReleaseId Build      InstalledUTC          Computername
------------                             ---------          --------- -----      ------------          ------------
-Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:07:25 PM SRV1
-Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:08:07 PM SRV2
-Windows 10 Enterprise Evaluation        EnterpriseEval     1703      15063.1387 12/26/2018 4:08:11 PM WIN10
+ProductName                   EditionID          ReleaseId Build      InstalledUTC          Computername
+-----------                   ---------          --------- -----      ------------          ------------
+Windows Server 2016 Standard  ServerStandardEval 1607      14393.2273 12/26/2018 4:07:25 PM SRV1
+Windows Server 2016 Standard  ServerStandardEval 1607      14393.2273 12/26/2018 4:08:07 PM SRV2
+Windows 10 Enterprise Evaluat EnterpriseEval     1703      15063.1387 12/26/2018 4:08:11 PM WIN10
 ```
 
 ### [Get-WindowsVersionString](docs/Get-WindowsVersionString.md)
@@ -587,7 +594,8 @@ This command is a variation of `Get-WindowsVersion` that returns a formatted str
 
 ```powershell
 PS C:\> Get-WindowsVersionString
-Windows 10 Pro Version 1809 (OS Build 17763.195)
+BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)
+
 ```
 
 ## [New-PSFormatXML](docs/New-PSFormatXML.md)
@@ -679,6 +687,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 ```
 
@@ -686,4 +695,4 @@ ParameterSet                    : __AllParameterSets
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 17 February 2019*
+*last updated 21 February 2019*

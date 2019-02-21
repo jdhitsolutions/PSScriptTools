@@ -1,5 +1,19 @@
 # Change Log for PSScriptTools
 
+## v2.2.0
+
++ Code revisions in `ConvertTo-WPFGrid` (Issue #27)
++ Updated `Get-ParameterInfo` to reflect dynamic parameters (Issue #28)
++ Updated `Get-PSLocation` to better reflect locations and use a custom format file.
++ Updated `Get-WindowsVersion` with custom type for format file. Also better handling of non-Windows platforms.
++ Updated `Get-WindowsVersionString` to include the computername.
++ Updated `New-WPFMessageBox` to gracefully exit if running on PowerShell Core.
++ Updated `Test-ExpressionForm` to gracefully exit if running on PowerShell Core.
++ Updated `New-RandomFilename` to better reflect locations using `[environment]`
++ Modified manifest to be more aware of PSEdition and only load compatible commands.
++ Help updates
++ Updated `README.md`
+
 ## v2.1.0
 
 + Added parameter to allow user to specify a type name with `New-PSFormatXML` (Issue #26)

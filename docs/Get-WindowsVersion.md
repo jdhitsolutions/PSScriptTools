@@ -20,7 +20,7 @@ Get-WindowsVersion [[-Computername] <String[]>] [-Credential <PSCredential>] [-U
 
 ## DESCRIPTION
 
-This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.The parameters are the same as in Invoke-Command.
+This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command.
 
 ## EXAMPLES
 
@@ -29,12 +29,10 @@ This is a PowerShell version of the winver.exe utility. This command uses PowerS
 ```powershell
 PS C:\>Get-WindowsVersion
 
-ProductName  : Windows 10 Pro
-EditionID    : Professional
-ReleaseId    : 1809
-Build        : 17763.195
-InstalledUTC : 12/17/2018 2:18:37 PM
-Computername : BOVINE320
+ProductName    EditionID    Build     InstalledUTC          Computername
+-----------    ---------    -----     ------------          ------------
+Windows 10 Pro Professional 17763.253 12/17/2018 2:18:37 PM BOVINE320
+
 ```
 
 Query the local host.
@@ -42,13 +40,13 @@ Query the local host.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd | format-table
+PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
 
-ProductName                             EditionID          ReleaseId Build      InstalledUTC          Computername
------------                             ---------          --------- -----      ------------          ------------
-Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:07:25 PM SRV1
-Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:08:07 PM SRV2
-Windows 10 Enterprise Evaluation        EnterpriseEval     1703      15063.1387 12/26/2018 4:08:11 PM WIN10
+ProductName                   EditionID          Build      InstalledUTC          Computername
+-----------                   ---------          -----      ------------          ------------
+Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:08:07 PM SRV2
+Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:07:25 PM SRV1
+Windows 10 Enterprise Evaluat EnterpriseEval     15063.1418 12/26/2018 4:08:11 PM WIN10
 ```
 
 Get windows version information from remote computers using an alternate credential.
@@ -180,7 +178,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### Custom object
+### WindowsVersion
 
 ## NOTES
 

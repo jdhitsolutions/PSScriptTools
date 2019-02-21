@@ -24,7 +24,6 @@ Function ConvertTo-WPFGrid {
             Throw "You must specify a timeout value when using -Refresh"
         }
 
-        Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Creating new runspace"
         $newRunspace = [RunspaceFactory]::CreateRunspace()
         $newRunspace.ApartmentState = "STA"
@@ -160,13 +159,25 @@ Function ConvertTo-WPFGrid {
         Write-Verbose "Updating PSBoundparameters"
         $PSBoundParameters.Data = $data
         $PSBoundParameters.remove("Inputobject") | Out-Null
+
         #parse the invocation to get the pipelined expression up to this command
-        $cmd = [scriptblock]::Create($myinvocation.line.substring(0, $myinvocation.line.LastIndexOf("|")))
-        $psboundparameters.cmd =$cmd
+        #Write-verbose $($myinvocation | Out-string)
+        Write-Verbose "Parsing $($myinvocation.line) into a scriptblock"
+        Try {
+            $cmd = [scriptblock]::Create($myinvocation.line.substring(0, $myinvocation.line.LastIndexOf("|")))
+        }
+        Catch {
+            write-warning "Error created the cmd scriptblock: $($_.exception.message)"
+            if ($Refresh) {
+                Write-Warning "Failed create an invocation scriptblock. In order to refresh run your pipelined expression as a single expression with no breaks."
+            }
+        }
+
+        $psboundparameters.cmd = $cmd
         Write-Verbose "Refresh command: $cmd"
         Write-Verbose "Sending PSBoundparameters to runspace"
+        
         $psCmd.AddParameters($PSBoundParameters) | Out-Null
-
         $psCmd.Runspace = $newRunspace
         Write-Verbose "Begin Invoke()"
         $psCmd.BeginInvoke() | Out-Null

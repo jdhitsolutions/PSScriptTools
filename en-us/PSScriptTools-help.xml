@@ -1141,7 +1141,7 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.</maml:para>
-      <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid.</maml:para>
+      <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt.</maml:para>
       <maml:para>This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1287,7 +1287,7 @@ PS C:\&gt; Get-VM -computername $VMHost | Select Name,State,Uptime,
 @{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as \[int\]}} |
 ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20</dev:code>
         <dev:remarks>
-          <maml:para>Get Hyper-V virtual machine information and display for 20 seconds before automatically closing.</maml:para>
+          <maml:para>Get Hyper-V virtual machine information and display for 20 seconds before automatically closing. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1508,7 +1508,7 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. `Find-CimClass` will recursively search for a given classname. You can use wildcards and search remote computers.</maml:para>
+      <maml:para>This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. Find-CimClass will recursively search for a given classname. You can use wildcards and search remote computers.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2544,11 +2544,24 @@ PS C:\&gt; import-clixml .\myvar.xml | foreach {set-variable -Name $_.name -Valu
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; function foo { . c:\scripts\get-myvariable2.ps1;$a=4;$b=2;$c=$a*$b;get-MyVariable -notypeinformation -scope 1 -verbose;$c}</dev:code>
+        <dev:code>PS C:\&gt; function foo { . c:\scripts\get-myvariable2.ps1;$a=4;$b=2;$c=$a*$b;get-MyVariable -notypeinformation -scope 1 -verbose;$c}
+
+PS C:\&gt; foo
+VERBOSE: Getting system defined variables
+VERBOSE: Found 49
+VERBOSE: Getting current variables in 1 scope
+VERBOSE: Found 27
+VERBOSE: Filtering variables
+
+Name                           Value
+----                           -----
+a                              4
+b                              2
+c                              8
+VERBOSE: Finished getting my variables
+8</dev:code>
         <dev:remarks>
           <maml:para>This sample function dot sources the script with this function. Within the function, Get-MyVariable is called specifying scope 1, or the parent scope. Scope 0 would be the scope of the Get-MyVariable function. Here's the result.</maml:para>
-          <maml:para>PS S:&gt; foo VERBOSE: Getting system defined variables VERBOSE: Found 49 VERBOSE: Getting current variables in 1 scope VERBOSE: Found 27 VERBOSE: Filtering variables</maml:para>
-          <maml:para>Name                           Value ----                           ----- a                              4 b                              2 c                              8 VERBOSE: Finished getting my variables 8</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -2687,6 +2700,7 @@ Position                        : 0
 ValueFromPipeline               : True
 ValueFromPipelineByPropertyName : True
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : Default
 
 Name                            : ComputerName
@@ -2696,6 +2710,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : True
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : DependentServices
@@ -2705,6 +2720,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.Management.Automation.SwitchParameter
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : RequiredServices
@@ -2714,6 +2730,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.Management.Automation.SwitchParameter
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : DisplayName
@@ -2723,6 +2740,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : DisplayName
 
 Name                            : Include
@@ -2732,6 +2750,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : Exclude
@@ -2741,6 +2760,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : InputObject
@@ -2750,6 +2770,7 @@ Position                        : Named
 ValueFromPipeline               : True
 ValueFromPipelineByPropertyName : False
 Type                            : System.ServiceProcess.ServiceController[]
+IsDynamic                       : False
 ParameterSet                    : InputObject</dev:code>
         <dev:remarks>
           <maml:para>Return parameter information for Get-Service</maml:para>
@@ -2815,6 +2836,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets</dev:code>
         <dev:remarks>
           <maml:para>Get details on the Computername parameter of the Get-Counter cmdlet.</maml:para>
@@ -2999,7 +3021,7 @@ Platform       : Win32NT</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-pslocation | format-list
+        <dev:code>PS C:\&gt; get-pslocation
 
 Temp       : C:\Users\Jeff\AppData\Local\Temp\
 Home       : C:\Users\Jeff\Documents
@@ -3011,12 +3033,12 @@ PowerShell : C:\Users\Jeff\Documents\WindowsPowerShell</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-pslocation | format-list
+        <dev:code>PS C:\&gt; get-pslocation 
 
 Temp       : /tmp/
-Home       : /home/jhicks
+Home       : /home/jeff
 Desktop    :
-PowerShell : /home/jhicks/.config/powershell</dev:code>
+PowerShell : /home/jeff/.config/powershell</dev:code>
         <dev:remarks>
           <maml:para>Results on a Linux system running PowerShell Core.</maml:para>
         </dev:remarks>
@@ -3039,7 +3061,7 @@ PowerShell : /home/jhicks/.config/powershell</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will provide a summary of relevant information for the current  user in a PowerShell session. You might use this to troubleshoot an end-user problem running a script or command.</maml:para>
+      <maml:para>This command will provide a summary of relevant information for the current user in a PowerShell session. You might use this to troubleshoot an end-user problem running a script or command.</maml:para>
       <maml:para>The default behavior is to write an object to the pipeline, but you can use the -AsString parameter to force the command to write a string. This makes it easier to use in your scripts with Write-Verbose.</maml:para>
     </maml:description>
     <command:syntax>
@@ -3048,7 +3070,7 @@ PowerShell : /home/jhicks/.config/powershell</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>AsString</maml:name>
           <maml:Description>
-            <maml:para>Write the summary object as a string.</maml:para>
+            <maml:para>Write the summary object as a string. This can be useful when you want to save the information in a log file.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -3062,7 +3084,7 @@ PowerShell : /home/jhicks/.config/powershell</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>AsString</maml:name>
         <maml:Description>
-          <maml:para>Write the summary object as a string.</maml:para>
+          <maml:para>Write the summary object as a string. This can be useful when you want to save the information in a log file.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -3085,7 +3107,7 @@ PowerShell : /home/jhicks/.config/powershell</dev:code>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>[PSCustomObject]</maml:name>
+          <maml:name>PSWho</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3113,9 +3135,9 @@ PowerShell : /home/jhicks/.config/powershell</dev:code>
 User            : BOVINE320\Jeff
 Elevated        : True
 Computername    : BOVINE320
-OperatingSystem : Microsoft Windows 10 Pro \[64-bit\]
-OSVersion       : 10.0.16299
-PSVersion       : 5.1.16299.64
+OperatingSystem : Microsoft Windows 10 Pro [64-bit]
+OSVersion       : 10.0.17763
+PSVersion       : 5.1.17763.134
 Edition         : Desktop
 PSHost          : ConsoleHost
 WSMan           : 3.0
@@ -3132,14 +3154,14 @@ Culture         : en-US</dev:code>
 User            : jhicks
 Elevated        : NA
 Computername    : Bovine320
-OperatingSystem : Linux 4.4.0-43-Microsoft #1-Microsoft Wed Dec 31 14:42:53 PST 2014
-OSVersion       : Ubuntu 16.04.3 LTS
-PSVersion       : 6.1.0
+OperatingSystem : Linux 4.4.0-17763-Microsoft #253-Microsoft Mon Dec 31 17:49:00 PST 2018
+OSVersion       : Ubuntu 18.04.2 LTS
+PSVersion       : 6.1.2
 Edition         : Core
 PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : Unrestricted
-Culture         : en-US</dev:code>
+Culture         : en-US-POSIX</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -3200,7 +3222,7 @@ Culture         : en-US</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.The parameters are the same as in Invoke-Command.</maml:para>
+      <maml:para>This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3381,7 +3403,7 @@ Culture         : en-US</dev:code>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>Custom object</maml:name>
+          <maml:name>WindowsVersion</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -3398,25 +3420,22 @@ Culture         : en-US</dev:code>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt;Get-WindowsVersion
 
-ProductName  : Windows 10 Pro
-EditionID    : Professional
-ReleaseId    : 1809
-Build        : 17763.195
-InstalledUTC : 12/17/2018 2:18:37 PM
-Computername : BOVINE320</dev:code>
+ProductName    EditionID    Build     InstalledUTC          Computername
+-----------    ---------    -----     ------------          ------------
+Windows 10 Pro Professional 17763.253 12/17/2018 2:18:37 PM BOVINE320</dev:code>
         <dev:remarks>
           <maml:para>Query the local host.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd | format-table
+        <dev:code>PS C:\&gt; get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
 
-ProductName                             EditionID          ReleaseId Build      InstalledUTC          Computername
------------                             ---------          --------- -----      ------------          ------------
-Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:07:25 PM SRV1
-Windows Server 2016 Standard Evaluation ServerStandardEval 1607      14393.2273 12/26/2018 4:08:07 PM SRV2
-Windows 10 Enterprise Evaluation        EnterpriseEval     1703      15063.1387 12/26/2018 4:08:11 PM WIN10</dev:code>
+ProductName                   EditionID          Build      InstalledUTC          Computername
+-----------                   ---------          -----      ------------          ------------
+Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:08:07 PM SRV2
+Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:07:25 PM SRV1
+Windows 10 Enterprise Evaluat EnterpriseEval     15063.1418 12/26/2018 4:08:11 PM WIN10</dev:code>
         <dev:remarks>
           <maml:para>Get windows version information from remote computers using an alternate credential.</maml:para>
         </dev:remarks>
@@ -3443,7 +3462,7 @@ Windows 10 Enterprise Evaluation        EnterpriseEval     1703      15063.1387 
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This is a PowerShell version of the winver.exe utility.This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.The parameters are the same as in Invoke-Command. The command writes a string of version information.</maml:para>
+      <maml:para>This is a PowerShell version of the winver.exe utility.T his command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command. The command writes a string of version information.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3640,7 +3659,7 @@ Windows 10 Enterprise Evaluation        EnterpriseEval     1703      15063.1387 
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-WindowsVersionString -Computername win10 -credential company\artd
-Windows 10 Enterprise Evaluation Version 1703 (OS Build 15063.1387)</dev:code>
+WIN10 Windows 10 Enterprise Evaluation Version EnterpriseEval (OS Build 15063.1418</dev:code>
         <dev:remarks>
           <maml:para>Get a string version of Windows version information from a remote computer and use an alternate credential.</maml:para>
         </dev:remarks>
@@ -3648,23 +3667,9 @@ Windows 10 Enterprise Evaluation Version 1703 (OS Build 15063.1387)</dev:code>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-WindowsVersionString
-Windows 10 Pro Version 1809 (OS Build 17763.195)</dev:code>
+BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)</dev:code>
         <dev:remarks>
           <maml:para>Get version information for the local host.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; import-csv .\company.csv | Select Computername,@{Name="Version";Expression={ get-windowsversionstring $_.computername}}
-
-Computername Version
------------- -------
-Dom1         Windows Server 2016 Standard Evaluation Version 1607 (OS Build 14393.2273)
-Srv1         Windows Server 2016 Standard Evaluation Version 1607 (OS Build 14393.2273)
-Srv2         Windows Server 2016 Standard Evaluation Version 1607 (OS Build 14393.2273)
-Win10        Windows 10 Enterprise Evaluation Version 1703 (OS Build 15063.1387)</dev:code>
-        <dev:remarks>
-          <maml:para>Import data from a CSV file and display version information.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -6057,7 +6062,14 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <maml:description>
       <maml:para>This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.</maml:para>
       <maml:para>This command has an alias of Tee-Verbose.</maml:para>
-      <maml:para>Begin {     $log = New-RandomFilename -useTemp -extension log     Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log     Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append     Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append     $data = @() } #begin</maml:para>
+      <maml:para>You might use it like this in a script.</maml:para>
+      <maml:para>Begin {</maml:para>
+      <maml:para>    $log = New-RandomFilename -useTemp -extension log</maml:para>
+      <maml:para>    Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log</maml:para>
+      <maml:para>    Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append</maml:para>
+      <maml:para>    Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append</maml:para>
+      <maml:para>    $data = @()</maml:para>
+      <maml:para>} #begin</maml:para>
       <maml:para>When the command is run with -Verbose you will see the verbose output and it will be saved to the specified log file.</maml:para>
     </maml:description>
     <command:syntax>
@@ -7167,7 +7179,8 @@ WSMan:\
     </command:details>
     <maml:description>
       <maml:para>This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.</maml:para>
-      <maml:para>The median is calculated by sorting the values in ascending order and selecting the value in the center of the array. If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.</maml:para>
+      <maml:para>The median is calculated by sorting the values in ascending order and selecting the value in the center of the array.</maml:para>
+      <maml:para>If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

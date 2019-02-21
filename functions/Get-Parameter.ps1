@@ -72,7 +72,7 @@ Function Get-ParameterInfo {
                     $aliases = $data.item($name).Aliases -join ","
 
                     $sets = $data.item($name).ParameterSets.Keys
-
+                    $IsDynamic = $data.item($name).IsDynamic
                     foreach ($set in $sets) {
 
                         #retrieve parameter attribute class
@@ -95,6 +95,7 @@ Function Get-ParameterInfo {
                             ValueFromPipeline               = $attributes.ValueFromPipeline
                             ValueFromPipelineByPropertyName = $attributes.ValueFromPipelineByPropertyName
                             Type                            = $type
+                            IsDynamic                       = $IsDynamic
                             ParameterSet                    = $attributes.ParameterSetName
                         }
 

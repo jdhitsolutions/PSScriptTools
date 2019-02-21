@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -26,7 +26,7 @@ This command will write an object to the pipeline that displays the values of co
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-pslocation | format-list
+PS C:\> get-pslocation
 
 Temp       : C:\Users\Jeff\AppData\Local\Temp\
 Home       : C:\Users\Jeff\Documents
@@ -39,12 +39,12 @@ Results on a Windows system.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-pslocation | format-list
+PS C:\> get-pslocation 
 
 Temp       : /tmp/
-Home       : /home/jhicks
+Home       : /home/jeff
 Desktop    :
-PowerShell : /home/jhicks/.config/powershell
+PowerShell : /home/jeff/.config/powershell
 ```
 
 Results on a Linux system running PowerShell Core.

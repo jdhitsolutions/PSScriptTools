@@ -21,13 +21,9 @@ Function New-RandomFileName {
         $filename = [system.io.path]::GetTempFileName()
     }
     elseif ($UseHomeFolder) {
-        if ($PSVersionTable.PSEdition -eq 'Core' -AND $PSVersionTable.OS -notmatch "Windows") {
-            $filename = Join-Path -Path $env:HOME -ChildPath ([system.io.path]::GetRandomFileName())
+         $homedocs =[Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
+         $filename = Join-Path -Path $homedocs -ChildPath ([system.io.path]::GetRandomFileName())
         }
-        else {
-            $filename = Join-Path -Path $env:USERPROFILE\Documents -ChildPath ([system.io.path]::GetRandomFileName())
-        }
-    }
     else {
         $filename = [system.io.path]::GetRandomFileName()
     }
@@ -48,7 +44,23 @@ Function New-CustomFileName {
     [cmdletbinding()]
     [outputtype([string])]
     Param (
-        [Parameter(Position = 0, Mandatory)]
+        [Parameter(Position = 0, Mandatory, HelpMessage = @"
+You can create a template string using any of these variables.
+
+- %username
+- %computername
+- %year  - 4 digit year
+- %yr  - 2 digit year
+- %monthname - The abbreviated month name
+- %month  - The month number
+- %dayofweek - The full name of the week day
+- %day
+- %hour
+- %minute
+- %time  - A compact string of HourMinuteSecond
+- %string - A random string
+- %guid
+"@)]
         [ValidateNotNullOrEmpty()]
         [string]$Template,
         [ValidateSet("Lower", "Upper", "Default")]
@@ -57,7 +69,7 @@ Function New-CustomFileName {
 
     #convert placeholders to lower case but leave everything else as is
     [regex]$rx = "%\w+(?=%|-|\.|\s|\(|\)|\[|\])"
-   
+
     Write-Detail "Starting $($myinvocation.MyCommand)" | Write-Verbose
     Write-Detail "Processing template: $template" | Write-Verbose
     $rx.matches($Template) | foreach-object {
@@ -95,7 +107,7 @@ Function New-CustomFileName {
         '%guid'         = [System.Guid]::NewGuid().guid
     }
 
-    $hash.GetEnumerator() | foreach-object { 
+    $hash.GetEnumerator() | foreach-object {
         Write-Detail "Testing $filename for $($_.key)" | Write-Verbose
         if ($filename -match "($($_.key))") {
             Write-Detail "replacing $($_.key) with $($_.value)" | Write-Verbose
@@ -122,7 +134,7 @@ Function New-CustomFileName {
         }
         default {
             $filename
-        }   
+        }
     } #close switch
 
     Write-Detail "Ending $($myinvocation.MyCommand)" | Write-Verbose

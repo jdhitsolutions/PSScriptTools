@@ -19,8 +19,7 @@ Join-Hashtable [[-First] <Hashtable>] [[-Second] <Hashtable>] [-Force] [<CommonP
 
 ## DESCRIPTION
 
-This command will combine two hashtables into a single hashtable. Normally this is as easy as $hash1+$hash2. But if there are duplicate keys, this will fail. Join-Hashtable will test for duplicate keys. If any of the keys from the first,
-or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
+This command will combine two hashtables into a single hashtable. Normally this is as easy as $hash1+$hash2. But if there are duplicate keys, this will fail. Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
 
 The original hashtables will not be modified.
 

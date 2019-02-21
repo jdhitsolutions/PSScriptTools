@@ -31,6 +31,7 @@ Test-Expression [-Expression] <ScriptBlock> [-ArgumentList <Object[]>] [-Count <
 This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.
 
 The median is calculated by sorting the values in ascending order and selecting the value in the center of the array.
+
 If the array has an even number of elements then the median is the average of the two values in the center.
 The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.
 
@@ -209,7 +210,6 @@ Accept wildcard characters: False
 ### -Expression
 
 The scriptblock you want to test.
-
 
 ```yaml
 Type: ScriptBlock

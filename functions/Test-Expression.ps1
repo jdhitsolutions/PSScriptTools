@@ -147,6 +147,7 @@ Function Test-Expression {
 
     )
 
+
     Write-Verbose "Starting: $($MyInvocation.Mycommand)"
     Write-Verbose ($PSBoundParameters | Out-string)
     Write-Verbose "Measuring expression:"
@@ -196,6 +197,12 @@ Function Test-ExpressionForm {
     [alias("texf")]
     Param()
 
+    if ($psEdition -eq 'Core') {
+        Write-Warning "This command will not run on PowerShell Core."
+        #bail out
+        Return
+    }
+    
     Add-Type -AssemblyName PresentationFramework
 
     [xml]$xaml = Get-Content $psscriptroot\form.xaml

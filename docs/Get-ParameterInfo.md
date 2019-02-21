@@ -36,6 +36,7 @@ Position                        : 0
 ValueFromPipeline               : True
 ValueFromPipelineByPropertyName : True
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : Default
 
 Name                            : ComputerName
@@ -45,6 +46,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : True
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : DependentServices
@@ -54,6 +56,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.Management.Automation.SwitchParameter
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : RequiredServices
@@ -63,6 +66,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.Management.Automation.SwitchParameter
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : DisplayName
@@ -72,6 +76,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : DisplayName
 
 Name                            : Include
@@ -81,6 +86,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : Exclude
@@ -90,6 +96,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 
 Name                            : InputObject
@@ -99,6 +106,7 @@ Position                        : Named
 ValueFromPipeline               : True
 ValueFromPipelineByPropertyName : False
 Type                            : System.ServiceProcess.ServiceController[]
+IsDynamic                       : False
 ParameterSet                    : InputObject
 ```
 
@@ -167,6 +175,7 @@ Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 Type                            : System.String[]
+IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 ```
 
