@@ -1,5 +1,16 @@
 # Change Log for PSScriptTools
 
+## v2.3.0
+
++ Fixed bug in `ConvertTo-WPFGrid` that wasn't updating last update time. (Issue #30)
++ Modified `ConvertTo-WPFGrid` to allow user to load their profile scripts into the runspace. (Issue #29)
++ Modified auto sizing code in `ConvertTo-WPFGrid`
++ Modified `ConvertTo-WPFGrid` to automatically display scroll bars when necessary.
++ Modified `New-PSFormatXML` to display a warning on invalid property names. (Issue #33)
++ Added `Get-myTimeInfo`, `ConvertTo-UTCTime` and `ConvertFrom-UTCTime` (Issue #31)
++ help updates
++ Updated `README.md`
+
 ## v2.2.0
 
 + Code revisions in `ConvertTo-WPFGrid` (Issue #27)

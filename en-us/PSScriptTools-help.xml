@@ -701,6 +701,93 @@ PS C:\&gt; convert-hashtabletocode $h
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>ConvertFrom-UTCTime</command:name>
+      <command:verb>ConvertFrom</command:verb>
+      <command:noun>UTCTime</command:noun>
+      <maml:description>
+        <maml:para>Convert a datetime value from universal</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to convert a universal datetime object into local time.</maml:para>
+      <maml:para>This command was introduced in v2.3.0.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertFrom-UTCTime</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>DateTime</maml:name>
+          <maml:Description>
+            <maml:para>Enter a Universal Datetime value</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>DateTime</maml:name>
+        <maml:Description>
+          <maml:para>Enter a Universal Datetime value</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.DateTime</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.DateTime</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertFrom-UTCTime "18:00"
+
+Monday, March 4, 2019 1:00:00 PM</dev:code>
+        <dev:remarks>
+          <maml:para>Covert the time 18:00 for the current day from universal time to local time. This result reflects Eastern Time which on this date is UTC-5.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>ConvertTo-UTCTime</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertTo-HashTable</command:name>
       <command:verb>ConvertTo</command:verb>
       <command:noun>HashTable</command:noun>
@@ -1132,6 +1219,98 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>ConvertTo-UTCTime</command:name>
+      <command:verb>ConvertTo</command:verb>
+      <command:noun>UTCTime</command:noun>
+      <maml:description>
+        <maml:para>Convert a local datetime to universal time.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Convert a local datetime to universal time. The default is now but you can specify a datetime value.</maml:para>
+      <maml:para>This command was introduced in v2.3.0.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-UTCTime</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>DateTime</maml:name>
+          <maml:Description>
+            <maml:para>+ Enter a Datetime value</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>now</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>DateTime</maml:name>
+        <maml:Description>
+          <maml:para>+ Enter a Datetime value</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>now</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.DateTime</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.DateTime</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS S:\PSScriptTools&gt; get-date
+
+Monday, March 4, 2019 12:51:47 PM
+
+
+PS S:\PSScriptTools&gt; ConvertTo-UTCTime
+
+Monday, March 4, 2019 5:51:49 PM</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>ConvertFrom-UTCTime</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertTo-WPFGrid</command:name>
       <command:verb>ConvertTo</command:verb>
       <command:noun>WPFGrid</command:noun>
@@ -1142,6 +1321,7 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
     <maml:description>
       <maml:para>This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.</maml:para>
       <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt.</maml:para>
+      <maml:para>Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. When refreshing data, you need to make sure that the command up to ConvertTo-WPFGrid can run in a standalone session. For example, avoid using variables that won't exist in the background runspace. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace.</maml:para>
       <maml:para>This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1187,6 +1367,17 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
           <maml:name>Refresh</maml:name>
           <maml:Description>
             <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UseProfile</maml:name>
+          <maml:Description>
+            <maml:para>Load your PowerShell profiles into the background runspace.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1245,6 +1436,18 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UseProfile</maml:name>
+        <maml:Description>
+          <maml:para>Load your PowerShell profiles into the background runspace.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -1274,7 +1477,7 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-process | sort-object WS -Descending | Select -first 20 ID,Name,WS,VM,PM,Handles,StartTime | Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"</dev:code>
+        <dev:code>PS C:\&gt; get-process | sort-object WS -Descending | Select-object -first 20 ID,Name,WS,VM,PM,Handles,StartTime | Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"</dev:code>
         <dev:remarks>
           <maml:para>Get the top 20 processes based on the value of the WorkingSet property and display selected properties in the WPF Grid. The contents will automatically refresh every 20 seconds. You will need to manually close the form.</maml:para>
         </dev:remarks>
@@ -1283,11 +1486,18 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $vmhost = "CHI-HVR2"
 PS C:\&gt; Get-VM -computername $VMHost | Select Name,State,Uptime,
-@{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as \[int\]}},
-@{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as \[int\]}} |
+@{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as [int]}},
+@{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as [int]}} |
 ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20</dev:code>
         <dev:remarks>
           <maml:para>Get Hyper-V virtual machine information and display for 20 seconds before automatically closing. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-VMData -host CHI-HVR2 | ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile</dev:code>
+        <dev:remarks>
+          <maml:para>This example uses a hypothetical command that might be defined in a PowerShell profile script. ConvertTo-WPFGrid will load the profile scripts so that the data can be updated every 60 seconds.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -2407,6 +2617,290 @@ $3,456.57</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Format-Percent</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-MyTimeInfo</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>MyTimeInfo</command:noun>
+      <maml:description>
+        <maml:para>Display a time settings for a collection of locations</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is designed to present a console-based version of a world clock. You provide a hashtable of locations and their respective time zones and the command will write a custom object to the pipeline.</maml:para>
+      <maml:para>A Note on Formatting:</maml:para>
+      <maml:para>Normally, a PowerShell command should write an object to the pipeline and then you could use Format-Table or Format-List as you wanted. Those commands will in fact still work. However, given the way this command writes to the pipeline, that is with dynamically generated properties, it is difficult to create the usual format ps1xml file. To provide some nicer formatting this command has optional parameters to help your format the output. Note that even though it may look like a table, the output object will be a string.</maml:para>
+      <maml:para>This command was added in v2.3.0.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-MyTimeInfo</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Locations</maml:name>
+          <maml:Description>
+            <maml:para>Use an ordered hashtable of location names and timezones. You can find timezones with the Get-TimeZone cmdlet or through the .NET Framework with an expression like</maml:para>
+            <maml:para></maml:para>
+            <maml:para>[System.TimeZoneinfo]::GetSystemTimeZones()</maml:para>
+            <maml:para></maml:para>
+            <maml:para>The hashtable key should be the location or city name and the value should be the time zone ID. Be careful as it appears time zone IDs are case-sensitive.</maml:para>
+            <maml:para>The default value is:</maml:para>
+            <maml:para></maml:para>
+            <maml:para>[ordered]@{</maml:para>
+            <maml:para>   Singapore = "Singapore Standard Time";</maml:para>
+            <maml:para>   Seattle   = "Pacific Standard Time";</maml:para>
+            <maml:para>   Stockholm = "Central Europe Standard Time";</maml:para>
+            <maml:para>}</maml:para>
+            <maml:para></maml:para>
+            <maml:para>You might want to define a default value in $PSDefaultParameterValues with your own defaults.</maml:para>
+            <maml:para>It is recommended you limit this hashtable to no more than 5 locations, especially if you want to format the results as a table.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">OrderedDictionary</command:parameterValue>
+          <dev:type>
+            <maml:name>OrderedDictionary</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>see note</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>HomeTimeZone</maml:name>
+          <maml:Description>
+            <maml:para>Specify the timezone ID of your home location. You might want to set this as a PSDefaultParameterValue</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Eastern Standard Time</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>DateTime</maml:name>
+          <maml:Description>
+            <maml:para>Specify the datetime value to use. The default is now.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>$(Get-Date)</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ft">
+          <maml:name>AsTable</maml:name>
+          <maml:Description>
+            <maml:para>Display the results as a formatted table. This parameter has an alias of ft.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="fl">
+          <maml:name>AsList</maml:name>
+          <maml:Description>
+            <maml:para>Display the results as a formatted list. This parameter has an alias of fl.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Locations</maml:name>
+        <maml:Description>
+          <maml:para>Use an ordered hashtable of location names and timezones. You can find timezones with the Get-TimeZone cmdlet or through the .NET Framework with an expression like</maml:para>
+          <maml:para></maml:para>
+          <maml:para>[System.TimeZoneinfo]::GetSystemTimeZones()</maml:para>
+          <maml:para></maml:para>
+          <maml:para>The hashtable key should be the location or city name and the value should be the time zone ID. Be careful as it appears time zone IDs are case-sensitive.</maml:para>
+          <maml:para>The default value is:</maml:para>
+          <maml:para></maml:para>
+          <maml:para>[ordered]@{</maml:para>
+          <maml:para>   Singapore = "Singapore Standard Time";</maml:para>
+          <maml:para>   Seattle   = "Pacific Standard Time";</maml:para>
+          <maml:para>   Stockholm = "Central Europe Standard Time";</maml:para>
+          <maml:para>}</maml:para>
+          <maml:para></maml:para>
+          <maml:para>You might want to define a default value in $PSDefaultParameterValues with your own defaults.</maml:para>
+          <maml:para>It is recommended you limit this hashtable to no more than 5 locations, especially if you want to format the results as a table.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">OrderedDictionary</command:parameterValue>
+        <dev:type>
+          <maml:name>OrderedDictionary</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>see note</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>HomeTimeZone</maml:name>
+        <maml:Description>
+          <maml:para>Specify the timezone ID of your home location. You might want to set this as a PSDefaultParameterValue</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Eastern Standard Time</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>DateTime</maml:name>
+        <maml:Description>
+          <maml:para>Specify the datetime value to use. The default is now.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>$(Get-Date)</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ft">
+        <maml:name>AsTable</maml:name>
+        <maml:Description>
+          <maml:para>Display the results as a formatted table. This parameter has an alias of ft.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="fl">
+        <maml:name>AsList</maml:name>
+        <maml:Description>
+          <maml:para>Display the results as a formatted list. This parameter has an alias of fl.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>Datetime</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>myTimeInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>P{S C:\&gt;Get-MyTimeInfo
+
+
+Now               : 3/4/2019 1:28:43 PM
+Home              : 3/4/2019 1:28:43 PM
+UTC               : 3/4/2019 6:28:43 PM
+Singapore         : 3/5/2019 2:28:43 AM
+Seattle           : 3/4/2019 10:28:43 AM
+Stockholm         : 3/4/2019 7:28:43 PM
+IsDaylightSavings : False</dev:code>
+        <dev:remarks>
+          <maml:para>Default output is a custom object with each timezone as a property.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>Get-MyTimeInfo -AsTable
+
+   Now: 03/04/2019 13:28:11
+   UTC: 03/04/2019 18:28:11
+
+Home                Singapore           Seattle              Stockholm           IsDaylightSavings
+----                ---------           -------              ---------           -----------------
+3/4/2019 1:28:11 PM 3/5/2019 2:28:11 AM 3/4/2019 10:28:11 AM 3/4/2019 7:28:11 PM             False</dev:code>
+        <dev:remarks>
+          <maml:para>Display current time information as a table. The output is a string.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyTimeInfo -AsList
+
+   Now: 03/04/2019 13:27:03
+   UTC: 03/04/2019 18:27:03
+
+
+Home              : 3/4/2019 1:27:03 PM
+Singapore         : 3/5/2019 2:27:03 AM
+Seattle           : 3/4/2019 10:27:03 AM
+Stockholm         : 3/4/2019 7:27:03 PM
+IsDaylightSavings : False</dev:code>
+        <dev:remarks>
+          <maml:para>Get current time info formatted as a list.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $loc = [ordered]@{"Hong Kong"="China Standard Time";Honolulu="Hawaiian Standard Time";Mumbai = "India Standard Time"}
+
+PS C:\&gt; Get-MyTimeInfo -Locations $loc -ft
+
+   Now: 03/04/2019 13:26:23
+   UTC: 03/04/2019 18:26:23
+
+Home                Hong Kong           Honolulu            Mumbai               IsDaylightSavings
+----                ---------           --------            ------               -----------------
+3/4/2019 1:26:23 PM 3/5/2019 2:26:23 AM 3/4/2019 8:26:23 AM 3/4/2019 11:56:23 PM             False</dev:code>
+        <dev:remarks>
+          <maml:para>Using a custom location hashtable, get time zone information formatted as a table. This example is using the -ft alias for the AsTable parameter. Even though this is formatted as a table the actual output is a string.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "central standard time" | Select Now,Home,Seattle,'New Zealand'
+
+Now                 Home                 Seattle              New Zealand
+---                 ----                 -------              -----------
+3/4/2019 1:18:36 PM 3/4/2019 12:18:36 PM 3/4/2019 10:18:36 AM 3/5/2019 7:18:36 AM</dev:code>
+        <dev:remarks>
+          <maml:para>This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-TimeZone</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
