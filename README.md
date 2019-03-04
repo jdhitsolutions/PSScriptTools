@@ -1,4 +1,6 @@
-# ![toolbox](./images/toolbox-thumbnail.png) PSScriptTools
+# PSScriptTools
+
+[![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSScripttools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSScripttools/)
 
 This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
 
@@ -691,8 +693,60 @@ IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 ```
 
+## Time Functions
+
+The module has a few date and time related commands.
+
+### [ConvertTo-UTCTime](docs/ConvertTo-UTCTime.md)
+
+Convert a local datetime value to universal time. The default is to convert now but you can specify a datetime value.
+
+```powershell
+PS C:\> ConvertTo-UTCTime
+
+Monday, March 4, 2019 5:51:26 PM
+```
+
+Convert a datetime that is UTC-5 to universal time.
+
+### [ConvertFrom-UTCTime](docs/ConvertFrom-UTCTime.md)
+
+```powershell
+PS C:\> ConvertFrom-UTCTime "3/4/2019 6:00PM"
+
+Monday, March 4, 2019 1:00:00 PM
+```
+
+Convert a universal datetime to the local time.
+
+### [Get-MyTimeInfo](./Get-MyTimeInfo.md)
+
+Display a time settings for a collection of locations. This command is a PowerShell equivalent of a world clock. It will display a datetime value against a collection of locations. You can specify an ordered hashtable of locations and time zones. You can run command like:
+
+```powershell
+[System.TimeZoneinfo]::GetSystemTimeZones() | out-gridview
+```
+
+or
+
+```powershell
+Get-TimeZone -listavailable
+```
+
+To discover time zone names. Note that the ID is case-sensitive. You can then use the command like this:
+
+```powershell
+PS C:\> Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "central standard time" | Select Now,Home,Seattle,'New Zealand'
+
+Now                 Home                 Seattle              New Zealand
+---                 ----                 -------              -----------
+3/4/2019 1:18:36 PM 3/4/2019 12:18:36 PM 3/4/2019 10:18:36 AM 3/5/2019 7:18:36 AM
+```
+
+This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 21 February 2019*
+*last updated 4 March 2019*

@@ -97,9 +97,20 @@ by $env:USERDOMAIN\$env:username
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating an format document for object type $tname "
 
             #get property members
-            $members = $Inputobject.psobject.properties
+            $objProperties = $Inputobject.psobject.properties
+            $members = @()
             if ($properties) {
-                $members = $members.where( {$properties -contains $_.name})
+                foreach ($property in $properties) {
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Validating property: $property"
+                    $test = ($objProperties).where({$_.name -like $property})
+                    if ($test) {
+                        $members += $test
+                    }
+                    else {
+                        Write-Warning "Can't find a property called $property on this object. Did you enter it correctly?"
+                    }
+                }
+                #$members = $members.where( {$properties -contains $_.name})
             }
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing $($members.name.count) properties"
 

@@ -14,7 +14,7 @@ Send command output to an interactive WPF-based grid.
 ## SYNTAX
 
 ```yaml
-ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
+ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-UseProfile]
  [<CommonParameters>]
 ```
 
@@ -24,6 +24,8 @@ This command is an alternative to Out-Gridview. It works much the same way. Run 
 
 You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt.
 
+Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. When refreshing data, you need to make sure that the command up to ConvertTo-WPFGrid can run in a standalone session. For example, avoid using variables that won't exist in the background runspace. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace.
+
 This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.
 
 ## EXAMPLES
@@ -31,7 +33,7 @@ This command runs the WPF grid in a new runspace so your PowerShell prompt will 
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-process | sort-object WS -Descending | Select -first 20 ID,Name,WS,VM,PM,Handles,StartTime | Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
+PS C:\> get-process | sort-object WS -Descending | Select-object -first 20 ID,Name,WS,VM,PM,Handles,StartTime | Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 ```
 
 Get the top 20 processes based on the value of the WorkingSet property and display selected properties in the WPF Grid. The contents will automatically refresh every 20 seconds. You will need to manually close the form.
@@ -41,12 +43,20 @@ Get the top 20 processes based on the value of the WorkingSet property and displ
 ```powershell
 PS C:\> $vmhost = "CHI-HVR2"
 PS C:\> Get-VM -computername $VMHost | Select Name,State,Uptime,
-@{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as \[int\]}},
-@{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as \[int\]}} |
+@{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as [int]}},
+@{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as [int]}} |
 ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20
 ```
 
 Get Hyper-V virtual machine information and display for 20 seconds before automatically closing. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.
+
+### EXAMPLE 3
+
+```powershell
+PS C:\> Get-VMData -host CHI-HVR2 | ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile
+```
+
+This example uses a hypothetical command that might be defined in a PowerShell profile script. ConvertTo-WPFGrid will load the profile scripts so that the data can be updated every 60 seconds.
 
 ## PARAMETERS
 
@@ -101,6 +111,22 @@ Accept wildcard characters: False
 ### -Refresh
 
 If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UseProfile
+
+Load your PowerShell profiles into the background runspace.
 
 ```yaml
 Type: SwitchParameter

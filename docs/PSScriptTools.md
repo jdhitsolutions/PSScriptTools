@@ -169,4 +169,16 @@ This function creates a Windows Presentation Foundation (WPF) based message box.
 ### [Remove-Runspace](./Remove-Runspace.md)
 
 During the course of your PowerShell work, you may discover that some commands and scripts can leave behind
-runspaces. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces. 
+runspaces. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces.
+
+### [ConvertTo-UTCTime](./ConvertTo-UTCTime.md)
+
+Convert a local datetime to universal time.
+
+### [ConvertTo-UTCTime](./ConvertFrom-UTCTime.md)
+
+Convert a universal time to local time.
+
+### [Get-MyTimeInfo](./Get-MyTimeInfo.md)
+
+Display a time settings for a collection of locations
