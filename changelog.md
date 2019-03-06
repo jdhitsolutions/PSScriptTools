@@ -1,5 +1,15 @@
 # Change Log for PSScriptTools
 
+## v2.4.0
+
++ Made datagrid in `ConvertTo-WPFGrid` read-only (Issue #38)
++ Modified datagrid in `ConvertTo-WPFGrid` to better handle resizing (Issue #36)
++ Modified statusbar in `ConvertTo-WPFGrid` to better handle resizing (Issue #37)
++ Modified form in `ConvertTo-WPFGrid` to better fit in the screen and not exceed the screen area (Issue #39)
++ Added parameter to allow usage of local variables in `ConvertTo-WPFGrid` (Issue #35)
++ Help updates
++ Reorganized `README.md`
+
 ## v2.3.0
 
 + Fixed bug in `ConvertTo-WPFGrid` that wasn't updating last update time. (Issue #30)

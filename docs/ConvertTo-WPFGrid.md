@@ -13,18 +13,34 @@ Send command output to an interactive WPF-based grid.
 
 ## SYNTAX
 
+### input (Default)
+
 ```yaml
-ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-UseProfile]
- [<CommonParameters>]
+ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-UseLocalVariable <String[]>]
+ [-UseProfile] [<CommonParameters>]
+```
+
+### Input
+
+```yaml
+ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
+ [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+```
+
+### scriptblock
+
+```yaml
+ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
+ [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.
+This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.
 
-You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt.
+You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid.
 
-Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. When refreshing data, you need to make sure that the command up to ConvertTo-WPFGrid can run in a standalone session. For example, avoid using variables that won't exist in the background runspace. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace.
+Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace. You can also specify a list of locally defined variables to be used in the form.
 
 This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.
 
@@ -45,10 +61,10 @@ PS C:\> $vmhost = "CHI-HVR2"
 PS C:\> Get-VM -computername $VMHost | Select Name,State,Uptime,
 @{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as [int]}},
 @{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as [int]}} |
-ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20
+ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvariable VMHost
 ```
 
-Get Hyper-V virtual machine information and display for 20 seconds before automatically closing. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.
+Get Hyper-V virtual machine information and refresh every 30 seconds. Because the command is using a locally defined variable it is also being used in the form. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.
 
 ### EXAMPLE 3
 
@@ -66,7 +82,7 @@ Typically the results of a PowerShell command or expression. You should select t
 
 ```yaml
 Type: PSObject
-Parameter Sets: (All)
+Parameter Sets: Input
 Aliases:
 
 Required: False
@@ -131,7 +147,39 @@ Load your PowerShell profiles into the background runspace.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
+Aliases: profile
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Scriptblock
+
+Enter a scriptblock that will generate data to be populated in the form
+
+```yaml
+Type: ScriptBlock
+Parameter Sets: scriptblock
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -UseLocalVariable
+
+Load locally defined variables into the background runspace
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases: var
 
 Required: False
 Position: Named
