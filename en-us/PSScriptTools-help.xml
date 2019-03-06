@@ -1319,9 +1319,9 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.</maml:para>
-      <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt.</maml:para>
-      <maml:para>Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. When refreshing data, you need to make sure that the command up to ConvertTo-WPFGrid can run in a standalone session. For example, avoid using variables that won't exist in the background runspace. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace.</maml:para>
+      <maml:para>This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.</maml:para>
+      <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid.</maml:para>
+      <maml:para>Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace. You can also specify a list of locally defined variables to be used in the form.</maml:para>
       <maml:para>This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1374,7 +1374,7 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="profile">
           <maml:name>UseProfile</maml:name>
           <maml:Description>
             <maml:para>Load your PowerShell profiles into the background runspace.</maml:para>
@@ -1384,6 +1384,91 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="var">
+          <maml:name>UseLocalVariable</maml:name>
+          <maml:Description>
+            <maml:para>Load locally defined variables into the background runspace</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-WPFGrid</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:Description>
+            <maml:para>Specify a title for your form.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>ConvertTo-WPFGrid</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>Timeout</maml:name>
+          <maml:Description>
+            <maml:para>By default the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds. The minimum accepted value is 5 seconds. If you use this parameter with -Refresh, then the datagrid will be refreshed with results of the PowerShell expression you piped to ConvertTo-WPFGrid.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Refresh</maml:name>
+          <maml:Description>
+            <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="profile">
+          <maml:name>UseProfile</maml:name>
+          <maml:Description>
+            <maml:para>Load your PowerShell profiles into the background runspace.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Scriptblock</maml:name>
+          <maml:Description>
+            <maml:para>Enter a scriptblock that will generate data to be populated in the form</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="var">
+          <maml:name>UseLocalVariable</maml:name>
+          <maml:Description>
+            <maml:para>Load locally defined variables into the background runspace</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -1436,7 +1521,7 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="profile">
         <maml:name>UseProfile</maml:name>
         <maml:Description>
           <maml:para>Load your PowerShell profiles into the background runspace.</maml:para>
@@ -1447,6 +1532,30 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Scriptblock</maml:name>
+        <maml:Description>
+          <maml:para>Enter a scriptblock that will generate data to be populated in the form</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="var">
+        <maml:name>UseLocalVariable</maml:name>
+        <maml:Description>
+          <maml:para>Load locally defined variables into the background runspace</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -1488,9 +1597,9 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
 PS C:\&gt; Get-VM -computername $VMHost | Select Name,State,Uptime,
 @{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as [int]}},
 @{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as [int]}} |
-ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 20</dev:code>
+ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvariable VMHost</dev:code>
         <dev:remarks>
-          <maml:para>Get Hyper-V virtual machine information and display for 20 seconds before automatically closing. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.</maml:para>
+          <maml:para>Get Hyper-V virtual machine information and refresh every 30 seconds. Because the command is using a locally defined variable it is also being used in the form. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>

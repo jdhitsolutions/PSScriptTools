@@ -23,6 +23,7 @@ Starting in v2.2.0, the module was restructured to better support Desktop and Co
 ```powershell
 Uninstall-Module PSScriptTools -allversions
 ```
+
 Any command that uses WPF will not run on PowerShell Core and is not exported.
 
 Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any input is greatly appreciated.
@@ -232,26 +233,6 @@ get-service | out-more
 
 This also works in PowerShell Core.
 
-## [Invoke-InputBox](docs/Invoke-InputBox.md)
-
-This function is a graphical replacement for `Read-Host`. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.
-
-```powershell
-$name = Invoke-InputBox -Prompt "Enter a user name" -Title "New User Setup"
-```
-
-![](./images/ibx-1.png)
-
-You can also capture a secure string.
-
-```powershell
-Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -BackgroundColor red
-```
-
-![](./images/ibx-2.png)
-
-This example also demonstrates that you can change form's background color. This function will **not** work in PowerShell Core.
-
 ## ToDo
 
 Because this module is intended to make scripting easier for you, it adds options to insert ToDo statements into PowerShell files. If you are using the PowerShell ISE or VS Code and import this module, it will add the capability to insert a line like this:
@@ -359,9 +340,59 @@ which generates this markdown:
 
 Because the function writes markdown to the pipeline you will need to pipe it to a command `Out-File` to create a file.
 
-## [ConvertTo-WPFGrid](docs/ConvertTo-WPFGrid.md)
+## Graphical Tools
 
-This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an autosized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
+## [Invoke-InputBox](docs/Invoke-InputBox.md)
+
+This function is a graphical replacement for `Read-Host`. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.
+
+```powershell
+$name = Invoke-InputBox -Prompt "Enter a user name" -Title "New User Setup"
+```
+
+![](./images/ibx-1.png)
+
+You can also capture a secure string.
+
+```powershell
+Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -BackgroundColor red
+```
+
+![](./images/ibx-2.png)
+
+This example also demonstrates that you can change form's background color. This function will **not** work in PowerShell Core.
+
+### [New-WPFMessageBox](docs/New-WPFMessageBox.md)
+
+This function creates a Windows Presentation Foundation (WPF) based message box. This is intended to replace the legacy MsgBox function from VBScript and the Windows Forms library. The command uses a set of predefined button sets, each of which will close the form and write a value to the pipeline.
+
+    OK     = 1
+
+    Cancel = 0
+
+    Yes    = $True
+
+    No     = $False
+
+You can also create an ordered hashtable of your own buttons and values. It is assumed you will typically use this function in a script where you can capture the output and take some action based on the value.
+
+```powershell
+PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
+```
+
+![A YesNo WPF Message box](/images/wpfbox-1.png)
+
+You can also create your own custom button set as well as modify the background color.
+
+```powershell
+PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
+```
+
+![A customized WPF Message box](/images/wpfbox-2.png)
+
+### [ConvertTo-WPFGrid](docs/ConvertTo-WPFGrid.md)
+
+This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
 
 ```powershell
 get-eventlog -list -ComputerName DOM1,SRV1,SRV2 |
@@ -381,7 +412,11 @@ Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 
 ![Displaying Top Processes](images/wpfgrid2.png)
 
-## [Convert-CommandtoHashtable](docs/Convert-CommandtoHashtable.md)
+Note that in v2.4.0 the form layout was modified and may not be reflected in these screen shots.
+
+## Hashtable Tools
+
+### [Convert-CommandtoHashtable](docs/Convert-CommandtoHashtable.md)
 
 This command is intended to convert a long PowerShell expression with named parameters into a splatting
 alternative.
@@ -398,7 +433,7 @@ $paramHash = @{
 Get-EventLog @paramHash
 ```
 
-## [Convert-HashtableString](docs/Convert-HashtableString.md)
+### [Convert-HashtableString](docs/Convert-HashtableString.md)
 
 This function is similar to `Import-PowerShellDataFile`. But where that command can only process a file, this command
 will take any hashtable-formatted string and convert it into an actual hashtable.
@@ -420,7 +455,7 @@ CreatedOn                      BOVINE320
 
 The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.
 
-## [Convert-HashTableToCode](docs/Convert-HashTableToCode.md)
+### [Convert-HashTableToCode](docs/Convert-HashTableToCode.md)
 
 Use this command to convert a hashtable into its text or string equivalent.
 
@@ -436,7 +471,7 @@ PS C:\> convert-hashtabletocode $h
 
 Convert a hashtable object to a string equivalent that you can copy into your script.
 
-## [ConvertTo-HashTable](docs/ConvertTo-HashTable.md)
+### [ConvertTo-HashTable](docs/ConvertTo-HashTable.md)
 
 This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
 
@@ -451,7 +486,7 @@ Id                             3456
 Handles                        958
 ```
 
-## [Join-Hashtable](docs/Join-Hashtable.md)
+### [Join-Hashtable](docs/Join-Hashtable.md)
 
 This command will combine two hashtables into a single hashtable.Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
 
@@ -537,34 +572,6 @@ Shows the specified path as a graphical tree in the console. This is intended as
 By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.
 
 ![show file system tree](images/show-tree1.png)
-
-## [New-WPFMessageBox](docs/New-WPFMessageBox.md)
-
-This function creates a Windows Presentation Foundation (WPF) based message box. This is intended to replace the legacy MsgBox function from VBScript and the Windows Forms library. The command uses a set of predefined button sets, each of which will close the form and write a value to the pipeline.
-
-    OK     = 1
-
-    Cancel = 0
-
-    Yes    = $True
-
-    No     = $False
-
-You can also create an ordered hashtable of your own buttons and values. It is assumed you will typically use this function in a script where you can capture the output and take some action based on the value.
-
-```powershell
-PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
-```
-
-![A YesNo WPF Message box](/images/wpfbox-1.png)
-
-You can also create your own custom button set as well as modify the background color.
-
-```powershell
-PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
-```
-
-![A customized WPF Message box](/images/wpfbox-2.png)
 
 ## [Compare-Module](docs/Compare-Module.md)
 
@@ -749,4 +756,4 @@ This is a handy command when traveling and your laptop is using a locally derive
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 4 March 2019*
+*last updated 6 March, 2019*
