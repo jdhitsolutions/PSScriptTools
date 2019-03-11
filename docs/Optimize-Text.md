@@ -22,7 +22,7 @@ Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-Ignore <String>] [-ToUppe
 ### object
 
 ```yaml
-Optimize-Text [[-Text] <String[]>] [-Filter <Regex>][-Ignore <String>] [-ToUpper]  [-PropertyName <String>] 
+Optimize-Text [[-Text] <String[]>] [-Filter <Regex>][-Ignore <String>] [-ToUpper]  [-PropertyName <String>]
  [<CommonParameters>]
 ```
 
@@ -90,7 +90,7 @@ bits                          Running dc01
 bits                          Running app02
 ```
 
-Optimize the computernames in computers.txt and add a Computername property. Test each computer, ignoring those that fail, and get the Bits service on the ones that can be pinged.
+Optimize the computer names in computers.txt and add a Computername property. Test each computer, ignoring those that fail, and get the Bits service on the ones that can be pinged.
 
 ### EXAMPLE 4
 

@@ -83,6 +83,7 @@ c                              8
 VERBOSE: Finished getting my variables
 8
 ```
+
 This sample function dot sources the script with this function. Within the function, Get-MyVariable is called specifying scope 1, or the parent scope. Scope 0 would be the scope of the Get-MyVariable function. Here's the result.
 
 ### EXAMPLE 5

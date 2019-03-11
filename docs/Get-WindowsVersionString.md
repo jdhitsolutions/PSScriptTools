@@ -179,4 +179,3 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Get-WindowsVersion]()
 
 [Winver.exe]()
-

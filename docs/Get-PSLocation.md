@@ -39,7 +39,7 @@ Results on a Windows system.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-pslocation 
+PS C:\> get-pslocation
 
 Temp       : /tmp/
 Home       : /home/jeff

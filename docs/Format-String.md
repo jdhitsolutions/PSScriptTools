@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -115,7 +115,7 @@ Accept wildcard characters: False
 
 ### -Case
 
-Valid values are Upper, Lower, Proper, Alternate, and Toggle. 
+Valid values are Upper, Lower, Proper, Alternate, and Toggle.
 
 Proper case will capitalize the first letter of the string.
 

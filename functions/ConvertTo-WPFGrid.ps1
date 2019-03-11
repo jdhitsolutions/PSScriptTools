@@ -115,7 +115,6 @@ Function ConvertTo-WPFGrid {
                 })
             #Create a grid to hold the datagrid
             $Grid = new-object System.Windows.Controls.Grid
-            #New-Object System.Windows.Controls.StackPanel
 
             $Grid.HorizontalAlignment = "stretch"
             $grid.VerticalAlignment = "stretch"
@@ -131,7 +130,8 @@ Function ConvertTo-WPFGrid {
             $btnRefresh.ToolTip = "click to refresh data from the command"
 
             $btnRefresh.add_click( {
-                $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
+                    $timer.stop()
+                    $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
 
                     foreach ($col in $datagrid.Columns) {
                         #because of the way I am loading data into the grid
@@ -140,8 +140,21 @@ Function ConvertTo-WPFGrid {
                         $col.SortMemberPath = $col.Header
                     }
                     $script:Now = Get-Date
-                    $status.text = " last updated $Script:Now"
+
+                    if ($script:count) {
+                        $script:count = $Timeout
+                        [datetime]$script:terminate = $now.AddSeconds($timeout)
+                        $ts = new-timespan -Seconds $script:count
+                        $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
+                    }
+                    else {
+                        $status.text = " last updated $Script:Now"
+                    }
+                    if ($refresh) {
+                        $timer.start()
+                    }
                 })
+
             $grid.AddChild($btnRefresh)
 
             $btnClose = New-Object System.Windows.Controls.Button
@@ -164,11 +177,12 @@ Function ConvertTo-WPFGrid {
             $datagrid.Height = "Auto"
             $datagrid.VerticalAlignment = "stretch"
             $datagrid.HorizontalAlignment = "stretch"
-            $datagrid.margin = "0,50,0,0"
+            $datagrid.margin = "0,50,0,25"
 
             $datagrid.ColumnWidth = "Auto"
 
             $datagrid.VerticalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
+            $datagrid.HorizontalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
             $datagrid.CanUserSortColumns = $True
             $datagrid.CanUserResizeColumns = $True
             $datagrid.CanUserReorderColumns = $True
@@ -210,13 +224,14 @@ Function ConvertTo-WPFGrid {
 
                 $timer.add_tick( {
 
+                    $ts = new-timespan -seconds $script:count
                         if ((Get-Date) -lt $script:terminate -AND $Refresh) {
-                            $status.text = " Last updated $script:Now - refresh in $script:count seconds"
+                            $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
                             $script:count--
                         }
                         elseif ( (Get-Date) -lt $script:terminate) {
 
-                            $status.text = " Last updated $script:Now - closing in $script:count seconds"
+                            $status.text = " Last updated $script:Now - closing in $($ts.tostring())"
                             $script:count--
                         }
                         else {
@@ -233,8 +248,8 @@ Function ConvertTo-WPFGrid {
                                 $script:count = $timeout
                                 $script:now = Get-Date
                                 [datetime]$script:terminate = $now.AddSeconds($timeout)
-                                $status.text = " Last updated $script:Now - refresh in $script:count seconds"
-                                # $status.UpdateLayout()
+                                $ts = new-timespan -Seconds $script:count
+                                $status.text = " Last updated $script:Now - refresh in $($ts.tostring()) seconds"
                                 $Timer.Start()
                             }
                             else {
