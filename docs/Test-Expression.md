@@ -116,7 +116,7 @@ Include the tested expression in the output.
 ### Example 4
 
 ```powershell
-PS C:\> Test-Expression { get-eventlog -list } -count 10 -Interval 5 -asjob
+PS C:\> Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
 
 
 Id     Name            PSJobTypeName   State         HasMoreData     Location             Command
@@ -142,7 +142,7 @@ Run the test as a background job. When the job is complete, get the results.
 ### Example 5
 
 ```powershell
-PS C:\> {1..1000} | Test-Expression -count 10 -randomminimum 1 -randommaximum 10
+PS C:\> {1..1000} | Test-Expression -count 10 -RandomMinimum 1 -RandomMaximum 10
 
 Tests        : 10
 TestInterval : Random

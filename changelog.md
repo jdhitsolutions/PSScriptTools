@@ -1,5 +1,15 @@
 # Change Log for PSScriptTools
 
+## v2.5.0
+
++ fixed bug which was hiding the horizontal scroll bar in `ConvertTo-WPFGrid` (Issue #40)
++ fixed bug which prevented status bar from updating when manually refreshing in `ConvertTo-WPFGrid` (Issue #34)
++ Changed time display in `ConvertTo-WPFGrid as a timespan instead of raw seconds (Issue #41)
++ Markdown help cleanup
++ Added `Set-ConsoleTitle`
++ Added `Set-ConsoleColor`
++ Updated `README.md`
+
 ## v2.4.0
 
 + Made datagrid in `ConvertTo-WPFGrid` read-only (Issue #38)

@@ -38,7 +38,7 @@ This command is designed to be used within your functions and scripts to make it
 In a script you might use it like this:
 
 Begin {
-    Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin -time | Write-Verbose
+    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin -time | Write-Verbose
     $tabs = "`t" * $tab
     Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose
 } #begin
@@ -50,7 +50,7 @@ If you don't specify a prefix, it will default to PROCESS.
 ### EXAMPLE 1
 
 ```powershell
-PS C:\>write-detail "Getting file information" -Prefix Process 
+PS C:\>write-detail "Getting file information" -Prefix Process
 [PROCESS] Getting file information
 ```
 

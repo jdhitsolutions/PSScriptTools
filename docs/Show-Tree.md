@@ -1,6 +1,6 @@
 ---
 external help file: PSScriptTools-help.xml
-Module Name: psscripttools
+Module Name: PSScriptTools
 online version:
 schema: 2.0.0
 ---
@@ -259,4 +259,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [tree.com]()
 
-[Get-Childitem]()
+[Get-ChildItem]()

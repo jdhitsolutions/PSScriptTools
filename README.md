@@ -163,10 +163,10 @@ This command is designed to take pipeline input and display it in a colorized fo
 
 You can use a simple hashtable to define a color if the given property matches the hashtable key.
 
-![](./images/occ-1.png)
+![out-conditionalcolor-1](./images/occ-1.png)
 
 Or you can specify an ordered hashtable for more complex processing.
-![](./images/occ-2.png)
+![out-conditionalcolor-2](./images/occ-2.png)
 
 This command doesn't always work depending on the type of object you pipe to it. The problem appears to be related to the formatting system. Development and testing is ongoing.
 
@@ -178,22 +178,61 @@ This command will copy a PowerShell command, including parameters and help to a 
 
 A set of simple commands to make it easier to format values.
 
+### [Format-Percent](docs/Format-Percent.md)
+
+Treat a value as a percentage. This will write a [double] and not include the % sign.
+
 ```powershell
 PS C:\> format-percent -Value 123.5646MB -total 1GB -Decimal 4
 12.0669
+```
+
+### [Format-String](docs/Format-String.md)
+
+Use this command to perform one of several string manipulation "tricks".
+
+```powershell
 PS C:\> format-string "powershell" -Reverse -Case Proper
 Llehsrewop
+PS C:\> format-string PowerShell -Randomize
+wSlhoeePlr
+PS C:\> format-string "!MySecretPWord" -Randomize -Replace @{S="$";e=&{Get-Random -min 1 -max 9};o="^"} -Reverse
+yr7!^7WcMtr$Pd
+```
+
+### [Format-Value](docs/Format-Value.md)
+
+This command will format a given numeric value. By default it will treat the number as an integer. Or you can specify a certain number of decimal places. The command will also allow you to format the value in KB, MB, etc.
+
+```powershell
 PS C:\>  format-value 1235465676 -Unit kb
 1206509
+PS C:\> format-value 123.45 -AsCurrency
+$123.45
+PS C:\> (get-process | measure ws -sum).sum | format-value -Unit mb | format-value -AsNumber
+9,437
+```
+
+Or pull it all together:
+
+```powershell
+PS C:\> get-ciminstance win32_operatingsystem |
+select-object @{Name = "TotalMemGB";Expression={Format-Value $_.TotalVisibleMemorySize -Unit mb}},
+@{Name="FreeMemGB";Expression={Format-Value $_.FreePhysicalMemory -unit mb -Decimal 2}},
+@{Name="PctFree";Expression={Format-Percent -Value $_.FreePhysicalMemory -Total $_.totalVisibleMemorySize -Decimal 2}}
+
+TotalMemGB FreeMemGB PctFree
+---------- --------- -------
+        32     14.05   44.06
 ```
 
 ## [Get-PSLocation](docs/Get-PSLocation.md)
 
 A simple function to get common locations. This can be useful with cross-platform scripting.
 
-![](./images/pslocation-win.png)
+![windows locations](./images/pslocation-win.png)
 
-![](./images/pslocation-linux.png)
+![linux locations](./images/pslocation-linux.png)
 
 ## [Get-PowerShellEngine](docs/Get-PowerShellEngine.md)
 
@@ -229,7 +268,7 @@ This command provides a PowerShell alternative to the cmd.exe **MORE** command, 
 get-service | out-more
 ```
 
-![](./images/out-more.png)
+![out-more](./images/out-more.png)
 
 This also works in PowerShell Core.
 
@@ -243,11 +282,11 @@ Because this module is intended to make scripting easier for you, it adds option
 
 In the PowerShell ISE, you will get a new menu under Add-Ons
 
-![](./images/todo-1.png)
+![new menu](./images/todo-1.png)
 
 You can use the menu or keyboard shortcut which will launch an input box.
 
-![](./images/todo-2.png)
+![input box](./images/todo-2.png)
 
 The comment will be inserted at the current cursor location.
 
@@ -257,7 +296,7 @@ In VS Code, access the command palette (Ctrl+Shift+P) and then "PowerShell: Show
 
 The primary command can be used to test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests.
 
-### Why?
+### Why
 
 When you run a single test with `Measure-Command` the result might be affected by any number of factors. Likewise, running multiple tests may also be influenced by things such as caching. The goal in this module is to provide a test framework where you can run a test repeatedly with either a static or random interval between each test. The results are aggregated and analyzed. Hopefully, this will provide a more meaningful or realistic result.
 
@@ -350,7 +389,7 @@ This function is a graphical replacement for `Read-Host`. It creates a simple WP
 $name = Invoke-InputBox -Prompt "Enter a user name" -Title "New User Setup"
 ```
 
-![](./images/ibx-1.png)
+![input box](./images/ibx-1.png)
 
 You can also capture a secure string.
 
@@ -358,7 +397,7 @@ You can also capture a secure string.
 Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -BackgroundColor red
 ```
 
-![](./images/ibx-2.png)
+![secure input box](./images/ibx-2.png)
 
 This example also demonstrates that you can change form's background color. This function will **not** work in PowerShell Core.
 
@@ -405,6 +444,7 @@ ConvertTo-WPFGrid -Title "Event Log Report"
 ![Displaying Eventlog Info](images/wpfgrid.png)
 
 You can also have automatically refresh the data.
+
 ```powershell
 get-process | sort-object WS -Descending | Select -first 20 ID,Name,WS,VM,PM,Handles,StartTime |
 Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
@@ -726,7 +766,7 @@ Monday, March 4, 2019 1:00:00 PM
 
 Convert a universal datetime to the local time.
 
-### [Get-MyTimeInfo](./Get-MyTimeInfo.md)
+### [Get-MyTimeInfo](docs/Get-MyTimeInfo.md)
 
 Display a time settings for a collection of locations. This command is a PowerShell equivalent of a world clock. It will display a datetime value against a collection of locations. You can specify an ordered hashtable of locations and time zones. You can run command like:
 
@@ -752,8 +792,30 @@ Now                 Home                 Seattle              New Zealand
 
 This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.
 
+## Console Utilities
+
+### [Set-ConsoleTitle](docs/Set-ConsoleTitle.md)
+
+Set the title bar of the current PowerShell console window.
+
+```powershell
+PS C:\> if (Test-IsAdministrator) { Set-ConsoleTitle "Administrator: $($PSVersionTable.PSedition) $($PSVersionTable.PSVersion)" -Verbose }
+VERBOSE: [10:33:17.0420820 BEGIN  ] Starting Set-ConsoleTitle
+VERBOSE: [10:33:17.0440568 PROCESS] Setting console title to Administrator: Desktop 5.1.17763.316
+VERBOSE: Performing the operation "Set-ConsoleTitle" on target "Administrator: Desktop 5.1.17763.316".
+VERBOSE: [10:33:17.0584056 END    ] Ending Set-ConsoleTitle
+```
+
+### [Set-ConsoleColor](docs/Set-ConsoleColor.md)
+
+Configure the foreground or background color of the current PowerShell console window. Note that if you are running the PSReadline module, this command won't work. You should use `Set-PSReadlineOption` or similar command to configure your session settings.
+
+```powershell
+PS C:\> Set-ConsoleColor -background DarkGray -foreground Yellow
+```
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 6 March, 2019*
+*last updated 11 March, 2019*

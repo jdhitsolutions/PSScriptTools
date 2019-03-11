@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version:
 schema: 2.0.0
 ---
 
@@ -22,7 +22,7 @@ New-CustomFileName [-Template] <String> [-Case <String>] [<CommonParameters>]
 This command will generate a custom file name based on a template string that you provide. You can create a template string using any of these variables. Most of these should be self-explanatory
 
 - %username
-- %computername 
+- %computername
 - %year  - 4 digit year
 - %yr  - 2 digit year
 - %monthname - The abbreviated month name

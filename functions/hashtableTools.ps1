@@ -2,7 +2,7 @@
 Function Convert-HashtableString {
     [cmdletbinding()]
     [OutputType([System.Collections.Hashtable])]
-   
+
     Param(
         [parameter(Mandatory, HelpMessage = "Enter your hashtable string", ValueFromPipeline)]
         [ValidateNotNullOrEmpty()]
@@ -35,7 +35,7 @@ Function Convert-HashtableString {
 }
 
 Function ConvertTo-HashTable {
-    
+
     [cmdletbinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
 
@@ -54,9 +54,11 @@ Function ConvertTo-HashTable {
     )
 
     Process {
-        #get type using the [Type] class because deserialized objects won't have
-        #a GetType() method which is what we would normally use.
-
+        <#
+            get type using the [Type] class because deserialized objects won't have
+            a GetType() method which is what we would normally use.
+        #>
+        
         $TypeName = [system.type]::GetTypeArray($InputObject).name
         Write-Verbose "Converting an object of type $TypeName"
 
@@ -98,7 +100,7 @@ Function ConvertTo-HashTable {
 Function Convert-HashTableToCode {
     [cmdletbinding()]
     [OutputType([system.string])]
-    
+
     Param(
         [Parameter(Position = 0, ValueFromPipeline, Mandatory)]
         [ValidateNotNullorEmpty()]
@@ -113,9 +115,9 @@ Function Convert-HashTableToCode {
     }
     Process {
         Write-Verbose "Processing a hashtable with $($hashtable.keys.count) keys"
-        
+
         $hashtable.GetEnumerator() | foreach-object -begin {
-            
+
             $out = @"
 @{
 
@@ -149,14 +151,14 @@ Function Convert-HashTableToCode {
             $tabcount = "`t" * $Indent
             $out += "$tabcount$($_.key) = $value `n"
         }  -end {
-                
+
             $tabcount = "`t" * ($Indent - 1)
             $out += "$tabcount}`n"
 
-            $out 
-                
+            $out
+
         }
-            
+
     } #process
     End {
         Write-Verbose "Ending $($myinvocation.mycommand)"
@@ -212,7 +214,7 @@ Function Join-Hashtable {
 Function Convert-CommandtoHashtable {
     [cmdletbinding()]
     [OutputType("Hashtable")]
-    
+
     Param(
         [Parameter(Mandatory)]
         [ValidateNotNullorEmpty()]
