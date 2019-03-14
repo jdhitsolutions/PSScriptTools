@@ -1,10 +1,18 @@
 # Change Log for PSScriptTools
 
+## v2.6.0
+
++ Modified `Convertto-WPFGrid` to set maximum size equal to total available working area (Issue #36)
++ Modified `Convertto-WPFGrid` to change cursor on refresh and display a refresh message in the title bar
++ Added InitializationScript option for `ConvertTo-WPFGrid` (Issue #42)
++ Added `ConvertTo-LocalTime` with an alias of `clt`
++ Help updates
+
 ## v2.5.0
 
 + fixed bug which was hiding the horizontal scroll bar in `ConvertTo-WPFGrid` (Issue #40)
 + fixed bug which prevented status bar from updating when manually refreshing in `ConvertTo-WPFGrid` (Issue #34)
-+ Changed time display in `ConvertTo-WPFGrid as a timespan instead of raw seconds (Issue #41)
++ Changed time display in `ConvertTo-WPFGrid` as a timespan instead of raw seconds (Issue #41)
 + Markdown help cleanup
 + Added `Set-ConsoleTitle`
 + Added `Set-ConsoleColor`

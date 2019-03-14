@@ -16,31 +16,31 @@ Send command output to an interactive WPF-based grid.
 ### input (Default)
 
 ```yaml
-ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-UseLocalVariable <String[]>]
- [-UseProfile] [<CommonParameters>]
+ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-InitializationScript <ScriptBlock>]
+ [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ### Input
 
 ```yaml
 ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
- [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+ [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ### scriptblock
 
 ```yaml
 ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
- [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+ [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.
 
-You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid.
+You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid. You should set a refresh interval that is greater than the time it takes to complete the command.
 
-Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace. You can also specify a list of locally defined variables to be used in the form.
+Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace. You can specify a list of locally defined variables to be used in the form. Use the variable name without the $. Finally, you can also use the -InitializationScript parameter and specify a scriptblock of PowerShell code to initialize the runspace. This is helpful when you need to dot source external scripts or import modules not in your module path.
 
 This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.
 
@@ -73,6 +73,14 @@ PS C:\> Get-VMData -host CHI-HVR2 | ConvertTo-WPFGrid -title "VM Data" -refresh 
 ```
 
 This example uses a hypothetical command that might be defined in a PowerShell profile script. ConvertTo-WPFGrid will load the profile scripts so that the data can be updated every 60 seconds.
+
+### EXAMPLE 4
+
+```powershell
+PS C:\> (get-processdata -Computername $computers).where({$_.workingset -ge 100mb}) | ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30
+```
+
+This command runs a function that is defined in a script file. In order for the form to refresh, it must also dot source the script which is happening with the InitializationScript parameter. The example is also loading the local $computers variable so that it too is available upon refresh.
 
 ## PARAMETERS
 
@@ -126,7 +134,9 @@ Accept wildcard characters: False
 
 ### -Refresh
 
-If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.
+If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. You should use a value that is longer than the time it takes to complete the command that generates your data.
+
+This parameter will only work if you are using Convertto-WPFGrid at the end of a pipelined expression. See examples.
 
 ```yaml
 Type: SwitchParameter
@@ -180,6 +190,22 @@ Load locally defined variables into the background runspace
 Type: String[]
 Parameter Sets: (All)
 Aliases: var
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -InitializationScript
+
+Run this scriptblock to initialize the background runspace. You might need to dot source a script file or load a non-standard module.
+
+```yaml
+Type: ScriptBlock
+Parameter Sets: (All)
+Aliases:
 
 Required: False
 Position: Named

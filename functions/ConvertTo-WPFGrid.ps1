@@ -20,6 +20,9 @@ Function ConvertTo-WPFGrid {
 
         [switch]$Refresh,
 
+        [Parameter(HelpMessage = "Run this scriptblock to initialize the background runspace")]
+        [scriptblock]$InitializationScript,
+
         [Parameter(HelpMessage = "Load locally defined variables into the background runspace")]
         [alias("var")]
         [string[]]$UseLocalVariable,
@@ -73,12 +76,13 @@ Function ConvertTo-WPFGrid {
             Add-Type -AssemblyName PresentationCore
             Add-Type -AssemblyName WindowsBase
 
+            #get maximum available working area on the screen
             $s = [System.Windows.SystemParameters]::WorkArea
 
             $form = New-Object System.Windows.Window
             $form.Title = $Title
-            $form.MaxHeight = $s.Height - 500
-            $form.MaxWidth = $s.Width - 500
+            $form.MaxHeight = $s.Height
+            $form.MaxWidth = $s.Width
 
             $form.SizeToContent = [System.Windows.SizeToContent]::WidthAndHeight
 
@@ -105,6 +109,8 @@ Function ConvertTo-WPFGrid {
                     $form.left = $s.width / 2 - $form.ActualWidth / 2
                     $form.UpdateLayout()
                     $form.focus
+                 #   [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
+
                 })
 
             $Form.Add_closing( {
@@ -130,7 +136,13 @@ Function ConvertTo-WPFGrid {
             $btnRefresh.ToolTip = "click to refresh data from the command"
 
             $btnRefresh.add_click( {
+                    [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
+
+                    $form.Title = "$Title ...refreshing content. Please wait."
+
                     $timer.stop()
+                    start-sleep -seconds 3
+
                     $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
 
                     foreach ($col in $datagrid.Columns) {
@@ -139,12 +151,13 @@ Function ConvertTo-WPFGrid {
                         $col.CanUserSort = $True
                         $col.SortMemberPath = $col.Header
                     }
+
                     $script:Now = Get-Date
 
                     if ($script:count) {
                         $script:count = $Timeout
                         [datetime]$script:terminate = $now.AddSeconds($timeout)
-                        $ts = new-timespan -Seconds $script:count
+                        $ts = New-TimeSpan -Seconds $script:count
                         $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
                     }
                     else {
@@ -153,6 +166,8 @@ Function ConvertTo-WPFGrid {
                     if ($refresh) {
                         $timer.start()
                     }
+                    $form.title = $Title
+                    [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
                 })
 
             $grid.AddChild($btnRefresh)
@@ -237,6 +252,8 @@ Function ConvertTo-WPFGrid {
                         else {
                             $timer.stop()
                             if ($Refresh) {
+                                 $form.Title = "$Title ...refreshing content. Please wait."
+                                 [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
                                 $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
 
                                 foreach ($col in $datagrid.Columns) {
@@ -251,6 +268,8 @@ Function ConvertTo-WPFGrid {
                                 $ts = new-timespan -Seconds $script:count
                                 $status.text = " Last updated $script:Now - refresh in $($ts.tostring()) seconds"
                                 $Timer.Start()
+                                $form.title = $Title
+                                 [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
                             }
                             else {
                                 $form.close()
@@ -266,6 +285,7 @@ Function ConvertTo-WPFGrid {
         }
 
         If ($UseProfile) {
+            Write-Verbose "Loading user profiles"
             $profiles = $profile.AllUsersAllHosts, $profile.AllUsersCurrentHost,
             $profile.CurrentUserAllHosts, $profile.CurrentUserCurrentHost
             foreach ($file in $profiles) {
@@ -273,6 +293,10 @@ Function ConvertTo-WPFGrid {
                     $psCmd.AddScript($file) | Out-Null
                 }
             }
+        }
+        if ($InitializationScript) {
+            Write-Verbose "Loading an initialization scriptblock"
+            $pscmd.AddScript($InitializationScript) | Out-Null
         }
 
         $pscmd.AddScript($gridScript) | Out-Null
