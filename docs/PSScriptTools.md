@@ -183,10 +183,14 @@ Convert a universal time to local time.
 
 Display a time settings for a collection of locations.
 
-### [Set-ConsoleTitle](./Set-ConsoleTitle)
+### [Set-ConsoleTitle](./Set-ConsoleTitle.md)
 
 Set the title bar of the current PowerShell console window.
 
-### [Set-ConsoleColor](./Set-ConsoleColor)
+### [Set-ConsoleColor](./Set-ConsoleColor.md)
 
 Configure the foreground or background color of the current PowerShell console window.
+
+### [ConvertTo-LocalTime](./ConvertTo-LocalTime.md)
+
+Convert a non-local datetime to your local time.

@@ -792,6 +792,28 @@ Now                 Home                 Seattle              New Zealand
 
 This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.
 
+### [ConvertTo-LocalTime](docs/ConvertTo-LocalTime.md)
+
+It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location.
+
+```powershell
+PS C:\> get-timezone -ListAvailable | where id -match hawaii
+
+
+Id                         : Hawaiian Standard Time
+DisplayName                : (UTC-10:00) Hawaii
+StandardName               : Hawaiian Standard Time
+DaylightName               : Hawaiian Daylight Time
+BaseUtcOffset              : -10:00:00
+SupportsDaylightSavingTime : False
+
+PS C:\> Convertto-LocalTime "10:00AM" -10:00:00
+
+Thursday, March 14, 2019 4:00:00 PM
+```
+
+In this example, the user if first determining the UTC offset for Hawaii. Then 10:00AM in say Honolulu, is converted to local time which in this example is in the Eastern Time zone.
+
 ## Console Utilities
 
 ### [Set-ConsoleTitle](docs/Set-ConsoleTitle.md)
@@ -818,4 +840,4 @@ PS C:\> Set-ConsoleColor -background DarkGray -foreground Yellow
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 11 March, 2019*
+*last updated 14 March, 2019*

@@ -508,7 +508,12 @@ Get-EventLog @paramHash</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Convert-HashTableToCode</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -989,6 +994,147 @@ Status                         Running</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Convertto-LocalTime</command:name>
+      <command:verb>Convertto</command:verb>
+      <command:noun>LocalTime</command:noun>
+      <maml:description>
+        <maml:para>Convert a foreign time to local</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location. You can use Get-Timezone to help. See examples.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convertto-LocalTime</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Datetime</maml:name>
+          <maml:Description>
+            <maml:para>Enter a non-local date time</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>UTCOffset</maml:name>
+          <maml:Description>
+            <maml:para>Enter the location's' UTC Offset. You can use Get-Timezone to discover it.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+          <dev:type>
+            <maml:name>TimeSpan</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Datetime</maml:name>
+        <maml:Description>
+          <maml:para>Enter a non-local date time</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>UTCOffset</maml:name>
+        <maml:Description>
+          <maml:para>Enter the location's' UTC Offset. You can use Get-Timezone to discover it.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+        <dev:type>
+          <maml:name>TimeSpan</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertTo-LocalTime "3/15/2019 7:00AM" 8:00:00
+
+Thursday, March 14, 2019 7:00:00 PM</dev:code>
+        <dev:remarks>
+          <maml:para>Convert a time that is in Singapore to local (Eastern) time.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-timezone -ListAvailable | where id -match hawaii
+
+
+Id                         : Hawaiian Standard Time
+DisplayName                : (UTC-10:00) Hawaii
+StandardName               : Hawaiian Standard Time
+DaylightName               : Hawaiian Daylight Time
+BaseUtcOffset              : -10:00:00
+SupportsDaylightSavingTime : False
+
+PS C:\&gt; ConvertTo-LocalTime "10:00AM" -10:00:00
+
+Thursday, March 14, 2019 4:00:00 PM</dev:code>
+        <dev:remarks>
+          <maml:para>In this example, the user if first determining the UTC offset for Hawaii. Then 10:00AM in say Honolulu, is converted to local time which in this example is in the Eastern Time zone.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-TimeZone</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-MyTimeInfo</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>ConvertFrom-UTCTime</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>ConvertTo-UTCTime</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertTo-Markdown</command:name>
       <command:verb>ConvertTo</command:verb>
       <command:noun>Markdown</command:noun>
@@ -1320,8 +1466,8 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.</maml:para>
-      <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid.</maml:para>
-      <maml:para>Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace. You can also specify a list of locally defined variables to be used in the form.</maml:para>
+      <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid. You should set a refresh interval that is greater than the time it takes to complete the command.</maml:para>
+      <maml:para>Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace. You can specify a list of locally defined variables to be used in the form. Use the variable name without the $. Finally, you can also use the -InitializationScript parameter and specify a scriptblock of PowerShell code to initialize the runspace. This is helpful when you need to dot source external scripts or import modules not in your module path.</maml:para>
       <maml:para>This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1366,7 +1512,8 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Refresh</maml:name>
           <maml:Description>
-            <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.</maml:para>
+            <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. You should use a value that is longer than the time it takes to complete the command that generates your data.</maml:para>
+            <maml:para>This parameter will only work if you are using Convertto-WPFGrid at the end of a pipelined expression. See examples.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1393,6 +1540,18 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
             <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>InitializationScript</maml:name>
+          <maml:Description>
+            <maml:para>Run this scriptblock to initialize the background runspace. You might need to dot source a script file or load a non-standard module.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1427,7 +1586,8 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Refresh</maml:name>
           <maml:Description>
-            <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.</maml:para>
+            <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. You should use a value that is longer than the time it takes to complete the command that generates your data.</maml:para>
+            <maml:para>This parameter will only work if you are using Convertto-WPFGrid at the end of a pipelined expression. See examples.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -1466,6 +1626,18 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
             <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>InitializationScript</maml:name>
+          <maml:Description>
+            <maml:para>Run this scriptblock to initialize the background runspace. You might need to dot source a script file or load a non-standard module.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1512,7 +1684,8 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Refresh</maml:name>
         <maml:Description>
-          <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. This will only work if you are using this command at the end of a pipelined expression. See examples.</maml:para>
+          <maml:para>If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. You should use a value that is longer than the time it takes to complete the command that generates your data.</maml:para>
+          <maml:para>This parameter will only work if you are using Convertto-WPFGrid at the end of a pipelined expression. See examples.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -1553,6 +1726,18 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
           <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>InitializationScript</maml:name>
+        <maml:Description>
+          <maml:para>Run this scriptblock to initialize the background runspace. You might need to dot source a script file or load a non-standard module.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>ScriptBlock</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -1607,6 +1792,13 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvaria
         <dev:code>PS C:\&gt; Get-VMData -host CHI-HVR2 | ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile</dev:code>
         <dev:remarks>
           <maml:para>This example uses a hypothetical command that might be defined in a PowerShell profile script. ConvertTo-WPFGrid will load the profile scripts so that the data can be updated every 60 seconds.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; (get-processdata -Computername $computers).where({$_.workingset -ge 100mb}) | ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30</dev:code>
+        <dev:remarks>
+          <maml:para>This command runs a function that is defined in a script file. In order for the form to refresh, it must also dot source the script which is happening with the InitializationScript parameter. The example is also loading the local $computers variable so that it too is available upon refresh.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
