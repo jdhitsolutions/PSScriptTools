@@ -16,22 +16,24 @@ Send command output to an interactive WPF-based grid.
 ### input (Default)
 
 ```yaml
-ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-InitializationScript <ScriptBlock>]
- [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-Gridlines <String>]
+ [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ### Input
 
 ```yaml
 ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
- [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+ [-Gridlines <String>] [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile]
+ [<CommonParameters>]
 ```
 
 ### scriptblock
 
 ```yaml
 ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
- [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+ [-Gridlines <String>] [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -204,6 +206,22 @@ Run this scriptblock to initialize the background runspace. You might need to do
 
 ```yaml
 Type: ScriptBlock
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Gridlines
+
+Control how grid lines are displayed in the form. You may not want to have any or perhaps only vertical or horizontal lines.
+
+```yaml
+Type: String
 Parameter Sets: (All)
 Aliases:
 

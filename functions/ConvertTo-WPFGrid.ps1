@@ -20,6 +20,11 @@ Function ConvertTo-WPFGrid {
 
         [switch]$Refresh,
 
+        [Parameter(HelpMessage = "Control how grid lines are displayed")]
+        [ValidateSet("All","Horizontal","None","Vertical")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Gridlines = "All",
+
         [Parameter(HelpMessage = "Run this scriptblock to initialize the background runspace")]
         [scriptblock]$InitializationScript,
 
@@ -68,7 +73,8 @@ Function ConvertTo-WPFGrid {
                 [int]$Timeout = 0,
                 [object[]]$Data,
                 [scriptblock]$cmd,
-                [switch]$Refresh
+                [switch]$Refresh,
+                [string]$Gridlines
             )
 
             # It may not be necessary to add these types but it doesn't hurt to include them
@@ -109,7 +115,6 @@ Function ConvertTo-WPFGrid {
                     $form.left = $s.width / 2 - $form.ActualWidth / 2
                     $form.UpdateLayout()
                     $form.focus
-                 #   [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
 
                 })
 
@@ -182,7 +187,7 @@ Function ConvertTo-WPFGrid {
             $btnClose.ToolTip = "close the form and quit"
 
             $btnClose.add_click( {
-               $form.Close()
+                    $form.Close()
                 })
             $grid.AddChild($btnClose)
 
@@ -195,7 +200,7 @@ Function ConvertTo-WPFGrid {
             $datagrid.margin = "0,50,0,25"
 
             $datagrid.ColumnWidth = "Auto"
-
+            $datagrid.GridLinesVisibility = $Gridlines
             $datagrid.VerticalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
             $datagrid.HorizontalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
             $datagrid.CanUserSortColumns = $True
@@ -239,7 +244,7 @@ Function ConvertTo-WPFGrid {
 
                 $timer.add_tick( {
 
-                    $ts = new-timespan -seconds $script:count
+                        $ts = new-timespan -seconds $script:count
                         if ((Get-Date) -lt $script:terminate -AND $Refresh) {
                             $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
                             $script:count--
@@ -252,8 +257,8 @@ Function ConvertTo-WPFGrid {
                         else {
                             $timer.stop()
                             if ($Refresh) {
-                                 $form.Title = "$Title ...refreshing content. Please wait."
-                                 [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
+                                $form.Title = "$Title ...refreshing content. Please wait."
+                                [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
                                 $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
 
                                 foreach ($col in $datagrid.Columns) {
@@ -269,7 +274,7 @@ Function ConvertTo-WPFGrid {
                                 $status.text = " Last updated $script:Now - refresh in $($ts.tostring()) seconds"
                                 $Timer.Start()
                                 $form.title = $Title
-                                 [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
+                                [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
                             }
                             else {
                                 $form.close()
@@ -342,10 +347,10 @@ Function ConvertTo-WPFGrid {
         else {
             $cmd = $Scriptblock
         }
-      #  if ($Refresh) {
-            $psboundparameters.cmd = $cmd
-            Write-Verbose "Refresh command: $cmd"
-       # }
+
+        $psboundparameters.cmd = $cmd
+        Write-Verbose "Refresh command: $cmd"
+
         Write-Verbose "Sending PSBoundparameters to runspace"
 
         $psCmd.AddParameters($PSBoundParameters) | Out-Null

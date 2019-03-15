@@ -31,6 +31,7 @@ This command will generate a custom file name based on a template string that yo
 - %day
 - %hour
 - %minute
+- %seconds
 - %time  - A compact string of HourMinuteSecond
 - %string - A random string
 - %guid
@@ -39,18 +40,7 @@ You can also insert a random number using %### with a # character for each digit
 
 The command will attempt to preserve case for any non pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.
 
-    New-CustomFilename "%Year_LOG-%computername.txt"
-    2017_log-Bovine320.txt
-
-    New-CustomFilename "%Year-LOG-%computername.txt"
-    2017-LOG-Bovine320.txt
-
 Another option, is to turn the entire name into upper or lower case.
-
-    New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower
-    2017nov-log-bovine320[jeff].txt
-
-This command does not create the file, it only generates a name for you to use.
 
 ## EXAMPLES
 
@@ -58,7 +48,7 @@ This command does not create the file, it only generates a name for you to use.
 
 ```powershell
 PS C:\> New-CustomFileName %computername_%day%monthname%yr-%time.log
-COWPC_28Nov17-142138.log
+COWPC_28Nov18-142138.log
 ```
 
 ### EXAMPLE 2
@@ -78,6 +68,45 @@ JEFF-Z0XUXMFS.TMP
 ```
 
 Create an upper case custom file name. The %string placeholder will be replaced with a random 8 character string.
+
+### EXAMPLE 4
+
+```powershell
+PS C:\> Join-Path c:\work (New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower)
+c:\work\2018nov-log-bovine320[jeff].txt
+```
+
+Create a lower case filename using Join-Path. This command does not create the file, it only generates a name for you to use.
+
+### EXAMPLE 5
+
+```powershell
+PS C:\> 1..10 | foreach-object {
+    $file = New-Item (Join-Path c:\work\data (New-CustomFileName %string-%####.dat))
+    $stream =$file.open("OpenOrCreate")
+    $stream.Seek((Get-Random -minimum 250 -Maximum 2KB), "Begin") | Out-Null
+    $stream.WriteByte(0)
+    $stream.Close()
+    $file
+}
+
+    Directory: C:\work\data
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        3/15/2019   4:46 PM            976 rcphz2nj-6431.dat
+-a----        3/15/2019   4:46 PM           1797 viz32er5-0526.dat
+-a----        3/15/2019   4:46 PM           1775 k2mukuv4-8267.dat
+-a----        3/15/2019   4:46 PM            666 0encqdlt-8753.dat
+-a----        3/15/2019   4:46 PM            513 dbswpujf-6314.dat
+-a----        3/15/2019   4:46 PM            371 qlkdufp0-0481.dat
+-a----        3/15/2019   4:46 PM           2010 5cxq3tb5-5624.dat
+-a----        3/15/2019   4:46 PM           2043 mcvoh4n5-8041.dat
+-a----        3/15/2019   4:46 PM           1048 4iwibnmf-1584.dat
+-a----        3/15/2019   4:46 PM            378 fgsj0rtd-2894.dat
+```
+
+Create 10 dummy files with random names and sizes.
 
 ## PARAMETERS
 

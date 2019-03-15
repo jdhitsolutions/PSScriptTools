@@ -45,7 +45,7 @@ Function New-CustomFileName {
     [outputtype([string])]
     Param (
         [Parameter(Position = 0, Mandatory, HelpMessage = @"
-You can create a template string using any of these variables.
+You can create a template string using any of these variables, including the % symbol.
 
 - %username
 - %computername
@@ -57,9 +57,12 @@ You can create a template string using any of these variables.
 - %day
 - %hour
 - %minute
+- %seconds
 - %time  - A compact string of HourMinuteSecond
 - %string - A random string
 - %guid
+- %### - a random matching the number of # characters
+
 "@)]
         [ValidateNotNullOrEmpty()]
         [string]$Template,
@@ -93,15 +96,16 @@ You can create a template string using any of these variables.
     #will be processed in the right order
     $hash = [ordered]@{
         '%username'     = $user
-        '%computername' = (hostname)
+        '%computername' = [environment]::MachineName
         '%year'         = $now.Year
         '%yr'           = "{0:yy}" -f $now
         '%monthname'    = ("{0:MMM}" -f $now)
-        '%month'        = $now.month
+        '%month'        = "{0:MM}" -f $now
         '%dayofweek'    = $now.DayOfWeek
-        '%day'          = $now.Day
-        '%hour'         = $now.hour
-        '%minute'       = $now.minute
+        '%day'          = "{0:dd}" -f $now
+        '%hour'         = "{0:hh}" -f $now
+        '%minute'       = "{0:mm}" -f $now
+        '%seconds'      = "{0:ss}" -f $now
         '%time'         = "{0}{1}{2}" -f $now.hour, $now.minute, $now.Second
         '%string'       = ([system.io.path]::GetRandomFileName()).split(".")[0]
         '%guid'         = [System.Guid]::NewGuid().guid

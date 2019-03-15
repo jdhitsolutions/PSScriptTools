@@ -1,11 +1,27 @@
 # Change Log for PSScriptTools
 
+## v2.7.0
+
++ Modified `ConvertTo-LocalTime` to allow for locations supporting Daylight Saving Time (Issue #44)
++ Fixed bug in `New-PSFormatXML` that wasn't using auto detected property names (Issue #45)
++ Added `Get-TZList` and `Get-TZData` commands
++ Added format file `timeZoneData.format.ps1xml`
++ Modified `ConvertTo-WPFGrid` to allow the user to control which gridlines are displayed
++ Modified `New-CustomFilename` to improve parameter help.
++ Modified `New-CustomFilename` to add %seconds.
++ Modified `New-CustomFilename` so that %month, %day and %minute will use a leading zero if necessary
++ Added new help examples for `New-CustomFilename`
++ Help updates
++ File re-organization
++ Updated `README.md`
+
 ## v2.6.0
 
 + Modified `Convertto-WPFGrid` to set maximum size equal to total available working area (Issue #36)
 + Modified `Convertto-WPFGrid` to change cursor on refresh and display a refresh message in the title bar
 + Added InitializationScript option for `ConvertTo-WPFGrid` (Issue #42)
 + Added `ConvertTo-LocalTime` with an alias of `clt`
++ Updated `README.md`
 + Help updates
 
 ## v2.5.0

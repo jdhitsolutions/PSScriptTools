@@ -194,3 +194,11 @@ Configure the foreground or background color of the current PowerShell console w
 ### [ConvertTo-LocalTime](./ConvertTo-LocalTime.md)
 
 Convert a non-local datetime to your local time.
+
+### [Get-TZList](./Get-TZList.md)
+
+Get a list of time zone areas.
+
+### [Get-TZData](./Get-TZData.md)
+
+Get details of a give time zone area.
