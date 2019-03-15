@@ -814,6 +814,57 @@ Thursday, March 14, 2019 4:00:00 PM
 
 In this example, the user if first determining the UTC offset for Hawaii. Then 10:00AM in say Honolulu, is converted to local time which in this example is in the Eastern Time zone.
 
+### [Get-TZList](docs/Get-TZList.md)
+
+This command uses a free and publicly available REST API offered by [http://worldtimeapi.org](http://worldtimeapi.org) to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details.
+
+```powershell
+PS S:\PSScriptTools> get-tzlist Australia
+Australia/Adelaide
+Australia/Brisbane
+Australia/Broken_Hill
+Australia/Currie
+Australia/Darwin
+Australia/Eucla
+Australia/Hobart
+Australia/Lindeman
+Australia/Lord_Howe
+Australia/Melbourne
+Australia/Perth
+Australia/Sydney
+```
+
+### [Get-TZData](docs/Get-TZData.md)
+
+This command also uses the API from worldtimeapi.org to retrieve details about a give time zone area.
+
+```powershell
+PS C:\> Get-TZData Australia/Hobart
+
+Timezone                        Label        Offset     DST                  Time
+--------                        -----        ------     ---                  ----
+Australia/Hobart                AEDT       11:00:00    True  3/16/2019 3:43:14 AM
+```
+
+The Time value is the current time at the remote location. The command presents a formatted object but you can also get the raw data.
+
+```powershell
+PS C:\> Get-TZData Australia/Hobart -Raw
+
+
+week_number  : 11
+utc_offset   : +11:00
+unixtime     : 1552668285
+timezone     : Australia/Hobart
+dst_until    : 2019-04-06T16:00:00+00:00
+dst_from     : 2018-10-06T16:00:00+00:00
+dst          : True
+day_of_year  : 75
+day_of_week  : 6
+datetime     : 2019-03-16T03:44:45.689655+11:00
+abbreviation : AEDT
+```
+
 ## Console Utilities
 
 ### [Set-ConsoleTitle](docs/Set-ConsoleTitle.md)
@@ -840,4 +891,4 @@ PS C:\> Set-ConsoleColor -background DarkGray -foreground Yellow
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 14 March, 2019*
+*last updated 15 March, 2019*

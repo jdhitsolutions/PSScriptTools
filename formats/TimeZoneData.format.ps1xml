@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+format type data generated 03/15/2019 09:07:36
+by BOVINE320\Jeff
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 03/15/2019 09:07:36 by BOVINE320\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>TimeZoneData</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Timezone</Label>
+            <Width>30</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Label</Label>
+            <Width>7</Width>
+            <Alignment>center</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Offset</Label>
+            <Width>12</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>DST</Label>
+            <Width>7</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Time</Label>
+            <Width>21</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <Scriptblock>$_.foo /1mb -as [int]</Scriptblock>
+-->
+              <TableColumnItem>
+                <PropertyName>Timezone</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Abbreviation</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Offset</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>DaylightSavingTime</PropertyName>
+              </TableColumnItem>
+               <TableColumnItem>
+                <PropertyName>Time</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

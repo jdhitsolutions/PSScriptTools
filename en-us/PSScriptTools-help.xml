@@ -994,19 +994,20 @@ Status                         Running</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Convertto-LocalTime</command:name>
-      <command:verb>Convertto</command:verb>
+      <command:name>ConvertTo-LocalTime</command:name>
+      <command:verb>ConvertTo</command:verb>
       <command:noun>LocalTime</command:noun>
       <maml:description>
         <maml:para>Convert a foreign time to local</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location. You can use Get-Timezone to help. See examples.</maml:para>
+      <maml:para>It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location. You can use Get-Timezone or Get-TZData to help. See examples.</maml:para>
+      <maml:para>The parameter for DaylightSavingTime is to indicate that the remote location is observing DST. You can use this with the location's standard UTC offset, or you can specify an offset that takes DST into account.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Convertto-LocalTime</maml:name>
+        <maml:name>ConvertTo-LocalTime</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Datetime</maml:name>
           <maml:Description>
@@ -1019,7 +1020,7 @@ Status                         Running</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="offset">
           <maml:name>UTCOffset</maml:name>
           <maml:Description>
             <maml:para>Enter the location's' UTC Offset. You can use Get-Timezone to discover it.</maml:para>
@@ -1030,6 +1031,17 @@ Status                         Running</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dst">
+          <maml:name>DaylightSavingTime</maml:name>
+          <maml:Description>
+            <maml:para>Indicate that the foreign location is using Daylight Saving Time</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -1046,7 +1058,7 @@ Status                         Running</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="offset">
         <maml:name>UTCOffset</maml:name>
         <maml:Description>
           <maml:para>Enter the location's' UTC Offset. You can use Get-Timezone to discover it.</maml:para>
@@ -1057,6 +1069,18 @@ Status                         Running</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dst">
+        <maml:name>DaylightSavingTime</maml:name>
+        <maml:Description>
+          <maml:para>Indicate that the foreign location is using Daylight Saving Time</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -1121,6 +1145,10 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-MyTimeInfo</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-TZList</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
@@ -1556,6 +1584,18 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Gridlines</maml:name>
+          <maml:Description>
+            <maml:para>Control how grid lines are displayed in the form. You may not want to have any or perhaps only vertical or horizontal lines.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>ConvertTo-WPFGrid</maml:name>
@@ -1638,6 +1678,18 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
           <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
           <dev:type>
             <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Gridlines</maml:name>
+          <maml:Description>
+            <maml:para>Control how grid lines are displayed in the form. You may not want to have any or perhaps only vertical or horizontal lines.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1738,6 +1790,18 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
         <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
         <dev:type>
           <maml:name>ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Gridlines</maml:name>
+        <maml:Description>
+          <maml:para>Control how grid lines are displayed in the form. You may not want to have any or perhaps only vertical or horizontal lines.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -4009,6 +4073,322 @@ Culture         : en-US</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-TZData</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>TZData</command:noun>
+      <maml:description>
+        <maml:para>Get time zone details</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command uses a free and publicly available REST API offered by http://worldtimeapi.org to get information about a time zone. You can use Get-TZList to find an area and this command to display the details. The time zone area name is case-sensitive. The default is to write a custom object to the pipeline, but you also have an option of seeing the raw data that is returned from the API. On PowerShell Core, the raw data will be slightly different.</maml:para>
+      <maml:para>Note that if the site is busy you may get an error. If that happens, wait a minute and try again.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-TZData</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>TimeZoneArea</maml:name>
+          <maml:Description>
+            <maml:para>Enter a timezone location like Pacific/Auckland. It is case sensitive. Use Get-TZList to retrieve a list of areas.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Raw</maml:name>
+          <maml:Description>
+            <maml:para>Return raw, unformatted data. Due to the way PowerShell Core automatically wants to format date time strings, raw output had to be slightly adjusted.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Raw</maml:name>
+        <maml:Description>
+          <maml:para>Return raw, unformatted data. Due to the way PowerShell Core automatically wants to format date time strings, raw output had to be slightly adjusted.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>TimeZoneArea</maml:name>
+        <maml:Description>
+          <maml:para>Enter a timezone location like Pacific/Auckland. It is case sensitive. Use Get-TZList to retrieve a list of areas.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSCustomObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>TimeZoneData</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell:http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-TZData Australia/Hobart
+
+PS S:\PSScriptTools&gt; Get-TZData Australia/Hobart
+
+Timezone                        Label        Offset     DST                  Time
+--------                        -----        ------     ---                  ----
+Australia/Hobart                AEDT       11:00:00    True  3/16/2019 5:35:46 AM</dev:code>
+        <dev:remarks>
+          <maml:para>Get time zone information for Hobart.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-TZData Asia/Tokyo -Raw
+
+
+week_number  : 11
+utc_offset   : +09:00
+unixtime     : 1552674997
+timezone     : Asia/Tokyo
+dst_until    :
+dst_from     :
+dst          : False
+day_of_year  : 75
+day_of_week  : 6
+datetime     : 2019-03-16T03:36:37.829505+09:00
+abbreviation : JST</dev:code>
+        <dev:remarks>
+          <maml:para>Get time zone information for Tokyo as a raw format.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-TZList Antarctica | Get-TZData | Sort-Object Offset
+
+Timezone                        Label        Offset     DST                  Time
+--------                        -----        ------     ---                  ----
+Antarctica/Rothera               -03      -03:00:00   False  3/15/2019 3:39:59 PM
+Antarctica/Palmer                -03      -03:00:00   False  3/15/2019 3:39:59 PM
+Antarctica/Troll                 +00       00:00:00   False  3/15/2019 6:40:00 PM
+Antarctica/Syowa                 +03       03:00:00   False  3/15/2019 9:39:59 PM
+Antarctica/Mawson                +05       05:00:00   False 3/15/2019 11:39:59 PM
+Antarctica/Vostok                +06       06:00:00   False 3/16/2019 12:40:00 AM
+Antarctica/Davis                 +07       07:00:00   False  3/16/2019 1:39:58 AM
+Antarctica/Casey                 +08       08:00:00   False  3/16/2019 2:39:58 AM
+Antarctica/DumontDUrville        +10       10:00:00   False  3/16/2019 4:39:58 AM
+Antarctica/Macquarie             +11       11:00:00   False  3/16/2019 5:39:58 AM</dev:code>
+        <dev:remarks>
+          <maml:para>Get all time zone areas in Antarctica and pipe them to Get-TZData to retrieve the details.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-TZData Europe/Rome | ConvertTo-LocalTime -Datetime "3/15/2019 4:00PM"
+
+Friday, March 15, 2019 11:00:00 AM</dev:code>
+        <dev:remarks>
+          <maml:para>Convert the datetime in Rome to local time, which in this example is Eastern time.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-TZList</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-TZList</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>TZList</command:noun>
+      <maml:description>
+        <maml:para>Get a list of time zone areas</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command uses a free and publicly available REST API offered by http://worldtimeapi.org to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details. You must have http access to the Internet for this command to work. Note that if the site is busy you may get an error. If that happens, wait a minute and try again.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-TZList</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>All</maml:name>
+          <maml:Description>
+            <maml:para>Get a list of all timezone areas</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-TZList</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>TimeZoneArea</maml:name>
+          <maml:Description>
+            <maml:para>Get a list of timezone areas by region.</maml:para>
+          </maml:Description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Africa</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">America</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Antarctica</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Asia</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Atlantic</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Australia</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Europe</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Indian</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Pacific</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>All</maml:name>
+        <maml:Description>
+          <maml:para>Get a list of all timezone areas</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>TimeZoneArea</maml:name>
+        <maml:Description>
+          <maml:para>Get a list of timezone areas by region.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>string</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-TZList -all
+
+Africa/Abidjan
+Africa/Accra
+Africa/Algiers
+Africa/Bissau
+Africa/Cairo
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Get a list of all time zone areas.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-TZList Atlantic
+
+Atlantic/Azores
+Atlantic/Bermuda
+Atlantic/Canary
+Atlantic/Cape_Verde
+Atlantic/Faroe
+Atlantic/Madeira
+Atlantic/Reykjavik
+Atlantic/South_Georgia
+Atlantic/Stanley</dev:code>
+        <dev:remarks>
+          <maml:para>Get all time zone areas in the Atlantic region.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-TZData</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-WindowsVersion</command:name>
       <command:verb>Get</command:verb>
       <command:noun>WindowsVersion</command:noun>
@@ -4839,17 +5219,14 @@ Count                          3</dev:code>
       <maml:para>- %day</maml:para>
       <maml:para>- %hour</maml:para>
       <maml:para>- %minute</maml:para>
+      <maml:para>- %seconds</maml:para>
       <maml:para>- %time  - A compact string of HourMinuteSecond</maml:para>
       <maml:para>- %string - A random string</maml:para>
       <maml:para>- %guid</maml:para>
       <maml:para></maml:para>
       <maml:para>You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.</maml:para>
       <maml:para>The command will attempt to preserve case for any non pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.</maml:para>
-      <maml:para>    New-CustomFilename "%Year_LOG-%computername.txt"     2017_log-Bovine320.txt</maml:para>
-      <maml:para>    New-CustomFilename "%Year-LOG-%computername.txt"     2017-LOG-Bovine320.txt</maml:para>
       <maml:para>Another option, is to turn the entire name into upper or lower case.</maml:para>
-      <maml:para>    New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower     2017nov-log-bovine320[jeff].txt</maml:para>
-      <maml:para>This command does not create the file, it only generates a name for you to use.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4940,7 +5317,7 @@ Count                          3</dev:code>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; New-CustomFileName %computername_%day%monthname%yr-%time.log
-COWPC_28Nov17-142138.log</dev:code>
+COWPC_28Nov18-142138.log</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -4959,6 +5336,43 @@ Tuesday-3128.dat</dev:code>
 JEFF-Z0XUXMFS.TMP</dev:code>
         <dev:remarks>
           <maml:para>Create an upper case custom file name. The %string placeholder will be replaced with a random 8 character string.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Join-Path c:\work (New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower)
+c:\work\2018nov-log-bovine320[jeff].txt</dev:code>
+        <dev:remarks>
+          <maml:para>Create a lower case filename using Join-Path. This command does not create the file, it only generates a name for you to use.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; 1..10 | foreach-object {
+    $file = New-Item (Join-Path c:\work\data (New-CustomFileName %string-%####.dat))
+    $stream =$file.open("OpenOrCreate")
+    $stream.Seek((Get-Random -minimum 250 -Maximum 2KB), "Begin") | Out-Null
+    $stream.WriteByte(0)
+    $stream.Close()
+    $file
+}
+
+    Directory: C:\work\data
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+-a----        3/15/2019   4:46 PM            976 rcphz2nj-6431.dat
+-a----        3/15/2019   4:46 PM           1797 viz32er5-0526.dat
+-a----        3/15/2019   4:46 PM           1775 k2mukuv4-8267.dat
+-a----        3/15/2019   4:46 PM            666 0encqdlt-8753.dat
+-a----        3/15/2019   4:46 PM            513 dbswpujf-6314.dat
+-a----        3/15/2019   4:46 PM            371 qlkdufp0-0481.dat
+-a----        3/15/2019   4:46 PM           2010 5cxq3tb5-5624.dat
+-a----        3/15/2019   4:46 PM           2043 mcvoh4n5-8041.dat
+-a----        3/15/2019   4:46 PM           1048 4iwibnmf-1584.dat
+-a----        3/15/2019   4:46 PM            378 fgsj0rtd-2894.dat</dev:code>
+        <dev:remarks>
+          <maml:para>Create 10 dummy files with random names and sizes.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

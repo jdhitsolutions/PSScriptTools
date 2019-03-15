@@ -102,7 +102,7 @@ by $env:USERDOMAIN\$env:username
             if ($properties) {
                 foreach ($property in $properties) {
                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Validating property: $property"
-                    $test = ($objProperties).where({$_.name -like $property})
+                    $test = ($objProperties).where( {$_.name -like $property})
                     if ($test) {
                         $members += $test
                     }
@@ -111,6 +111,11 @@ by $env:USERDOMAIN\$env:username
                     }
                 }
                 #$members = $members.where( {$properties -contains $_.name})
+            }
+            else {
+                #use auto detected properties
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Auto detected $($objProperties.name.count) properties"
+                $members = $objProperties
             }
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing $($members.name.count) properties"
 
