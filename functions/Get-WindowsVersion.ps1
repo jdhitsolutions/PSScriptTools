@@ -32,8 +32,8 @@ Function Get-WindowsVersion {
         } #close scriptblock
 
         #update PSBoundParameters so it can be splatted to Invoke-Command
-        $PSBoundParameters.Add("ScriptBlock", $sb) | Out-Null
-        $PSBoundParameters.add("HideComputername", $True) | Out-Null
+        [void]$PSBoundParameters.Add("ScriptBlock", $sb)
+        [void]$PSBoundParameters.add("HideComputername", $True)
     } #begin
 
     Process {
@@ -45,7 +45,7 @@ Function Get-WindowsVersion {
         Write-Verbose "[PROCESS] Invoking command"
         if (-Not $PSBoundParameters.ContainsKey("Computername")) {
             #add the default value if nothing was specified
-            $PSBoundParameters.Add("Computername", $Computername) | Out-Null
+            [void]$PSBoundParameters.Add("Computername", $Computername)
         }
         $PSBoundParameters | Out-String | Write-Verbose
         $results = Invoke-Command @PSBoundParameters | Select-Object -Property * -ExcludeProperty RunspaceID, PS*

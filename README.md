@@ -15,7 +15,7 @@ Install-Module PSScriptTools
 or in PowerShell Core:
 
 ```powershell
-Install-Module PSScriptTools -scope currentuser
+Install-Module PSScriptTools -scope CurrentUser
 ```
 
 Starting in v2.2.0, the module was restructured to better support Desktop and Core editions. It is recommended that you uninstall any version older than 2.2.0 and then install the latest version from the PowerShell Gallery.
@@ -59,6 +59,18 @@ WSMan           : 3.0
 ExecutionPolicy : RemoteSigned
 Culture         : en-US
 ```
+
+## [Get-FileItem](./Get-FileItem.md)
+
+A PowerShell version of the CLI `where.exe` command. You can search with a simple or regex pattern.
+
+```powershell
+PS C:\> pswhere winword.exe -Path c:\ -Recurse -first
+
+C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE
+```
+
+Note that you might see errors for directories where you don't have access permission. This is normal.
 
 ## [New-CustomFileName](docs/New-CustomFileName.md)
 
@@ -716,7 +728,7 @@ Runtime         : 40.21:12:01
 During the course of your PowerShell work, you may discover that some commands and scripts can leave behind runspaces. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces.
 
 ```powershell
-PS C:\> get-runspace | where ID -gt 1 | Remove-Runspace
+PS C:\> Get-RunSpace | where ID -gt 1 | Remove-RunSpace
 ```
 
 Get all runspaces with an ID greater than 1, which is typically your session, and remove the runspace.
@@ -891,4 +903,4 @@ PS C:\> Set-ConsoleColor -background DarkGray -foreground Yellow
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 15 March, 2019*
+*last updated 18 June, 2019*

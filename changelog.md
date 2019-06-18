@@ -1,5 +1,15 @@
 # Change Log for PSScriptTools
 
+## v2.8.0
+
++ Added `Get-FileItem` with an alias of `pswhere`
++ Renamed `timezonedata.format.ps1xml` to all lower case.
++ Replaced using `Out-Null` to use `[void]` in `Convertto-WPFGrid`,
+ `New-PSFormatXML`, `Copy-Command`,`New-WPFMessageBox`, `Write-Detail`,
+ `Test-Expression`,`Invoke-Inputbox` (Issue #47)
++ Revised warning message in `New-PSFormatXML` (Issue #50)
++ Fixed icon path error in `New-WPFMessageBox`
+
 ## v2.7.0
 
 + Modified `ConvertTo-LocalTime` to allow for locations supporting Daylight Saving Time (Issue #44)

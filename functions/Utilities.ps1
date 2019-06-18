@@ -246,10 +246,10 @@ Function Invoke-InputBox {
     $form.AddChild($stack)
 
     #show the form
-    $inputbox.Focus() | Out-Null
+    [void]$inputbox.Focus()
     $form.WindowStartupLocation = [System.Windows.WindowStartupLocation]::CenterScreen
 
-    $form.ShowDialog() | out-null
+    [void]$form.ShowDialog()
 
     #write the result from the input box back to the pipeline
     $script:myInput
