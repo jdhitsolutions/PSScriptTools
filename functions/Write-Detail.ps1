@@ -57,7 +57,7 @@ Function Out-VerboseTee {
         #only run if Verbose is turned on
         if ($VerbosePreference -eq "continue") {
             $Value | Out-String | Write-Verbose
-            $PSBoundParameters.Remove("Append") | Out-Null
+            [void]$PSBoundParameters.Remove("Append") 
             if ($Append) {
                 Add-Content @PSBoundParameters
             }

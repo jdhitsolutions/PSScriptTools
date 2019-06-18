@@ -26,10 +26,10 @@ Function Get-CommandParameter {
         }
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting parameters for $($gcm.name)"
         $Params = $gcm.parameters
-        
+
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering out common parameters"
         foreach ($var in $common) {
-            $params.Remove($var) | Out-Null
+            [void]$params.Remove($var)
         }
 
         $params.keys | foreach-object -Begin {
@@ -51,7 +51,7 @@ Function Get-CommandParameter {
     End {
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
 
-    } #end 
+    } #end
 
 } #close Get-CommandMetadata
 
@@ -79,14 +79,14 @@ Function Get-CommandMetadata {
         else {
             $cmdName = $gcm.Name
         }
-        
+
         New-Object System.Management.Automation.CommandMetaData $gcm
     } #process
 
     End {
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
 
-    } #end 
+    } #end
 
 } #close Get-CommandMetadata
 
@@ -130,7 +130,7 @@ Function Copy-Command {
 
     if ($cmd) {
         #create the metadata
-        
+
         if ($NewName) {
             $Name = $NewName
         }
@@ -183,7 +183,7 @@ Function $Name {
             #define a regex to pull forward help from a proxy command
             [regex]$rx = "\.ForwardHelp.*\s+\.ForwardHelp.*"
             Write-Verbose "[PROCESS] Using forwarded help"
-            $help = $rx.match([System.Management.Automation.ProxyCommand]::Create($cmd)).Value 
+            $help = $rx.match([System.Management.Automation.ProxyCommand]::Create($cmd)).Value
         }
         else {
             #if not using the default Forwardhelp links, get comment based help instead
@@ -236,7 +236,7 @@ Begin {
         if ($AsProxy) {
             $Text += [System.Management.Automation.ProxyCommand]::GetBegin($cmd)
         }
-    
+
         $Text += @"
 
 } #begin
@@ -262,7 +262,7 @@ Process {
 } #process
 
 End {
-   
+
     Write-Verbose "[END    ] Ending `$(`$MyInvocation.Mycommand)"
 
 "@

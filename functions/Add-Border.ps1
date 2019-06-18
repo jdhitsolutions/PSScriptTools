@@ -7,7 +7,7 @@ originally published at
  #>
 Function Add-Border {
     [CmdletBinding(DefaultParameterSetName = "single")]
-    
+
     Param(
         # The string of text to process
         [Parameter(Position = 0, Mandatory, ValueFromPipeline, ParameterSetName = 'single')]
@@ -46,15 +46,15 @@ Function Add-Border {
         else {
             Write-Detail "Processing text block" -Prefix PROCESS| Write-Verbose
             $txtarray = $textblock.split("`n").Trim()
-            $len = $txtarray | sort-object -property length -Descending | select-object -first 1 -expandProperty length
+            $len = $txtarray | Sort-Object -property length -Descending | Select-Object -first 1 -expandProperty length
         }
-    
+
         Write-Detail "Using a length of $len" | Write-Verbose
         #define a horizontal line
         $line = $Character * ($len + 4)
 
         if ($insertBlanks -and ($pscmdlet.ParameterSetName -eq 'single')) {
-            Write-Detail "Inserting blank lines" -Prefix PROCESS | write-verbose
+            Write-Detail "Inserting blank lines" -Prefix PROCESS | Write-Verbose
             $body = @"
 $tabs$character $((" ")*$len) $character
 $tabs$Character $text $Character
@@ -78,7 +78,7 @@ $tabs$character $((" ")*$len) $character
             $body = "$tabs$Character $text $Character"
         }
         else {
-        
+
             [string[]]$body = ""
             foreach ($item in $txtarray) {
                 $body += "$tabs$Character $(($item).PadRight($len)) $Character`r"

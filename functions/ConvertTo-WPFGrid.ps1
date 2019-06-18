@@ -20,6 +20,14 @@ Function ConvertTo-WPFGrid {
 
         [switch]$Refresh,
 
+        [Parameter(HelpMessage = "Control how grid lines are displayed")]
+        [ValidateSet("All","Horizontal","None","Vertical")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Gridlines = "All",
+
+        [Parameter(HelpMessage = "Run this scriptblock to initialize the background runspace")]
+        [scriptblock]$InitializationScript,
+
         [Parameter(HelpMessage = "Load locally defined variables into the background runspace")]
         [alias("var")]
         [string[]]$UseLocalVariable,
@@ -65,7 +73,8 @@ Function ConvertTo-WPFGrid {
                 [int]$Timeout = 0,
                 [object[]]$Data,
                 [scriptblock]$cmd,
-                [switch]$Refresh
+                [switch]$Refresh,
+                [string]$Gridlines
             )
 
             # It may not be necessary to add these types but it doesn't hurt to include them
@@ -73,12 +82,13 @@ Function ConvertTo-WPFGrid {
             Add-Type -AssemblyName PresentationCore
             Add-Type -AssemblyName WindowsBase
 
+            #get maximum available working area on the screen
             $s = [System.Windows.SystemParameters]::WorkArea
 
             $form = New-Object System.Windows.Window
             $form.Title = $Title
-            $form.MaxHeight = $s.Height - 500
-            $form.MaxWidth = $s.Width - 500
+            $form.MaxHeight = $s.Height
+            $form.MaxWidth = $s.Width
 
             $form.SizeToContent = [System.Windows.SizeToContent]::WidthAndHeight
 
@@ -105,6 +115,7 @@ Function ConvertTo-WPFGrid {
                     $form.left = $s.width / 2 - $form.ActualWidth / 2
                     $form.UpdateLayout()
                     $form.focus
+
                 })
 
             $Form.Add_closing( {
@@ -115,11 +126,9 @@ Function ConvertTo-WPFGrid {
                 })
             #Create a grid to hold the datagrid
             $Grid = new-object System.Windows.Controls.Grid
-            #New-Object System.Windows.Controls.StackPanel
 
             $Grid.HorizontalAlignment = "stretch"
             $grid.VerticalAlignment = "stretch"
-
 
             #add buttons to close and manually refresh (Issue #34)
             $btnRefresh = New-Object System.Windows.Controls.Button
@@ -128,31 +137,59 @@ Function ConvertTo-WPFGrid {
             $btnRefresh.Width = 80
             $btnRefresh.HorizontalAlignment = "left"
             $btnRefresh.VerticalAlignment = "Top"
-            $btnRefresh.Margin = "10,10,0,0"
+            $btnRefresh.Margin = "15,10,0,0"
+            $btnRefresh.ToolTip = "click to refresh data from the command"
 
             $btnRefresh.add_click( {
-                $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
-                    # $datagrid.items.refresh()
+                    [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
+
+                    $form.Title = "$Title ...refreshing content. Please wait."
+
+                    $timer.stop()
+                    start-sleep -seconds 3
+
+                    $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
+
                     foreach ($col in $datagrid.Columns) {
                         #because of the way I am loading data into the grid
                         #it appears I need to set the sorting on each column
                         $col.CanUserSort = $True
                         $col.SortMemberPath = $col.Header
                     }
+
                     $script:Now = Get-Date
-                    $status.text = " last updated $Script:Now"
+
+                    if ($script:count) {
+                        $script:count = $Timeout
+                        [datetime]$script:terminate = $now.AddSeconds($timeout)
+                        $ts = New-TimeSpan -Seconds $script:count
+                        $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
+                    }
+                    else {
+                        $status.text = " last updated $Script:Now"
+                    }
+                    if ($refresh) {
+                        $timer.start()
+                    }
+                    $form.title = $Title
+                    [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
                 })
+
             $grid.AddChild($btnRefresh)
 
             $btnClose = New-Object System.Windows.Controls.Button
-            $btnRefresh.Content = Close
-            $btnRefresh.Height = 25
-            $btnRefresh.Width = 80
-            $btnRefresh.HorizontalAlignment = "left"
-            $btnRefresh.VerticalAlignment = "Top"
-            $btnRefresh.Margin = "10,10,0,0"
+            $btnClose.Content = "Close"
+            $btnClose.Height = 25
+            $btnClose.Width = 80
+            $btnClose.HorizontalAlignment = "Right"
+            $btnClose.VerticalAlignment = "Top"
+            $btnClose.Margin = "0,10,15,0"
+            $btnClose.ToolTip = "close the form and quit"
 
-
+            $btnClose.add_click( {
+                    $form.Close()
+                })
+            $grid.AddChild($btnClose)
 
             #create a datagrid
             $datagrid = New-Object System.Windows.Controls.DataGrid
@@ -160,11 +197,12 @@ Function ConvertTo-WPFGrid {
             $datagrid.Height = "Auto"
             $datagrid.VerticalAlignment = "stretch"
             $datagrid.HorizontalAlignment = "stretch"
-            $datagrid.margin = "0,50,0,0"
+            $datagrid.margin = "0,50,0,25"
 
             $datagrid.ColumnWidth = "Auto"
-
+            $datagrid.GridLinesVisibility = $Gridlines
             $datagrid.VerticalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
+            $datagrid.HorizontalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
             $datagrid.CanUserSortColumns = $True
             $datagrid.CanUserResizeColumns = $True
             $datagrid.CanUserReorderColumns = $True
@@ -185,13 +223,11 @@ Function ConvertTo-WPFGrid {
             }
             $Grid.AddChild($datagrid)
 
-
             $status = New-Object System.Windows.Controls.TextBlock
             $status.Height = 20
             $status.Background = "lightgray"
             $status.VerticalAlignment = "bottom"
             $status.HorizontalAlignment = "stretch"
-            $btnRefresh.ToolTip = "click to refresh data from the command"
             $status.Width = "Auto"
 
             $Grid.AddChild($status)
@@ -208,20 +244,23 @@ Function ConvertTo-WPFGrid {
 
                 $timer.add_tick( {
 
+                        $ts = new-timespan -seconds $script:count
                         if ((Get-Date) -lt $script:terminate -AND $Refresh) {
-                            $status.text = " Last updated $script:Now - refresh in $script:count seconds"
+                            $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
                             $script:count--
                         }
                         elseif ( (Get-Date) -lt $script:terminate) {
 
-                            $status.text = " Last updated $script:Now - closing in $script:count seconds"
+                            $status.text = " Last updated $script:Now - closing in $($ts.tostring())"
                             $script:count--
                         }
                         else {
                             $timer.stop()
                             if ($Refresh) {
+                                $form.Title = "$Title ...refreshing content. Please wait."
+                                [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
                                 $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
-                                # $datagrid.items.refresh()
+
                                 foreach ($col in $datagrid.Columns) {
                                     #because of the way I am loading data into the grid
                                     #it appears I need to set the sorting on each column
@@ -231,9 +270,11 @@ Function ConvertTo-WPFGrid {
                                 $script:count = $timeout
                                 $script:now = Get-Date
                                 [datetime]$script:terminate = $now.AddSeconds($timeout)
-                                $status.text = " Last updated $script:Now - refresh in $script:count seconds"
-                                # $status.UpdateLayout()
+                                $ts = new-timespan -Seconds $script:count
+                                $status.text = " Last updated $script:Now - refresh in $($ts.tostring()) seconds"
                                 $Timer.Start()
+                                $form.title = $Title
+                                [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
                             }
                             else {
                                 $form.close()
@@ -249,16 +290,21 @@ Function ConvertTo-WPFGrid {
         }
 
         If ($UseProfile) {
+            Write-Verbose "Loading user profiles"
             $profiles = $profile.AllUsersAllHosts, $profile.AllUsersCurrentHost,
             $profile.CurrentUserAllHosts, $profile.CurrentUserCurrentHost
             foreach ($file in $profiles) {
                 if (Test-Path -path $file) {
-                    $psCmd.AddScript($file) | Out-Null
+                    [void]$psCmd.AddScript($file)
                 }
             }
         }
+        if ($InitializationScript) {
+            Write-Verbose "Loading an initialization scriptblock"
+            [void]$pscmd.AddScript($InitializationScript)
+        }
 
-        $pscmd.AddScript($gridScript) | Out-Null
+        [void]$pscmd.AddScript($gridScript)
 
         #initialize an array to hold all processed objects
         $data = @()
@@ -278,9 +324,9 @@ Function ConvertTo-WPFGrid {
     End {
         Write-Verbose "Updating PSBoundparameters"
         $PSBoundParameters.Data = $data
-        $PSBoundParameters.remove("Inputobject") | Out-Null
+        [void]$PSBoundParameters.remove("Inputobject")
         if ($PSBoundParameters.ContainsKey("UseProfile")) {
-            $PSBoundParameters.Remove("UseProfile") | Out-Null
+            [void]$PSBoundParameters.Remove("UseProfile")
         }
 
         if ($psCmdlet.ParameterSetName -eq 'input') {
@@ -292,7 +338,7 @@ Function ConvertTo-WPFGrid {
                 $cmd = [scriptblock]::Create($myinvocation.line.substring(0, $myinvocation.line.LastIndexOf("|")))
             }
             Catch {
-                write-warning "Error created the cmd scriptblock: $($_.exception.message)"
+                Write-Warning "Error created the cmd scriptblock: $($_.exception.message)"
                 if ($Refresh) {
                     Write-Warning "Failed create an invocation scriptblock. In order to refresh run your pipelined expression as a single expression with no breaks."
                 }
@@ -301,16 +347,16 @@ Function ConvertTo-WPFGrid {
         else {
             $cmd = $Scriptblock
         }
-      #  if ($Refresh) {
-            $psboundparameters.cmd = $cmd
-            Write-Verbose "Refresh command: $cmd"
-       # }
+
+        $psboundparameters.cmd = $cmd
+        Write-Verbose "Refresh command: $cmd"
+
         Write-Verbose "Sending PSBoundparameters to runspace"
 
-        $psCmd.AddParameters($PSBoundParameters) | Out-Null
+        [void]$psCmd.AddParameters($PSBoundParameters)
         $psCmd.Runspace = $newRunspace
         Write-Verbose "Begin Invoke()"
-        $psCmd.BeginInvoke() | Out-Null
+        [void]$psCmd.BeginInvoke()
 
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
 

@@ -63,7 +63,7 @@ Function New-WPFMessageBox {
     $grid = New-Object System.Windows.Controls.Grid
 
     $img = New-Object System.Windows.Controls.Image
-    $img.Source = Join-Path "$psscriptroot\icons" -ChildPath "$icon.png"
+    $img.Source = Join-Path "$psscriptroot\..\icons" -ChildPath "$icon.png"
     $img.Width = 50
     $img.Height = 50
     $img.HorizontalAlignment = "left"
@@ -232,7 +232,7 @@ Function New-WPFMessageBox {
 
     #display the form
     $form.AddChild($grid)
-    $form.ShowDialog() | Out-Null
+    [void]$form.ShowDialog()
 
     #write the button result to the pipeline if not using -Quiet
     if (-Not $Quiet) {

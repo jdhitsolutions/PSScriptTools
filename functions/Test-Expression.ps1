@@ -20,7 +20,7 @@ Function _TestMe {
         [switch]$IncludeExpression
     )
 
-    $TestData = 1..$count | foreach-object -begin {
+    $TestData = 1..$count | ForEach-Object -begin {
         <#
           PowerShell doesn't seem to like passing a scriptblock as an
           argument when using Invoke-Command. It appears to pass it as
@@ -149,7 +149,7 @@ Function Test-Expression {
 
 
     Write-Verbose "Starting: $($MyInvocation.Mycommand)"
-    Write-Verbose ($PSBoundParameters | Out-string)
+    Write-Verbose ($PSBoundParameters | Out-String)
     Write-Verbose "Measuring expression:"
     Write-Verbose ($Expression | Out-String)
     if ($ArgumentList) {
@@ -157,17 +157,16 @@ Function Test-Expression {
     }
 
     if ($PSCmdlet.ParameterSetName -eq 'Interval') {
-        write-Verbose "$Count time(s) with a sleep interval of $interval seconds."
+        Write-Verbose "$Count time(s) with a sleep interval of $interval seconds."
     }
     else {
         write-Verbose "$Count time(s) with a random sleep interval between $RandomMinimum seconds and $RandomMaximum seconds."
     }
 
-
     If ($AsJob) {
         Write-Verbose "Running as a background job"
-        $PSBoundParameters.remove("AsJob") | Out-Null
-        start-job -ScriptBlock {
+        [void]$PSBoundParameters.remove("AsJob")
+        Start-Job -ScriptBlock {
             Param([hashtable]$Testparams)
 
             <#
@@ -184,7 +183,7 @@ Function Test-Expression {
     }
     else {
 
-        $PSBoundParameters.remove("AsJob") | Out-Null
+        [void]$PSBoundParameters.remove("AsJob")
         _TestMe @PSBoundParameters
     }
 
@@ -202,7 +201,7 @@ Function Test-ExpressionForm {
         #bail out
         Return
     }
-    
+
     Add-Type -AssemblyName PresentationFramework
 
     [xml]$xaml = Get-Content $psscriptroot\form.xaml
@@ -280,12 +279,12 @@ Function Test-ExpressionForm {
 
             $script:out = Test-Expression @params
 
-            $results.text = ($script:out | Select-object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
+            $results.text = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
             $form.Cursor = [System.Windows.Input.Cursors]::Default
         })
 
-    $sb.Focus() | Out-Null
-    $form.ShowDialog() | Out-Null
+    [void]$sb.Focus()
+    [void]$form.ShowDialog() 
 
     #write the current results to the pipeline after the form is closed.
     $script:out

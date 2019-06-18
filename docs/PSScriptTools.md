@@ -202,3 +202,7 @@ Get a list of time zone areas.
 ### [Get-TZData](./Get-TZData.md)
 
 Get details of a give time zone area.
+
+### [Get-FileItem](./Get-FileItem.md)
+
+A PowerShell version of the CLI where.exe command.

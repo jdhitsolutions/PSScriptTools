@@ -36,7 +36,7 @@ Function New-PSFormatXML {
             #create declaration
             $dec = $Doc.CreateXmlDeclaration("1.0", "UTF-8", $null)
             #append to document
-            $doc.AppendChild($dec) | Out-Null
+            [void]$doc.AppendChild($dec)
 
             $text = @"
 
@@ -45,7 +45,7 @@ by $env:USERDOMAIN\$env:username
 
 "@
 
-            $doc.AppendChild($doc.CreateComment($text)) | Out-Null
+            [void]$doc.AppendChild($doc.CreateComment($text))
 
             #create Configuration Node
             $config = $doc.CreateNode("element", "Configuration", $null)
@@ -60,10 +60,10 @@ by $env:USERDOMAIN\$env:username
             Throw "Failed to find $Path"
         }
         $view = $doc.CreateNode("element", "View", $null)
-        $view.AppendChild($doc.CreateComment("Created $(Get-Date) by $env:USERDOMAIN\$env:username")) | Out-Null
+        [void]$view.AppendChild($doc.CreateComment("Created $(Get-Date) by $env:USERDOMAIN\$env:username"))
         $name = $doc.CreateElement("Name")
         $name.InnerText = $ViewName
-        $view.AppendChild($name) | Out-Null
+        [void]$view.AppendChild($name)
         $select = $doc.createnode("element", "ViewSelectedBy", $null)
 
         if ($FormatType -eq 'Table') {
@@ -91,8 +91,8 @@ by $env:USERDOMAIN\$env:username
             }
             $tnameElement = $doc.CreateElement("TypeName")
             $tnameElement.InnerText = $tname
-            $select.AppendChild($tnameElement) | Out-Null
-            $view.AppendChild($select) | Out-Null
+            [void]$select.AppendChild($tnameElement)
+            [void]$view.AppendChild($select)
 
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating an format document for object type $tname "
 
@@ -128,7 +128,7 @@ by $env:USERDOMAIN\$env:username
             if ($FormatType -eq 'Table') {
 
                 $items = $doc.CreateNode("element", "TableColumnItems", $null)
-                $items.AppendChild($doc.CreateComment($comment)) | Out-Null
+                [void]$items.AppendChild($doc.CreateComment($comment))
 
                 foreach ($member in $members) {
                     $th = $doc.createNode("element", "TableColumnHeader", $null)
@@ -136,7 +136,7 @@ by $env:USERDOMAIN\$env:username
                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]... $($member.name)"
                     $label = $doc.CreateElement("Label")
                     $label.InnerText = $member.Name
-                    $th.AppendChild($label) | Out-Null
+                    [void]$th.AppendChild($label)
                     $width = $doc.CreateElement("Width")
                     <#
                         set initial width to value length + 3
@@ -145,24 +145,24 @@ by $env:USERDOMAIN\$env:username
 
                     $longest = $Member.value.tostring().length, $member.name.length | Sort-Object | Select-Object -last 1
                     $width.InnerText = $longest + 3
-                    $th.AppendChild($width) | Out-Null
+                    [void]$th.AppendChild($width)
 
                     $align = $doc.CreateElement("Alignment")
                     $align.InnerText = "left"
-                    $th.AppendChild($align) | Out-Null
-                    $headers.AppendChild($th) | Out-Null
+                    [void]$th.AppendChild($align)
+                    [void]$headers.AppendChild($th)
 
                     $tci = $doc.CreateNode("element", "TableColumnItem", $null)
                     $prop = $doc.CreateElement("PropertyName")
                     $prop.InnerText = $member.name
-                    $tci.AppendChild($prop) | Out-Null
-                    $items.AppendChild($tci) | Out-Null
+                    [void]$tci.AppendChild($prop)
+                    [void]$items.AppendChild($tci)
                 }
             }
             else {
                 #create a list
                 $items = $doc.CreateNode("element", "ListItems", $null)
-                $items.AppendChild($doc.CreateComment($comment)) | Out-Null
+                [void]$items.AppendChild($doc.CreateComment($comment))
                 foreach ($member in $members) {
                     $li = $doc.createNode("element", "ListItem", $null)
 
@@ -171,17 +171,17 @@ by $env:USERDOMAIN\$env:username
                     $li = $doc.CreateNode("element", "ListItem", $null)
                     $label = $doc.CreateElement("Label")
                     $label.InnerText = $member.Name
-                    $li.AppendChild($label) | Out-Null
+                    [void]$li.AppendChild($label)
                     $prop = $doc.CreateElement("PropertyName")
                     $prop.InnerText = $member.name
-                    $li.AppendChild($prop) | Out-Null
-                    $items.AppendChild($li) | Out-Null
+                    [void]$li.AppendChild($prop)
+                    [void]$items.AppendChild($li)
                 }
             }
             $counter++
         }
         else {
-            Write-Warning "Ignoring this object. I can only handle one instance of an object."
+            Write-Warning "Ignoring this object. I only need one instance of an object to create the ps1xml file. Your file will still be created."
         }
     } #process
 
@@ -189,31 +189,31 @@ by $env:USERDOMAIN\$env:username
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Finalizing XML"
         #Add elements to each parent
         if ($FormatType -eq 'Table') {
-            $entry.AppendChild($items) | Out-Null
-            $TableRowEntries.AppendChild($entry) | Out-Null
-            $table.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use the defined widths.")) | Out-Null
+            [void]$entry.AppendChild($items)
+            [void]$TableRowEntries.AppendChild($entry)
+            [void]$table.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use the defined widths."))
             $auto = $doc.CreateElement("AutoSize")
-            $table.AppendChild($auto) | Out-Null
-            $table.AppendChild($headers) | Out-Null
-            $table.AppendChild($TableRowEntries) | Out-Null
+            [void]$table.AppendChild($auto)
+            [void]$table.AppendChild($headers)
+            [void]$table.AppendChild($TableRowEntries)
 
-            $view.AppendChild($table) | Out-Null
+            [void]$view.AppendChild($table)
         }
         else {
-            $listentry.AppendChild($items) | Out-Null
-            $listentries.AppendChild($listentry) | Out-Null
-            $list.AppendChild($listentries) | Out-Null
-            $view.AppendChild($list) | Out-Null
+            [void]$listentry.AppendChild($items)
+            [void]$listentries.AppendChild($listentry)
+            [void]$list.AppendChild($listentries)
+            [void]$view.AppendChild($list)
         }
 
         if ($append) {
             Write-Verbose "[$((Get-Date).TimeofDay) END    ] Appending to existing XML"
-            $doc.Configuration.ViewDefinitions.AppendChild($View) | Out-Null
+            [void]$doc.Configuration.ViewDefinitions.AppendChild($View)
         }
         else {
-            $viewdef.AppendChild($view) | Out-Null
-            $config.AppendChild($viewdef) | Out-Null
-            $doc.AppendChild($config) | Out-Null
+            [void]$viewdef.AppendChild($view)
+            [void]$config.AppendChild($viewdef)
+            [void]$doc.AppendChild($config)
         }
 
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Saving to $realpath"
