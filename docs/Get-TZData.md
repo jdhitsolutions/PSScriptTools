@@ -30,7 +30,7 @@ Note that if the site is busy you may get an error. If that happens, wait a minu
 ```powershell
 PS C:\> Get-TZData Australia/Hobart
 
-PS S:\PSScriptTools> Get-TZData Australia/Hobart
+PS C:\> Get-TZData Australia/Hobart
 
 Timezone                        Label        Offset     DST                  Time
 --------                        -----        ------     ---                  ----

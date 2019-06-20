@@ -4,11 +4,12 @@
 Function ConvertTo-UTCTime {
     [cmdletbinding()]
     [alias("tout")]
-    [outputtype([Datetime])]
+    [outputtype([Datetime],[System.String])]
     Param(
         [Parameter(ValueFromPipeline, HelpMessage = "Enter a Datetime value")]
         [ValidateNotNullOrEmpty()]
-        [datetime]$DateTime = $(Get-Date)
+        [datetime]$DateTime = $(Get-Date),
+        [switch]$AsString
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
@@ -17,7 +18,13 @@ Function ConvertTo-UTCTime {
 
     Process {
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Converting $DateTime to UTC"
-        $datetime.ToUniversalTime()
+        $utc = $datetime.ToUniversalTime()
+        if ($AsString) {
+            "{0:u}" -f $utc
+        }
+        else {
+            $utc
+        }
 
     } #process
 

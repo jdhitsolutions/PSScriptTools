@@ -1,5 +1,13 @@
 # Change Log for PSScriptTools
 
+## v2.9.0
+
++ Added `ConvertFrom-Text` and its alias `cft` (Issue #53)
++ Updated `ConvertTo-UTC` to include an option to format result as a sortable string. (Issue #52)
++ Added `Get-WhoIs` and `whoisresult.format.ps1xml`
++ help documentation clean up
++ Updated and reorganized `README.md`
+
 ## v2.8.0
 
 + Added `Get-FileItem` with an alias of `pswhere`
