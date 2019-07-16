@@ -1,0 +1,313 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\> get-parameterinfo get-service
+
+
+
+
+
+    Name                            : Name
+
+    Aliases                         : ServiceName
+
+    Mandatory                       : False
+
+    Position                        : 0
+
+    ValueFromPipeline               : True
+
+    ValueFromPipelineByPropertyName : True
+
+    Type                            : System.String[]
+
+    IsDynamic                       : False
+
+    ParameterSet                    : Default
+
+
+
+    Name                            : ComputerName
+
+    Aliases                         : Cn
+
+    Mandatory                       : False
+
+    Position                        : Named
+
+    ValueFromPipeline               : False
+
+    ValueFromPipelineByPropertyName : True
+
+    Type                            : System.String[]
+
+    IsDynamic                       : False
+
+    ParameterSet                    : __AllParameterSets
+
+
+
+    Name                            : DependentServices
+
+    Aliases                         : DS
+
+    Mandatory                       : False
+
+    Position                        : Named
+
+    ValueFromPipeline               : False
+
+    ValueFromPipelineByPropertyName : False
+
+    Type                            : System.Management.Automation.SwitchParameter
+
+    IsDynamic                       : False
+
+    ParameterSet                    : __AllParameterSets
+
+
+
+    Name                            : RequiredServices
+
+    Aliases                         : SDO,ServicesDependedOn
+
+    Mandatory                       : False
+
+    Position                        : Named
+
+    ValueFromPipeline               : False
+
+    ValueFromPipelineByPropertyName : False
+
+    Type                            : System.Management.Automation.SwitchParameter
+
+    IsDynamic                       : False
+
+    ParameterSet                    : __AllParameterSets
+
+
+
+    Name                            : DisplayName
+
+    Aliases                         :
+
+    Mandatory                       : True
+
+    Position                        : Named
+
+    ValueFromPipeline               : False
+
+    ValueFromPipelineByPropertyName : False
+
+    Type                            : System.String[]
+
+    IsDynamic                       : False
+
+    ParameterSet                    : DisplayName
+
+
+
+    Name                            : Include
+
+    Aliases                         :
+
+    Mandatory                       : False
+
+    Position                        : Named
+
+    ValueFromPipeline               : False
+
+    ValueFromPipelineByPropertyName : False
+
+    Type                            : System.String[]
+
+    IsDynamic                       : False
+
+    ParameterSet                    : __AllParameterSets
+
+
+
+    Name                            : Exclude
+
+    Aliases                         :
+
+    Mandatory                       : False
+
+    Position                        : Named
+
+    ValueFromPipeline               : False
+
+    ValueFromPipelineByPropertyName : False
+
+    Type                            : System.String[]
+
+    IsDynamic                       : False
+
+    ParameterSet                    : __AllParameterSets
+
+
+
+    Name                            : InputObject
+
+    Aliases                         :
+
+    Mandatory                       : False
+
+    Position                        : Named
+
+    ValueFromPipeline               : True
+
+    ValueFromPipelineByPropertyName : False
+
+    Type                            : System.ServiceProcess.ServiceController[]
+
+    IsDynamic                       : False
+
+    ParameterSet                    : InputObject
+  postCode: Return parameter information for Get-Service
+- name: EXAMPLE 2
+  preCode: ''
+  code: >-
+    PS C:\> get-parameterinfo mkdir  | Select Name,Type,Position,parameterset
+
+
+
+    Name           Type                                         Position ParameterSet
+
+    ----           ----                                         -------- ------------
+
+    Path           System.String[]                                     0 pathSet
+
+    Path           System.String[]                                     0 nameSet
+
+    Name           System.String                                   Named nameSet
+
+    Value          System.Object                                   Named __AllParameterSets
+
+    Force          System.Management.Automation.SwitchParameter    Named __AllParameterSets
+
+    Credential     System.Management.Automation.PSCredential       Named __AllParameterSets
+
+    UseTransaction System.Management.Automation.SwitchParameter    Named __AllParameterSets
+  postCode: Get selected parameter information for the mkdir command.
+- name: EXAMPLE 3
+  preCode: ''
+  code: >-
+    PS C:\> get-parameterinfo get-ciminstance | sort parameterset | format-table -GroupBy ParameterSet -Property Name,Mandatory,Alias,Position,Type
+
+
+
+       ParameterSet: __AllParameterSets
+
+
+
+    Name                Mandatory Alias Position Type
+
+    ----                --------- ----- -------- ----
+
+    OperationTimeoutSec     False       Named    System.UInt32
+
+
+
+
+
+       ParameterSet: CimInstanceComputerSet
+
+
+
+    Name         Mandatory Alias Position Type
+
+    ----         --------- ----- -------- ----
+
+    ResourceUri      False       Named    System.Uri
+
+    InputObject       True       0        Microsoft.Management.Infrastructure.CimInstance
+
+    ComputerName     False       Named    System.String[]
+
+
+
+
+
+       ParameterSet: CimInstanceSessionSet
+
+
+
+    Name        Mandatory Alias Position Type
+
+    ----        --------- ----- -------- ----
+
+    CimSession       True       Named    Microsoft.Management.Infrastructure.CimSession[]
+
+    InputObject      True       0        Microsoft.Management.Infrastructure.CimInstance
+
+    ResourceUri     False       Named    System.Uri...
+  postCode: Get all parameters from Get-CimInstance and display details as a formatted table.
+- name: Example 4
+  preCode: ''
+  code: >-
+    PS C:\> Get-ParameterInfo -Command Get-Counter -Parameter computername
+
+
+
+
+
+    Name                            : computername
+
+    Aliases                         : Cn
+
+    Mandatory                       : False
+
+    Position                        : Named
+
+    ValueFromPipeline               : False
+
+    ValueFromPipelineByPropertyName : False
+
+    Type                            : System.String[]
+
+    IsDynamic                       : False
+
+    ParameterSet                    : __AllParameterSets
+  postCode: Get details on the Computername parameter of the Get-Counter cmdlet.
+inputs:
+- type: '[string]'
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-ParameterInfo.md
+  text: 'Online Version:'
+- href: ''
+  text: Get-Command
+module:
+  name: PSScriptTools
+name: Get-ParameterInfo
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Parameter
+  aliases: []
+  defaultValue: None
+  description: '{{Fill Parameter Description}}'
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+outputs:
+- type: custom object
+  description: ''
+requiredParameters:
+- name: Command
+  aliases:
+  - name
+  defaultValue: None
+  description: The name of a cmdlet or function. The parameter has an alias of Name.
+  parameterValueGroup: []
+  pipelineInput: True (ByPropertyName, ByValue)
+  position: 1
+  type: String
+remarks: Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. Get-ParameterInfo returns a custom object with the most useful information an administrator might need to know. See examples.
+summary: Retrieve command parameter information.
+syntaxes:
+- parameters:
+  - Command
+  - Parameter

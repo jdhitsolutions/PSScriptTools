@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertFrom-UTCTime.md
 schema: 2.0.0
 ---
 

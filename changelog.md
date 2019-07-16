@@ -1,5 +1,14 @@
 # Change Log for PSScriptTools
 
+## 2.10.0
+
++ Added `Test-WithCulture`
++ Fixed typo in `Copy-Command` help
++ Created yaml formatted help files
++ Updated `README.md`
++ Updated help documentation with online links
++ Updated `PSScriptTools.md`
+
 ## v2.9.0
 
 + Added `ConvertFrom-Text` and its alias `cft` (Issue #53)

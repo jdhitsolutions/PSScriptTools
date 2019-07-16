@@ -1,0 +1,142 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
+
+    False
+  postCode: Display a Yes/No message box. The value of the clicked button will be written to the pipeline. It is assumed you would use this in a script and have logic to determine what to do based on the value.
+- name: Example 2
+  preCode: ''
+  code: PS C:\> New-WPFMessageBox -Message "Press OK when ready to continue." -Title "User Deletion" -Quiet -Background crimson -Icon Shield
+  postCode: Display a message box with a crimson background and using the Shield icon. No value will be written to the pipeline and PowerShell will wait until OK is clicked or the form dismissed.
+- name: Example 3
+  preCode: ''
+  code: PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet )[ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
+  postCode: Create a custom message box with a user-defined set of buttons.
+inputs:
+- type: None
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-WPFMessageBox.md
+  text: 'Online Version:'
+- href: ''
+  text: Invoke-InputBox
+module:
+  name: PSScriptTools
+name: New-WPFMessageBox
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Background
+  aliases: []
+  defaultValue: White
+  description: You can specify any console color or any value from https://docs.microsoft.com/en-us/dotnet/api/system.windows.media.brushes?view=netframework-4.7.2. You can use the name or the code. Keep in mind there are no provisions to change the font color.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+- name: ButtonSet
+  aliases: []
+  defaultValue: OK
+  description: >-
+    Select a pre-defined set of buttons. Each button will close the form and write a value to the pipeline. This can serve as the "return value" of the form.
+
+    OK     = 1
+
+    Cancel = 0
+
+    Yes    = $True
+
+    No     = $False
+  parameterValueGroup:
+  - OK
+  - OKCancel
+  - YesNo
+  pipelineInput: False
+  position: Named
+  type: String
+- name: CustomButtonSet
+  aliases: []
+  defaultValue: None
+  description: You can specify your own button set defined in an ordered hashtable. Buttons will be displayed in order from left to right. You can display up to 3 buttons. The key should be the text to display and the value should be the value you expect to write to the pipeline. It is recommended that you keep the button text,short. The first letter of each key will automatically be formatted as an accelerator so you should make sure each key starts with a different letter. The first key will also be set as the default.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: OrderedDictionary
+- name: Icon
+  aliases: []
+  defaultValue: Information
+  description: Select one of the standard system icons.
+  parameterValueGroup:
+  - Information
+  - Warning
+  - Error
+  - Question
+  - Shield
+  pipelineInput: False
+  position: Named
+  type: String
+- name: Quiet
+  aliases: []
+  defaultValue: None
+  description: Suppress any pipeline output.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Title
+  aliases: []
+  defaultValue: None
+  description: Enter the text to be displayed in the title bar. You should keep this brief.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+outputs:
+- type: System.Int32
+  description: ''
+- type: System.Boolean
+  description: ''
+- type: System.String
+  description: ''
+requiredParameters:
+- name: Message
+  aliases: []
+  defaultValue: None
+  description: Enter the text message to display.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 0
+  type: String
+remarks: >-
+  This function creates a Windows Presentation Foundation (WPF) based message box. This is intended to replace the legacy MsgBox function from VBScript and the Windows Forms library. The command uses a set of predefined button sets, each of which will close the form and write a value to the pipeline.
+
+      OK     = 1
+
+      Cancel = 0
+
+      Yes    = $True
+
+      No     = $False
+
+  You can also create an ordered hashtable of your own buttons and values. See examples. If you prefer to simply display the form, you can use the -Quiet parameter to suppress any output. PowerShell will block until a button is clicked or the form dismissed.
+
+  This command will not work in PowerShell Core.
+summary: Display a customizable WPF-based message box.
+syntaxes:
+- parameterValueGroup: standard
+  parameters:
+  - Message
+  - Background
+  - ButtonSet
+  - Icon
+  - Quiet
+  - Title
+- parameterValueGroup: custom
+  parameters:
+  - Message
+  - Background
+  - CustomButtonSet
+  - Icon
+  - Quiet
+  - Title

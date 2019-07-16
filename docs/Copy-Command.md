@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Copy-Command.md
 schema: 2.0.0
 ---
 
@@ -22,7 +22,7 @@ Copy-Command [-Command] <String> [[-NewName] <String>] [-IncludeDynamic] [-AsPro
 
 This command will copy a PowerShell command, including parameters and help to a new user-specified command. You can use this to create a "wrapper" function or to easily create a proxy function. The default behavior is to create a copy of the command complete with the original comment-based help block.
 
-For best results, run this in the PowerShell ISE of Visual Studio code, the copied command will be opened in a new tab or file.
+For best results, run this in the PowerShell ISE or Visual Studio code, the copied command will be opened in a new tab or file.
 
 ## EXAMPLES
 

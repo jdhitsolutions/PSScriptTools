@@ -1,0 +1,112 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\> $a=@{Name="Jeff";Count=3;Color="Green"}
+
+    PS C:\> $b=@{Computer="HAL";Enabled=$True;Year=2020;Color="Red"}
+
+    PS C:\> join-hashtable $a $b
+
+    Duplicate key Color
+
+    A Green
+
+    B Red
+
+    Which key do you want to KEEP \[AB\]?: A
+
+
+
+    Name                           Value
+
+    ----                           -----
+
+    Year                           2020
+
+    Name                           Jeff
+
+    Enabled                        True
+
+    Color                          Green
+
+    Computer                       HAL
+
+    Count                          3
+  postCode: ''
+- name: EXAMPLE 2
+  preCode: ''
+  code: >-
+    PS C:\>$c = join-hashtable $a $b -force
+
+    PS C:\> $c
+
+
+
+    Name                           Value
+
+    ----                           -----
+
+    Year                           2020
+
+    Name                           Jeff
+
+    Enabled                        True
+
+    Color                          Green
+
+    Computer                       HAL
+
+    Count                          3
+  postCode: ''
+inputs:
+- type: '[hashtable]'
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Join-Hashtable.md
+  text: 'Online Version:'
+- href: ''
+  text: About_Hash_Tables
+module:
+  name: PSScriptTools
+name: Join-Hashtable
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: First
+  aliases: []
+  defaultValue: None
+  description: The primary hashtable. If there are any duplicate keys and you use -Force, values from this hashtable will be kept.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 1
+  type: Hashtable
+- name: Second
+  aliases: []
+  defaultValue: None
+  description: The secondary hashtable.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 2
+  type: Hashtable
+- name: Force
+  aliases: []
+  defaultValue: False
+  description: Do not prompt for conflicts. Always keep the key from the first hashtable.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: '[hashtable]'
+  description: ''
+requiredParameters: []
+remarks: >-
+  This command will combine two hashtables into a single hashtable. Normally this is as easy as $hash1+$hash2. But if there are duplicate keys, this will fail. Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
+
+  The original hashtables will not be modified.
+summary: Combine two hashtables into one.
+syntaxes:
+- parameters:
+  - First
+  - Second
+  - Force

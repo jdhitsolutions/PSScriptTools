@@ -1,0 +1,111 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> find-cimclass -Classname *protection*
+
+
+
+
+
+       NameSpace: Root/CIMV2/mdm/dmmap
+
+
+
+    CimClassName                        CimClassMethods      CimClassProperties
+
+    ------------                        ---------------      ------------------
+
+    MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
+
+    MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
+
+    MDM_EnterpriseDataProtection        {}                   {InstanceID, ParentID, Status}
+
+    MDM_EnterpriseDataProtection_Set... {}                   {AllowAzureRMSForEDP, AllowUserDecryption, DataRecoveryCert...
+
+    MDM_Policy_Config01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
+
+    MDM_Policy_Result01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
+
+    MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, LogCount, Logs, ParentID...}
+
+    MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, Logs, ParentID, StartTime...}
+
+    MDM_WindowsAdvancedThreatProtection {}                   {InstanceID, Offboarding, Onboarding, ParentID}
+
+    MDM_WindowsAdvancedThreatProtect... {}                   {GroupIds, InstanceID, ParentID, SampleSharing...}
+
+    MDM_WindowsAdvancedThreatProtect... {}                   {Criticality, Group, IdMethod, InstanceID...}
+
+    MDM_WindowsAdvancedThreatProtect... {}                   {InstanceID, LastConnected, OnboardingState, OrgId...}
+
+
+
+
+
+       NameSpace: Root/Microsoft/SecurityClient
+
+
+
+    CimClassName                        CimClassMethods      CimClassProperties
+
+    ------------                        ---------------      ------------------
+
+    ProtectionTechnologyStatus          {}                   {PackedXml, SchemaVersion, Enabled, Name...}
+
+    ...
+  postCode: ''
+- name: Example 2
+  preCode: ''
+  code: PS C:\> find-cimclass -Classname *volume* -Exclude "win32_Perf*"
+  postCode: Search for any class with 'volume' in the name but exclude anything that starts with 'win32_Perf'.
+inputs:
+- type: None
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Find-CimClass.md
+  text: 'Online Version:'
+- href: ''
+  text: Get-CimClass
+module:
+  name: PSScriptTools
+name: Find-CimClass
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources'
+optionalParameters:
+- name: Computername
+  aliases: []
+  defaultValue: localhost
+  description: Enter the name of a computer to search.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+- name: Exclude
+  aliases: []
+  defaultValue: None
+  description: Enter a pattern for class names to EXCLUDE from the results. You can use wildcards or regular expressions.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+outputs:
+- type: Microsoft.Management.Infrastructure.CimClass
+  description: ''
+requiredParameters:
+- name: Classname
+  acceptWildcardCharacters: true
+  aliases: []
+  defaultValue: None
+  description: Enter the name of a CIM/WMI class. Wildcards are permitted.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 0
+  type: String
+remarks: This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. Find-CimClass will recursively search for a given classname. You can use wildcards and search remote computers.
+summary: Search CIM for a class
+syntaxes:
+- parameters:
+  - Classname
+  - Computername
+  - Exclude

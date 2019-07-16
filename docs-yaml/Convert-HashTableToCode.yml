@@ -1,0 +1,48 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
+
+    PS C:\> convert-hashtabletocode $h
+
+    @{
+
+            Name = 'SRV1'
+
+            Asset = 123454
+
+            Location = 'Omaha'
+
+    }
+  postCode: Convert a hashtable object to a string equivalent that you can copy into your script.
+inputs:
+- type: System.Collections.Hashtable
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-HashTableToCode.md
+  text: 'Online Version:'
+- href: ./Convert-HashtableString.md
+  text: Convert-HashtableString
+module:
+  name: PSScriptTools
+name: Convert-HashTableToCode
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters: []
+outputs:
+- type: System.String
+  description: ''
+requiredParameters:
+- name: Hashtable
+  aliases: []
+  defaultValue: None
+  description: A hashtable to convert. In can be standard or ordered hashtable.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: 0
+  type: Hashtable
+remarks: Use this command to convert a hashtable into its text or string equivalent.
+summary: Convert a hashtable to a string representation.
+syntaxes:
+- parameters:
+  - Hashtable

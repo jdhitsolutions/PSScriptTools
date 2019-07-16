@@ -1,0 +1,77 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\>write-detail "Getting file information" -Prefix Process
+
+    [PROCESS] Getting file information
+  postCode: Normally you would use this command in a function, but here is an example from the console so that you can see what to expect.
+inputs:
+- type: None
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Write-Detail.md
+  text: 'Online Version:'
+- href: ''
+  text: Write-Verbose
+module:
+  name: PSScriptTools
+name: Write-Detail
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Message
+  aliases: []
+  defaultValue: None
+  description: The message to display after the time stamp and prefix.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 0
+  type: String
+- name: Prefix
+  aliases: []
+  defaultValue: PROCESS
+  description: Indicate whether you are in the BEGIN, PROCESS or END script block. Although you can specify any text. It will be displayed in upper case.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+- name: Date
+  aliases: []
+  defaultValue: None
+  description: Display a date value like 9/15/2018 11:36:41
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Time
+  aliases: []
+  defaultValue: None
+  description: Display a time value with milliseconds like 11:37:01:4029.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: System.String
+  description: ''
+requiredParameters: []
+remarks: >-
+  This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full time stamp, or a time string which includes a millisecond value.
+
+  In a script you might use it like this:
+
+  Begin {     Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin -time | Write-Verbose     $tabs = "`t" * $tab     Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose } #begin
+
+  If you don't specify a prefix, it will default to PROCESS.
+summary: Write a detailed message string.
+syntaxes:
+- parameterValueGroup: Date
+  parameters:
+  - Message
+  - Prefix
+  - Date
+- parameterValueGroup: Time
+  parameters:
+  - Message
+  - Prefix
+  - Time

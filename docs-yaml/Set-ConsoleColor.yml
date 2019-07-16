@@ -1,0 +1,117 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: PS C:\> Set-ConsoleColor -foreground Yellow -background DarkGray -clear
+  postCode: Set the console color to yellow text and on a dark gray background.
+inputs:
+- type: None
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Set-ConsoleColor.md
+  text: 'Online Version:'
+- href: Set-ConsoleTitle.md
+  text: Set-ConsoleTitle
+module:
+  name: PSScriptTools
+name: Set-ConsoleColor
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Background
+  aliases:
+  - bg
+  defaultValue: None
+  description: Specify a background console color
+  parameterValueGroup:
+  - Black
+  - DarkBlue
+  - DarkGreen
+  - DarkCyan
+  - DarkRed
+  - DarkMagenta
+  - DarkYellow
+  - Gray
+  - DarkGray
+  - Blue
+  - Green
+  - Cyan
+  - Red
+  - Magenta
+  - Yellow
+  - White
+  pipelineInput: False
+  position: 1
+  type: ConsoleColor
+- name: ClearScreen
+  aliases:
+  - cls
+  defaultValue: None
+  description: Clear the console host screen.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Confirm
+  aliases:
+  - cf
+  defaultValue: None
+  description: Prompts you for confirmation before running the cmdlet.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Foreground
+  aliases:
+  - fg
+  defaultValue: None
+  description: Specify a foreground console color
+  parameterValueGroup:
+  - Black
+  - DarkBlue
+  - DarkGreen
+  - DarkCyan
+  - DarkRed
+  - DarkMagenta
+  - DarkYellow
+  - Gray
+  - DarkGray
+  - Blue
+  - Green
+  - Cyan
+  - Red
+  - Magenta
+  - Yellow
+  - White
+  pipelineInput: False
+  position: 0
+  type: ConsoleColor
+- name: Passthru
+  aliases: []
+  defaultValue: None
+  description: Display foreground and background color values
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: WhatIf
+  aliases:
+  - wi
+  defaultValue: None
+  description: Shows what would happen if the cmdlet runs. The cmdlet is not run.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: None
+  description: ''
+requiredParameters: []
+remarks: You can use this command to modify the PowerShell console's foreground and/or background color. Note that if you are running the PSReadline module, that module has commands, like Set-PSReadLineOption, that you can use to modify your console.
+summary: Set the PowerShell console color
+syntaxes:
+- parameters:
+  - Foreground
+  - Background
+  - ClearScreen
+  - Confirm
+  - Passthru
+  - WhatIf

@@ -1,0 +1,100 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> Test-WithCulture de-de -Scriptblock {(Get-Date).addDays(90)}
+
+    Montag, 14. Oktober 2019 08:59:01
+  postCode: ''
+- name: Example2
+  preCode: ''
+  code: >-
+    PS C\> Test-WithCulture fr-fr -Scriptblock { Get-winEvent -log system -max 500 | Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message | Sort-Object -property TimeCreated | Group-Object {$_.timecreated.toshortdatestring()} -noelement }
+
+
+
+    Count Name
+
+    ----- ----
+
+      165 10/07/2019
+
+      249 11/07/2019
+
+       17 12/07/2019
+
+       16 13/07/2019
+
+       20 14/07/2019
+
+       26 15/07/2019
+
+        7 16/07/2019
+  postCode: ''
+inputs:
+- type: None
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Test-WithCulture.md
+  text: 'Online Version:'
+- href: ''
+  text: Get-Culture
+- href: ''
+  text: Get-UICulture
+module:
+  name: PSScriptTools
+name: Test-WithCulture
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: ArgumentList
+  aliases: []
+  defaultValue: None
+  description: Specify an array of positional arguments to pass to the scriptblock for file.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: Object[]
+outputs:
+- type: System.Object
+  description: ''
+requiredParameters:
+- name: Culture
+  aliases: []
+  defaultValue: None
+  description: Enter a new culture like de-de
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 0
+  type: CultureInfo
+- name: FilePath
+  aliases: []
+  defaultValue: None
+  description: Enter the path to a PowerShell script file to execute using the specified culture.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: ScriptBlock
+- name: Scriptblock
+  aliases: []
+  defaultValue: None
+  description: Enter a scriptblock to execute using the specified culture. Be aware that long or complex pipelined expressions might not give you the culture specific results you expect.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 1
+  type: ScriptBlock
+remarks: >-
+  When writing PowerShell commands, sometimes the culture you are running under becomes critical. For example, European countries use a different datetime format than North Americans which might present a problem with your script or command. Unless you have a separate computer running under the foreign culture, it is difficult to test. This command will allow you to test a scriptblock or even a file under a different culture, such as DE-DE for German.
+
+  Note that this command is not an absolute test. There may be commands that fail to produce the alternate culture results you expect.
+summary: Test your PowerShell code under a different culture
+syntaxes:
+- parameterValueGroup: file
+  parameters:
+  - Culture
+  - ArgumentList
+  - FilePath
+- parameterValueGroup: scriptblock
+  parameters:
+  - Culture
+  - Scriptblock
+  - ArgumentList

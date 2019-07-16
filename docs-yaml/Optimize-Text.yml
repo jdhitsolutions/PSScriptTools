@@ -1,0 +1,206 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\> get-content c:\scripts\computers.txt
+
+
+
+    win10-ent-01
+
+    srv1
+
+     srv2
+
+    dc01
+
+
+
+    app02
+
+
+
+
+
+
+
+    PS C:\> get-content c:\scripts\computers.txt | optimize-text
+
+    win10-ent-01
+
+    srv1
+
+    quark
+
+    dc01
+
+    app02
+  postCode: The first example shows malformed text file. In the second command it has been optimized or normalized.
+- name: EXAMPLE 2
+  preCode: ''
+  code: >-
+    PS C:\> get-content c:\scripts\computers.txt | optimize-text -property computername
+
+
+
+    computername
+
+    ------------
+
+    win10-ent-01
+
+    srv1
+
+    quark
+
+    dc01
+
+    app02
+  postCode: Using the same text file, the command creates a custom object using the Computername property.
+- name: EXAMPLE 3
+  preCode: ''
+  code: >-
+    PS C:\> get-content computers.txt | optimize-text -prop computername | where { test-connection $_.computername -count 1 -erroraction silentlycontinue} | get-service bits | select Name,Status,Machinename
+
+
+
+    Name                          Status MachineName
+
+    ----                          ------ -----------
+
+    bits                          Running win10-ent-01
+
+    bits                          Running dc01
+
+    bits                          Running app02
+  postCode: Optimize the computer names in computers.txt and add a Computername property. Test each computer, ignoring those that fail, and get the Bits service on the ones that can be pinged.
+- name: EXAMPLE 4
+  preCode: ''
+  code: >-
+    PS C:\> get-content .\ChicagoServers.txt | optimize-text -Ignore "#" -Property ComputerName
+
+
+
+    ComputerName
+
+    ------------
+
+    chi-fp01
+
+    chi-fp02
+
+    chi-core01
+
+    chi-test
+
+    chi-dc01
+
+    chi-dc02
+
+    chi-dc04
+
+    chi-db01
+  postCode: 'Optimize the text file ignoring any lines that start with the # character.'
+- name: EXAMPLE 5
+  preCode: ''
+  code: >-
+    PS C:\> get-content .\ChicagoServers.txt | optimize-text -filter "dc\d{2}" -ToUpper -PropertyName Computername | test-connection -count 1
+
+
+
+    Source        Destination     IPV4Address      IPV6Address      Bytes    Time(ms)
+
+    ------        -----------     -----------      -----------      -----    --------
+
+    win10-ENT-01  CHI-DC01        172.16.30.200                     32       0
+
+    win10-ENT-01  CHI-DC02        172.16.30.201                     32       0
+
+    win10-ENT-01  CHI-DC04        172.16.30.203                     32       0
+  postCode: Get names from text file that match the pattern, turn into an object with a property name and pipe to Test-Connection.
+inputs:
+- type: System.String
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Optimize-Text.md
+  text: 'Online Version:'
+- href: ''
+  text: Get-Content
+module:
+  name: PSScriptTools
+name: Optimize-Text
+notes: >-
+  Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+
+  This function was originally described at http://jdhitsolutions.com/blog/2014/09/using-optimized-text-files-in-powershell
+optionalParameters:
+- name: Text
+  aliases: []
+  defaultValue: None
+  description: The text to be optimized. Typically read in from a file.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: 1
+  type: String[]
+- name: Filter
+  aliases: []
+  defaultValue: None
+  description: Use a regular expression pattern to filter. The filtering is applied after leading and trailing spaces have been trimmed and before text can be converted to upper case.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: Regex
+- name: PropertyName
+  aliases: []
+  defaultValue: None
+  description: Assign each line of text a property name. This has the effect of turning your text file into an array of objects with a single property.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+- name: Ignore
+  aliases:
+  - comment
+  defaultValue: None
+  description: Specify a character that will be interpreted as a comment character. It must be the first word character in a line. These lines will be ignored. This parameter has an alias of 'comment'.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+- name: ToUpper
+  aliases: []
+  defaultValue: False
+  description: Write text output as upper case.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: System.String
+  description: ''
+- type: System.Management.Automation.PSObject
+  description: ''
+requiredParameters: []
+remarks: >-
+  Use this command to clean and optimize content from text files. Sometimes text files have blank lines or the content has trailing spaces. These sorts of issues can cause problems when passing the content to other commands.
+
+  This command will strip out any lines that are blank or have nothing by white space, and trim leading and trailing spaces. The optimized text is then written back to the pipeline. Optionally, you can specify a property name. This can be useful when your text file is a list of computer names and you want to take advantage of pipeline binding. See examples.
+
+  If your text file has commented lines, use the ignore parameter. As long as the character is the first non-whitespace character in the line, the line will be treated as a comment and ignored.
+
+  Finally, you can use the -Filter parameter to specify a regular expression pattern to further filter what text is written to the pipeline. The filter is applied after leading and trailing spaces have been removed and before any text is converted to upper case.
+summary: Clean and optimize text input.
+syntaxes:
+- parameterValueGroup: default
+  parameters:
+  - Text
+  - Filter
+  - Ignore
+  - ToUpper
+- parameterValueGroup: object
+  parameters:
+  - Text
+  - Filter
+  - PropertyName
+  - Ignore
+  - ToUpper

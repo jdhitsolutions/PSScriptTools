@@ -1,0 +1,134 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\> get-process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
+
+
+
+    Name                           Value
+
+    ----                           -----
+
+    WorkingSet                     418377728
+
+    Name                           powershell_ise
+
+    Id                             3456
+
+    Handles                        958
+  postCode: ''
+- name: EXAMPLE 2
+  preCode: ''
+  code: >-
+    PS C:\> $hash = get-service spooler | ConvertTo-Hashtable -Exclude CanStop,CanPauseandContinue -NoEmpty
+
+    PS C:\> $hash
+
+
+
+    Name                           Value
+
+    ----                           -----
+
+    ServiceType                    Win32OwnProcess, InteractiveProcess
+
+    ServiceName                    spooler
+
+    ServiceHandle                  SafeServiceHandle
+
+    DependentServices              {Fax}
+
+    ServicesDependedOn             {RPCSS, http}
+
+    Name                           spooler
+
+    Status                         Running
+
+    MachineName                    .
+
+    RequiredServices               {RPCSS, http}
+
+    DisplayName                    Print Spooler
+  postCode: This created a hashtable from the Spooler service object, skipping empty properties and excluding CanStop and CanPauseAndContinue.
+- name: EXAMPLE 3
+  preCode: ''
+  code: >-
+    PS C:\> get-service bits | select Name,Displayname,Status,@{Name="Computername";Expression={$_.Machinename}} | ConvertTo-HashTable -Alphabetical
+
+
+
+    Name                           Value
+
+    ----                           -----
+
+    Computername                   .
+
+    DisplayName                    Background Intelligent Transfer Service
+
+    Name                           bits
+
+    Status                         Running
+  postCode: Convert an object to a hashtable and order the properties alphabetically.
+inputs:
+- type: '[Object]'
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-HashTable.md
+  text: 'Online Version:'
+- href: ''
+  text: About_Hash_Tables
+- href: ''
+  text: Get-Member
+module:
+  name: PSScriptTools
+name: ConvertTo-HashTable
+notes: >-
+  Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+
+  This was originally described at: http://jdhitsolutions.com/blog/2013/01/convert-powershell-object-to-hashtable-revised
+optionalParameters:
+- name: NoEmpty
+  aliases: []
+  defaultValue: False
+  description: Do not include object properties that have no value.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Exclude
+  aliases: []
+  defaultValue: None
+  description: An array of property names to exclude from the hashtable.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String[]
+- name: Alphabetical
+  aliases: []
+  defaultValue: False
+  description: Create a hashtable with property names arranged alphabetically.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: '[System.Collections.Specialized.OrderedDictionary]'
+  description: ''
+requiredParameters:
+- name: InputObject
+  aliases: []
+  defaultValue: None
+  description: A PowerShell object to convert to a hashtable.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: 1
+  type: Object
+remarks: This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
+summary: Convert an object into a hashtable.
+syntaxes:
+- parameters:
+  - InputObject
+  - NoEmpty
+  - Exclude
+  - Alphabetical
