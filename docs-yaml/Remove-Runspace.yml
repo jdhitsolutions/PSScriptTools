@@ -1,0 +1,79 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> remove-runspace -id 18 -WhatIf
+
+    What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
+  postCode: Show what would have happened to remove runspace with an ID of 18.
+- name: Example 2
+  preCode: ''
+  code: PS C:\> get-runspace | where ID -gt 1 | Remove-Runspace
+  postCode: Get all runspaces with an ID greater than 1, which is typically your session, and remove the runspace.
+inputs:
+- type: System.Management.Automation.Runspaces.Runspace
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Remove-Runspace.md
+  text: 'Online Version:'
+- href: ''
+  text: Get-Runspace
+module:
+  name: PSScriptTools
+name: Remove-Runspace
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Confirm
+  aliases:
+  - cf
+  defaultValue: None
+  description: Prompts you for confirmation before running the cmdlet.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: WhatIf
+  aliases:
+  - wi
+  defaultValue: None
+  description: Shows what would happen if the cmdlet runs. The cmdlet is not run.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: None
+  description: ''
+requiredParameters:
+- name: ID
+  aliases: []
+  defaultValue: None
+  description: The runspace ID number.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 0
+  type: Int32
+- name: Runspace
+  aliases: []
+  defaultValue: None
+  description: A runspace presumably piped into this command using Get-Runspace.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: 0
+  type: Runspace
+remarks: >-
+  During the course of your PowerShell work, you may discover that some commands and scripts can leave behind runspaces. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces. You cannot remove any runspace with an availability of Busy or that is already closing.
+
+  This command does not write anything to the pipeline.
+summary: Remove a runspace from your session
+syntaxes:
+- parameterValueGroup: id
+  parameters:
+  - ID
+  - Confirm
+  - WhatIf
+- parameterValueGroup: runspace
+  parameters:
+  - Runspace
+  - Confirm
+  - WhatIf

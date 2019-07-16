@@ -206,3 +206,15 @@ Get details of a give time zone area.
 ### [Get-FileItem](./Get-FileItem.md)
 
 A PowerShell version of the CLI where.exe command.
+
+### [Test-WithCulture](./Test-WithCulture.md)
+
+Test PowerShell commands and code under a different culture.
+
+### [ConvertFrom-Text](./ConvertFrom-Text)
+
+This command will take structured text such as from a log file and convert it to objects that you can use in the PowerShell pipeline.
+
+### [Get-WhoIs](./Get-WhoIs.md)
+
+This command queries the ARIN database to lookup WhoIs information for a given IPv4 address.

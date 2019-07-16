@@ -1,0 +1,295 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> $cred = Get-credential globomantics\administrator
+
+    PS C:\> $c = "chi-dc01","chi-dc04"
+
+    PS C:\> Test-Expression {param ([string[]]$computer,$cred) get-wmiobject -class win32_logicaldisk -computername $computer -credential $cred } -argumentList $c,$cred
+
+
+
+
+
+    Tests        : 1
+
+    TestInterval : 0.5
+
+    AverageMS    : 1990.6779
+
+    MinimumMS    : 1990.6779
+
+    MaximumMS    : 1990.6779
+
+    MedianMS     : 1990.6779
+
+    TrimmedMS    :
+
+    PSVersion    : 5.1.14409.1005
+
+    OS           : Microsoft Windows 8.1 Enterprise
+  postCode: Test a command once passing an argument to the scriptblock. There is no TrimmedMS value because there was only one test.
+- name: Example 2
+  preCode: ''
+  code: >-
+    PS C:\> $sb = {1..1000 | foreach {$_*2}}
+
+    PS C:\> test-expression $sb -count 10 -interval 2
+
+
+
+    Tests        : 10
+
+    TestInterval : 2
+
+    AverageMS    : 72.78199
+
+    MinimumMS    : 29.4449
+
+    MaximumMS    : 110.6553
+
+    MedianMS     : 90.3509
+
+    TrimmedMS    : 73.4649625
+
+    PSVersion    : 5.1.14409.1005
+
+    OS           : Microsoft Windows 8.1 Enterprise
+
+
+
+
+
+    PS C:\> $sb2 = { foreach ($i in (1..1000)) {$_*2}}
+
+    PS C:\> test-expression $sb2 -Count 10 -interval 2
+
+
+
+    Tests        : 10
+
+    TestInterval : 2
+
+    AverageMS    : 6.40283
+
+    MinimumMS    : 0.7466
+
+    MaximumMS    : 22.968
+
+    MedianMS     : 2.781
+
+    TrimmedMS    : 5.0392125
+
+    PSVersion    : 5.1.14409.1005
+
+    OS           : Microsoft Windows 8.1 Enterprise
+  postCode: These examples are testing two different approaches that yield the same results over a span of 10 test runs, pausing for 2 seconds between each test. The values for Average, Minimum and Maximum are in milliseconds.
+- name: Example 3
+  preCode: ''
+  code: >-
+    PS C:\> Test-expression {Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer} -count 5 -IncludeExpression -argumentList chi-hvr2
+
+
+
+
+
+    Tests        : 5
+
+    TestInterval : 500
+
+    AverageMS    : 15.53376
+
+    MinimumMS    : 11.6745
+
+    MaximumMS    : 24.9331
+
+    MedianMS     : 13.8928
+
+    TrimmedMS    : 13.6870666666667
+
+    PSVersion    : 5.1.14409.1005
+
+    OS           : Microsoft Windows 8.1 Enterprise
+
+    Expression   : Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer
+
+    Arguments    : {chi-hvr2}
+  postCode: Include the tested expression in the output.
+- name: Example 4
+  preCode: ''
+  code: >-
+    PS C:\> Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
+
+
+
+
+
+    Id     Name            PSJobTypeName   State         HasMoreData     Location             Command
+
+    --     ----            -------------   -----         -----------     --------             -------
+
+    184    Job184          RemoteJob       Running       True            WIN81-ENT-01         ...
+
+
+
+    PS C:\> receive-job 184 -keep
+
+
+
+    Tests        : 10
+
+    TestInterval : 5
+
+    AverageMS    : 2.80256
+
+    MinimumMS    : 0.7967
+
+    MaximumMS    : 14.911
+
+    MedianMS     : 1.4469
+
+    TrimmedMS    : 1.5397375
+
+    PSVersion    : 5.1.14409.1005
+
+    OS           : Microsoft Windows 8.1 Enterprise
+
+    RunspaceId   : f30eb879-fe8f-4ad0-8d70-d4c8b6b4eccc
+  postCode: Run the test as a background job. When the job is complete, get the results.
+- name: Example 5
+  preCode: ''
+  code: >-
+    PS C:\> {1..1000} | Test-Expression -count 10 -RandomMinimum 1 -RandomMaximum 10
+
+
+
+    Tests        : 10
+
+    TestInterval : Random
+
+    AverageMS    : 0.63899
+
+    MinimumMS    : 0.2253
+
+    MaximumMS    : 3.9062
+
+    MedianMS     : 0.24475
+
+    TrimmedMS    : 0.2823
+
+    PSVersion    : 5.1.14409.1005
+
+    OS           : Microsoft Windows 8.1 Enterprise
+  postCode: Pipe a scriptblock to be tested.
+inputs:
+- type: scriptblock
+  description: ''
+links:
+- href: ''
+  text: Measure-Command
+- href: ./Test-ExpressionForm.md
+  text: Test-ExpressionForm
+module:
+  name: PSScriptTools
+name: Test-Expression
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/ This command was first described at https://github.com/jdhitsolutions/Test-Expression/blob/master/docs/Test-Expression.md)'
+optionalParameters:
+- name: ArgumentList
+  aliases: []
+  defaultValue: None
+  description: An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: Object[]
+- name: AsJob
+  aliases: []
+  defaultValue: False
+  description: Run the tests as a background job.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Count
+  aliases: []
+  defaultValue: 1
+  description: The number of times to test the scriptblock.
+  parameterValueGroup: []
+  pipelineInput: True (ByPropertyName)
+  position: Named
+  type: Int32
+- name: IncludeExpression
+  aliases:
+  - ie
+  defaultValue: False
+  description: Include the test scriptblock in the output.
+  parameterValueGroup: []
+  pipelineInput: True (ByPropertyName)
+  position: Named
+  type: SwitchParameter
+- name: Interval
+  aliases:
+  - sleep
+  defaultValue: 0.5
+  description: How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.
+  parameterValueGroup: []
+  pipelineInput: True (ByPropertyName)
+  position: Named
+  type: Double
+outputs:
+- type: Custom measurement object
+  description: ''
+requiredParameters:
+- name: Expression
+  aliases:
+  - sb
+  defaultValue: None
+  description: The scriptblock you want to test.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: 0
+  type: ScriptBlock
+- name: RandomMaximum
+  aliases:
+  - max
+  defaultValue: 0
+  description: You can also specify a random interval by providing a random minimum and maximum values in seconds.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: Double
+- name: RandomMinimum
+  aliases:
+  - min
+  defaultValue: 0
+  description: You can also specify a random interval by providing a random minimum and maximum values in seconds.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: Double
+remarks: >-
+  This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.
+
+  The median is calculated by sorting the values in ascending order and selecting the value in the center of the array.
+
+  If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.
+summary: Test a PowerShell expression over a period of time.
+syntaxes:
+- parameterValueGroup: Interval
+  parameters:
+  - Expression
+  - ArgumentList
+  - AsJob
+  - Count
+  - IncludeExpression
+  - Interval
+- parameterValueGroup: Random
+  parameters:
+  - Expression
+  - ArgumentList
+  - AsJob
+  - Count
+  - IncludeExpression
+  - RandomMaximum
+  - RandomMinimum

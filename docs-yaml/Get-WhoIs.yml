@@ -1,0 +1,73 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> get-whois 208.67.222.222 | select-object -Property *
+
+
+
+
+
+    IP                     : 208.67.222.222
+
+    Name                   : OPENDNS-NET-1
+
+    RegisteredOrganization : Cisco OpenDNS, LLC
+
+    City                   : San Francisco
+
+    StartAddress           : 208.67.216.0
+
+    EndAddress             : 208.67.223.255
+
+    NetBlocks              : 208.67.216.0/21
+
+    Updated                : 3/2/2012 8:03:18 AM
+  postCode: ''
+- name: Example 2
+  preCode: ''
+  code: >-
+    PS C:\> '1.1.1.1','8.8.8.8','208.67.222.222'| get-whois
+
+
+
+    Name            IP             RegisteredOrganization                  NetBlocks       Updated
+
+    ----            --             ----------------------                  ---------       -------
+
+    APNIC-1         1.1.1.1        Asia Pacific Network Information Centre 1.0.0.0/8       7/30/2010 8:23:43 AM
+
+    LVLT-GOGL-8-8-8 8.8.8.8        Google LLC                              8.8.8.0/24      3/14/2014 3:52:05 PM
+
+    OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.216.0/21 3/2/2012 8:03:18 AM
+  postCode: ''
+inputs:
+- type: System.String
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WhoIs.md
+  text: 'Online Version:'
+- href: ''
+  text: Invoke-RestMethod
+module:
+  name: PSScriptTools
+name: Get-WhoIs
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters: []
+outputs:
+- type: WhoIsResult
+  description: ''
+requiredParameters:
+- name: IPAddress
+  aliases: []
+  defaultValue: None
+  description: Enter a valid IPV4 address to lookup with WhoIs. It is assumed all of the octets are less than 254.
+  parameterValueGroup: []
+  pipelineInput: True (ByPropertyName, ByValue)
+  position: 0
+  type: String
+remarks: This command queries the ARIN database to lookup WhoIs information for a given IPv4 address.
+summary: Lookup WhoIS data for a given IPv4 Address
+syntaxes:
+- parameters:
+  - IPAddress

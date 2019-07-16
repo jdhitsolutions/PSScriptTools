@@ -79,7 +79,6 @@ Function Get-CommandMetadata {
         else {
             $cmdName = $gcm.Name
         }
-
         New-Object System.Management.Automation.CommandMetaData $gcm
     } #process
 
@@ -91,11 +90,13 @@ Function Get-CommandMetadata {
 } #close Get-CommandMetadata
 
 #endregion
+
+#this is the public command
 Function Copy-Command {
 
     [cmdletbinding()]
     [alias("cc")]
-    [OutputType([string[]])]
+    [OutputType([system.string[]])]
 
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a PowerShell command")]
@@ -138,7 +139,7 @@ Function Copy-Command {
             $Name = $cmd.Name
         }
 
-        #define a metadata comment block
+        #define a formatted metadata comment block
         $myComment = @"
 <#
 This is a copy of:

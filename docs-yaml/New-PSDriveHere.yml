@@ -1,0 +1,162 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\users\jeff\documents\Enterprise Mgmt Webinar> new-psdrivehere
+
+
+
+    Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
+
+    ----           ---------     --------- --------      ----                                 ---------------
+
+    Webinar                         146.57 FileSystem    C:\users\jeff\Documents\Enter...
+  postCode: ''
+- name: EXAMPLE 2
+  preCode: ''
+  code: >-
+    PS C:\users\jeff\documents\Enterprise Mgmt Webinar> new-psdrivehere -first
+
+
+
+    Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
+
+    ----           ---------     --------- --------      ----                                 ---------------
+
+    Enterprise                      146.57 FileSystem    C:\users\jeff\Documents\Enter...
+  postCode: ''
+- name: EXAMPLE 3
+  preCode: ''
+  code: >-
+    PS C:\> new-psdrivehere HKLM:\software\microsoft
+
+
+
+    Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
+
+    ----           ---------     --------- --------      ----                                 ---------------
+
+    microsoft                              Registry      HKEY_LOCAL_MACHINE\software\micr...
+  postCode: ''
+- name: EXAMPLE 4
+  preCode: ''
+  code: >-
+    PS C:\> new-psdrivehere -Path "\\jdh-nvnas\files\powershell" -Name PSFiles
+
+
+
+    Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
+
+    ----           ---------     --------- --------      ----                                 ---------------
+
+    PSFiles                                FileSystem    \\jdh-nvnas\files\powershell
+  postCode: ''
+- name: EXAMPLE 5
+  preCode: ''
+  code: >-
+    PS C:\Users\Jeff\Documents\DeepDive> new-psdrivehere . DeepDive -setlocation
+
+
+
+    Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
+
+    ----           ---------     --------- --------      ----                                 ---------------
+
+    DeepDive                        130.53 FileSystem    C:\Users\Jeff\Documents\DeepDive
+
+
+
+
+
+    PS DeepDive:\>
+  postCode: Set a new PSDrive and change your location to it.
+inputs:
+- type: None
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-PSDriveHere.md
+  text: 'Online Version:'
+- href: ''
+  text: Get-PSDrive
+- href: ''
+  text: New-PSDrive
+module:
+  name: PSScriptTools
+name: New-PSDriveHere
+notes: >-
+  Originally published at http://jdhitsolutions.com/blog/2010/08/new-psdrivehere/
+
+  Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+optionalParameters:
+- name: Path
+  aliases: []
+  defaultValue: .
+  description: The path for the new PSDrive. The default is the current location.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 1
+  type: String
+- name: Name
+  aliases: []
+  defaultValue: None
+  description: The name for the new PSDrive. The default is the last word in the specified location, unless you use -First.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 2
+  type: String
+- name: First
+  aliases: []
+  defaultValue: False
+  description: Use the first word of the current location for the new PSDrive.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: SetLocation
+  aliases:
+  - cd
+  defaultValue: False
+  description: Set location to this new drive. This parameter has an alias of CD.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: WhatIf
+  aliases:
+  - wi
+  defaultValue: None
+  description: Shows what would happen if the cmdlet runs. The cmdlet is not run.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+- name: Confirm
+  aliases:
+  - cf
+  defaultValue: None
+  description: Prompts you for confirmation before running the cmdlet.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: System.Management.Automation.PSDrive
+  description: ''
+requiredParameters: []
+remarks: This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new PSDrive. If you prefer to use the first word of the location, use -First. If you prefer to specify a totally different name, then use the -Name parameter.
+summary: Create a new PSDrive at the current location.
+syntaxes:
+- parameterValueGroup: Name
+  parameters:
+  - Path
+  - Name
+  - SetLocation
+  - WhatIf
+  - Confirm
+- parameterValueGroup: Folder
+  parameters:
+  - Path
+  - First
+  - SetLocation
+  - WhatIf
+  - Confirm

@@ -1,0 +1,148 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"
+
+
+
+    # Service Check
+
+
+
+    ## THINK51
+
+
+
+    \`\`\`text
+
+
+
+    Status   Name               DisplayName
+
+    ------   ----               -----------
+
+    Running  Bits               Background Intelligent Transfer Ser...
+
+    Running  Winrm              Windows Remote Management (WS-Manag...
+
+    \`\`\`
+  postCode: Create markdown output from a Get-Service command.
+- name: EXAMPLE 2
+  preCode: ''
+  code: PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md
+  postCode: Re-run the previous command and save output to a file.
+- name: EXAMPLE 3
+  preCode: ''
+  code: >-
+    PS C:\> $computers = "srv1","srv2","srv4"
+
+    PS C:\> $Title = "System Report"
+
+    PS C:\> $footer = "_report run $(Get-Date) by $($env:USERDOMAIN)\$($env:USERNAME)_"
+
+    PS C:\> $sb =  {
+
+    >> $os = get-ciminstance -classname win32_operatingsystem -property caption,lastbootUptime
+
+    >> \[PSCustomObject\]@{
+
+    >> PSVersion = $PSVersionTable.PSVersion
+
+    >> OS = $os.caption
+
+    >> Uptime = (Get-Date) - $os.lastbootUpTime
+
+    >> SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
+
+    >> }
+
+    >> }
+
+    PS C:\> $out = Convertto-Markdown -title $Title
+
+    PS C:\> foreach ($computer in $computers) {
+
+    >>  $out+= Invoke-command -scriptblock $sb -ComputerName $computer -HideComputerName |
+
+    >>  Select-Object -Property * -ExcludeProperty RunspaceID |
+
+    >>  ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
+
+    >> }
+
+    PS C:\>$out += ConvertTo-Markdown -PostContent $footer
+
+    PS C:\>$out | set-content c:\work\report.md
+  postCode: Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.
+inputs:
+- type: '[object]'
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-Markdown.md
+  text: 'Online Version:'
+- href: ''
+  text: Convertto-HTML
+- href: ''
+  text: Out-File
+module:
+  name: PSScriptTools
+name: ConvertTo-Markdown
+notes: 'Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Inputobject
+  aliases: []
+  defaultValue: None
+  description: Typically the results of a PowerShell command or expression.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: 1
+  type: Object
+- name: Title
+  aliases: []
+  defaultValue: None
+  description: Specify a top level title. You do not need to include any markdown.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String
+- name: PreContent
+  aliases: []
+  defaultValue: None
+  description: Enter whatever content you want to appear before converted input. You can use whatever markdown you wish.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String[]
+- name: PostContent
+  aliases: []
+  defaultValue: None
+  description: Enter whatever content you want to appear after converted input. You can use whatever markdown you wish.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: String[]
+- name: Width
+  aliases: []
+  defaultValue: 80
+  description: Specify the document width. Depending on what you intend to do with the markdown from this command you may want to adjust this value.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: Int32
+outputs:
+- type: System.String[]
+  description: ''
+requiredParameters: []
+remarks: >-
+  This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output.
+
+  The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.
+summary: Convert pipeline output to a markdown document.
+syntaxes:
+- parameters:
+  - Inputobject
+  - Title
+  - PreContent
+  - PostContent
+  - Width

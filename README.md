@@ -861,6 +861,28 @@ TotalMemGB FreeMemGB PctFree
 
 ## Scripting Tools
 
+### [Test-WithCulture](docs/Test-WithCulture.md)
+
+When writing PowerShell commands, sometimes the culture you are running under becomes critical. For example, European countries use a different datetime format than North Americans which might present a problem with your script or command. Unless you have a separate computer running under the foreign culture, it is difficult to test. This command will allow you to test a scriptblock or even a file under a different culture, such as DE-DE for German.
+
+```powershell
+PS C\> Test-WithCulture fr-fr -Scriptblock {
+    Get-winEvent -log system -max 500 |
+    Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message |
+    Sort-Object -property TimeCreated |
+    Group-Object {$_.timecreated.toshortdatestring()} -noelement }
+
+Count Name
+----- ----
+  165 10/07/2019
+  249 11/07/2019
+   17 12/07/2019
+   16 13/07/2019
+   20 14/07/2019
+   26 15/07/2019
+    7 16/07/2019
+```
+
 ### [Copy-Command](docs/Copy-Command.md)
 
 This command will copy a PowerShell command, including parameters and help to a new user-specified command. You can use this to create a "wrapper" function or to easily create a proxy function. The default behavior is to create a copy of the command complete with the original comment-based help block.
@@ -971,4 +993,4 @@ Begin {
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 2019-06-20 20:22:43Z UTC*
+last updated 2019-07-16 14:10:05Z UTC

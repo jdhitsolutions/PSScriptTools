@@ -1,0 +1,102 @@
+﻿examples:
+- name: EXAMPLE 1
+  preCode: ''
+  code: >-
+    PS C:\> get-process | select-first 3 -property WS -descending
+
+
+
+    Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
+
+    -------  ------    -----      ----- -----   ------     --  -- -----------
+
+       1118      66   419952     392396 ...12   107.33   7312   1 powershell
+
+        343      43   237928     235508  1237 3,905.22   6424   1 slack
+
+       1051      88   231216     234728  1175    61.88   8324   1 powershell_ise
+  postCode: ''
+- name: EXAMPLE 2
+  preCode: ''
+  code: >-
+    1..10 | select-first 3 -Skip 2
+
+
+
+    3
+
+    4
+
+    5
+  postCode: Select the first 3 objects after skipping 2.
+inputs:
+- type: Object[]
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Select-First.md
+  text: 'Online Version:'
+- href: ''
+  text: Select-Object
+- href: ./Select-Last.md
+  text: Select-Last
+module:
+  name: PSScriptTools
+name: Select-First
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: Property
+  aliases: []
+  defaultValue: None
+  description: Sort first on this property then select the specified number of items.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 2
+  type: String
+- name: Skip
+  aliases: []
+  defaultValue: 0
+  description: Skip or omit the first X number of items.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: Int32
+- name: Descending
+  aliases: []
+  defaultValue: False
+  description: Sort the property in descending order.
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: Object[]
+  description: ''
+requiredParameters:
+- name: InputObject
+  aliases: []
+  defaultValue: None
+  description: Pipelined input to be selected.
+  parameterValueGroup: []
+  pipelineInput: True (ByValue)
+  position: Named
+  type: PSObject
+- name: First
+  aliases: []
+  defaultValue: 0
+  description: How many items do you want to select?
+  parameterValueGroup: []
+  pipelineInput: False
+  position: 1
+  type: Int32
+remarks: >-
+  This command takes pipelined input and selects the first specified number of objects which are then written to the pipeline. You also have the option to sort on the specified property.
+
+  When using this command there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.
+summary: Select first X number of objects.
+syntaxes:
+- parameters:
+  - First
+  - Property
+  - InputObject
+  - Skip
+  - Descending

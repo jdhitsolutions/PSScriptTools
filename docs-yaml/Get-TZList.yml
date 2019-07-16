@@ -1,0 +1,96 @@
+﻿examples:
+- name: Example 1
+  preCode: ''
+  code: >-
+    PS C:\> Get-TZList -all
+
+
+
+    Africa/Abidjan
+
+    Africa/Accra
+
+    Africa/Algiers
+
+    Africa/Bissau
+
+    Africa/Cairo
+
+    ...
+  postCode: Get a list of all time zone areas.
+- name: Example 2
+  preCode: ''
+  code: >-
+    PS C:\> Get-TZList Atlantic
+
+
+
+    Atlantic/Azores
+
+    Atlantic/Bermuda
+
+    Atlantic/Canary
+
+    Atlantic/Cape_Verde
+
+    Atlantic/Faroe
+
+    Atlantic/Madeira
+
+    Atlantic/Reykjavik
+
+    Atlantic/South_Georgia
+
+    Atlantic/Stanley
+  postCode: Get all time zone areas in the Atlantic region.
+inputs:
+- type: System.String
+  description: ''
+links:
+- href: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-TZList.md
+  text: 'Online Version:'
+- href: Get-TZData.md
+  text: Get-TZData
+module:
+  name: PSScriptTools
+name: Get-TZList
+notes: 'Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/'
+optionalParameters:
+- name: All
+  aliases: []
+  defaultValue: None
+  description: Get a list of all timezone areas
+  parameterValueGroup: []
+  pipelineInput: False
+  position: Named
+  type: SwitchParameter
+outputs:
+- type: string
+  description: ''
+requiredParameters:
+- name: TimeZoneArea
+  aliases: []
+  defaultValue: None
+  description: Get a list of timezone areas by region.
+  parameterValueGroup:
+  - Africa
+  - America
+  - Antarctica
+  - Asia
+  - Atlantic
+  - Australia
+  - Europe
+  - Indian
+  - Pacific
+  pipelineInput: True (ByValue)
+  position: 0
+  type: String
+remarks: This command uses a free and publicly available REST API offered by http://worldtimeapi.org to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details. You must have http access to the Internet for this command to work. Note that if the site is busy you may get an error. If that happens, wait a minute and try again.
+summary: Get a list of time zone areas
+syntaxes:
+- parameterValueGroup: all
+  parameters:
+  - All
+- parameterValueGroup: zone
+  parameters:
+  - TimeZoneArea
