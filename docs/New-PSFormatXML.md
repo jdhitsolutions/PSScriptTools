@@ -15,15 +15,15 @@ Create or modify a format.ps1xml file
 
 ```yaml
 New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>] [-Typename <String>]
- [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-Append] [-Passthru] [-WhatIf] [-Confirm]
- [<CommonParameters>]
+ [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-GroupBy <String>] [-Append] [-Passthru]
+ [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.
 
-Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks.
+Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside VS Code and use -Passthru, the new file will automatically be opened in your editor.
 
 Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to test changes.
 
@@ -38,13 +38,13 @@ PS C:\> $obj = [PSCustomObject]@{
     Name         = "Jeff"
     Date         = (Get-Date)
     Computername = $env:computername
-    OS           = (get-ciminstance win32_operatingsystem -Property Caption).caption
+    OS           = (Get-Ciminstance win32_operatingsystem -Property Caption).caption
 }
 PS C:\> Update-TypeData -TypeName $tname -MemberType "ScriptProperty" -MemberName "Runtime" -value {(Get-Date) - [datetime]"1/1/2019"} -force
 PS C:\> $obj
 
 Name         : Jeff
-Date         : 2/10/2019 8:49:10 PM
+Date         : 2/10/2019 8:49:10 AM
 Computername : BOVINE320
 OS           : Microsoft Windows 10 Pro
 Runtime      : 40.20:49:43.9205882
@@ -70,7 +70,7 @@ PS C:\> $obj
 
 Name Date                 Computername Operating System
 ---- ----                 ------------ ----------------
-Jeff 2/10/2019 8:49:10 PM BOVINE320    Microsoft Windows 10 Pro
+Jeff 2/10/2019 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
 
 PS C:\> $obj | format-table -View runtime
 
@@ -89,6 +89,23 @@ Runtime         : 40.21:12:01
 ```
 
 After the format.ps1xml file is applied, the object can be formatted as designed.
+
+### Example 4
+
+```powershell
+PS C:\> $obj | New-PSFormatXML -viewname computer -GroupBy Computername -path "c:\work\$tname.format.ps1xml" -append
+PS C:\> Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
+PS C:\> $obj | format-table -View computer
+
+
+   Computername: BOVINE320
+
+Name Date                  OS                       Runtime
+---- ----                  --                       -------
+Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481
+```
+
+This adds another view called Computer that groups objects on the Computername property.
 
 ## PARAMETERS
 
@@ -159,7 +176,7 @@ Accept wildcard characters: False
 
 ### -Passthru
 
-Write the ps1xml file object to the pipeline.
+Write the ps1xml file object to the pipeline. If you run this command inside VS Code and use this parameter, the file will be opened in the editor.
 
 ```yaml
 Type: SwitchParameter
@@ -253,9 +270,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -GroupBy
+
+Specify a property name to group on. You can edit the file if you need to change how it is displayed and/or calculated.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

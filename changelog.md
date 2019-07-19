@@ -1,6 +1,12 @@
 # Change Log for PSScriptTools
 
-## 2.10.0
+## v2.11.0
+
++ Added a grouping feature to `New-PSFormatXML` (Issue #54)
++ Modified `New-PSFormatXML` to open the XML file if the command is run in VS Code as part of `-Passthru`
++ Help updates
+
+## v2.10.0
 
 + Added `Test-WithCulture`
 + Fixed typo in `Copy-Command` help

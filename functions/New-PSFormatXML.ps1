@@ -2,7 +2,7 @@
 Function New-PSFormatXML {
     [cmdletbinding(SupportsShouldProcess)]
     [alias("nfx")]
-    [Outputtype("None", "System.IO.FileInfo")]
+    [OutputType("None", "System.IO.FileInfo")]
 
     Param(
         [Parameter(Mandatory, ValueFromPipeline, HelpMessage = "Specify an object to analyze and generate or update a ps1xml file.")]
@@ -18,6 +18,9 @@ Function New-PSFormatXML {
         [Parameter(Mandatory, HelpMessage = "Enter full filename and path for the format.ps1xml file.")]
         [ValidateNotNullOrEmpty()]
         [string]$Path,
+        [Parameter(HelpMessage = "Specify a property name to group on.")]
+        [ValidateNotNullOrEmpty()]
+        [string]$GroupBy,
         [switch]$Append,
         [switch]$Passthru
     )
@@ -40,8 +43,7 @@ Function New-PSFormatXML {
 
             $text = @"
 
-format type data generated $(Get-Date)
-by $env:USERDOMAIN\$env:username
+format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
 
 "@
 
@@ -65,6 +67,29 @@ by $env:USERDOMAIN\$env:username
         $name.InnerText = $ViewName
         [void]$view.AppendChild($name)
         $select = $doc.createnode("element", "ViewSelectedBy", $null)
+
+        if ($GroupBy) {
+            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Grouping by $GroupBy"
+
+            $groupcomment = @"
+
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>`$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+
+"@
+            $group = $doc.CreateNode("element", "GroupBy", $null)
+            [void]$group.AppendChild($doc.CreateComment($groupcomment))
+            $groupProp = $doc.CreateNode("element", "PropertyName", $null)
+            $groupProp.InnerText = $GroupBy
+            $groupLabel = $doc.CreateNode("element", "Label", $null)
+            $groupLabel.InnerText = $GroupBy
+            [void]$group.AppendChild($groupProp)
+            [void]$group.AppendChild($groupLabel)
+        }
 
         if ($FormatType -eq 'Table') {
             $table = $doc.CreateNode("element", "TableControl", $null)
@@ -90,9 +115,14 @@ by $env:USERDOMAIN\$env:username
                 $tname = $Inputobject.psobject.typenames[0]
             }
             $tnameElement = $doc.CreateElement("TypeName")
+            #you can't use [void] on a property assignment and we don't want to see the XML result
             $tnameElement.InnerText = $tname
             [void]$select.AppendChild($tnameElement)
             [void]$view.AppendChild($select)
+
+            if ($group) {
+                [void]$view.AppendChild($group)
+            }
 
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating an format document for object type $tname "
 
@@ -110,19 +140,25 @@ by $env:USERDOMAIN\$env:username
                         Write-Warning "Can't find a property called $property on this object. Did you enter it correctly?"
                     }
                 }
-                #$members = $members.where( {$properties -contains $_.name})
+
             }
             else {
                 #use auto detected properties
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Auto detected $($objProperties.name.count) properties"
                 $members = $objProperties
             }
+
+            #remove GroupBy property from collection of properties
+            if ($GroupBy) {
+                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Removing GroupBy property $GroupBy from the list of properties"
+                $members = $members | Where-Object {$_.name -ne $GroupBy}
+            }
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing $($members.name.count) properties"
 
             $comment = @"
 
             By default the entries use property names, but you can replace them with scriptblocks.
-            <Scriptblock>`$_.foo /1mb -as [int]</Scriptblock>
+            <ScriptBlock>`$_.foo /1mb -as [int]</ScriptBlock>
 
 "@
             if ($FormatType -eq 'Table') {
@@ -221,6 +257,11 @@ by $env:USERDOMAIN\$env:username
             $doc.Save($realPath)
             if ($Passthru) {
                 Get-Item $realPath
+                #If you run this command in VS Code and specify -passthru, then open the file
+                #for further editing
+                if ($host.name -match "Visual Studio Code") {
+                    Open-EditorFile -Path $realpath
+                }
             }
         }
 
