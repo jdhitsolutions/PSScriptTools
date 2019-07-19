@@ -924,7 +924,7 @@ $obj = [PSCustomObject]@{
 Update-TypeData -TypeName $tname -MemberType "ScriptProperty" -MemberName "Runtime" -value {(Get-Date) - [datetime]"1/1/2019"} -force
 ```
 
-That looks like this by default:
+The custom object looks like this by default:
 
 ```powershell
 PS C:\> $obj
@@ -970,6 +970,8 @@ OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01
 ```
 
+If you run this command within VS Code and specify `-Passthru`, the resulting file will be opened in your editor.
+
 ### [Write-Detail](docs/Write-Detail.md)
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
@@ -993,4 +995,5 @@ Begin {
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-last updated 2019-07-16 14:10:05Z UTC
+last Updated 2019-07-19 16:02:47Z UTC
+
