@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Format-Percent.md 
+online version: http://bit.ly/31UsX50
 schema: 2.0.0
 ---
 

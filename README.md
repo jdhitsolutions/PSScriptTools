@@ -849,7 +849,7 @@ PS C:\> (get-process | measure ws -sum).sum | format-value -Unit mb | format-val
 Or pull it all together:
 
 ```powershell
-PS C:\> get-ciminstance win32_operatingsystem |
+PS C:\> Get-CimInstance win32_operatingsystem |
 select-object @{Name = "TotalMemGB";Expression={Format-Value $_.TotalVisibleMemorySize -Unit mb}},
 @{Name="FreeMemGB";Expression={Format-Value $_.FreePhysicalMemory -unit mb -Decimal 2}},
 @{Name="PctFree";Expression={Format-Percent -Value $_.FreePhysicalMemory -Total $_.totalVisibleMemorySize -Decimal 2}}
@@ -860,6 +860,28 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [Test-WithCulture](docs/Test-WithCulture.md)
+
+When writing PowerShell commands, sometimes the culture you are running under becomes critical. For example, European countries use a different datetime format than North Americans which might present a problem with your script or command. Unless you have a separate computer running under the foreign culture, it is difficult to test. This command will allow you to test a scriptblock or even a file under a different culture, such as DE-DE for German.
+
+```powershell
+PS C\> Test-WithCulture fr-fr -Scriptblock {
+    Get-winEvent -log system -max 500 |
+    Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message |
+    Sort-Object -property TimeCreated |
+    Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement }
+
+Count Name
+----- ----
+  165 10/07/2019
+  249 11/07/2019
+   17 12/07/2019
+   16 13/07/2019
+   20 14/07/2019
+   26 15/07/2019
+    7 16/07/2019
+```
 
 ### [Copy-Command](docs/Copy-Command.md)
 
@@ -897,12 +919,12 @@ $obj = [PSCustomObject]@{
     Name         = "Jeff"
     Date         = (Get-Date)
     Computername = $env:computername
-    OS           = (get-ciminstance win32_operatingsystem -Property Caption).caption
+    OS           = (Get-CimInstance win32_operatingsystem -Property Caption).caption
 }
 Update-TypeData -TypeName $tname -MemberType "ScriptProperty" -MemberName "Runtime" -value {(Get-Date) - [datetime]"1/1/2019"} -force
 ```
 
-That looks like this by default:
+The custom object looks like this by default:
 
 ```powershell
 PS C:\> $obj
@@ -948,6 +970,8 @@ OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01
 ```
 
+If you run this command within VS Code and specify `-Passthru`, the resulting file will be opened in your editor.
+
 ### [Write-Detail](docs/Write-Detail.md)
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
@@ -971,4 +995,4 @@ Begin {
 
 Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
 
-*last updated 2019-06-20 20:22:43Z UTC*
+last Updated 2019-08-20 19:20:40Z UTC

@@ -40,10 +40,12 @@ Function Out-More {
         if ($ClearScreen) {
             Clear-Host
         }
+
         Write-Verbose "Starting: $($MyInvocation.Mycommand)"
         Write-Verbose "Using a count of $count"
 
         #initialize an array to hold objects
+        Write-Verbose "Initializing data array"
         $data = @()
 
         #initialize some variables to control flow
@@ -51,6 +53,7 @@ Function Out-More {
         $ShowNext = $False
         $Ready = $False
         $Quit = $False
+
     } #begin
 
     Process {
@@ -122,6 +125,20 @@ Function Out-More {
     } #process
 
     End {
+        #test if data is from a get-help command in
+        #which case it will be a single string that needs
+        #to be broken apart
+
+        if ([regex]::Matches($data, "`n").count -gt 1) {
+            [void]$PSBoundParameters.remove("Inputobject")
+            Write-Verbose "Splitting input and re-running through Out-More"
+            $data.split("`n") | Out-More @PSBoundParameters
+        }
+        elseif ($data[0].psobject.typenames -contains "MamlCommandHelpInfo") {
+            Write-Verbose "Help output detected"
+            [void]$PSBoundParameters.remove("Inputobject")
+            ($data | Out-String).split("`n") | Out-More @PSBoundParameters
+        }
         #display whatever is left in $data
         if ($data -AND -Not $ShowAll) {
             Write-Verbose "Displaying remaining data"

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Set-ConsoleTitle.md
+online version: http://bit.ly/31SHb6m
 schema: 2.0.0
 ---
 

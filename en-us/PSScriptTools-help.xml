@@ -257,7 +257,7 @@
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Add-Border.md</maml:uri>
+        <maml:uri>http://bit.ly/31PzBsZ</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -416,7 +416,7 @@ UpdateNeeded     : True</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Compare-Module.md</maml:uri>
+        <maml:uri>http://bit.ly/31UsaRA</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Find-Module</maml:linkText>
@@ -520,7 +520,7 @@ Get-EventLog @paramHash</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-CommandtoHashtable.md</maml:uri>
+        <maml:uri>http://bit.ly/31SLyhD</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Convert-HashTableToCode</maml:linkText>
@@ -619,7 +619,7 @@ CreatedOn                      BOVINE320</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-HashtableString.md</maml:uri>
+        <maml:uri>http://bit.ly/31VA9Of</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Import-PowerShellDatafile</maml:linkText>
@@ -717,7 +717,7 @@ PS C:\&gt; convert-hashtabletocode $h
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-HashTableToCode.md</maml:uri>
+        <maml:uri>http://bit.ly/31SLU7X</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Convert-HashtableString</maml:linkText>
@@ -1043,7 +1043,7 @@ IPAddress                         MAC                              Type
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertFrom-Text.md</maml:uri>
+        <maml:uri>http://bit.ly/31VAujZ</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Content</maml:linkText>
@@ -1138,7 +1138,7 @@ Monday, March 4, 2019 1:00:00 PM</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertFrom-UTCTime.md</maml:uri>
+        <maml:uri>http://bit.ly/31RGo5q</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>ConvertTo-UTCTime</maml:linkText>
@@ -1339,7 +1339,7 @@ Status                         Running</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-HashTable.md</maml:uri>
+        <maml:uri>http://bit.ly/31SG9Y2</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>About_Hash_Tables</maml:linkText>
@@ -1500,7 +1500,7 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-LocalTime.md</maml:uri>
+        <maml:uri>http://bit.ly/31VABfp</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-TimeZone</maml:linkText>
@@ -1746,7 +1746,7 @@ PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-Markdown.md</maml:uri>
+        <maml:uri>http://bit.ly/31Nn21e</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Convertto-HTML</maml:linkText>
@@ -1877,7 +1877,7 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-UTCTime.md</maml:uri>
+        <maml:uri>http://bit.ly/31RGrOE</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>ConvertFrom-UTCTime</maml:linkText>
@@ -2275,7 +2275,7 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvaria
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-WPFGrid.md</maml:uri>
+        <maml:uri>http://bit.ly/31TxZyi</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Out-GridView</maml:linkText>
@@ -2479,7 +2479,7 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvaria
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Copy-Command.md</maml:uri>
+        <maml:uri>http://bit.ly/31Ty8Sm</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Command</maml:linkText>
@@ -2648,7 +2648,7 @@ ProtectionTechnologyStatus          {}                   {PackedXml, SchemaVersi
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Find-CimClass.md</maml:uri>
+        <maml:uri>http://bit.ly/31SEzp2</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-CimClass</maml:linkText>
@@ -2839,7 +2839,7 @@ chi-dc04                                  1738292           23.92%</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Format-Percent.md</maml:uri>
+        <maml:uri>http://bit.ly/31UsX50</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Format-Value</maml:linkText>
@@ -3080,7 +3080,7 @@ Powershell</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Format-String.md</maml:uri>
+        <maml:uri>http://bit.ly/31UsW0W</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Format-Value</maml:linkText>
@@ -3404,7 +3404,7 @@ $3,456.57</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Format-Value.md</maml:uri>
+        <maml:uri>http://bit.ly/31PAuBP</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Format-String</maml:linkText>
@@ -3668,7 +3668,7 @@ Mode                LastWriteTime     Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-FileItem.md</maml:uri>
+        <maml:uri>http://bit.ly/31VAIHR</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
@@ -3960,7 +3960,7 @@ Now                 Home                 Seattle              New Zealand
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-MyTimeInfo.md</maml:uri>
+        <maml:uri>http://bit.ly/31RGxG0</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-TimeZone</maml:linkText>
@@ -4140,7 +4140,7 @@ up                                 Param(\[string\]$computername=$env:com...</de
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-MyVariable.md</maml:uri>
+        <maml:uri>http://bit.ly/31PAvFT</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Variable</maml:linkText>
@@ -4407,7 +4407,7 @@ ParameterSet                    : __AllParameterSets</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-ParameterInfo.md</maml:uri>
+        <maml:uri>http://bit.ly/31XfFER</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Command</maml:linkText>
@@ -4528,7 +4528,7 @@ Platform       : Win32NT</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PowerShellEngine.md</maml:uri>
+        <maml:uri>http://bit.ly/31SKmLm</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>$PSVersionTable</maml:linkText>
@@ -4616,7 +4616,7 @@ PowerShell : /home/jeff/.config/powershell</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSLocation.md</maml:uri>
+        <maml:uri>http://bit.ly/31SEOQY</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Location</maml:linkText>
@@ -4769,7 +4769,7 @@ Culture         : en-US</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSWho.md</maml:uri>
+        <maml:uri>http://bit.ly/31SF1ne</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-CimInstance</maml:linkText>
@@ -4956,7 +4956,7 @@ Friday, March 15, 2019 11:00:00 AM</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-TZData.md</maml:uri>
+        <maml:uri>http://bit.ly/31SFfe4</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-TZList</maml:linkText>
@@ -5105,7 +5105,7 @@ Atlantic/Stanley</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-TZList.md</maml:uri>
+        <maml:uri>http://bit.ly/31SFp5a</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-TZData</maml:linkText>
@@ -5216,7 +5216,7 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WhoIs.md</maml:uri>
+        <maml:uri>http://bit.ly/31Ut7JE</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Invoke-RestMethod</maml:linkText>
@@ -5456,7 +5456,7 @@ Windows 10 Enterprise Evaluat EnterpriseEval     15063.1418 12/26/2018 4:08:11 P
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WindowsVersion.md</maml:uri>
+        <maml:uri>http://bit.ly/31QKsTt</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinVer.exe</maml:linkText>
@@ -5692,7 +5692,7 @@ BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WindowsVersionString.md</maml:uri>
+        <maml:uri>http://bit.ly/31QKACr</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-WindowsVersion</maml:linkText>
@@ -5871,7 +5871,7 @@ BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Invoke-InputBox.md</maml:uri>
+        <maml:uri>http://bit.ly/31UtHXQ</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Read-Host</maml:linkText>
@@ -6043,7 +6043,7 @@ Count                          3</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Join-Hashtable.md</maml:uri>
+        <maml:uri>http://bit.ly/31QKJ8X</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>About_Hash_Tables</maml:linkText>
@@ -6232,7 +6232,7 @@ Mode                LastWriteTime         Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-CustomFileName.md</maml:uri>
+        <maml:uri>http://bit.ly/31LsDoS</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-RandomFileName</maml:linkText>
@@ -6536,7 +6536,7 @@ PS DeepDive:\&gt;</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-PSDriveHere.md</maml:uri>
+        <maml:uri>http://bit.ly/31SGnOS</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSDrive</maml:linkText>
@@ -6945,7 +6945,7 @@ Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481</dev:code
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-PSFormatXML.md</maml:uri>
+        <maml:uri>http://bit.ly/31SGo5o</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Update-FormatData</maml:linkText>
@@ -7120,7 +7120,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-RandomFileName.md</maml:uri>
+        <maml:uri>http://bit.ly/31Lt56y</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-CustomFileName</maml:linkText>
@@ -7477,7 +7477,7 @@ False</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-WPFMessageBox.md</maml:uri>
+        <maml:uri>http://bit.ly/31PDbDx</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Invoke-InputBox</maml:linkText>
@@ -7797,7 +7797,7 @@ win10-ENT-01  CHI-DC04        172.16.30.203                     32       0</dev:
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Optimize-Text.md</maml:uri>
+        <maml:uri>http://bit.ly/31SFF48</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Content</maml:linkText>
@@ -8016,7 +8016,7 @@ Enter a property name: entrytype</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Out-ConditionalColor.md</maml:uri>
+        <maml:uri>http://bit.ly/31SFLZy</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>About_Hash_Tables</maml:linkText>
@@ -8036,6 +8036,7 @@ Enter a property name: entrytype</dev:code>
     <maml:description>
       <maml:para>This function is designed to display groups or "pages" of objects to the PowerShell pipeline. It is modeled after the legacy More.com command line utility. By default the command will write out objects out to the pipeline in groups of 50. You will be prompted after each grouping.</maml:para>
       <maml:para>Pressing M or Enter will get the next group. Pressing A will stop paging and display all of the remaining objects. Pressing N will display the next object. Press Q to stop writing anything else to the pipeline.</maml:para>
+      <maml:para>Note that you may encounter an error message when quitting prematurely, especially on non-Windows platforms. You can ignore these errors.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -8172,7 +8173,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>http://jdhitsolutions.com/blog/powershell/4707/a-better-powershell-more/</maml:uri>
+        <maml:uri>http://bit.ly/31OtYvh</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>more</maml:linkText>
@@ -8346,7 +8347,7 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Out-VerboseTee.md</maml:uri>
+        <maml:uri>http://bit.ly/31SKsTe</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Write-Verbose</maml:linkText>
@@ -8542,7 +8543,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Remove-Runspace.md</maml:uri>
+        <maml:uri>http://bit.ly/31OJxTC</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Runspace</maml:linkText>
@@ -8743,7 +8744,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Select-First.md</maml:uri>
+        <maml:uri>http://bit.ly/31VhYb9</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Select-Object</maml:linkText>
@@ -8953,7 +8954,7 @@ Mode                LastWriteTime         Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Select-Last.md</maml:uri>
+        <maml:uri>http://bit.ly/31SGKce</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Select-Object</maml:linkText>
@@ -9197,7 +9198,7 @@ Mode                LastWriteTime         Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Set-ConsoleColor.md</maml:uri>
+        <maml:uri>http://bit.ly/31SMpPn</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-ConsoleTitle</maml:linkText>
@@ -9338,7 +9339,7 @@ Mode                LastWriteTime         Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Set-ConsoleTitle.md</maml:uri>
+        <maml:uri>http://bit.ly/31SHb6m</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-ConsoleColor</maml:linkText>
@@ -9687,7 +9688,7 @@ WSMan:\
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Show-Tree.md</maml:uri>
+        <maml:uri>http://bit.ly/31RilUa</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>tree.com</maml:linkText>
@@ -9695,430 +9696,6 @@ WSMan:\
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
-      <command:name>Test-Expression</command:name>
-      <command:verb>Test</command:verb>
-      <command:noun>Expression</command:noun>
-      <maml:description>
-        <maml:para>Test a PowerShell expression over a period of time.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.</maml:para>
-      <maml:para>The median is calculated by sorting the values in ascending order and selecting the value in the center of the array.</maml:para>
-      <maml:para>If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Test-Expression</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
-          <maml:name>Expression</maml:name>
-          <maml:Description>
-            <maml:para>The scriptblock you want to test.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
-          <dev:type>
-            <maml:name>ScriptBlock</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>ArgumentList</maml:name>
-          <maml:Description>
-            <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
-          <dev:type>
-            <maml:name>Object[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsJob</maml:name>
-          <maml:Description>
-            <maml:para>Run the tests as a background job.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
-          <maml:name>Count</maml:name>
-          <maml:Description>
-            <maml:para>The number of times to test the scriptblock.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-          <dev:type>
-            <maml:name>Int32</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>1</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
-          <maml:name>IncludeExpression</maml:name>
-          <maml:Description>
-            <maml:para>Include the test scriptblock in the output.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="sleep">
-          <maml:name>Interval</maml:name>
-          <maml:Description>
-            <maml:para>How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
-          <dev:type>
-            <maml:name>Double</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>0.5</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>Test-Expression</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
-          <maml:name>Expression</maml:name>
-          <maml:Description>
-            <maml:para>The scriptblock you want to test.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
-          <dev:type>
-            <maml:name>ScriptBlock</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>ArgumentList</maml:name>
-          <maml:Description>
-            <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
-          <dev:type>
-            <maml:name>Object[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsJob</maml:name>
-          <maml:Description>
-            <maml:para>Run the tests as a background job.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
-          <maml:name>Count</maml:name>
-          <maml:Description>
-            <maml:para>The number of times to test the scriptblock.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-          <dev:type>
-            <maml:name>Int32</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>1</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
-          <maml:name>IncludeExpression</maml:name>
-          <maml:Description>
-            <maml:para>Include the test scriptblock in the output.</maml:para>
-          </maml:Description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="max">
-          <maml:name>RandomMaximum</maml:name>
-          <maml:Description>
-            <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
-          <dev:type>
-            <maml:name>Double</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>0</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="min">
-          <maml:name>RandomMinimum</maml:name>
-          <maml:Description>
-            <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
-          <dev:type>
-            <maml:name>Double</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>0</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>ArgumentList</maml:name>
-        <maml:Description>
-          <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
-        <dev:type>
-          <maml:name>Object[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>AsJob</maml:name>
-        <maml:Description>
-          <maml:para>Run the tests as a background job.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
-        <maml:name>Count</maml:name>
-        <maml:Description>
-          <maml:para>The number of times to test the scriptblock.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
-        <dev:type>
-          <maml:name>Int32</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>1</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
-        <maml:name>Expression</maml:name>
-        <maml:Description>
-          <maml:para>The scriptblock you want to test.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
-        <dev:type>
-          <maml:name>ScriptBlock</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
-        <maml:name>IncludeExpression</maml:name>
-        <maml:Description>
-          <maml:para>Include the test scriptblock in the output.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="sleep">
-        <maml:name>Interval</maml:name>
-        <maml:Description>
-          <maml:para>How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
-        <dev:type>
-          <maml:name>Double</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>0.5</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="max">
-        <maml:name>RandomMaximum</maml:name>
-        <maml:Description>
-          <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
-        <dev:type>
-          <maml:name>Double</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>0</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="min">
-        <maml:name>RandomMinimum</maml:name>
-        <maml:Description>
-          <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
-        <dev:type>
-          <maml:name>Double</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>0</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>scriptblock</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>Custom measurement object</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/ This command was first described at https://github.com/jdhitsolutions/Test-Expression/blob/master/docs/Test-Expression.md)</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $cred = Get-credential globomantics\administrator
-PS C:\&gt; $c = "chi-dc01","chi-dc04"
-PS C:\&gt; Test-Expression {param ([string[]]$computer,$cred) get-wmiobject -class win32_logicaldisk -computername $computer -credential $cred } -argumentList $c,$cred
-
-
-Tests        : 1
-TestInterval : 0.5
-AverageMS    : 1990.6779
-MinimumMS    : 1990.6779
-MaximumMS    : 1990.6779
-MedianMS     : 1990.6779
-TrimmedMS    :
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise</dev:code>
-        <dev:remarks>
-          <maml:para>Test a command once passing an argument to the scriptblock. There is no TrimmedMS value because there was only one test.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $sb = {1..1000 | foreach {$_*2}}
-PS C:\&gt; test-expression $sb -count 10 -interval 2
-
-Tests        : 10
-TestInterval : 2
-AverageMS    : 72.78199
-MinimumMS    : 29.4449
-MaximumMS    : 110.6553
-MedianMS     : 90.3509
-TrimmedMS    : 73.4649625
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
-
-
-PS C:\&gt; $sb2 = { foreach ($i in (1..1000)) {$_*2}}
-PS C:\&gt; test-expression $sb2 -Count 10 -interval 2
-
-Tests        : 10
-TestInterval : 2
-AverageMS    : 6.40283
-MinimumMS    : 0.7466
-MaximumMS    : 22.968
-MedianMS     : 2.781
-TrimmedMS    : 5.0392125
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise</dev:code>
-        <dev:remarks>
-          <maml:para>These examples are testing two different approaches that yield the same results over a span of 10 test runs, pausing for 2 seconds between each test. The values for Average, Minimum and Maximum are in milliseconds.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Test-expression {Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer} -count 5 -IncludeExpression -argumentList chi-hvr2
-
-
-Tests        : 5
-TestInterval : 500
-AverageMS    : 15.53376
-MinimumMS    : 11.6745
-MaximumMS    : 24.9331
-MedianMS     : 13.8928
-TrimmedMS    : 13.6870666666667
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
-Expression   : Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer
-Arguments    : {chi-hvr2}</dev:code>
-        <dev:remarks>
-          <maml:para>Include the tested expression in the output.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
-
-
-Id     Name            PSJobTypeName   State         HasMoreData     Location             Command
---     ----            -------------   -----         -----------     --------             -------
-184    Job184          RemoteJob       Running       True            WIN81-ENT-01         ...
-
-PS C:\&gt; receive-job 184 -keep
-
-Tests        : 10
-TestInterval : 5
-AverageMS    : 2.80256
-MinimumMS    : 0.7967
-MaximumMS    : 14.911
-MedianMS     : 1.4469
-TrimmedMS    : 1.5397375
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
-RunspaceId   : f30eb879-fe8f-4ad0-8d70-d4c8b6b4eccc</dev:code>
-        <dev:remarks>
-          <maml:para>Run the test as a background job. When the job is complete, get the results.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {1..1000} | Test-Expression -count 10 -RandomMinimum 1 -RandomMaximum 10
-
-Tests        : 10
-TestInterval : Random
-AverageMS    : 0.63899
-MinimumMS    : 0.2253
-MaximumMS    : 3.9062
-MedianMS     : 0.24475
-TrimmedMS    : 0.2823
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise</dev:code>
-        <dev:remarks>
-          <maml:para>Pipe a scriptblock to be tested.</maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Measure-Command</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Test-ExpressionForm</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -10179,7 +9756,7 @@ OS           : Microsoft Windows 8.1 Enterprise</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Test-ExpressionForm.md</maml:uri>
+        <maml:uri>http://bit.ly/31TAilb</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Test-Expression</maml:linkText>
@@ -10389,7 +9966,7 @@ Count Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Test-WithCulture.md</maml:uri>
+        <maml:uri>http://bit.ly/31TyFnk</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Culture</maml:linkText>
@@ -10582,7 +10159,7 @@ Count Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Write-Detail.md</maml:uri>
+        <maml:uri>http://bit.ly/31UuI26</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Write-Verbose</maml:linkText>
