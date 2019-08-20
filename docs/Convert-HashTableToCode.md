@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-HashTableToCode.md
+online version: http://bit.ly/31SLU7X
 schema: 2.0.0
 ---
 

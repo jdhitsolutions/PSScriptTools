@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WindowsVersion.md
+online version: http://bit.ly/31QKsTt
 schema: 2.0.0
 ---
 

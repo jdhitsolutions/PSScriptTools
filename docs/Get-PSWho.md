@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSWho.md
+online version: http://bit.ly/31SF1ne
 schema: 2.0.0
 ---
 

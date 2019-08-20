@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://jdhitsolutions.com/blog/powershell/4707/a-better-powershell-more/
+online version: http://bit.ly/31OtYvh
 schema: 2.0.0
 ---
 
@@ -26,6 +26,8 @@ Pressing M or Enter will get the next group.
 Pressing A will stop paging and display all of the remaining objects.
 Pressing N will display the next object.
 Press Q to stop writing anything else to the pipeline.
+
+Note that you may encounter an error message when quitting prematurely, especially on non-Windows platforms. You can ignore these errors.
 
 ## EXAMPLES
 
@@ -64,7 +66,7 @@ List all files in C:\Work and page them to Out-More using the default count, but
 ```yaml
 Type: Object[]
 Parameter Sets: (All)
-Aliases: 
+Aliases:
 
 Required: True
 Position: 1

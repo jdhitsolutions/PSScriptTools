@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Out-ConditionalColor.md
+online version: http://bit.ly/31SFLZy
 schema: 2.0.0
 ---
 

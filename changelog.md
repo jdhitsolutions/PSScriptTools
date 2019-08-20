@@ -1,5 +1,12 @@
 # Change Log for PSScriptTools
 
+## v2.12.0
+
++ Help updates
++ Replaced GitHub online help links with bitly short links
++ Minor updates to `README.md`
++ Updated `Out-More` to work better with output from `Get-Help`.
+
 ## v2.11.0
 
 + Added a grouping feature to `New-PSFormatXML` (Issue #54)
