@@ -178,15 +178,14 @@ Function Invoke-InputBox {
         [string]$BackgroundColor = "White"
     )
 
-    if ($PSEdition -eq 'Core') {
-        Write-Warning "Sorry. This command will not run on PowerShell Core."
+    if (-Not$IsWindows) {
+        Write-Warning "Sorry. This command requires a Windows platform."
         #bail out
         Return
     }
 
     Add-Type -AssemblyName PresentationFramework
     Add-Type -AssemblyName PresentationCore
-    Add-Type -AssemblyName WindowsBase
 
     #remove the variable because it might get cached in the ISE or VS Code
     Remove-Variable -Name myInput -Scope script -ErrorAction SilentlyContinue
@@ -362,6 +361,8 @@ Function Set-ConsoleColor {
     } #end
 
 } #close Set-ConsoleTitle
+
+#This command is not exported
 
 <#
 You use this function like this:

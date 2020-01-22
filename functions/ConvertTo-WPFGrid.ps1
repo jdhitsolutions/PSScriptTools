@@ -44,6 +44,23 @@ Function ConvertTo-WPFGrid {
         if ($Refresh -AND $timeout -le 5) {
             Throw "You must specify a timeout value in seconds when using -Refresh"
         }
+        #set a flag for the process block
+        if ($IsWindows) {
+            #attempt to load the WPF related classes which might or might not be available depending
+            #on operating system and PowerSell version
+
+            Try {
+                Write-Verbose "Attempting to load WPF assemblies"
+                Add-Type -AssemblyName PresentationFramework -ErrorAction Stop
+                Add-Type -AssemblyName PresentationCore -ErrorAction Stop
+
+            }
+            Catch {
+                Write-Warning "Failed to load WPF required assemblies. This command isn't supported under this version of PowerShell on this platform. $($_.exception.Message)"
+
+                #bail out out of the command
+                break
+            }
 
         Write-Verbose "Define new runspace"
         $newRunspace = [RunspaceFactory]::CreateRunspace()
@@ -55,7 +72,7 @@ Function ConvertTo-WPFGrid {
             #clean up
             $newRunspace.dispose()
 
-            write-warning "Incompatible runspace detected. This command will most likely fail on this platform with this version of PowerShell."
+            Write-Warning "Incompatible runspace detected. This command will most likely fail on this platform with this version of PowerShell."
             #bail out of the comman
             break
         }
@@ -316,26 +333,15 @@ Function ConvertTo-WPFGrid {
 
         #initialize an array to hold all processed objects
         $data = @()
+        }
+        else {
+            $bail = $True
+            Write-Warning "This command requires a Windows platform"
+            break
+        }
     } #begin
 
     Process {
-
-        #attempt to load the WPF related classes which might or might not be available depending
-        #on operating system and PowerSell version
-
-        Try {
-            Add-Type -AssemblyName PresentationFramework -ErrorAction Stop
-            Add-Type -AssemblyName PresentationCore -ErrorAction Stop
-        }
-        Catch {
-            Write-Warning "Failed to load WPF required assemblies. This command isn't supported under this version of PowerShell on this platform. $($_.exception.Message)"
-
-            #clean up
-            $psCmd.dispose()
-
-            #bail out out of the command
-            Return
-        }
 
         #add each incoming object to the data array
         if ($psCmdlet.ParameterSetName -eq 'Input') {

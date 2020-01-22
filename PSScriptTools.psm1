@@ -4,14 +4,14 @@ if ($myinvocation.line -match "-verbose") {
 }
 Write-Verbose "Loading public functions"
 
-Get-ChildItem -path $PSScriptRoot\functions\*.ps1 | foreach-object -process {
-    write-verbose $_.fullname
+Get-ChildItem -path $PSScriptRoot\functions\*.ps1 | ForEach-Object -process {
+    Write-Verbose $_.fullname
     . $_.FullName
 }
 
 #add ToDo options to the ISE or VS Code
 if ($psEditor) {
-    write-verbose "Defining VSCode additions"
+    Write-Verbose "Defining VSCode additions"
     $sb = {
         Param(
             [Microsoft.PowerShell.EditorServices.Extensions.EditorContext]$context
@@ -27,18 +27,20 @@ if ($psEditor) {
 
 }
 elseif ($psise) {
-        write-verbose "Defining ISE additions"
-    $action = {
+    Write-Verbose "Defining ISE additions"
 
-        $prompt = "What do you need to do?"
-        $title = "To Do"
-        $item = Invoke-Inputbox -Title $title -Prompt $prompt
-        $todo = "# [$(Get-Date)] TODO: $item"
-        $psise.CurrentFile.Editor.InsertText($todo)
-        #jump cursor to the end
-        $psise.CurrentFile.editor.SetCaretPosition($psise.CurrentFile.Editor.CaretLine, $psise.CurrentFile.Editor.CaretColumn)
+    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notcontains "ToDo") {
+
+        $action = {
+            $prompt = "What do you need to do?"
+            $title = "To Do"
+            $item = Invoke-Inputbox -Title $title -Prompt $prompt
+            $todo = "# [$(Get-Date)] TODO: $item"
+            $psise.CurrentFile.Editor.InsertText($todo)
+            #jump cursor to the end
+            $psise.CurrentFile.editor.SetCaretPosition($psise.CurrentFile.Editor.CaretLine, $psise.CurrentFile.Editor.CaretColumn)
+        }
+        #add the action to the Add-Ons menu
+        $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("ToDo", $Action, "Ctrl+Alt+2" ) | Out-Null
     }
-
-    #add the action to the Add-Ons menu
-    $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("ToDo", $Action, "Ctrl+Alt+2" ) | Out-Null
 }

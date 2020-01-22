@@ -18,7 +18,7 @@ Function Convert-HashtableString {
         $tokens = $null
         $err = $null
         $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$tokens, [ref]$err)
-        $data = $ast.find( {$args[0] -is [System.Management.Automation.Language.HashtableAst]}, $true)
+        $data = $ast.find( { $args[0] -is [System.Management.Automation.Language.HashtableAst] }, $true)
 
         if ($err) {
             Throw $err
@@ -38,6 +38,7 @@ Function ConvertTo-HashTable {
 
     [cmdletbinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
+    [OutputType([System.Collections.Hashtable])]
 
     Param(
         [Parameter(
@@ -50,21 +51,23 @@ Function ConvertTo-HashTable {
         [object]$InputObject,
         [switch]$NoEmpty,
         [string[]]$Exclude,
-        [switch]$Alphabetical
+        [switch]$Alphabetical,
+        [Parameter(HelpMessage = "Create an ordered hashtable instead of a plain hashtable.")]
+        [switch]$Ordered
     )
 
     Process {
         <#
             get type using the [Type] class because deserialized objects won't have
-            a GetType() method which is what we would normally use.
+            a GetType() method which is what I would normally use.
         #>
-        
+
         $TypeName = [system.type]::GetTypeArray($InputObject).name
         Write-Verbose "Converting an object of type $TypeName"
 
         #get property names using Get-Member
         $names = $InputObject | Get-Member -MemberType properties |
-            Select-Object -ExpandProperty name
+        Select-Object -ExpandProperty name
 
         if ($Alphabetical) {
             Write-Verbose "Sort property names alphabetically"
@@ -72,7 +75,13 @@ Function ConvertTo-HashTable {
         }
 
         #define an empty hash table
-        $hash = [ordered]@{}
+        if ($Ordered) {
+            Write-Verbose "Creating an ordered hashtable"
+            $hash = [ordered]@{ }
+        }
+        else {
+            $hash = @{ }
+        }
 
         #go through the list of names and add each property and value to the hash table
         $names | ForEach-Object {
@@ -116,7 +125,7 @@ Function Convert-HashTableToCode {
     Process {
         Write-Verbose "Processing a hashtable with $($hashtable.keys.count) keys"
 
-        $hashtable.GetEnumerator() | foreach-object -begin {
+        $hashtable.GetEnumerator() | ForEach-Object -begin {
 
             $out = @"
 @{
@@ -126,12 +135,12 @@ Function Convert-HashTableToCode {
             Write-Verbose "Testing type $($_.value.gettype().name) for $($_.key)"
             #determine if the value needs to be enclosed in quotes
             if ($_.value.gettype().name -match "Int|double") {
-                write-Verbose "..is an numeric"
+                Write-Verbose "..is an numeric"
                 $value = $_.value
             }
             elseif ($_.value -is [array]) {
                 #assuming all the members of the array are of the same type
-                write-Verbose "..is an array"
+                Write-Verbose "..is an array"
                 #test if an array of numbers otherwise treat as strings
                 if ($_.value[0].Gettype().name -match "int|double") {
                     $value = $_.value -join ','
@@ -145,7 +154,7 @@ Function Convert-HashTableToCode {
                 $value = "$($nested)"
             }
             else {
-                write-Verbose "..defaulting as a string"
+                Write-Verbose "..defaulting as a string"
                 $value = "'$($_.value)'"
             }
             $tabcount = "`t" * $Indent
@@ -180,7 +189,7 @@ Function Join-Hashtable {
     $Secondary = $Second.Clone()
 
     #check for any duplicate keys
-    $duplicates = $Primary.keys | Where-Object {$Secondary.ContainsKey($_)}
+    $duplicates = $Primary.keys | Where-Object { $Secondary.ContainsKey($_) }
     if ($duplicates) {
         foreach ($item in $duplicates) {
             if ($force) {
@@ -190,7 +199,7 @@ Function Join-Hashtable {
             else {
                 Write-Host "Duplicate key $item" -ForegroundColor Yellow
                 Write-Host "A $($Primary.Item($item))" -ForegroundColor Yellow
-                Write-host "B $($Secondary.Item($item))" -ForegroundColor Yellow
+                Write-Host "B $($Secondary.Item($item))" -ForegroundColor Yellow
                 $r = Read-Host "Which key do you want to KEEP [AB]?"
                 if ($r -eq "A") {
                     $Secondary.Remove($item)
@@ -229,7 +238,7 @@ Function Convert-CommandtoHashtable {
 
     #trim spaces
     $Text = $Text.trim()
-    Write-verbose "Converting $text"
+    Write-Verbose "Converting $text"
 
     $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$astTokens, [ref]$astErr)
 
@@ -296,3 +305,156 @@ $cmd @paramHash
 
 
 }
+
+Function Rename-HashTable {
+
+    [cmdletbinding(SupportsShouldProcess, DefaultParameterSetName = "Pipeline")]
+    [alias("rht")]
+
+    Param(
+        [parameter(
+            Position = 0,
+            Mandatory,
+            HelpMessage = "Enter the name of your hash table variable without the `$",
+            ParameterSetName = "Name"
+            )]
+        [ValidateNotNullorEmpty()]
+        [string]$Name,
+        [parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            ParameterSetName = "Pipeline"
+            )]
+        [ValidateNotNullorEmpty()]
+        [object]$InputObject,
+        [parameter(
+            Position = 1,
+            Mandatory,
+            HelpMessage = "Enter the existing key name you want to rename")]
+        [ValidateNotNullorEmpty()]
+        [string]$Key,
+        [parameter(position = 2, Mandatory, HelpMessage = "Enter the NEW key name"
+        )]
+        [ValidateNotNullorEmpty()]
+        [string]$NewKey,
+        [switch]$Passthru,
+        [ValidateSet("Global", "Local", "Script", "Private", 0, 1, 2, 3)]
+        [ValidateNotNullOrEmpty()]
+        [string]$Scope = "Global"
+    )
+
+    Begin {
+        Write-Verbose -Message "Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "using parameter set $($PSCmdlet.ParameterSetName)"
+    }
+
+    Process {
+        Write-Verbose "PSBoundparameters"
+        Write-Verbose $($PSBoundParameters | Out-String)
+        #validate Key and NewKey are not the same
+        if ($key -eq $NewKey) {
+            Write-Warning "The values you specified for -Key and -NewKey appear to be the same. Names are NOT case-sensitive"
+            #bail out
+            Return
+        }
+
+        Try {
+            #validate variable is a hash table
+            if ($InputObject) {
+                #create a completely random name to avoid any possible naming collisions
+                $name = [system.io.path]::GetRandomFileName()
+                Write-Verbose "Creating temporary hashtable ($name) from pipeline input"
+                Set-Variable -Name $name -Scope $scope -value $InputObject -WhatIf:$False
+                $passthru = $True
+            }
+            else {
+                Write-Verbose "Using hashtable variable $name"
+            }
+
+            Write-Verbose (Get-Variable -Name $name -Scope $scope | Out-String)
+            Write-Verbose "Validating $name as a hashtable in $Scope scope."
+            #get the variable
+            $var = Get-Variable -Name $name -Scope $Scope -ErrorAction Stop
+            Write-Verbose "Detected a $($var.value.GetType().fullname)"
+
+            Write-Verbose "Testing for key $key"
+            if (-Not $var.value.Contains($key)) {
+                Write-Warning "Failed to find the key $key in the hashtable."
+                #bail out
+                Return
+            }
+            if ( $var.Value -is [hashtable]) {
+                #create a temporary copy
+
+                Write-Verbose "Cloning a temporary hashtable"
+                <#
+                Use the clone method to create a separate copy.
+                If you just assign the value to $temphash, the
+                two hash tables are linked in memory so changes
+                to $tempHash are also applied to the original
+                object.
+                #>
+                $tempHash = $var.Value.Clone()
+
+                if ($pscmdlet.ShouldProcess($NewKey, "Replace key $key")) {
+                    Write-Verbose "Writing the new hashtable to variable named $hashname"
+                    #create a key with the new name using the value from the old key
+                    Write-Verbose "Adding new key $newKey to the temporary hashtable"
+                    $tempHash.Add($NewKey, $tempHash.$Key)
+                    #remove the old key
+                    Write-Verbose "Removing $key"
+                    $tempHash.Remove($Key)
+                    #write the new value to the variable
+                    Write-Verbose "Writing the new hashtable to variable named $Name"
+                    Write-Verbose ($tempHash | Out-String)
+                    Set-Variable -Name $Name -Value $tempHash -Scope $Scope -Force -PassThru:$Passthru |
+                    Select-Object -ExpandProperty Value
+                }
+            }
+            elseif ($var.value -is [System.Collections.Specialized.OrderedDictionary]) {
+                Write-Verbose "Processing as an ordered dictionary"
+                $varHash = $var.value
+                #find the index number of the existing key
+                $i = -1
+                Do {
+                    $i++
+
+                } Until (($varHash.GetEnumerator().name)[$i] -eq $Key)
+
+                #save the current value
+                $val = $varhash.item($i)
+
+                if ($pscmdlet.ShouldProcess($NewKey, "Replace key $key at $i")) {
+                    #remove at the index number
+                    $varhash.RemoveAt($i)
+                    #insert the new value at the index number
+                    $varhash.Insert($i, $NewKey, $val)
+                    Write-Verbose "Writing the new hashtable to variable named $name"
+                    Write-Verbose ($varHash | Out-String)
+                    Set-Variable -Name $name -Value $varhash -Scope $Scope -Force -PassThru:$Passthru |
+                    Select-Object -ExpandProperty Value
+                }
+            }
+            else {
+                Write-Warning "The variable $name does not appear to be a hash table or ordered dictionaryBet"
+            }
+        } #Try
+
+        Catch {
+            Write-Warning "Failed to find a variable with a name of $Name. $($_.exception.message)."
+        }
+
+        Write-Verbose "Rename complete."
+    } #Process
+
+    End {
+        #clean up any temporary variables
+        if ($InputObject) {
+            Write-Verbose "Removing temporary variable $name"
+            Remove-Variable -name $Name -Scope $scope -WhatIf:$False
+        }
+        Write-Verbose -Message "Ending $($MyInvocation.Mycommand)"
+    } #end
+
+} #end Rename-Hashtable
