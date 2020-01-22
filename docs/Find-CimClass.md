@@ -21,6 +21,8 @@ Find-CimClass [-Classname] <String> [-Exclude <String>] [-Computername <String>]
 
 This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. Find-CimClass will recursively search for a given classname. You can use wildcards and search remote computers.
 
+This command requires a Windows platform.
+
 ## EXAMPLES
 
 ### Example 1

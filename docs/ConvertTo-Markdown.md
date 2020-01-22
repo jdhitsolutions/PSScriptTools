@@ -15,12 +15,12 @@ Convert pipeline output to a markdown document.
 
 ```yaml
 ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>] [-PreContent <String[]>]
- [-PostContent <String[]>] [-Width <Int32>] [<CommonParameters>]
+ [-PostContent <String[]>] [-Width <Int32>] [-AsTable] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output.
+This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output and content to appear after the output.
 
 The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.
 
@@ -163,10 +163,26 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -AsTable
+
+Format the incoming data as a markdown table.
+This works best with similar content such as the result of running a PowerShell command.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

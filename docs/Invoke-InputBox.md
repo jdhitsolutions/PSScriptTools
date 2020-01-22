@@ -29,7 +29,7 @@ Invoke-InputBox [-Title <String>] [-Prompt <String>] [-AsSecureString] [-Backgro
 
 Use this command as a graphical replacement for Read-Host. The command will write either a string or a secure string to the pipeline. You can customize the prompt, title and background color.
 
-This command will not work in PowerShell Core.
+This command requires a Windows platform.
 
 ## EXAMPLES
 

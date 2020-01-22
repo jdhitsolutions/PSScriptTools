@@ -1,9 +1,18 @@
 # Change Log for PSScriptTools
 
+## v2.13.0
+
++ Added `New-RunspaceCleanupJob` command to be used with WPF commands running in a new runspace
++ Modified `ConvertTo-WPFGrid` to clean up runspace when closed. (Issue #25)
++ Modified `ConvertTo-WPFGrid` to attempt to run on all platforms and gracefully fail where it won't work. (Issue $56)
++ Updated module manifest to export `ConvertTo-WPFGrid` to all hosts. Code in the command will determine compatibility.
++ Help Updates
++ Updated `README.md`
+
 ## v2.12.0
 
 + Help updates
-+ Replaced GitHub online help links with bitly short links
++ Replaced GitHub online help links with bit.ly short links
 + Minor updates to `README.md`
 + Updated `Out-More` to work better with output from `Get-Help`.
 

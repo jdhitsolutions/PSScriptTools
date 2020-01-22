@@ -362,3 +362,60 @@ Function Set-ConsoleColor {
     } #end
 
 } #close Set-ConsoleTitle
+
+<#
+You use this function like this:
+$newrunspace = <code>
+$pscmd = [powershell]::create()
+
+add commands to $pscmd
+$pscmd.runspace = $newrunspace
+$handle = $pscmd.beginInvoke()
+
+Start a thread job to test if runspace is being used and close it if it is finished
+New-RunspaceCleanUpJob -handle $handle -powershell $pscmd -sleepinterval 30
+#>
+Function New-RunspaceCleanupJob {
+    [cmdletbinding()]
+    [OutputType("None", "ThreadJob")]
+    Param(
+        [Parameter(Mandatory, HelpMessage = "This should be the System.Management.Automation.Runspaces.AsyncResult object from the BeginInvoke() method.")]
+        [ValidateNotNullorEmpty()]
+        [object]$Handle,
+        [Parameter(Mandatory)]
+        [ValidateNotNullorEmpty()]
+        [System.Management.Automation.PowerShell]$PowerShell,
+        [Parameter(HelpMessage = "Specify a sleep interval in seconds")]
+        [ValidateRange(5, 600)]
+        [int32]$SleepInterval = 10,
+        [Parameter(HelpMessage = "Pass the thread job object to the pipeline")]
+        [switch]$Passthru
+    )
+
+    $job = Start-ThreadJob -ScriptBlock {
+        param($handle, $ps, $sleep)
+        #the Write-Host lines are so that if you look at the results of  the thread job
+        #you'll see something you can use for debugging or troubleshooting.
+        Write-Host "[$(Get-Date)] Sleeping in $sleep second loops"
+        Write-Host "Watching this runspace"
+        Write-Host ($ps.runspace | Select-object -property * | Out-String)
+        #loop until the handle shows as completed, sleeping the the specified
+        #number of seconds
+        do {
+            Start-Sleep -Seconds $sleep
+        } Until ($handle.IsCompleted)
+        Write-Host "[$(Get-Date)] Closing runspace"
+
+        $ps.runspace.close()
+        Write-Host "[$(Get-Date)] Disposing runspace"
+        $ps.runspace.Dispose()
+        Write-Host "[$(Get-Date)] Disposing PowerShell"
+        $ps.dispose()
+        write-host "[$(Get-Date)] Ending job"
+    } -ArgumentList $Handle, $PowerShell, $SleepInterval
+
+    if ($passthru) {
+        #Write the ThreadJob object to the pipeline
+        $job
+    }
+}
