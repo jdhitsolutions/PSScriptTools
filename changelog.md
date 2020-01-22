@@ -4,7 +4,7 @@
 
 + Added `New-RunspaceCleanupJob` command to be used with WPF commands running in a new runspace
 + Modified `ConvertTo-WPFGrid` to clean up runspace when closed. (Issue #25)
-+ Modified `ConvertTo-WPFGrid` to attempt to run on all platforms and gracefully fail where it won't work. (Issue $56)
++ Modified `ConvertTo-WPFGrid` to attempt to run on all platforms and gracefully fail where it won't work. (Issue #56)
 + Added 'Convert-EventLogRecord' function and its alias `clr`
 + Added `Rename-Hashtable` function and its alias `rht`
 + Updated `Convertto-Markdown` to include options to format as a table

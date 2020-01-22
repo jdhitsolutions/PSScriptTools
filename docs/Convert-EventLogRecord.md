@@ -116,23 +116,8 @@ The replacement strings are stored as text so the command displays the data usin
 
 ```powershell
 PS C:\> $all = New-PSSession -ComputerName 'win10','srv1','srv2','dom1'
-```
-
-Create PSSessions to several remote computers.
-
-```powershell
 PS C:\> $local = Get-Item Function:\Convert-EventLogRecord
-```
-
-Get the local copy of the command.
-
-```powershell
 PS C:\> Invoke-Command -ScriptBlock {New-item -Path Function: -Name $using:local.name -Value $using:local.ScriptBlock} -Session $all
-```
-
-Create the command in the remote sessions.
-
-```powershell
 PS C:\> Invoke-Command { Get-WinEvent -FilterHashtable @{Logname='security';id=4624} -MaxEvents 10 | Convert-EventLogRecord | Select-Object -Property Computername,Time*,TargetUser*,TargetDomainName,Subject*} -session $all -HideComputerName | Select-Object -Property * -ExcludeProperty runspaceID
 
 Computername      : WIN10.Company.Pri
@@ -165,12 +150,16 @@ SubjectUserName   : -
 SubjectDomainName : -
 SubjectLogonId    : 0x0
 ...
+```
 
-Get event log data in the remote sessions and convert using the Convert-EventlogRecord function.
+The first command creates PSSessions to several remote computers.
+The local copy of this command is created in the remote PSSessions.
+Then event log data is retrieved in the remote sessions and converted using the Convert-EventlogRecord function in each session.
 
 ## PARAMETERS
 
 ### -LogRecord
+
 An event log record from the Get-WinEvent command.
 
 ```yaml
