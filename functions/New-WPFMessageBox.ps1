@@ -24,8 +24,8 @@ Function New-WPFMessageBox {
         [switch]$Quiet
     )
 
-    if ($PSEdition -eq 'Core') {
-        Write-Warning "Sorry. This command will not run on PowerShell Core."
+    if (-Not $isWindows) {
+        Write-Warning "Sorry. This command requires a Windows platform."
         #bail out
         Return
     }
@@ -36,7 +36,6 @@ Function New-WPFMessageBox {
 
         Add-Type -AssemblyName PresentationFramework -ErrorAction stop
         Add-Type -assemblyName PresentationCore -ErrorAction stop
-        Add-Type -AssemblyName WindowsBase -ErrorAction stop
     }
     Catch {
         Throw $_

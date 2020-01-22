@@ -12,13 +12,13 @@ You can get the current release from this repository or install this from the Po
 Install-Module PSScriptTools
 ```
 
-or in PowerShell Core:
+or in PowerShell 7:
 
 ```powershell
 Install-Module PSScriptTools -scope CurrentUser
 ```
 
-Starting in v2.2.0, the module was restructured to better support Desktop and Core editions. It is recommended that you uninstall any version older than 2.2.0 and then install the latest version from the PowerShell Gallery.
+Starting in v2.2.0, the module was restructured to better support Desktop and Core editions. But starting with version 2.13.0, the module design has reverted. All commands will be exported. Anything that is platform specific should be handled on a per command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
 
 ```powershell
 Uninstall-Module PSScriptTools -allversions
@@ -29,6 +29,38 @@ Any command that uses WPF will not run on PowerShell Core and is not exported.
 Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any input is greatly appreciated.
 
 ## General Tools
+
+### [Convert-EventLogRecord](docs/Convert-EventLogRecord.md)
+
+When you use Get-WinEvent, the results are objects you can work with in PowerShell.
+However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message.
+This additional information is not readily exposed.
+You can use this command to convert results of a Get-WinEvent command into a PowerShell custom object with additional information.
+
+```powershell
+PS C:\> get-winevent -FilterHashtable @{Logname='System';ID=7045} -MaxEvents 1 | Convert-EventLogRecord
+
+
+LogName      : System
+RecordType   : Information
+TimeCreated  : 1/21/2020 3:49:46 PM
+ID           : 7045
+ServiceName  : Netwrix Account Lockout Examiner
+ImagePath    : "C:\Program Files (x86)\Netwrix\Account Lockout Examiner\ALEService.exe"
+ServiceType  : user mode service
+StartType    : auto start
+AccountName  : bovine320\jeff
+Message      : A service was installed in the system.
+
+               Service Name:  Netwrix Account Lockout Examiner
+               Service File Name:  "C:\Program Files (x86)\Netwrix\Account Lockout Examiner\ALEService.exe"
+               Service Type:  user mode service
+               Service Start Type:  auto start
+               Service Account:  bovine320\jeff
+Keywords     : {Classic}
+Source       : Service Control Manager
+Computername : Bovine320
+```
 
 ### [Get-WhoIs](docs/Get-WhoIs.md)
 
@@ -331,7 +363,7 @@ PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
 
 ### [ConvertTo-Markdown](docs/ConvertTo-Markdown.md)
 
-This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output. You can run a command like this:
+This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block or a table You can optionally define a title, content to appear before the output and content to appear after the output. You can run a command like this:
 
 ```powershell
  Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"  -postcontent "_report $(Get-Date)_"
@@ -352,7 +384,7 @@ which generates this markdown:
     Running  Winrm              Windows Remote Management (WS-Manag...
     ```
 
-    _report 09/25/2018 09:57:12_
+    _report 09/25/2019 09:57:12_
 ```
 
 Because the function writes markdown to the pipeline you will need to pipe it to a command `Out-File` to create a file.
@@ -566,7 +598,7 @@ Convert a hashtable object to a string equivalent that you can copy into your sc
 This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
 
 ```powershell
-PS C:\> get-process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
+PS C:\> Get-Process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
 
 Name                           Value
 ----                           -----
@@ -576,7 +608,7 @@ Id                             3456
 Handles                        958
 ```
 
-### [Join-Hashtable](docs/Join-Hashtable.md)
+### [Join-HashTable](docs/Join-HashTable.md)
 
 This command will combine two hashtables into a single hashtable.Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
 
@@ -597,6 +629,39 @@ Enabled                        True
 Color                          Green
 Computer                       HAL
 Count                          3
+```
+
+### [Rename-Hashtable](docs/Rename-HashTable.md)
+
+This command allows you to rename a key in an existing hashtable or ordered dictionary object.
+
+```powershell
+PS C:\> $h = Get-Service Spooler | ConvertTo-HashTable
+```
+
+The hashtable in $h has Machinename property which can be renamed.
+
+```powershell
+PS C:\> Rename-HashTable -Name h -Key Machinename -NewKey Computername -Passthru
+
+Name                           Value
+----                           -----
+ServiceType                    Win32OwnProcess, InteractiveProcess
+ServiceName                    Spooler
+Container
+CanPauseAndContinue            False
+RequiredServices               {RPCSS, http}
+ServicesDependedOn             {RPCSS, http}
+Computername                   .
+CanStop                        True
+StartType                      Automatic
+Site
+ServiceHandle                  SafeServiceHandle
+DisplayName                    Print Spooler
+CanShutdown                    False
+Status                         Running
+Name                           Spooler
+DependentServices              {Fax}
 ```
 
 ## Select Functions
@@ -993,6 +1058,6 @@ Begin {
 
 ## Compatibility
 
-Where possible these commands have been tested with PowerShell Core, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue.
+Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will not be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-last Updated 2019-08-20 19:20:40Z UTC
+last Updated 2020-01-22 16:15:55Z UTC

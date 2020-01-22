@@ -13,7 +13,9 @@ Function ConvertTo-Markdown {
         [string[]]$PreContent,
         [string[]]$PostContent,
         [ValidateScript( {$_ -ge 10})]
-        [int]$Width = 80
+        [int]$Width = 80,
+        #display results as a markdown table
+        [switch]$AsTable
     )
 
     Begin {
@@ -36,7 +38,6 @@ Function ConvertTo-Markdown {
         }
 
     } #begin
-
     Process {
         #add incoming objects to data array
         Write-Verbose "[PROCESS] Adding processed object"
@@ -46,26 +47,56 @@ Function ConvertTo-Markdown {
     End {
         #add the data to the text
         if ($data) {
-            #convert data to strings and trim each line
-            Write-Verbose "[END    ] Converting data to strings"
-            [string]$trimmed = (($data | Out-String -Width $width).split("`n")).ForEach( {"$($_.trimend())`n"})
-            Write-Verbose "[END    ] Adding to markdown"
-            $text += @"
+            if ($AsTable) {
+                Write-Verbose "[END    ] Formatting as a table"
+                $names = $data[0].psobject.Properties.name
+                $head = "| $($names -join " | ") |"
+                $text += $head
+                $text += "`n"
+
+                $bars = "| $(($names -replace '.','-') -join " | ") |"
+
+                $text += $bars
+                $text += "`n"
+
+                foreach ($item in $data) {
+                    $line = "| "
+                    $values = @()
+                    for ($i = 0; $i -lt $names.count; $i++) {
+                        # $line += $item.($names[$i])
+                        $values += $item.($names[$i])
+                    }
+                    $line += $values -join " | "
+                    $line += " |"
+                    $text += $line
+                    $text += "`n"
+                }
+
+            }
+            else {
+                #convert data to strings and trim each line
+                Write-Verbose "[END    ] Converting data to strings"
+                [string]$trimmed = (($data | Out-String -Width $width).split("`n")).ForEach( { "$($_.trim())`n" })
+                Write-Verbose "[END    ] Adding to markdown"
+                $clean = $($trimmed.trimend())
+                $text += @"
 ``````text
-$($trimmed.trimend())
+$clean
 ``````
 
 "@
-        }
 
+            } #else as text
+        } #if $data
         If ($postcontent) {
             Write-Verbose "[END    ] Adding postcontent"
             $text += "`n"
             $text += $postcontent
         }
         #write the markdown to the pipeline
-        $text
+        $text.TrimEnd()
         Write-Verbose "[END    ] Ending $($myinvocation.MyCommand)"
     } #end
+
 
 } #close ConvertTo-Markdown

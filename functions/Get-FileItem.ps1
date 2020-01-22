@@ -59,7 +59,8 @@ Function Get-FileItem {
     else {
         #use %PATH% system environmental variable
         #split %PATH% and weed out any potential duplicates or null values
-        $paths = $env:path.Split(";") | Select-Object -Unique | Where-Object {$_}
+        $splitChar = [System.IO.Path]::PathSeparator
+        $paths = $env:PATH.Split($splitChar) | Select-Object -Unique | Where-Object {$_}
     }
 
     #define a variable to hold results

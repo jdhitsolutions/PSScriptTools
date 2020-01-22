@@ -5,8 +5,14 @@
 + Added `New-RunspaceCleanupJob` command to be used with WPF commands running in a new runspace
 + Modified `ConvertTo-WPFGrid` to clean up runspace when closed. (Issue #25)
 + Modified `ConvertTo-WPFGrid` to attempt to run on all platforms and gracefully fail where it won't work. (Issue $56)
++ Added 'Convert-EventLogRecord' function and its alias `clr`
++ Added `Rename-Hashtable` function and its alias `rht`
++ Updated `Convertto-Markdown` to include options to format as a table
 + Updated module manifest to export `ConvertTo-WPFGrid` to all hosts. Code in the command will determine compatibility.
++ Updated `Find-FileItem` to work better cross-platform
++ Updated `New-WPFMessagebox` to work on PowerShell 7 on Windows platforms.
 + Help Updates
++ Modified module and manifest to export all functions regardless of edition. Any OS limitations will be handled on a per command basis.
 + Updated `README.md`
 
 ## v2.12.0

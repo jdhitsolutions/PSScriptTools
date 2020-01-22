@@ -142,7 +142,7 @@ Function Get-MyTimeInfo {
         [switch]$AsList
     )
 
-    Write-Verbose "Starting $($myinvocation.mycommmand)"
+    Write-Verbose "Starting $($myinvocation.mycommand)"
 
     $now = $DateTime
     $utc = $now.ToUniversalTime()
@@ -155,7 +155,7 @@ Function Get-MyTimeInfo {
         UTC  = $UTC
     }
 
-    $locations.GetEnumerator() | foreach-object {
+    $locations.GetEnumerator() | ForEach-Object {
         Write-Verbose "Getting time for $($_.key)"
         $remote = [System.TimeZoneinfo]::ConvertTimeBySystemTimeZoneId($now, $_.value)
         Write-Verbose $remote
@@ -181,7 +181,7 @@ Function Get-MyTimeInfo {
         $tobj
     }
 
-    Write-Verbose "Ending $($myinvocation.mycommmand)"
+    Write-Verbose "Ending $($myinvocation.mycommand)"
 } #end function
 
 Function Get-TZData {
@@ -253,7 +253,7 @@ Function Get-TZList {
     [cmdletbinding(DefaultParameterSetName = "zone")]
     [OutputType("string")]
     Param(
-        [Parameter(Position = 0, Mandatory, ValueFromPipeline, HelpMessage = "Get a list of timezone areas", ParameterSetName = "zone")]
+        [Parameter(Position = 0, Mandatory, ValueFromPipeline, HelpMessage = "Specify a timezone area", ParameterSetName = "zone")]
         [ValidateSet('Africa', 'America', 'Antarctica', 'Asia', 'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific')]
         [string]$TimeZoneArea,
         [Parameter(HelpMessage = "Get a list of all timezone areas", ParameterSetName = "all")]
