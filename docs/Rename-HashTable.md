@@ -38,7 +38,7 @@ This command will create a temporary copy of the hashtable, create the new key a
 The temporary hashtable is then set as the new value for your original variable.
 
 This command does not write anything to the pipeline when you use a variable name unless you use -Passthru.
-If you pipe a hashtable to this command, the newhashtable will automatically be written to the pipeline.
+If you pipe a hashtable to this command, the new hashtable will automatically be written to the pipeline.
 
 You might find this command useful when building a hashtable that you intend to use with splatting where you need to align key names with parameter names.
 
@@ -47,7 +47,7 @@ You might find this command useful when building a hashtable that you intend to 
 ### EXAMPLE 1
 
 ```powershell
-PS C:\>Rename-Hashtable -name MyHash -key Name -newKey Computername
+PS C:\> Rename-Hashtable -name MyHash -key Name -newKey Computername
 ```
 
 ### EXAMPLE 2
@@ -202,10 +202,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-None
-Hashtable
+### None
+
+### Hashtable
 
 ## NOTES
+
 Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
 

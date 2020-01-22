@@ -530,27 +530,28 @@ Get-EventLog @paramHash</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Convert-HashtableString</command:name>
+      <command:name>Convert-EventLogRecord</command:name>
       <command:verb>Convert</command:verb>
-      <command:noun>HashtableString</command:noun>
+      <command:noun>EventLogRecord</command:noun>
       <maml:description>
-        <maml:para>Convert a hashtable string into a hashtable object.</maml:para>
+        <maml:para>Convert EventLogRecords to structured objects</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.</maml:para>
+      <maml:para>When you use Get-WinEvent, the results are objects you can work with in PowerShell. However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message. This additional information is not readily exposed. You can use this command to convert results of a Get-WinEvent command into a PowerShell custom object with additional information. For best results you, should pipe the same event IDs to this command.</maml:para>
+      <maml:para>Note that not every event record exposes data that is compatible with this command. For those types of event log records, you will see a RawProperties property with most likely an array of strings. Use the Message property for more information.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Convert-HashtableString</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-          <maml:name>Text</maml:name>
+        <maml:name>Convert-EventLogRecord</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>LogRecord</maml:name>
           <maml:Description>
-            <maml:para>Enter your hashtable string.</maml:para>
+            <maml:para>An event log record from the Get-WinEvent command.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">EventLogRecord[]</command:parameterValue>
           <dev:type>
-            <maml:name>String</maml:name>
+            <maml:name>EventLogRecord[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -558,14 +559,14 @@ Get-EventLog @paramHash</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-        <maml:name>Text</maml:name>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>LogRecord</maml:name>
         <maml:Description>
-          <maml:para>Enter your hashtable string.</maml:para>
+          <maml:para>An event log record from the Get-WinEvent command.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">EventLogRecord[]</command:parameterValue>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>EventLogRecord[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -574,7 +575,7 @@ Get-EventLog @paramHash</dev:code>
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>System.String</maml:name>
+          <maml:name>[System.Diagnostics.Eventing.Reader.EventLogRecord[]]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -584,143 +585,140 @@ Get-EventLog @paramHash</dev:code>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>[hashtable]</maml:name>
+          <maml:name>PSCustomObject</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para></maml:para>
+          <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
         </maml:description>
       </command:returnValue>
     </command:returnValues>
     <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
-      </maml:alert>
+      <maml:alert />
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-HashtableString
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = 'security';ID=5059} | Convert-EventLogRecord | Select-Object -Property TimeCreated,Subject*,Computername
 
-Name                           Value
-----                           -----
-CreatedBy                      BOVINE320\Jeff
-CreatedAt                      10/02/2018 21:28:47 UTC
-Computername                   Think51
-Error
-Completed                      True
-Date                           10/02/2018 21:29:35 UTC
-Scriptblock                    restart-service spooler -force
-CreatedOn                      BOVINE320</dev:code>
+TimeCreated       : 1/20/2020 10:48:45 AM
+SubjectUserSid    : S-1-5-83-1-2951761591-1086169693-630393256-923523501
+SubjectUserName   : AFF04EB7-A25D-40BD-A809-9325ADD90B37
+SubjectDomainName : NT VIRTUAL MACHINE
+SubjectLogonId    : 0x7cbf5
+Computername      : Bovine320
+
+TimeCreated       : 1/20/2020 10:48:45 AM
+SubjectUserSid    : S-1-5-83-1-2951761591-1086169693-630393256-923523501
+SubjectUserName   : AFF04EB7-A25D-40BD-A809-9325ADD90B37
+SubjectDomainName : NT VIRTUAL MACHINE
+SubjectLogonId    : 0x7cbf5
+Computername      : Bovine320</dev:code>
         <dev:remarks>
-          <maml:para>The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.</maml:para>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>http://bit.ly/31VA9Of</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Import-PowerShellDatafile</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Convert-HashtabletoCode</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
-      <command:name>Convert-HashTableToCode</command:name>
-      <command:verb>Convert</command:verb>
-      <command:noun>HashTableToCode</command:noun>
-      <maml:description>
-        <maml:para>Convert a hashtable to a string representation.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>Use this command to convert a hashtable into its text or string equivalent.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Convert-HashTableToCode</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-          <maml:name>Hashtable</maml:name>
-          <maml:Description>
-            <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
-          <dev:type>
-            <maml:name>Hashtable</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-        <maml:name>Hashtable</maml:name>
-        <maml:Description>
-          <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
-        <dev:type>
-          <maml:name>Hashtable</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>System.Collections.Hashtable</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.String</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
       <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
-PS C:\&gt; convert-hashtabletocode $h
-@{
-        Name = 'SRV1'
-        Asset = 123454
-        Location = 'Omaha'
-}</dev:code>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = 'security';ID=4624} -MaxEvents 100 -computername win10 | Convert-EventLogRecord | Where-Object {$_.LogonType -eq 3} | Select-Object -first 10 -property TargetUsername,TargetDomainName,IPAddress,TimeCreated,Computername | Format-Table
+
+TargetUserName TargetDomainName IpAddress                 TimeCreated           Computername
+-------------- ---------------- ---------                 -----------           ------------
+ArtD           COMPANY.PRI      fe80::ddae:8ade:c3ff:e584 1/20/2020 12:05:12 PM WIN10.Company.Pri
+WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
+WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
+WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
+WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:51 AM WIN10.Company.Pri
+ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:45:31 AM WIN10.Company.Pri
+WIN10$         COMPANY.PRI      ::1                       1/20/2020 11:39:52 AM WIN10.Company.Pri
+ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:35:49 AM WIN10.Company.Pri
+ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:34:36 AM WIN10.Company.Pri
+ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:32:06 AM WIN10.Company.Pri</dev:code>
         <dev:remarks>
-          <maml:para>Convert a hashtable object to a string equivalent that you can copy into your script.</maml:para>
+          <maml:para>This example filters on a property added by this command to only show interactive logons.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname ='system';ID =7040} -MaxEvent 10 | Convert-EventlogRecord | Select-Object -Property TimeCreated,@{Name="Service";Expression={$_.param4}},@{Name="OriginalState";Expression = {$_.param2}},@{Name="NewState";Expression={$_.param3}},Computername | Format-Table
+
+TimeCreated          Service          OriginalState NewState     Computername
+-----------          -------          ------------- --------     ------------
+1/20/2020 9:26:08 AM BITS             demand start  auto start   Bovine320
+1/20/2020 5:47:17 AM BITS             auto start    demand start Bovine320
+1/20/2020 5:45:11 AM BITS             demand start  auto start   Bovine320
+1/20/2020 1:44:31 AM BITS             auto start    demand start Bovine320
+1/20/2020 1:42:30 AM BITS             demand start  auto start   Bovine320
+1/19/2020 8:53:37 PM BITS             auto start    demand start Bovine320
+1/17/2020 8:27:10 PM TrustedInstaller demand start  auto start   Bovine320
+1/17/2020 8:27:10 PM TrustedInstaller auto start    demand start Bovine320
+1/17/2020 8:26:29 PM TrustedInstaller demand start  auto start   Bovine320
+1/17/2020 8:26:20 PM TrustedInstaller auto start    demand start Bovine320</dev:code>
+        <dev:remarks>
+          <maml:para>Once you know the type of data, you can customize the output or build a script around it.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = "Application";ID=17137} -MaxEvents 1 | Convert-EventLogRecord
+
+LogName       : Application
+RecordType    : Information
+TimeCreated   : 1/20/2020 2:31:52 PM
+ID            : 17137
+RawProperties : {TickleEventDB}
+Message       : Starting up database 'TickleEventDB'.
+Keywords      : {Classic}
+Source        : MSSQL$SQLEXPRESS
+Computername  : Bovine320</dev:code>
+        <dev:remarks>
+          <maml:para>This record doesn't have structured extra data. The replacement strings are stored as text so the command displays the data using the RawProperties property.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $all = New-PSSession -ComputerName 'win10','srv1','srv2','dom1'
+PS C:\&gt; $local = Get-Item Function:\Convert-EventLogRecord
+PS C:\&gt; Invoke-Command -ScriptBlock {New-item -Path Function: -Name $using:local.name -Value $using:local.ScriptBlock} -Session $all
+PS C:\&gt; Invoke-Command { Get-WinEvent -FilterHashtable @{Logname='security';id=4624} -MaxEvents 10 | Convert-EventLogRecord | Select-Object -Property Computername,Time*,TargetUser*,TargetDomainName,Subject*} -session $all -HideComputerName | Select-Object -Property * -ExcludeProperty runspaceID
+
+Computername      : WIN10.Company.Pri
+TimeCreated       : 1/20/2020 5:21:17 PM
+TargetUserSid     : S-1-5-18
+TargetUserName    : SYSTEM
+TargetDomainName  : NT AUTHORITY
+SubjectUserSid    : S-1-5-18
+SubjectUserName   : WIN10$
+SubjectDomainName : COMPANY
+SubjectLogonId    : 0x3e7
+
+Computername      : WIN10.Company.Pri
+TimeCreated       : 1/20/2020 5:18:51 PM
+TargetUserSid     : S-1-5-18
+TargetUserName    : SYSTEM
+TargetDomainName  : NT AUTHORITY
+SubjectUserSid    : S-1-5-18
+SubjectUserName   : WIN10$
+SubjectDomainName : COMPANY
+SubjectLogonId    : 0x3e7
+
+Computername      : WIN10.Company.Pri
+TimeCreated       : 1/20/2020 5:16:07 PM
+TargetUserSid     : S-1-5-21-278538743-3177530655-100218012-1105
+TargetUserName    : ArtD
+TargetDomainName  : COMPANY.PRI
+SubjectUserSid    : S-1-0-0
+SubjectUserName   : -
+SubjectDomainName : -
+SubjectLogonId    : 0x0
+...</dev:code>
+        <dev:remarks>
+          <maml:para>The first command creates PSSessions to several remote computers. The local copy of this command is created in the remote PSSessions. Then event log data is retrieved in the remote sessions and converted using the Convert-EventlogRecord function in each session.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>http://bit.ly/31SLU7X</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Convert-HashtableString</maml:linkText>
+        <maml:linkText>Get-WinEvent</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -1148,6 +1146,203 @@ Monday, March 4, 2019 1:00:00 PM</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Convert-HashtableString</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>HashtableString</command:noun>
+      <maml:description>
+        <maml:para>Convert a hashtable string into a hashtable object.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-HashtableString</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:Description>
+            <maml:para>Enter your hashtable string.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:Description>
+          <maml:para>Enter your hashtable string.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[hashtable]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-HashtableString
+
+Name                           Value
+----                           -----
+CreatedBy                      BOVINE320\Jeff
+CreatedAt                      10/02/2018 21:28:47 UTC
+Computername                   Think51
+Error
+Completed                      True
+Date                           10/02/2018 21:29:35 UTC
+Scriptblock                    restart-service spooler -force
+CreatedOn                      BOVINE320</dev:code>
+        <dev:remarks>
+          <maml:para>The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/31VA9Of</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Import-PowerShellDatafile</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Convert-HashtabletoCode</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Convert-HashTableToCode</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>HashTableToCode</command:noun>
+      <maml:description>
+        <maml:para>Convert a hashtable to a string representation.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to convert a hashtable into its text or string equivalent.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-HashTableToCode</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Hashtable</maml:name>
+          <maml:Description>
+            <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <dev:type>
+            <maml:name>Hashtable</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Hashtable</maml:name>
+        <maml:Description>
+          <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+        <dev:type>
+          <maml:name>Hashtable</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Collections.Hashtable</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
+PS C:\&gt; convert-hashtabletocode $h
+@{
+        Name = 'SRV1'
+        Asset = 123454
+        Location = 'Omaha'
+}</dev:code>
+        <dev:remarks>
+          <maml:para>Convert a hashtable object to a string equivalent that you can copy into your script.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/31SLU7X</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Convert-HashtableString</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertTo-HashTable</command:name>
       <command:verb>ConvertTo</command:verb>
       <command:noun>HashTable</command:noun>
@@ -1534,7 +1729,7 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block. You can optionally define a title, content to appear before the output and content to appear after the output.</maml:para>
+      <maml:para>This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output and content to appear after the output.</maml:para>
       <maml:para>The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.</maml:para>
     </maml:description>
     <command:syntax>
@@ -1600,6 +1795,17 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
           </dev:type>
           <dev:defaultValue>80</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsTable</maml:name>
+          <maml:Description>
+            <maml:para>Format the incoming data as a markdown table. This works best with similar content such as the result of running a PowerShell command.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -1662,6 +1868,18 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>80</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsTable</maml:name>
+        <maml:Description>
+          <maml:para>Format the incoming data as a markdown table. This works best with similar content such as the result of running a PowerShell command.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -1903,6 +2121,7 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
       <maml:para>You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid. You should set a refresh interval that is greater than the time it takes to complete the command.</maml:para>
       <maml:para>Because the grid is running in a new background runspace, it does not automatically inherit anything from your current session. However, you can use the -UserProfile parameter which will load your user profile scripts into the runspace. You can specify a list of locally defined variables to be used in the form. Use the variable name without the $. Finally, you can also use the -InitializationScript parameter and specify a scriptblock of PowerShell code to initialize the runspace. This is helpful when you need to dot source external scripts or import modules not in your module path.</maml:para>
       <maml:para>This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.</maml:para>
+      <maml:para>This command requires a Windows platform.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2498,6 +2717,7 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvaria
     </command:details>
     <maml:description>
       <maml:para>This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. Find-CimClass will recursively search for a given classname. You can use wildcards and search remote computers.</maml:para>
+      <maml:para>This command requires a Windows platform.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -3690,7 +3910,7 @@ Mode                LastWriteTime     Length Name
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed to present a console-based version of a world clock. You provide a hashtable of locations and their respective time zones and the command will write a custom object to the pipeline.</maml:para>
+      <maml:para>This command is designed to present a console-based version of a world clock. You provide a hashtable of locations and their respective time zones and the command will write a custom object to the pipeline. Be aware that TimeZone names may vary depending on the .NET Framework version. You may need to enumerate using a command like [System.TimeZoneInfo]::GetSystemTimeZones().ID or the Get-TZList command.</maml:para>
       <maml:para>A Note on Formatting:</maml:para>
       <maml:para>Normally, a PowerShell command should write an object to the pipeline and then you could use Format-Table or Format-List as you wanted. Those commands will in fact still work. However, given the way this command writes to the pipeline, that is with dynamically generated properties, it is difficult to create the usual format ps1xml file. To provide some nicer formatting this command has optional parameters to help your format the output. Note that even though it may look like a table, the output object will be a string.</maml:para>
       <maml:para>This command was added in v2.3.0.</maml:para>
@@ -4996,7 +5216,7 @@ Friday, March 15, 2019 11:00:00 AM</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>TimeZoneArea</maml:name>
           <maml:Description>
-            <maml:para>Get a list of timezone areas by region.</maml:para>
+            <maml:para>Specify a time zone region.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Africa</command:parameterValue>
@@ -5034,7 +5254,7 @@ Friday, March 15, 2019 11:00:00 AM</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>TimeZoneArea</maml:name>
         <maml:Description>
-          <maml:para>Get a list of timezone areas by region.</maml:para>
+          <maml:para>Specify a time zone region.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -5715,7 +5935,7 @@ BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)</dev:code>
     </command:details>
     <maml:description>
       <maml:para>Use this command as a graphical replacement for Read-Host. The command will write either a string or a secure string to the pipeline. You can customize the prompt, title and background color.</maml:para>
-      <maml:para>This command will not work in PowerShell Core.</maml:para>
+      <maml:para>This command requires a Windows platform.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -7144,7 +7364,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
       <maml:para>    Yes    = $True</maml:para>
       <maml:para>    No     = $False</maml:para>
       <maml:para>You can also create an ordered hashtable of your own buttons and values. See examples. If you prefer to simply display the form, you can use the -Quiet parameter to suppress any output. PowerShell will block until a button is clicked or the form dismissed.</maml:para>
-      <maml:para>This command will not work in PowerShell Core.</maml:para>
+      <maml:para>This command requires a Windows platform.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -8553,6 +8773,354 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Rename-HashTable</command:name>
+      <command:verb>Rename</command:verb>
+      <command:noun>HashTable</command:noun>
+      <maml:description>
+        <maml:para>Rename a hashtable key.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will rename a key in an existing hashtable or ordered dictionary. You can either pipe a hashtable object to this command or you can specify a variable name for a pre-defined hashtable. If you use this option, specify the variable name without the $.</maml:para>
+      <maml:para>This command will create a temporary copy of the hashtable, create the new key and copy the value from the old key, before removing the old key. The temporary hashtable is then set as the new value for your original variable.</maml:para>
+      <maml:para>This command does not write anything to the pipeline when you use a variable name unless you use -Passthru. If you pipe a hashtable to this command, the new hashtable will automatically be written to the pipeline.</maml:para>
+      <maml:para>You might find this command useful when building a hashtable that you intend to use with splatting where you need to align key names with parameter names.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Rename-HashTable</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>The variable name of your hash table. DO NOT include the $.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Key</maml:name>
+          <maml:Description>
+            <maml:para>The name of the existing hashtable key you want to rename.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>NewKey</maml:name>
+          <maml:Description>
+            <maml:para>The new name of the hashtable key.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:Description>
+            <maml:para>Write the revised hashtable back to the pipeline. If you pipe a variable to this command, passthru will happen automatically.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Scope</maml:name>
+          <maml:Description>
+            <maml:para>The scope where your variable is defined. The default is the global scope.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Global</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Rename-HashTable</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>A piped in hashtable object</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+          <maml:name>Key</maml:name>
+          <maml:Description>
+            <maml:para>The name of the existing hashtable key you want to rename.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+          <maml:name>NewKey</maml:name>
+          <maml:Description>
+            <maml:para>The new name of the hashtable key.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:Description>
+            <maml:para>Write the revised hashtable back to the pipeline. If you pipe a variable to this command, passthru will happen automatically.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Scope</maml:name>
+          <maml:Description>
+            <maml:para>The scope where your variable is defined. The default is the global scope.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Global</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>The variable name of your hash table. DO NOT include the $.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>A piped in hashtable object</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>Key</maml:name>
+        <maml:Description>
+          <maml:para>The name of the existing hashtable key you want to rename.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>NewKey</maml:name>
+        <maml:Description>
+          <maml:para>The new name of the hashtable key.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Passthru</maml:name>
+        <maml:Description>
+          <maml:para>Write the revised hashtable back to the pipeline. If you pipe a variable to this command, passthru will happen automatically.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Scope</maml:name>
+        <maml:Description>
+          <maml:para>The scope where your variable is defined. The default is the global scope.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Global</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:Description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:Description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>hashtable</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Hashtable</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>This code was first described at http://jdhitsolutions.com/blog/2013/01/rename-hashtable-key-revised</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Rename-Hashtable -name MyHash -key Name -newKey Computername</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $newhash = Get-Service spooler | ConvertTo-HashTable | Rename-HashTable -Key Machinename -NewKey Computername</dev:code>
+        <dev:remarks>
+          <maml:para>This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable. The Machinename key is then renamed to Computername.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>About_hash_tables</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>ConvertTo-Hashtable</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Join-Hashtable</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Select-First</command:name>
       <command:verb>Select</command:verb>
       <command:noun>First</command:noun>
@@ -9696,6 +10264,434 @@ WSMan:\
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Test-Expression</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>Expression</command:noun>
+      <maml:description>
+        <maml:para>Test a PowerShell expression over a period of time.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.</maml:para>
+      <maml:para>The median is calculated by sorting the values in ascending order and selecting the value in the center of the array.</maml:para>
+      <maml:para>If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-Expression</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
+          <maml:name>Expression</maml:name>
+          <maml:Description>
+            <maml:para>The scriptblock you want to test.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ArgumentList</maml:name>
+          <maml:Description>
+            <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Object[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsJob</maml:name>
+          <maml:Description>
+            <maml:para>Run the tests as a background job.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
+          <maml:name>Count</maml:name>
+          <maml:Description>
+            <maml:para>The number of times to test the scriptblock.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>1</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
+          <maml:name>IncludeExpression</maml:name>
+          <maml:Description>
+            <maml:para>Include the test scriptblock in the output.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="sleep">
+          <maml:name>Interval</maml:name>
+          <maml:Description>
+            <maml:para>How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+          <dev:type>
+            <maml:name>Double</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0.5</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Test-Expression</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
+          <maml:name>Expression</maml:name>
+          <maml:Description>
+            <maml:para>The scriptblock you want to test.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ArgumentList</maml:name>
+          <maml:Description>
+            <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Object[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsJob</maml:name>
+          <maml:Description>
+            <maml:para>Run the tests as a background job.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
+          <maml:name>Count</maml:name>
+          <maml:Description>
+            <maml:para>The number of times to test the scriptblock.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>1</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
+          <maml:name>IncludeExpression</maml:name>
+          <maml:Description>
+            <maml:para>Include the test scriptblock in the output.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="max">
+          <maml:name>RandomMaximum</maml:name>
+          <maml:Description>
+            <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+          <dev:type>
+            <maml:name>Double</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="min">
+          <maml:name>RandomMinimum</maml:name>
+          <maml:Description>
+            <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+          <dev:type>
+            <maml:name>Double</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ArgumentList</maml:name>
+        <maml:Description>
+          <maml:para>An array of parameters to pass to the test scriptblock. Arguments are positional. If passing an array for a value enter with @().</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
+        <dev:type>
+          <maml:name>Object[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsJob</maml:name>
+        <maml:Description>
+          <maml:para>Run the tests as a background job.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="none">
+        <maml:name>Count</maml:name>
+        <maml:Description>
+          <maml:para>The number of times to test the scriptblock.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>1</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="sb">
+        <maml:name>Expression</maml:name>
+        <maml:Description>
+          <maml:para>The scriptblock you want to test.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="ie">
+        <maml:name>IncludeExpression</maml:name>
+        <maml:Description>
+          <maml:para>Include the test scriptblock in the output.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="sleep">
+        <maml:name>Interval</maml:name>
+        <maml:Description>
+          <maml:para>How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+        <dev:type>
+          <maml:name>Double</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0.5</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="max">
+        <maml:name>RandomMaximum</maml:name>
+        <maml:Description>
+          <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+        <dev:type>
+          <maml:name>Double</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="min">
+        <maml:name>RandomMinimum</maml:name>
+        <maml:Description>
+          <maml:para>You can also specify a random interval by providing a random minimum and maximum values in seconds.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Double</command:parameterValue>
+        <dev:type>
+          <maml:name>Double</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>scriptblock</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Custom measurement object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/ This command was first described at https://github.com/jdhitsolutions/Test-Expression/blob/master/docs/Test-Expression.md)</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $cred = Get-credential globomantics\administrator
+PS C:\&gt; $c = "chi-dc01","chi-dc04"
+PS C:\&gt; Test-Expression {param ([string[]]$computer,$cred) get-wmiobject -class win32_logicaldisk -computername $computer -credential $cred } -argumentList $c,$cred
+
+
+Tests        : 1
+TestInterval : 0.5
+AverageMS    : 1990.6779
+MinimumMS    : 1990.6779
+MaximumMS    : 1990.6779
+MedianMS     : 1990.6779
+TrimmedMS    :
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+        <dev:remarks>
+          <maml:para>Test a command once passing an argument to the scriptblock. There is no TrimmedMS value because there was only one test.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $sb = {1..1000 | foreach {$_*2}}
+PS C:\&gt; test-expression $sb -count 10 -interval 2
+
+Tests        : 10
+TestInterval : 2
+AverageMS    : 72.78199
+MinimumMS    : 29.4449
+MaximumMS    : 110.6553
+MedianMS     : 90.3509
+TrimmedMS    : 73.4649625
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+
+
+PS C:\&gt; $sb2 = { foreach ($i in (1..1000)) {$_*2}}
+PS C:\&gt; test-expression $sb2 -Count 10 -interval 2
+
+Tests        : 10
+TestInterval : 2
+AverageMS    : 6.40283
+MinimumMS    : 0.7466
+MaximumMS    : 22.968
+MedianMS     : 2.781
+TrimmedMS    : 5.0392125
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+        <dev:remarks>
+          <maml:para>These examples are testing two different approaches that yield the same results over a span of 10 test runs, pausing for 2 seconds between each test. The values for Average, Minimum and Maximum are in milliseconds.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Test-expression {Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer} -count 5 -IncludeExpression -argumentList chi-hvr2
+
+
+Tests        : 5
+TestInterval : 500
+AverageMS    : 15.53376
+MinimumMS    : 11.6745
+MaximumMS    : 24.9331
+MedianMS     : 13.8928
+TrimmedMS    : 13.6870666666667
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+Expression   : Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer
+Arguments    : {chi-hvr2}</dev:code>
+        <dev:remarks>
+          <maml:para>Include the tested expression in the output.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
+
+
+Id     Name            PSJobTypeName   State         HasMoreData     Location             Command
+--     ----            -------------   -----         -----------     --------             -------
+184    Job184          RemoteJob       Running       True            WIN81-ENT-01         ...
+
+PS C:\&gt; receive-job 184 -keep
+
+Tests        : 10
+TestInterval : 5
+AverageMS    : 2.80256
+MinimumMS    : 0.7967
+MaximumMS    : 14.911
+MedianMS     : 1.4469
+TrimmedMS    : 1.5397375
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise
+RunspaceId   : f30eb879-fe8f-4ad0-8d70-d4c8b6b4eccc</dev:code>
+        <dev:remarks>
+          <maml:para>Run the test as a background job. When the job is complete, get the results.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; {1..1000} | Test-Expression -count 10 -RandomMinimum 1 -RandomMaximum 10
+
+Tests        : 10
+TestInterval : Random
+AverageMS    : 0.63899
+MinimumMS    : 0.2253
+MaximumMS    : 3.9062
+MedianMS     : 0.24475
+TrimmedMS    : 0.2823
+PSVersion    : 5.1.14409.1005
+OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+        <dev:remarks>
+          <maml:para>Pipe a scriptblock to be tested.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/31Vi0zN</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Measure-Command</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Test-ExpressionForm</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
