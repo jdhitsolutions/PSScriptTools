@@ -24,8 +24,6 @@ Starting in v2.2.0, the module was restructured to better support Desktop and Co
 Uninstall-Module PSScriptTools -allversions
 ```
 
-Any command that uses WPF will not run on PowerShell Core and is not exported.
-
 Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any input is greatly appreciated.
 
 ## General Tools
