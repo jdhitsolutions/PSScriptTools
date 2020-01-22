@@ -21,7 +21,7 @@ Function ConvertTo-WPFGrid {
         [switch]$Refresh,
 
         [Parameter(HelpMessage = "Control how grid lines are displayed")]
-        [ValidateSet("All","Horizontal","None","Vertical")]
+        [ValidateSet("All", "Horizontal", "None", "Vertical")]
         [ValidateNotNullOrEmpty()]
         [string]$Gridlines = "All",
 
@@ -42,26 +42,35 @@ Function ConvertTo-WPFGrid {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
         if ($Refresh -AND $timeout -le 5) {
-            Throw "You must specify a timeout value when using -Refresh"
+            Throw "You must specify a timeout value in seconds when using -Refresh"
         }
 
-        $InitialSessionState = [InitialSessionState]::CreateDefault()
-        $InitialSessionState.ApartmentState = "STA"
-        $InitialSessionState.ThreadOptions = "ReuseThread"
+        Write-Verbose "Define new runspace"
+        $newRunspace = [RunspaceFactory]::CreateRunspace()
+        if ($newRunspace.ApartmentState) {
+            $newRunspace.ApartmentState = "STA"
+        }
+        else {
+            #This command probably won't run if the ApartmentState can't be set to STA
+            #clean up
+            $newRunspace.dispose()
+
+            write-warning "Incompatible runspace detected. This command will most likely fail on this platform with this version of PowerShell."
+            #bail out of the comman
+            break
+        }
+        $newRunspace.ThreadOptions = "ReuseThread"
+        Write-Verbose "Opening new runspace"
+        $newRunspace.Open()
 
         if ($UseLocalVariable) {
             Write-Verbose "Using local variables"
             Get-Variable -include $UseLocalVariable |
                 ForEach-Object {
                 Write-Verbose "...Adding $($_.name)"
-                $var = New-Object System.Management.Automation.Runspaces.SessionStateVariableEntry($_.name, $_.value, $null)
-                $InitialSessionState.Variables.Add($var)
+                $newRunspace.sessionStateProxy.SetVariable($_.name, $_.value)
             }
         }
-        Write-Verbose "Define new runspace"
-        $newRunspace = [RunspaceFactory]::CreateRunspace($host, $InitialSessionState)
-        Write-Verbose "Opening new runspace"
-        $newRunspace.Open()
 
         Write-Verbose "Defining script command"
         $psCmd = [PowerShell]::Create()
@@ -80,7 +89,6 @@ Function ConvertTo-WPFGrid {
             # It may not be necessary to add these types but it doesn't hurt to include them
             Add-Type -AssemblyName PresentationFramework
             Add-Type -AssemblyName PresentationCore
-            Add-Type -AssemblyName WindowsBase
 
             #get maximum available working area on the screen
             $s = [System.Windows.SystemParameters]::WorkArea
@@ -311,6 +319,24 @@ Function ConvertTo-WPFGrid {
     } #begin
 
     Process {
+
+        #attempt to load the WPF related classes which might or might not be available depending
+        #on operating system and PowerSell version
+
+        Try {
+            Add-Type -AssemblyName PresentationFramework -ErrorAction Stop
+            Add-Type -AssemblyName PresentationCore -ErrorAction Stop
+        }
+        Catch {
+            Write-Warning "Failed to load WPF required assemblies. This command isn't supported under this version of PowerShell on this platform. $($_.exception.Message)"
+
+            #clean up
+            $psCmd.dispose()
+
+            #bail out out of the command
+            Return
+        }
+
         #add each incoming object to the data array
         if ($psCmdlet.ParameterSetName -eq 'Input') {
             $data += $Inputobject
@@ -356,8 +382,10 @@ Function ConvertTo-WPFGrid {
         [void]$psCmd.AddParameters($PSBoundParameters)
         $psCmd.Runspace = $newRunspace
         Write-Verbose "Begin Invoke()"
-        [void]$psCmd.BeginInvoke()
+        $handle = $psCmd.BeginInvoke()
 
+        $threadjob = New-RunspaceCleanupJob -Handle $handle -powerShell $pscmd -sleep 30 -passthru
+        Write-Verbose "Created monitoring threadjob $($threadjob.id)"
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
 
     } #end

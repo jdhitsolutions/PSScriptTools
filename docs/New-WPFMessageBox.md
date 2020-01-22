@@ -41,7 +41,7 @@ This function creates a Windows Presentation Foundation (WPF) based message box.
 
 You can also create an ordered hashtable of your own buttons and values. See examples. If you prefer to simply display the form, you can use the -Quiet parameter to suppress any output. PowerShell will block until a button is clicked or the form dismissed.
 
-This command will not work in PowerShell Core.
+This command requires a Windows platform.
 
 ## EXAMPLES
 

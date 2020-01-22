@@ -84,7 +84,7 @@ Accept wildcard characters: False
 
 ### -TimeZoneArea
 
-Get a list of timezone areas by region.
+Specify a time zone region.
 
 ```yaml
 Type: String

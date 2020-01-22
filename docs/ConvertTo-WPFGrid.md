@@ -46,6 +46,8 @@ Because the grid is running in a new background runspace, it does not automatica
 
 This command runs the WPF grid in a new runspace so your PowerShell prompt will not be blocked. However, after closing the form you may be left with the runspace. You can use Remove-Runspace to clean up or wait until you restart PowerShell.
 
+This command requires a Windows platform.
+
 ## EXAMPLES
 
 ### EXAMPLE 1
