@@ -13,7 +13,7 @@ Create a custom file name based on a template.
 
 ## SYNTAX
 
-```yaml
+```
 New-CustomFileName [-Template] <String> [-Case <String>] [<CommonParameters>]
 ```
 
@@ -29,7 +29,8 @@ This command will generate a custom file name based on a template string that yo
 - %month  - The month number
 - %dayofweek - The full name of the week day
 - %day
-- %hour
+- %hour - the hour of the day in 12 hour format to 2 digits
+- %hour24 - the hour of the day in 24 hour format to 2 digits
 - %minute
 - %seconds
 - %time  - A compact string of HourMinuteSecond
@@ -38,9 +39,9 @@ This command will generate a custom file name based on a template string that yo
 
 You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.
 
-The command will attempt to preserve case for any non pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.
+The command will attempt to preserve case for any non-pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.
 
-Another option, is to turn the entire name into upper or lower case.
+Another option, is to turn the entire custom name into upper or lower case.
 
 ## EXAMPLES
 
@@ -130,6 +131,24 @@ Accept wildcard characters: False
 ### -Template
 
 A string that defines the naming pattern based on a set of placeholders.
+You can create a template string using any of these variables, including the % symbol.
+
+- %username
+- %computername
+- %year  - 4 digit year
+- %yr  - 2 digit year
+- %monthname - The abbreviated month name
+- %month  - The month number
+- %dayofweek - The full name of the week day
+- %day
+- %hour - the hour of the day in 12 hour format to 2 digits
+- %hour24 - the hour of the day in 24 hour format to 2 digits
+- %minute
+- %seconds
+- %time  - A compact string of HourMinuteSecond
+- %string - A random string
+- %guid
+- %### - a random number matching the number of # characters
 
 ```yaml
 Type: String
@@ -145,7 +164,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

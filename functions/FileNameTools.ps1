@@ -44,7 +44,10 @@ Function New-CustomFileName {
     [cmdletbinding()]
     [outputtype([string])]
     Param (
-        [Parameter(Position = 0, Mandatory, HelpMessage = @"
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            HelpMessage = @"
 You can create a template string using any of these variables, including the % symbol.
 
 - %username
@@ -55,19 +58,20 @@ You can create a template string using any of these variables, including the % s
 - %month  - The month number
 - %dayofweek - The full name of the week day
 - %day
-- %hour
+- %hour - the hour of the day in 12 hour format to 2 digits
+- %hour24 - the hour of the day in 24 hour format to 2 digits
 - %minute
 - %seconds
 - %time  - A compact string of HourMinuteSecond
 - %string - A random string
 - %guid
-- %### - a random matching the number of # characters
+- %### - a random number matching the number of # characters
 
 "@)]
         [ValidateNotNullOrEmpty()]
         [string]$Template,
         [ValidateSet("Lower", "Upper", "Default")]
-        [string]$Case = "default"
+        [string]$Case = "Default"
     )
 
     #convert placeholders to lower case but leave everything else as is
@@ -75,7 +79,7 @@ You can create a template string using any of these variables, including the % s
 
     Write-Detail "Starting $($myinvocation.MyCommand)" | Write-Verbose
     Write-Detail "Processing template: $template" | Write-Verbose
-    $rx.matches($Template) | foreach-object {
+    $rx.matches($Template) | ForEach-Object {
         Write-Detail "Converting $($_.value) to lower case" | Write-Verbose
         $Template = $Template.replace($_.value, $_.value.tolower())
     }
@@ -104,6 +108,7 @@ You can create a template string using any of these variables, including the % s
         '%dayofweek'    = $now.DayOfWeek
         '%day'          = "{0:dd}" -f $now
         '%hour'         = "{0:hh}" -f $now
+        '%hour24'       = "{0:HH}" -f $now
         '%minute'       = "{0:mm}" -f $now
         '%seconds'      = "{0:ss}" -f $now
         '%time'         = "{0}{1}{2}" -f $now.hour, $now.minute, $now.Second
@@ -111,7 +116,7 @@ You can create a template string using any of these variables, including the % s
         '%guid'         = [System.Guid]::NewGuid().guid
     }
 
-    $hash.GetEnumerator() | foreach-object {
+    $hash.GetEnumerator() | ForEach-Object {
         Write-Detail "Testing $filename for $($_.key)" | Write-Verbose
         if ($filename -match "($($_.key))") {
             Write-Detail "replacing $($_.key) with $($_.value)" | Write-Verbose

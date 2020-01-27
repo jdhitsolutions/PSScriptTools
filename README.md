@@ -30,7 +30,7 @@ Please post any questions, problems or feedback in [Issues](https://github.com/j
 
 ### [Convert-EventLogRecord](docs/Convert-EventLogRecord.md)
 
-When you use Get-WinEvent, the results are objects you can work with in PowerShell.
+When you use [Get-WinEvent](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7&WT.mc_id=ps-gethelp), the results are objects you can work with in PowerShell.
 However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message.
 This additional information is not readily exposed.
 You can use this command to convert results of a Get-WinEvent command into a PowerShell custom object with additional information.
@@ -92,10 +92,23 @@ This module includes a custom format file for these results.
 Use this command to compare module versions between what is installed against an online repository like the PSGallery
 
 ```powershell
+PS C:\> Compare-Module Platyps
+
+
+Name             : platyPS
+OnlineVersion    : 0.14.0
+InstalledVersion : 0.14.0,0.12.0,0.11.1,0.10.2,0.9.0
+PublishedDate    : 4/3/2019 12:46:30 AM
+UpdateNeeded     : False
+```
+
+Or you can compare and manage multiple modules.
+
+```powershell
 PS C:\> Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select modules to update" -outputMode multiple | Foreach { Update-Module $_.name }
 ```
 
-Compare modules and send results to `Out-Gridview`. Use `Out-Gridview` as an object picker to decide what modules to update.
+This example compares modules and send results to `Out-Gridview`. Use `Out-Gridview` as an object picker to decide what modules to update.
 
 ### [Get-WindowsVersion](docs/Get-WindowsVersion.md)
 
@@ -219,9 +232,9 @@ This function is designed to search an entire CIM repository for a class name. S
 
 ### [Out-VerboseTee](docs/Out-VerboseTee.md)
 
-This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.
+This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a `PSDefaultParameterValue`.
 
-This command has an alias of `Tee-Verbose`.
+This command has aliases of `Tee-Verbose` and `tv`.
 
 ```powershell
 Begin {
@@ -262,11 +275,11 @@ PS C:\> Get-PowerShellEngine
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 ```
 
-But PowerShell Core is a bit different:
+But PowerShell on non-Windows platforms is a bit different:
 
 ```powershell
 PS /home/jhicks> Get-PowerShellEngine
-/opt/microsoft/powershell/6/pwsh
+/opt/microsoft/powershell/7/pwsh
 ```
 
 You can also get detailed information.
@@ -277,7 +290,7 @@ You can also get detailed information.
 
 ![PowerShell Core on Linux](./images/get-powershellengine3.png)
 
-Results will vary depending on whether you are running Windows PowerShell or PowerShell Core.
+Results will vary depending on whether you are running PowerShell on Windows nor non-Windows systems.
 
 ## File Tools
 
@@ -803,6 +816,40 @@ datetime     : 2019-03-16T03:44:45.689655+11:00
 abbreviation : AEDT
 ```
 
+### [ConvertTo-LexicalTime](docs/ConvertTo-LexicalTime.md)
+
+When working with timespans or durations in XML files, such as those from scheduled tasks, the format is a little different than what you mgiht expect. The specification is described at [https://www.w3.org/TR/xmlschema-2/#duration](https://www.w3.org/TR/xmlschema-2/#duration). Use this command to convert a timespan into a lexical format you can use in an XML file where you need to specify a duration.
+
+```powershell
+ConvertTo-LexicalTimespan (New-TimeSpan -Days 7 -hours 12)
+
+P7DT12H
+```
+
+### [ConvertFrom-LexicalTime](docs/ConvertFrom-LexicalTime.md)
+
+Likewise, you might need to convert a lexical value back into a timespan.
+
+```powershell
+ConvertFrom-LexicalTimespan P7DT12H
+
+
+Days              : 7
+Hours             : 12
+Minutes           : 0
+Seconds           : 0
+Milliseconds      : 0
+Ticks             : 6480000000000
+TotalDays         : 7.5
+TotalHours        : 180
+TotalMinutes      : 10800
+TotalSeconds      : 648000
+TotalMilliseconds : 648000000
+
+```
+
+These functions were first described at [https://jdhitsolutions.com/blog/powershell/7101/converting-lexical-timespans-with-powershell/](https://jdhitsolutions.com/blog/powershell/7101/converting-lexical-timespans-with-powershell/)
+
 ## Console Utilities
 
 ### [Out-More](docs/Out-More.md)
@@ -1054,8 +1101,25 @@ Begin {
 } #begin
 ```
 
+### [Save-GitSetup](docs/Save-GitSetup.md)
+
+This command is intended for Windows users to easily download the latest 64bit version of `Git`.
+
+```powershell
+PS C:\> Save-GitSetup -Path c:\work -Passthru
+
+
+    Directory: C:\work
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           1/23/2020  4:31 PM       46476880 Git-2.25.0-64-bit.exe
+```
+
+You will need to manually install the file.
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will not be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-last Updated 2020-01-22 19:12:33Z UTC
+Last Updated *2020-01-27 20:38:42Z UTC*

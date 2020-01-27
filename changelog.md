@@ -1,5 +1,18 @@
 # Change Log for PSScriptTools
 
+## v2.14.0
+
++ Updated `New-PSFormatXML` to support Wide table formats (Issue #55)
++ Updated `Test-ExpressionForm` to better handle non-Windows platforms
++ Added `Save-GitSetup` to download the latest x64 version of `git`
++ Modified `New-CustomFileName` to support a new template element, `%hour24` (Issue #57)
++ Added `tv` alias to `Out-VerboseTee`
++ Added `ConvertTo-LexicalTimespan`
++ Added `ConvertFrom-LexicalTimespan`
++ Updated manifest description
++ Updated help for `Get-PowerShellEngine`
++ Updated `README.md`
+
 ## v2.13.0
 
 + Added `New-RunspaceCleanupJob` command to be used with WPF commands running in a new runspace
