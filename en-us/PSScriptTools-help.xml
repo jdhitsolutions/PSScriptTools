@@ -725,6 +725,342 @@ SubjectLogonId    : 0x0
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Convert-HashtableString</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>HashtableString</command:noun>
+      <maml:description>
+        <maml:para>Convert a hashtable string into a hashtable object.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-HashtableString</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:Description>
+            <maml:para>Enter your hashtable string.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:Description>
+          <maml:para>Enter your hashtable string.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[hashtable]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-HashtableString
+
+Name                           Value
+----                           -----
+CreatedBy                      BOVINE320\Jeff
+CreatedAt                      10/02/2018 21:28:47 UTC
+Computername                   Think51
+Error
+Completed                      True
+Date                           10/02/2018 21:29:35 UTC
+Scriptblock                    restart-service spooler -force
+CreatedOn                      BOVINE320</dev:code>
+        <dev:remarks>
+          <maml:para>The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/31VA9Of</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Import-PowerShellDatafile</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Convert-HashtabletoCode</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Convert-HashTableToCode</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>HashTableToCode</command:noun>
+      <maml:description>
+        <maml:para>Convert a hashtable to a string representation.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to convert a hashtable into its text or string equivalent.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-HashTableToCode</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Hashtable</maml:name>
+          <maml:Description>
+            <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <dev:type>
+            <maml:name>Hashtable</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Hashtable</maml:name>
+        <maml:Description>
+          <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+        <dev:type>
+          <maml:name>Hashtable</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Collections.Hashtable</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
+PS C:\&gt; convert-hashtabletocode $h
+@{
+        Name = 'SRV1'
+        Asset = 123454
+        Location = 'Omaha'
+}</dev:code>
+        <dev:remarks>
+          <maml:para>Convert a hashtable object to a string equivalent that you can copy into your script.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/31SLU7X</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Convert-HashtableString</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>ConvertFrom-LexicalTimespan</command:name>
+      <command:verb>ConvertFrom</command:verb>
+      <command:noun>LexicalTimespan</command:noun>
+      <maml:description>
+        <maml:para>Convert a lexical timespan into a PowerShell timespan</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>When working with some XML data, such as that from scheduled tasks, timespans or durations are stored in a lexical format like P0DT0H0M47S. You can use this command to convert that value into a timespan object.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertFrom-LexicalTimespan</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>String</maml:name>
+          <maml:Description>
+            <maml:para>Enter a lexical time string like P23DT3H43M. This is case-sensitive.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsString</maml:name>
+          <maml:Description>
+            <maml:para>Format the timespan as a string</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsString</maml:name>
+        <maml:Description>
+          <maml:para>Format the timespan as a string</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>String</maml:name>
+        <maml:Description>
+          <maml:para>Enter a lexical time string like P23DT3H43M. This is case-sensitive.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Timespan</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertFrom-LexicalTimespan P0DT0H0M47S
+
+
+Days              : 0
+Hours             : 0
+Minutes           : 0
+Seconds           : 47
+Milliseconds      : 0
+Ticks             : 470000000
+TotalDays         : 0.000543981481481481
+TotalHours        : 0.0130555555555556
+TotalMinutes      : 0.783333333333333
+TotalSeconds      : 47
+TotalMilliseconds : 47000</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ScheduledTask -TaskName DailyWatcher | Select-Object Taskname,@{Name="ExecutionLimit";Expression = { ConvertFrom-LexicalTimespan $_.settings.ExecutionTimeLimit  }}
+
+Taskname     ExecutionLimit
+--------     --------------
+DailyWatcher 3.00:00:00</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>ConvertTo-LexicalTime</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertFrom-Text</command:name>
       <command:verb>ConvertFrom</command:verb>
       <command:noun>Text</command:noun>
@@ -1146,203 +1482,6 @@ Monday, March 4, 2019 1:00:00 PM</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Convert-HashtableString</command:name>
-      <command:verb>Convert</command:verb>
-      <command:noun>HashtableString</command:noun>
-      <maml:description>
-        <maml:para>Convert a hashtable string into a hashtable object.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>This function is similar to Import-PowerShellDataFile. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Convert-HashtableString</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-          <maml:name>Text</maml:name>
-          <maml:Description>
-            <maml:para>Enter your hashtable string.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-        <maml:name>Text</maml:name>
-        <maml:Description>
-          <maml:para>Enter your hashtable string.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>System.String</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>[hashtable]</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-HashtableString
-
-Name                           Value
-----                           -----
-CreatedBy                      BOVINE320\Jeff
-CreatedAt                      10/02/2018 21:28:47 UTC
-Computername                   Think51
-Error
-Completed                      True
-Date                           10/02/2018 21:29:35 UTC
-Scriptblock                    restart-service spooler -force
-CreatedOn                      BOVINE320</dev:code>
-        <dev:remarks>
-          <maml:para>The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.</maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>http://bit.ly/31VA9Of</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Import-PowerShellDatafile</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Convert-HashtabletoCode</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
-      <command:name>Convert-HashTableToCode</command:name>
-      <command:verb>Convert</command:verb>
-      <command:noun>HashTableToCode</command:noun>
-      <maml:description>
-        <maml:para>Convert a hashtable to a string representation.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>Use this command to convert a hashtable into its text or string equivalent.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Convert-HashTableToCode</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-          <maml:name>Hashtable</maml:name>
-          <maml:Description>
-            <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
-          </maml:Description>
-          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
-          <dev:type>
-            <maml:name>Hashtable</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-        <maml:name>Hashtable</maml:name>
-        <maml:Description>
-          <maml:para>A hashtable to convert. In can be standard or ordered hashtable.</maml:para>
-        </maml:Description>
-        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
-        <dev:type>
-          <maml:name>Hashtable</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>System.Collections.Hashtable</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.String</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
-PS C:\&gt; convert-hashtabletocode $h
-@{
-        Name = 'SRV1'
-        Asset = 123454
-        Location = 'Omaha'
-}</dev:code>
-        <dev:remarks>
-          <maml:para>Convert a hashtable object to a string equivalent that you can copy into your script.</maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>http://bit.ly/31SLU7X</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Convert-HashtableString</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
       <command:name>ConvertTo-HashTable</command:name>
       <command:verb>ConvertTo</command:verb>
       <command:noun>HashTable</command:noun>
@@ -1542,6 +1681,92 @@ Status                         Running</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Member</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>ConvertTo-LexicalTimespan</command:name>
+      <command:verb>ConvertTo</command:verb>
+      <command:noun>LexicalTimespan</command:noun>
+      <maml:description>
+        <maml:para>Convert a timespan to lexical time.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Convert a timespan into a lexical version that you can insert into an XML document.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-LexicalTimespan</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Timespan</maml:name>
+          <maml:Description>
+            <maml:para>Enter a timespan object</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+          <dev:type>
+            <maml:name>TimeSpan</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Timespan</maml:name>
+        <maml:Description>
+          <maml:para>Enter a timespan object</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">TimeSpan</command:parameterValue>
+        <dev:type>
+          <maml:name>TimeSpan</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.TimeSpan</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertTo-LexicalTimespan (new-timespan -Days 7)
+
+P7D</dev:code>
+        <dev:remarks>
+          <maml:para>You can insert this value into an XML document where you need to represent a time span.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>ConvertFrom-LexicalTimespan</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -4645,8 +4870,7 @@ ParameterSet                    : __AllParameterSets</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to find the path to the PowerShell executable, or engine that is running your current session. The path for PowerShell 6 is different than previous versions.</maml:para>
-      <maml:para>The default is to provide the path only. But you can also get detailed information</maml:para>
+      <maml:para>Use this command to find the path to the PowerShell executable, or engine that is running your current session.  The default is to provide the path only. But you can also get detailed information</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4732,16 +4956,16 @@ Platform       :</dev:code>
         <dev:code>PS C:\&gt; Get-PowerShellEngine -detail
 
 
-Path           : C:\Program Files\PowerShell\6\pwsh.exe
-FileVersion    : 6.1.0
-PSVersion      : 6.1.0
-ProductVersion : 6.1.0
+Path           : C:\Program Files\PowerShell\7-preview\pwsh.exe
+FileVersion    : 7.0.0.0
+PSVersion      : 7.0.0-rc.2
+ProductVersion : 7.0.0-rc.2 SHA: d99b325861d3c15271367a0cece3037d76230e34
 Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
 Platform       : Win32NT</dev:code>
         <dev:remarks>
-          <maml:para>Result from running in a PowerShell 6 session on Windows 10</maml:para>
+          <maml:para>Result from running in a PowerShell 7 release candidate session on Windows 10</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -6290,7 +6514,8 @@ Count                          3</dev:code>
       <maml:para>- %month  - The month number</maml:para>
       <maml:para>- %dayofweek - The full name of the week day</maml:para>
       <maml:para>- %day</maml:para>
-      <maml:para>- %hour</maml:para>
+      <maml:para>- %hour - the hour of the day in 12 hour format to 2 digits</maml:para>
+      <maml:para>- %hour24 - the hour of the day in 24 hour format to 2 digits</maml:para>
       <maml:para>- %minute</maml:para>
       <maml:para>- %seconds</maml:para>
       <maml:para>- %time  - A compact string of HourMinuteSecond</maml:para>
@@ -6298,8 +6523,8 @@ Count                          3</dev:code>
       <maml:para>- %guid</maml:para>
       <maml:para></maml:para>
       <maml:para>You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.</maml:para>
-      <maml:para>The command will attempt to preserve case for any non pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.</maml:para>
-      <maml:para>Another option, is to turn the entire name into upper or lower case.</maml:para>
+      <maml:para>The command will attempt to preserve case for any non-pattern string, but you should separate it from other placeholder patterns with one of these characters: - ( ) [ ] or a . Using an underscore will not work.</maml:para>
+      <maml:para>Another option, is to turn the entire custom name into upper or lower case.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -6307,7 +6532,23 @@ Count                          3</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Template</maml:name>
           <maml:Description>
-            <maml:para>A string that defines the naming pattern based on a set of placeholders.</maml:para>
+            <maml:para>A string that defines the naming pattern based on a set of placeholders. You can create a template string using any of these variables, including the % symbol.</maml:para>
+            <maml:para>- %username</maml:para>
+            <maml:para>- %computername</maml:para>
+            <maml:para>- %year  - 4 digit year</maml:para>
+            <maml:para>- %yr  - 2 digit year</maml:para>
+            <maml:para>- %monthname - The abbreviated month name</maml:para>
+            <maml:para>- %month  - The month number</maml:para>
+            <maml:para>- %dayofweek - The full name of the week day</maml:para>
+            <maml:para>- %day</maml:para>
+            <maml:para>- %hour - the hour of the day in 12 hour format to 2 digits</maml:para>
+            <maml:para>- %hour24 - the hour of the day in 24 hour format to 2 digits</maml:para>
+            <maml:para>- %minute</maml:para>
+            <maml:para>- %seconds</maml:para>
+            <maml:para>- %time  - A compact string of HourMinuteSecond</maml:para>
+            <maml:para>- %string - A random string</maml:para>
+            <maml:para>- %guid</maml:para>
+            <maml:para>- %### - a random number matching the number of # characters</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -6351,7 +6592,23 @@ Count                          3</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Template</maml:name>
         <maml:Description>
-          <maml:para>A string that defines the naming pattern based on a set of placeholders.</maml:para>
+          <maml:para>A string that defines the naming pattern based on a set of placeholders. You can create a template string using any of these variables, including the % symbol.</maml:para>
+          <maml:para>- %username</maml:para>
+          <maml:para>- %computername</maml:para>
+          <maml:para>- %year  - 4 digit year</maml:para>
+          <maml:para>- %yr  - 2 digit year</maml:para>
+          <maml:para>- %monthname - The abbreviated month name</maml:para>
+          <maml:para>- %month  - The month number</maml:para>
+          <maml:para>- %dayofweek - The full name of the week day</maml:para>
+          <maml:para>- %day</maml:para>
+          <maml:para>- %hour - the hour of the day in 12 hour format to 2 digits</maml:para>
+          <maml:para>- %hour24 - the hour of the day in 24 hour format to 2 digits</maml:para>
+          <maml:para>- %minute</maml:para>
+          <maml:para>- %seconds</maml:para>
+          <maml:para>- %time  - A compact string of HourMinuteSecond</maml:para>
+          <maml:para>- %string - A random string</maml:para>
+          <maml:para>- %guid</maml:para>
+          <maml:para>- %### - a random number matching the number of # characters</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -6779,7 +7036,7 @@ PS DeepDive:\&gt;</dev:code>
     </command:details>
     <maml:description>
       <maml:para>When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.</maml:para>
-      <maml:para>Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside VS Code and use -Passthru, the new file will automatically be opened in your editor.</maml:para>
+      <maml:para>Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. When creating the file make sure the object you are modeling with does not have empty property values. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.</maml:para>
       <maml:para>Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to test changes.</maml:para>
     </maml:description>
     <command:syntax>
@@ -6800,7 +7057,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Properties</maml:name>
           <maml:Description>
-            <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used.</maml:para>
+            <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -6812,11 +7069,12 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
           <maml:name>FormatType</maml:name>
           <maml:Description>
-            <maml:para>Specify whether to create a table or list view</maml:para>
+            <maml:para>Specify whether to create a table, list, or wide view.</maml:para>
           </maml:Description>
           <command:parameterValueGroup>
             <command:parameterValue required="false" command:variableLength="false">Table</command:parameterValue>
             <command:parameterValue required="false" command:variableLength="false">List</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Wide</command:parameterValue>
           </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -6852,7 +7110,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Append</maml:name>
           <maml:Description>
-            <maml:para>Append the new view to an existing format.ps1xml file.</maml:para>
+            <maml:para>Append the new view to an existing format.ps1xml file. You need to make sure that view names are unique. With the exception of default. You can have multiple default views as long as they are different types, such as table and list.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -6874,7 +7132,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Passthru</maml:name>
           <maml:Description>
-            <maml:para>Write the ps1xml file object to the pipeline. If you run this command inside VS Code and use this parameter, the file will be opened in the editor.</maml:para>
+            <maml:para>Write the ps1xml file object to the pipeline. If you run this command inside the VS Code PowerShell integrated console and use this parameter, the file will be opened in the editor.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -6923,7 +7181,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Append</maml:name>
         <maml:Description>
-          <maml:para>Append the new view to an existing format.ps1xml file.</maml:para>
+          <maml:para>Append the new view to an existing format.ps1xml file. You need to make sure that view names are unique. With the exception of default. You can have multiple default views as long as they are different types, such as table and list.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -6947,7 +7205,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
         <maml:name>FormatType</maml:name>
         <maml:Description>
-          <maml:para>Specify whether to create a table or list view</maml:para>
+          <maml:para>Specify whether to create a table, list, or wide view.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -6971,7 +7229,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Passthru</maml:name>
         <maml:Description>
-          <maml:para>Write the ps1xml file object to the pipeline. If you run this command inside VS Code and use this parameter, the file will be opened in the editor.</maml:para>
+          <maml:para>Write the ps1xml file object to the pipeline. If you run this command inside the VS Code PowerShell integrated console and use this parameter, the file will be opened in the editor.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -6995,7 +7253,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Properties</maml:name>
         <maml:Description>
-          <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used.</maml:para>
+          <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -7133,7 +7391,7 @@ Name OS Runtime
 ---- -- -------
 Jeff    40.20:56:24.5411481
 
-PS C:\&gt; $obj | format-list
+PS C:\&gt; $obj | Format-List
 
 
 Name            : Jeff
@@ -7149,7 +7407,7 @@ Runtime         : 40.21:12:01</dev:code>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $obj | New-PSFormatXML -viewname computer -GroupBy Computername -path "c:\work\$tname.format.ps1xml" -append
 PS C:\&gt; Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
-PS C:\&gt; $obj | format-table -View computer
+PS C:\&gt; $obj | Format-Table -View computer
 
 
    Computername: BOVINE320
@@ -7159,6 +7417,14 @@ Name Date                  OS                       Runtime
 Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481</dev:code>
         <dev:remarks>
           <maml:para>This adds another view called Computer that groups objects on the Computername property.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Service bits | New-PSFormatXML -Properties DisplayName -FormatType Wide -Path C:\work\svc.format.ps1xml -GroupBy Status -ViewName Status</dev:code>
+        <dev:remarks>
+          <maml:para>This will create a custom format file for service objects. This will create a wide display using the Displayname property. Once loaded into PowerShell, you can run a command like this:</maml:para>
+          <maml:para>Get-Service | Sort-Object Status | Format-Wide -view Status</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -9121,6 +9387,136 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Save-GitSetup</command:name>
+      <command:verb>Save</command:verb>
+      <command:noun>GitSetup</command:noun>
+      <maml:description>
+        <maml:para>Download the latest 64bit version of Git for Windows</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Non-Windows platforms have package management that make it easy to install newer versions of git. This command is for Windows platforms. You can run this command to download the latest 64bit version of Git for Windows. You will need to manually install it.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Save-GitSetup</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Specify the location to store the downloaded file.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:Description>
+            <maml:para>Show the downloaded file.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Passthru</maml:name>
+        <maml:Description>
+          <maml:para>Show the downloaded file.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Specify the location to store the downloaded file.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.IO.FileInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>C:\&gt; Save-GitSetup -Verbose -Path c:\work -Passthru
+VERBOSE: Getting latest version of git from https://git-scm.com/download/win
+VERBOSE: GET https://git-scm.com/download/win with 0-byte payload
+VERBOSE: received -byte response of content type text/html
+VERBOSE: Found download link https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/Git-2.25.0-64-bit.exe
+VERBOSE: Downloading c:\work\Git-2.25.0-64-bit.exe from https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/Git-2.25.0-64-bit.exe
+VERBOSE: GET https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/Git-2.25.0-64-bit.exe with 0-byte payload
+VERBOSE: received 46476880-byte response of content type application/octet-stream
+VERBOSE: Download complete
+
+
+    Directory: C:\work
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           1/23/2020  4:31 PM       46476880 Git-2.25.0-64-bit.exe</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>git.exe</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Select-First</command:name>
       <command:verb>Select</command:verb>
       <command:noun>First</command:noun>
@@ -10708,6 +11104,7 @@ OS           : Microsoft Windows 8.1 Enterprise</dev:code>
     <maml:description>
       <maml:para>This command will display a WPF-based form that you can use to enter in testing information. Testing intervals are in seconds. All of the values are then passed to the Test-Expression command. Results will be displayed in the form.</maml:para>
       <maml:para>When you close the form, the last result object will be passed to the pipeline, including all metadata, the scriptblock and arguments.</maml:para>
+      <maml:para>This command requires a Windows platform that supports WPF.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>

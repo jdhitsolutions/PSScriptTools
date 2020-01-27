@@ -6,7 +6,7 @@ Function _TestMe {
     Param(
         [scriptblock]$Expression,
         [object[]]$ArgumentList,
-        [ValidateScript( {$_ -ge 1})]
+        [ValidateScript( { $_ -ge 1 })]
         [int]$Count = 1,
         [Parameter(ParameterSetName = "Interval")]
         [ValidateRange(0, 60)]
@@ -30,7 +30,7 @@ Function _TestMe {
 
     } -process {
         #invoke the scriptblock with any arguments and measure
-        Measure-Command -Expression {$($script:testblock).Invoke(@($argumentlist)) } -OutVariable +out
+        Measure-Command -Expression { $($script:testblock).Invoke(@($argumentlist)) } -OutVariable +out
 
         #} -outvariable +out
         #pause to mitigate any caching effects
@@ -47,15 +47,15 @@ Function _TestMe {
     }
 
     $TestResults = $TestData |
-        Measure-Object -Property TotalMilliseconds -Average -Maximum -Minimum |
-        Select-Object -Property @{Name = "Tests"; Expression = {$_.Count}},
-    @{Name = "TestInterval"; Expression = {$TestInterval}},
-    @{Name = "AverageMS"; Expression = {$_.Average}},
-    @{Name = "MinimumMS"; Expression = {$_.Minimum}},
-    @{Name = "MaximumMS"; Expression = {$_.Maximum}},
+    Measure-Object -Property TotalMilliseconds -Average -Maximum -Minimum |
+    Select-Object -Property @{Name = "Tests"; Expression = { $_.Count } },
+    @{Name = "TestInterval"; Expression = { $TestInterval } },
+    @{Name = "AverageMS"; Expression = { $_.Average } },
+    @{Name = "MinimumMS"; Expression = { $_.Minimum } },
+    @{Name = "MaximumMS"; Expression = { $_.Maximum } },
     @{Name = "MedianMS"; Expression = {
             #sort the values to calculate the median and trimmed values
-            $sort = $out.totalmilliseconds | sort-object
+            $sort = $out.totalmilliseconds | Sort-Object
 
             #test if there are an even or odd number of elements
             if ( ($sort.count) % 2) {
@@ -72,7 +72,7 @@ Function _TestMe {
     },
     @{Name = "TrimmedMS"; Expression = {
             #values must be sorted in ascending order
-            $data = $out.totalmilliseconds | Sort-object
+            $data = $out.totalmilliseconds | Sort-Object
             #select elements from the second to next to last
             ($data[1..($data.count - 2)] | Measure-Object -Average).Average
 
@@ -80,7 +80,7 @@ Function _TestMe {
     }
 
     #add metadata
-    $OS = Get-Ciminstance -ClassName win32_operatingsystem
+    $OS = Get-CimInstance -ClassName win32_operatingsystem
     $TestResults | Add-Member -MemberType Noteproperty -Name PSVersion -Value $PSVersionTable.PSVersion.ToString()
     $TestResults | Add-Member -MemberType Noteproperty -Name OS -Value $OS.caption
 
@@ -115,7 +115,7 @@ Function Test-Expression {
         [object[]]$ArgumentList,
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ValidateScript( {$_ -ge 1})]
+        [ValidateScript( { $_ -ge 1 })]
         [int]$Count = 1,
 
         [Parameter(
@@ -147,7 +147,6 @@ Function Test-Expression {
 
     )
 
-
     Write-Verbose "Starting: $($MyInvocation.Mycommand)"
     Write-Verbose ($PSBoundParameters | Out-String)
     Write-Verbose "Measuring expression:"
@@ -160,7 +159,7 @@ Function Test-Expression {
         Write-Verbose "$Count time(s) with a sleep interval of $interval seconds."
     }
     else {
-        write-Verbose "$Count time(s) with a random sleep interval between $RandomMinimum seconds and $RandomMaximum seconds."
+        Write-Verbose "$Count time(s) with a random sleep interval between $RandomMinimum seconds and $RandomMaximum seconds."
     }
 
     If ($AsJob) {
@@ -178,7 +177,7 @@ Function Test-Expression {
             $expression = [scriptblock]::Create($Testparams.Expression)
             $TestParams.Expression = $Expression
             Test-Expression @testparams
-        } -ArgumentList @($PSBoundParameters) -InitializationScript {Import-Module Test-Expression}
+        } -ArgumentList @($PSBoundParameters) -InitializationScript { Import-Module Test-Expression }
 
     }
     else {
@@ -196,97 +195,97 @@ Function Test-ExpressionForm {
     [alias("texf")]
     Param()
 
-    if ($psEdition -eq 'Core') {
-        Write-Warning "This command will not run on PowerShell Core."
-        #bail out
-        Return
+    if ($isWindows) {
+
+        Add-Type -AssemblyName PresentationFramework
+
+        [xml]$xaml = Get-Content $psscriptroot\form.xaml
+
+        $reader = New-Object system.xml.xmlnodereader $xaml
+        $form = [windows.markup.xamlreader]::Load($reader)
+
+        $sb = $form.FindName("txtScriptBlock")
+        $count = $form.FindName("txtCount")
+        $results = $form.FindName("tbResults")
+        $slider = $form.Findname("sliderStatic")
+        $radioStatic = $form.FindName("radioStatic")
+        $radioRandom = $form.FindName("radioRandom")
+        $min = $form.FindName("txtMin")
+        $Max = $form.FindName("txtMax")
+        $argumentList = $form.FindName("txtArguments")
+        $run = $form.FindName("btnRun")
+        $quit = $form.Findname("btnQuit")
+
+        #defaults
+        $min.Text = 1
+        $max.text = 5
+        $min.IsEnabled = $False
+        $max.IsEnabled = $false
+        $slider.IsEnabled = $True
+
+        $radioStatic.add_Checked( {
+                $min.IsEnabled = $False
+                $max.IsEnabled = $false
+                $slider.IsEnabled = $True
+            })
+
+        $radioRandom.Add_checked( {
+                $min.IsEnabled = $True
+                $max.IsEnabled = $True
+                $slider.IsEnabled = $False
+            })
+
+        $quit.add_click( { $form.close() })
+
+        $run.add_click( {
+
+                #uncomment for troubleshooting
+                #write-host "running" -ForegroundColor green
+
+                if ($sb.Text -notmatch "\w") {
+                    Write-Warning "You must enter something to test!"
+                    Return
+                }
+
+                $params = @{
+                    Expression        = [scriptblock]::Create($sb.text)
+                    Count             = $count.text -as [int]
+                    IncludeExpression = $True
+                }
+
+                If ($argumentList.text) {
+                    $params.Add("ArgumentList", ($argumentList.Text -split ","))
+                }
+
+                if ($radioStatic.IsChecked) {
+                    $interval = [math]::round($slider.value, 1)
+                    $params.Add("interval", $interval)
+                }
+                else {
+                    [double]$minimum = [math]::Round($min.Text, 1)
+                    [double]$maximum = [math]::Round($max.text, 1)
+                    $params.Add("RandomMinimum", $minimum)
+                    $params.Add("RandomMaximum", $maximum)
+                }
+
+                $form.Cursor = [System.Windows.Input.Cursors]::Wait
+                #uncomment for troubleshooting
+                #$params | out-string | write-host -ForegroundColor cyan
+
+                $script:out = Test-Expression @params
+
+                $results.text = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
+                $form.Cursor = [System.Windows.Input.Cursors]::Default
+            })
+
+        [void]$sb.Focus()
+        [void]$form.ShowDialog()
+
+        #write the current results to the pipeline after the form is closed.
+        $script:out
     }
-
-    Add-Type -AssemblyName PresentationFramework
-
-    [xml]$xaml = Get-Content $psscriptroot\form.xaml
-
-    $reader = New-Object system.xml.xmlnodereader $xaml
-    $form = [windows.markup.xamlreader]::Load($reader)
-
-    $sb = $form.FindName("txtScriptBlock")
-    $count = $form.FindName("txtCount")
-    $results = $form.FindName("tbResults")
-    $slider = $form.Findname("sliderStatic")
-    $radioStatic = $form.FindName("radioStatic")
-    $radioRandom = $form.FindName("radioRandom")
-    $min = $form.FindName("txtMin")
-    $Max = $form.FindName("txtMax")
-    $argumentList = $form.FindName("txtArguments")
-    $run = $form.FindName("btnRun")
-    $quit = $form.Findname("btnQuit")
-
-    #defaults
-    $min.Text = 1
-    $max.text = 5
-    $min.IsEnabled = $False
-    $max.IsEnabled = $false
-    $slider.IsEnabled = $True
-
-    $radioStatic.add_Checked( {
-            $min.IsEnabled = $False
-            $max.IsEnabled = $false
-            $slider.IsEnabled = $True
-        })
-
-    $radioRandom.Add_checked( {
-            $min.IsEnabled = $True
-            $max.IsEnabled = $True
-            $slider.IsEnabled = $False
-        })
-
-    $quit.add_click( { $form.close() })
-
-    $run.add_click( {
-
-            #uncomment for troubleshooting
-            #write-host "running" -ForegroundColor green
-
-            if ($sb.Text -notmatch "\w") {
-                Write-Warning "You must enter something to test!"
-                Return
-            }
-
-            $params = @{
-                Expression        = [scriptblock]::Create($sb.text)
-                Count             = $count.text -as [int]
-                IncludeExpression = $True
-            }
-
-            If ($argumentList.text) {
-                $params.Add("ArgumentList", ($argumentList.Text -split ","))
-            }
-
-            if ($radioStatic.IsChecked) {
-                $interval = [math]::round($slider.value, 1)
-                $params.Add("interval", $interval)
-            }
-            else {
-                [double]$minimum = [math]::Round($min.Text, 1)
-                [double]$maximum = [math]::Round($max.text, 1)
-                $params.Add("RandomMinimum", $minimum)
-                $params.Add("RandomMaximum", $maximum)
-            }
-
-            $form.Cursor = [System.Windows.Input.Cursors]::Wait
-            #uncomment for troubleshooting
-            #$params | out-string | write-host -ForegroundColor cyan
-
-            $script:out = Test-Expression @params
-
-            $results.text = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
-            $form.Cursor = [System.Windows.Input.Cursors]::Default
-        })
-
-    [void]$sb.Focus()
-    [void]$form.ShowDialog() 
-
-    #write the current results to the pipeline after the form is closed.
-    $script:out
+    else {
+        Write-Warning "This command requires a Windows platform that supports WPF."
+    }
 }
 

@@ -19,8 +19,7 @@ Get-PowerShellEngine [-Detail]
 
 ## DESCRIPTION
 
-Use this command to find the path to the PowerShell executable, or engine that is running your current session. The path for PowerShell 6 is different than previous versions.
-
+Use this command to find the path to the PowerShell executable, or engine that is running your current session. 
 The default is to provide the path only. But you can also get detailed information
 
 ## EXAMPLES
@@ -57,17 +56,17 @@ Result from running in the Visual Studio Code integrated PowerShell terminal
 PS C:\> Get-PowerShellEngine -detail
 
 
-Path           : C:\Program Files\PowerShell\6\pwsh.exe
-FileVersion    : 6.1.0
-PSVersion      : 6.1.0
-ProductVersion : 6.1.0
+Path           : C:\Program Files\PowerShell\7-preview\pwsh.exe
+FileVersion    : 7.0.0.0
+PSVersion      : 7.0.0-rc.2
+ProductVersion : 7.0.0-rc.2 SHA: d99b325861d3c15271367a0cece3037d76230e34
 Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
 Platform       : Win32NT
 ```
 
-Result from running in a PowerShell 6 session on Windows 10
+Result from running in a PowerShell 7 release candidate session on Windows 10
 
 ## PARAMETERS
 

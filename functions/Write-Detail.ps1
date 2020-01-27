@@ -40,7 +40,7 @@ Function Write-Detail {
 
 Function Out-VerboseTee {
     [CmdletBinding()]
-    [alias("Tee-Verbose")]
+    [alias("Tee-Verbose","tv")]
     Param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [object]$Value,
@@ -57,7 +57,7 @@ Function Out-VerboseTee {
         #only run if Verbose is turned on
         if ($VerbosePreference -eq "continue") {
             $Value | Out-String | Write-Verbose
-            [void]$PSBoundParameters.Remove("Append") 
+            [void]$PSBoundParameters.Remove("Append")
             if ($Append) {
                 Add-Content @PSBoundParameters
             }

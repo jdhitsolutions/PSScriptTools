@@ -23,6 +23,8 @@ This command will display a WPF-based form that you can use to enter in testing 
 
 When you close the form, the last result object will be passed to the pipeline, including all metadata, the scriptblock and arguments.
 
+This command requires a Windows platform that supports WPF.
+
 ## EXAMPLES
 
 ### Example 1

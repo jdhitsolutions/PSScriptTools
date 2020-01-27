@@ -23,7 +23,7 @@ New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>] [-Typename <S
 
 When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.
 
-Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside VS Code and use -Passthru, the new file will automatically be opened in your editor.
+Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. When creating the file make sure the object you are modeling with does not have empty property values. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.
 
 Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to test changes.
 
@@ -78,7 +78,7 @@ Name OS Runtime
 ---- -- -------
 Jeff    40.20:56:24.5411481
 
-PS C:\> $obj | format-list
+PS C:\> $obj | Format-List
 
 
 Name            : Jeff
@@ -95,7 +95,7 @@ After the format.ps1xml file is applied, the object can be formatted as designed
 ```powershell
 PS C:\> $obj | New-PSFormatXML -viewname computer -GroupBy Computername -path "c:\work\$tname.format.ps1xml" -append
 PS C:\> Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
-PS C:\> $obj | format-table -View computer
+PS C:\> $obj | Format-Table -View computer
 
 
    Computername: BOVINE320
@@ -107,11 +107,26 @@ Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481
 
 This adds another view called Computer that groups objects on the Computername property.
 
+### Example 5
+
+```powershell
+PS C:\> Get-Service bits | New-PSFormatXML -Properties DisplayName -FormatType Wide -Path C:\work\svc.format.ps1xml -GroupBy Status -ViewName Status
+```
+
+This will create a custom format file for service objects.
+This will create a wide display using the Displayname property.
+Once loaded into PowerShell, you can run a command like this:
+
+Get-Service | Sort-Object Status | Format-Wide -view Status
+
 ## PARAMETERS
 
 ### -Append
 
 Append the new view to an existing format.ps1xml file.
+You need to make sure that view names are unique.
+With the exception of default.
+You can have multiple default views as long as they are different types, such as table and list.
 
 ```yaml
 Type: SwitchParameter
@@ -143,13 +158,13 @@ Accept wildcard characters: False
 
 ### -FormatType
 
-Specify whether to create a table or list view
+Specify whether to create a table, list, or wide view.
 
 ```yaml
 Type: String
 Parameter Sets: (All)
 Aliases:
-Accepted values: Table, List
+Accepted values: Table, List, Wide
 
 Required: False
 Position: 2
@@ -176,7 +191,7 @@ Accept wildcard characters: False
 
 ### -Passthru
 
-Write the ps1xml file object to the pipeline. If you run this command inside VS Code and use this parameter, the file will be opened in the editor.
+Write the ps1xml file object to the pipeline. If you run this command inside the VS Code PowerShell integrated console and use this parameter, the file will be opened in the editor.
 
 ```yaml
 Type: SwitchParameter
@@ -208,7 +223,9 @@ Accept wildcard characters: False
 
 ### -Properties
 
-Enter a set of properties to include. If you don't specify anything then all properties will be used.
+Enter a set of properties to include.
+If you don't specify anything then all properties will be used.
+When creating a Wide view you should only specify a single property.
 
 ```yaml
 Type: String[]

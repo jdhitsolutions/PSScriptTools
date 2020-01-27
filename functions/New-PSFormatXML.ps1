@@ -7,12 +7,12 @@ Function New-PSFormatXML {
     Param(
         [Parameter(Mandatory, ValueFromPipeline, HelpMessage = "Specify an object to analyze and generate or update a ps1xml file.")]
         [object]$InputObject,
-        [Parameter(HelpMessage = "Enter a set of properties to include. The default is all.")]
+        [Parameter(HelpMessage = "Enter a set of properties to include. The default is all. If specifying a Wide entry, only specify a single property.")]
         [string[]]$Properties,
         [Parameter(HelpMessage = "Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.")]
         [string]$Typename,
-        [Parameter(HelpMessage = "Specify whether to create a table or list view")]
-        [ValidateSet("Table", "List")]
+        [Parameter(HelpMessage = "Specify whether to create a table ,list or wide view")]
+        [ValidateSet("Table", "List","Wide")]
         [string]$FormatType = "Table",
         [string]$ViewName = "default",
         [Parameter(Mandatory, HelpMessage = "Enter full filename and path for the format.ps1xml file.")]
@@ -91,17 +91,25 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
             [void]$group.AppendChild($groupLabel)
         }
 
-        if ($FormatType -eq 'Table') {
-            $table = $doc.CreateNode("element", "TableControl", $null)
-            $headers = $doc.CreateNode("element", "TableHeaders", $null)
-            $TableRowEntries = $doc.CreateNode("element", "TableRowEntries", $null)
-            $entry = $doc.CreateNode("element", "TableRowEntry", $null)
+        Switch ($FormatType) {
+            "Table" {
+                $table = $doc.CreateNode("element", "TableControl", $null)
+                $headers = $doc.CreateNode("element", "TableHeaders", $null)
+                $TableRowEntries = $doc.CreateNode("element", "TableRowEntries", $null)
+                $entry = $doc.CreateNode("element", "TableRowEntry", $null)
+            }
+            "List" {
+                $list = $doc.CreateNode("element", "ListControl", $null)
+                $ListEntries = $doc.CreateNode("element", "ListEntries", $null)
+                $ListEntry = $doc.CreateNode("element", "ListEntry", $null)
+            }
+            "Wide" {
+                $Wide = $doc.CreateNode("element","WideControl",$null)
+                $wideEntries = $doc.CreateNode("element", "WideEntries", $null)
+                $WideEntry = $doc.CreateNode("element", "WideEntry", $null)
+            }
         }
-        else {
-            $list = $doc.CreateNode("element", "ListControl", $null)
-            $ListEntries = $doc.CreateNode("element", "ListEntries", $null)
-            $ListEntry = $doc.CreateNode("element", "ListEntry", $null)
-        }
+
         $counter = 0
     } #begin
 
@@ -140,7 +148,6 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                         Write-Warning "Can't find a property called $property on this object. Did you enter it correctly?"
                     }
                 }
-
             }
             else {
                 #use auto detected properties
@@ -195,7 +202,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                     [void]$items.AppendChild($tci)
                 }
             }
-            else {
+            elseif ($FormatType  -eq 'List') {
                 #create a list
                 $items = $doc.CreateNode("element", "ListItems", $null)
                 [void]$items.AppendChild($doc.CreateComment($comment))
@@ -213,6 +220,16 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                     [void]$li.AppendChild($prop)
                     [void]$items.AppendChild($li)
                 }
+            }
+            else {
+                #create Wide
+                $item = $doc.CreateNode("element","WideItem",$null)
+                [void]$item.AppendChild($doc.CreateComment($comment))
+                $prop = $doc.CreateElement("PropertyName")
+                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]... $($members[0].name)"
+                $prop.InnerText = $members[0].name
+                [void]$item.AppendChild($prop)
+
             }
             $counter++
         }
@@ -235,11 +252,18 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
 
             [void]$view.AppendChild($table)
         }
-        else {
+        elseif ($FormatType -eq  'List') {
             [void]$listentry.AppendChild($items)
             [void]$listentries.AppendChild($listentry)
             [void]$list.AppendChild($listentries)
             [void]$view.AppendChild($list)
+        }
+        else {
+            #Wide
+            [void]$WideEntry.AppendChild($item)
+            [void]$wideEntries.AppendChild($WideEntry)
+            [void]$Wide.AppendChild($wideEntries)
+            [void]$view.AppendChild($Wide)
         }
 
         if ($append) {
