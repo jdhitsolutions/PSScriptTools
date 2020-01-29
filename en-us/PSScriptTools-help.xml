@@ -718,6 +718,10 @@ SubjectLogonId    : 0x0
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/314L8W9</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-WinEvent</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -1053,6 +1057,10 @@ DailyWatcher 3.00:00:00</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/37C3gJJ</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>ConvertTo-LexicalTime</maml:linkText>
         <maml:uri></maml:uri>
@@ -1765,6 +1773,10 @@ P7D</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/2S5qPUK</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>ConvertFrom-LexicalTimespan</maml:linkText>
         <maml:uri></maml:uri>
@@ -9372,6 +9384,10 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/2vxGyUP</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>About_hash_tables</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -9410,7 +9426,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
             <maml:name>String</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
+          <dev:defaultValue>$env:TEMP</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Passthru</maml:name>
@@ -9448,7 +9464,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
           <maml:name>String</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
+        <dev:defaultValue>$env:TEMP</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -9509,6 +9525,10 @@ Mode                 LastWriteTime         Length Name
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/2O8y50B</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>git.exe</maml:linkText>
         <maml:uri></maml:uri>

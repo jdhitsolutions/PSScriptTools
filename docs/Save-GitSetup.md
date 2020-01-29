@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: http://bit.ly/2O8y50B
 schema: 2.0.0
 ---
 
@@ -76,7 +76,7 @@ Aliases:
 
 Required: False
 Position: 0
-Default value: None
+Default value: $env:TEMP
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
