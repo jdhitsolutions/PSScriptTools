@@ -215,13 +215,13 @@ User            : BOVINE320\Jeff
 Elevated        : True
 Computername    : BOVINE320
 OperatingSystem : Microsoft Windows 10 Pro [64-bit]
-OSVersion       : 10.0.17763
-PSVersion       : 5.1.17763.134
+OSVersion       : 10.0.18363
+PSVersion       : 5.1.18362.145
 Edition         : Desktop
 PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : RemoteSigned
-Culture         : en-US
+Culture         : English (United States)
 ```
 
 ### [Find-CimClass](docs/Find-CimClass.md)
@@ -293,6 +293,27 @@ You can also get detailed information.
 Results will vary depending on whether you are running PowerShell on Windows nor non-Windows systems.
 
 ## File Tools
+
+### [Get-FolderSizeInfo](docs/Get-FolderSizeInfo.md)
+
+Use this command to quickly get the size of a folder. You also have an option to include hidden files. The command will measure all files in all subdirectories. The command includes a format file with additional view to display the total size in MB or GB.
+
+```powershell
+PS C:\> Get-Childitem D:\ -Directory | Get-FolderSizeInfo -Hidden | Where-Object TotalSize -gt 1gb | Sort-Object TotalSize -Descending | format-table -View gb
+
+Computername    Path                                                TotalFiles   TotalSizeGB
+------------    ----                                                ----------   -----------
+BOVINE320       D:\Autolab                                                 159      137.7192
+BOVINE320       D:\VMDisks                                                  18      112.1814
+BOVINE320       D:\ISO                                                      17       41.5301
+BOVINE320       D:\FileHistory                                          104541       36.9938
+BOVINE320       D:\Vagrant                                                  13       19.5664
+BOVINE320       D:\Vms                                                      83        5.1007
+BOVINE320       D:\2016                                                   1130        4.9531
+BOVINE320       D:\video                                                   125         2.592
+BOVINE320       D:\blog                                                  21804        1.1347
+BOVINE320       D:\pstranscripts                                        122092        1.0914
+```
 
 ### [Optimize-Text](docs/Optimize-Text.md)
 
@@ -1082,6 +1103,10 @@ Runtime         : 40.21:12:01
 
 If you run this command within VS Code and specify `-Passthru`, the resulting file will be opened in your editor.
 
+### [Test-IsPSWindows](docs/Test-IsPSWindows.md)
+
+PowerShell Core introduced the `$IsWindows` variable. However it is not available on Windows PowerShell. Use this command to perform a simple test if the computer is either running Windows or using the Desktop PSEdition. The command returns True or False.
+
 ### [Write-Detail](docs/Write-Detail.md)
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
@@ -1122,4 +1147,4 @@ You will need to manually install the file.
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will not be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-01-29 15:38:42Z UTC*
+Last Updated *2020-01-29 20:06:54Z UTC*

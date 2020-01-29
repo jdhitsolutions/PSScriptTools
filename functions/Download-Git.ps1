@@ -11,7 +11,7 @@ Function Save-GitSetup {
         [switch]$Passthru
     )
 
-    if ($isWindows -or $PSEdition -eq 'Desktop') {
+    if ( (Test-IsPSWindows)) {
 
         Try {
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12

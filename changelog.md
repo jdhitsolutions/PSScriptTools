@@ -1,5 +1,14 @@
 # Change Log for PSScriptTools
 
+## v2.15.0
+
++ Added `Get-FolderSizeInfo` and its alias `gsi` along with a corresponding format.ps1xml file.
++ Fixed IsWindows bug in `New-WPFMessageBox` (Issue #59)
++ Fixed IsWindows bug in `Convertto-WPFGrid`, `Find-CimClass`, `Test-ExpressionForm`, `Get-WindowsVersion`,`Get-WindowsVersionString` and `Invoke-InputBox` by using a new function `Test-IsPSWindows`
++ Updated `Get-PSWho` to better work cross-platform
++ Help updates
++ Updated `README.md`
+
 ## v2.14.1
 
 + Fixed bug in `Save-GitSetup` that relies on `$IsWindows` (Issue #58). Now this command should work on Windows PowerShell 5.1 as well.

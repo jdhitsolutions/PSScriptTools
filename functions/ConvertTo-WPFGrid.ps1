@@ -45,7 +45,7 @@ Function ConvertTo-WPFGrid {
             Throw "You must specify a timeout value in seconds when using -Refresh"
         }
         #set a flag for the process block
-        if ($IsWindows) {
+        if ((Test-IsPSWindows)) {
             #attempt to load the WPF related classes which might or might not be available depending
             #on operating system and PowerSell version
 
