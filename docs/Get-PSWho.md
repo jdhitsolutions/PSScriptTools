@@ -34,13 +34,13 @@ User            : BOVINE320\Jeff
 Elevated        : True
 Computername    : BOVINE320
 OperatingSystem : Microsoft Windows 10 Pro [64-bit]
-OSVersion       : 10.0.17763
-PSVersion       : 5.1.17763.134
+OSVersion       : 10.0.18363
+PSVersion       : 5.1.18362.145
 Edition         : Desktop
 PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : RemoteSigned
-Culture         : en-US
+Culture         : English (United States)
 ```
 
 ### EXAMPLE 2
@@ -48,17 +48,17 @@ Culture         : en-US
 ```powershell
 PS /home/jhicks> Get-PSWho
 
-User            : jhicks
+User            : jeff
 Elevated        : NA
 Computername    : Bovine320
-OperatingSystem : Linux 4.4.0-17763-Microsoft #253-Microsoft Mon Dec 31 17:49:00 PST 2018
-OSVersion       : Ubuntu 18.04.2 LTS
-PSVersion       : 6.1.2
+OperatingSystem : Linux 4.4.0-18362-Microsoft #476-Microsoft Fri Nov 01 16:53:00 PST 2019
+OSVersion       : Ubuntu 18.04.3 LTS
+PSVersion       : 7.0.0-rc.2
 Edition         : Core
 PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : Unrestricted
-Culture         : en-US-POSIX
+Culture         : Invariant Language (Invariant Country)
 ```
 
 ### EXAMPLE 3
@@ -69,14 +69,14 @@ PS C:\> Get-PSWho
 User            : BOVINE320\Jeff
 Elevated        : True
 Computername    : BOVINE320
-OperatingSystem : Microsoft Windows 10 Pro \[64-bit\]
-OSVersion       : 10.0.16299
-PSVersion       : 6.1.0
+OperatingSystem : Microsoft Windows 10 Pro [64-bit]
+OSVersion       : 10.0.18363
+PSVersion       : 7.0.0-rc.2
 Edition         : Core
 PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : RemoteSigned
-Culture         : en-US
+Culture         : English (United States)
 ```
 
 ### EXAMPLE 4

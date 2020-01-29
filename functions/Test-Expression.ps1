@@ -195,7 +195,7 @@ Function Test-ExpressionForm {
     [alias("texf")]
     Param()
 
-    if ($isWindows) {
+    if ((Test-IsPSWindows)) {
 
         Add-Type -AssemblyName PresentationFramework
 

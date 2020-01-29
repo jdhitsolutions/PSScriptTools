@@ -21,7 +21,7 @@ Function Find-CimClass {
 
     #the command requires CIM cmdlets which won't work on non-Windows platforms.
 
-    if ($isWindows) {
+    if ((Test-IsPSWindows)) {
 
         #define a hashtable of parameters to splat to Write-Progress
         $progParams = @{

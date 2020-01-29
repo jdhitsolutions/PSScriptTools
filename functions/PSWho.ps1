@@ -33,8 +33,8 @@ Function Get-PSWho {
         $lsb = lsb_release -d
         $osver = ($lsb -split ":")[1].Trim()
         $elevated = "NA"
-        $user = $env:USER
-        $computer = $env:NAME
+        $user = [System.Environment]::UserName
+        $computer = [System.Environment]::MachineName
     }
 
     #object properties will be displayed in the order they are listed here
@@ -50,7 +50,7 @@ Function Get-PSWho {
         PSHost          = $host.Name
         WSMan           = $PSVersionTable.WSManStackVersion.ToString()
         ExecutionPolicy = (Get-ExecutionPolicy)
-        Culture         = $host.CurrentCulture
+        Culture         = [System.Globalization.CultureInfo]::CurrentCulture.NativeName
     }
 
     if ($AsString) {

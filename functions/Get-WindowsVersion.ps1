@@ -37,30 +37,32 @@ Function Get-WindowsVersion {
     } #begin
 
     Process {
-        if ((-NOT $IsWindows) -AND ($PSVersionTable.psedition -ne 'Desktop')) {
-            Write-Warning "This requires a Windows platform"
-            #bail out
-            return
-        }
-        Write-Verbose "[PROCESS] Invoking command"
-        if (-Not $PSBoundParameters.ContainsKey("Computername")) {
-            #add the default value if nothing was specified
-            [void]$PSBoundParameters.Add("Computername", $Computername)
-        }
-        $PSBoundParameters | Out-String | Write-Verbose
-        $results = Invoke-Command @PSBoundParameters | Select-Object -Property * -ExcludeProperty RunspaceID, PS*
-        if ($Results) {
-            foreach ($item in $results) {
+        if (Test-IsPSWindows) {
 
-                [pscustomobject]@{
-                    PSTypeName   = "WindowsVersion"
-                    ProductName  = $item.ProductName
-                    EditionID    = $item.EditionID
-                    Build        = $item.Build
-                    InstalledUTC = $item.InstalledUTC
-                    Computername = $item.Computername
+            Write-Verbose "[PROCESS] Invoking command"
+            if (-Not $PSBoundParameters.ContainsKey("Computername")) {
+                #add the default value if nothing was specified
+                [void]$PSBoundParameters.Add("Computername", $Computername)
+            }
+            $PSBoundParameters | Out-String | Write-Verbose
+            $results = Invoke-Command @PSBoundParameters | Select-Object -Property * -ExcludeProperty RunspaceID, PS*
+            if ($Results) {
+                foreach ($item in $results) {
+
+                    [pscustomobject]@{
+                        PSTypeName   = "WindowsVersion"
+                        ProductName  = $item.ProductName
+                        EditionID    = $item.EditionID
+                        Build        = $item.Build
+                        InstalledUTC = $item.InstalledUTC
+                        Computername = $item.Computername
+                    }
                 }
             }
+        }
+        else {
+            Write-Warning "This command requires a Windows platform"
+
         }
 
     } #process
@@ -91,9 +93,7 @@ Function Get-WindowsVersionString {
     )
 
     Begin {
-
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
-
     } #begin
 
     Process {
@@ -102,7 +102,7 @@ Function Get-WindowsVersionString {
 
         #write a version string for each computer
     `   foreach ($result in $results) {
-            "{3} {0} Version {1} (OS Build {2})" -f $result.ProductName, $result.EditionID, $result.build,$result.computername
+            "{3} {0} Version {1} (OS Build {2})" -f $result.ProductName, $result.EditionID, $result.build, $result.computername
         }
 
     } #process

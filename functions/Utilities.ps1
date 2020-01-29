@@ -178,97 +178,99 @@ Function Invoke-InputBox {
         [string]$BackgroundColor = "White"
     )
 
-    if (-Not$IsWindows) {
+    if ((Test-IsPSWindows)) {
+
+        Add-Type -AssemblyName PresentationFramework
+        Add-Type -AssemblyName PresentationCore
+
+        #remove the variable because it might get cached in the ISE or VS Code
+        Remove-Variable -Name myInput -Scope script -ErrorAction SilentlyContinue
+
+        $form = New-Object System.Windows.Window
+        $stack = New-Object System.Windows.Controls.StackPanel
+
+        #define what it looks like
+        $form.Title = $title
+        $form.Height = 150
+        $form.Width = 350
+
+        $form.Background = $BackgroundColor
+
+        $label = New-Object System.Windows.Controls.Label
+        $label.Content = "    $Prompt"
+        $label.HorizontalAlignment = "left"
+        $stack.AddChild($label)
+
+        if ($AsSecureString) {
+            $inputbox = New-Object System.Windows.Controls.PasswordBox
+        }
+        else {
+            $inputbox = New-Object System.Windows.Controls.TextBox
+        }
+
+        $inputbox.Width = 300
+        $inputbox.HorizontalAlignment = "center"
+
+        $stack.AddChild($inputbox)
+
+        $space = New-Object System.Windows.Controls.Label
+        $space.Height = 10
+        $stack.AddChild($space)
+
+        $btn = New-Object System.Windows.Controls.Button
+        $btn.Content = "_OK"
+
+        $btn.Width = 65
+        $btn.HorizontalAlignment = "center"
+        $btn.VerticalAlignment = "bottom"
+
+        #add an event handler
+        $btn.Add_click( {
+                if ($AsSecureString) {
+                    $script:myInput = $inputbox.SecurePassword
+                }
+                else {
+                    $script:myInput = $inputbox.text
+                }
+                $form.Close()
+            })
+
+        $stack.AddChild($btn)
+        $space2 = New-Object System.Windows.Controls.Label
+        $space2.Height = 10
+        $stack.AddChild($space2)
+
+        $btn2 = New-Object System.Windows.Controls.Button
+        $btn2.Content = "_Cancel"
+
+        $btn2.Width = 65
+        $btn2.HorizontalAlignment = "center"
+        $btn2.VerticalAlignment = "bottom"
+
+        #add an event handler
+        $btn2.Add_click( {
+                $form.Close()
+            })
+
+        $stack.AddChild($btn2)
+
+        #add the stack to the form
+        $form.AddChild($stack)
+
+        #show the form
+        [void]$inputbox.Focus()
+        $form.WindowStartupLocation = [System.Windows.WindowStartupLocation]::CenterScreen
+
+        [void]$form.ShowDialog()
+
+        #write the result from the input box back to the pipeline
+        $script:myInput
+    }
+    else {
         Write-Warning "Sorry. This command requires a Windows platform."
         #bail out
         Return
     }
-
-    Add-Type -AssemblyName PresentationFramework
-    Add-Type -AssemblyName PresentationCore
-
-    #remove the variable because it might get cached in the ISE or VS Code
-    Remove-Variable -Name myInput -Scope script -ErrorAction SilentlyContinue
-
-    $form = New-Object System.Windows.Window
-    $stack = New-object System.Windows.Controls.StackPanel
-
-    #define what it looks like
-    $form.Title = $title
-    $form.Height = 150
-    $form.Width = 350
-
-    $form.Background = $BackgroundColor
-
-    $label = New-Object System.Windows.Controls.Label
-    $label.Content = "    $Prompt"
-    $label.HorizontalAlignment = "left"
-    $stack.AddChild($label)
-
-    if ($AsSecureString) {
-        $inputbox = New-Object System.Windows.Controls.PasswordBox
-    }
-    else {
-        $inputbox = New-Object System.Windows.Controls.TextBox
-    }
-
-    $inputbox.Width = 300
-    $inputbox.HorizontalAlignment = "center"
-
-    $stack.AddChild($inputbox)
-
-    $space = new-object System.Windows.Controls.Label
-    $space.Height = 10
-    $stack.AddChild($space)
-
-    $btn = New-Object System.Windows.Controls.Button
-    $btn.Content = "_OK"
-
-    $btn.Width = 65
-    $btn.HorizontalAlignment = "center"
-    $btn.VerticalAlignment = "bottom"
-
-    #add an event handler
-    $btn.Add_click( {
-            if ($AsSecureString) {
-                $script:myInput = $inputbox.SecurePassword
-            }
-            else {
-                $script:myInput = $inputbox.text
-            }
-            $form.Close()
-        })
-
-    $stack.AddChild($btn)
-    $space2 = new-object System.Windows.Controls.Label
-    $space2.Height = 10
-    $stack.AddChild($space2)
-
-    $btn2 = New-Object System.Windows.Controls.Button
-    $btn2.Content = "_Cancel"
-
-    $btn2.Width = 65
-    $btn2.HorizontalAlignment = "center"
-    $btn2.VerticalAlignment = "bottom"
-
-    #add an event handler
-    $btn2.Add_click( {
-            $form.Close()
-        })
-
-    $stack.AddChild($btn2)
-
-    #add the stack to the form
-    $form.AddChild($stack)
-
-    #show the form
-    [void]$inputbox.Focus()
-    $form.WindowStartupLocation = [System.Windows.WindowStartupLocation]::CenterScreen
-
-    [void]$form.ShowDialog()
-
-    #write the result from the input box back to the pipeline
-    $script:myInput
 
 }
 
@@ -321,7 +323,7 @@ Function Set-ConsoleColor {
 
     Process {
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Bound Parameters"
-        $PSBoundParameters| out-string | Write-Verbose
+        $PSBoundParameters | Out-String | Write-Verbose
 
         # ! There are issues with this if PSReadline is running
 
@@ -399,7 +401,7 @@ Function New-RunspaceCleanupJob {
         #you'll see something you can use for debugging or troubleshooting.
         Write-Host "[$(Get-Date)] Sleeping in $sleep second loops"
         Write-Host "Watching this runspace"
-        Write-Host ($ps.runspace | Select-object -property * | Out-String)
+        Write-Host ($ps.runspace | Select-Object -property * | Out-String)
         #loop until the handle shows as completed, sleeping the the specified
         #number of seconds
         do {
@@ -412,7 +414,7 @@ Function New-RunspaceCleanupJob {
         $ps.runspace.Dispose()
         Write-Host "[$(Get-Date)] Disposing PowerShell"
         $ps.dispose()
-        write-host "[$(Get-Date)] Ending job"
+        Write-Host "[$(Get-Date)] Ending job"
     } -ArgumentList $Handle, $PowerShell, $SleepInterval
 
     if ($passthru) {
