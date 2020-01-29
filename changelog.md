@@ -1,5 +1,11 @@
 # Change Log for PSScriptTools
 
+## v2.14.1
+
++ Fixed bug in `Save-GitSetup` that relies on `$IsWindows` (Issue #58). Now this command should work on Windows PowerShell 5.1 as well.
++ Updated help for `Save-GitSetup`
++ Updated help files with missing online links
+
 ## v2.14.0
 
 + Updated `New-PSFormatXML` to support Wide table formats (Issue #55)
