@@ -321,7 +321,7 @@ Use this command to clean and optimize content from text files. Sometimes text f
 
 This command will strip out any lines that are blank or have nothing by white space, and trim leading and trailing spaces. The optimized text is then written back to the pipeline. Optionally, you can specify a property name. This can be useful when your text file is a list of computer names and you want to take advantage of pipeline binding.
 
-### [Get-FileItem](./Get-FileItem.md)
+### [Get-FileItem](docs/Get-FileItem.md)
 
 A PowerShell version of the CLI `where.exe` command. You can search with a simple or regex pattern.
 
@@ -1147,4 +1147,4 @@ You will need to manually install the file.
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will not be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-01-29 20:06:54Z UTC*
+Last Updated *2020-01-30 16:49:22Z UTC*
