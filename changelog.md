@@ -1,5 +1,11 @@
 # Change Log for PSScriptTools
 
+## v2.15.1
+
++ Fixed bug in `Get-FolderSizeInfo` that was returning incorrect data (Issue #60)
++ Updated newer help with online links
++ Updated `README.md`
+
 ## v2.15.0
 
 + Added `Get-FolderSizeInfo` and its alias `gsi` along with a corresponding format.ps1xml file.
