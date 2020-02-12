@@ -1,5 +1,12 @@
 # Change Log for PSScriptTools
 
+## v2.16.0
+
++ Fixed bug in `New-CustomFileName` when using a 24 hour value. (Issue #62)
++ Updated `Test-ExpressionForm` to clear the text results (Issue #61)
++ Updated `Convertto-WPFGrid` to display a refresh message (Issue #43)
++ Updated `foldersizeinfo.format.ps1xml` to include a KB formatted view
+
 ## v2.15.1
 
 + Fixed bug in `Get-FolderSizeInfo` that was returning incorrect data (Issue #60)

@@ -163,5 +163,59 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
         </TableRowEntries>
       </TableControl>
     </View>
+<View>
+  <!--Created 01/29/2020 13:25:45 by BOVINE320\Jeff-->
+  <Name>KB</Name>
+  <ViewSelectedBy>
+    <TypeName>FolderSizeInfo</TypeName>
+  </ViewSelectedBy>
+  <TableControl>
+    <TableHeaders>
+      <TableColumnHeader>
+        <Label>Computername</Label>
+        <Width>15</Width>
+        <Alignment>left</Alignment>
+      </TableColumnHeader>
+      <TableColumnHeader>
+        <Label>Path</Label>
+        <Width>48</Width>
+        <Alignment>left</Alignment>
+      </TableColumnHeader>
+      <TableColumnHeader>
+        <Label>TotalFiles</Label>
+        <Width>13</Width>
+        <Alignment>right</Alignment>
+      </TableColumnHeader>
+      <TableColumnHeader>
+        <Label>TotalSizeKB</Label>
+        <Width>13</Width>
+        <Alignment>right</Alignment>
+      </TableColumnHeader>
+    </TableHeaders>
+    <TableRowEntries>
+      <TableRowEntry>
+        <TableColumnItems>
+          <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+              -->
+          <TableColumnItem>
+            <PropertyName>Computername</PropertyName>
+          </TableColumnItem>
+          <TableColumnItem>
+            <PropertyName>Path</PropertyName>
+          </TableColumnItem>
+          <TableColumnItem>
+            <PropertyName>TotalFiles</PropertyName>
+          </TableColumnItem>
+          <TableColumnItem>
+            <ScriptBlock>[math]::round($_.totalSize /1kb,4)</ScriptBlock>
+          </TableColumnItem>
+        </TableColumnItems>
+      </TableRowEntry>
+    </TableRowEntries>
+  </TableControl>
+</View>
+
   </ViewDefinitions>
 </Configuration>

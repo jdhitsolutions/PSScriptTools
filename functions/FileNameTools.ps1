@@ -107,8 +107,8 @@ You can create a template string using any of these variables, including the % s
         '%month'        = "{0:MM}" -f $now
         '%dayofweek'    = $now.DayOfWeek
         '%day'          = "{0:dd}" -f $now
-        '%hour'         = "{0:hh}" -f $now
         '%hour24'       = "{0:HH}" -f $now
+        '%hour'         = "{0:hh}" -f $now
         '%minute'       = "{0:mm}" -f $now
         '%seconds'      = "{0:ss}" -f $now
         '%time'         = "{0}{1}{2}" -f $now.hour, $now.minute, $now.Second
