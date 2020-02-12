@@ -107,6 +107,15 @@ Function ConvertTo-WPFGrid {
             Add-Type -AssemblyName PresentationFramework
             Add-Type -AssemblyName PresentationCore
 
+                Function _refresh {
+                    #this is a function to refresh a UI element
+                    Param($element)
+
+                    $element.Dispatcher.invoke("render", [action] {})
+                    [System.Threading.Thread]::Sleep(50)
+
+                }
+
             #get maximum available working area on the screen
             $s = [System.Windows.SystemParameters]::WorkArea
 
@@ -150,7 +159,7 @@ Function ConvertTo-WPFGrid {
                     #reserved for future use
                 })
             #Create a grid to hold the datagrid
-            $Grid = new-object System.Windows.Controls.Grid
+            $Grid = New-Object System.Windows.Controls.Grid
 
             $Grid.HorizontalAlignment = "stretch"
             $grid.VerticalAlignment = "stretch"
@@ -168,10 +177,11 @@ Function ConvertTo-WPFGrid {
             $btnRefresh.add_click( {
                     [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
 
-                    $form.Title = "$Title ...refreshing content. Please wait."
+                    $status.Text = "...refreshing content. Please wait."
+                    _refresh $status
 
                     $timer.stop()
-                    start-sleep -seconds 3
+                    Start-Sleep -seconds 3
 
                     $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
 
@@ -295,7 +305,7 @@ Function ConvertTo-WPFGrid {
                                 $script:count = $timeout
                                 $script:now = Get-Date
                                 [datetime]$script:terminate = $now.AddSeconds($timeout)
-                                $ts = new-timespan -Seconds $script:count
+                                $ts = New-TimeSpan -Seconds $script:count
                                 $status.text = " Last updated $script:Now - refresh in $($ts.tostring()) seconds"
                                 $Timer.Start()
                                 $form.title = $Title

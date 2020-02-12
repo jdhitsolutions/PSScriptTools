@@ -47,8 +47,8 @@ Function _TestMe {
     }
 
     $TestResults = $TestData |
-    Measure-Object -Property TotalMilliseconds -Average -Maximum -Minimum |
-    Select-Object -Property @{Name = "Tests"; Expression = { $_.Count } },
+        Measure-Object -Property TotalMilliseconds -Average -Maximum -Minimum |
+        Select-Object -Property @{Name = "Tests"; Expression = { $_.Count } },
     @{Name = "TestInterval"; Expression = { $TestInterval } },
     @{Name = "AverageMS"; Expression = { $_.Average } },
     @{Name = "MinimumMS"; Expression = { $_.Minimum } },
@@ -198,6 +198,7 @@ Function Test-ExpressionForm {
     if ((Test-IsPSWindows)) {
 
         Add-Type -AssemblyName PresentationFramework
+        Add-Type -assemblyName PresentationCore
 
         [xml]$xaml = Get-Content $psscriptroot\form.xaml
 
@@ -237,11 +238,24 @@ Function Test-ExpressionForm {
 
         $quit.add_click( { $form.close() })
 
+        Function _refresh {
+            #this is a function to refresh a UI element
+            Param($element)
+
+            $element.Dispatcher.invoke("render", [action]{})
+            [System.Threading.Thread]::Sleep(50)
+
+        }
+
         $run.add_click( {
+
+                $results.text = "Testing...please wait"
+                _refresh $results
 
                 #uncomment for troubleshooting
                 #write-host "running" -ForegroundColor green
 
+                $form.Dispatcher.invoke([action]{
                 if ($sb.Text -notmatch "\w") {
                     Write-Warning "You must enter something to test!"
                     Return
@@ -272,10 +286,16 @@ Function Test-ExpressionForm {
                 #uncomment for troubleshooting
                 #$params | out-string | write-host -ForegroundColor cyan
 
-                $script:out = Test-Expression @params
-
-                $results.text = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
+                $script:out = Test-Expression @params -errorvariable ev
+                if ($script:out) {
+                    $data = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
+                }
+                else {
+                    $data = $ev.exception[0].message
+                }
+                $results.text = $data
                 $form.Cursor = [System.Windows.Input.Cursors]::Default
+                })
             })
 
         [void]$sb.Focus()
