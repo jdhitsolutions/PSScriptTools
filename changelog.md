@@ -1,5 +1,13 @@
 # Change Log for PSScriptTools
 
+## v2.17.0
+
++ Updated `Get-FolderSizeInfo` to handle directory names like `[data]` (Issue #65)
++ Updated `Get-FolderSizeInfo` to show a TotalSize of 0 for empty directories (Issue #64)
++ Cleaned up code in `Get-FolderSizeInfo` script file now that it is part of this module.
++ Added `Test-EmptyFolder`
++ Updated `README.md`
+
 ## v2.16.0
 
 + Fixed bug in `New-CustomFileName` when using a 24 hour value. (Issue #62)

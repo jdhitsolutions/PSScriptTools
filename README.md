@@ -294,6 +294,27 @@ Results will vary depending on whether you are running PowerShell on Windows nor
 
 ## File Tools
 
+### [Test-EmptyFolder](docs/Test-EmptyFolder.md)
+
+This command will test if a given folder path is empty of all files anywhere in the path.
+This includes hidden files.
+The command will return True even if there are empty sub-folders.
+The default output is True or False but you can use -Passthru to get more information.
+
+```powershell
+PS C:\> Get-Childitem c:\work -Directory | test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
+What if: Performing the operation "Remove Directory" on target "C:\work\demo3".
+What if: Performing the operation "Remove Directory" on target "C:\work\installers".
+What if: Performing the operation "Remove Directory" on target "C:\work\new".
+What if: Performing the operation "Remove Directory" on target "C:\work\sqlback".
+What if: Performing the operation "Remove Directory" on target "C:\work\todd".
+What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
+```
+
+Find all empty sub-folders under C:\Work and pipe them to Remove-Item.
+This is one way to remove empty folders.
+The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work\[data] is a non-standard path.
+
 ### [Get-FolderSizeInfo](docs/Get-FolderSizeInfo.md)
 
 Use this command to quickly get the size of a folder. You also have an option to include hidden files. The command will measure all files in all subdirectories. The command includes a format file with additional view to display the total size in MB or GB.
@@ -1145,6 +1166,6 @@ You will need to manually install the file.
 
 ## Compatibility
 
-Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will not be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
+Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-02-12 19:38:27Z UTC*
+Last Updated *2020-02-26 15:10:48Z UTC*
