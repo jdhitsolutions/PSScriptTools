@@ -1,4 +1,3 @@
-#requires -version 5.1
 
 Function Get-FolderSizeInfo {
 
@@ -17,15 +16,14 @@ Function Get-FolderSizeInfo {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
-
     } #Begin
 
     Process {
         foreach ($item in $path) {
-            $cPath = (Convert-Path $item)
+            $cPath = (Convert-Path -literalpath $item)
             Write-Verbose "Measuring $cPath on $([System.Environment]::MachineName)"
 
-            if (Test-Path $cPath) {
+            if (Test-Path -literalpath $cPath) {
 
                 $d = [System.IO.DirectoryInfo]::new($cPath)
 
@@ -48,13 +46,13 @@ Function Get-FolderSizeInfo {
                         $files = $d.GetFiles("*","AllDirectories")
                     }
                     else {
-
                         $files = ($d.GetFiles()).Where({$_.attributes -notmatch "hidden"})
                         #a function to recurse and get all non-hidden directories
                         Function _enumdir {
                             [cmdletbinding()]
                             Param([string]$Path)
                             # write-host $path -ForegroundColor cyan
+                            $path = Convert-Path -literalpath $path
                             $di = [System.IO.DirectoryInfo]::new($path)
                             $top = ($di.GetDirectories()).Where({$_.attributes -notmatch "hidden"})
                             $top
@@ -71,15 +69,24 @@ Function Get-FolderSizeInfo {
                     } #get non-hidden files
                 }
 
-                Write-Verbose "Found $($files.count) files"
-                $stats = $files | Measure-Object -property length -sum
+                If ($files.count -gt 0) {
+                    Write-Verbose "Found $($files.count) files"
+                    $stats = $files | Measure-Object -property length -sum
+                    $totalFiles = $stats.count
+                    $totalSize = $stats.sum
+                }
+                else {
+                    Write-Verbose "Found an empty folder"
+                    $totalFiles = 0
+                    $totalSize = 0
+                }
 
                 [pscustomobject]@{
                     PSTypename   = "FolderSizeInfo"
                     Computername = [System.Environment]::MachineName
                     Path         = $cPath
-                    TotalFiles   = $stats.Count
-                    TotalSize    = $stats.Sum
+                    TotalFiles   = $totalFiles
+                    TotalSize    = $totalSize
                 }
             }
             else {
@@ -93,9 +100,3 @@ Function Get-FolderSizeInfo {
     }
 } #close function
 
-#load format data file if found
-$fmt = "$PSScriptRoot\FolderSizeInfo.format.ps1xml"
-
-if (Test-Path $fmt) {
-Update-FormatData -AppendPath $fmt
-}

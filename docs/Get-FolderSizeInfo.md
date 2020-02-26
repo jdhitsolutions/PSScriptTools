@@ -19,7 +19,7 @@ Get-FolderSizeInfo [-Path] <String[]> [-Hidden] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all subfolders.
+This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all sub-folders.
 
 ## EXAMPLES
 
@@ -73,7 +73,7 @@ Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items 
 
 ### -Hidden
 
-Include hidden directories
+Include hidden directories.
 
 ```yaml
 Type: SwitchParameter
@@ -121,6 +121,8 @@ Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
+[Test-EmptyFolder]()
 
 [Get-Childitem]()
 
