@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Set the console title text
+Set the console title text.
 
 ## SYNTAX
 

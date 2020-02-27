@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-A PowerShell version of the Where CLI command
+A PowerShell version of the Where CLI command.
 
 ## SYNTAX
 

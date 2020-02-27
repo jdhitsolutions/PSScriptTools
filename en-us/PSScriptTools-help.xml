@@ -534,7 +534,7 @@ Get-EventLog @paramHash</dev:code>
       <command:verb>Convert</command:verb>
       <command:noun>EventLogRecord</command:noun>
       <maml:description>
-        <maml:para>Convert EventLogRecords to structured objects</maml:para>
+        <maml:para>Convert EventLogRecords to structured objects.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -930,7 +930,7 @@ PS C:\&gt; convert-hashtabletocode $h
       <command:verb>ConvertFrom</command:verb>
       <command:noun>LexicalTimespan</command:noun>
       <maml:description>
-        <maml:para>Convert a lexical timespan into a PowerShell timespan</maml:para>
+        <maml:para>Convert a lexical timespan into a PowerShell timespan.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1403,7 +1403,7 @@ IPAddress                         MAC                              Type
       <command:verb>ConvertFrom</command:verb>
       <command:noun>UTCTime</command:noun>
       <maml:description>
-        <maml:para>Convert a datetime value from universal</maml:para>
+        <maml:para>Convert a datetime value from universal.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -1789,7 +1789,7 @@ P7D</dev:code>
       <command:verb>ConvertTo</command:verb>
       <command:noun>LocalTime</command:noun>
       <maml:description>
-        <maml:para>Convert a foreign time to local</maml:para>
+        <maml:para>Convert a foreign time to local.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -2949,7 +2949,7 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvaria
       <command:verb>Find</command:verb>
       <command:noun>CimClass</command:noun>
       <maml:description>
-        <maml:para>Search CIM for a class</maml:para>
+        <maml:para>Search CIM for a class.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -3879,7 +3879,7 @@ $3,456.57</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>FileItem</command:noun>
       <maml:description>
-        <maml:para>A PowerShell version of the Where CLI command</maml:para>
+        <maml:para>A PowerShell version of the Where CLI command.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -4143,7 +4143,7 @@ Mode                LastWriteTime     Length Name
       <command:verb>Get</command:verb>
       <command:noun>FolderSizeInfo</command:noun>
       <maml:description>
-        <maml:para>Get folder size information</maml:para>
+        <maml:para>Get folder size information.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -4244,7 +4244,6 @@ BOVINE320       D:\temp                                                     48  
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-FolderSizeInfo -Path d:\temp -hidden
 
-
 Computername    Path                                                TotalFiles     TotalSize
 ------------    ----                                                ----------     ---------
 BOVINE320       D:\temp                                                    146     125655552</dev:code>
@@ -4273,6 +4272,23 @@ BOVINE320       D:\2016                                                      5  
           <maml:para>Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater an 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There is also a view called GB.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden | Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
+
+
+   Path: C:\work
+
+Name                    TotalFiles      TotalKB
+----                    ----------      -------
+A                               20    5843.9951
+keepass                         15     5839.084
+PowerShellBooks                 26    4240.3779
+sunday                          47   24540.6523</dev:code>
+        <dev:remarks>
+          <maml:para>Get all sub-folders under C:\work greater than 2MB in size and display using the Name table view.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -4284,7 +4300,7 @@ BOVINE320       D:\2016                                                      5  
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>Get-Childitem</maml:linkText>
+        <maml:linkText>Get-ChildItem</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
@@ -4299,7 +4315,7 @@ BOVINE320       D:\2016                                                      5  
       <command:verb>Get</command:verb>
       <command:noun>MyTimeInfo</command:noun>
       <maml:description>
-        <maml:para>Display a time settings for a collection of locations</maml:para>
+        <maml:para>Display a time settings for a collection of locations.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -4587,7 +4603,7 @@ Now                 Home                 Seattle              New Zealand
       <command:verb>Get</command:verb>
       <command:noun>MyVariable</command:noun>
       <maml:description>
-        <maml:para>Get all user defined variables</maml:para>
+        <maml:para>Get all user defined variables.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -5238,6 +5254,110 @@ PowerShell : /home/jeff/.config/powershell</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-PSScriptTools</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSScriptTools</command:noun>
+      <maml:description>
+        <maml:para>Get a summary of PSScriptTools commands.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>You can use this command to get a summary display of functions included in the PSScriptTools module.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSScriptTools</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSScriptTool</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSScriptTools
+
+
+   Verb: Add
+
+Name                        Alias                Synopsis
+----                        -----                --------
+Add-Border                                       Create a text border around a string.
+
+
+   Verb: Compare
+
+Name                        Alias                Synopsis
+----                        -----                --------
+Compare-Module              cmo                  Compare PowerShell module versions.
+
+
+   Verb: Convert
+
+Name                        Alias                Synopsis
+----                        -----                --------
+Convert-CommandtoHashtable                       Convert a PowerShell expression into a hashtable.
+Convert-EventLogRecord      clr                  Convert EventLogRecords to structured objects
+Convert-HashtableString                          Convert a hashtable string into a hashtable object.
+Convert-HashTableToCode                          Convert a hashtable to a string representation.
+...</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSScriptTools | Where-object alias | Select-Object Name,alias,Synopsis
+
+Name                   Alias Synopsis
+----                   ----- --------
+Compare-Module         cmo   Compare PowerShell module versions.
+Convert-EventLogRecord clr   Convert EventLogRecords to structured objects
+ConvertFrom-Text       cft   Convert structured text to objects.
+ConvertFrom-UTCTime    frut  Convert a datetime value from universal
+ConvertTo-LocalTime    clt   Convert a foreign time to local
+...</dev:code>
+        <dev:remarks>
+          <maml:para>List commands with defined aliases in the PSScriptTools module.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-Command</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Module</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-PSWho</command:name>
       <command:verb>Get</command:verb>
       <command:noun>PSWho</command:noun>
@@ -5407,7 +5527,7 @@ Culture         : English (United States)</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>TZData</command:noun>
       <maml:description>
-        <maml:para>Get time zone details</maml:para>
+        <maml:para>Get time zone details.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -5582,7 +5702,7 @@ Friday, March 15, 2019 11:00:00 AM</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>TZList</command:noun>
       <maml:description>
-        <maml:para>Get a list of time zone areas</maml:para>
+        <maml:para>Get a list of time zone areas.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -5731,7 +5851,7 @@ Atlantic/Stanley</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>WhoIs</command:noun>
       <maml:description>
-        <maml:para>Lookup WhoIS data for a given IPv4 Address</maml:para>
+        <maml:para>Lookup WhoIS data for a given IPv4 address.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -5842,7 +5962,7 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
       <command:verb>Get</command:verb>
       <command:noun>WindowsVersion</command:noun>
       <maml:description>
-        <maml:para>Get Windows version information</maml:para>
+        <maml:para>Get Windows version information.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -6044,9 +6164,12 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt;Get-WindowsVersion
 
-ProductName    EditionID    Build     InstalledUTC          Computername
------------    ---------    -----     ------------          ------------
-Windows 10 Pro Professional 17763.253 12/17/2018 2:18:37 PM BOVINE320</dev:code>
+
+   Computername: BOVINE320
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows 10 Pro                 Professional         1909       18363  7/5/2019 10:54:49 PM</dev:code>
         <dev:remarks>
           <maml:para>Query the local host.</maml:para>
         </dev:remarks>
@@ -6055,13 +6178,45 @@ Windows 10 Pro Professional 17763.253 12/17/2018 2:18:37 PM BOVINE320</dev:code>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
 
-ProductName                   EditionID          Build      InstalledUTC          Computername
------------                   ---------          -----      ------------          ------------
-Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:08:07 PM SRV2
-Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:07:25 PM SRV1
-Windows 10 Enterprise Evaluat EnterpriseEval     15063.1418 12/26/2018 4:08:11 PM WIN10</dev:code>
+   Computername: WIN10
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows 10 Enterprise          EnterpriseEval       1903       18362  2/6/2020 5:28:34 PM
+Evaluation
+
+
+   Computername: SRV1
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:27:42 PM
+Evaluation
+
+
+   Computername: SRV2
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:28:13 PM
+Evaluation</dev:code>
         <dev:remarks>
           <maml:para>Get windows version information from remote computers using an alternate credential.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; get-windowsversion -Computername Dom1 | Select-Object *
+
+ProductName  : Windows Server 2016 Standard Evaluation
+EditionID    : ServerStandardEval
+ReleaseID    : 1607
+Build        : 14393.3474
+Branch       : rs1_release
+InstalledUTC : 2/6/2020 5:18:50 PM
+Computername : DOM1</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -6086,7 +6241,7 @@ Windows 10 Enterprise Evaluat EnterpriseEval     15063.1418 12/26/2018 4:08:11 P
       <command:verb>Get</command:verb>
       <command:noun>WindowsVersionString</command:noun>
       <maml:description>
-        <maml:para>Get Windows version information</maml:para>
+        <maml:para>Get Windows version information.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -7199,7 +7354,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:verb>New</command:verb>
       <command:noun>PSFormatXML</command:noun>
       <maml:description>
-        <maml:para>Create or modify a format.ps1xml file</maml:para>
+        <maml:para>Create or modify a format.ps1xml file.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -9019,7 +9174,7 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
       <command:verb>Remove</command:verb>
       <command:noun>Runspace</command:noun>
       <maml:description>
-        <maml:para>Remove a runspace from your session</maml:para>
+        <maml:para>Remove a runspace from your session.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -9563,7 +9718,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
       <command:verb>Save</command:verb>
       <command:noun>GitSetup</command:noun>
       <maml:description>
-        <maml:para>Download the latest 64bit version of Git for Windows</maml:para>
+        <maml:para>Download the latest 64bit version of Git for Windows.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -10112,7 +10267,7 @@ Mode                LastWriteTime         Length Name
       <command:verb>Set</command:verb>
       <command:noun>ConsoleColor</command:noun>
       <maml:description>
-        <maml:para>Set the PowerShell console color</maml:para>
+        <maml:para>Set the PowerShell console color.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -10352,7 +10507,7 @@ Mode                LastWriteTime         Length Name
       <command:verb>Set</command:verb>
       <command:noun>ConsoleTitle</command:noun>
       <maml:description>
-        <maml:para>Set the console title text</maml:para>
+        <maml:para>Set the console title text.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -10846,7 +11001,7 @@ WSMan:\
       <command:verb>Test</command:verb>
       <command:noun>EmptyFolder</command:noun>
       <maml:description>
-        <maml:para>Test if a folder is empty of files</maml:para>
+        <maml:para>Test if a folder is empty of files.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -10979,6 +11134,10 @@ What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/2Vtk3ew</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-FolderSizeInfo</maml:linkText>
         <maml:uri></maml:uri>
@@ -11488,7 +11647,7 @@ OS           : Microsoft Windows 8.1 Enterprise</dev:code>
       <command:verb>Test</command:verb>
       <command:noun>IsPSWindows</command:noun>
       <maml:description>
-        <maml:para>Test if running PowerShell on a Windows platform</maml:para>
+        <maml:para>Test if running PowerShell on a Windows platform.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -11548,7 +11707,7 @@ True</dev:code>
       <command:verb>Test</command:verb>
       <command:noun>WithCulture</command:noun>
       <maml:description>
-        <maml:para>Test your PowerShell code under a different culture</maml:para>
+        <maml:para>Test your PowerShell code under a different culture.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>

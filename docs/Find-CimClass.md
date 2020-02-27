@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Search CIM for a class
+Search CIM for a class.
 
 ## SYNTAX
 

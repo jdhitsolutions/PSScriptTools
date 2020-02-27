@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Convert EventLogRecords to structured objects
+Convert EventLogRecords to structured objects.
 
 ## SYNTAX
 

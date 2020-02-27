@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Set the PowerShell console color
+Set the PowerShell console color.
 
 ## SYNTAX
 

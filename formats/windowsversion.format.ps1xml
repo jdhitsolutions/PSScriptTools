@@ -11,43 +11,44 @@ by BOVINE320\Jeff
       <ViewSelectedBy>
         <TypeName>WindowsVersion</TypeName>
       </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>Computername</PropertyName>
+      </GroupBy>
       <TableControl>
-        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <!--Delete the AutoSize node if you want to use the defined widths.
         <AutoSize />
+        -->
         <TableHeaders>
           <TableColumnHeader>
             <Label>ProductName</Label>
-            <Width>17</Width>
+            <Width>30</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>EditionID</Label>
-            <Width>15</Width>
+            <Width>20</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ReleaseID</Label>
+            <Width>10</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Build</Label>
-            <Width>12</Width>
+            <Width>6</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>InstalledUTC</Label>
-            <Width>24</Width>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Computername</Label>
-            <Width>15</Width>
+            <Width>21</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
+          <Wrap/>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <Scriptblock>$_.foo /1mb -as [int]</Scriptblock>
--->
               <TableColumnItem>
                 <PropertyName>ProductName</PropertyName>
               </TableColumnItem>
@@ -55,13 +56,13 @@ by BOVINE320\Jeff
                 <PropertyName>EditionID</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Build</PropertyName>
+                <PropertyName>ReleaseID</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <Scriptblock>($_.Build -split "\.")[0]</Scriptblock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>InstalledUTC</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Computername</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

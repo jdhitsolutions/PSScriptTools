@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Lookup WhoIS data for a given IPv4 Address
+Lookup WhoIS data for a given IPv4 address.
 
 ## SYNTAX
 

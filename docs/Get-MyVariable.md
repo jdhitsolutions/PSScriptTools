@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get all user defined variables
+Get all user defined variables.
 
 ## SYNTAX
 

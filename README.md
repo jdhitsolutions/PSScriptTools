@@ -28,6 +28,55 @@ Please post any questions, problems or feedback in [Issues](https://github.com/j
 
 ## General Tools
 
+### [Get-PSScriptTools](docs/Get-PSScriptTools.md)
+
+You can use this command to get a summary list of functions in this module.
+
+```powershell
+
+PS C:\> Get-PSScriptTools
+
+
+   Verb: Add
+
+Name                        Alias                Synopsis
+----                        -----                --------
+Add-Border                                       Create a text border around a string.
+
+
+   Verb: Compare
+
+Name                        Alias                Synopsis
+----                        -----                --------
+Compare-Module              cmo                  Compare PowerShell module versions.
+
+
+   Verb: Convert
+
+Name                        Alias                Synopsis
+----                        -----                --------
+Convert-CommandtoHashtable                       Convert a PowerShell expression into a hashtable.
+Convert-EventLogRecord      clr                  Convert EventLogRecords to structured objects
+Convert-HashtableString                          Convert a hashtable string into a hashtable object.
+Convert-HashTableToCode                          Convert a hashtable to a string representation.
+...
+```
+
+Here's another way you could use this command to list functions with defined aliases in the PSScriptTools module.
+
+```powershell
+PS C:\> Get-PSScriptTools | Where-object alias | Select-Object Name,alias,Synopsis
+
+Name                   Alias Synopsis
+----                   ----- --------
+Compare-Module         cmo   Compare PowerShell module versions.
+Convert-EventLogRecord clr   Convert EventLogRecords to structured objects
+ConvertFrom-Text       cft   Convert structured text to objects.
+ConvertFrom-UTCTime    frut  Convert a datetime value from universal
+ConvertTo-LocalTime    clt   Convert a foreign time to local
+...
+```
+
 ### [Convert-EventLogRecord](docs/Convert-EventLogRecord.md)
 
 When you use [Get-WinEvent](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7&WT.mc_id=ps-gethelp), the results are objects you can work with in PowerShell.
@@ -115,13 +164,43 @@ This example compares modules and send results to `Out-Gridview`. Use `Out-Gridv
 This is a PowerShell version of the `winver.exe` utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.
 
 ```powershell
-PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
+   Computername: WIN10
 
-ProductName                   EditionID          ReleaseId Build      InstalledUTC          Computername
------------                   ---------          --------- -----      ------------          ------------
-Windows Server 2016 Standard  ServerStandardEval 1607      14393.2273 12/26/2018 4:07:25 PM SRV1
-Windows Server 2016 Standard  ServerStandardEval 1607      14393.2273 12/26/2018 4:08:07 PM SRV2
-Windows 10 Enterprise Evaluat EnterpriseEval     1703      15063.1387 12/26/2018 4:08:11 PM WIN10
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows 10 Enterprise          EnterpriseEval       1903       18362  2/6/2020 5:28:34 PM
+Evaluation
+
+
+   Computername: SRV1
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:27:42 PM
+Evaluation
+
+
+   Computername: SRV2
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:28:13 PM
+Evaluation
+```
+
+The output has a default table view but there are other properties you might want to use.
+
+```powershell
+PS C:\> get-windowsversion | Select-object *
+
+
+ProductName  : Windows 10 Pro
+EditionID    : Professional
+ReleaseID    : 1909
+Build        : 18363.657
+Branch       : 19h1_release
+InstalledUTC : 7/5/2019 10:54:49 PM
+Computername : BOVINE320
 ```
 
 #### [Get-WindowsVersionString](docs/Get-WindowsVersionString.md)
@@ -130,7 +209,7 @@ This command is a variation of `Get-WindowsVersion` that returns a formatted str
 
 ```powershell
 PS C:\> Get-WindowsVersionString
-BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)
+BOVINE320 Windows 10 Pro Version Professional (OS Build 18363.657)
 
 ```
 
@@ -317,7 +396,24 @@ The example is piping objects to ForEach-Object so that Remove-Item can use the 
 
 ### [Get-FolderSizeInfo](docs/Get-FolderSizeInfo.md)
 
-Use this command to quickly get the size of a folder. You also have an option to include hidden files. The command will measure all files in all subdirectories. The command includes a format file with additional view to display the total size in MB or GB.
+Use this command to quickly get the size of a folder. You also have an option to include hidden files. The command will measure all files in all subdirectories.
+
+```powershell
+PS C:\> get-foldersizeinfo c:\work
+
+Computername    Path                                                TotalFiles     TotalSize
+------------    ----                                                ----------     ---------
+BOVINE320       C:\work                                                    931     137311146
+
+
+PS C:\> get-foldersizeinfo c:\work -Hidden
+
+Computername    Path                                                TotalFiles     TotalSize
+------------    ----                                                ----------     ---------
+BOVINE320       C:\work                                                   1375     137516856
+```
+
+ The command includes a format file with additional view to display the total size in KB, MB or GB.
 
 ```powershell
 PS C:\> Get-Childitem D:\ -Directory | Get-FolderSizeInfo -Hidden | Where-Object TotalSize -gt 1gb | Sort-Object TotalSize -Descending | format-table -View gb
@@ -334,6 +430,22 @@ BOVINE320       D:\2016                                                   1130  
 BOVINE320       D:\video                                                   125         2.592
 BOVINE320       D:\blog                                                  21804        1.1347
 BOVINE320       D:\pstranscripts                                        122092        1.0914
+```
+
+Or you can use the `name` view.
+
+```powershell
+PS C:\> Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden | Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
+
+
+   Path: C:\work
+
+Name                    TotalFiles      TotalKB
+----                    ----------      -------
+A                               20    5843.9951
+keepass                         15     5839.084
+PowerShellBooks                 26    4240.3779
+sunday                          47   24540.6523
 ```
 
 ### [Optimize-Text](docs/Optimize-Text.md)
@@ -1168,4 +1280,4 @@ You will need to manually install the file.
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-02-26 15:10:48Z UTC*
+Last Updated *2020-02-27 16:34:43Z UTC*

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Test your PowerShell code under a different culture
+Test your PowerShell code under a different culture.
 
 ## SYNTAX
 

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get time zone details
+Get time zone details.
 
 ## SYNTAX
 

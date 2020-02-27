@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: http://bit.ly/2Vtk3ew
 schema: 2.0.0
 ---
 
@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Test if a folder is empty of files
+Test if a folder is empty of files.
 
 ## SYNTAX
 
@@ -124,5 +124,4 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[Get-FolderSizeInfo]
-()
+[Get-FolderSizeInfo]()

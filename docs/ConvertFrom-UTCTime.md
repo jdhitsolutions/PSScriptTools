@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Convert a datetime value from universal
+Convert a datetime value from universal.
 
 ## SYNTAX
 

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create or modify a format.ps1xml file
+Create or modify a format.ps1xml file.
 
 ## SYNTAX
 
