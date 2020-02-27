@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Remove a runspace from your session
+Remove a runspace from your session.
 
 ## SYNTAX
 

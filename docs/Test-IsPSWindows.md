@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Test if running PowerShell on a Windows platform
+Test if running PowerShell on a Windows platform.
 
 ## SYNTAX
 

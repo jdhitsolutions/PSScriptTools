@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Display a time settings for a collection of locations
+Display a time settings for a collection of locations.
 
 ## SYNTAX
 

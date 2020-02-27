@@ -37,16 +37,16 @@ Function Get-FolderSizeInfo {
                         $opt.AttributesToSkip = "SparseFile", "ReparsePoint"
                     }
 
-                    $files = $d.GetFiles("*",$opt)
+                    $files = $d.GetFiles("*", $opt)
                 } #if newer that Windows PowerShell 5.1
                 else {
                     Write-Verbose "Using legacy code"
                     if ($hidden) {
                         Write-Verbose "Including hidden files"
-                        $files = $d.GetFiles("*","AllDirectories")
+                        $files = $d.GetFiles("*", "AllDirectories")
                     }
                     else {
-                        $files = ($d.GetFiles()).Where({$_.attributes -notmatch "hidden"})
+                        $files = ($d.GetFiles()).Where( {$_.attributes -notmatch "hidden"})
                         #a function to recurse and get all non-hidden directories
                         Function _enumdir {
                             [cmdletbinding()]
@@ -54,7 +54,7 @@ Function Get-FolderSizeInfo {
                             # write-host $path -ForegroundColor cyan
                             $path = Convert-Path -literalpath $path
                             $di = [System.IO.DirectoryInfo]::new($path)
-                            $top = ($di.GetDirectories()).Where({$_.attributes -notmatch "hidden"})
+                            $top = ($di.GetDirectories()).Where( {$_.attributes -notmatch "hidden"})
                             $top
                             foreach ($t in $top) {
                                 _enumdir $t.fullname
@@ -65,7 +65,7 @@ Function Get-FolderSizeInfo {
                         $all = _enumdir $cpath
                         #get the files in each subfolder
                         Write-Verbose "Getting files from subfolders"
-                        ($all).Foreach({ $files+= ([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles() | where-object {$_.Attributes -notmatch "Hidden"}})
+                        ($all).Foreach( { $files += ([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles() | where-object {$_.Attributes -notmatch "Hidden"}})
                     } #get non-hidden files
                 }
 
@@ -85,6 +85,7 @@ Function Get-FolderSizeInfo {
                     PSTypename   = "FolderSizeInfo"
                     Computername = [System.Environment]::MachineName
                     Path         = $cPath
+                    Name         = $(Split-Path $cpath -leaf)
                     TotalFiles   = $totalFiles
                     TotalSize    = $totalSize
                 }

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get Windows version information
+Get Windows version information.
 
 ## SYNTAX
 

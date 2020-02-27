@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get Windows version information
+Get Windows version information.
 
 ## SYNTAX
 
@@ -29,10 +29,12 @@ This is a PowerShell version of the winver.exe utility. This command uses PowerS
 ```powershell
 PS C:\>Get-WindowsVersion
 
-ProductName    EditionID    Build     InstalledUTC          Computername
------------    ---------    -----     ------------          ------------
-Windows 10 Pro Professional 17763.253 12/17/2018 2:18:37 PM BOVINE320
 
+   Computername: BOVINE320
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows 10 Pro                 Professional         1909       18363  7/5/2019 10:54:49 PM
 ```
 
 Query the local host.
@@ -42,14 +44,45 @@ Query the local host.
 ```powershell
 PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
 
-ProductName                   EditionID          Build      InstalledUTC          Computername
------------                   ---------          -----      ------------          ------------
-Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:08:07 PM SRV2
-Windows Server 2016 Standard  ServerStandardEval 14393.2273 12/26/2018 4:07:25 PM SRV1
-Windows 10 Enterprise Evaluat EnterpriseEval     15063.1418 12/26/2018 4:08:11 PM WIN10
+   Computername: WIN10
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows 10 Enterprise          EnterpriseEval       1903       18362  2/6/2020 5:28:34 PM
+Evaluation
+
+
+   Computername: SRV1
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:27:42 PM
+Evaluation
+
+
+   Computername: SRV2
+
+ProductName                    EditionID            ReleaseID  Build  InstalledUTC
+-----------                    ---------            ---------  -----  ------------
+Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:28:13 PM
+Evaluation
 ```
 
 Get windows version information from remote computers using an alternate credential.
+
+### Example 3
+
+```powershell
+PS C:\> get-windowsversion -Computername Dom1 | Select-Object *
+
+ProductName  : Windows Server 2016 Standard Evaluation
+EditionID    : ServerStandardEval
+ReleaseID    : 1607
+Build        : 14393.3474
+Branch       : rs1_release
+InstalledUTC : 2/6/2020 5:18:50 PM
+Computername : DOM1
+```
 
 ## PARAMETERS
 

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get a list of time zone areas
+Get a list of time zone areas.
 
 ## SYNTAX
 

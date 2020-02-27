@@ -24,7 +24,7 @@ Function Get-WindowsVersion {
         $sb = {
             $RegPath = 'HKLM:\SOFTWARE\Microsoft\Windows nt\CurrentVersion\'
 
-            Get-ItemProperty -Path $RegPath | Select-Object -Property ProductName, EditionID, ReleaseID,
+            Get-ItemProperty -Path $RegPath | Select-Object -Property ProductName, EditionID, ReleaseID, BuildBranch,
             @{Name = "Build"; Expression = {"$($_.CurrentBuild).$($_.UBR)"}},
             @{Name = "InstalledUTC"; Expression = { ([datetime]"1/1/1601").AddTicks($_.InstallTime) }},
             @{Name = "Computername"; Expression = {$env:computername}}
@@ -53,7 +53,9 @@ Function Get-WindowsVersion {
                         PSTypeName   = "WindowsVersion"
                         ProductName  = $item.ProductName
                         EditionID    = $item.EditionID
+                        ReleaseID    = $item.ReleaseID
                         Build        = $item.Build
+                        Branch       = $item.BuildBranch
                         InstalledUTC = $item.InstalledUTC
                         Computername = $item.Computername
                     }
@@ -62,7 +64,6 @@ Function Get-WindowsVersion {
         }
         else {
             Write-Warning "This command requires a Windows platform"
-
         }
 
     } #process

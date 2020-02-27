@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get folder size information
+Get folder size information.
 
 ## SYNTAX
 
@@ -38,7 +38,6 @@ BOVINE320       D:\temp                                                     48  
 ```powershell
 PS C:\> Get-FolderSizeInfo -Path d:\temp -hidden
 
-
 Computername    Path                                                TotalFiles     TotalSize
 ------------    ----                                                ----------     ---------
 BOVINE320       D:\temp                                                    146     125655552
@@ -64,10 +63,27 @@ BOVINE320       D:\BackTemp                                                  2  
 BOVINE320       D:\rip                                                       3       11.1546
 BOVINE320       D:\logs                                                    134        3.9517
 BOVINE320       D:\2016                                                      5        1.5608
-
 ```
 
 Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater an 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There is also a view called GB.
+
+### Example 4
+
+```powershell
+PS C:\> Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden | Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
+
+
+   Path: C:\work
+
+Name                    TotalFiles      TotalKB
+----                    ----------      -------
+A                               20    5843.9951
+keepass                         15     5839.084
+PowerShellBooks                 26    4240.3779
+sunday                          47   24540.6523
+```
+
+Get all sub-folders under C:\work greater than 2MB in size and display using the Name table view.
 
 ## PARAMETERS
 
@@ -124,6 +140,6 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 [Test-EmptyFolder]()
 
-[Get-Childitem]()
+[Get-ChildItem]()
 
 [Measure-Object]()

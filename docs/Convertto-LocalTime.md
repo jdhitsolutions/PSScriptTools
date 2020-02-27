@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Convert a foreign time to local
+Convert a foreign time to local.
 
 ## SYNTAX
 

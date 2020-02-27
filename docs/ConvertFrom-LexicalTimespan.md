@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Convert a lexical timespan into a PowerShell timespan
+Convert a lexical timespan into a PowerShell timespan.
 
 ## SYNTAX
 

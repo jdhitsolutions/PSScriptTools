@@ -1,5 +1,18 @@
 # Change Log for PSScriptTools
 
+## v2.18.0
+
++ Fixed missing `ReleaseID` property in `Get-WindowsVersion` (Issue #67)
++ Added `BuildBranch` property to `Get-WindowsVersion`
++ Updated `windowsversion.format.ps1xml` to include new properties and not use Autosize
++ Added `Name` property to output from `Get-FolderSizeInfo` (Issue #66)
++ Added a new table view called `name` for `Get-FolderSizeInfo`
++ Added `Get-PSScriptTools` function to display summary information about commands in this module
++ Added `psscripttools.format.ps1xml` to define a default table view for `Get-PSScriptTools`
++ Help updates
++ Added online help link for `Test-EmptyFolder`
++ Updated `README.md`
+
 ## v2.17.0
 
 + Updated `Get-FolderSizeInfo` to handle directory names like `[data]` (Issue #65)

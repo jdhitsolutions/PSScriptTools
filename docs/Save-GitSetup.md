@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Download the latest 64bit version of Git for Windows
+Download the latest 64bit version of Git for Windows.
 
 ## SYNTAX
 
