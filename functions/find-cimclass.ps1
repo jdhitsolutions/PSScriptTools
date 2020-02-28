@@ -2,6 +2,7 @@
 #search WMI for a class
 Function Find-CimClass {
     [CmdletBinding()]
+    [alias('fcc')]
     [OutputType([Microsoft.Management.Infrastructure.CimClass])]
 
     Param(

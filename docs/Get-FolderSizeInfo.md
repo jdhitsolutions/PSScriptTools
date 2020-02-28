@@ -21,6 +21,8 @@ Get-FolderSizeInfo [-Path] <String[]> [-Hidden] [<CommonParameters>]
 
 This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all sub-folders.
 
+Note that this command has been optimized for performance, but if you have a lot of files to count that will take time.
+
 ## EXAMPLES
 
 ### Example 1

@@ -30,11 +30,21 @@ Function Test-EmptyFolder {
                     $opt.RecurseSubdirectories = $True
                     $opt.AttributesToSkip = "SparseFile", "ReparsePoint"
 
-                    $files = $d.GetFiles("*", $opt)
+                    Try {
+                        $files = $d.GetFiles("*", $opt)
+                    }
+                    Catch {
+                        Write-Warning $_.exception.message
+                    }
                 } #if newer that Windows PowerShell 5.1
                 else {
                     Write-Verbose "Using legacy code"
-                    $files = $d.GetFiles("*", "AllDirectories")
+                    Try {
+                        $files = $d.GetFiles("*", "AllDirectories")
+                    }
+                    Catch {
+                         Write-Warning $_.exception.message
+                    }
                 }
 
                 If ($files.count -eq 0) {
@@ -50,6 +60,7 @@ Function Test-EmptyFolder {
                         Path       = $cPath
                         Name       = (Split-Path -Path $Cpath -leaf)
                         IsEmpty    = $Empty
+                        Computername = [System.Environment]::MachineName
                     }
                 }
                 else {

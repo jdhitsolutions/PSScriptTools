@@ -11,6 +11,7 @@ Get-ChildItem -path $PSScriptRoot\functions\*.ps1 | ForEach-Object -process {
 
 #add ToDo options to the ISE or VS Code
 if ($psEditor) {
+    #This may not be working in newer versions of the PowerShell extension under PowerShell 7
     Write-Verbose "Defining VSCode additions"
     $sb = {
         Param(
@@ -23,8 +24,13 @@ if ($psEditor) {
         $todo = "# [$(Get-Date)] TODO: $item"
         $context.CurrentFile.InsertText($todo)
     }
-    Register-EditorCommand -Name "Insert.ToDo" -DisplayName "Insert ToDo" -ScriptBlock $sb -SuppressOutput
-
+    $rParams = @{
+        Name           = "Insert.ToDo"
+        DisplayName    = "Insert ToDo"
+        ScriptBlock    = $sb
+        SuppressOutput = $false
+    }
+    Register-EditorCommand @rParams
 }
 elseif ($psise) {
     Write-Verbose "Defining ISE additions"

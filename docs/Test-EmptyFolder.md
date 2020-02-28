@@ -39,15 +39,17 @@ Test a single folder from a parameter.
 ### Example 2
 
 ```powershell
-PS C:\> Get-Childitem c:\work -Directory | test-EmptyFolder -passthru
+PS C:\> Get-ChildItem c:\work -Directory | test-EmptyFolder -passthru
 
-Path                              Name                      IsEmpty
-----                              ----                      -------
-C:\work\A                         A                           False
-C:\work\alpha                     alpha                       False
-C:\work\B                         B                           False
-C:\work\data                      data                        False
-C:\work\demo3                     demo3                        True
+
+Path          Name  IsEmpty Computername
+----          ----  ------- ------------
+C:\work\A     A       False DESK10
+C:\work\alpha alpha   False DESK10
+C:\work\B     B       True  DESK10
+C:\work\data  data    False DESK10
+C:\work\demo3 demo3    True DESK10
+C:\work\demos demos   False DESK10
 ...
 ```
 
@@ -56,7 +58,7 @@ Test child folders under C:\work.
 ### Example 3
 
 ```powershell
-PS C:\> Get-Childitem c:\work -Directory | test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
+PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
 What if: Performing the operation "Remove Directory" on target "C:\work\demo3".
 What if: Performing the operation "Remove Directory" on target "C:\work\installers".
 What if: Performing the operation "Remove Directory" on target "C:\work\new".
@@ -73,7 +75,7 @@ The example is piping objects to ForEach-Object so that Remove-Item can use the 
 
 ### -Passthru
 
-Write a test object to the pipeline
+Write a test object to the pipeline.
 
 ```yaml
 Type: SwitchParameter

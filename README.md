@@ -1071,6 +1071,14 @@ By default, the output will only show directory or equivalent structures. But yo
 
 ![show file system tree](images/show-tree1.png)
 
+If you are running PowerShell 7 and specifying a file system path, you can display the tree in a colorized format by using the `-InColor` dynamic parameter.
+
+![show file system tree](images/show-tree2.png)
+
+I have long term plans to have a user-configurable color map for different item types.
+
+This command has an alias of `pstree`.
+
 ## Format-Functions
 
 A set of simple commands to make it easier to format values.
@@ -1276,8 +1284,22 @@ Mode                 LastWriteTime         Length Name
 
 You will need to manually install the file.
 
+## Other
+
+From time to time I will include additional items that you might find useful.
+One item that you get when you import this module is a custom format.ps1xml file for services.
+If you are running PowerShell 7, you can run `Get-Service` and pipe it to the table view.
+
+```powershell
+PS C:\> Get-Service | Format-Table -view ansi
+```
+
+This will display the service status color-coded.
+
+![ServiceAnsi](images/serviceansi.png)
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-02-27 16:34:43Z UTC*
+Last Updated *2020-02-28 17:24:23Z UTC*

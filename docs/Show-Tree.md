@@ -33,7 +33,7 @@ Shows the specified path as a graphical tree in the console. This is intended as
 
 By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.
 
-It should work cross-platform.
+It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system.
 
 Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.
 
@@ -107,7 +107,7 @@ Shows the hierarchy of registry keys and values (-ShowProperty), recursing down 
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Show-Tree.ps1 WSMan: -ShowItem
+PS C:\> Show-Tree WSMan: -ShowItem
 
 WSMan:\
 \--localhost
@@ -240,8 +240,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
