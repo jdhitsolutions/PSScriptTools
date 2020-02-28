@@ -27,6 +27,8 @@ Function Get-FolderSizeInfo {
 
                 $d = [System.IO.DirectoryInfo]::new($cPath)
 
+                $files = [system.collections.arraylist]::new()
+
                 If ($psversiontable.psversion.major -gt 5  ) {
                     #this .NET class is not available in Windows PowerShell 5.1
                     $opt = [System.IO.EnumerationOptions]::new()
@@ -36,36 +38,66 @@ Function Get-FolderSizeInfo {
                         Write-Verbose "Including hidden files"
                         $opt.AttributesToSkip = "SparseFile", "ReparsePoint"
                     }
+                    else {
+                        $opt.attributestoSkip = "Hidden"
+                    }
 
-                    $files = $d.GetFiles("*", $opt)
+                    $data = $($d.GetFiles("*", $opt))
+                    if ($data.count -gt 1) {
+                        $files.AddRange($data)
+                    }
+                    elseif ($data.count -eq 1) {
+                        [void]($files.Add($data))
+                    }
+
                 } #if newer that Windows PowerShell 5.1
                 else {
                     Write-Verbose "Using legacy code"
                     if ($hidden) {
                         Write-Verbose "Including hidden files"
-                        $files = $d.GetFiles("*", "AllDirectories")
+
+                        $files.AddRange( $($d.GetFiles("*", "AllDirectories")) )
                     }
                     else {
-                        $files = ($d.GetFiles()).Where( {$_.attributes -notmatch "hidden"})
+
+                        $files.Addrange($($d.GetFiles()).Where( {$_.attributes -notmatch "hidden"}))
                         #a function to recurse and get all non-hidden directories
                         Function _enumdir {
                             [cmdletbinding()]
                             Param([string]$Path)
                             # write-host $path -ForegroundColor cyan
                             $path = Convert-Path -literalpath $path
-                            $di = [System.IO.DirectoryInfo]::new($path)
-                            $top = ($di.GetDirectories()).Where( {$_.attributes -notmatch "hidden"})
-                            $top
-                            foreach ($t in $top) {
-                                _enumdir $t.fullname
+                            $ErrorActionPreference = "Stop"
+                            try {
+                                $di = [System.IO.DirectoryInfo]::new($path)
+                                $top = ($di.GetDirectories()).Where( {$_.attributes -notmatch "hidden"})
+                                $top
+                                foreach ($t in $top) {
+                                    _enumdir $t.fullname
+                                }
+                            }
+                            Catch {
+                                Write-Warning "Failed on $path. $($_.exception.message)."
                             }
                         }
                         #get a list of all non-hidden subfolders
                         Write-Verbose "Getting non-hidden subfolders"
                         $all = _enumdir $cpath
+
                         #get the files in each subfolder
                         Write-Verbose "Getting files from subfolders"
-                        ($all).Foreach( { $files += ([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles() | where-object {$_.Attributes -notmatch "Hidden"}})
+
+                        ($all).Foreach( {
+                                Write-Verbose $_.fullname
+                                $ErrorActionPreference = "Stop"
+                                Try {
+                                    $data = (([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles()).where( {$_.Attributes -notmatch "Hidden"})
+                                    $files.AddRange($data)
+                                }
+                                Catch {
+                                    Write-Warning "Failed on $path. $($_.exception.message)."
+                                }
+                            })
                     } #get non-hidden files
                 }
 

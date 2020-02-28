@@ -4148,6 +4148,7 @@ Mode                LastWriteTime     Length Name
     </command:details>
     <maml:description>
       <maml:para>This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all sub-folders.</maml:para>
+      <maml:para>Note that this command has been optimized for performance, but if you have a lot of files to count that will take time.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5346,6 +5347,10 @@ ConvertTo-LocalTime    clt   Convert a foreign time to local
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/3acixBH</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Command</maml:linkText>
         <maml:uri></maml:uri>
@@ -10654,7 +10659,7 @@ Mode                LastWriteTime         Length Name
     <maml:description>
       <maml:para>Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider.</maml:para>
       <maml:para>By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.</maml:para>
-      <maml:para>It should work cross-platform.</maml:para>
+      <maml:para>It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system.</maml:para>
       <maml:para>Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.</maml:para>
     </maml:description>
     <command:syntax>
@@ -10946,7 +10951,7 @@ HKLM:\SOFTWARE\Microsoft\.NETFramework
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Show-Tree.ps1 WSMan: -ShowItem
+        <dev:code>PS C:\&gt; Show-Tree WSMan: -ShowItem
 
 WSMan:\
 \--localhost
@@ -11025,7 +11030,7 @@ WSMan:\
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Passthru</maml:name>
           <maml:Description>
-            <maml:para>Write a test object to the pipeline</maml:para>
+            <maml:para>Write a test object to the pipeline.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -11039,7 +11044,7 @@ WSMan:\
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Passthru</maml:name>
         <maml:Description>
-          <maml:para>Write a test object to the pipeline</maml:para>
+          <maml:para>Write a test object to the pipeline.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -11105,15 +11110,17 @@ False</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Childitem c:\work -Directory | test-EmptyFolder -passthru
+        <dev:code>PS C:\&gt; Get-ChildItem c:\work -Directory | test-EmptyFolder -passthru
 
-Path                              Name                      IsEmpty
-----                              ----                      -------
-C:\work\A                         A                           False
-C:\work\alpha                     alpha                       False
-C:\work\B                         B                           False
-C:\work\data                      data                        False
-C:\work\demo3                     demo3                        True
+
+Path          Name  IsEmpty Computername
+----          ----  ------- ------------
+C:\work\A     A       False DESK10
+C:\work\alpha alpha   False DESK10
+C:\work\B     B       True  DESK10
+C:\work\data  data    False DESK10
+C:\work\demo3 demo3    True DESK10
+C:\work\demos demos   False DESK10
 ...</dev:code>
         <dev:remarks>
           <maml:para>Test child folders under C:\work.</maml:para>
@@ -11121,7 +11128,7 @@ C:\work\demo3                     demo3                        True
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Childitem c:\work -Directory | test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
+        <dev:code>PS C:\&gt; Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
 What if: Performing the operation "Remove Directory" on target "C:\work\demo3".
 What if: Performing the operation "Remove Directory" on target "C:\work\installers".
 What if: Performing the operation "Remove Directory" on target "C:\work\new".

@@ -1,5 +1,20 @@
 # Change Log for PSScriptTools
 
+## v2.19.0
+
++ Modified `Get-FolderSizeInfo` to use [system.collections.arraylist]` to improve performance. (Issue #68)
++ Fixed bug in `Get-FolderSizeInfo` running in PowerShell 7 that wasn't including System files.
++ Updated help for `Get-FolderSizeInfo`
++ Added online help link for `Get-PSScriptTools`.
++ Added better error handling to `Test-EmptyFolder`
++ Added `Computername` property to passthru output from `Test-EmptyFolder`
++ Added alias `fcc` for `Find-CimClass`
++ Added alias `pstree` for `Show-Tree`
++ Revised `Show-Tree` to use splatting for internal commands
++ Added a dynamic parameter `InColor` for `Show-Tree` to display results in ANSI color if running PowerShell 7.
++ Added format file `serviceansi.format.ps1xml` to display service status colored when using PowerShell 7
++ Updated `README.md`
+
 ## v2.18.0
 
 + Fixed missing `ReleaseID` property in `Get-WindowsVersion` (Issue #67)
