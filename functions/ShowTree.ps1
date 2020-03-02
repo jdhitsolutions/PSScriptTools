@@ -1,20 +1,22 @@
 ﻿function Show-Tree {
 
     [CmdletBinding(DefaultParameterSetName = "Path")]
-    [alias("pstree")]
+    [alias("pstree","shtree")]
 
     Param(
         [Parameter(Position = 0,
             ParameterSetName = "Path",
             ValueFromPipeline,
-            ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName
+            )]
         [ValidateNotNullOrEmpty()]
-        [string[]]$Path,
+        [string[]]$Path = ".",
 
         [Alias("PSPath")]
         [Parameter(Position = 0,
             ParameterSetName = "LiteralPath",
-            ValueFromPipelineByPropertyName)]
+            ValueFromPipelineByPropertyName
+            )]
         [ValidateNotNullOrEmpty()]
         [string[]]$LiteralPath,
 
@@ -27,24 +29,39 @@
         [int]$IndentSize = 3,
 
         [Parameter()]
+        [alias("files")]
         [switch]$ShowItem,
 
-        [Parameter()]
-        [switch]$ShowProperty
+        [Parameter(HelpMessage = "Display item properties. Use * to show all properties or specify a comma separated list.")]
+        [alias("properties")]
+        [string[]]$ShowProperty
     )
     DynamicParam {
         #define the InColor parameter if running PowerShell 7 and the path is a FileSystem path
-        if ( ((Get-Item -path $Path).PSprovider.Name -eq 'FileSystem' )-OR ((Get-Item -literalpath $Path).PSprovider.Name -eq 'FileSystem')) {
+        if ($PSBoundParameters.containsKey("Path")) {
+            $here = $psboundParameters["Path"]
+        }
+        elseif ($PSBoundParameters.containsKey("LiteralPath")) {
+            $here = $psboundParameters["LiteralPath"]
+        }
+        else {
+            $here = (Get-Location).path
+        }
+        if (((Get-Item -path $here).PSprovider.Name -eq 'FileSystem' )-OR ((Get-Item -literalpath $here).PSprovider.Name -eq 'FileSystem')) {
          $IsFileSystem = $True
         }
         if ($PSVersiontable.psversion.Major -ge 7 -AND $IsFileSystem) {
             #define a parameter attribute object
             $attributes = New-Object System.Management.Automation.ParameterAttribute
-            $attributes.HelpMessage = "Show tree colorized."
+            $attributes.HelpMessage = "Show tree and item colorized."
+
+            #add an alias
+            $alias = [System.Management.Automation.AliasAttribute]::new("ansi")
 
             #define a collection for attributes
             $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
             $attributeCollection.Add($attributes)
+            $attributeCollection.Add($alias)
 
             #define the dynamic param
             $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter("InColor", [Switch], $attributeCollection)
@@ -97,7 +114,7 @@
             )
             Write-Verbose "Starting $($myinvocation.MyCommand)"
             $indentStr = GetIndentString $IsLast
-            $propStr = "${indentStr}Property: $Name = "
+            $propStr = "${indentStr} $Name = "
             $availableWidth = $host.UI.RawUI.BufferSize.Width - $propStr.Length - 1
             if ($Value.Length -gt $availableWidth) {
                 $ellipsis = '...'
@@ -174,13 +191,24 @@
                 $excludedProviderNoteProps = 'PSChildName', 'PSDrive', 'PSParentPath', 'PSPath', 'PSProvider'
                 $props = @(Get-ItemProperty $Path -ea 0)
                 if ($props[0] -is [pscustomobject]) {
-                    $props = @($props[0].psobject.properties | Where-object {$excludedProviderNoteProps -notcontains $_.Name})
+                    if ($ShowProperty  -eq "*") {
+                        $props = @($props[0].psobject.properties | Where-object {$excludedProviderNoteProps -notcontains $_.Name })
+                    }
+                    else {
+                        $props = @($props[0].psobject.properties |
+                        Where-object {$excludedProviderNoteProps -notcontains $_.Name -AND $showproperty -contains $_.name})
+                    }
                 }
 
                 for ($i = 0; $i -lt $props.Count; $i++) {
                     $prop = $props[$i]
-                    $IsLast[-1] = ($i -eq $props.count - 1) -and !$HasChildItems
-                    ShowProperty $prop.Name $prop.Value $IsLast
+                    $IsLast[-1] = ($i -eq $props.count - 1) -and (-Not $HasChildItems)
+                    $showParams = @{
+                        Name = $prop.Name
+                        Value = $prop.Value
+                        IsLast = $IsLast
+                    }
+                    ShowProperty @showParams
                 }
             }
             Write-Verbose "Ending $($myinvocation.MyCommand)"

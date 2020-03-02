@@ -16,22 +16,22 @@ Shows the specified path as a tree.
 ### Path (Default)
 
 ```yaml
-Show-Tree [[-Path] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem] [-ShowProperty]
+Show-Tree [[-Path] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem] [-ShowProperty <String[]>]
  [<CommonParameters>]
 ```
 
 ### LiteralPath
 
 ```yaml
-Show-Tree [[-LiteralPath] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem] [-ShowProperty]
- [<CommonParameters>]
+Show-Tree [[-LiteralPath] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem]
+ [-ShowProperty <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider.
 
-By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.
+By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma separated list of properties or use * to view them all.
 
 It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system.
 
@@ -70,35 +70,28 @@ Shows the directory tree structure, recursing down two levels.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProperty
+PS C:\> Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProperty *
 
 HKLM:\SOFTWARE\Microsoft\.NETFramework
-+--Property: Enable64Bit = 1
-+--Property: InstallRoot = C:\Windows\Microsoft.NET\Framework64\
-+--Property: UseRyuJIT = 1
-+--Property: DbgManagedDebugger = "C:\WINDOWS\system32\vsjitdebugger.exe" PID %d APPDOM %d EXTEXT "%s" EVTHDL %d
-+--Property: DbgJITDebugLaunchSetting = 16
++-- Enable64Bit = 1
++-- InstallRoot = C:\Windows\Microsoft.NET\Framework64\
++-- UseRyuJIT = 1
 +--Advertised
 |  +--Policy
 |  \--v2.0.50727
 +--AssemblyFolders
 |  +--ADOMD.Client 14.0
-|  |  \--Property: (default) = C:\Program Files\Microsoft.NET\ADOMD.NET\140\
+|  |  \-- (default) = C:\Program Files\Microsoft.NET\ADOMD.NET\140\
 |  +--Microsoft .NET Framework 3.5 Reference Assemblies
-|  |  \--Property: (default) = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
+|  |  \-- (default) = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
 |  +--SQL Server Assemblies 140
-|  |  \--Property: (default) = C:\Program Files\Microsoft SQL Server\140\SDK\Assemblies\
+|  |  \-- (default) = C:\Program Files\Microsoft SQL Server\140\SDK\Assemblies\
 |  +--v3.0
-|  |  +--Property: <IncludeDotNet2Assemblies> = 1
-|  |  \--Property: All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\
+|  |  +-- <IncludeDotNet2Assemblies> = 1
+|  |  \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\
 |  \--v3.5
-|     +--Property: <IncludeDotNet2Assemblies> = 1
-|     \--Property: All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
-+--NGen
-|  \--Policy
-+--NGenQueue
-|  +--WIN32
-|  \--WIN64
+|     +-- <IncludeDotNet2Assemblies> = 1
+|     \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
 ...
 ```
 
@@ -124,21 +117,42 @@ WSMan:\
    |  |  +--Digest
    |  |  +--Kerberos
    |  |  +--Negotiate
-   |  |  +--Certificate
-   |  |  \--CredSSP
-   |  +--DefaultPorts
-   |  |  +--HTTP
-   |  |  \--HTTPS
-   |  \--TrustedHosts
-   +--Service
-   |  +--RootSDDL
-   |  +--MaxConcurrentOperations
-   |  +--MaxConcurrentOperationsPerUser
-   |  +--EnumerationTimeoutms
-   ...
+...
 ```
 
 Shows all the containers and items in the WSMan: drive.
+
+### Example 4
+
+```powershell
+PS C:\> pstree c:\work\alpha -files -properties LastWriteTime,Length
+
+C:\work\Alpha\
++-- LastWriteTime = 02/28/2020 11:19:32
++--bravo
+|  +-- LastWriteTime = 02/28/2020 11:20:30
+|  +--delta
+|  |  +-- LastWriteTime = 02/28/2020 11:17:35
+|  |  +--FunctionDemo.ps1
+|  |  |  +-- Length = 888
+|  |  |  \-- LastWriteTime = 06/01/2009 15:50:47
+|  |  +--function-form.ps1
+|  |  |  +-- Length = 1117
+|  |  |  \-- LastWriteTime = 04/17/2019 17:18:28
+|  |  +--function-logstamp.ps1
+|  |  |  +-- Length = 598
+|  |  |  \-- LastWriteTime = 05/23/2007 11:39:55
+|  |  +--FunctionNotes.ps1
+|  |  |  +-- Length = 617
+|  |  |  \-- LastWriteTime = 02/24/2016 08:59:03
+|  |  \--Function-SwitchTest.ps1
+|  |     +-- Length = 242
+|  |     \-- LastWriteTime = 06/09/2008 15:55:44
+|  +--gamma
+...
+```
+
+Show a tree listing with files including a few properties. This example is using parameter and command aliases.
 
 ## PARAMETERS
 
@@ -213,7 +227,7 @@ Shows the items in each container or folder.
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases:
+Aliases: files
 
 Required: False
 Position: Named
@@ -224,12 +238,13 @@ Accept wildcard characters: False
 
 ### -ShowProperty
 
-Shows the properties on containers and items (if -ShowItem is specified).
+Shows the properties on containers and items.
+Use * to display all properties otherwise specify a comma separated list.
 
 ```yaml
-Type: SwitchParameter
+Type: String[]
 Parameter Sets: (All)
-Aliases:
+Aliases: properties
 
 Required: False
 Position: Named
@@ -251,6 +266,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ## NOTES
+
+If you are using PowerShell 7, you can use the InColor parameter, or its alias ansi, to display the tree in a color code format.
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 

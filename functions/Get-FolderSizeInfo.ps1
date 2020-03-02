@@ -53,53 +53,89 @@ Function Get-FolderSizeInfo {
                 } #if newer that Windows PowerShell 5.1
                 else {
                     Write-Verbose "Using legacy code"
+                    #need to account for errors when accessing folders without permissions
+                    #a function to recurse and get all non-hidden directories
+
+                    Function _enumdir {
+                        [cmdletbinding()]
+                        Param([string]$Path, [switch]$Hidden)
+                        # write-host $path -ForegroundColor cyan
+                        $path = Convert-Path -literalpath $path
+                        $ErrorActionPreference = "Stop"
+                        try {
+                            $di = [System.IO.DirectoryInfo]::new($path)
+                            if ($hidden) {
+                                $top = $di.GetDirectories()
+                            }
+                            else {
+                                $top = ($di.GetDirectories()).Where( {$_.attributes -notmatch "hidden"})
+                            }
+                            $top
+                            foreach ($t in $top) {
+                                $params = @{
+                                    Path   = $t.fullname
+                                    Hidden = $Hidden
+                                }
+                                _enumdir @params
+                            }
+                        }
+                        Catch {
+                            Write-Warning "Failed on $path. $($_.exception.message)."
+                        }
+                    } #enumdir
+
+                    # get files in the root of the folder
                     if ($hidden) {
                         Write-Verbose "Including hidden files"
-
-                        $files.AddRange( $($d.GetFiles("*", "AllDirectories")) )
+                        $data = $d.GetFiles()
                     }
                     else {
+                        #get files in current location
+                        $data = $($d.GetFiles()).Where({$_.attributes -notmatch "hidden"})
+                    }
 
-                        $files.Addrange($($d.GetFiles()).Where( {$_.attributes -notmatch "hidden"}))
-                        #a function to recurse and get all non-hidden directories
-                        Function _enumdir {
-                            [cmdletbinding()]
-                            Param([string]$Path)
-                            # write-host $path -ForegroundColor cyan
-                            $path = Convert-Path -literalpath $path
+                    if ($data.count -gt 1) {
+                        $files.AddRange($data)
+                    }
+                    elseif ($data.count -eq 1) {
+                        [void]($files.Add($data))
+                    }
+
+                    #get a list of all non-hidden subfolders
+                    Write-Verbose "Getting subfolders (Hidden = $Hidden)"
+                    $eParam = @{
+                        Path   = $cpath
+                        Hidden = $hidden
+                    }
+                    $all = _enumdir @eparam
+
+                    #get the files in each subfolder
+                    Write-Verbose "Getting files from $($all.count) subfolders"
+
+                    ($all).Foreach( {
+                            Write-Verbose $_.fullname
                             $ErrorActionPreference = "Stop"
-                            try {
-                                $di = [System.IO.DirectoryInfo]::new($path)
-                                $top = ($di.GetDirectories()).Where( {$_.attributes -notmatch "hidden"})
-                                $top
-                                foreach ($t in $top) {
-                                    _enumdir $t.fullname
+                            Try {
+                                if ($hidden) {
+                                    $data = (([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles())
+                                }
+                                else {
+                                    $data = (([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles()).where({$_.Attributes -notmatch "Hidden"})
+                                }
+                                if ($data.count -gt 1) {
+                                    $files.AddRange($data)
+                                }
+                                elseif ($data.count -eq 1) {
+                                    [void]($files.Add($data))
                                 }
                             }
                             Catch {
                                 Write-Warning "Failed on $path. $($_.exception.message)."
+                                #clearing the variable as a precaution
+                                Clear-variable data
                             }
-                        }
-                        #get a list of all non-hidden subfolders
-                        Write-Verbose "Getting non-hidden subfolders"
-                        $all = _enumdir $cpath
-
-                        #get the files in each subfolder
-                        Write-Verbose "Getting files from subfolders"
-
-                        ($all).Foreach( {
-                                Write-Verbose $_.fullname
-                                $ErrorActionPreference = "Stop"
-                                Try {
-                                    $data = (([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles()).where( {$_.Attributes -notmatch "Hidden"})
-                                    $files.AddRange($data)
-                                }
-                                Catch {
-                                    Write-Warning "Failed on $path. $($_.exception.message)."
-                                }
-                            })
-                    } #get non-hidden files
-                }
+                        })
+                } #else 5.1
 
                 If ($files.count -gt 0) {
                     Write-Verbose "Found $($files.count) files"
@@ -121,7 +157,7 @@ Function Get-FolderSizeInfo {
                     TotalFiles   = $totalFiles
                     TotalSize    = $totalSize
                 }
-            }
+            } #test path
             else {
                 Write-Warning "Can't find $Path on $([System.Environment]::MachineName)"
             }
@@ -133,3 +169,10 @@ Function Get-FolderSizeInfo {
     }
 } #close function
 
+<#
+C:\Windows from Explorer
+Contains 206345 files
+contains 61817 folders
+total size 30.6gb
+size on disk 30.7 gb
+#>

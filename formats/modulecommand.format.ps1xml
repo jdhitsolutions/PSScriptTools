@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+format type data generated 02/29/2020 12:21:51 by BOVINE320\Jeff
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 02/29/2020 12:21:51 by BOVINE320\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ModuleCommand</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <ListItem>
+                <Label>Name</Label>
+                <PropertyName>Name</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Alias</Label>
+                <PropertyName>Alias</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Synopsis</Label>
+                <PropertyName>Synopsis</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
