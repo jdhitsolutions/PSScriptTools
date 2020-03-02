@@ -21,7 +21,7 @@ Get-FolderSizeInfo [-Path] <String[]> [-Hidden] [<CommonParameters>]
 
 This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all sub-folders.
 
-Note that this command has been optimized for performance, but if you have a lot of files to count that will take time.
+Note that this command has been optimized for performance, but if you have a lot of files to count that will take time, especially when using Windows PowerShell. In fact, when querying system folders like C:\Windows on a Windows PowerShell platform, you might get better results including hidden files. Due to the nature of the .NET Framework changes, you might see different results for the same folder when run in PowerShell 7 compared to Windows PowerShell 5.1.
 
 ## EXAMPLES
 

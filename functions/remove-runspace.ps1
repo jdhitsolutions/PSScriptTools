@@ -45,3 +45,14 @@ Function Remove-Runspace {
     } #end
 
 } #close function
+
+
+Register-ArgumentCompleter -CommandName Remove-Runspace -ParameterName Runspace -ScriptBlock {
+    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+
+    (Get-Runspace).where( {$_.runspaceavailability -ne 'busy'}).name|
+        foreach-object {
+        # completion text,listitem text,result type,Tooltip
+        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+    }
+}

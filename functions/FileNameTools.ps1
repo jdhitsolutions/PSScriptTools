@@ -1,6 +1,7 @@
 
 Function New-RandomFileName {
     [cmdletbinding(DefaultParameterSetName = "none")]
+    [Alias("rfn")]
     [outputtype([string])]
     Param(
         [parameter(Position = 0)]
@@ -42,6 +43,7 @@ Function New-RandomFileName {
 
 Function New-CustomFileName {
     [cmdletbinding()]
+    [Alias("cfn")]
     [outputtype([string])]
     Param (
         [Parameter(

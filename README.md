@@ -28,6 +28,34 @@ Please post any questions, problems or feedback in [Issues](https://github.com/j
 
 ## General Tools
 
+### [Get-ModuleCommand](docs/Get-ModuleCommand.md)
+
+This is an alternative to `Get-Command` to make it easier to see at a glance what commands are contained within a module and what they can do. By default, `Get-ModuleCommand` looks for loaded modules.
+Use `-ListAvailable` to see commands in module not currently loaded.
+Note that if the help file is malformed or missing, you might get oddly formatted results.
+
+```powersehell
+PS C:\> Get-ModuleCommand PSCalendar
+
+
+       Verb: Get
+
+    Name                           Alias           Type      Synopsis
+    ----                           -----           ----      --------
+    Get-Calendar                   cal             Function  Displays a visual representation of a ...
+
+
+       Verb: Show
+
+    Name                           Alias           Type      Synopsis
+    ----                           -----           ----      --------
+    Show-Calendar                  scal            Function  Display a colorized calendar month in ...
+    Show-GuiCalendar               gcal            Function  Display a WPF-based calendar
+```
+
+Get module commands using the default formatted view.
+There is also a default view for `Format-List`.
+
 ### [Get-PSScriptTools](docs/Get-PSScriptTools.md)
 
 You can use this command to get a summary list of functions in this module.
@@ -1079,6 +1107,36 @@ I have long term plans to have a user-configurable color map for different item 
 
 This command has an alias of `pstree`.
 
+```powershell
+PS C:\> pstree c:\work\alpha -files -properties LastWriteTime,Length
+
+C:\work\Alpha\
++-- LastWriteTime = 02/28/2020 11:19:32
++--bravo
+|  +-- LastWriteTime = 02/28/2020 11:20:30
+|  +--delta
+|  |  +-- LastWriteTime = 02/28/2020 11:17:35
+|  |  +--FunctionDemo.ps1
+|  |  |  +-- Length = 888
+|  |  |  \-- LastWriteTime = 06/01/2009 15:50:47
+|  |  +--function-form.ps1
+|  |  |  +-- Length = 1117
+|  |  |  \-- LastWriteTime = 04/17/2019 17:18:28
+|  |  +--function-logstamp.ps1
+|  |  |  +-- Length = 598
+|  |  |  \-- LastWriteTime = 05/23/2007 11:39:55
+|  |  +--FunctionNotes.ps1
+|  |  |  +-- Length = 617
+|  |  |  \-- LastWriteTime = 02/24/2016 08:59:03
+|  |  \--Function-SwitchTest.ps1
+|  |     +-- Length = 242
+|  |     \-- LastWriteTime = 06/09/2008 15:55:44
+|  +--gamma
+...
+```
+
+Show a tree listing with files including a few properties. This example is using parameter and command aliases.
+
 ## Format-Functions
 
 A set of simple commands to make it easier to format values.
@@ -1132,6 +1190,39 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [Remove-MergedBranch](docs/Remove-MergedBranch.md)
+
+When using git you may create a number of branches.
+Presumably you merge these branches into the main or master branch.
+You can this command to remove all merged branches other than master and the current branch.
+You must be in the root of your project to run this command.
+
+```powershell
+PS C:\MyProject> Remove-MergedBranch
+
+Remove merged branch from MyProject?
+2.1.1
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): n
+
+Remove merged branch from MyProject?
+dev1
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): y
+Deleted branch dev1 (was 75f6ab8).
+
+Remove merged branch from MyProject?
+dev2
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): y
+Deleted branch dev2 (was 75f6ab8).
+
+Remove merged branch from MyProject?
+patch-254
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): n
+
+PS C:\MyProject>
+```
+
+By default you will be prompted to remove each branch.
 
 ### [Test-WithCulture](docs/Test-WithCulture.md)
 
@@ -1298,8 +1389,12 @@ This will display the service status color-coded.
 
 ![ServiceAnsi](images/serviceansi.png)
 
+## Related Modules
+
+If you find this module useful, you might also want to look at my tools for [creating and managing custom type extensions](https://github.com/jdhitsolutions/PSTypeExtensionTools), [managing scheduled jobs](https://github.com/jdhitsolutions/ScheduledJobTools) and [running remote commands outside of PowerShell Remoting](https://github.com/jdhitsolutions/PSRemoteOperations)
+
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-02-28 17:24:23Z UTC*
+Last Updated *2020-03-02 17:43:53Z UTC*

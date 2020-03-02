@@ -4148,7 +4148,7 @@ Mode                LastWriteTime     Length Name
     </command:details>
     <maml:description>
       <maml:para>This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all sub-folders.</maml:para>
-      <maml:para>Note that this command has been optimized for performance, but if you have a lot of files to count that will take time.</maml:para>
+      <maml:para>Note that this command has been optimized for performance, but if you have a lot of files to count that will take time, especially when using Windows PowerShell. In fact, when querying system folders like C:\Windows on a Windows PowerShell platform, you might get better results including hidden files. Due to the nature of the .NET Framework changes, you might see different results for the same folder when run in PowerShell 7 compared to Windows PowerShell 5.1.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4306,6 +4306,200 @@ sunday                          47   24540.6523</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Measure-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-ModuleCommand</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ModuleCommand</command:noun>
+      <maml:description>
+        <maml:para>Get a summary of commands in a module.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This is an alternative to Get-Command to make it easier to see at a glance what commands are contained within a module and what they can do. By default, Get-ModuleCommand looks for loaded modules. Use -ListAvailable to see commands in module not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ModuleCommand</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>FullyQualifiedName</maml:name>
+          <maml:Description>
+            <maml:para>Specifies names of modules in the form of ModuleSpecification objects. The FullyQualifiedName parameter accepts a module name that is specified in the following formats:</maml:para>
+            <maml:para>@{ModuleName = "modulename"; ModuleVersion = "version_number"} @{ModuleName = "modulename"; ModuleVersion = "version_number"; Guid = "GUID"}</maml:para>
+            <maml:para>ModuleName and ModuleVersion are required, but Guid is optional.</maml:para>
+            <maml:para>You cannot specify the FullyQualifiedName parameter in the same command as a Name parameter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">ModuleSpecification</command:parameterValue>
+          <dev:type>
+            <maml:name>ModuleSpecification</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ListAvailable</maml:name>
+          <maml:Description>
+            <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module gets modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
+            <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Get-ModuleCommand</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>The name of an installed module.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ListAvailable</maml:name>
+          <maml:Description>
+            <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module gets modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
+            <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>FullyQualifiedName</maml:name>
+        <maml:Description>
+          <maml:para>Specifies names of modules in the form of ModuleSpecification objects. The FullyQualifiedName parameter accepts a module name that is specified in the following formats:</maml:para>
+          <maml:para>@{ModuleName = "modulename"; ModuleVersion = "version_number"} @{ModuleName = "modulename"; ModuleVersion = "version_number"; Guid = "GUID"}</maml:para>
+          <maml:para>ModuleName and ModuleVersion are required, but Guid is optional.</maml:para>
+          <maml:para>You cannot specify the FullyQualifiedName parameter in the same command as a Name parameter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">ModuleSpecification</command:parameterValue>
+        <dev:type>
+          <maml:name>ModuleSpecification</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ListAvailable</maml:name>
+        <maml:Description>
+          <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module gets modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
+          <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>The name of an installed module.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>ModuleCommand</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ModuleCommand PSCalendar
+
+
+   Verb: Get
+
+Name                           Alias           Type      Synopsis
+----                           -----           ----      --------
+Get-Calendar                   cal             Function  Displays a visual representation of a ...
+
+
+   Verb: Show
+
+Name                           Alias           Type      Synopsis
+----                           -----           ----      --------
+Show-Calendar                  scal            Function  Display a colorized calendar month in ...
+Show-GuiCalendar               gcal            Function  Display a WPF-based calendar</dev:code>
+        <dev:remarks>
+          <maml:para>Get module commands using the default formatted view.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ModuleCommand smbshare -ListAvailable | format-list
+
+
+Name     : Block-SmbShareAccess
+Alias    : blsmba
+Synopsis : Adds a deny ACE for a trustee to the security descriptor of the SMB share.
+
+Name     : Close-SmbOpenFile
+Alias    : cssmbo
+Synopsis : Closes a file that is open by one of the clients of the SMB server.
+
+Name     : Close-SmbSession
+Alias    : cssmbse
+Synopsis : Ends forcibly the SMB session.
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Using the default list view.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-Command</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Module</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -9175,6 +9369,163 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Remove-MergedBranch</command:name>
+      <command:verb>Remove</command:verb>
+      <command:noun>MergedBranch</command:noun>
+      <maml:description>
+        <maml:para>Removed merged git branches.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>When using git you may create a number of branches. Presumably you merge these branches into the main or master branch. The development or patching branch remains. You can use git to remove branches. Or use this command to remove all merged branches other than master and the current branch. You must be in the root of your project to run this command.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Remove-MergedBranch</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:Description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:Description>
+            <maml:para>Remove all merged branches except current and master with no prompting.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:Description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:Description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Force</maml:name>
+        <maml:Description>
+          <maml:para>Remove all merged branches except current and master with no prompting.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:Description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\MyProject&gt; Remove-MergedBranch
+
+Remove merged branch from MyProject?
+2.1.1
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): n
+
+Remove merged branch from MyProject?
+dev1
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): y
+Deleted branch dev1 (was 75f6ab8).
+
+Remove merged branch from MyProject?
+dev2
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): y
+Deleted branch dev2 (was 75f6ab8).
+
+Remove merged branch from MyProject?
+patch-254
+[Y] Yes  [N] No  [S] Suspend  [?] Help (default is "Y"): n
+PS C:\MyProject&gt;</dev:code>
+        <dev:remarks>
+          <maml:para>By default you will be prompted to remove each branch.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\MyProject&gt; Remove-MergedBranch -force
+Deleted branch 2.1.1 (was 75f6ab8).
+Deleted branch patch-254 (was 75f6ab8).</dev:code>
+        <dev:remarks>
+          <maml:para>Remove all branches with no prompting.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>git.exe</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Remove-Runspace</command:name>
       <command:verb>Remove</command:verb>
       <command:noun>Runspace</command:noun>
@@ -10658,7 +11009,7 @@ Mode                LastWriteTime         Length Name
     </command:details>
     <maml:description>
       <maml:para>Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider.</maml:para>
-      <maml:para>By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.</maml:para>
+      <maml:para>By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma separated list of properties or use * to view them all.</maml:para>
       <maml:para>It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system.</maml:para>
       <maml:para>Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.</maml:para>
     </maml:description>
@@ -10701,7 +11052,7 @@ Mode                LastWriteTime         Length Name
           </dev:type>
           <dev:defaultValue>3</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="files">
           <maml:name>ShowItem</maml:name>
           <maml:Description>
             <maml:para>Shows the items in each container or folder.</maml:para>
@@ -10712,13 +11063,14 @@ Mode                LastWriteTime         Length Name
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="properties">
           <maml:name>ShowProperty</maml:name>
           <maml:Description>
-            <maml:para>Shows the properties on containers and items (if -ShowItem is specified).</maml:para>
+            <maml:para>Shows the properties on containers and items. Use * to display all properties otherwise specify a comma separated list.</maml:para>
           </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
-            <maml:name>SwitchParameter</maml:name>
+            <maml:name>String[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
@@ -10762,7 +11114,7 @@ Mode                LastWriteTime         Length Name
           </dev:type>
           <dev:defaultValue>3</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="files">
           <maml:name>ShowItem</maml:name>
           <maml:Description>
             <maml:para>Shows the items in each container or folder.</maml:para>
@@ -10773,13 +11125,14 @@ Mode                LastWriteTime         Length Name
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="properties">
           <maml:name>ShowProperty</maml:name>
           <maml:Description>
-            <maml:para>Shows the properties on containers and items (if -ShowItem is specified).</maml:para>
+            <maml:para>Shows the properties on containers and items. Use * to display all properties otherwise specify a comma separated list.</maml:para>
           </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
-            <maml:name>SwitchParameter</maml:name>
+            <maml:name>String[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
@@ -10835,7 +11188,7 @@ Mode                LastWriteTime         Length Name
         </dev:type>
         <dev:defaultValue>3</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="files">
         <maml:name>ShowItem</maml:name>
         <maml:Description>
           <maml:para>Shows the items in each container or folder.</maml:para>
@@ -10847,14 +11200,14 @@ Mode                LastWriteTime         Length Name
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="properties">
         <maml:name>ShowProperty</maml:name>
         <maml:Description>
-          <maml:para>Shows the properties on containers and items (if -ShowItem is specified).</maml:para>
+          <maml:para>Shows the properties on containers and items. Use * to display all properties otherwise specify a comma separated list.</maml:para>
         </maml:Description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
-          <maml:name>SwitchParameter</maml:name>
+          <maml:name>String[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
@@ -10882,6 +11235,7 @@ Mode                LastWriteTime         Length Name
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>If you are using PowerShell 7, you can use the InColor parameter, or its alias ansi, to display the tree in a color code format.</maml:para>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -10915,35 +11269,28 @@ C:\work
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProperty
+        <dev:code>PS C:\&gt; Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProperty *
 
 HKLM:\SOFTWARE\Microsoft\.NETFramework
-+--Property: Enable64Bit = 1
-+--Property: InstallRoot = C:\Windows\Microsoft.NET\Framework64\
-+--Property: UseRyuJIT = 1
-+--Property: DbgManagedDebugger = "C:\WINDOWS\system32\vsjitdebugger.exe" PID %d APPDOM %d EXTEXT "%s" EVTHDL %d
-+--Property: DbgJITDebugLaunchSetting = 16
++-- Enable64Bit = 1
++-- InstallRoot = C:\Windows\Microsoft.NET\Framework64\
++-- UseRyuJIT = 1
 +--Advertised
 |  +--Policy
 |  \--v2.0.50727
 +--AssemblyFolders
 |  +--ADOMD.Client 14.0
-|  |  \--Property: (default) = C:\Program Files\Microsoft.NET\ADOMD.NET\140\
+|  |  \-- (default) = C:\Program Files\Microsoft.NET\ADOMD.NET\140\
 |  +--Microsoft .NET Framework 3.5 Reference Assemblies
-|  |  \--Property: (default) = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
+|  |  \-- (default) = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
 |  +--SQL Server Assemblies 140
-|  |  \--Property: (default) = C:\Program Files\Microsoft SQL Server\140\SDK\Assemblies\
+|  |  \-- (default) = C:\Program Files\Microsoft SQL Server\140\SDK\Assemblies\
 |  +--v3.0
-|  |  +--Property: &lt;IncludeDotNet2Assemblies&gt; = 1
-|  |  \--Property: All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\
+|  |  +-- &lt;IncludeDotNet2Assemblies&gt; = 1
+|  |  \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\
 |  \--v3.5
-|     +--Property: &lt;IncludeDotNet2Assemblies&gt; = 1
-|     \--Property: All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
-+--NGen
-|  \--Policy
-+--NGenQueue
-|  +--WIN32
-|  \--WIN64
+|     +-- &lt;IncludeDotNet2Assemblies&gt; = 1
+|     \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
 ...</dev:code>
         <dev:remarks>
           <maml:para>Shows the hierarchy of registry keys and values (-ShowProperty), recursing down two levels.</maml:para>
@@ -10968,20 +11315,40 @@ WSMan:\
    |  |  +--Digest
    |  |  +--Kerberos
    |  |  +--Negotiate
-   |  |  +--Certificate
-   |  |  \--CredSSP
-   |  +--DefaultPorts
-   |  |  +--HTTP
-   |  |  \--HTTPS
-   |  \--TrustedHosts
-   +--Service
-   |  +--RootSDDL
-   |  +--MaxConcurrentOperations
-   |  +--MaxConcurrentOperationsPerUser
-   |  +--EnumerationTimeoutms
-   ...</dev:code>
+...</dev:code>
         <dev:remarks>
           <maml:para>Shows all the containers and items in the WSMan: drive.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; pstree c:\work\alpha -files -properties LastWriteTime,Length
+
+C:\work\Alpha\
++-- LastWriteTime = 02/28/2020 11:19:32
++--bravo
+|  +-- LastWriteTime = 02/28/2020 11:20:30
+|  +--delta
+|  |  +-- LastWriteTime = 02/28/2020 11:17:35
+|  |  +--FunctionDemo.ps1
+|  |  |  +-- Length = 888
+|  |  |  \-- LastWriteTime = 06/01/2009 15:50:47
+|  |  +--function-form.ps1
+|  |  |  +-- Length = 1117
+|  |  |  \-- LastWriteTime = 04/17/2019 17:18:28
+|  |  +--function-logstamp.ps1
+|  |  |  +-- Length = 598
+|  |  |  \-- LastWriteTime = 05/23/2007 11:39:55
+|  |  +--FunctionNotes.ps1
+|  |  |  +-- Length = 617
+|  |  |  \-- LastWriteTime = 02/24/2016 08:59:03
+|  |  \--Function-SwitchTest.ps1
+|  |     +-- Length = 242
+|  |     \-- LastWriteTime = 06/09/2008 15:55:44
+|  +--gamma
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Show a tree listing with files including a few properties. This example is using parameter and command aliases.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
