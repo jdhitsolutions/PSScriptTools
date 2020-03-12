@@ -20,7 +20,7 @@ Set-ConsoleColor [[-Foreground] <ConsoleColor>] [[-Background] <ConsoleColor>] [
 
 ## DESCRIPTION
 
-You can use this command to modify the PowerShell console's foreground and/or background color. Note that if you are running the PSReadline module, that module has commands, like Set-PSReadLineOption, that you can use to modify your console.
+You can use this command to modify the PowerShell console's foreground and/or background color. Note that if you are running the PSReadline module, that module has commands, like Set-PSReadLineOption, that you can use to modify your console. This command is intended for use in a traditional PowerShell console. It will not work in consoles that are part of the PowerShell ISE or Visual Studio Code.
 
 ## EXAMPLES
 

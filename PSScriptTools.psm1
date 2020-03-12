@@ -9,6 +9,21 @@ Get-ChildItem -path $PSScriptRoot\functions\*.ps1 | ForEach-Object -process {
     . $_.FullName
 }
 
+#define the global PSAnsiFileMap variable
+$json = "psansifilemap.json"
+#test for user version
+$userjson = Join-Path -path $HOME -ChildPath $json
+$modjson = Join-Path -path $PSScriptRoot -ChildPath $json
+
+if (Test-Path -path $userjson) {
+    $map = $userjson
+}
+else {
+    $map = $modjson
+}
+
+Set-Variable -Name PSAnsiFileMap -value (Get-Content -path $map | ConvertFrom-Json) -Scope Global
+
 #add ToDo options to the ISE or VS Code
 if ($psEditor) {
     #This may not be working in newer versions of the PowerShell extension under PowerShell 7

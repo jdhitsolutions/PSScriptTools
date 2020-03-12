@@ -6,7 +6,7 @@ This PowerShell module contains a number of functions you might use to enhance y
 
 ## Current Release
 
-You can get the current release from this repository or install this from the PowerShell Gallery:
+You can get the current release from this repository or install this the PowerShell Gallery:
 
 ```powershell
 Install-Module PSScriptTools
@@ -15,7 +15,7 @@ Install-Module PSScriptTools
 or in PowerShell 7:
 
 ```powershell
-Install-Module PSScriptTools -scope CurrentUser
+Install-Module PSScriptTools [-scope CurrentUser]
 ```
 
 Starting in v2.2.0, the module was restructured to better support Desktop and Core editions. But starting with version 2.13.0, the module design has reverted. All commands will be exported. Anything that is platform specific should be handled on a per command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
@@ -1103,7 +1103,9 @@ If you are running PowerShell 7 and specifying a file system path, you can displ
 
 ![show file system tree](images/show-tree2.png)
 
-I have long term plans to have a user-configurable color map for different item types.
+Beginning with v2.21.0, this command uses ANSI Color schemes from a json file.
+You can customize the file if you wish.
+See the [PSAnsiMap](#PSAnsiMap) section of this README.
 
 This command has an alias of `pstree`.
 
@@ -1135,7 +1137,9 @@ C:\work\Alpha\
 ...
 ```
 
-Show a tree listing with files including a few properties. This example is using parameter and command aliases.
+This example is using parameter and command aliases.
+You can display a tree listing with files including user specified properties.
+Use a value of * to show all properties.
 
 ## Format-Functions
 
@@ -1191,9 +1195,32 @@ TotalMemGB FreeMemGB PctFree
 
 ## Scripting Tools
 
+### [Get-GitSize](docs/Get-GitSize.md)
+
+Use this command to determine how much space the hidden `.git` folder is consuming.
+
+```powershell
+PS C:\scripts\PSScriptTools> Get-GitSize
+
+Path                                          Files          SizeKB
+----                                          -----          ------
+C:\scripts\PSScriptTools                        751       6859.9834
+```
+
+This is the default, formatted view. The object has other properties you can use.
+
+```powershell
+Name         : PSScriptTools
+Path         : C:\scripts\PSScriptTools
+Files        : 751
+Size         : 7024623
+Date         : 3/5/2020 2:57:06 PM
+Computername : BOVINE320
+```
+
 ### [Remove-MergedBranch](docs/Remove-MergedBranch.md)
 
-When using git you may create a number of branches.
+When using `git` you may create a number of branches.
 Presumably you merge these branches into the main or master branch.
 You can this command to remove all merged branches other than master and the current branch.
 You must be in the root of your project to run this command.
@@ -1337,11 +1364,11 @@ If you run this command within VS Code and specify `-Passthru`, the resulting fi
 
 ### [Test-IsPSWindows](docs/Test-IsPSWindows.md)
 
-PowerShell Core introduced the `$IsWindows` variable. However it is not available on Windows PowerShell. Use this command to perform a simple test if the computer is either running Windows or using the Desktop PSEdition. The command returns True or False.
+PowerShell Core introduced the `$IsWindows` variable. However it is not available on Windows PowerShell. Use this command to perform a simple test if the computer is either running Windows or using the Desktop PSEdition. The command returns `True` or `False`.
 
 ### [Write-Detail](docs/Write-Detail.md)
 
-This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
+This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a `Begin`, `Process` and `End` scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
 
 ```powershell
 PS C:\> write-detail "Getting file information" -Prefix Process -Date
@@ -1389,6 +1416,95 @@ This will display the service status color-coded.
 
 ![ServiceAnsi](images/serviceansi.png)
 
+### PSAnsiMap
+
+I have done something similar for output from `Get-ChildItem`.
+The module includes json file that is exported as a global variable called `PSAnsiFileMap`.
+
+```powershell
+PS C:\scripts\PSScriptTools> $PSAnsiFileMap
+
+Description    Pattern                                Ansi
+-----------    -------                                ----
+PowerShell     \.ps(d|m)?1$
+Text           \.(txt)|(md)|(log)$
+DataFile       \.(json)|(xml)|(csv)$
+Executable     \.(exe)|(bat)|(cmd)|(sh)$
+Graphics       \.(jpg)|(png)|(gif)|(bmp)|(jpeg)$
+Media          \.(mp3)|(m4v)|(wav)|(au)|(flac)|(mp4)$
+Archive        \.(zip)|(rar)|(tar)|(gzip)$
+TopContainer
+ChildContainer
+```
+
+The map includes ANSI settings for different file types.
+You won't see the ANSI value in the output.
+The module will add a custom table view called `ansi` which you can use to display file results colorized in PowerShell 7.
+
+![](images/ansi-file-format.png)
+
+The mapping file is user customizable.
+Copy the `psansifilemap.json` file from the module's root directory to $HOME.
+When you import this module, if the file is found, it will be imported and used as `psansifilemap`, otherwise the module's file will be used.
+
+The file will look like this:
+
+```json
+[
+  {
+    "Description": "PowerShell",
+    "Pattern": "\\.ps(d|m)?1$",
+    "Ansi": "\u001b[38;2;252;127;12m"
+  },
+  {
+    "Description": "Text",
+    "Pattern": "\\.(txt)|(md)|(log)$",
+    "Ansi": "\u001b[38;2;58;120;255m"
+  },
+  {
+    "Description": "DataFile",
+    "Pattern": "\\.(json)|(xml)|(csv)$",
+    "Ansi": "\u001b[38;2;249;241;165m"
+  },
+  {
+    "Description": "Executable",
+    "Pattern": "\\.(exe)|(bat)|(cmd)|(sh)$",
+    "Ansi": "\u001b[38;2;197;15;31m"
+  },
+  {
+    "Description": "Graphics",
+    "Pattern": "\\.(jpg)|(png)|(gif)|(bmp)|(jpeg)$",
+    "Ansi": "\u001b[38;2;255;0;255m"
+  },
+  {
+    "Description": "Media",
+    "Pattern": "\\.(mp3)|(m4v)|(wav)|(au)|(flac)|(mp4)$",
+    "Ansi": "\u001b[38;2;255;199;6m"
+  },
+  {
+    "Description": "Archive",
+    "Pattern": "\\.(zip)|(rar)|(tar)|(gzip)$",
+    "Ansi": "\u001b[38;2;118;38;113m"
+  },
+  {
+    "Description": "TopContainer",
+    "Pattern": "",
+    "Ansi": "\u001b[38;2;0;255;255m"
+  },
+  {
+    "Description": "ChildContainer",
+    "Pattern": "",
+    "Ansi": "\u001b[38;2;255;255;0m"
+  }
+]
+```
+
+You can create or modify file groups.
+The Pattern value should be a regular expression pattern to match on the filename.
+Don't forget you will need to escape characters for the json format.
+The Ansi value will be an ANSI escape sequence.
+You can use `\u001b` for the \``e` character.
+
 ## Related Modules
 
 If you find this module useful, you might also want to look at my tools for [creating and managing custom type extensions](https://github.com/jdhitsolutions/PSTypeExtensionTools), [managing scheduled jobs](https://github.com/jdhitsolutions/ScheduledJobTools) and [running remote commands outside of PowerShell Remoting](https://github.com/jdhitsolutions/PSRemoteOperations)
@@ -1397,4 +1513,4 @@ If you find this module useful, you might also want to look at my tools for [cre
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-03-02 17:43:53Z UTC*
+Last Updated *2020-03-12 15:22:43Z UTC*

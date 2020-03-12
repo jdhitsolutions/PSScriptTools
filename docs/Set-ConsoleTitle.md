@@ -20,6 +20,7 @@ Set-ConsoleTitle [-Title] <String> [-WhatIf] [-Confirm] [<CommonParameters>]
 ## DESCRIPTION
 
 Use this command to modify the text displayed in the title bar of your PowerShell console window.
+This command is intended for use in a traditional PowerShell console. It will not work in consoles that are part of the PowerShell ISE or Visual Studio Code. It should work in a PowerShell session running in Windows Terminal.
 
 ## EXAMPLES
 
