@@ -1,5 +1,17 @@
 # Change Log for PSScriptTools
 
+## v2.21.0
+
++ Updated `Set-ConsoleTitle` and `Set-ConsoleColor` to display a warning if not in a console session. (Issue #75)
++ Added `Get-GitSize` and format file `gitsize.format.ps1xml`
++ Added a default ANSI color map file `psansimap.json`.
++ Modified module to use a copy of `psansimap.json` in $HOME if detected. Otherwise, use the module's version.
++ Create a global variable called `PSAnsiFileMap` from importing the `psansimap.json` file.
++ Updated `Show-Tree` to use an ansi color map. (Issue #69)
++ Added `FileSystem-ansi.format.ps1xml` which adds a custom view called `ansi`. This colorizes files based on `$PSAnsiMap`.
++ Updated `Show-Tree` to resolve child paths using `-LiteralPath`.
++ Updated `README.md`
+
 ## v2.20.0
 
 + Restructured `Get-FileSizeInfo` to better handle Windows PowerShell. (Issue #70)

@@ -25,8 +25,6 @@ Function New-WPFMessageBox {
     )
 
     if ((Test-IsPSWindows)) {
-
-
         # It may not be necessary to add these types but it doesn't hurt to include them
         # but if they can't be laoded then this function will never work anwyway
         Try {
@@ -39,6 +37,7 @@ Function New-WPFMessageBox {
             #make sure we abort
             return
         }
+        
         $form = New-Object System.Windows.Window
         #define what it looks like
         $form.Title = $Title

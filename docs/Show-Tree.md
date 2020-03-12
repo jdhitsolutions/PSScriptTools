@@ -33,7 +33,7 @@ Shows the specified path as a graphical tree in the console. This is intended as
 
 By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma separated list of properties or use * to view them all.
 
-It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system.
+It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system. This parameter has an alias of -ansi.
 
 Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.
 
@@ -152,7 +152,7 @@ C:\work\Alpha\
 ...
 ```
 
-Show a tree listing with files including a few properties. This example is using parameter and command aliases.
+Show a tree listing with files including a few user specified properties. This example is using parameter and command aliases.
 
 ## PARAMETERS
 

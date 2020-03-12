@@ -4312,6 +4312,125 @@ sunday                          47   24540.6523</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-GitSize</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>GitSize</command:noun>
+      <maml:description>
+        <maml:para>Get the size of .git folder.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>When using git, it creates a hidden folder for change tracking. Because the file is hidden it is easy to overlook how large it might become. The command uses a formatting file to display a default view. There is an additonal table view called MB that you can use.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-GitSize</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="pspath">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>The path to the parent folder, not the .git folder.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>current location</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="1" aliases="pspath">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>The path to the parent folder, not the .git folder.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>current location</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[System.String]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>gitSize</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>This is a variation of code posted at https://gist.github.com/jdhitsolutions/cbdc7118f24ba551a0bb325664415649</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\Scripts\PiedPiper&gt; Get-GitSize
+
+Path                                          Files          SizeKB
+----                                          -----          ------
+C:\scripts\PiedPiper                            751       6859.9834</dev:code>
+        <dev:remarks>
+          <maml:para>Get the size of the .git folder from the current path.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ChildItem c:\scripts -Directory | Get-GitSize | Sort-Object -property Size -descending | Select-Object -first 5 -property Computername,Name,Files,Size
+
+Computername Name           Files      Size
+------------ ----           -----      ----
+WIN10DSK2    PSAutoLab        526 193760657
+WIN10DSK2    DevOps-Courses    29  53298180
+WIN10DSK2    PSScriptTools    751   7024623
+WIN10DSK2    PSGUI             32   6705894
+WIN10DSK2    DscWorkshop       24   5590511</dev:code>
+        <dev:remarks>
+          <maml:para>Get the directories under C:\Scripts that have a .git folder and sort on the Size property in descending order. Then select the first 5 directories and use the specified properties.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS S:\PSReleaseTools&gt; Get-GitSize | Format-Table -view mb
+
+Path                                          Files          SizeMB
+----                                          -----          ------
+C:\scripts\PSReleaseTools                       440          3.0588</dev:code>
+        <dev:remarks>
+          <maml:para>Get the git folder size and format using the MB table view.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ChildItem</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Measure-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-ModuleCommand</command:name>
       <command:verb>Get</command:verb>
       <command:noun>ModuleCommand</command:noun>
@@ -10627,7 +10746,7 @@ Mode                LastWriteTime         Length Name
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>You can use this command to modify the PowerShell console's foreground and/or background color. Note that if you are running the PSReadline module, that module has commands, like Set-PSReadLineOption, that you can use to modify your console.</maml:para>
+      <maml:para>You can use this command to modify the PowerShell console's foreground and/or background color. Note that if you are running the PSReadline module, that module has commands, like Set-PSReadLineOption, that you can use to modify your console. This command is intended for use in a traditional PowerShell console. It will not work in consoles that are part of the PowerShell ISE or Visual Studio Code.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -10867,7 +10986,7 @@ Mode                LastWriteTime         Length Name
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to modify the text displayed in the title bar of your PowerShell console window.</maml:para>
+      <maml:para>Use this command to modify the text displayed in the title bar of your PowerShell console window. This command is intended for use in a traditional PowerShell console. It will not work in consoles that are part of the PowerShell ISE or Visual Studio Code. It should work in a PowerShell session running in Windows Terminal.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -11010,7 +11129,7 @@ Mode                LastWriteTime         Length Name
     <maml:description>
       <maml:para>Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider.</maml:para>
       <maml:para>By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma separated list of properties or use * to view them all.</maml:para>
-      <maml:para>It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system.</maml:para>
+      <maml:para>It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system. This parameter has an alias of -ansi.</maml:para>
       <maml:para>Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.</maml:para>
     </maml:description>
     <command:syntax>
@@ -11348,7 +11467,7 @@ C:\work\Alpha\
 |  +--gamma
 ...</dev:code>
         <dev:remarks>
-          <maml:para>Show a tree listing with files including a few properties. This example is using parameter and command aliases.</maml:para>
+          <maml:para>Show a tree listing with files including a few user specified properties. This example is using parameter and command aliases.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

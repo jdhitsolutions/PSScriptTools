@@ -288,6 +288,10 @@ Function Set-ConsoleTitle {
     } #begin
 
     Process {
+        if ($host.Name -ne "ConsoleHost") {
+            Write-Warning "This command must be run from a PowerShell console session. Not the PowerShell ISE or Visual Studio Code or similar environments."
+            #bail out
+        }
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Setting console title to $Title"
         if ($pscmdlet.ShouldProcess($Title)) {
             $host.ui.RawUI.WindowTitle = $Title
@@ -322,6 +326,11 @@ Function Set-ConsoleColor {
     } #begin
 
     Process {
+        if ($host.Name -ne "ConsoleHost") {
+            Write-Warning "This command must be run from a PowerShell console session. Not the PowerShell ISE or Visual Studio Code or similar environments."
+            #bail out
+        }
+
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Bound Parameters"
         $PSBoundParameters | Out-String | Write-Verbose
 

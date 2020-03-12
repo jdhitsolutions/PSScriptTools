@@ -82,6 +82,8 @@
 
         if ($PSBoundParameters.containskey("InColor")) {
             $Colorize = $True
+            $script:top = ($global:PSAnsiFileMap).where( {$_.description -eq 'TopContainer'}).Ansi
+            $script:child = ($global:PSAnsiFileMap).where( {$_.description -eq 'ChildContainer'}).Ansi
         }
         function GetIndentString {
             [CmdletBinding()]
@@ -142,7 +144,9 @@
             $PSBoundParameters | Out-String | Write-Verbose
             if ($IsLast.Count -eq 0) {
                 if ($Color) {
-                    Write-Output "`e[38;2;0;255;255m$("$(Resolve-Path $Path)")`e[0m"
+                   # Write-Output "`e[38;2;0;255;255m$("$(Resolve-Path $Path)")`e[0m"
+                    Write-Output "$($script:top)$("$(Resolve-Path $Path)")`e[0m"
+
                 }
                 else {
                     "$(Resolve-Path $Path)"
@@ -154,27 +158,30 @@
                     #ToDo - define a user configurable color map
                     Switch ($ItemType) {
                         "topcontainer" {
-                            Write-Output "$indentStr`e[38;2;0;255;255m$("$Name")`e[0m"
+                            Write-Output "$indentStr$($script:top)$($Name)`e[0m"
+                            #Write-Output "$indentStr`e[38;2;0;255;255m$("$Name")`e[0m"
                         }
                         "childcontainer" {
-                            Write-Output "$indentStr`e[38;2;255;255;0m$("$Name")`e[0m"
+                            Write-Output "$indentStr$($script:child)$($Name)`e[0m"
+                            #Write-Output "$indentStr`e[38;2;255;255;0m$("$Name")`e[0m"
                         }
                         "file" {
-                            switch -regex ($name) {
-                                "\.ps1$" {
-                                     Write-Output "$indentStr`e[38;2;252;127;12m$("$Name")`e[0m"
-                                }
-                                "\.(jpg)|(png)|(gif)$" {
-                                     Write-Output "$indentStr`e[38;2;255;0;255m$("$Name")`e[0m"
-                                }
-                                "\.(txt)|(json)|(md)|(xml)|(csv)" {
-                                    Write-Output "$indentStr`e[38;2;58;120;255m$("$Name")`e[0m"
-                                }
-                                default {
-                                    Write-Output "$indentStr`e[38;2;22;198;12m$("$Name")`e[0m"
+
+                            #only use map items with regex patterns
+                            foreach ($item in ($global:PSAnsiFileMap | Where-object Pattern)) {
+                                if ($name -match $item.pattern -AND (-not $done)) {
+                                    write-Verbose "Detected a $($item.description) file"
+                                    Write-Output "$indentStr$($item.ansi)$($Name)`e[0m"
+                                    #set a flag indicating we've made a match to stop looking
+                                    $done = $True
                                 }
                             }
-                        }
+                            #no match was found so just write the item.
+                            if (-Not $done) {
+                                write-verbose "No ansi match for $Name"
+                                Write-Output "$indentStr$Name`e[0m"
+                            }
+                        } #file
                         Default {
                             Write-Output "$indentStr$Name"
                         }
@@ -231,7 +238,7 @@
             $childItems = @()
             if ($IsLast.Count -lt $Depth) {
                 try {
-                    $rpath = Resolve-Path $Path -ErrorAction stop
+                    $rpath = Resolve-Path -literalpath $Path -ErrorAction stop
                 }
                 catch {
                     Throw "Failed to resolve $path. This PSProvider and path may be incompatible with this command."
@@ -305,8 +312,7 @@
                 IsTop = $True
             }
             ShowContainer @showParams
-
-        }
+          }
     } #process
     end {
         Write-Verbose "Ending $($myinvocation.MyCommand)"

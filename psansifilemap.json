@@ -1,0 +1,47 @@
+[
+  {
+    "Description": "PowerShell",
+    "Pattern": "\\.ps(d|m)?1$",
+    "Ansi": "\u001b[38;2;252;127;12m"
+  },
+  {
+    "Description": "Text",
+    "Pattern": "\\.(txt)|(md)|(log)$",
+    "Ansi": "\u001b[38;2;58;120;255m"
+  },
+  {
+    "Description": "DataFile",
+    "Pattern": "\\.(json)|(xml)|(csv)$",
+    "Ansi": "\u001b[38;2;249;241;165m"
+  },
+  {
+    "Description": "Executable",
+    "Pattern": "\\.(exe)|(bat)|(cmd)|(sh)$",
+    "Ansi": "\u001b[38;2;197;15;31m"
+  },
+  {
+    "Description": "Graphics",
+    "Pattern": "\\.(jpg)|(png)|(gif)|(bmp)|(jpeg)$",
+    "Ansi": "\u001b[38;2;255;0;255m"
+  },
+  {
+    "Description": "Media",
+    "Pattern": "\\.(mp3)|(m4v)|(wav)|(au)|(flac)|(mp4)$",
+    "Ansi": "\u001b[38;2;255;199;6m"
+  },
+  {
+    "Description": "Archive",
+    "Pattern": "\\.(zip)|(rar)|(tar)|(gzip)$",
+    "Ansi": "\u001b[38;2;118;38;113m"
+  },
+  {
+    "Description": "TopContainer",
+    "Pattern": "",
+    "Ansi": "\u001b[38;2;0;255;255m"
+  },
+  {
+    "Description": "ChildContainer",
+    "Pattern": "",
+    "Ansi": "\u001b[38;2;255;255;0m"
+  }
+]
