@@ -67,7 +67,7 @@ BOVINE320       D:\logs                                                    134  
 BOVINE320       D:\2016                                                      5        1.5608
 ```
 
-Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater an 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There is also a view called GB.
+Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater an 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly..
 
 ### Example 4
 

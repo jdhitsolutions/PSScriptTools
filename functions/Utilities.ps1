@@ -280,21 +280,25 @@ Function Set-ConsoleTitle {
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the title for the console window.")]
         [ValidateNotNullorEmpty()]
-        [ValidateScript( {$_.length -le ($host.UI.RawUI.MaxWindowSize.Width * 2)})]
         [string]$Title
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        $width =  ($host.UI.RawUI.MaxWindowSize.Width * 2)
     } #begin
 
     Process {
         if ($host.Name -ne "ConsoleHost") {
             Write-Warning "This command must be run from a PowerShell console session. Not the PowerShell ISE or Visual Studio Code or similar environments."
-            #bail out
         }
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Setting console title to $Title"
-        if ($pscmdlet.ShouldProcess($Title)) {
-            $host.ui.RawUI.WindowTitle = $Title
+        elseif (($title.length -ge $width)) {
+            Write-Warning "Your title is too long. It needs to be less than $width to fit your current console."
+        }
+        else {
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Setting console title to $Title"
+            if ($pscmdlet.ShouldProcess($Title)) {
+                $host.ui.RawUI.WindowTitle = $Title
+            }
         }
     } #process
 

@@ -441,10 +441,10 @@ Computername    Path                                                TotalFiles  
 BOVINE320       C:\work                                                   1375     137516856
 ```
 
- The command includes a format file with additional view to display the total size in KB, MB or GB.
+ The command includes a format file with additional view to display the total size in KB, MB, GB or TB.
 
 ```powershell
-PS C:\> Get-Childitem D:\ -Directory | Get-FolderSizeInfo -Hidden | Where-Object TotalSize -gt 1gb | Sort-Object TotalSize -Descending | format-table -View gb
+PS C:\> Get-ChildItem D:\ -Directory | Get-FolderSizeInfo -Hidden | Where-Object TotalSize -gt 1gb | Sort-Object TotalSize -Descending | format-table -View gb
 
 Computername    Path                                                TotalFiles   TotalSizeGB
 ------------    ----                                                ----------   -----------
@@ -1511,6 +1511,6 @@ If you find this module useful, you might also want to look at my tools for [cre
 
 ## Compatibility
 
-Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an issue. It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
+Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-03-12 15:22:43Z UTC*
+Last Updated *2020-04-17 13:14:01Z UTC*
