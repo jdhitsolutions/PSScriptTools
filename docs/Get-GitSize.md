@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: psscripttools
-online version:
+online version: https://bit.ly/3bj81JZ
 schema: 2.0.0
 ---
 
@@ -19,10 +19,7 @@ Get-GitSize [[-Path] <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-When using git, it creates a hidden folder for change tracking.
-Because the file is hidden it is easy to overlook how large it might become.
-The command uses a formatting file to display a default view.
-There is an additonal table view called MB that you can use.
+When using git, it creates a hidden folder for change tracking. Because the file is hidden it is easy to overlook how large it might become. The command uses a formatting file to display a default view. There is an additional table view called MB that you can use.
 
 ## EXAMPLES
 

@@ -1,5 +1,12 @@
 # Change Log for PSScriptTools
 
+## v2.22.0
+
++ Modified `Set-ConsoleTitle` to move parameter validation into the `Process` script block. (Issue #75)
++ Modified `Get-FolderSizeInfo` to fix an enumeration bug when used in Windows PowerShell. (Issue #77)
++ Added online help links for `Get-GitSize`, `Get-ModuleCommand` and `Remove-MergedBranch`.
++ Updated `foldersizeinfo.format.ps1xml` to include a view called `TB` to display values in TB.
+
 ## v2.21.0
 
 + Updated `Set-ConsoleTitle` and `Set-ConsoleColor` to display a warning if not in a console session. (Issue #75)

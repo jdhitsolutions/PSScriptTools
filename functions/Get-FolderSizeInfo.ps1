@@ -139,7 +139,11 @@ Function Get-FolderSizeInfo {
 
                 If ($files.count -gt 0) {
                     Write-Verbose "Found $($files.count) files"
-                    $stats = $files | Measure-Object -property length -sum
+                    # there appears to be a bug with the array list in Windows PowerShell
+                    # where it doesn't always properly enumerate. Passing the list
+                    # items via ForEach appears to solve the problem and doesn't
+                    # adversely affect PowerShell 7. Addeed in v2.22.0. JH
+                    $stats = $files.foreach( {$_}) | Measure-Object -property length -sum
                     $totalFiles = $stats.count
                     $totalSize = $stats.sum
                 }

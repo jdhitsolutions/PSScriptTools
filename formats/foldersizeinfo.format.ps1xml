@@ -36,10 +36,6 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
-              -->
               <TableColumnItem>
                 <PropertyName>Computername</PropertyName>
               </TableColumnItem>
@@ -89,10 +85,6 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
-              -->
               <TableColumnItem>
                 <PropertyName>Computername</PropertyName>
               </TableColumnItem>
@@ -142,10 +134,6 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
-              -->
               <TableColumnItem>
                 <PropertyName>Computername</PropertyName>
               </TableColumnItem>
@@ -195,10 +183,6 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
-              -->
               <TableColumnItem>
                 <PropertyName>Computername</PropertyName>
               </TableColumnItem>
@@ -223,14 +207,6 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
         <TypeName>FolderSizeInfo</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <ScriptBlock>$(Split-Path $_.Path)</ScriptBlock>
         <Label>Path</Label>
       </GroupBy>
@@ -255,10 +231,6 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
@@ -267,6 +239,55 @@ format type data generated 01/29/2020 13:25:45 by BOVINE320\Jeff
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>[math]::Round($_.TotalSize/1kb,4)</ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 4/14/2020 by BOVINE320\Jeff-->
+      <Name>TB</Name>
+      <ViewSelectedBy>
+        <TypeName>FolderSizeInfo</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Computername</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Path</Label>
+            <Width>48</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>TotalFiles</Label>
+            <Width>13</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>TotalSizeTB</Label>
+            <Width>13</Width>
+            <Alignment>right</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Computername</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Path</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>TotalFiles</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>[math]::round($_.totalSize /1tb,4)</ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

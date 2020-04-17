@@ -4270,7 +4270,7 @@ BOVINE320       D:\rip                                                       3  
 BOVINE320       D:\logs                                                    134        3.9517
 BOVINE320       D:\2016                                                      5        1.5608</dev:code>
         <dev:remarks>
-          <maml:para>Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater an 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There is also a view called GB.</maml:para>
+          <maml:para>Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater an 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly..</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -4320,7 +4320,7 @@ sunday                          47   24540.6523</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>When using git, it creates a hidden folder for change tracking. Because the file is hidden it is easy to overlook how large it might become. The command uses a formatting file to display a default view. There is an additonal table view called MB that you can use.</maml:para>
+      <maml:para>When using git, it creates a hidden folder for change tracking. Because the file is hidden it is easy to overlook how large it might become. The command uses a formatting file to display a default view. There is an additional table view called MB that you can use.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4419,6 +4419,10 @@ C:\scripts\PSReleaseTools                       440          3.0588</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3bj81JZ</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
         <maml:uri></maml:uri>
@@ -4613,6 +4617,10 @@ Synopsis : Ends forcibly the SMB session.
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2Kfjm1Q</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Command</maml:linkText>
         <maml:uri></maml:uri>
@@ -9637,6 +9645,10 @@ Deleted branch patch-254 (was 75f6ab8).</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3crxxg9</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>git.exe</maml:linkText>
         <maml:uri></maml:uri>
