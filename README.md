@@ -34,7 +34,7 @@ This is an alternative to `Get-Command` to make it easier to see at a glance wha
 Use `-ListAvailable` to see commands in module not currently loaded.
 Note that if the help file is malformed or missing, you might get oddly formatted results.
 
-```powersehell
+```powershell
 PS C:\> Get-ModuleCommand PSCalendar
 
 
