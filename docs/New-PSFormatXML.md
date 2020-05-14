@@ -15,8 +15,8 @@ Create or modify a format.ps1xml file.
 
 ```yaml
 New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>] [-Typename <String>]
- [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-GroupBy <String>] [-Append] [-Passthru]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+ [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-GroupBy <String>] [-Wrap] [-Append]
+ [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -123,10 +123,7 @@ Get-Service | Sort-Object Status | Format-Wide -view Status
 
 ### -Append
 
-Append the new view to an existing format.ps1xml file.
-You need to make sure that view names are unique.
-With the exception of default.
-You can have multiple default views as long as they are different types, such as table and list.
+Append the new view to an existing format.ps1xml file. You need to make sure that view names are unique. With the exception of default. You can have multiple default views as long as they are different types, such as table and list.
 
 ```yaml
 Type: SwitchParameter
@@ -223,9 +220,7 @@ Accept wildcard characters: False
 
 ### -Properties
 
-Enter a set of properties to include.
-If you don't specify anything then all properties will be used.
-When creating a Wide view you should only specify a single property.
+Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property.
 
 ```yaml
 Type: String[]
@@ -293,6 +288,22 @@ Specify a property name to group on. You can edit the file if you need to change
 
 ```yaml
 Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Wrap
+
+Wrap long lines. This only applies to Tables.
+
+```yaml
+Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
 

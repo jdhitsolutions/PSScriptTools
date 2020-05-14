@@ -16,13 +16,15 @@ Create a text border around a string.
 ### single (Default)
 
 ```yaml
-Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [<CommonParameters>]
+Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [-ANSIBorder <String>]
+ [-ANSIText <String>] [<CommonParameters>]
 ```
 
 ### block
 
 ```yaml
-Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [<CommonParameters>]
+Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [-ANSIBorder <String>]
+ [-ANSIText <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -81,6 +83,20 @@ PS C:\> add-border -textblock (get-service win* | out-string).trim()
 ```
 
 Create a border around the output of a Get-Service command.
+
+### EXAMPLE 5
+
+```powershell
+PS C:\> add-border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m" -ANSIText "$([char]0x1b)[93m" -InsertBlanks
+
+*******************
+*                 *
+* I am the walrus *
+*                 *
+*******************
+```
+
+This will write a color version of the text and border. You would this type of ANSI syntax for Windows PowerShell. In PowerShell 7, you can use the same syntax or the much easier "`e[38;5;47m".
 
 ## PARAMETERS
 
@@ -164,9 +180,41 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -ANSIBorder
+
+Enter an ANSI escape sequence to color the border characters.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ANSIText
+
+Enter an ANSI escape sequence to color the text.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

@@ -30,7 +30,7 @@ Function Get-ParameterInfo {
             "Confirm",
             "InformationAction",
             "InformationVariable",
-            "pipelinevariable"
+            "PipelineVariable"
         )
     } #begin
 
