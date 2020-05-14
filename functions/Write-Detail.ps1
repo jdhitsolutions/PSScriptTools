@@ -29,7 +29,6 @@ Function Write-Detail {
 
     if ($PSCmdlet.ParameterSetName -eq 'Default') {
         $Text = "[$($prefix.ToUpper())] $Message"
-
     }
     else {
         $Text = "$dt [$($prefix.toUpper())] $Message"

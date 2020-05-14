@@ -21,6 +21,8 @@ Function New-PSFormatXML {
         [Parameter(HelpMessage = "Specify a property name to group on.")]
         [ValidateNotNullOrEmpty()]
         [string]$GroupBy,
+        [Parameter(HelpMessage="Wrap long lines. This only applies to Tables.")]
+        [Switch]$Wrap,
         [switch]$Append,
         [switch]$Passthru
     )
@@ -97,6 +99,11 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 $headers = $doc.CreateNode("element", "TableHeaders", $null)
                 $TableRowEntries = $doc.CreateNode("element", "TableRowEntries", $null)
                 $entry = $doc.CreateNode("element", "TableRowEntry", $null)
+                if ($Wrap) {
+                    Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Adding Wrap"
+                    $wrapelement = $doc.CreateNode("element","Wrap",$null)
+                    $entry.AppendChild($wrapelement)
+                }
             }
             "List" {
                 $list = $doc.CreateNode("element", "ListControl", $null)
@@ -109,7 +116,6 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 $WideEntry = $doc.CreateNode("element", "WideEntry", $null)
             }
         }
-
         $counter = 0
     } #begin
 

@@ -1,5 +1,12 @@
 # Change Log for PSScriptTools
 
+## v2.23.0
+
++ Updated `New-PSFormatXML` to include an option to wrap tables. (Issue #78)
++ Updated `Add-Border` to include parameters to specify an ANSI sequence for the border and one for the text.
++ Revised `Add-Border` to better support inserting blank lines.
++ Updated `README.md`
+
 ## v2.22.0
 
 + Modified `Set-ConsoleTitle` to move parameter validation into the `Process` script block. (Issue #75)
