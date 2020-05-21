@@ -36,7 +36,7 @@ Function New-PSFormatXML {
 
         if (-Not $Append) {
             Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Initializing a new XML document"
-            [xml]$Doc = New-Object System.Xml.XmlDocument
+            [xml]$Doc = New-Object -TypeName System.Xml.XmlDocument
 
             #create declaration
             $dec = $Doc.CreateXmlDeclaration("1.0", "UTF-8", $null)
@@ -102,7 +102,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 if ($Wrap) {
                     Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Adding Wrap"
                     $wrapelement = $doc.CreateNode("element","Wrap",$null)
-                    $entry.AppendChild($wrapelement)
+                    [void]($entry.AppendChild($wrapelement))
                 }
             }
             "List" {
@@ -213,8 +213,6 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 $items = $doc.CreateNode("element", "ListItems", $null)
                 [void]$items.AppendChild($doc.CreateComment($comment))
                 foreach ($member in $members) {
-                    $li = $doc.createNode("element", "ListItem", $null)
-
                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]... $($member.name)"
 
                     $li = $doc.CreateNode("element", "ListItem", $null)

@@ -1,10 +1,12 @@
 #requires -module PSScriptTools
+#requires -version 5.1
+
 Function Get-TopProcess {
     [cmdletbinding()]
     Param(
         [Parameter(Position = 0)]
         [ValidateSet('WorkingSet', 'VM', 'CPU', 'Handles', 'PM')]
-        [string]$Property = "WorkingSet",    
+        [string]$Property = "WorkingSet",
         [ValidateRange(1, 25)]
         [int32]$Top = 10,
         [Parameter(ValueFromPipeline)]
@@ -14,26 +16,26 @@ Function Get-TopProcess {
         $vlog = New-CustomFileName -Template "$env:temp\$($myinvocation.mycommand)-%time.log"
         $PSDefaultParameterValues."Out-VerboseTee:Path" = $vlog
         $PSDefaultParameterValues."Out-VerboseTee:Append" = $True
-        $PSDefaultParameterValues."Write-Detail:Prefix" = 'Begin' 
+        $PSDefaultParameterValues."Write-Detail:Prefix" = 'Begin'
         Write-Detail "Starting $($myinvocation.mycommand)" | Tee-Verbose
         Write-Detail "Using verbose log $vlog" | Tee-Verbose
         Write-Detail "Execution metadata" | Tee-Verbose
-        Write-Detail (Get-PSwho -AsString) | Tee-Verbose
+        Write-Detail (Add-Border -textblock (Get-PSwho -AsString)| Out-String) | Tee-Verbose
         Write-Detail "Initializing data array" | Tee-Verbose
     } #begin
 
     Process {
-        $PSDefaultParameterValues."Write-Detail:Prefix" = 'Process' 
+        $PSDefaultParameterValues."Write-Detail:Prefix" = 'Process'
         Write-Detail "Gathering process information from $Computername" | Tee-Verbose
-        $all += Invoke-Command -ScriptBlock { 
-            Get-Process | 
+        $all += Invoke-Command -ScriptBlock {
+            Get-Process |
                 Sort-Object -Property $using:Property -Descending |
-                Select-Object -first $using:Top 
+                Select-Object -first $using:Top
         } -ComputerName $computername
     } #process
 
     End {
-        $PSDefaultParameterValues."Write-Detail:Prefix" = 'End' 
+        $PSDefaultParameterValues."Write-Detail:Prefix" = 'End'
         $all
         if ($VerbosePreference -eq 'Continue') {
             #save results to the verbose log
@@ -45,7 +47,7 @@ Function Get-TopProcess {
                 foreach-object {
                 $log = New-CustomFileName -Template "$env:temp\$($_.Name)_TopProcess_$Property-%Year%Month%time-%###.txt"
                 Write-Detail "Logging output to $log" | Tee-Verbose
-                $_.Group | Out-String | Set-Content -path $log 
+                $_.Group | Out-String | Set-Content -path $log
             }
         }
 
@@ -57,5 +59,5 @@ Function Get-TopProcess {
 
 } #close command
 
-#run the function 
-'localhost', $env:computername, (hostname) | Get-TopProcess -top 5 -verbose 
+#run the function
+'localhost', $env:computername, (hostname) | Get-TopProcess -top 5 -verbose

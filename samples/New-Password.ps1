@@ -1,4 +1,5 @@
 #requires -module PSScriptTools
+#requires -version 5.1
 
 Function New-Password {
     [cmdletbinding()]

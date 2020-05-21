@@ -5,8 +5,56 @@ format type data generated 02/29/2020 12:21:51 by BOVINE320\Jeff
 <Configuration>
   <ViewDefinitions>
     <View>
-      <!--Created 02/29/2020 12:21:51 by BOVINE320\Jeff-->
+      <!--Created 05/21/2020 11:24:58 by BOVINE320\Jeff-->
       <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>ModuleCommand</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>ModuleName</PropertyName>
+        <Label>ModuleName</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>13</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Alias</Label>
+            <Width>13</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Synopsis</Label>
+            <Width>40</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Alias</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Synopsis</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 02/29/2020 12:21:51 by BOVINE320\Jeff-->
+      <Name>List</Name>
       <ViewSelectedBy>
         <TypeName>ModuleCommand</TypeName>
       </ViewSelectedBy>
@@ -14,10 +62,6 @@ format type data generated 02/29/2020 12:21:51 by BOVINE320\Jeff
         <ListEntries>
           <ListEntry>
             <ListItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <ListItem>
                 <Label>Name</Label>
                 <PropertyName>Name</PropertyName>
@@ -34,6 +78,62 @@ format type data generated 02/29/2020 12:21:51 by BOVINE320\Jeff
           </ListEntry>
         </ListEntries>
       </ListControl>
+    </View>
+    <View>
+      <!--Created 05/21/2020 11:37:41 by BOVINE320\Jeff-->
+      <Name>verb</Name>
+      <ViewSelectedBy>
+        <TypeName>ModuleCommand</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>Verb</PropertyName>
+        <Label>Verb</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>30</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Alias</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Type</Label>
+            <Width>11</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Synopsis</Label>
+            <Width>40</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <Wrap />
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Alias</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Synopsis</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
     </View>
   </ViewDefinitions>
 </Configuration>

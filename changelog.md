@@ -1,11 +1,43 @@
 # Change Log for PSScriptTools
 
+## v2.24.0
+
+### Add
+
++ Added parameter alias of `tb` for `-TextBlock` in `Add-Border`.
++ Added parameter alias of `border` for `-Character` in `Add-Border`.
++ Added `New-ANSIBar` command.
++ Added `New-RedGreenGradient` command.
++ Added `Write-ANSIProgress` command with an alias of `wap`.
++ Defined a global variable called `$PSSpecialChar` which is a hash table select special characters you might want to use with `Add-Border` or `New-AnsiBar`.
++ Added a table view to `modulecommand.format.ps1xml` and made it the default.
++ Added a new table view called `verb` to `modulecommand.format.ps1xml`.
++ Added `Get-PathVariable` with its own custom format file. (Issue #74)
++ Added sample script `Get-Status.ps1`.
++ Added global variable `$PSSamplePath` to point to the sample script location
+
+### Change
+
++ Modified `Add-Border` to adjust line length when ANSI escapes are part of the text. (Issue #79)
++ Modified `Get-PSWho` to trim when using `-AsString`.
++ Fixed bug in `New-PSFormatXML` what was writing an XML element to the pipeline when using `-Wrap`.
++ Updated `Get-ModuleCommand` output to include the module name.
++ Updated `serviceansi.format.ps1xml` and `filesystem-ansi.format.ps1xml` to use an escape sequence available to both Windows PowerShell and PowerShell 7.
++ Fixed wrong type name in `serviceansi.format.ps1xml`.
++ Help updates.
++ Updated sample scripts.
++ Updated `README.md`.
+
+### Delete
+
++ Removed duplicate line of code in `New-PSFormatXML`.
+
 ## v2.23.0
 
 + Updated `New-PSFormatXML` to include an option to wrap tables. (Issue #78)
 + Updated `Add-Border` to include parameters to specify an ANSI sequence for the border and one for the text.
 + Revised `Add-Border` to better support inserting blank lines.
-+ Updated `README.md`
++ Updated `README.md`.
 
 ## v2.22.0
 

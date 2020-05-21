@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get a summary of commands in a module.
+Get a summary of module commands.
 
 ## SYNTAX
 
@@ -37,22 +37,16 @@ This is an alternative to Get-Command to make it easier to see at a glance what 
 PS C:\> Get-ModuleCommand PSCalendar
 
 
-   Verb: Get
+   ModuleName: PSCalendar
 
-Name                           Alias           Type      Synopsis
-----                           -----           ----      --------
-Get-Calendar                   cal             Function  Displays a visual representation of a ...
-
-
-   Verb: Show
-
-Name                           Alias           Type      Synopsis
-----                           -----           ----      --------
-Show-Calendar                  scal            Function  Display a colorized calendar month in ...
-Show-GuiCalendar               gcal            Function  Display a WPF-based calendar
+Name             Alias Synopsis
+----             ----- --------
+Get-Calendar     cal   Displays a visual representation of a calendar.
+Show-Calendar    scal  Display a colorized calendar month in the console.
+Show-GuiCalendar gcal  Display a WPF-based calendar
 ```
 
-Get module commands using the default formatted view.
+Get module commands using the default formatted view. You can install this module from the PowerShell Gallery.
 
 ### Example 2
 
@@ -76,14 +70,48 @@ Synopsis : Ends forcibly the SMB session.
 
 Using the default list view.
 
+### Example 3
+
+```powershell
+PS C:\> Get-ModuleCommand PSScriptTools | format-table -view verb
+
+
+
+   Verb: Add
+
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+Add-Border                                     Function    Create a text border around a string.
+
+
+   Verb: Compare
+
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+Compare-Module                 cmo             Function    Compare PowerShell module versions.
+
+
+   Verb: Convert
+
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+Convert-CommandtoHashtable                     Function    Convert a PowerShell expression into a
+                                                           hashtable.
+Convert-EventLogRecord         clr             Function    Convert EventLogRecords to structured
+                                                           objects.
+...
+```
+
+Display commands using a custom table view called 'Verb'.
+
 ## PARAMETERS
 
 ### -FullyQualifiedName
 
-Specifies names of modules in the form of ModuleSpecification objects.
-The FullyQualifiedName parameter accepts a module name that is specified in the following formats:
+Specifies names of modules in the form of ModuleSpecification objects. The FullyQualifiedName parameter accepts a module name that is specified in the following formats:
 
 @{ModuleName = "modulename"; ModuleVersion = "version_number"}
+
 @{ModuleName = "modulename"; ModuleVersion = "version_number"; Guid = "GUID"}
 
 ModuleName and ModuleVersion are required, but Guid is optional.
@@ -104,8 +132,7 @@ Accept wildcard characters: False
 
 ### -ListAvailable
 
-Indicates that this cmdlet gets all installed modules. Get-Module gets modules in paths listed in the PSModulePath environment variable.
-Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.
+Indicates that this cmdlet gets all installed modules. Get-Module gets modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.
 
 ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.
 
@@ -151,8 +178,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

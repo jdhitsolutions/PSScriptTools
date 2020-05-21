@@ -1,4 +1,5 @@
 #requires -module PSScriptTools
+#requires -version 5.1
 
 #this is a demonstration script
 [cmdletbinding()]
@@ -14,7 +15,7 @@ if ($VerbosePreference -eq 'Continue') {
     $transcript = New-CustomFileName -Template "Transcript-$($myinvocation.MyCommand)-%Year%Month%Day%Time.log"
     Start-Transcript -Path $transcript -IncludeInvocationHeader
 }
-$PSDefaultParameterValues."write-detail:nodate" = $True
+$PSDefaultParameterValues."write-detail:date" = $True
 Write-Detail "Starting $($myinvocation.mycommand)" | Write-Verbose
 Write-Detail "Execution metadata" | Write-Verbose
 Write-Detail (Get-PSwho -AsString) | Write-Verbose
@@ -51,9 +52,12 @@ Write-Detail "Saving data to log file $log" | Write-Verbose
 Set-Content -Path $log -Value "Usage Report for $Path"
 Add-Content -path $log -value (Get-Date)
 $data | Select-Object Count, Name, Size | Out-String | Add-Content -Path $log
+
 Write-Detail "Ending $($myinvocation.mycommand)" | Write-Verbose
-$PSDefaultParameterValues.Remove("write-detail:nodate")
-if (Test-Path $Transcript) {
+
+$PSDefaultParameterValues.Remove("write-detail:date")
+
+if ($Transcript -AND (Test-Path $Transcript)) {
     Stop-Transcript
     Write-Verbose "See $transcript for a transcript of this script."
 }
