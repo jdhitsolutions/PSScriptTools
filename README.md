@@ -2,7 +2,7 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSScripttools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSScripttools/)
 
-This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files.
+This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work. Or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform.
 
 ## Current Release
 
@@ -51,8 +51,7 @@ PS C:\> Get-ModuleCommand PSCalendar
     Show-GuiCalendar               gcal            Function  Display a WPF-based calendar
 ```
 
-Get module commands using the default formatted view.
-There is also a default view for `Format-List`.
+Get module commands using the default formatted view. There is also a default view for `Format-List`.
 
 ### [Get-PSScriptTools](docs/Get-PSScriptTools.md)
 
@@ -324,6 +323,10 @@ ExecutionPolicy : RemoteSigned
 Culture         : English (United States)
 ```
 
+You can also turn this into a text block using the `AsString` parameter. This is helpful when you want to include the output in some type of report.
+
+![PSWho Report](images/add-border-ansi2.png)
+
 ### [Find-CimClass](docs/Find-CimClass.md)
 
 This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. `Find-CimClass` will recursively search for a given classname. You can use wildcards and search remote computers.
@@ -391,6 +394,25 @@ You can also get detailed information.
 ![PowerShell Core on Linux](./images/get-powershellengine3.png)
 
 Results will vary depending on whether you are running PowerShell on Windows nor non-Windows systems.
+
+### [Get-PathVariable](docs/Get-PathVariable.md)
+
+Over time, as you add and remove programs, your `%PATH%` might change. An application may add a location but not remove it when you uninstall the application. This command makes it easier to identify locations and whether they are still good.
+
+```powershell
+PS C:\> Get-PathVariable
+
+Scope   UserName Path                                                                     Exists
+-----   -------- ----                                                                     ------
+User    Jeff     C:\Program Files\kdiff3                                                  True
+User    Jeff     C:\Program Files (x86)\Bitvise SSH Client                                True
+User    Jeff     C:\Program Files\OpenSSH                                                 True
+User    Jeff     C:\Program Files\Intel\WiFi\bin\                                         True
+User    Jeff     C:\Program Files\Common Files\Intel\WirelessCommon\                      True
+User    Jeff     C:\Users\Jeff\AppData\Local\Programs\Microsoft VS Code\bin               True
+User    Jeff     C:\Program Files (x86)\Vale\                                             True
+...
+```
 
 ## File Tools
 
@@ -1125,6 +1147,50 @@ C:\work\Alpha\
 
 This example is using parameter and command aliases. You can display a tree listing with files including user specified properties. Use a value of * to show all properties.
 
+### [New-ANSIBar](docs/New-ANSIBar.md)
+
+You can use this command to create colorful bars using ANSI escape sequences based on a 256 color scheme. The default behavior is to create a gradient bar that goes from first to last values in the range and then back down again. Or you can create a single gradient that runs from the beginning of the range to the end. You can use one of the default characters or specify a custom one.
+
+![New-ANSIBar](images/ansibar.png)
+
+### [New-RedGreenGradient](docs/New-RedGreenGradient.md)
+
+A related command is `New-RedGreenGradient` which displays a bar going from red to green. This might be handy when you want to present a visual indicator.
+
+![New-RedGreenGradient](images/redgreen.png)
+
+### [Write-ANSIProgress](docs/Write-ANSIProgress.md)
+
+You could also use `Write-ANSIProgress` to show a custom ANSI bar.
+
+![Write-ANSIProgress simple](images/write-ansprogress-1.png)
+
+![write-ANSIProgress in code](images/write-ansprogress-2.png)
+
+Or you can use it in your code to display a console progress bar.
+
+```powershell
+$sb = {
+        Clear-Host
+        $top = Get-ChildItem c:\scripts -Directory
+        $i = 0
+        $out=@()
+        $pos = $host.ui.RawUI.CursorPosition
+        Foreach ($item in $top) {
+            $i++
+            $pct = [math]::round($i/$top.count,2)
+            Write-ANSIProgress -PercentComplete $pct -position $pos
+            Write-Host "  Processing $(($item.fullname).padright(80))" -ForegroundColor Yellow -NoNewline
+            $out+= Get-ChildItem -path $item -Recurse -file | Measure-Object -property length -sum |
+            Select-Object @{Name="Path";Expression={$item.fullname}},Count,@{Name="Size";Expression={$_.Sum}}
+        }
+        Write-Host ""
+        $out | Sort-object -property Size -Descending
+    }
+```
+
+![Write-ANSIProgress script](images/write-ansprogress-3.png)
+
 ## Format-Functions
 
 A set of simple commands to make it easier to format values.
@@ -1385,7 +1451,7 @@ You will need to manually install the file.
 
 ## Other
 
-From time to time I will include additional items that you might find useful. One item that you get when you import this module is a custom format.ps1xml file for services. If you are running PowerShell 7, you can run `Get-Service` and pipe it to the table view.
+From time to time I will include additional items that you might find useful. One item that you get when you import this module is a custom format.ps1xml file for services. You can run `Get-Service` and pipe it to the table view.
 
 ```powershell
 PS C:\> Get-Service | Format-Table -view ansi
@@ -1394,6 +1460,8 @@ PS C:\> Get-Service | Format-Table -view ansi
 This will display the service status color-coded.
 
 ![ServiceAnsi](images/serviceansi.png)
+
+This will not work in the PowerShell ISE as it is not ANSI aware.
 
 ### PSAnsiMap
 
@@ -1417,7 +1485,7 @@ ChildContainer
 
 The map includes ANSI settings for different file types. You won't see the ANSI value in the output. The module will add a custom table view called `ansi` which you can use to display file results colorized in PowerShell 7.
 
-![](images/ansi-file-format.png)
+![ANSI File listing](images/ansi-file-format.png)
 
 The mapping file is user customizable. Copy the `psansifilemap.json` file from the module's root directory to $HOME. When you import this module, if the file is found, it will be imported and used as `psansifilemap`, otherwise the module's file will be used.
 
@@ -1475,6 +1543,26 @@ The file will look like this:
 
 You can create or modify file groups. The Pattern value should be a regular expression pattern to match on the filename. Don't forget you will need to escape characters for the json format. The Ansi value will be an ANSI escape sequence. You can use `\u001b` for the \``e` character.
 
+### PSSpecialChar
+
+A number of the commands in this module can use special characters. To make it easier, when you import the module it will create a global variable that is a hash table of common special characters. Because it is a hashtable you can add ones you also use.
+
+![PSSpecialChar](images/psspecialchar.png)
+
+The names are the same as used in CharMap.exe. Don't let the naming confuse you. It may say `BlackSquare` but the color will depend on how you use it.
+
+```powershell
+Get-WindowsVersionString | Add-Border -border $PSSpecialChar.BlackSmallSquare -ANSIBorder "$([char]0x1b)[38;5;214m"
+```
+
+![PSSpecialChar Border](images/psspecialchar-border.png)
+
+### Sample scripts
+
+This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files. You can access the folder in PowerShell using the `$PSSamplePath`. The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered AS-IS and are for demonstration purposes only.
+
+![ProcessPercent.ps1](images/processpercent.png)
+
 ## Related Modules
 
 If you find this module useful, you might also want to look at my tools for [creating and managing custom type extensions](https://github.com/jdhitsolutions/PSTypeExtensionTools), [managing scheduled jobs](https://github.com/jdhitsolutions/ScheduledJobTools) and [running remote commands outside of PowerShell Remoting](https://github.com/jdhitsolutions/PSRemoteOperations).
@@ -1483,4 +1571,4 @@ If you find this module useful, you might also want to look at my tools for [cre
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-> Last Updated *2020-05-14 18:42:52Z UTC*
+> Last Updated *2020-05-21 20:11:54Z UTC*

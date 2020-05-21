@@ -1,14 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--
-format type data generated 02/03/2020 14:51:45 by BOVINE320\Jeff
--->
 <Configuration>
   <ViewDefinitions>
       <View>
         <!--Created 02/03/2020 14:51:45 by BOVINE320\Jeff-->
         <Name>service</Name>
         <ViewSelectedBy>
-          <TypeName>System.Service.ServiceController#StartupType</TypeName>
+          <TypeName>System.ServiceProcess.ServiceController</TypeName>
         </ViewSelectedBy>
         <TableControl>
           <!--Delete the AutoSize node if you want to use the defined widths.-->
@@ -47,10 +44,9 @@ format type data generated 02/03/2020 14:51:45 by BOVINE320\Jeff
         </TableControl>
       </View>
 <View>
-<!--Created 02/03/2020 14:51:45 by BOVINE320\Jeff-->
       <Name>Ansi</Name>
       <ViewSelectedBy>
-        <TypeName>System.Service.ServiceController#StartupType</TypeName>
+        <TypeName>System.ServiceProcess.ServiceController</TypeName>
       </ViewSelectedBy>
       <TableControl>
         <!--Delete the AutoSize node if you want to use the defined widths.-->
@@ -77,13 +73,13 @@ format type data generated 02/03/2020 14:51:45 by BOVINE320\Jeff
               <TableColumnItem>
                 <ScriptBlock>
                  If ($_.status -eq "stopped") {
-                   "`e[38;2;197;15;31m$($_.status)`e[0m"
+                   "$([char]0x1b)[38;2;197;15;31m$($_.status)$([char]0x1b)[0m"
                   }
                   elseif ($_.status -eq "running") {
-                    "`e[38;2;19;161;14m$($_.status)`e[0m"
+                    "$([char]0x1b)[38;2;19;161;14m$($_.status)$([char]0x1b)[0m"
                   }
                   elseif ($_.status -eq "paused") {
-                    "`e[38;2;252;127;0m$($_.status)`e[0m"
+                    "$([char]0x1b)[38;2;252;127;0m$($_.status)$([char]0x1b)[0m"
                   }
                   else {
                     $_.status

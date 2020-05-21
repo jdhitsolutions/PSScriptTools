@@ -71,6 +71,7 @@ Function Get-ModuleCommand {
             Synopsis   = (Get-Help $cmd.name).synopsis.trim()
             Type       = $cmd.CommandType
             Version    = $cmd.version
+            ModuleName = $mod.name
         }
     }
 

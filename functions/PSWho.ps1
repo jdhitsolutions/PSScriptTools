@@ -54,7 +54,7 @@ Function Get-PSWho {
     }
 
     if ($AsString) {
-        $who | Out-String
+        ($who | Out-String).trim()
     }
     else {
         $who

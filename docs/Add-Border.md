@@ -98,6 +98,28 @@ PS C:\> add-border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m" -ANSIText "$([c
 
 This will write a color version of the text and border. You would this type of ANSI syntax for Windows PowerShell. In PowerShell 7, you can use the same syntax or the much easier "`e[38;5;47m".
 
+### EXAMPLE 6
+
+```powershell
+PS C:\scripts> add-border -textblock (Get-PSWho -AsString ).trim() -ANSIBorder "`e[38;5;214m" -Character ([char]0x25CA) -ANSIText "`e[38;5;225m"
+
+◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
+◊ User            : BOVINE320\Jeff                    ◊
+◊ Elevated        : True                              ◊
+◊ Computername    : BOVINE320                         ◊
+◊ OperatingSystem : Microsoft Windows 10 Pro [64-bit] ◊
+◊ OSVersion       : 10.0.18363                        ◊
+◊ PSVersion       : 7.0.1                             ◊
+◊ Edition         : Core                              ◊
+◊ PSHost          : ConsoleHost                       ◊
+◊ WSMan           : 3.0                               ◊
+◊ ExecutionPolicy : RemoteSigned                      ◊
+◊ Culture         : English (United States)           ◊
+◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
+```
+
+This example requires PowerShell 7 because of the escape sequence.
+
 ## PARAMETERS
 
 ### -Text
@@ -123,7 +145,7 @@ A multi-line block of text. You might want to trim blank lines from the beginnin
 ```yaml
 Type: String[]
 Parameter Sets: block
-Aliases:
+Aliases: tb
 
 Required: True
 Position: 1
@@ -139,7 +161,7 @@ The character to use for the border. It must be a single character.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases:
+Aliases: border
 
 Required: False
 Position: Named
