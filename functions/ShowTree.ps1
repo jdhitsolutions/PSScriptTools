@@ -37,7 +37,7 @@
         [string[]]$ShowProperty
     )
     DynamicParam {
-        #define the InColor parameter if running PowerShell 7 and the path is a FileSystem path
+        #define the InColor parameter if the path is a FileSystem path
         if ($PSBoundParameters.containsKey("Path")) {
             $here = $psboundParameters["Path"]
         }
@@ -47,10 +47,8 @@
         else {
             $here = (Get-Location).path
         }
-        if (((Get-Item -path $here).PSprovider.Name -eq 'FileSystem' )-OR ((Get-Item -literalpath $here).PSprovider.Name -eq 'FileSystem')) {
-         $IsFileSystem = $True
-        }
-        if ($PSVersiontable.psversion.Major -ge 7 -AND $IsFileSystem) {
+       if (((Get-Item -path $here).PSprovider.Name -eq 'FileSystem' )-OR ((Get-Item -literalpath $here).PSprovider.Name -eq 'FileSystem')) {
+
             #define a parameter attribute object
             $attributes = New-Object System.Management.Automation.ParameterAttribute
             $attributes.HelpMessage = "Show tree and item colorized."
@@ -71,8 +69,8 @@
             $paramDictionary.Add("InColor", $dynParam1)
             #use the array
             return $paramDictionary
-        }
-    }
+       }
+    } #DynamicParam
 
     Begin {
         Write-Verbose "Starting $($myinvocation.MyCommand)"
@@ -144,8 +142,8 @@
             $PSBoundParameters | Out-String | Write-Verbose
             if ($IsLast.Count -eq 0) {
                 if ($Color) {
-                   # Write-Output "`e[38;2;0;255;255m$("$(Resolve-Path $Path)")`e[0m"
-                    Write-Output "$($script:top)$("$(Resolve-Path $Path)")`e[0m"
+                   # Write-Output "$([char]0x1b)[38;2;0;255;255m$("$(Resolve-Path $Path)")$([char]0x1b)[0m"
+                    Write-Output "$($script:top)$("$(Resolve-Path $Path)")$([char]0x1b)[0m"
 
                 }
                 else {
@@ -158,12 +156,12 @@
                     #ToDo - define a user configurable color map
                     Switch ($ItemType) {
                         "topcontainer" {
-                            Write-Output "$indentStr$($script:top)$($Name)`e[0m"
-                            #Write-Output "$indentStr`e[38;2;0;255;255m$("$Name")`e[0m"
+                            Write-Output "$indentStr$($script:top)$($Name)$([char]0x1b)[0m"
+                            #Write-Output "$indentStr$([char]0x1b)[38;2;0;255;255m$("$Name")$([char]0x1b)[0m"
                         }
                         "childcontainer" {
-                            Write-Output "$indentStr$($script:child)$($Name)`e[0m"
-                            #Write-Output "$indentStr`e[38;2;255;255;0m$("$Name")`e[0m"
+                            Write-Output "$indentStr$($script:child)$($Name)$([char]0x1b)[0m"
+                            #Write-Output "$indentStr$([char]0x1b)[38;2;255;255;0m$("$Name")$([char]0x1b)[0m"
                         }
                         "file" {
 
@@ -171,7 +169,7 @@
                             foreach ($item in ($global:PSAnsiFileMap | Where-object Pattern)) {
                                 if ($name -match $item.pattern -AND (-not $done)) {
                                     write-Verbose "Detected a $($item.description) file"
-                                    Write-Output "$indentStr$($item.ansi)$($Name)`e[0m"
+                                    Write-Output "$indentStr$($item.ansi)$($Name)$([char]0x1b)[0m"
                                     #set a flag indicating we've made a match to stop looking
                                     $done = $True
                                 }
@@ -179,7 +177,7 @@
                             #no match was found so just write the item.
                             if (-Not $done) {
                                 write-verbose "No ansi match for $Name"
-                                Write-Output "$indentStr$Name`e[0m"
+                                Write-Output "$indentStr$Name$([char]0x1b)[0m"
                             }
                         } #file
                         Default {

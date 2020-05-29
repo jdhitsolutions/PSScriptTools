@@ -43,13 +43,7 @@ Function Add-Border {
         Write-Detail "Using a tab of $tab" -Prefix BEGIN | Write-Verbose
 
         Write-Detail "Using border character $Character" -Prefix begin | Write-Verbose
-
-        if ($PSEdition -eq 'Desktop') {
-            $ansiClear = "$([char]0x1b)[0m"
-        }
-        else {
-            $ansiClear = "`e[0m"
-        }
+        $ansiClear = "$([char]0x1b)[0m"
         if ($PSBoundParameters.ContainsKey("ANSIBorder")) {
             Write-Detail "Using an ANSI border Color" -Prefix Begin | Write-Verbose
             $Character = "{0}{1}{2}" -f $PSBoundParameters.ANSIBorder, $Character, $ansiClear
@@ -57,7 +51,6 @@ Function Add-Border {
 
         #define regex expressions to detect ANSI escapes. Need to subtract their
         #length from the string if used. Issue #79
-
         [regex]$ansiopen = "$([char]0x1b)\[\d+[\d;]+m"
         [regex]$ansiend = "$([char]0x1b)\[0m"
 

@@ -1,5 +1,24 @@
 # Change Log for PSScriptTools
 
+## v2.25.0
+
+### Add
+
++ Added a set of ANSI mappings for temporary files and system files in `psansifilemap.json`.
++ Added additional file extensions to `psansifilemap.json`.
++ Added pointers, section sign, and black rectangle to PSSpecialChars hashtable.
+
+### Change
+
++ Modified `Show-Tree` to make the `InColor` parameter always available. (Issue #80)
++ Modified `Add-Border` to use ANSI escape codes that will work in both Windows PowerShell and PowerShell 7.
++ Updated `New-PSFormatXML` to better handle empty or null property values. (Issue #81)
++ Help Updates
+
+### Delete
+
++ None
+
 ## v2.24.0
 
 ### Add

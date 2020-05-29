@@ -17,23 +17,23 @@ Shows the specified path as a tree.
 
 ```yaml
 Show-Tree [[-Path] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem] [-ShowProperty <String[]>]
- [<CommonParameters>]
+ [-InColor] [<CommonParameters>]
 ```
 
 ### LiteralPath
 
 ```yaml
 Show-Tree [[-LiteralPath] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem]
- [-ShowProperty <String[]>] [<CommonParameters>]
+ [-ShowProperty <String[]>] [-InColor] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider.
+Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will *not work* with any PSDrives created with the Certificate provider. It should work cross-platform.
 
 By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma separated list of properties or use * to view them all.
 
-It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system. This parameter has an alias of -ansi.
+If the Path is a FileSystem path there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. This parameter has an alias of -ansi.
 
 Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.
 
@@ -125,7 +125,7 @@ Shows all the containers and items in the WSMan: drive.
 ### Example 4
 
 ```powershell
-PS C:\> pstree c:\work\alpha -files -properties LastWriteTime,Length
+PS C:\> pstree c:\work\alpha -files -properties LastWriteTime,Length -ansi
 
 C:\work\Alpha\
 +-- LastWriteTime = 02/28/2020 11:19:32
@@ -152,7 +152,7 @@ C:\work\Alpha\
 ...
 ```
 
-Show a tree listing with files including a few user specified properties. This example is using parameter and command aliases.
+Show a tree listing with files including a few user specified properties in color. This example is using parameter and command aliases.
 
 ## PARAMETERS
 
@@ -238,8 +238,7 @@ Accept wildcard characters: False
 
 ### -ShowProperty
 
-Shows the properties on containers and items.
-Use * to display all properties otherwise specify a comma separated list.
+Shows the properties on containers and items. Use * to display all properties otherwise specify a comma separated list.
 
 ```yaml
 Type: String[]
@@ -249,6 +248,22 @@ Aliases: properties
 Required: False
 Position: Named
 Default value: False
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -InColor
+
+Show tree and item colorized. Values are from the $PSAnsiMap variable.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: ansi
+
+Required: False
+Position: Named
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -266,8 +281,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ## NOTES
-
-If you are using PowerShell 7, you can use the InColor parameter, or its alias ansi, to display the tree in a color code format.
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
