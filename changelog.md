@@ -4,12 +4,16 @@
 
 ### Add
 
++ None
+
 ### Change
 
 + Fixed incorrect sequence for BlackRectangle in `$PSSpecialChar`. (Issue #82)
 + Fixed incorrect ANSI for System files in `PSAnsiFileMap.json`.
 
 ### Delete
+
++ None
 
 ## v2.25.0
 
