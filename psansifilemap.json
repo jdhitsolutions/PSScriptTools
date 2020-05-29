@@ -27,7 +27,7 @@
   {
     "Description": "System",
     "Pattern": "\\.(sys)|(dll)| (bin)|(conf*)|(ini)$",
-    "Ansi": "\u001b[38;5;204mHello`e[0m"
+    "Ansi": "\u001b[38;5;204m"
   },
   {
     "Description": "Graphics",

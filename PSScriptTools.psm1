@@ -49,7 +49,7 @@ $global:PSSpecialChar = @{
     Section          = ([char]0x00A7)
     RightPointer     = ([char]0x25BA)
     LeftPointer      = ([char]0x25C4)
-    BlackRectangle   = ([char]0x25CA)
+    BlackRectangle   = ([char]0x25AC)
 }
 
 Write-Verbose "Defining the variable `$PSSamplePath to the samples folder for this module"
