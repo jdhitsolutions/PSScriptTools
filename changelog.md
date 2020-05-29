@@ -1,5 +1,16 @@
 # Change Log for PSScriptTools
 
+## v2.25.1
+
+### Add
+
+### Change
+
++ Fixed incorrect sequence for BlackRectangle in `$PSSpecialChar`. (Issue #82)
++ Fixed incorrect ANSI for System files in `PSAnsiFileMap.json`.
+
+### Delete
+
 ## v2.25.0
 
 ### Add
