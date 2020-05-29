@@ -23,9 +23,9 @@ New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>] [-Typename <S
 
 When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.
 
-Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. When creating the file make sure the object you are modeling with does not have empty property values. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.
+Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.
 
-Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to test changes.
+Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.
 
 ## EXAMPLES
 
@@ -119,6 +119,14 @@ Once loaded into PowerShell, you can run a command like this:
 
 Get-Service | Sort-Object Status | Format-Wide -view Status
 
+### Example 6
+
+```powershell
+PS C:\> '' | Select-Object -Property Name,Size,Date,Count,Age | New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml
+```
+
+This is an example of creating a formatting file from an empty object. Normally you would first define your object and verify it has all the properties you need and then you would create the formatting file. But you may want to create the formatting file in parallel using a technique like this.
+
 ## PARAMETERS
 
 ### -Append
@@ -172,7 +180,7 @@ Accept wildcard characters: False
 
 ### -InputObject
 
-Specify an object to analyze and generate or update a ps1xml file. All you need is one instance of the object.
+Specify an object to analyze and generate or update a ps1xml file. All you need is one instance of the object. Ideally, the object will have values for all properties.
 
 ```yaml
 Type: Object

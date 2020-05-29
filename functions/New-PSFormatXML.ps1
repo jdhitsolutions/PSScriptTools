@@ -146,7 +146,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
             if ($properties) {
                 foreach ($property in $properties) {
                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Validating property: $property"
-                    $test = ($objProperties).where( {$_.name -like $property})
+                    $test = ($objProperties).where({$_.name -like $property})
                     if ($test) {
                         $members += $test
                     }
@@ -180,6 +180,13 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 [void]$items.AppendChild($doc.CreateComment($comment))
 
                 foreach ($member in $members) {
+
+                    #account for null property values
+                    if (-Not $member.value) {
+                         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
+                        $member.value = "   "
+                    }
+
                     $th = $doc.createNode("element", "TableColumnHeader", $null)
 
                     Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]... $($member.name)"
@@ -238,7 +245,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
             $counter++
         }
         else {
-            Write-Warning "Ignoring this object. I only need one instance of an object to create the ps1xml file. Your file will still be created."
+            Write-Warning "Ignoring this object. This command only need sone instance of an object to create the ps1xml file. Your file will still be created."
         }
     } #process
 

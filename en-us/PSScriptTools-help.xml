@@ -8172,8 +8172,8 @@ PS DeepDive:\&gt;</dev:code>
     </command:details>
     <maml:description>
       <maml:para>When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.</maml:para>
-      <maml:para>Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. When creating the file make sure the object you are modeling with does not have empty property values. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.</maml:para>
-      <maml:para>Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to test changes.</maml:para>
+      <maml:para>Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.</maml:para>
+      <maml:para>Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -8181,7 +8181,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>InputObject</maml:name>
           <maml:Description>
-            <maml:para>Specify an object to analyze and generate or update a ps1xml file. All you need is one instance of the object.</maml:para>
+            <maml:para>Specify an object to analyze and generate or update a ps1xml file. All you need is one instance of the object. Ideally, the object will have values for all properties.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
@@ -8364,7 +8364,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>InputObject</maml:name>
         <maml:Description>
-          <maml:para>Specify an object to analyze and generate or update a ps1xml file. All you need is one instance of the object.</maml:para>
+          <maml:para>Specify an object to analyze and generate or update a ps1xml file. All you need is one instance of the object. Ideally, the object will have values for all properties.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
@@ -8584,6 +8584,13 @@ Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481</dev:code
         <dev:remarks>
           <maml:para>This will create a custom format file for service objects. This will create a wide display using the Displayname property. Once loaded into PowerShell, you can run a command like this:</maml:para>
           <maml:para>Get-Service | Sort-Object Status | Format-Wide -view Status</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 6 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; '' | Select-Object -Property Name,Size,Date,Count,Age | New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml</dev:code>
+        <dev:remarks>
+          <maml:para>This is an example of creating a formatting file from an empty object. Normally you would first define your object and verify it has all the properties you need and then you would create the formatting file. But you may want to create the formatting file in parallel using a technique like this.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -11802,9 +11809,9 @@ Mode                LastWriteTime         Length Name
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider.</maml:para>
+      <maml:para>Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider. It should work cross-platform.</maml:para>
       <maml:para>By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma separated list of properties or use * to view them all.</maml:para>
-      <maml:para>It should work cross-platform. If you are running PowerShell 7, there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. The color scheme is designed for the file system. This parameter has an alias of -ansi.</maml:para>
+      <maml:para>If the Path is a FileSystem path there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. This parameter has an alias of -ansi.</maml:para>
       <maml:para>Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.</maml:para>
     </maml:description>
     <command:syntax>
@@ -11869,6 +11876,17 @@ Mode                LastWriteTime         Length Name
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ansi">
+          <maml:name>InColor</maml:name>
+          <maml:Description>
+            <maml:para>Show tree and item colorized. Values are from the $PSAnsiMap variable.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Show-Tree</maml:name>
@@ -11927,6 +11945,17 @@ Mode                LastWriteTime         Length Name
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
             <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ansi">
+          <maml:name>InColor</maml:name>
+          <maml:Description>
+            <maml:para>Show tree and item colorized. Values are from the $PSAnsiMap variable.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
@@ -12006,6 +12035,18 @@ Mode                LastWriteTime         Length Name
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="ansi">
+        <maml:name>InColor</maml:name>
+        <maml:Description>
+          <maml:para>Show tree and item colorized. Values are from the $PSAnsiMap variable.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -12029,7 +12070,6 @@ Mode                LastWriteTime         Length Name
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>If you are using PowerShell 7, you can use the InColor parameter, or its alias ansi, to display the tree in a color code format.</maml:para>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -12116,7 +12156,7 @@ WSMan:\
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; pstree c:\work\alpha -files -properties LastWriteTime,Length
+        <dev:code>PS C:\&gt; pstree c:\work\alpha -files -properties LastWriteTime,Length -ansi
 
 C:\work\Alpha\
 +-- LastWriteTime = 02/28/2020 11:19:32
@@ -12142,7 +12182,7 @@ C:\work\Alpha\
 |  +--gamma
 ...</dev:code>
         <dev:remarks>
-          <maml:para>Show a tree listing with files including a few user specified properties. This example is using parameter and command aliases.</maml:para>
+          <maml:para>Show a tree listing with files including a few user specified properties in color. This example is using parameter and command aliases.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

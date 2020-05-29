@@ -46,6 +46,10 @@ $global:PSSpecialChar = @{
     Club             = ([char]0x2663)
     Heart            = ([char]0x2665)
     Spade            = ([char]0x2660)
+    Section          = ([char]0x00A7)
+    RightPointer     = ([char]0x25BA)
+    LeftPointer      = ([char]0x25C4)
+    BlackRectangle   = ([char]0x25CA)
 }
 
 Write-Verbose "Defining the variable `$PSSamplePath to the samples folder for this module"

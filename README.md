@@ -1571,4 +1571,4 @@ If you find this module useful, you might also want to look at my tools for [cre
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-> Last Updated *2020-05-21 20:11:54Z UTC*
+> Last Updated *2020-05-29 13:36:08Z UTC*
