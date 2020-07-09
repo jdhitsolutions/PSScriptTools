@@ -1,5 +1,27 @@
 # Change Log for PSScriptTools
 
+## v2.26.0
+
+### Add
+
++ Added a Documents type to `PSAnsiFileMap.json`.
++ Added a parameter to `Convert-HashtabletoCode` to output an inline string. (Issue #85)
++ Added an alias `chc` for `Convert-HashtabletoCode`.
++ Added `Copy-HelpExample` command with an alias of `che`.
++ Added `Open-PSScriptToolsHelp` to open a PDF version of `README.md` as a help manual.
+
+### Change
+
++ Fixed duplicate entry in `PSAnsiFileMap.json`.
++ Revised regex patterns in `PSAnsiFileMap.json`. (Issue #83)
++ Cleaned up code in `filesystem-ansi.format.ps1xml`.
++ Modified `Convert-HashTableToCode` to (hopefully) better handle scriptblocks. (Issue #84)
++ Updated `README.md`
+
+### Delete
+
++ None
+
 ## v2.25.1
 
 ### Add

@@ -63,7 +63,6 @@ if ($psEditor) {
         Param(
             [Microsoft.PowerShell.EditorServices.Extensions.EditorContext]$context
         )
-
         $prompt = "What do you need to do?"
         $title = "To Do"
         $item = Invoke-InputBox -Title $title -Prompt $prompt
@@ -94,5 +93,25 @@ elseif ($psise) {
         }
         #add the action to the Add-Ons menu
         $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("ToDo", $Action, "Ctrl+Alt+2" ) | Out-Null
+    }
+}
+
+#define a function to open the PDF version of the README as a help file
+
+Function Open-PSScriptToolsHelp {
+    [cmdletbinding()]
+    Param()
+
+    $pdf = Join-Path -path $PSScriptRoot -ChildPath PSScriptToolsHelp.pdf
+    if (Test-Path -Path $pdf) {
+        Try {
+            Start-Process -FilePath $pdf -ErrorAction Stop
+        }
+        Catch {
+            Write-Warning "Failed to automatically open the PDF. You will need to manually open $pdf."
+        }
+    }
+    else {
+        Write-Warning "Can't find $pdf."
     }
 }

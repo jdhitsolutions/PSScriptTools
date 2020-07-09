@@ -107,35 +107,44 @@ Function ConvertTo-HashTable {
 }#end function
 
 Function Convert-HashTableToCode {
-    [cmdletbinding()]
+    [cmdletbinding(DefaultParameterSetName = "psd1")]
+    [alias("chc")]
     [OutputType([system.string])]
 
     Param(
         [Parameter(Position = 0, ValueFromPipeline, Mandatory)]
         [ValidateNotNullorEmpty()]
         [hashtable]$Hashtable,
+
+        [Parameter(ParameterSetName = "psd1")]
         [Alias("tab")]
-        [int]$Indent = 1
+        [int]$Indent = 1,
+
+        [Parameter(ParameterSetName = "inline", HelpMessage = "Write the hashtable as an inline expression")]
+        [switch]$Inline
     )
 
     Begin {
         Write-Verbose "Starting $($myinvocation.mycommand)"
-
+        if ($Inline) {
+            Write-Verbose "Creating an inline expression"
+        }
     }
     Process {
         Write-Verbose "Processing a hashtable with $($hashtable.keys.count) keys"
 
         $hashtable.GetEnumerator() | ForEach-Object -begin {
 
-            $out = @"
-@{
+            [string]$out = "@{"
+            if ($PSCmdlet.ParameterSetName -eq 'psd1') {
+                $out += "`n"
+            }
 
-"@
         }  -Process {
-            Write-Verbose "Testing type $($_.value.gettype().name) for $($_.key)"
+            Write-Verbose "Testing value type $($_.value.gettype().name) for key $($_.key)"
             #determine if the value needs to be enclosed in quotes
             if ($_.value.gettype().name -match "Int|double") {
-                Write-Verbose "..is an numeric"
+                Write-Verbose "..is a numeric"
                 $value = $_.value
             }
             elseif ($_.value -is [array]) {
@@ -150,22 +159,36 @@ Function Convert-HashTableToCode {
                 }
             }
             elseif ($_.value -is [hashtable]) {
+                Write-Verbose "Creating nested entry"
                 $nested = Convert-HashTableToCode $_.value -Indent $($indent + 1)
                 $value = "$($nested)"
+            }
+            elseif ($_.value -is [scriptblock]) {
+                Write-Verbose "Parsing scriptblock"
+                $value = "{$($_.value)}"
             }
             else {
                 Write-Verbose "..defaulting as a string"
                 $value = "'$($_.value)'"
             }
-            $tabcount = "`t" * $Indent
-            $out += "$tabcount$($_.key) = $value `n"
+            if ($inline) {
+                $out += "$($_.key) = $value;"
+            }
+            else {
+                $tabcount = "`t" * $Indent
+                $out += "$tabcount$($_.key) = $value `n"
+            }
         }  -end {
-
-            $tabcount = "`t" * ($Indent - 1)
-            $out += "$tabcount}`n"
-
+            if ($inline) {
+                #strip off the last ;
+                $out = $out.remove($out.Length - 1)
+                $out += "}"
+            }
+            else {
+                $tabcount = "`t" * ($Indent - 1)
+                $out += "$tabcount}`n"
+            }
             $out
-
         }
 
     } #process
@@ -173,9 +196,7 @@ Function Convert-HashTableToCode {
         Write-Verbose "Ending $($myinvocation.mycommand)"
     }
 } #end function
-
 Function Join-Hashtable {
-
     [cmdletbinding()]
     [OutputType([System.Collections.Hashtable])]
     Param (
@@ -317,7 +338,7 @@ Function Rename-HashTable {
             Mandatory,
             HelpMessage = "Enter the name of your hash table variable without the `$",
             ParameterSetName = "Name"
-            )]
+        )]
         [ValidateNotNullorEmpty()]
         [string]$Name,
         [parameter(
@@ -325,7 +346,7 @@ Function Rename-HashTable {
             Mandatory,
             ValueFromPipeline,
             ParameterSetName = "Pipeline"
-            )]
+        )]
         [ValidateNotNullorEmpty()]
         [object]$InputObject,
         [parameter(
