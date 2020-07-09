@@ -1,47 +1,52 @@
 [
   {
     "Description": "PowerShell",
-    "Pattern": "\\.ps(d|m)?1$",
+    "Pattern": "\\.((ps(d|m)?1)|(ps1xml))$",
     "Ansi": "\u001b[38;2;252;127;12m"
   },
   {
     "Description": "Text",
-    "Pattern": "\\.(txt)|(md)|(log)|(htm(l)?)$",
+    "Pattern": "\\.((txt)|(log)|(htm(l)?))$",
     "Ansi": "\u001b[38;2;58;120;255m"
   },
+    {
+      "Description": "Documents",
+      "Pattern": "\\.((pdf)|(doc(x)?)|(md)|(xls(x)?)|(ppt(x)?)|(xps))$",
+      "Ansi": "\u001b[38;5;121m"
+    },
   {
     "Description": "Temporary",
-    "Pattern": "\\.(tmp)|(bak)|(sav)|(temp)$",
+    "Pattern": "\\.((tmp)|(bak)|(sav)|(temp))$",
     "Ansi": "\u001b[38;5;200m"
   },
   {
     "Description": "DataFile",
-    "Pattern": "\\.(json)|(xml)|(csv)|(db)|(mof)|(mdb)|(dat)$",
+    "Pattern": "\\.((json)|(xml)|(csv)|(db)|(mof)|(mdb)|(dat))$",
     "Ansi": "\u001b[38;2;249;241;165m"
   },
   {
     "Description": "Executable",
-    "Pattern": "\\.(exe)|(bat)|(cmd)|(sh)|(py)|(sh)$",
+    "Pattern": "\\.((exe)|(bat)|(cmd)|(sh)|(py))$",
     "Ansi": "\u001b[38;2;197;15;31m"
   },
   {
     "Description": "System",
-    "Pattern": "\\.(sys)|(dll)| (bin)|(conf*)|(ini)$",
+    "Pattern": "\\.((sys)|(dll)|(bin)|(conf*)|(ini))$",
     "Ansi": "\u001b[38;5;204m"
   },
   {
     "Description": "Graphics",
-    "Pattern": "\\.(jpg)|(png)|(gif)|(bmp)|(jpeg)|(ico)|(svg)|(tif)|(raw)$",
+    "Pattern": "\\.((jpg)|(png)|(gif)|(bmp)|(jpeg)|(ico)|(svg)|(tif)|(raw))$",
     "Ansi": "\u001b[38;2;255;0;255m"
   },
   {
     "Description": "Media",
-    "Pattern": "\\.((mp[34])|(m4v)|(wav)|(au)|(flac)|(mov))$",
+    "Pattern": "\\.(((mp[34])|(m4v)|(wav)|(au)|(flac)|(mov)))$",
     "Ansi": "\u001b[38;2;255;199;6m"
   },
   {
     "Description": "Archive",
-    "Pattern": "\\.(zip)|(rar)|(tar)|(gz(ip)?dir)|(7z)|(wim)|(bzip2)|(msi(x)?)|(rpm)$",
+    "Pattern": "\\.((zip)|(rar)|(tar)|(gz(ip)?dir)|(7z)|(wim)|(bzip2)|(msi(x)?)|(rpm))$",
     "Ansi": "\u001b[38;2;118;38;113m"
   },
   {
