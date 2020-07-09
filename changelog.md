@@ -1,5 +1,12 @@
 # ChangeLog for PSScriptTools
 
+## v2.26.1
+
++ Replaced links in `PSScriptToolsHelp` (Issue #86)
++ Updated PDF style when exporting `PSScriptToolsHelp`
++ Removed Table of Contents from `PSScriptToolsHelp.md`. There is a bug when rendering to PDF that doesn't follow the relative links in the document. Hopefully I can add this back in the future.
++ Minor changes to `README.md`.
+
 ## v2.26.0
 
 ### Add
