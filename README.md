@@ -2,9 +2,26 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSScripttools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSScripttools/)
 
-This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work. Or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform.
+This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work. Or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any input is greatly appreciated.
 
-## Current Release
+## Table of Contents
+
++ [Installation](#Installation)
++ [GeneralTools](#General%20Tools)
++ [File Tools](#File%20Tools)
++ [ToDo](#ToDo)
++ [Graphical Tools](#Graphical%20Tools)
++ [HashTable Tools](#HashTable%20Tools)
++ [Select Functions](#Select%20Functions)
++ [Time Functions](#Time%20Functions)
++ [Console Utilities](#Console%20Utilities)
++ [Format-Functions](#Format-Functions)
++ [Scripting Tools](#Scripting%20Tools)
++ [Other](#Other)
++ [Related Modules](#Related%20Modules)
++ [Compatibility](#Compatibility)
+
+## Installation
 
 You can get the current release from this repository or install this the PowerShell Gallery:
 
@@ -18,13 +35,16 @@ or in PowerShell 7:
 Install-Module PSScriptTools [-scope CurrentUser]
 ```
 
-Starting in v2.2.0, the module was restructured to better support `Desktop` and `Core` editions. But starting with version 2.13.0, the module design has reverted. All commands will be exported. Anything that is platform specific should be handled on a per command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
+> Starting in v2.2.0, the module was restructured to better support `Desktop` and `Core` editions. But starting with version 2.13.0, the module design has reverted. All commands will be exported. Anything that is platform specific should be handled on a per command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
+
+### Uninstall the Module
+
+To remove the module from your system you can uninstall it.
 
 ```powershell
+Get-Module PSScriptTools | Remove-Module
 Uninstall-Module PSScriptTools -allversions
 ```
-
-Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any input is greatly appreciated.
 
 ## General Tools
 
@@ -614,61 +634,6 @@ The comment will be inserted at the current cursor location.
 
 In VS Code, access the command palette (Ctrl+Shift+P) and then `PowerShell: Show Additional Commands from PowerShell Modules`. Select `Insert ToDo` from the list and you'll get the same input box. Note that this will only work for PowerShell files.
 
-## [Test-Expression](docs/Test-Expression.md)
-
-The primary command can be used to test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests.
-
-### Why
-
-When you run a single test with `Measure-Command` the result might be affected by any number of factors. Likewise, running multiple tests may also be influenced by things such as caching. The goal in this module is to provide a test framework where you can run a test repeatedly with either a static or random interval between each test. The results are aggregated and analyzed. Hopefully, this will provide a more meaningful or realistic result.
-
-### Examples
-
-The output will also show the median and trimmed values as well as some metadata about the current PowerShell session.
-
-```powershell
-PS C:\> $cred = Get-credential globomantics\administrator
-PS C:\> Test-Expression {param($cred) get-wmiobject win32_logicaldisk -computer chi-dc01 -credential $cred } -argumentList $cred
-
-Tests        : 1
-TestInterval : 0.5
-AverageMS    : 1990.6779
-MinimumMS    : 1990.6779
-MaximumMS    : 1990.6779
-MedianMS     : 1990.6779
-TrimmedMS    :
-PSVersion    :5.1.17763.134
-OS           : Microsoft Windows 10 Pro
-```
-
-You can also run multiple tests with random time intervals.
-
-```powershell
-PS C:\>Test-Expression {param([string[]]$Names) get-service $names} -count 5 -IncludeExpression -argumentlist @('bits','wuauserv','winrm') -RandomMinimum .5 -RandomMaximum 5.5
-
-Tests        : 5
-TestInterval : Random
-AverageMS    : 1.91406
-MinimumMS    : 0.4657
-MaximumMS    : 7.5746
-MedianMS     : 0.4806
-TrimmedMS    : 0.51
-PSVersion    : 5.1.17763.134
-OS           : Microsoft Windows 10 Pro
-Expression   : param([string[]]$Names) get-service $names
-Arguments    : {bits, wuauserv, winrm}
-```
-
-For very long running tests, you can run them as a background job.
-
-### Graphical Testing
-
-The module also includes a graphical command called `Test-ExpressionForm`. This is intended to serve as both an entry and results form.
-
-![Test Expression](images/testexpressionform.png)
-
-When you quit the form the last result will be written to the pipeline including all metadata, the scriptblock and any arguments.
-
 ## Graphical Tools
 
 ### [Invoke-InputBox](docs/Invoke-InputBox.md)
@@ -1244,6 +1209,61 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [Test-Expression](docs/Test-Expression.md)
+
+The primary command can be used to test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests.
+
+#### Why
+
+When you run a single test with `Measure-Command` the result might be affected by any number of factors. Likewise, running multiple tests may also be influenced by things such as caching. The goal in this module is to provide a test framework where you can run a test repeatedly with either a static or random interval between each test. The results are aggregated and analyzed. Hopefully, this will provide a more meaningful or realistic result.
+
+#### Examples
+
+The output will also show the median and trimmed values as well as some metadata about the current PowerShell session.
+
+```powershell
+PS C:\> $cred = Get-credential globomantics\administrator
+PS C:\> Test-Expression {param($cred) get-wmiobject win32_logicaldisk -computer chi-dc01 -credential $cred } -argumentList $cred
+
+Tests        : 1
+TestInterval : 0.5
+AverageMS    : 1990.6779
+MinimumMS    : 1990.6779
+MaximumMS    : 1990.6779
+MedianMS     : 1990.6779
+TrimmedMS    :
+PSVersion    :5.1.17763.134
+OS           : Microsoft Windows 10 Pro
+```
+
+You can also run multiple tests with random time intervals.
+
+```powershell
+PS C:\>Test-Expression {param([string[]]$Names) get-service $names} -count 5 -IncludeExpression -argumentlist @('bits','wuauserv','winrm') -RandomMinimum .5 -RandomMaximum 5.5
+
+Tests        : 5
+TestInterval : Random
+AverageMS    : 1.91406
+MinimumMS    : 0.4657
+MaximumMS    : 7.5746
+MedianMS     : 0.4806
+TrimmedMS    : 0.51
+PSVersion    : 5.1.17763.134
+OS           : Microsoft Windows 10 Pro
+Expression   : param([string[]]$Names) get-service $names
+Arguments    : {bits, wuauserv, winrm}
+```
+
+For very long running tests, you can run them as a background job.
+
+#### Graphical Testing
+
+The module also includes a graphical command called `Test-ExpressionForm`. This is intended to serve as both an entry and results form.
+
+![Test Expression](images/testexpressionform.png)
+
+When you quit the form the last result will be written to the pipeline including all metadata, the scriptblock and any arguments.
 
 ### [Copy-HelpExample](docs/Copy-HelpExample.md)
 
