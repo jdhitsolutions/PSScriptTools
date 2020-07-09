@@ -2,7 +2,7 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSScripttools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSScripttools/)
 
-This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work. Or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any input is greatly appreciated.
+This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work. Or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any feedback is greatly appreciated.
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@ This module contains a collection of functions, variables and format files that 
 + [Select Functions](#Select%20Functions)
 + [Time Functions](#Time%20Functions)
 + [Console Utilities](#Console%20Utilities)
-+ [Format-Functions](#Format-Functions)
++ [Format Functions](#Format%20Functions)
 + [Scripting Tools](#Scripting%20Tools)
 + [Other](#Other)
 + [Related Modules](#Related%20Modules)
@@ -48,7 +48,7 @@ Uninstall-Module PSScriptTools -allversions
 
 ## General Tools
 
-### [Get-ModuleCommand](docs/Get-ModuleCommand.md)
+### [Get-ModuleCommand](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-ModuleCommand.md)
 
 This is an alternative to `Get-Command` to make it easier to see at a glance what commands are contained within a module and what they can do. By default, `Get-ModuleCommand` looks for loaded modules. Use `-ListAvailable` to see commands in module not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.
 
@@ -73,7 +73,7 @@ PS C:\> Get-ModuleCommand PSCalendar
 
 Get module commands using the default formatted view. There is also a default view for `Format-List`.
 
-### [Get-PSScriptTools](docs/Get-PSScriptTools.md)
+### [Get-PSScriptTools](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSScriptTools.md)
 
 You can use this command to get a summary list of functions in this module.
 
@@ -122,7 +122,7 @@ ConvertTo-LocalTime    clt   Convert a foreign time to local
 ...
 ```
 
-### [Convert-EventLogRecord](docs/Convert-EventLogRecord.md)
+### [Convert-EventLogRecord](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-EventLogRecord.md)
 
 When you use [Get-WinEvent](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7&WT.mc_id=ps-gethelp), the results are objects you can work with in PowerShell. However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message. This additional information is not readily exposed. You can use this command to convert results of a Get-WinEvent command into a PowerShell custom object with additional information.
 
@@ -151,7 +151,7 @@ Source       : Service Control Manager
 Computername : Bovine320
 ```
 
-### [Get-WhoIs](docs/Get-WhoIs.md)
+### [Get-WhoIs](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WhoIs.md)
 
 This command will retrieve WhoIs information from the ARIN database for a given IPv4 address.
 
@@ -178,7 +178,7 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
 
 This module includes a custom format file for these results.
 
-### [Compare-Module](docs/Compare-Module.md)
+### [Compare-Module](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Compare-Module.md)
 
 Use this command to compare module versions between what is installed against an online repository like the PSGallery
 
@@ -201,7 +201,7 @@ PS C:\> Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select module
 
 This example compares modules and send results to `Out-Gridview`. Use `Out-Gridview` as an object picker to decide what modules to update.
 
-### [Get-WindowsVersion](docs/Get-WindowsVersion.md)
+### [Get-WindowsVersion](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WindowsVersion.md)
 
 This is a PowerShell version of the `winver.exe` utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.
 
@@ -245,7 +245,7 @@ InstalledUTC : 7/5/2019 10:54:49 PM
 Computername : BOVINE320
 ```
 
-#### [Get-WindowsVersionString](docs/Get-WindowsVersionString.md)
+#### [Get-WindowsVersionString](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-WindowsVersionString.md)
 
 This command is a variation of `Get-WindowsVersion` that returns a formatted string with version information.
 
@@ -255,7 +255,7 @@ BOVINE320 Windows 10 Pro Version Professional (OS Build 18363.657)
 
 ```
 
-### [New-PSDriveHere](docs/New-PSDriveHere.md)
+### [New-PSDriveHere](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-PSDriveHere.md)
 
 This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new
 PSDrive.
@@ -268,7 +268,7 @@ Name           Used (GB)     Free (GB) Provider      Root                       
 Webinar                         146.57 FileSystem    C:\users\jeff\Documents\Enter...
 ```
 
-### [Get-MyVariable](docs/Get-MyVariable.md)
+### [Get-MyVariable](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-MyVariable.md)
 
 This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local or
 a number 0 through 5.
@@ -287,7 +287,7 @@ r    {1, 2, 3, 4...}        Object[]
 
 Depending on the value and how PowerShell chooses to display it, you may not see the type.
 
-### [ConvertFrom-Text](docs/ConvertFrom-Text.md)
+### [ConvertFrom-Text](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertFrom-Text.md)
 
 This command can be used to convert text from a file or a command line tool into objects. It uses a regular expression pattern with named captures and turns the result into a custom object. You have the option of specifying a typename in case you are using custom format files.
 
@@ -323,7 +323,7 @@ IPAddress          MAC                        Type
 
 This example uses a previously created and import format.ps1xml file for the custom type name.
 
-### [Get-PSWho](docs/Get-PSWho.md)
+### [Get-PSWho](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSWho.md)
 
 This command will provide a summary of relevant information for the current user in a PowerShell Session. You might use this to troubleshoot an end-user problem running a script or command.
 
@@ -347,13 +347,13 @@ You can also turn this into a text block using the `AsString` parameter. This is
 
 ![PSWho Report](images/add-border-ansi2.png)
 
-### [Find-CimClass](docs/Find-CimClass.md)
+### [Find-CimClass](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Find-CimClass.md)
 
 This function is designed to search an entire CIM repository for a class name. Sometimes, you may have a guess about a class name but not know the full name or even the correct namespace. `Find-CimClass` will recursively search for a given classname. You can use wildcards and search remote computers.
 
 ![find-cimclass](images/find-cimclass.png)
 
-### [Out-VerboseTee](docs/Out-VerboseTee.md)
+### [Out-VerboseTee](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Out-VerboseTee.md)
 
 This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a `PSDefaultParameterValue`.
 
@@ -371,7 +371,7 @@ Begin {
 
 When the command is run with -Verbose you will see the verbose output **and** it will be saved to the specified log file.
 
-### [Remove-Runspace](docs/Remove-Runspace.md)
+### [Remove-Runspace](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Remove-Runspace.md)
 
 During the course of your PowerShell work, you may discover that some commands and scripts can leave behind runspaces such as `ConvertTo-WPFGrid`. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces.
 
@@ -381,7 +381,7 @@ PS C:\> Get-RunSpace | where ID -gt 1 | Remove-RunSpace
 
 Get all runspaces with an ID greater than 1, which is typically your current session, and remove the runspace.
 
-### [Get-PSLocation](docs/Get-PSLocation.md)
+### [Get-PSLocation](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSLocation.md)
 
 A simple function to get common locations. This can be useful with cross-platform scripting.
 
@@ -389,7 +389,7 @@ A simple function to get common locations. This can be useful with cross-platfor
 
 ![linux locations](./images/pslocation-linux.png)
 
-### [Get-PowerShellEngine](docs/Get-PowerShellEngine.md)
+### [Get-PowerShellEngine](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PowerShellEngine.md)
 
 Use this command to quickly get the path to the PowerShell executable. In Windows you should get a result like this:
 
@@ -415,7 +415,7 @@ You can also get detailed information.
 
 Results will vary depending on whether you are running PowerShell on Windows nor non-Windows systems.
 
-### [Get-PathVariable](docs/Get-PathVariable.md)
+### [Get-PathVariable](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PathVariable.md)
 
 Over time, as you add and remove programs, your `%PATH%` might change. An application may add a location but not remove it when you uninstall the application. This command makes it easier to identify locations and whether they are still good.
 
@@ -436,7 +436,7 @@ User    Jeff     C:\Program Files (x86)\Vale\                                   
 
 ## File Tools
 
-### [Test-EmptyFolder](docs/Test-EmptyFolder.md)
+### [Test-EmptyFolder](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Test-EmptyFolder.md)
 
 This command will test if a given folder path is empty of all files anywhere in the path. This includes hidden files. The command will return True even if there are empty sub-folders. The default output is True or False but you can use -Passthru to get more information.
 
@@ -454,7 +454,7 @@ Find all empty sub-folders under C:\Work and pipe them to Remove-Item.
 This is one way to remove empty folders.
 The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work\[data] is a non-standard path.
 
-### [Get-FolderSizeInfo](docs/Get-FolderSizeInfo.md)
+### [Get-FolderSizeInfo](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-FolderSizeInfo.md)
 
 Use this command to quickly get the size of a folder. You also have an option to include hidden files. The command will measure all files in all subdirectories.
 
@@ -508,13 +508,13 @@ PowerShellBooks                 26    4240.3779
 sunday                          47   24540.6523
 ```
 
-### [Optimize-Text](docs/Optimize-Text.md)
+### [Optimize-Text](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Optimize-Text.md)
 
 Use this command to clean and optimize content from text files. Sometimes text files have blank lines or the content has trailing spaces. These sorts of issues can cause problems when passing the content to other commands.
 
 This command will strip out any lines that are blank or have nothing by white space, and trim leading and trailing spaces. The optimized text is then written back to the pipeline. Optionally, you can specify a property name. This can be useful when your text file is a list of computer names and you want to take advantage of pipeline binding.
 
-### [Get-FileItem](docs/Get-FileItem.md)
+### [Get-FileItem](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-FileItem.md)
 
 A PowerShell version of the CLI `where.exe` command. You can search with a simple or regex pattern.
 
@@ -526,7 +526,7 @@ C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE
 
 Note that you might see errors for directories where you don't have access permission. This is normal.
 
-### [New-CustomFileName](docs/New-CustomFileName.md)
+### [New-CustomFileName](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-CustomFileName.md)
 
 This command will generate a custom file name based on a template string that you provide.
 
@@ -556,7 +556,7 @@ You can create a template string using any of these variables. Most of these sho
 
 You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.
 
-### [New-RandomFileName](docs/New-RandomFileName.md)
+### [New-RandomFileName](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-RandomFileName.md)
 
 Create a new random file name. The default is a completely random name including the extension.
 
@@ -586,7 +586,7 @@ PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
 /home/jhicks/oces0epq.tmp
 ```
 
-### [ConvertTo-Markdown](docs/ConvertTo-Markdown.md)
+### [ConvertTo-Markdown](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-Markdown.md)
 
 This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block or a table You can optionally define a title, content to appear before the output and content to appear after the output. You can run a command like this:
 
@@ -636,7 +636,7 @@ In VS Code, access the command palette (Ctrl+Shift+P) and then `PowerShell: Show
 
 ## Graphical Tools
 
-### [Invoke-InputBox](docs/Invoke-InputBox.md)
+### [Invoke-InputBox](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Invoke-InputBox.md)
 
 This function is a graphical replacement for `Read-Host`. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.
 
@@ -656,7 +656,7 @@ Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -Background
 
 This example also demonstrates that you can change form's background color. This function will **not** work in PowerShell Core.
 
-### [New-WPFMessageBox](docs/New-WPFMessageBox.md)
+### [New-WPFMessageBox](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-WPFMessageBox.md)
 
 This function creates a Windows Presentation Foundation (WPF) based message box. This is intended to replace the legacy MsgBox function from VBScript and the Windows Forms library. The command uses a set of predefined button sets, each of which will close the form and write a value to the pipeline.
 
@@ -681,7 +681,7 @@ PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" 
 
 ![A customized WPF Message box](/images/wpfbox-2.png)
 
-### [ConvertTo-WPFGrid](docs/ConvertTo-WPFGrid.md)
+### [ConvertTo-WPFGrid](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-WPFGrid.md)
 
 This command is an alternative to `Out-Gridview`. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns.
 
@@ -708,7 +708,7 @@ Note that in v2.4.0 the form layout was modified and may not be reflected in the
 
 ## Hashtable Tools
 
-### [Convert-CommandtoHashtable](docs/Convert-CommandtoHashtable.md)
+### [Convert-CommandtoHashtable](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-CommandtoHashtable.md)
 
 This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative.
 
@@ -724,7 +724,7 @@ $paramHash = @{
 Get-EventLog @paramHash
 ```
 
-### [Convert-HashtableString](docs/Convert-HashtableString.md)
+### [Convert-HashtableString](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-HashtableString.md)
 
 This function is similar to `Import-PowerShellDataFile`. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.
 
@@ -745,7 +745,7 @@ CreatedOn                      BOVINE320
 
 The test.psd1 file is protected as a CMS Message. In this example, the contents are decoded as a string which is then in turn converted into an actual hashtable.
 
-### [Convert-HashTableToCode](docs/Convert-HashTableToCode.md)
+### [Convert-HashTableToCode](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Convert-HashTableToCode.md)
 
 Use this command to convert a hashtable into its text or string equivalent.
 
@@ -761,7 +761,7 @@ PS C:\> convert-hashtabletocode $h
 
 Convert a hashtable object to a string equivalent that you can copy into your script.
 
-### [ConvertTo-HashTable](docs/ConvertTo-HashTable.md)
+### [ConvertTo-HashTable](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-HashTable.md)
 
 This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
 
@@ -776,7 +776,7 @@ Id                             3456
 Handles                        958
 ```
 
-### [Join-HashTable](docs/Join-HashTable.md)
+### [Join-HashTable](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Join-HashTable.md)
 
 This command will combine two hashtables into a single hashtable.Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
 
@@ -799,7 +799,7 @@ Computer                       HAL
 Count                          3
 ```
 
-### [Rename-Hashtable](docs/Rename-HashTable.md)
+### [Rename-Hashtable](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Rename-HashTable.md)
 
 This command allows you to rename a key in an existing hashtable or ordered dictionary object.
 
@@ -852,7 +852,7 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 
 The module has a few date and time related commands.
 
-### [ConvertTo-UTCTime](docs/ConvertTo-UTCTime.md)
+### [ConvertTo-UTCTime](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-UTCTime.md)
 
 Convert a local datetime value to universal time. The default is to convert now but you can specify a datetime value.
 
@@ -864,7 +864,7 @@ Monday, March 4, 2019 5:51:26 PM
 
 Convert a datetime that is UTC-5 to universal time.
 
-### [ConvertFrom-UTCTime](docs/ConvertFrom-UTCTime.md)
+### [ConvertFrom-UTCTime](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertFrom-UTCTime.md)
 
 ```powershell
 PS C:\> ConvertFrom-UTCTime "3/4/2019 6:00PM"
@@ -874,7 +874,7 @@ Monday, March 4, 2019 1:00:00 PM
 
 Convert a universal datetime to the local time.
 
-### [Get-MyTimeInfo](docs/Get-MyTimeInfo.md)
+### [Get-MyTimeInfo](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-MyTimeInfo.md)
 
 Display a time settings for a collection of locations. This command is a PowerShell equivalent of a world clock. It will display a datetime value against a collection of locations. You can specify an ordered hashtable of locations and time zones. You can run command like:
 
@@ -900,7 +900,7 @@ Now                 Home                 Seattle              New Zealand
 
 This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.
 
-### [ConvertTo-LocalTime](docs/ConvertTo-LocalTime.md)
+### [ConvertTo-LocalTime](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-LocalTime.md)
 
 It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location.
 
@@ -922,7 +922,7 @@ Thursday, March 14, 2019 4:00:00 PM
 
 In this example, the user if first determining the UTC offset for Hawaii. Then 10:00AM in say Honolulu, is converted to local time which in this example is in the Eastern Time zone.
 
-### [Get-TZList](docs/Get-TZList.md)
+### [Get-TZList](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-TZList.md)
 
 This command uses a free and publicly available REST API offered by [http://worldtimeapi.org](http://worldtimeapi.org) to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details.
 
@@ -942,7 +942,7 @@ Australia/Perth
 Australia/Sydney
 ```
 
-### [Get-TZData](docs/Get-TZData.md)
+### [Get-TZData](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-TZData.md)
 
 This command also uses the API from worldtimeapi.org to retrieve details about a give time zone area.
 
@@ -973,7 +973,7 @@ datetime     : 2019-03-16T03:44:45.689655+11:00
 abbreviation : AEDT
 ```
 
-### [ConvertTo-LexicalTime](docs/ConvertTo-LexicalTime.md)
+### [ConvertTo-LexicalTime](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-LexicalTime.md)
 
 When working with timespans or durations in XML files, such as those from scheduled tasks, the format is a little different than what you mgiht expect. The specification is described at [https://www.w3.org/TR/xmlschema-2/#duration](https://www.w3.org/TR/xmlschema-2/#duration). Use this command to convert a timespan into a lexical format you can use in an XML file where you need to specify a duration.
 
@@ -983,7 +983,7 @@ ConvertTo-LexicalTimespan (New-TimeSpan -Days 7 -hours 12)
 P7DT12H
 ```
 
-### [ConvertFrom-LexicalTime](docs/ConvertFrom-LexicalTime.md)
+### [ConvertFrom-LexicalTime](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertFrom-LexicalTime.md)
 
 Likewise, you might need to convert a lexical value back into a timespan.
 
@@ -1009,7 +1009,7 @@ These functions were first described at [https://jdhitsolutions.com/blog/powersh
 
 ## Console Utilities
 
-### [Out-More](docs/Out-More.md)
+### [Out-More](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Out-More.md)
 
 This command provides a PowerShell alternative to the cmd.exe **MORE** command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
 
@@ -1021,7 +1021,7 @@ get-service | out-more
 
 This also works in PowerShell Core.
 
-### [Out-ConditionalColor](docs/Out-ConditionalColor.md)
+### [Out-ConditionalColor](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Out-ConditionalColor.md)
 
 This command is designed to take pipeline input and display it in a colorized format,based on a set of conditions. Unlike `Write-Host` which doesn't write to the pipeline, this command will write to the pipeline. You can use a simple hashtable to define a color if the given property matches the hashtable key.
 
@@ -1032,7 +1032,7 @@ Or you can specify an ordered hashtable for more complex processing.
 
 This command doesn't always work depending on the type of object you pipe to it. The problem appears to be related to the formatting system. Development and testing is ongoing.
 
-### [Set-ConsoleTitle](docs/Set-ConsoleTitle.md)
+### [Set-ConsoleTitle](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Set-ConsoleTitle.md)
 
 Set the title bar of the current PowerShell console window.
 
@@ -1044,7 +1044,7 @@ VERBOSE: Performing the operation "Set-ConsoleTitle" on target "Administrator: D
 VERBOSE: [10:33:17.0584056 END    ] Ending Set-ConsoleTitle
 ```
 
-### [Set-ConsoleColor](docs/Set-ConsoleColor.md)
+### [Set-ConsoleColor](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Set-ConsoleColor.md)
 
 Configure the foreground or background color of the current PowerShell console window. Note that if you are running the PSReadline module, this command won't work. You should use `Set-PSReadlineOption` or similar command to configure your session settings.
 
@@ -1052,7 +1052,7 @@ Configure the foreground or background color of the current PowerShell console w
 PS C:\> Set-ConsoleColor -background DarkGray -foreground Yellow
 ```
 
-### [Add-Border](docs/Add-Border.md)
+### [Add-Border](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Add-Border.md)
 
 This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
 
@@ -1068,7 +1068,7 @@ Starting in v2.23.0 you can also use ANSI escape sequences to color the text and
 
 ![ansi border](images/add-border-ansi.png)
 
-### [Show-Tree](docs/Show-Tree.md)
+### [Show-Tree](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Show-Tree.md)
 
 Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.
 
@@ -1112,19 +1112,19 @@ C:\work\Alpha\
 
 This example is using parameter and command aliases. You can display a tree listing with files including user specified properties. Use a value of * to show all properties.
 
-### [New-ANSIBar](docs/New-ANSIBar.md)
+### [New-ANSIBar](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-ANSIBar.md)
 
 You can use this command to create colorful bars using ANSI escape sequences based on a 256 color scheme. The default behavior is to create a gradient bar that goes from first to last values in the range and then back down again. Or you can create a single gradient that runs from the beginning of the range to the end. You can use one of the default characters or specify a custom one.
 
 ![New-ANSIBar](images/ansibar.png)
 
-### [New-RedGreenGradient](docs/New-RedGreenGradient.md)
+### [New-RedGreenGradient](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-RedGreenGradient.md)
 
 A related command is `New-RedGreenGradient` which displays a bar going from red to green. This might be handy when you want to present a visual indicator.
 
 ![New-RedGreenGradient](images/redgreen.png)
 
-### [Write-ANSIProgress](docs/Write-ANSIProgress.md)
+### [Write-ANSIProgress](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Write-ANSIProgress.md)
 
 You could also use `Write-ANSIProgress` to show a custom ANSI bar.
 
@@ -1156,11 +1156,11 @@ $sb = {
 
 ![Write-ANSIProgress script](images/write-ansprogress-3.png)
 
-## Format-Functions
+## Format Functions
 
 A set of simple commands to make it easier to format values.
 
-### [Format-Percent](docs/Format-Percent.md)
+### [Format-Percent](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Format-Percent.md)
 
 Treat a value as a percentage. This will write a [double] and not include the % sign.
 
@@ -1169,7 +1169,7 @@ PS C:\> format-percent -Value 123.5646MB -total 1GB -Decimal 4
 12.0669
 ```
 
-### [Format-String](docs/Format-String.md)
+### [Format-String](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Format-String.md)
 
 Use this command to perform one of several string manipulation "tricks".
 
@@ -1182,7 +1182,7 @@ PS C:\> format-string "!MySecretPWord" -Randomize -Replace @{S="$";e=&{Get-Rando
 yr7!^7WcMtr$Pd
 ```
 
-### [Format-Value](docs/Format-Value.md)
+### [Format-Value](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Format-Value.md)
 
 This command will format a given numeric value. By default it will treat the number as an integer. Or you can specify a certain number of decimal places. The command will also allow you to format the value in KB, MB, etc.
 
@@ -1210,7 +1210,7 @@ TotalMemGB FreeMemGB PctFree
 
 ## Scripting Tools
 
-### [Test-Expression](docs/Test-Expression.md)
+### [Test-Expression](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Test-Expression.md)
 
 The primary command can be used to test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests.
 
@@ -1265,7 +1265,7 @@ The module also includes a graphical command called `Test-ExpressionForm`. This 
 
 When you quit the form the last result will be written to the pipeline including all metadata, the scriptblock and any arguments.
 
-### [Copy-HelpExample](docs/Copy-HelpExample.md)
+### [Copy-HelpExample](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Copy-HelpExample.md)
 
 This command is designed to make it (slightly) easier to copy code snippets from help examples. Specify the name of a function or cmdlet, presumably one with documented help examples, and you will be offered a selection of code snippets to copy to the clipboard. Code snippets have been trimmed of blank lines, most prompts, and comments. Many examples include output. You will have to manually remove what you don't want after pasting.
 
@@ -1285,7 +1285,7 @@ Copy-HelpExample Stop-Service -UseGridView
 
 If you are running this in the PowerShell ISE, this is the default behavior even if you don't specify the parameter.
 
-### [Get-GitSize](docs/Get-GitSize.md)
+### [Get-GitSize](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-GitSize.md)
 
 Use this command to determine how much space the hidden `.git` folder is consuming.
 
@@ -1308,7 +1308,7 @@ Date         : 3/5/2020 2:57:06 PM
 Computername : BOVINE320
 ```
 
-### [Remove-MergedBranch](docs/Remove-MergedBranch.md)
+### [Remove-MergedBranch](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Remove-MergedBranch.md)
 
 When using `git` you may create a number of branches. Presumably you merge these branches into the main or master branch. You can this command to remove all merged branches other than master and the current branch. You must be in the root of your project to run this command.
 
@@ -1338,7 +1338,7 @@ PS C:\MyProject>
 
 By default you will be prompted to remove each branch.
 
-### [Test-WithCulture](docs/Test-WithCulture.md)
+### [Test-WithCulture](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Test-WithCulture.md)
 
 When writing PowerShell commands, sometimes the culture you are running under becomes critical. For example, European countries use a different datetime format than North Americans which might present a problem with your script or command. Unless you have a separate computer running under the foreign culture, it is difficult to test. This command will allow you to test a scriptblock or even a file under a different culture, such as DE-DE for German.
 
@@ -1360,11 +1360,11 @@ Count Name
     7 16/07/2019
 ```
 
-### [Copy-Command](docs/Copy-Command.md)
+### [Copy-Command](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Copy-Command.md)
 
 This command will copy a PowerShell command, including parameters and help to a new user-specified command. You can use this to create a "wrapper" function or to easily create a proxy function. The default behavior is to create a copy of the command complete with the original comment-based help block.
 
-### [Get-ParameterInfo](docs/Get-ParameterInfo.md)
+### [Get-ParameterInfo](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-ParameterInfo.md)
 
 Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. `Get-ParameterInfo` returns a custom object with the most useful information an administrator might need to know.
 
@@ -1383,7 +1383,7 @@ IsDynamic                       : False
 ParameterSet                    : __AllParameterSets
 ```
 
-### [New-PSFormatXML](docs/New-PSFormatXML.md)
+### [New-PSFormatXML](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-PSFormatXML.md)
 
 When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.
 
@@ -1449,11 +1449,11 @@ Runtime         : 40.21:12:01
 
 If you run this command within VS Code and specify `-Passthru`, the resulting file will be opened in your editor.
 
-### [Test-IsPSWindows](docs/Test-IsPSWindows.md)
+### [Test-IsPSWindows](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Test-IsPSWindows.md)
 
 PowerShell Core introduced the `$IsWindows` variable. However it is not available on Windows PowerShell. Use this command to perform a simple test if the computer is either running Windows or using the Desktop PSEdition. The command returns `True` or `False`.
 
-### [Write-Detail](docs/Write-Detail.md)
+### [Write-Detail](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Write-Detail.md)
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a `Begin`, `Process` and `End` scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
 
@@ -1472,7 +1472,7 @@ Begin {
 } #begin
 ```
 
-### [Save-GitSetup](docs/Save-GitSetup.md)
+### [Save-GitSetup](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Save-GitSetup.md)
 
 This command is intended for Windows users to easily download the latest 64bit version of `Git`.
 
