@@ -385,9 +385,9 @@ Get all runspaces with an ID greater than 1, which is typically your current ses
 
 A simple function to get common locations. This can be useful with cross-platform scripting.
 
-![windows locations](./images/pslocation-win.png)
+![windows locations](images/pslocation-win.png)
 
-![linux locations](./images/pslocation-linux.png)
+![linux locations](images/pslocation-linux.png)
 
 ### [Get-PowerShellEngine](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PowerShellEngine.md)
 
@@ -407,11 +407,11 @@ PS /home/jhicks> Get-PowerShellEngine
 
 You can also get detailed information.
 
-![Windows PowerShell](./images/get-powershellengine1.png)
+![Windows PowerShell](images/get-powershellengine1.png)
 
-![PowerShell Core on Windows](./images/get-powershellengine2.png)
+![PowerShell Core on Windows](images/get-powershellengine2.png)
 
-![PowerShell Core on Linux](./images/get-powershellengine3.png)
+![PowerShell Core on Linux](images/get-powershellengine3.png)
 
 Results will vary depending on whether you are running PowerShell on Windows nor non-Windows systems.
 
@@ -624,11 +624,11 @@ Because this module is intended to make scripting easier for you, it adds option
 
 In the PowerShell ISE, you will get a new menu under Add-Ons.
 
-![new menu](./images/todo-1.png)
+![new menu](images/todo-1.png)
 
 You can use the menu or keyboard shortcut which will launch an input box.
 
-![input box](./images/todo-2.png)
+![input box](images/todo-2.png)
 
 The comment will be inserted at the current cursor location.
 
@@ -644,7 +644,7 @@ This function is a graphical replacement for `Read-Host`. It creates a simple WP
 $name = Invoke-InputBox -Prompt "Enter a user name" -Title "New User Setup"
 ```
 
-![input box](./images/ibx-1.png)
+![input box](images/ibx-1.png)
 
 You can also capture a secure string.
 
@@ -652,7 +652,7 @@ You can also capture a secure string.
 Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString -BackgroundColor red
 ```
 
-![secure input box](./images/ibx-2.png)
+![secure input box](images/ibx-2.png)
 
 This example also demonstrates that you can change form's background color. This function will **not** work in PowerShell Core.
 
@@ -1017,7 +1017,7 @@ This command provides a PowerShell alternative to the cmd.exe **MORE** command, 
 get-service | out-more
 ```
 
-![out-more](./images/out-more.png)
+![out-more](images/out-more.png)
 
 This also works in PowerShell Core.
 
@@ -1025,10 +1025,10 @@ This also works in PowerShell Core.
 
 This command is designed to take pipeline input and display it in a colorized format,based on a set of conditions. Unlike `Write-Host` which doesn't write to the pipeline, this command will write to the pipeline. You can use a simple hashtable to define a color if the given property matches the hashtable key.
 
-![out-conditionalcolor-1](./images/occ-1.png)
+![out-conditionalcolor-1](images/occ-1.png)
 
 Or you can specify an ordered hashtable for more complex processing.
-![out-conditionalcolor-2](./images/occ-2.png)
+![out-conditionalcolor-2](images/occ-2.png)
 
 This command doesn't always work depending on the type of object you pipe to it. The problem appears to be related to the formatting system. Development and testing is ongoing.
 
