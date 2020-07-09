@@ -7,11 +7,11 @@ This module contains a collection of functions, variables and format files that 
 ## Table of Contents
 
 + [Installation](#Installation)
-+ [GeneralTools](#General%20Tools)
++ [General Tools](#General%20Tools)
 + [File Tools](#File%20Tools)
 + [ToDo](#ToDo)
 + [Graphical Tools](#Graphical%20Tools)
-+ [HashTable Tools](#HashTable%20Tools)
++ [Hashtable Tools](#Hashtable%20Tools)
 + [Select Functions](#Select%20Functions)
 + [Time Functions](#Time%20Functions)
 + [Console Utilities](#Console%20Utilities)
@@ -52,7 +52,7 @@ Uninstall-Module PSScriptTools -allversions
 
 This is an alternative to `Get-Command` to make it easier to see at a glance what commands are contained within a module and what they can do. By default, `Get-ModuleCommand` looks for loaded modules. Use `-ListAvailable` to see commands in module not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.
 
-```powershell
+```text
 PS C:\> Get-ModuleCommand PSCalendar
 
 
@@ -77,7 +77,7 @@ Get module commands using the default formatted view. There is also a default vi
 
 You can use this command to get a summary list of functions in this module.
 
-```powershell
+```text
 
 PS C:\> Get-PSScriptTools
 
@@ -109,7 +109,7 @@ Convert-HashTableToCode                          Convert a hashtable to a string
 
 Here's another way you could use this command to list functions with defined aliases in the PSScriptTools module.
 
-```powershell
+```text
 PS C:\> Get-PSScriptTools | Where-object alias | Select-Object Name,alias,Synopsis
 
 Name                   Alias Synopsis
@@ -126,7 +126,7 @@ ConvertTo-LocalTime    clt   Convert a foreign time to local
 
 When you use [Get-WinEvent](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7&WT.mc_id=ps-gethelp), the results are objects you can work with in PowerShell. However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message. This additional information is not readily exposed. You can use this command to convert results of a Get-WinEvent command into a PowerShell custom object with additional information.
 
-```powershell
+```text
 PS C:\> get-winevent -FilterHashtable @{Logname='System';ID=7045} -MaxEvents 1 | Convert-EventLogRecord
 
 
@@ -155,7 +155,7 @@ Computername : Bovine320
 
 This command will retrieve WhoIs information from the ARIN database for a given IPv4 address.
 
-```powershell
+```text
 PS C:\> get-whois 208.67.222.222 | select-object -Property *
 
 IP                     : 208.67.222.222
@@ -182,7 +182,7 @@ This module includes a custom format file for these results.
 
 Use this command to compare module versions between what is installed against an online repository like the PSGallery
 
-```powershell
+```text
 PS C:\> Compare-Module Platyps
 
 
@@ -196,7 +196,7 @@ UpdateNeeded     : False
 Or you can compare and manage multiple modules.
 
 ```powershell
-PS C:\> Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select modules to update" -outputMode multiple | Foreach { Update-Module $_.name }
+Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select modules to update" -outputMode multiple | Foreach { Update-Module $_.name }
 ```
 
 This example compares modules and send results to `Out-Gridview`. Use `Out-Gridview` as an object picker to decide what modules to update.
@@ -205,7 +205,7 @@ This example compares modules and send results to `Out-Gridview`. Use `Out-Gridv
 
 This is a PowerShell version of the `winver.exe` utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information.
 
-```powershell
+```text
    Computername: WIN10
 
 ProductName                    EditionID            ReleaseID  Build  InstalledUTC
@@ -232,7 +232,7 @@ Evaluation
 
 The output has a default table view but there are other properties you might want to use.
 
-```powershell
+```text
 PS C:\> get-windowsversion | Select-object *
 
 
@@ -249,7 +249,7 @@ Computername : BOVINE320
 
 This command is a variation of `Get-WindowsVersion` that returns a formatted string with version information.
 
-```powershell
+```text
 PS C:\> Get-WindowsVersionString
 BOVINE320 Windows 10 Pro Version Professional (OS Build 18363.657)
 
@@ -260,7 +260,7 @@ BOVINE320 Windows 10 Pro Version Professional (OS Build 18363.657)
 This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new
 PSDrive.
 
-```powershell
+```text
 PS C:\users\jeff\documents\Enterprise Mgmt Webinar> new-psdrivehere
 
 Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
@@ -273,7 +273,7 @@ Webinar                         146.57 FileSystem    C:\users\jeff\Documents\Ent
 This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local or
 a number 0 through 5.
 
-```powershell
+```text
 PS C:\> Get-MyVariable
 
 NName Value                  Type
@@ -291,7 +291,7 @@ Depending on the value and how PowerShell chooses to display it, you may not see
 
 This command can be used to convert text from a file or a command line tool into objects. It uses a regular expression pattern with named captures and turns the result into a custom object. You have the option of specifying a typename in case you are using custom format files.
 
-```powershell
+```text
 PS C:\> $arp = '(?<IPAddress>(\d{1,3}\.){3}\d{1,3})\s+(?<MAC>(\w{2}-){5}\w{2})\s+(?<Type>\w+$)'
 PS C:\> arp -g -N 172.16.10.22 | select -skip 3 | foreach {$_.Trim()} | ConvertFrom-Text $arp -TypeName arpData -NoProgress
 
@@ -327,7 +327,7 @@ This example uses a previously created and import format.ps1xml file for the cus
 
 This command will provide a summary of relevant information for the current user in a PowerShell Session. You might use this to troubleshoot an end-user problem running a script or command.
 
-```powershell
+```text
 PS C:\> Get-PSWho
 
 User            : BOVINE320\Jeff
@@ -375,7 +375,7 @@ When the command is run with -Verbose you will see the verbose output **and** it
 
 During the course of your PowerShell work, you may discover that some commands and scripts can leave behind runspaces such as `ConvertTo-WPFGrid`. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces.
 
-```powershell
+```text
 PS C:\> Get-RunSpace | where ID -gt 1 | Remove-RunSpace
 ```
 
@@ -393,14 +393,14 @@ A simple function to get common locations. This can be useful with cross-platfor
 
 Use this command to quickly get the path to the PowerShell executable. In Windows you should get a result like this:
 
-```powershell
+```text
 PS C:\> Get-PowerShellEngine
 C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 ```
 
 But PowerShell on non-Windows platforms is a bit different:
 
-```powershell
+```text
 PS /home/jhicks> Get-PowerShellEngine
 /opt/microsoft/powershell/7/pwsh
 ```
@@ -419,7 +419,7 @@ Results will vary depending on whether you are running PowerShell on Windows nor
 
 Over time, as you add and remove programs, your `%PATH%` might change. An application may add a location but not remove it when you uninstall the application. This command makes it easier to identify locations and whether they are still good.
 
-```powershell
+```text
 PS C:\> Get-PathVariable
 
 Scope   UserName Path                                                                     Exists
@@ -440,7 +440,7 @@ User    Jeff     C:\Program Files (x86)\Vale\                                   
 
 This command will test if a given folder path is empty of all files anywhere in the path. This includes hidden files. The command will return True even if there are empty sub-folders. The default output is True or False but you can use -Passthru to get more information.
 
-```powershell
+```text
 PS C:\> Get-Childitem c:\work -Directory | test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
 What if: Performing the operation "Remove Directory" on target "C:\work\demo3".
 What if: Performing the operation "Remove Directory" on target "C:\work\installers".
@@ -458,7 +458,7 @@ The example is piping objects to ForEach-Object so that Remove-Item can use the 
 
 Use this command to quickly get the size of a folder. You also have an option to include hidden files. The command will measure all files in all subdirectories.
 
-```powershell
+```text
 PS C:\> get-foldersizeinfo c:\work
 
 Computername    Path                                                TotalFiles     TotalSize
@@ -475,7 +475,7 @@ BOVINE320       C:\work                                                   1375  
 
 The command includes a format file with additional view to display the total size in KB, MB, GB or TB.
 
-```powershell
+```text
 PS C:\> Get-ChildItem D:\ -Directory | Get-FolderSizeInfo -Hidden | Where-Object TotalSize -gt 1gb | Sort-Object TotalSize -Descending | format-table -View gb
 
 Computername    Path                                                TotalFiles   TotalSizeGB
@@ -494,7 +494,7 @@ BOVINE320       D:\pstranscripts                                        122092  
 
 Or you can use the `name` view.
 
-```powershell
+```text
 PS C:\> Get-ChildItem c:\work -Directory | Get-FolderSizeInfo -Hidden | Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
 
 
@@ -518,7 +518,7 @@ This command will strip out any lines that are blank or have nothing by white sp
 
 A PowerShell version of the CLI `where.exe` command. You can search with a simple or regex pattern.
 
-```powershell
+```text
 PS C:\> pswhere winword.exe -Path c:\ -Recurse -first
 
 C:\Program Files\Microsoft Office\root\Office16\WINWORD.EXE
@@ -530,7 +530,7 @@ Note that you might see errors for directories where you don't have access permi
 
 This command will generate a custom file name based on a template string that you provide.
 
-```powershell
+```text
 PS C:\> New-CustomFileName %computername_%day%monthname%yr-%time.log
 COWPC_28Nov19-142138.log
 
@@ -538,50 +538,55 @@ PS C:\> New-CustomFileName %dayofweek-%####.dat
 Tuesday-3128.dat
 ```
 
-You can create a template string using any of these variables. Most of these should be self-explanatory
+You can create a template string using any of these variables. Most of these should be self-explanatory.
 
-- %username
-- %computername
-- %year  - 4 digit year
-- %yr  - 2 digit year
-- %monthname - The abbreviated month name
-- %month  - The month number
-- %dayofweek - The full name of the week day
-- %day
-- %hour
-- %minute
-- %time
-- %string - A random string
-- %guid
++ %username
++ %computername
++ %year  - 4 digit year
++ %yr  - 2 digit year
++ %monthname - The abbreviated month name
++ %month  - The month number
++ %dayofweek - The full name of the week day
++ %day
++ %hour
++ %minute
++ %time
++ %string - A random string
++ %guid
 
-You can also insert a random number using %### with a # character for each digit. If you want a 2 digit random number use %##. If you want 6 digits, use %######.
+You can also insert a random number using `%` followed by a `#` character for each digit you want.
+
+```text
+22 = %##
+654321 = %######
+```
 
 ### [New-RandomFileName](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/New-RandomFileName.md)
 
 Create a new random file name. The default is a completely random name including the extension.
 
-```powershell
+```text
 PS C:\> new-randomfilename
 fykxecvh.ipw
 ```
 
 But you can specify an extension.
 
-```powershell
+```text
 PS C:\> new-randomfilename -extension dat
 emevgq3r.dat
 ```
 
 Optionally you can create a random file name using the TEMP folder or your HOME folder. On Windows platforms this will default to your Documents folder.
 
-```powershell
+```text
 PS C:\> new-randomfilename -extension log -UseHomeFolder
 C:\Users\Jeff\Documents\kbyw4fda.log
 ```
 
 On Linux machines it will be the home folder.
 
-```powershell
+```text
 PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
 /home/jhicks/oces0epq.tmp
 ```
@@ -591,7 +596,7 @@ PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
 This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block or a table You can optionally define a title, content to appear before the output and content to appear after the output. You can run a command like this:
 
 ```powershell
- Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"  -postcontent "_report $(Get-Date)_"
+Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"  -postcontent "_report $(Get-Date)_"
  ```
 
 which generates this markdown:
@@ -660,26 +665,26 @@ This example also demonstrates that you can change form's background color. This
 
 This function creates a Windows Presentation Foundation (WPF) based message box. This is intended to replace the legacy MsgBox function from VBScript and the Windows Forms library. The command uses a set of predefined button sets, each of which will close the form and write a value to the pipeline.
 
-- OK     = 1
-- Cancel = 0
-- Yes    = $True
-- No     = $False
++ OK     = 1
++ Cancel = 0
++ Yes    = $True
++ No     = $False
 
 You can also create an ordered hashtable of your own buttons and values. It is assumed you will typically use this function in a script where you can capture the output and take some action based on the value.
 
-```powershell
+```text
 PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
 ```
 
-![A YesNo WPF Message box](/images/wpfbox-1.png)
+![A YesNo WPF Message box](images/wpfbox-1.png)
 
 You can also create your own custom button set as well as modify the background color.
 
-```powershell
+```text
 PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
 ```
 
-![A customized WPF Message box](/images/wpfbox-2.png)
+![A customized WPF Message box](images/wpfbox-2.png)
 
 ### [ConvertTo-WPFGrid](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-WPFGrid.md)
 
@@ -712,7 +717,7 @@ Note that in v2.4.0 the form layout was modified and may not be reflected in the
 
 This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative.
 
-```powershell
+```text
 PS C:\> Convert-CommandtoHashtable -Text "get-eventlog -listlog -computername a,b,c,d -erroraction stop"
 
 $paramHash = @{
@@ -728,7 +733,7 @@ Get-EventLog @paramHash
 
 This function is similar to `Import-PowerShellDataFile`. But where that command can only process a file, this command will take any hashtable-formatted string and convert it into an actual hashtable.
 
-```powershell
+```text
 PS C:\> get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-HashtableString
 
 Name                           Value
@@ -749,7 +754,7 @@ The test.psd1 file is protected as a CMS Message. In this example, the contents 
 
 Use this command to convert a hashtable into its text or string equivalent.
 
-```powershell
+```text
 PS C:\> $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
 PS C:\> convert-hashtabletocode $h
 @{
@@ -765,7 +770,7 @@ Convert a hashtable object to a string equivalent that you can copy into your sc
 
 This command will take an object and create a hashtable based on its properties. You can have the hashtable exclude some properties as well as properties that have no value.
 
-```powershell
+```text
 PS C:\> Get-Process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
 
 Name                           Value
@@ -780,7 +785,7 @@ Handles                        958
 
 This command will combine two hashtables into a single hashtable.Join-Hashtable will test for duplicate keys. If any of the keys from the first, or primary hashtable are found in the secondary hashtable, you will be prompted for which to keep. Or you can use -Force which will always keep the conflicting key from the first hashtable.
 
-```powershell
+```text
 PS C:\> $a=@{Name="Jeff";Count=3;Color="Green"}
 PS C:\> $b=@{Computer="HAL";Enabled=$True;Year=2020;Color="Red"}
 PS C:\> join-hashtable $a $b
@@ -803,13 +808,13 @@ Count                          3
 
 This command allows you to rename a key in an existing hashtable or ordered dictionary object.
 
-```powershell
+```text
 PS C:\> $h = Get-Service Spooler | ConvertTo-HashTable
 ```
 
 The hashtable in $h has Machinename property which can be renamed.
 
-```powershell
+```text
 PS C:\> Rename-HashTable -Name h -Key Machinename -NewKey Computername -Passthru
 
 Name                           Value
@@ -836,7 +841,7 @@ DependentServices              {Fax}
 
 The module contains 2 functions which simplify the use of `Select-Object`. The commands are intended to make it easier to select the first or last X number of objects. The commands include features so that you can sort the incoming objects on a given property first.
 
-```powershell
+```text
 PS C:\> get-process | select-first 5 -Property WS -Descending
 
 Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
@@ -856,7 +861,7 @@ The module has a few date and time related commands.
 
 Convert a local datetime value to universal time. The default is to convert now but you can specify a datetime value.
 
-```powershell
+```text
 PS C:\> ConvertTo-UTCTime
 
 Monday, March 4, 2019 5:51:26 PM
@@ -866,7 +871,7 @@ Convert a datetime that is UTC-5 to universal time.
 
 ### [ConvertFrom-UTCTime](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertFrom-UTCTime.md)
 
-```powershell
+```text
 PS C:\> ConvertFrom-UTCTime "3/4/2019 6:00PM"
 
 Monday, March 4, 2019 1:00:00 PM
@@ -890,7 +895,7 @@ Get-TimeZone -listavailable
 
 To discover time zone names. Note that the ID is case-sensitive. You can then use the command like this:
 
-```powershell
+```text
 PS C:\> Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "central standard time" | Select Now,Home,Seattle,'New Zealand'
 
 Now                 Home                 Seattle              New Zealand
@@ -904,7 +909,7 @@ This is a handy command when traveling and your laptop is using a locally derive
 
 It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location.
 
-```powershell
+```text
 PS C:\> get-timezone -ListAvailable | where id -match hawaii
 
 
@@ -926,8 +931,8 @@ In this example, the user if first determining the UTC offset for Hawaii. Then 1
 
 This command uses a free and publicly available REST API offered by [http://worldtimeapi.org](http://worldtimeapi.org) to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details.
 
-```powershell
-PS S:\PSScriptTools> get-tzlist Australia
+```text
+PS C:\> get-tzlist Australia
 Australia/Adelaide
 Australia/Brisbane
 Australia/Broken_Hill
@@ -946,7 +951,7 @@ Australia/Sydney
 
 This command also uses the API from worldtimeapi.org to retrieve details about a give time zone area.
 
-```powershell
+```text
 PS C:\> Get-TZData Australia/Hobart
 
 Timezone                        Label        Offset     DST                  Time
@@ -956,7 +961,7 @@ Australia/Hobart                AEDT       11:00:00    True  3/16/2019 3:43:14 A
 
 The Time value is the current time at the remote location. The command presents a formatted object but you can also get the raw data.
 
-```powershell
+```text
 PS C:\> Get-TZData Australia/Hobart -Raw
 
 
@@ -975,10 +980,10 @@ abbreviation : AEDT
 
 ### [ConvertTo-LexicalTime](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/ConvertTo-LexicalTime.md)
 
-When working with timespans or durations in XML files, such as those from scheduled tasks, the format is a little different than what you mgiht expect. The specification is described at [https://www.w3.org/TR/xmlschema-2/#duration](https://www.w3.org/TR/xmlschema-2/#duration). Use this command to convert a timespan into a lexical format you can use in an XML file where you need to specify a duration.
+When working with timespans or durations in XML files, such as those from scheduled tasks, the format is a little different than what you might expect. The specification is described at [https://www.w3.org/TR/xmlschema-2/#duration](https://www.w3.org/TR/xmlschema-2/#duration). Use this command to convert a timespan into a lexical format you can use in an XML file where you need to specify a duration.
 
-```powershell
-ConvertTo-LexicalTimespan (New-TimeSpan -Days 7 -hours 12)
+```text
+PS C:\> ConvertTo-LexicalTimespan (New-TimeSpan -Days 7 -hours 12)
 
 P7DT12H
 ```
@@ -987,8 +992,8 @@ P7DT12H
 
 Likewise, you might need to convert a lexical value back into a timespan.
 
-```powershell
-ConvertFrom-LexicalTimespan P7DT12H
+```text
+PS C:\> ConvertFrom-LexicalTimespan P7DT12H
 
 
 Days              : 7
@@ -1036,7 +1041,7 @@ This command doesn't always work depending on the type of object you pipe to it.
 
 Set the title bar of the current PowerShell console window.
 
-```powershell
+```text
 PS C:\> if (Test-IsAdministrator) { Set-ConsoleTitle "Administrator: $($PSVersionTable.PSedition) $($PSVersionTable.PSVersion)" -Verbose }
 VERBOSE: [10:33:17.0420820 BEGIN  ] Starting Set-ConsoleTitle
 VERBOSE: [10:33:17.0440568 PROCESS] Setting console title to Administrator: Desktop 5.1.17763.316
@@ -1048,15 +1053,15 @@ VERBOSE: [10:33:17.0584056 END    ] Ending Set-ConsoleTitle
 
 Configure the foreground or background color of the current PowerShell console window. Note that if you are running the PSReadline module, this command won't work. You should use `Set-PSReadlineOption` or similar command to configure your session settings.
 
-```powershell
-PS C:\> Set-ConsoleColor -background DarkGray -foreground Yellow
+```poswershell
+Set-ConsoleColor -background DarkGray -foreground Yellow
 ```
 
 ### [Add-Border](https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Add-Border.md)
 
 This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
 
-```powershell
+```text
 PS C:\> add-border $env:computername
 
 *************
@@ -1082,7 +1087,7 @@ Beginning with v2.21.0, this command uses ANSI Color schemes from a json file. Y
 
 This command has an alias of `pstree`.
 
-```powershell
+```text
 PS C:\> pstree c:\work\alpha -files -properties LastWriteTime,Length
 
 C:\work\Alpha\
@@ -1164,7 +1169,7 @@ A set of simple commands to make it easier to format values.
 
 Treat a value as a percentage. This will write a [double] and not include the % sign.
 
-```powershell
+```text
 PS C:\> format-percent -Value 123.5646MB -total 1GB -Decimal 4
 12.0669
 ```
@@ -1173,7 +1178,7 @@ PS C:\> format-percent -Value 123.5646MB -total 1GB -Decimal 4
 
 Use this command to perform one of several string manipulation "tricks".
 
-```powershell
+```text
 PS C:\> format-string "powershell" -Reverse -Case Proper
 Llehsrewop
 PS C:\> format-string PowerShell -Randomize
@@ -1186,7 +1191,7 @@ yr7!^7WcMtr$Pd
 
 This command will format a given numeric value. By default it will treat the number as an integer. Or you can specify a certain number of decimal places. The command will also allow you to format the value in KB, MB, etc.
 
-```powershell
+```text
 PS C:\>  format-value 1235465676 -Unit kb
 1206509
 PS C:\> format-value 123.45 -AsCurrency
@@ -1197,7 +1202,7 @@ PS C:\> (get-process | measure-object ws -sum).sum | format-value -Unit mb | for
 
 Or pull it all together:
 
-```powershell
+```text
 PS C:\> Get-CimInstance win32_operatingsystem |
 select-object @{Name = "TotalMemGB";Expression={Format-Value $_.TotalVisibleMemorySize -Unit mb}},
 @{Name="FreeMemGB";Expression={Format-Value $_.FreePhysicalMemory -unit mb -Decimal 2}},
@@ -1222,7 +1227,7 @@ When you run a single test with `Measure-Command` the result might be affected b
 
 The output will also show the median and trimmed values as well as some metadata about the current PowerShell session.
 
-```powershell
+```text
 PS C:\> $cred = Get-credential globomantics\administrator
 PS C:\> Test-Expression {param($cred) get-wmiobject win32_logicaldisk -computer chi-dc01 -credential $cred } -argumentList $cred
 
@@ -1239,7 +1244,7 @@ OS           : Microsoft Windows 10 Pro
 
 You can also run multiple tests with random time intervals.
 
-```powershell
+```text
 PS C:\>Test-Expression {param([string[]]$Names) get-service $names} -count 5 -IncludeExpression -argumentlist @('bits','wuauserv','winrm') -RandomMinimum .5 -RandomMaximum 5.5
 
 Tests        : 5
@@ -1289,7 +1294,7 @@ If you are running this in the PowerShell ISE, this is the default behavior even
 
 Use this command to determine how much space the hidden `.git` folder is consuming.
 
-```powershell
+```text
 PS C:\scripts\PSScriptTools> Get-GitSize
 
 Path                                          Files          SizeKB
@@ -1299,7 +1304,7 @@ C:\scripts\PSScriptTools                        751       6859.9834
 
 This is the default, formatted view. The object has other properties you can use.
 
-```powershell
+```text
 Name         : PSScriptTools
 Path         : C:\scripts\PSScriptTools
 Files        : 751
@@ -1312,7 +1317,7 @@ Computername : BOVINE320
 
 When using `git` you may create a number of branches. Presumably you merge these branches into the main or master branch. You can this command to remove all merged branches other than master and the current branch. You must be in the root of your project to run this command.
 
-```powershell
+```text
 PS C:\MyProject> Remove-MergedBranch
 
 Remove merged branch from MyProject?
@@ -1342,12 +1347,12 @@ By default you will be prompted to remove each branch.
 
 When writing PowerShell commands, sometimes the culture you are running under becomes critical. For example, European countries use a different datetime format than North Americans which might present a problem with your script or command. Unless you have a separate computer running under the foreign culture, it is difficult to test. This command will allow you to test a scriptblock or even a file under a different culture, such as DE-DE for German.
 
-```powershell
-PS C\> Test-WithCulture fr-fr -Scriptblock {
+```text
+PS C:\> Test-WithCulture fr-fr -Scriptblock {
     Get-winEvent -log system -max 500 |
     Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message |
     Sort-Object -property TimeCreated |
-    Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement }
+    Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement}
 
 Count Name
 ----- ----
@@ -1368,7 +1373,7 @@ This command will copy a PowerShell command, including parameters and help to a 
 
 Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. `Get-ParameterInfo` returns a custom object with the most useful information an administrator might need to know.
 
-```powershell
+```text
 PS C:\> Get-ParameterInfo -Command Get-Counter -Parameter computername
 
 
@@ -1403,7 +1408,7 @@ Update-TypeData -TypeName $tname -MemberType "ScriptProperty" -MemberName "Runti
 
 The custom object looks like this by default:
 
-```powershell
+```text
 PS C:\> $obj
 
 Name         : Jeff
@@ -1416,15 +1421,15 @@ Runtime      : 40.20:49:43.9205882
 Now you can create new formatting directives.
 
 ```powershell
-PS C:\> $obj | New-PSFormatXML -Properties Name, Date, Computername, OS -FormatType Table -path "C:\work\$tname.format.ps1xml"
-PS C:\> $obj | New-PSFormatXML -Properties Name, OS, Runtime -FormatType Table -view runtime -path "C:\work\$tname.format.ps1xml" -append
-PS C:\> $obj | New-PSFormatXML -FormatType List -path "C:\work\$tname.format.ps1xml" -append
-PS C:\> Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
+$obj | New-PSFormatXML -Properties Name, Date, Computername, OS -FormatType Table -path "C:\work\$tname.format.ps1xml"
+$obj | New-PSFormatXML -Properties Name, OS, Runtime -FormatType Table -view runtime -path "C:\work\$tname.format.ps1xml" -append
+$obj | New-PSFormatXML -FormatType List -path "C:\work\$tname.format.ps1xml" -append
+Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
 ```
 
 And here is what the object looks like now:
 
-```powershell
+```text
 PS C:\> $obj
 
 Name Date                 Computername Operating System
@@ -1457,7 +1462,7 @@ PowerShell Core introduced the `$IsWindows` variable. However it is not availabl
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a `Begin`, `Process` and `End` scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can be configured to include a datetime stamp or just the time.
 
-```powershell
+```text
 PS C:\> write-detail "Getting file information" -Prefix Process -Date
 9/15/2018 11:42:43 [PROCESS] Getting file information
 ```
@@ -1476,7 +1481,7 @@ Begin {
 
 This command is intended for Windows users to easily download the latest 64bit version of `Git`.
 
-```powershell
+```text
 PS C:\> Save-GitSetup -Path c:\work -Passthru
 
 
@@ -1493,7 +1498,7 @@ You will need to manually install the file.
 
 From time to time I will include additional items that you might find useful. One item that you get when you import this module is a custom format.ps1xml file for services. You can run `Get-Service` and pipe it to the table view.
 
-```powershell
+```text
 PS C:\> Get-Service | Format-Table -view ansi
 ```
 
@@ -1507,7 +1512,7 @@ This will not work in the PowerShell ISE as it is not ANSI aware.
 
 I have done something similar for output from `Get-ChildItem`. The module includes json file that is exported as a global variable called `PSAnsiFileMap`.
 
-```powershell
+```text
 PS C:\scripts\PSScriptTools> $PSAnsiFileMap
 
 Description    Pattern                                Ansi
@@ -1597,13 +1602,13 @@ Get-WindowsVersionString | Add-Border -border $PSSpecialChar.BlackSmallSquare -A
 
 ![PSSpecialChar Border](images/psspecialchar-border.png)
 
-### Sample scripts
+### Sample Scripts
 
-This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](./samples) folder contains demonstration script files. You can access the folder in PowerShell using the `$PSSamplePath`. The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered AS-IS and are for demonstration purposes only.
+This PowerShell module contains a number of functions you might use to enhance your own functions and scripts. The [Samples](/samples) folder contains demonstration script files. You can access the folder in PowerShell using the `$PSSamplePath`. The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered AS-IS and are for demonstration purposes only.
 
 ![ProcessPercent.ps1](images/processpercent.png)
 
-### [Open-PSScriptToolsHelp)[docs/Open-PSScriptToolsHelp.md]
+### Open-PSScriptToolsHelp
 
 I've created a PDF version of this document which I thought you might find useful since it includes screen shots and sample output rendered nicer than what you can get in PowerShell help. Run this to open the PDF using your default associated application.
 
