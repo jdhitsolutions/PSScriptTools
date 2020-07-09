@@ -1,4 +1,4 @@
-# Change Log for PSScriptTools
+# ChangeLog for PSScriptTools
 
 ## v2.26.0
 
