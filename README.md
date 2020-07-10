@@ -1053,7 +1053,7 @@ VERBOSE: [10:33:17.0584056 END    ] Ending Set-ConsoleTitle
 
 Configure the foreground or background color of the current PowerShell console window. Note that if you are running the PSReadline module, this command won't work. You should use `Set-PSReadlineOption` or similar command to configure your session settings.
 
-```poswershell
+```powershell
 Set-ConsoleColor -background DarkGray -foreground Yellow
 ```
 
