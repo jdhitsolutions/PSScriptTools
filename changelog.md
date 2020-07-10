@@ -1,5 +1,12 @@
 # ChangeLog for PSScriptTools
 
+## v2.26.2
+
++ Cleaned up bad links and code fence re-formatting in `README.md`.
++ Created new base version of `PSScriptToolsHelp.md`
++ Generated new help manual with a table of contents and nicer formatting. (Issue #87)
++ Renamed help pdf to `PSScriptToolsManual.pdf`
+
 ## v2.26.1
 
 + Replaced links in `PSScriptToolsHelp` (Issue #86)

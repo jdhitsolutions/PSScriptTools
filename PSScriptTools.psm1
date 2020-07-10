@@ -102,7 +102,7 @@ Function Open-PSScriptToolsHelp {
     [cmdletbinding()]
     Param()
 
-    $pdf = Join-Path -path $PSScriptRoot -ChildPath PSScriptToolsHelp.pdf
+    $pdf = Join-Path -path $PSScriptRoot -ChildPath PSScriptToolsManual.pdf
     if (Test-Path -Path $pdf) {
         Try {
             Start-Process -FilePath $pdf -ErrorAction Stop
