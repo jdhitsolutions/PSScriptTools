@@ -34,7 +34,7 @@ Function Convert-HashtableString {
 
 }
 
-Function ConvertTo-HashTable {
+Function ConvertTo-Hashtable {
 
     [cmdletbinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
@@ -106,7 +106,7 @@ Function ConvertTo-HashTable {
 
 }#end function
 
-Function Convert-HashTableToCode {
+Function Convert-HashtableToCode {
     [cmdletbinding(DefaultParameterSetName = "psd1")]
     [alias("chc")]
     [OutputType([system.string])]
@@ -241,9 +241,9 @@ Function Join-Hashtable {
 
 } #end Join-Hashtable
 
-Function Convert-CommandtoHashtable {
+Function Convert-CommandToHashtable {
     [cmdletbinding()]
-    [OutputType("Hashtable")]
+    [OutputType("[System.String]")]
 
     Param(
         [Parameter(Mandatory)]
@@ -327,7 +327,7 @@ $cmd @paramHash
 
 }
 
-Function Rename-HashTable {
+Function Rename-Hashtable {
 
     [cmdletbinding(SupportsShouldProcess, DefaultParameterSetName = "Pipeline")]
     [alias("rht")]

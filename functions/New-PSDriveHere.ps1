@@ -8,7 +8,7 @@ Function New-PSDriveHere {
         [Parameter(Position = 0)]
         [ValidateScript( {Test-Path $_})]
         [string]$Path = ".",
-	
+
         [Parameter(Position = 1, ParameterSetName = "Name")]
         [ValidateNotNullorEmpty()]
         [string]$Name,
@@ -17,7 +17,10 @@ Function New-PSDriveHere {
         [switch]$First,
 
         [Alias("cd")]
-        [switch]$SetLocation
+        [switch]$SetLocation,
+
+        [Parameter(HelpMessage="Pass the new PSDrive object to the pipeline.")]
+        [switch]$Passthru
     )
 
     Write-Verbose "Starting: $($MyInvocation.Mycommand)"
@@ -28,9 +31,9 @@ Function New-PSDriveHere {
 
     #did the user specify a name?
     if ($pscmdlet.ParameterSetName -eq "Name") {
-        Write-Verbose "Defining a new PSDrive with the name $Name."	
+        Write-Verbose "Defining a new PSDrive with the name $Name."
     } #if $name
-    else {	
+    else {
         if ($first) {
             Write-Verbose "Using the first word in the target location."
             $pattern = "^\w+"
@@ -50,29 +53,38 @@ Function New-PSDriveHere {
             Write-Warning "$path doesn't meet the criteria"
             Break
         }
-		
+
     } #else using part of folder name
 
     #verify a PSDrive doesn't already exist
     Write-Verbose "Testing $($name):"
-   
+
     If (-not (Test-Path -path "$($name):")) {
         Write-Verbose "Creating PSDrive for $name"
         $paramHash = @{
             Name        = $name
             PSProvider  = $location.PSProvider
             Root        = $Path
-            Description = "Created $(get-date)"
+            Description = "Created $(Get-Date)"
             Scope       = 'Global'
+            ErrorAction = 'Stop'
         }
 
-        New-PSDrive @paramHash
+        Try {
+            $result = New-PSDrive @paramHash
+            if ($Passthru) {
+                $result
+            }
+            if ($SetLocation) {
+                Write-Verbose "Setting location to $($name):"
+                Set-Location -Path "$($name):"
+            }
+        } #try
+        Catch {
+            Write-Error $_
+        }
 
-        if ($SetLocation) {
-            Write-Verbose "Setting location to $($name):"
-            Set-Location -Path "$($name):"
-        }      
-    }
+    } #if Not Test-Path
     else {
         Write-Warning "A PSDrive for $name already exists"
     }

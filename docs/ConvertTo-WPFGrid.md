@@ -16,24 +16,27 @@ Send command output to an interactive WPF-based grid.
 ### input (Default)
 
 ```yaml
-ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-Gridlines <String>]
- [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
+[-Gridlines <String>] [-InitializationScript <ScriptBlock>]
+[-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ### Input
 
 ```yaml
-ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
- [-Gridlines <String>] [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile]
- [<CommonParameters>]
+ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>]
+[[-Timeout] <Int32>] [-Refresh] [-Gridlines <String>]
+[-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>]
+[-UseProfile] [<CommonParameters>]
 ```
 
 ### scriptblock
 
 ```yaml
-ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
- [-Gridlines <String>] [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile]
- [<CommonParameters>]
+ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>]
+[[-Timeout] <Int32>] [-Refresh] [-Gridlines <String>]
+[-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>]
+[-UseProfile] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -53,7 +56,9 @@ This command requires a Windows platform.
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-process | sort-object WS -Descending | Select-object -first 20 ID,Name,WS,VM,PM,Handles,StartTime | Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
+PS C:\> Get-Process | Sort-Object WS -Descending |
+Select-object -first 20 ID,Name,WS,VM,PM,Handles,StartTime |
+Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 ```
 
 Get the top 20 processes based on the value of the WorkingSet property and display selected properties in the WPF Grid. The contents will automatically refresh every 20 seconds. You will need to manually close the form.
@@ -65,7 +70,8 @@ PS C:\> $vmhost = "CHI-HVR2"
 PS C:\> Get-VM -computername $VMHost | Select Name,State,Uptime,
 @{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as [int]}},
 @{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as [int]}} |
-ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvariable VMHost
+ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh
+-uselocalvariable VMHost
 ```
 
 Get Hyper-V virtual machine information and refresh every 30 seconds. Because the command is using a locally defined variable it is also being used in the form. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.
@@ -73,7 +79,8 @@ Get Hyper-V virtual machine information and refresh every 30 seconds. Because th
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Get-VMData -host CHI-HVR2 | ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile
+PS C:\> Get-VMData -host CHI-HVR2 |
+ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile
 ```
 
 This example uses a hypothetical command that might be defined in a PowerShell profile script. ConvertTo-WPFGrid will load the profile scripts so that the data can be updated every 60 seconds.
@@ -81,7 +88,8 @@ This example uses a hypothetical command that might be defined in a PowerShell p
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> (get-processdata -Computername $computers).where({$_.workingset -ge 100mb}) | ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30
+PS C:\> (Get-Processdata -Computername $computers).where({$_.workingset -ge 100mb}) |
+ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30
 ```
 
 This command runs a function that is defined in a script file. In order for the form to refresh, it must also dot source the script which is happening with the InitializationScript parameter. The example is also loading the local $computers variable so that it too is available upon refresh.
@@ -256,4 +264,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [ConvertTo-HTML]()
 
-[ConvertTo-Markdown](./ConvertTo-Markdown.md)
+[ConvertTo-Markdown](ConvertTo-Markdown.md)

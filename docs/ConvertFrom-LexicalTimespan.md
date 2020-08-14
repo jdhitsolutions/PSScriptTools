@@ -45,7 +45,10 @@ TotalMilliseconds : 47000
 ### Example 2
 
 ```powershell
-PS C:\> Get-ScheduledTask -TaskName DailyWatcher | Select-Object Taskname,@{Name="ExecutionLimit";Expression = { ConvertFrom-LexicalTimespan $_.settings.ExecutionTimeLimit  }}
+PS C:\> Get-ScheduledTask -TaskName DailyWatcher |
+Select-Object Taskname,
+@{Name="ExecutionLimit";Expression = `
+{ ConvertFrom-LexicalTimespan $_.settings.ExecutionTimeLimit }}
 
 Taskname     ExecutionLimit
 --------     --------------
@@ -108,4 +111,4 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[ConvertTo-LexicalTime](./ConvertTo-LexicalTime)
+[ConvertTo-LexicalTimespan](ConvertTo-LexicalTimespan.md)

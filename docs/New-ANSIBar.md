@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create an ANSI colored bar
+Create an ANSI colored bar.
 
 ## SYNTAX
 
@@ -156,6 +156,6 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[New-RedGreenGradient]()
+[New-RedGreenGradient](New-RedGreenGradient.md)
 
-[Write-ANSIProgress]()
+[Write-ANSIProgress](Write-ANSIProgress.md)

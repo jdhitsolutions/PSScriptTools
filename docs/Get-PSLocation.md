@@ -14,7 +14,7 @@ Get common location values.
 ## SYNTAX
 
 ```yaml
-Get-PSLocation
+Get-PSLocation [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +26,7 @@ This command will write an object to the pipeline that displays the values of co
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-pslocation
+PS C:\> Get-PSLocation
 
 Temp       : C:\Users\Jeff\AppData\Local\Temp\
 Home       : C:\Users\Jeff\Documents
@@ -39,7 +39,7 @@ Results on a Windows system.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-pslocation
+PS C:\> Get-PSLocation
 
 Temp       : /tmp/
 Home       : /home/jeff
@@ -50,6 +50,10 @@ PowerShell : /home/jeff/.config/powershell
 Results on a Linux system running PowerShell Core.
 
 ## PARAMETERS
+
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -66,3 +70,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-Location]()
+
+[Set-Location]()

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Open the PSScriptTools manual
+Open the PSScriptTools manual.
 
 ## SYNTAX
 
@@ -41,7 +41,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### none
+### None
 
 ## NOTES
 

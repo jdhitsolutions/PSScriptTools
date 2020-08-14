@@ -44,7 +44,7 @@ Depending on the value and how PowerShell chooses to display it, you may not see
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-MyVariable | select name,type
+PS C:\> Get-MyVariable | Select-Object name,type
 
 Name Type
 ---- ----
@@ -58,7 +58,8 @@ r    Object[]
 
 ```powershell
 PS C:\> Get-MyVariable | Export-Clixml myvar.xml
-PS C:\> import-clixml .\myvar.xml | foreach {set-variable -Name $_.name -Value $_.value}
+PS C:\> import-clixml .\myvar.xml |
+ForEach-Object {set-variable -Name $_.name -Value $_.value}
 ```
 
 You can then import this xml file in another session to restore these variables.
@@ -66,7 +67,12 @@ You can then import this xml file in another session to restore these variables.
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> function foo { . c:\scripts\get-myvariable2.ps1;$a=4;$b=2;$c=$a*$b;get-MyVariable -notypeinformation -scope 1 -verbose;$c}
+PS C:\> function foo {
+     c:\scripts\Get-MyVariable2.ps1;
+     $a=4;$b=2;$c=$a*$b;
+     Get-MyVariable -notypeinformation -scope 1 -verbose;
+     $c
+     }
 
 PS C:\> foo
 VERBOSE: Getting system defined variables
@@ -89,7 +95,8 @@ This sample function dot sources the script with this function. Within the funct
 ### EXAMPLE 5
 
 ```powershell
-PS C:\> get-myvariable | where {$_.type -eq "Scriptblock"} | Select name,value
+PS C:\> Get-MyVariable | where {$_.type -eq "Scriptblock"} |
+Select-Object name,value
 
 Name                               Value
 ----                               -----

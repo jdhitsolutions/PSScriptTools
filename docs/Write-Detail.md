@@ -22,26 +22,28 @@ Write-Detail [[-Message] <String>] [-Prefix <String>] [<CommonParameters>]
 ### Time
 
 ```yaml
-Write-Detail [[-Message] <String>] [-Prefix <String>] [-Time] [<CommonParameters>]
+Write-Detail [[-Message] <String>] [-Prefix <String>] [-Time]
+[<CommonParameters>]
 ```
 
 ### Date
 
 ```yaml
-Write-Detail [[-Message] <String>] [-Prefix <String>] [-Date] [<CommonParameters>]
+Write-Detail [[-Message] <String>] [-Prefix <String>] [-Date]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full time stamp, or a time string which includes a millisecond value.
 
-In a script you might use it like this:
+In a script you might use it like this in a Begin block:
 
-Begin {
-    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin -time | Write-Verbose
-    $tabs = "`t" * $tab
-    Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose
-} #begin
+    $pfx = "BEGIN"
+
+    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix $pfx | Write-Verbose
+
+    Write-Detail "PS $($PSVersiontable.PSVersion)" -Prefix $pfx | Write-Verbose
 
 If you don't specify a prefix, it will default to PROCESS.
 
@@ -50,7 +52,7 @@ If you don't specify a prefix, it will default to PROCESS.
 ### EXAMPLE 1
 
 ```powershell
-PS C:\>write-detail "Getting file information" -Prefix Process
+PS C:\> Write-Detail "Getting file information" -Prefix Process
 [PROCESS] Getting file information
 ```
 
@@ -93,7 +95,7 @@ Accept wildcard characters: False
 
 ### -Date
 
-Display a date value like 9/15/2018 11:36:41
+Display a date value like 9/15/2018 11:36:41.
 
 ```yaml
 Type: SwitchParameter

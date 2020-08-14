@@ -19,7 +19,7 @@ format type data generated 02/27/2020 10:21:29 by BOVINE320\Jeff
 
             Use <Label> to set the displayed value.
 -->
-        <PropertyName>Verb</PropertyName>
+         <ScriptBlock>"$([char]0x1b)[38;5;226m$($_.verb)$([char]0x1b)[0m"</ScriptBlock>
         <Label>Verb</Label>
       </GroupBy>
       <TableControl>

@@ -1,11 +1,23 @@
 # ChangeLog for PSScriptTools
 
+## v2.27.0
+
++ Added a new command called `Get-MyAlias` with an alias of `gma`.
++ Added a custom formatting file for alias objects with new views of `Options` and `Source`.
++ Revised the help PDF to include command help.
++ Help documentation cleanup.
++ Updated `README.md`
++ Fixed bug in `Test-Expression` that was importing the wrong module.
++ Modified `New-PSDriveHere` to not write the new PSDrive object to the pipeline. Added a `-Passthru` parameter. This is a BREAKING change to the command.
++ Modified `Get-ParameterInfo` to write a custom `PSParameterInfo` object to the pipeline and added a default list formatted view.
++ Modified `psscripttool.format.ps1xml` to display Verb in color using ANSI.
+
 ## v2.26.2
 
 + Cleaned up bad links and code fence re-formatting in `README.md`.
-+ Created new base version of `PSScriptToolsHelp.md`
++ Created new base version of `PSScriptToolsHelp.md`.
 + Generated new help manual with a table of contents and nicer formatting. (Issue #87)
-+ Renamed help pdf to `PSScriptToolsManual.pdf`
++ Renamed help pdf to `PSScriptToolsManual.pdf`.
 
 ## v2.26.1
 
@@ -19,8 +31,8 @@
 ### Add
 
 + Added a Documents type to `PSAnsiFileMap.json`.
-+ Added a parameter to `Convert-HashtabletoCode` to output an inline string. (Issue #85)
-+ Added an alias `chc` for `Convert-HashtabletoCode`.
++ Added a parameter to `Convert-HashtableToCode` to output an inline string. (Issue #85)
++ Added an alias `chc` for `Convert-HashtableToCode`.
 + Added `Copy-HelpExample` command with an alias of `che`.
 + Added `Open-PSScriptToolsHelp` to open a PDF version of `README.md` as a help manual.
 
@@ -29,7 +41,7 @@
 + Fixed duplicate entry in `PSAnsiFileMap.json`.
 + Revised regex patterns in `PSAnsiFileMap.json`. (Issue #83)
 + Cleaned up code in `filesystem-ansi.format.ps1xml`.
-+ Modified `Convert-HashTableToCode` to (hopefully) better handle scriptblocks. (Issue #84)
++ Modified `Convert-HashtableToCode` to (hopefully) better handle scriptblocks. (Issue #84)
 + Updated `README.md`
 
 ### Delete

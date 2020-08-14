@@ -14,8 +14,8 @@ Select the last X number of objects.
 ## SYNTAX
 
 ```yaml
-Select-Last -InputObject <PSObject> [-Last] <Int32> [[-Property] <String>] [-Skip <Int32>] [-Descending]
- [<CommonParameters>]
+Select-Last -InputObject <PSObject> [-Last] <Int32> [[-Property] <String>]
+[-Skip <Int32>] [-Descending] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -43,12 +43,12 @@ Mode                LastWriteTime         Length Name
 -a----        1/15/2018  12:08 PM           1555 Cost.ps1
 ```
 
-Get the last 5 ps1 files sorted on the LastWritetime property.
+Get the last 5 ps1 files sorted on the LastWritetime property. This example is using the alias 'last' for Select-Last.
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> 1..10 | select-last 3 -skip 1
+PS C:\> 1..10 | Select-Last 3 -skip 1
 
 7
 8
@@ -160,4 +160,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [Select-Object]()
 
-[Select-First](./Select-First.md)
+[Select-First](Select-First.md)

@@ -5,43 +5,38 @@ online version: http://bit.ly/31SLyhD
 schema: 2.0.0
 ---
 
-# Convert-CommandtoHashtable
+# Convert-CommandToHashtable
 
 ## SYNOPSIS
 
-Convert a PowerShell expression into a hashtable.
+Convert a PowerShell expression into a splatting equivalent.
 
 ## SYNTAX
 
 ```yaml
-Convert-CommandtoHashtable [-Text] <String> [<CommonParameters>]
+Convert-CommandToHashtable [-Text] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative.
+This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression using a number of parameters and you would like to turn it into splatting code.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\> Convert-CommandtoHashtable -Text "get-eventlog -listlog -computername a,b,c,d -erroraction stop"
-
-$paramHash = @{
-  listlog = $True
-   computername = "a","b","c","d"
-   erroraction = "stop"
-}
-
-Get-EventLog @paramHash
+PS C:\> $text ="Get-Winevent -listlog p* -computername SRV1 -erroraction stop"
+PS C:\> Convert-CommandToHashtable -Text $text | Set-Clipboard
 ```
+
+The $text variable might be a line of code from your script. The second line converts into a splatting sequence and copies it to the Windows clipboard so you can paste it back into your script. You could create a VS Code task sequence using this function.
 
 ## PARAMETERS
 
 ### -Text
 
-A PowerShell expression, preferably with named parameters.
+A PowerShell command using a single cmdlet or function, preferably with named parameters.
 
 ```yaml
 Type: String
@@ -74,4 +69,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Convert-HashTableToCode]()
+[Convert-HashtableToCode](Convert-HashtableToCode.md)

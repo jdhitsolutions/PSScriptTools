@@ -47,7 +47,9 @@ List all modules that could be updated.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select modules to update" -outputMode multiple | Foreach { Update-Module $_.name }
+PS C:\> Compare-Module | Where UpdateNeeded |
+Out-Gridview -title "Select modules to update" -outputMode multiple |
+Foreach-Object { Update-Module $_.name }
 ```
 
 Compare modules and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what modules to update.
@@ -55,7 +57,7 @@ Compare modules and send results to Out-Gridview. Use Out-Gridview as an object 
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> compare-module -name xWin* | format-table
+PS C:\> Compare-Module -name xWin* | Format-Table
 
 Name           OnlineVersion InstalledVersion PublishedDate         UpdateNeeded
 ----           ------------- ---------------- -------------         ------------
@@ -68,7 +70,8 @@ Compare all modules that start with xWin* and display results in a table format.
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> get-dscresource xAD* | Select moduleName -Unique | compare-module
+PS C:\> get-dscresource xAD* | Select-Object moduleName -Unique |
+Compare-Module
 
 Name             : xActiveDirectory
 OnlineVersion    : 2.22.0.0

@@ -14,8 +14,9 @@ Convert pipeline output to a markdown document.
 ## SYNTAX
 
 ```yaml
-ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>] [-PreContent <String[]>]
- [-PostContent <String[]>] [-Width <Int32>] [-AsTable] [<CommonParameters>]
+ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>]
+[-PreContent <String[]>] [-PostContent <String[]>] [-Width <Int32>] [-AsTable]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +30,8 @@ The command does not create a text file. You need to pipe results from this comm
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"
+PS C:\> Get-Service Bits,Winrm |
+Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"
 
 # Service Check
 
@@ -49,7 +51,9 @@ Create markdown output from a Get-Service command.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md
+PS C:\> Get-Service Bits,Winrm |
+Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"`
+-postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md
 ```
 
 Re-run the previous command and save output to a file.
@@ -59,24 +63,25 @@ Re-run the previous command and save output to a file.
 ```powershell
 PS C:\> $computers = "srv1","srv2","srv4"
 PS C:\> $Title = "System Report"
-PS C:\> $footer = "_report run $(Get-Date) by $($env:USERDOMAIN)\$($env:USERNAME)_"
+PS C:\> $footer = "_report run by $($env:USERDOMAIN)\$($env:USERNAME)_"
 PS C:\> $sb =  {
->> $os = get-ciminstance -classname win32_operatingsystem -property caption,lastbootUptime
->> \[PSCustomObject\]@{
->> PSVersion = $PSVersionTable.PSVersion
->> OS = $os.caption
->> Uptime = (Get-Date) - $os.lastbootUpTime
->> SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
->> }
->> }
+$os = Get-CimInstance -classname win32_operatingsystem -property caption,
+lastbootUptime
+\[PSCustomObject\]@{
+PSVersion = $PSVersionTable.PSVersion
+OS = $os.caption
+Uptime = (Get-Date) - $os.lastbootUpTime
+SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
+ }
+}
 PS C:\> $out = Convertto-Markdown -title $Title
 PS C:\> foreach ($computer in $computers) {
->>  $out+= Invoke-command -scriptblock $sb -ComputerName $computer -HideComputerName |
->>  Select-Object -Property * -ExcludeProperty RunspaceID |
->>  ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
->> }
+$out+= Invoke-command -scriptblock $sb -Computer $computer -HideComputerName |
+Select-Object -Property * -ExcludeProperty RunspaceID |
+ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
+}
 PS C:\>$out += ConvertTo-Markdown -PostContent $footer
-PS C:\>$out | set-content c:\work\report.md
+PS C:\>$out | Set-Content c:\work\report.md
 ```
 
 Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.

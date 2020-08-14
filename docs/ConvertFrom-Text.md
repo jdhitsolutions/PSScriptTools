@@ -16,15 +16,15 @@ Convert structured text to objects.
 ### File (Default)
 
 ```yaml
-ConvertFrom-Text [-Pattern] <Regex> [-Path] <String> [-TypeName <String>] [-NoProgress]
- [<CommonParameters>]
+ConvertFrom-Text [-Pattern] <Regex> [-Path] <String> [-TypeName <String>]
+[-NoProgress] [<CommonParameters>]
 ```
 
 ### Inputobject
 
 ```yaml
-ConvertFrom-Text [-Pattern] <Regex> [-InputObject] <String> [-TypeName <String>] [-NoProgress]
- [<CommonParameters>]
+ConvertFrom-Text [-Pattern] <Regex> [-InputObject] <String>
+[-TypeName <String>] [-NoProgress] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -39,7 +39,7 @@ The command will write a generic custom object to the pipeline. However, you can
 
 ```powershell
 PS C:\> $b = "(?<Date>\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}).*(?<Error>\d+),\s+(?<Step>.*):\s+(?<Action>\w+),\s+(?<Path>(\w+\\)*\w+\.\w+)"
-PS C:\> convertfrom-text -pattern $b -path C:\windows\DtcInstall.log
+PS C:\> ConvertFrom-Text -pattern $b -path C:\windows\DtcInstall.log
 
 Date   : 10-18-2018 10:49
 Error  : 0
@@ -62,7 +62,7 @@ The first command creates a variable to hold the regular expression pattern that
 ```powershell
 PS C:\> $wu = "(?<Date>\d{4}-\d{2}-\d{2})\s+(?<Time>(\d{2}:)+\d{3})\s+(?<PID>\d+)\s+(?<TID>\w+)\s+(?<Component>\w+)\s+(?<Message>.*)"
 PS C:\> $out = ConvertFrom-Text -pattern $wu -path C:\Windows\WindowsUpdate.log -noprogress
-PS C:\> $out | group-object Component | Sort-object Count
+PS C:\> $out | Group-Object Component | Sort-Object Count
 
 Count Name                      Group
 ----- ----                      -----
@@ -81,7 +81,9 @@ Count Name                      Group
  2544 AU                        {@{Date=2018-01-26; Time=19:55:27:449; PID=1...
  2839 Agent                     {@{Date=2018-01-26; Time=21:21:23:045; PID=1...
 
-PS C:\> $out | where-object {\[datetime\]$_.date -ge \[datetime\]"2/10/2018" -AND $_.component -eq "AU"} | Format-Table Date,Time,Message -wrap
+PS C:\> $out |
+Where-Object {\[datetime\]$_.date -ge \[datetime\]"2/10/2018" -AND $_.component -eq "AU"} |
+Format-Table Date,Time,Message -wrap
 
 Date       Time         Message
 ----       ----         -------
@@ -106,7 +108,8 @@ In this example, the WindowsUpdate log is converted from text to objects using t
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> get-content c:\windows\windowsupdate.log -totalcount 50 | ConvertFrom-Text $wu
+PS C:\> Get-Content c:\windows\windowsupdate.log -totalcount 50 |
+ConvertFrom-Text $wu
 ```
 
 This example gets the first 50 lines from the Windows update log and converts that to objects using the pattern from the previous example.
@@ -115,7 +118,8 @@ This example gets the first 50 lines from the Windows update log and converts th
 
 ```powershell
 PS C:\> $c = "(?<Protocol>\w{3})\s+(?<LocalIP>(\d{1,3}\.){3}\d{1,3}):(?<LocalPort>\d+)\s+(?<ForeignIP>.*):(?<ForeignPort>\d+)\s+(?<State>\w+)?"
-PS C:\> netstat | select -skip 4 | convertfrom-text $c | format-table -autosize
+PS C:\> netstat | select -skip 4 | ConvertFrom-Text $c |
+Format-Table -autosize
 
 Protocol LocalIP      LocalPort ForeignIP      ForeignPort State
 -------- -------      --------- ---------      ----------- -----
@@ -134,7 +138,9 @@ The first command creates a variable to be used with output from the Netstat com
 
 ```powershell
 PS C:\> $arp = "(?<IPAddress>(\d{1,3}\.){3}\d{1,3})\s+(?<MAC>(\w{2}-){5}\w{2})\s+(?<Type>\w+$)"
-PS C:\> arp -g -N 172.16.10.22 | select -skip 3 | foreach {$_.Trim()} | convertfrom-text $arp -noprogress -typename arpData
+PS C:\> arp -g -N 172.16.10.22 | Select-Object -skip 3 |
+ForEach-Object {$_.Trim()} |
+ConvertFrom-Text $arp -noprogress -typename arpData
 
 IPAddress                         MAC                              Type
 ---------                         ---                              ----

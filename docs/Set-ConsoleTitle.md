@@ -35,7 +35,9 @@ Set the console title to the computername.
 ### Example 2
 
 ```powershell
-PS C:\> if (Test-IsAdministrator) { Set-ConsoleTitle "Administrator: $($PSVersionTable.PSedition) $($PSVersionTable.PSVersion)" }
+PS C:\> if (Test-IsAdministrator) {
+    Set-ConsoleTitle "Admin: PS $($PSVersionTable.PSVersion)"
+    }
 ```
 
 Modify the console title if running as Administrator

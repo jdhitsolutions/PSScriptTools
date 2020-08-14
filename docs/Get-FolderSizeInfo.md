@@ -50,7 +50,9 @@ Include hidden files.
 ### Example 3
 
 ```powershell
-PS C:\> Get-ChildItem d:\ -Directory | Get-FolderSizeInfo | Where-Object TotalSize -gt 1MB | Sort-Object TotalSize -Descending | Format-Table -View mb
+PS C:\> Get-ChildItem d:\ -Directory | Get-FolderSizeInfo |
+Where-Object TotalSize -gt 1MB | Sort-Object TotalSize -Descending |
+Format-Table -View mb
 
 Computername    Path                                                TotalFiles   TotalSizeMB
 ------------    ----                                                ----------   -----------
@@ -72,7 +74,8 @@ Get the top level directories from D and pipe them to Get-FolderSizeInfo. Items 
 ### Example 4
 
 ```powershell
-PS C:\> Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden | Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
+PS C:\> Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden |
+Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
 
 
    Path: C:\work
@@ -140,7 +143,7 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[Test-EmptyFolder]()
+[Test-EmptyFolder](Test-EmptyFolder.md)
 
 [Get-ChildItem]()
 

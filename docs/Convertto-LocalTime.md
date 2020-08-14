@@ -14,7 +14,8 @@ Convert a foreign time to local.
 ## SYNTAX
 
 ```yaml
-ConvertTo-LocalTime [-Datetime] <DateTime> [-UTCOffset] <TimeSpan> [-DaylightSavingTime] [<CommonParameters>]
+ConvertTo-LocalTime [-Datetime] <DateTime> [-UTCOffset] <TimeSpan>
+[-DaylightSavingTime] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,7 +39,7 @@ Convert a time that is in Singapore to local (Eastern) time.
 ### Example 2
 
 ```powershell
-PS C:\> get-timezone -ListAvailable | where id -match hawaii
+PS C:\> Get-TimeZone -ListAvailable | where-object id -match hawaii
 
 
 Id                         : Hawaiian Standard Time
@@ -124,6 +125,8 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-TimeZone]()
+
+[Get-Date]()
 
 [Get-MyTimeInfo](Get-MyTimeInfo.md)
 

@@ -14,8 +14,8 @@ Set the PowerShell console color.
 ## SYNTAX
 
 ```yaml
-Set-ConsoleColor [[-Foreground] <ConsoleColor>] [[-Background] <ConsoleColor>] [-ClearScreen] [-Passthru]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-ConsoleColor [[-Foreground] <ConsoleColor>] [[-Background] <ConsoleColor>]
+[-ClearScreen] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +42,7 @@ Specify a background console color
 Type: ConsoleColor
 Parameter Sets: (All)
 Aliases: bg
-Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta,DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
 Required: False
 Position: 1
@@ -91,7 +91,7 @@ Specify a foreground console color
 Type: ConsoleColor
 Parameter Sets: (All)
 Aliases: fg
-Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta, DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta,DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
 Required: False
 Position: 0

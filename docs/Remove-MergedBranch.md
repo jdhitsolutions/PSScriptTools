@@ -131,3 +131,5 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 ## RELATED LINKS
 
 [git.exe]()
+
+[Get-GitSize](Get-GitSize.md)

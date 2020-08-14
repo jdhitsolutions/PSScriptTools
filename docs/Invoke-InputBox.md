@@ -16,13 +16,15 @@ Launch a graphical input box.
 ### plain (Default)
 
 ```yaml
-Invoke-InputBox [-Title <String>] [-Prompt <String>] [-BackgroundColor <String>]
+Invoke-InputBox [-Title <String>] [-Prompt <String>]
+[-BackgroundColor <String>] [<CommonParameters>]
 ```
 
 ### secure
 
 ```yaml
-Invoke-InputBox [-Title <String>] [-Prompt <String>] [-AsSecureString] [-BackgroundColor <String>]
+Invoke-InputBox [-Title <String>] [-Prompt <String>] [-AsSecureString]
+[-BackgroundColor <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -42,7 +44,8 @@ PS C:\> $name = Invoke-Inputbox -prompt "Enter a user name" -title "New User"
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> $pass = Invoke-Inputbox -prompt "Enter a new password" -title "New User" -asSecureString -background red
+PS C:\> $pass = Invoke-Inputbox -prompt "Enter a new password"
+-title "New User" -asSecureString -background red
 ```
 
 Get a secure string value from the user. This example also changes the form background to red.
@@ -113,6 +116,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### None
@@ -131,4 +138,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [Read-Host]()
 
-[New-WPFMessageBox]()
+[New-WPFMessageBox](New-WPFMessageBox.md)

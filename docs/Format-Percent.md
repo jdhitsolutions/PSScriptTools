@@ -16,13 +16,15 @@ Format a value as a percentage.
 ### None (Default)
 
 ```yaml
-Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>] [<CommonParameters>]
+Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>]
+[<CommonParameters>]
 ```
 
 ### String
 
 ```yaml
-Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>] [-AsString] [<CommonParameters>]
+Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>]
+[-AsString] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -44,7 +46,10 @@ Calculate a percentage from 1234.567 out of 5000 (i.e. 1234.567/5000) to 4 decim
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-ciminstance win32_operatingsystem -computer chi-dc04 | select PSComputername,TotalVisibleMemorySize,@{Name="PctFreeMem";Expression={ Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize}}
+PS C:\> Get-CimInstance win32_operatingsystem -computer chi-dc04 |
+Select-Object PSComputername,TotalVisibleMemorySize,
+@{Name="PctFreeMem";Expression={
+    Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize}}
 
 PSComputerName             TotalVisibleMemorySize           PctFreeMem
 --------------             ----------------------           ----------
@@ -54,7 +59,10 @@ chi-dc04                                  1738292                23.92
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> get-ciminstance win32_operatingsystem -computer chi-dc04 | select PSComputername,TotalVisibleMemorySize,@{Name="PctFreeMem";Expression={ Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize -asString}}
+PS C:\> Get-CimInstance win32_operatingsystem -computer chi-dc04 |
+Select-Object PSComputername,TotalVisibleMemorySize,
+@{Name="PctFreeMem";Expression={
+    Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize -asString}}
 
 PSComputerName             TotalVisibleMemorySize           PctFreeMem
 --------------             ----------------------           ----------
@@ -147,6 +155,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Format-Value](./Format-Value.md)
+[Format-Value](Format-Value.md)
 
-[Format-String](./Format-String.md)
+[Format-String](Format-String.md)

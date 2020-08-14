@@ -16,19 +16,22 @@ Format a numeric value.
 ### Default (Default)
 
 ```yaml
-Format-Value [-InputObject] <Object> [[-Unit] <String>] [-Decimal <Int32>] [<CommonParameters>]
+Format-Value [-InputObject] <Object> [[-Unit] <String>] [-Decimal <Int32>]
+[<CommonParameters>]
 ```
 
 ### Number
 
 ```yaml
-Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-AsNumber] [<CommonParameters>]
+Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-AsNumber]
+[<CommonParameters>]
 ```
 
 ### Auto
 
 ```yaml
-Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-Autodetect] [<CommonParameters>]
+Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-Autodetect]
+[<CommonParameters>]
 ```
 
 ### Currency
@@ -48,7 +51,10 @@ You can let the command auto-detect the value and divide by an appropriate value
 ### Example 1
 
 ```powershell
-PS C:\> Get-CimInstance -class win32_logicaldisk -filter "DriveType=3" | Select DeviceID,@{Name="SizeGB";Expression={$_.size | format-value -unit GB}},@{Name="FreeGB";Expression={$_.freespace | format-value -unit GB -decimal 2}}
+PS C:\> Get-CimInstance -class win32_logicaldisk -filter "DriveType=3" |
+Select-Object DeviceID,
+@{Name="SizeGB";Expression={$_.size | Format-Value -unit GB}},
+@{Name="FreeGB";Expression={$_.freespace | Format-Value -unit GB -decimal 2}}
 
 DeviceID             SizeGB                     FreeGB
 --------             ------                     ------
@@ -60,7 +66,8 @@ E:                        25                      9.67
 ### Example 2
 
 ```powershell
-PS C:\> (get-process chrome | measure ws -sum ).sum | format-value -Autodetect -verbose -Decimal 4
+PS C:\> (Get-Process chrome | measure ws -sum ).sum |
+Format-Value -Autodetect -verbose -Decimal 4
 
 VERBOSE: Starting: Format-Value
 VERBOSE: Status: Using parameter set Auto
@@ -76,7 +83,7 @@ VERBOSE: Ending: Format-Value
 ### Example 3
 
 ```powershell
-PS C:\> 3456.5689 | format-value -AsCurrency
+PS C:\> 3456.5689 | Format-Value -AsCurrency
 
 $3,456.57
 ```
@@ -86,7 +93,7 @@ Format a value as currency.
 ### Example 4
 
 ```powershell
-PS C:\> 1234567.8973 | format-value -AsNumber -Decimal 2
+PS C:\> 1234567.8973 | Format-Value -AsNumber -Decimal 2
 
 1,234,567.90
 ```
@@ -212,6 +219,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Format-String](./Format-String.md)
+[Format-String](Format-String.md)
 
-[Format-Percent](./Format-Percent.md)
+[Format-Percent](Format-Percent.md)

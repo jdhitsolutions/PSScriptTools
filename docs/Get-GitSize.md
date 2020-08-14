@@ -38,7 +38,9 @@ Get the size of the .git folder from the current path.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-ChildItem c:\scripts -Directory | Get-GitSize | Sort-Object -property Size -descending | Select-Object -first 5 -property Computername,Name,Files,Size
+PS C:\> Get-ChildItem c:\scripts -Directory | Get-GitSize |
+Sort-Object -property Size -descending |
+Select-Object -first 5 -property Computername,Name,Files,Size
 
 Computername Name           Files      Size
 ------------ ----           -----      ----
@@ -105,3 +107,5 @@ This is a variation of code posted at https://gist.github.com/jdhitsolutions/cbd
 [Get-ChildItem]()
 
 [Measure-Object]()
+
+[Remove-MergedBranch](Remove-MergedBranch.md)

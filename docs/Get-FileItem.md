@@ -16,14 +16,15 @@ A PowerShell version of the Where CLI command.
 ### Default (Default)
 
 ```yaml
-Get-FileItem [-Pattern] <String[]> [-Regex] [-Full] [-Quiet] [-First] [<CommonParameters>]
+Get-FileItem [-Pattern] <String[]> [-Regex] [-Full] [-Quiet] [-First]
+[<CommonParameters>]
 ```
 
 ### Path
 
 ```yaml
-Get-FileItem [-Pattern] <String[]> [-Regex] [-Path <String[]>] [-Recurse] [-Full] [-Quiet] [-First]
- [<CommonParameters>]
+Get-FileItem [-Pattern] <String[]> [-Regex] [-Path <String[]>] [-Recurse]
+[-Full] [-Quiet] [-First] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,17 +42,17 @@ C:\Windows\system32\notepad.exe
 C:\Windows\notepad.exe
 ```
 
-Find notepad.exe in %path% and return the full file name. This is the default behavior.
+Find notepad.exe in %PATH% and return the full file name. This is the default behavior.
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> PSWhere calculator.exe -quiet
+PS C:\> PSWhere foo.exe -quiet
 
 False
 ```
 
-Search for calculator.exe and return $True if found. This command is using the PSWhere alias.
+Search for foo.exe and return $True if found. This command is using the PSWhere alias.
 
 ### EXAMPLE 3
 

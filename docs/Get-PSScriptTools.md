@@ -32,33 +32,34 @@ PS C:\> Get-PSScriptTools
 
    Verb: Add
 
-Name                        Alias                Synopsis
-----                        -----                --------
-Add-Border                                       Create a text border around a string.
+Name                 Alias                Synopsis
+----                 -----                --------
+Add-Border                                Create a text border around a string.
 
 
    Verb: Compare
 
-Name                        Alias                Synopsis
-----                        -----                --------
-Compare-Module              cmo                  Compare PowerShell module versions.
+Name                 Alias                Synopsis
+----                 -----                --------
+Compare-Module       cmo                  Compare PowerShell module versions.
 
 
    Verb: Convert
 
-Name                        Alias                Synopsis
-----                        -----                --------
-Convert-CommandtoHashtable                       Convert a PowerShell expression into a hashtable.
-Convert-EventLogRecord      clr                  Convert EventLogRecords to structured objects
-Convert-HashtableString                          Convert a hashtable string into a hashtable object.
-Convert-HashTableToCode                          Convert a hashtable to a string representation.
+Name                        Alias          Synopsis
+----                        -----          --------
+Convert-CommandToHashtable                 Convert a PowerShell expression i...
+Convert-EventLogRecord      clr            Convert EventLogRecords to struct...
+Convert-HashtableString                    Convert a hashtable string into a...
+Convert-HashtableToCode                    Convert a hashtable to a string r...
 ...
 ```
 
 ### Example 2
 
 ```powershell
-PS C:\> Get-PSScriptTools | Where-object alias | Select-Object Name,alias,Synopsis
+PS C:\> Get-PSScriptTools | Where-object alias |
+Select-Object Name,alias,Synopsis
 
 Name                   Alias Synopsis
 ----                   ----- --------
@@ -96,3 +97,5 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 [Get-Command]()
 
 [Get-Module]()
+
+[Open-PSScriptToolsHelp](Open-PSScriptToolsHelp.md)

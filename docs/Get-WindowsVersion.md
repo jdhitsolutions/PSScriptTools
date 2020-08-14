@@ -14,8 +14,8 @@ Get Windows version information.
 ## SYNTAX
 
 ```yaml
-Get-WindowsVersion [[-Computername] <String[]>] [-Credential <PSCredential>] [-UseSSL] [-ThrottleLimit <Int32>]
- [-Authentication <String>] [<CommonParameters>]
+Get-WindowsVersion [[-Computername] <String[]>] [-Credential <PSCredential>]
+[-UseSSL] [-ThrottleLimit <Int32>] [-Authentication <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,9 +32,9 @@ PS C:\>Get-WindowsVersion
 
    Computername: BOVINE320
 
-ProductName                    EditionID            ReleaseID  Build  InstalledUTC
------------                    ---------            ---------  -----  ------------
-Windows 10 Pro                 Professional         1909       18363  7/5/2019 10:54:49 PM
+ProductName        EditionID            ReleaseID  Build  InstalledUTC
+-----------        ---------            ---------  -----  ------------
+Windows 10 Pro     Professional         1909       18363  7/5/2019 10:54:49 PM
 ```
 
 Query the local host.
@@ -42,7 +42,7 @@ Query the local host.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
+PS C:\> Get-WindowsVersion -Computername srv1,srv2,win10 -Credential $art
 
    Computername: WIN10
 
@@ -73,7 +73,7 @@ Get windows version information from remote computers using an alternate credent
 ### Example 3
 
 ```powershell
-PS C:\> get-windowsversion -Computername Dom1 | Select-Object *
+PS C:\> Get-WindowsVersion -Computername Dom1 | Select-Object *
 
 ProductName  : Windows Server 2016 Standard Evaluation
 EditionID    : ServerStandardEval
@@ -218,6 +218,8 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
+[Get-WindowsVersionString](Get-WindowsVersionString.md)
 
 [WinVer.exe]()
 

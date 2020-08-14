@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get information from locations in %PATH%
+Get information from locations in %PATH%.
 
 ## SYNTAX
 

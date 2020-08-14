@@ -14,9 +14,10 @@ Create or modify a format.ps1xml file.
 ## SYNTAX
 
 ```yaml
-New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>] [-Typename <String>]
- [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-GroupBy <String>] [-Wrap] [-Append]
- [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSFormatXML [-InputObject] <Object> [[-Properties] <String[]>]
+[-Typename <String>] [[-FormatType] <String>] [[-ViewName] <String>]
+[-Path] <String> [-GroupBy <String>] [-Wrap] [-Append] [-Passthru] [-WhatIf]
+[-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,9 +39,16 @@ PS C:\> $obj = [PSCustomObject]@{
     Name         = "Jeff"
     Date         = (Get-Date)
     Computername = $env:computername
-    OS           = (Get-Ciminstance win32_operatingsystem -Property Caption).caption
+    OS           = (Get-Ciminstance win32_operatingsystem ).caption
 }
-PS C:\> Update-TypeData -TypeName $tname -MemberType "ScriptProperty" -MemberName "Runtime" -value {(Get-Date) - [datetime]"1/1/2019"} -force
+PS C:\> $upParams = @{
+ TypeName = $tname
+ MemberType = "ScriptProperty"
+ MemberName = "Runtime"
+ Value = {(Get-Date) - [datetime]"1/1/2019"}
+ Force = $True
+}
+PS C:\> Update-TypeData @upParams
 PS C:\> $obj
 
 Name         : Jeff
@@ -55,12 +63,13 @@ This example begins be creating a custom object. You might normally do this in a
 ### Example 2
 
 ```powershell
-PS C:\> $obj | New-PSFormatXML -Properties Name, Date, Computername, OS -FormatType Table -path "C:\work\$tname.format.ps1xml"
-PS C:\> $obj | New-PSFormatXML -Properties Name, OS, Runtime -FormatType Table -view runtime -path "C:\work\$tname.format.ps1xml" -append
-PS C:\> $obj | New-PSFormatXML -FormatType List -path "C:\work\$tname.format.ps1xml" -append
+PS C:\> $fmt = "C:\scripts\$tname.format.ps1xml"
+PS C:\> $obj | New-PSFormatXML -Prop Name,Date,Computername,OS -path $fmt
+PS C:\> $obj | New-PSFormatXML -Prop Name,OS,Runtime -view runtime -path $fmt -append
+PS C:\> $obj | New-PSFormatXML -FormatType List -path $fmt -append
 ```
 
-The object is then piped to this command to generate a new format.ps1xml. Subsequent commands add more formatted views. When the file is completed it can be modified.
+The object is then piped to New-PSFormatXML to generate a new format.ps1xml file. Subsequent commands add more formatted views. When the file is completed it can be modified. Note that these examples are using shortened parameter names.
 
 ### Example 3
 
@@ -72,7 +81,7 @@ Name Date                 Computername Operating System
 ---- ----                 ------------ ----------------
 Jeff 2/10/2019 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
 
-PS C:\> $obj | format-table -View runtime
+PS C:\> $obj | Format-Table -View runtime
 
 Name OS Runtime
 ---- -- -------
@@ -93,7 +102,8 @@ After the format.ps1xml file is applied, the object can be formatted as designed
 ### Example 4
 
 ```powershell
-PS C:\> $obj | New-PSFormatXML -viewname computer -GroupBy Computername -path "c:\work\$tname.format.ps1xml" -append
+PS C:\> $obj | New-PSFormatXML -view computer -Group Computername
+-path "c:\work\$tname.format.ps1xml" -append
 PS C:\> Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
 PS C:\> $obj | Format-Table -View computer
 
@@ -110,22 +120,29 @@ This adds another view called Computer that groups objects on the Computername p
 ### Example 5
 
 ```powershell
-PS C:\> Get-Service bits | New-PSFormatXML -Properties DisplayName -FormatType Wide -Path C:\work\svc.format.ps1xml -GroupBy Status -ViewName Status
+PS C:\>$params = @{
+Properties = "DisplayName"
+FormatType = "Wide"
+Path = "C:\work\svc.format.ps1xml"
+GroupBy = "Status"
+ViewName ="Status"
+}
+PS C:\> Get-Service bits | New-PSFormatXML @params
+PS C:\> Update-FormatData $params.path
 ```
 
-This will create a custom format file for service objects.
-This will create a wide display using the Displayname property.
-Once loaded into PowerShell, you can run a command like this:
+This will create a custom format file for service objects. This will create a wide display using the Displayname property. Once loaded into PowerShell, you can run a command like this:
 
 Get-Service | Sort-Object Status | Format-Wide -view Status
 
 ### Example 6
 
 ```powershell
-PS C:\> '' | Select-Object -Property Name,Size,Date,Count,Age | New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml
+PS C:\> '' | Select-Object -Property Name,Size,Date,Count,Age |
+New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml
 ```
 
-This is an example of creating a formatting file from an empty object. Normally you would first define your object and verify it has all the properties you need and then you would create the formatting file. But you may want to create the formatting file in parallel using a technique like this.
+This is an example of creating a formatting file from an empty object. Normally, you would first define your object and verify it has all the properties you need and then you would create the formatting file. But you may want to create the formatting file in parallel using an older technique like this.
 
 ## PARAMETERS
 

@@ -41,7 +41,7 @@ Monday, March 4, 2019 5:51:49 PM
 ### Example 2
 
 ```powershell
-PS C:\> ConvertTo-UTCTime -asstring
+PS C:\> ConvertTo-UTCTime -asString
 2019-03-04 17:51:47Z
 ```
 

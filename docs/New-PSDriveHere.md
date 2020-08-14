@@ -16,75 +16,66 @@ Create a new PSDrive at the current location.
 ### Folder (Default)
 
 ```yaml
-New-PSDriveHere [[-Path] <String>] [-First] [-SetLocation] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSDriveHere [[-Path] <String>] [-First] [-SetLocation] [-Passthru]
+[-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Name
 
 ```yaml
-New-PSDriveHere [[-Path] <String>] [[-Name] <String>] [-SetLocation] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSDriveHere [[-Path] <String>] [[-Name] <String>] [-SetLocation]
+[-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new PSDrive. If you prefer to use the first word of the location, use -First. If you prefer to specify a totally different name, then use the -Name parameter.
 
+This command will not write anything to the pipeline unless you use -Passthru.
+
 ## EXAMPLES
 
 ### EXAMPLE 1
 
 ```PowerShell
-PS C:\users\jeff\documents\Enterprise Mgmt Webinar> new-psdrivehere
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-Webinar                         146.57 FileSystem    C:\users\jeff\Documents\Enter...
+PS C:\users\jeff\documents\Enterprise Mgmt Webinar\> New-PSDriveHere
 ```
+
+This will create a new PSDrive called Webinar rooted to the current location.
 
 ### EXAMPLE 2
 
 ```powerShell
-PS C:\users\jeff\documents\Enterprise Mgmt Webinar> new-psdrivehere -first
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-Enterprise                      146.57 FileSystem    C:\users\jeff\Documents\Enter...
+PS C:\users\jeff\documents\Enterprise Mgmt Webinar\> New-PSDriveHere -first
 ```
+
+This will create a new PSDrive called Enterprise rooted to the current location.
 
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> new-psdrivehere HKLM:\software\microsoft
+PS C:\> New-PSDriveHere HKLM:\software\microsoft -passthru |
+Select-Object -Expandproperty Name
 
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-microsoft                              Registry      HKEY_LOCAL_MACHINE\software\micr...
+microsoft
 ```
 
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> new-psdrivehere -Path "\\jdh-nvnas\files\powershell" -Name PSFiles
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-PSFiles                                FileSystem    \\jdh-nvnas\files\powershell
+PS C:\> New-PSDriveHere -Path "\\NAS\files\powershell" -Name PSFiles
 ```
+
+Create a new PSDrive called PSFiles rooted to the specified path.
 
 ### EXAMPLE 5
 
 ```powershell
-PS C:\Users\Jeff\Documents\DeepDive> new-psdrivehere . DeepDive -setlocation
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-DeepDive                        130.53 FileSystem    C:\Users\Jeff\Documents\DeepDive
-
-
+PS C:\Users\Jeff\Documents\DeepDive\> New-PSDriveHere . DeepDive -setlocation
 PS DeepDive:\>
 ```
 
-Set a new PSDrive and change your location to it.
+Create a new PSDrive and change location to it.
 
 ## PARAMETERS
 
@@ -184,10 +175,25 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Passthru
+
+Pass the new PSDrive object to the pipeline.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -195,11 +201,13 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
+### None
+
 ### System.Management.Automation.PSDrive
 
 ## NOTES
 
-Originally published at http://jdhitsolutions.com/blog/2010/08/new-psdrivehere/
+Originally published at http://jdhitsolutions.com/blog/2010/08/New-PSDriveHere/
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 

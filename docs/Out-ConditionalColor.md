@@ -16,14 +16,15 @@ Display colorized pipelined output.
 ### property (Default)
 
 ```yaml
-Out-ConditionalColor [-PropertyConditions] <Hashtable> -Property <String> -InputObject <PSObject[]>
- [<CommonParameters>]
+Out-ConditionalColor [-PropertyConditions] <Hashtable> -Property <String>
+-InputObject <PSObject[]> [<CommonParameters>]
 ```
 
 ### conditions
 
 ```yaml
-Out-ConditionalColor [-Conditions] <OrderedDictionary> -InputObject <PSObject[]> [<CommonParameters>]
+Out-ConditionalColor [-Conditions] <OrderedDictionary>
+-InputObject <PSObject[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +37,7 @@ The default behavior is to use a hash table with a property name and color. The 
 
 You can then pipe an expression to this command, specifying a property name and the hash table. If the property matches the key name, the output for that object will be colored using the corresponding hash table value.
 
-    get-service -displayname windows* | out-conditionalcolor $c -property status
+    Get-Service -displayname windows* | Out-ConditionalColor $c -property status
 
 Or you can do more complex processing with an ordered hash table constructed using this format:
 
@@ -45,12 +46,15 @@ Or you can do more complex processing with an ordered hash table constructed usi
 The comparison scriptblock can use $PSitem.
 
     $h=[ordered]@{
-        {$psitem.ws -gt 500mb}='red'
-        {$psitem.ws -gt 300mb}='yellow'
-        {$psitem.ws -gt 200mb}='cyan'
+
+      {$psitem.ws -gt 500mb}='red'
+
+      {$psitem.ws -gt 300mb}='yellow'
+
+      {$psitem.ws -gt 200mb}='cyan'
     }
 
-    get-process | out-conditionalcolor $h
+    Get-Process | Out-ConditionalColor $h
 
 When doing a complex comparison you must use an [ordered] hashtable as each key will be processed in order using an If/ElseIf statement.
 
@@ -67,15 +71,17 @@ Due to the nature of PowerShell's formatting system there are some limitations w
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-service -displayname windows* | out-conditionalcolor -propertyconditions @{Stopped='Red'} -property Status
+PS C:\> Get-Service -displayname windows* |
+Out-ConditionalColor -propertyconditions @{Stopped='Red'} -property Status
 ```
 
-Get all services where the displayname starts with windows and display stopped services in red.
+Get all services where the display name starts with windows and display stopped services in red.
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-service -displayname windows* | out-conditionalcolor @{Stopped='Red'} status -ov winstop
+PS C:\> Get-Service -displayname windows* |
+Out-ConditionalColor @{Stopped='Red'} status -ov winstop
 ```
 
 Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be colorized. This example uses the parameters positionally.
@@ -83,7 +89,8 @@ Repeat the previous example, but also save the output to the variable winstop. W
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> get-eventlog system -newest 50 | out-conditionalcolor @{error='red';warning='yellow'}
+PS C:\> Get-EventLog system -newest 50 |
+Out-ConditionalColor @{error='red';warning='yellow'}
 Enter a property name: entrytype
 ```
 
@@ -92,7 +99,10 @@ Get the newest 50 entries from the System event log. Display errors in red and w
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> $c =[ordered]@{{$psitem.length -ge 1mb}='red';{$psitem.length -ge 500KB}='yellow';{$psitem.length -ge 100KB}='cyan'}
+PS C:\> $c =[ordered]@{
+{$psitem.length -ge 1mb}='red';
+{$psitem.length -ge 500KB}='yellow';
+{$psitem.length -ge 100KB}='cyan'}
 ```
 
 The first command creates an ordered hashtable based on the Length property.
@@ -100,7 +110,8 @@ The first command creates an ordered hashtable based on the Length property.
 ### EXAMPLE 5
 
 ```powershell
-PS C:\> dir c:\scripts\*.doc,c:\scripts\*.pdf,c:\scripts\*.xml |  out-conditionalcolor $c
+PS C:\> dir c:\scripts\*.doc,c:\scripts\*.pdf,c:\scripts\*.xml |
+Out-ConditionalColor $c
 ```
 
 The next command uses it to get certain file types in the scripts folder and display the selected properties in color depending on the file size.
@@ -173,7 +184,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -188,8 +199,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
 
-Originally published at: http://jdhitsolutions.com/blog/powershell/3462/friday-fun-out-conditionalcolor/
+Originally published at: http://jdhitsolutions.com/blog/powershell/3462/friday-fun-Out-ConditionalColor/
 
 ## RELATED LINKS
 
 [About_Hash_Tables]()
+
+[Show-Tree](docs/Show-Tree.md)

@@ -9,12 +9,13 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create an ANSI gradient from red to green
+Create an ANSI gradient from red to green.
 
 ## SYNTAX
 
 ```yaml
-New-RedGreenGradient [[-Percent] <Double>] [-Step <Int32>] [-Character <Char>] [<CommonParameters>]
+New-RedGreenGradient [[-Percent] <Double>] [-Step <Int32>] [-Character <Char>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,7 +27,7 @@ You can use this command to create an ANSI colored gradient bar running from red
 ### Example 1
 
 ```powershell
-PS C:\> PS C:\> New-RedGreenGradient -Percent .75
+PS C:\> New-RedGreenGradient -Percent .75
 ```
 
 This will display a red to green gradient bar.
@@ -34,11 +35,13 @@ This will display a red to green gradient bar.
 ### Example 2
 
 ```powershell
-PS C:\> Get-Volume | Where-Object {$_.FileSystemType -eq 'NTFS' -AND $_.driveletter -match "[C-Zc-z]"} |
+PS C:\> Get-Volume |
+Where {$_.FileSystemType -eq 'NTFS' -AND $_.driveletter -match "[C-Zc-z]"} |
 Sort-Object -property DriveLetter |
 Select-Object -property DriveLetter, FileSystemLabel,
 @{Name="FreeGB";Expression={Format-Value -input $_.SizeRemaining -unit GB}},
-@{Name = "PctFree"; Expression = {$pct = Format-Percent -value $_.sizeremaining -total $_.size -decimal 2;
+@{Name = "PctFree"; Expression = {
+$pct = Format-Percent -value $_.sizeremaining -total $_.size -decimal 2;
 "{1} {0}" -f $(New-RedGreenGradient -percent ($pct/100) -step 6),$pct}}
 
 DriveLetter FileSystemLabel FreeGB PctFree
@@ -117,6 +120,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[New-ANSIBar]()
+[New-ANSIBar](New-ANSIBar.md)
 
-[Write-ANSIProgress]()
+[Write-ANSIProgress](Write-ANSIProgress.md)

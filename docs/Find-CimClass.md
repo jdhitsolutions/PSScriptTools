@@ -14,7 +14,8 @@ Search CIM for a class.
 ## SYNTAX
 
 ```yaml
-Find-CimClass [-Classname] <String> [-Exclude <String>] [-Computername <String>] [<CommonParameters>]
+Find-CimClass [-Classname] <String> [-Exclude <String>]
+[-Computername <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,39 +29,39 @@ This command requires a Windows platform.
 ### Example 1
 
 ```powershell
-PS C:\> find-cimclass -Classname *protection*
+PS C:\> Find-CimClass -Classname *protection*
 
 
    NameSpace: Root/CIMV2/mdm/dmmap
 
 CimClassName                        CimClassMethods      CimClassProperties
 ------------                        ---------------      ------------------
-MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
-MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
-MDM_EnterpriseDataProtection        {}                   {InstanceID, ParentID, Status}
-MDM_EnterpriseDataProtection_Set... {}                   {AllowAzureRMSForEDP, AllowUserDecryption, DataRecoveryCert...
-MDM_Policy_Config01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
-MDM_Policy_Result01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
-MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, LogCount, Logs, ParentID...}
-MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, Logs, ParentID, StartTime...}
-MDM_WindowsAdvancedThreatProtection {}                   {InstanceID, Offboarding, Onboarding, ParentID}
-MDM_WindowsAdvancedThreatProtect... {}                   {GroupIds, InstanceID, ParentID, SampleSharing...}
-MDM_WindowsAdvancedThreatProtect... {}                   {Criticality, Group, IdMethod, InstanceID...}
-MDM_WindowsAdvancedThreatProtect... {}                   {InstanceID, LastConnected, OnboardingState, OrgId...}
+MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, Parent...
+MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, Parent...
+MDM_EnterpriseDataProtection        {}                   {InstanceID, Parent...
+MDM_EnterpriseDataProtection_Set... {}                   {AllowAzureRMSForED...
+MDM_Policy_Config01_DataProtecti... {}                   {AllowDirectMemoryA...
+MDM_Policy_Result01_DataProtecti... {}                   {AllowDirectMemoryA...
+MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, LogCou...
+MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, Logs, ...
+MDM_WindowsAdvancedThreatProtection {}                   {InstanceID, Offboa...
+MDM_WindowsAdvancedThreatProtect... {}                   {GroupIds, Instance...
+MDM_WindowsAdvancedThreatProtect... {}                   {Criticality, Grou ...
+MDM_WindowsAdvancedThreatProtect... {}                   {InstanceID, LastCo...
 
 
    NameSpace: Root/Microsoft/SecurityClient
 
 CimClassName                        CimClassMethods      CimClassProperties
 ------------                        ---------------      ------------------
-ProtectionTechnologyStatus          {}                   {PackedXml, SchemaVersion, Enabled, Name...}
+ProtectionTechnologyStatus          {}                   {PackedXml, SchemaV...
 ...
 ```
 
 ### Example 2
 
 ```powershell
-PS C:\> find-cimclass -Classname *volume* -Exclude "win32_Perf*"
+PS C:\> Find-CimClass -Classname *volume* -Exclude "win32_Perf*"
 ```
 
 Search for any class with 'volume' in the name but exclude anything that starts with 'win32_Perf'.

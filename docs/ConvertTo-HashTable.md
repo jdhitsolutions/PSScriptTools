@@ -5,7 +5,7 @@ online version: http://bit.ly/31SG9Y2
 schema: 2.0.0
 ---
 
-# ConvertTo-HashTable
+# ConvertTo-Hashtable
 
 ## SYNOPSIS
 
@@ -14,8 +14,8 @@ Convert an object into a hashtable.
 ## SYNTAX
 
 ```yaml
-ConvertTo-HashTable [-InputObject] <Object> [-NoEmpty] [-Exclude <String[]>] [-Alphabetical]
- [<CommonParameters>]
+ConvertTo-Hashtable [-InputObject] <Object> [-NoEmpty] [-Exclude <String[]>]
+[-Alphabetical] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -27,7 +27,9 @@ This command will take an object and create a hashtable based on its properties.
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
+PS C:\> Get-Process -id $pid |
+Select-Object name,id,handles,workingset |
+ConvertTo-Hashtable
 
 Name                           Value
 ----                           -----
@@ -40,7 +42,8 @@ Handles                        958
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> $hash = get-service spooler | ConvertTo-Hashtable -Exclude CanStop,CanPauseandContinue -NoEmpty
+PS C:\> $hash = Get-Service spooler |
+ConvertTo-Hashtable -Exclude CanStop,CanPauseAndContinue -NoEmpty
 PS C:\> $hash
 
 Name                           Value
@@ -62,7 +65,10 @@ This created a hashtable from the Spooler service object, skipping empty propert
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> get-service bits | select Name,Displayname,Status,@{Name="Computername";Expression={$_.Machinename}} | ConvertTo-HashTable -Alphabetical
+PS C:\> Get-Service bits |
+Select-Object Name,Displayname,Status,
+@{Name="Computername";Expression={$_.Machinename}} |
+ConvertTo-Hashtable -Alphabetical
 
 Name                           Value
 ----                           -----

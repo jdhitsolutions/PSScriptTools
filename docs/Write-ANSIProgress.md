@@ -9,13 +9,13 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Write an ANSI progress bar
+Write an ANSI progress bar.
 
 ## SYNTAX
 
 ```yaml
-Write-ANSIProgress [-PercentComplete] <Double> [-ProgressColor <String>] [-BarSymbol <String>]
- [-Position <Coordinates>] [<CommonParameters>]
+Write-ANSIProgress [-PercentComplete] <Double> [-ProgressColor <String>]
+[-BarSymbol <String>] [-Position <Coordinates>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,7 +38,12 @@ This will build a progress bar using a block symbol and the default ANSI color e
 ### Example 2
 
 ```powershell
-PS C:\> Write-ANSIProgress -PercentComplete .78 -BarSymbol Circle -ProgressColor "$([char]0x1b)[92m"
+PS C:\> $params = @{
+  PercentComplete = .78
+  BarSymbol = "Circle"
+  "ProgressColor" =  "$([char]0x1b)[92m"
+}
+PS C:\> Write-ANSIProgress @params
 ```
 
 Create a single progress bar for 78% using the Circle symbol and a custom color.
@@ -46,36 +51,44 @@ Create a single progress bar for 78% using the Circle symbol and a custom color.
 ### Example 3
 
 ```powershell
-PS C:\scripts> Get-CimInstance win32_operatingsystem |
-Select-Object @{Name = "MemGB"; Expression = {$_.TotalVisibleMemorySize/1MB -as [int]}},
-FreePhysicalMemory, @{Name = "PctFree"; Expression = { $pct = $([math]::round($_.freephysicalmemory/$_.totalvisiblememorysize, 2));
-Write-ANSIProgress -PercentComplete $pct | Select-Object -last 1}}
+PS C:\> Get-CimInstance -ClassName win32_operatingsystem |
+Select-Object -property @{N="Computername";E={$_.CSName}},
+@{N="TotalMemGB";E={Format-Value $_.TotalVisibleMemorySize -unit MB}},
+@{N="FreeMemGB";E={Format-Value $_.FreePhysicalMemory -unit MB}},
+@{N="PctFree"; E={
+$pct=Format-Percent $_.freephysicalmemory $_.totalVisiblememorySize
+Write-ANSIProgress -PercentComplete ($pct/100) | Select-Last 1
+}}
 
 
-MemGB FreePhysicalMemory PctFree
------ ------------------ -------
-   32           16005324  48% ■■■■■■■■■■■■■■■■■■■■■■■■
+Computername TotalMemGB FreeMemGB PctFree
+------------ ---------- --------- -------
+BOVINE320            32        12 37.87% ■■■■■■■■■■■■■■■■■■■
 ```
+
+Note that this example is using abbreviations in the Select-Object hashtables.
 
 ### Example 4
 
 ```powershell
 PS C:\> $sb = {
-    Clear-Host
-    $top = Get-ChildItem c:\scripts -Directory
-    $i = 0
-    $out=@()
-    $pos = $host.ui.RawUI.CursorPosition
-    Foreach ($item in $top) {
-        $i++
-        $pct = [math]::round($i/$top.count,2)
-        Write-ANSIProgress -PercentComplete $pct -position $pos
-        Write-Host "  Processing $(($item.fullname).padright(80))" -ForegroundColor Yellow -NoNewline
-        $out+= Get-ChildItem -path $item -Recurse -file | Measure-Object -property length -sum |
-        Select-Object @{Name="Path";Expression={$item.fullname}},Count,@{Name="Size";Expression={$_.Sum}}
-    }
-    Write-Host ""
-    $out | Sort-object -property Size -Descending
+  Clear-Host
+  $top = Get-ChildItem c:\scripts -Directory
+  $i = 0
+  $out=@()
+  $pos = $host.ui.RawUI.CursorPosition
+  Foreach ($item in $top) {
+    $i++
+    $pct = [math]::round($i/$top.count,2)
+    Write-ANSIProgress -PercentComplete $pct -position $pos
+    Write-Host "  Processing $(($item.fullname).padright(80))"  -NoNewline
+    $out+= Get-ChildItem -path $item -Recurse -file |
+    Measure-Object -property length -sum |
+    Select-Object @{Name="Path";Expression={$item.fullname}},Count,
+    @{Name="Size";Expression={$_.Sum}}
+  }
+  Write-Host ""
+  $out | Sort-object -property Size -Descending
 }
 PS C:\> Invoke-Command -scriptblock $sb
 ```
@@ -169,6 +182,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[New-ANSIBar]()
+[New-ANSIBar](New-ANSIBar.md)
 
-[New-RedGreenGradient]()
+[New-RedGreenGradient](New-RedGreenGradient.md)
