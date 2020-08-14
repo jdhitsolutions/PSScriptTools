@@ -141,4 +141,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[New-CustomFileName](./New-CustomFileName.md)
+[New-CustomFileName](New-CustomFileName.md)

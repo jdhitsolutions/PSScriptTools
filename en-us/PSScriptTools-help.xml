@@ -261,7 +261,7 @@
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>System.String</maml:name>
+          <maml:name>[System.String]</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -276,7 +276,7 @@
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; add-border "PowerShell Wins!"
+        <dev:code>PS C:\&gt; Add-Border "PowerShell Wins!"
 
 ********************
 * PowerShell Wins! *
@@ -287,18 +287,18 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; add-border "PowerShell Wins!" -tab 1
+        <dev:code>PS C:\&gt; Add-Border "PowerShell Wins!" -tab 1
 
      ********************
      * PowerShell Wins! *
      ********************</dev:code>
         <dev:remarks>
-          <maml:para>Note that this EXAMPLE may not format properly in the console.</maml:para>
+          <maml:para>Note that this example may not format properly in all consoles.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; add-border "PowerShell Wins!" -character "-" -insertBlanks
+        <dev:code>PS C:\&gt; Add-Border "PowerShell Wins!" -character "-" -insertBlanks
 
 --------------------
 -                  -
@@ -311,7 +311,7 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; add-border -textblock (get-service win* | out-string).trim()
+        <dev:code>PS C:\&gt; Add-Border -textblock (Get-Service win* | Out-String).trim()
 
 **********************************************************************
 * Status   Name               DisplayName                            *
@@ -327,7 +327,9 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; add-border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m" -ANSIText "$([char]0x1b)[93m" -InsertBlanks
+        <dev:code>PS C:\&gt; Add-Border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m"
+-ANSIText "$([char]0x1b)[93m" -InsertBlanks
+
 
 *******************
 *                 *
@@ -340,7 +342,8 @@
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 6 --------------------------</maml:title>
-        <dev:code>PS C:\scripts&gt; add-border -textblock (Get-PSWho -AsString ).trim() -ANSIBorder "`e[38;5;214m" -Character ([char]0x25CA) -ANSIText "`e[38;5;225m"
+        <dev:code>PS C:\&gt; Add-Border -textblock (Get-PSWho -AsString ).trim() -ANSIBorder
+"`e[38;5;214m" -Character ([char]0x25CA) -ANSIText "`e[38;5;225m"
 
 ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
 ◊ User            : BOVINE320\Jeff                    ◊
@@ -356,7 +359,7 @@
 ◊ Culture         : English (United States)           ◊
 ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊</dev:code>
         <dev:remarks>
-          <maml:para>This example requires PowerShell 7 because of the escape sequence.</maml:para>
+          <maml:para>This example requires PowerShell 7 because of the way the escape sequence is defined. The border character is a diamond. Depending on how you are viewing this help content, it may not display properly.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -364,6 +367,10 @@
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
         <maml:uri>http://bit.ly/31PzBsZ</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-ANSIBar</maml:linkText>
+        <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -482,14 +489,16 @@ UpdateNeeded     : True
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Compare-Module | Where UpdateNeeded | Out-Gridview -title "Select modules to update" -outputMode multiple | Foreach { Update-Module $_.name }</dev:code>
+        <dev:code>PS C:\&gt; Compare-Module | Where UpdateNeeded |
+Out-Gridview -title "Select modules to update" -outputMode multiple |
+Foreach-Object { Update-Module $_.name }</dev:code>
         <dev:remarks>
           <maml:para>Compare modules and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what modules to update.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; compare-module -name xWin* | format-table
+        <dev:code>PS C:\&gt; Compare-Module -name xWin* | Format-Table
 
 Name           OnlineVersion InstalledVersion PublishedDate         UpdateNeeded
 ----           ------------- ---------------- -------------         ------------
@@ -501,7 +510,8 @@ xWinEventLog   1.2.0.0       1.2.0.0          6/13/2018 8:06:45 PM         False
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-dscresource xAD* | Select moduleName -Unique | compare-module
+        <dev:code>PS C:\&gt; get-dscresource xAD* | Select-Object moduleName -Unique |
+Compare-Module
 
 Name             : xActiveDirectory
 OnlineVersion    : 2.22.0.0
@@ -540,23 +550,23 @@ UpdateNeeded     : True</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Convert-CommandtoHashtable</command:name>
+      <command:name>Convert-CommandToHashtable</command:name>
       <command:verb>Convert</command:verb>
-      <command:noun>CommandtoHashtable</command:noun>
+      <command:noun>CommandToHashtable</command:noun>
       <maml:description>
-        <maml:para>Convert a PowerShell expression into a hashtable.</maml:para>
+        <maml:para>Convert a PowerShell expression into a splatting equivalent.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative.</maml:para>
+      <maml:para>This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression using a number of parameters and you would like to turn it into splatting code.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Convert-CommandtoHashtable</maml:name>
+        <maml:name>Convert-CommandToHashtable</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Text</maml:name>
           <maml:Description>
-            <maml:para>A PowerShell expression, preferably with named parameters.</maml:para>
+            <maml:para>A PowerShell command using a single cmdlet or function, preferably with named parameters.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -571,7 +581,7 @@ UpdateNeeded     : True</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Text</maml:name>
         <maml:Description>
-          <maml:para>A PowerShell expression, preferably with named parameters.</maml:para>
+          <maml:para>A PowerShell command using a single cmdlet or function, preferably with named parameters.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -609,17 +619,10 @@ UpdateNeeded     : True</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Convert-CommandtoHashtable -Text "get-eventlog -listlog -computername a,b,c,d -erroraction stop"
-
-$paramHash = @{
-  listlog = $True
-   computername = "a","b","c","d"
-   erroraction = "stop"
-}
-
-Get-EventLog @paramHash</dev:code>
+        <dev:code>PS C:\&gt; $text ="Get-Winevent -listlog p* -computername SRV1 -erroraction stop"
+PS C:\&gt; Convert-CommandToHashtable -Text $text | Set-Clipboard</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>The $text variable might be a line of code from your script. The second line converts into a splatting sequence and copies it to the Windows clipboard so you can paste it back into your script. You could create a VS Code task sequence using this function.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -629,7 +632,7 @@ Get-EventLog @paramHash</dev:code>
         <maml:uri>http://bit.ly/31SLyhD</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>Convert-HashTableToCode</maml:linkText>
+        <maml:linkText>Convert-HashtableToCode</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -704,7 +707,9 @@ Get-EventLog @paramHash</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = 'security';ID=5059} | Convert-EventLogRecord | Select-Object -Property TimeCreated,Subject*,Computername
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = 'security';ID=5059} |
+Convert-EventLogRecord | Select-Object -Property TimeCreated,Subject*,
+Computername
 
 TimeCreated       : 1/20/2020 10:48:45 AM
 SubjectUserSid    : S-1-5-83-1-2951761591-1086169693-630393256-923523501
@@ -725,27 +730,35 @@ Computername      : Bovine320</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = 'security';ID=4624} -MaxEvents 100 -computername win10 | Convert-EventLogRecord | Where-Object {$_.LogonType -eq 3} | Select-Object -first 10 -property TargetUsername,TargetDomainName,IPAddress,TimeCreated,Computername | Format-Table
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = 'security';ID=4624} `
+-MaxEvents 100 -computername win10 | Convert-EventLogRecord |
+Where-Object {$_.LogonType -eq 3} |
+Select-Object -first 10 -property TargetUsername,IPAddress,
+TimeCreated,Computername | Format-Table
 
-TargetUserName TargetDomainName IpAddress                 TimeCreated           Computername
--------------- ---------------- ---------                 -----------           ------------
-ArtD           COMPANY.PRI      fe80::ddae:8ade:c3ff:e584 1/20/2020 12:05:12 PM WIN10.Company.Pri
-WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
-WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
-WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
-WIN10$         COMPANY.PRI      -                         1/20/2020 11:56:51 AM WIN10.Company.Pri
-ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:45:31 AM WIN10.Company.Pri
-WIN10$         COMPANY.PRI      ::1                       1/20/2020 11:39:52 AM WIN10.Company.Pri
-ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:35:49 AM WIN10.Company.Pri
-ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:34:36 AM WIN10.Company.Pri
-ArtD           COMPANY.PRI      192.168.3.10              1/20/2020 11:32:06 AM WIN10.Company.Pri</dev:code>
+TargetUserName  IpAddress                 TimeCreated           Computername
+--------------  ---------                 -----------           ------------
+ArtD           fe80::ddae:8ade:c3ff:e584 1/20/2020 12:05:12 PM WIN10.Company.Pri
+WIN10$         -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
+WIN10$         -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
+WIN10$          -                        1/20/2020 11:56:52 AM WIN10.Company.Pri
+WIN10$          -                        1/20/2020 11:56:51 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2020 11:45:31 AM WIN10.Company.Pri
+WIN10$         ::1                       1/20/2020 11:39:52 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2020 11:35:49 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2020 11:34:36 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2020 11:32:06 AM WIN10.Company.Pri</dev:code>
         <dev:remarks>
           <maml:para>This example filters on a property added by this command to only show interactive logons.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname ='system';ID =7040} -MaxEvent 10 | Convert-EventlogRecord | Select-Object -Property TimeCreated,@{Name="Service";Expression={$_.param4}},@{Name="OriginalState";Expression = {$_.param2}},@{Name="NewState";Expression={$_.param3}},Computername | Format-Table
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname ='system';
+ID =7040} -MaxEvent 10 | Convert-EventlogRecord |
+Select-Object -Property TimeCreated,@{Name="Service";Expression={$_.param4}},
+@{Name="OriginalState";Expression = {$_.param2}},
+@{Name="NewState";Expression={$_.param3}},Computername | Format-Table
 
 TimeCreated          Service          OriginalState NewState     Computername
 -----------          -------          ------------- --------     ------------
@@ -765,7 +778,8 @@ TimeCreated          Service          OriginalState NewState     Computername
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = "Application";ID=17137} -MaxEvents 1 | Convert-EventLogRecord
+        <dev:code>PS C:\&gt; Get-WinEvent -FilterHashtable @{Logname = "Application";
+ID=17137} -MaxEvents 1 | Convert-EventLogRecord
 
 LogName       : Application
 RecordType    : Information
@@ -784,8 +798,15 @@ Computername  : Bovine320</dev:code>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $all = New-PSSession -ComputerName 'win10','srv1','srv2','dom1'
 PS C:\&gt; $local = Get-Item Function:\Convert-EventLogRecord
-PS C:\&gt; Invoke-Command -ScriptBlock {New-item -Path Function: -Name $using:local.name -Value $using:local.ScriptBlock} -Session $all
-PS C:\&gt; Invoke-Command { Get-WinEvent -FilterHashtable @{Logname='security';id=4624} -MaxEvents 10 | Convert-EventLogRecord | Select-Object -Property Computername,Time*,TargetUser*,TargetDomainName,Subject*} -session $all -HideComputerName | Select-Object -Property * -ExcludeProperty runspaceID
+PS C:\&gt; Invoke-Command -ScriptBlock {
+ New-item -Path Function: -Name $using:local.name -Value $using:local.ScriptBlock
+ } -Session $all
+PS C:\&gt; Invoke-Command {
+    Get-WinEvent -FilterHashtable @{Logname='security';id=4624} -MaxEvents 10 |
+    Convert-EventLogRecord |
+    Select-Object -Property Computername,Time*,TargetUser*,
+    TargetDomainName,Subject*} -session $all -HideComputerName |
+    Select-Object -Property * -ExcludeProperty runspaceID
 
 Computername      : WIN10.Company.Pri
 TimeCreated       : 1/20/2020 5:21:17 PM
@@ -931,16 +952,16 @@ CreatedOn                      BOVINE320</dev:code>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>Convert-HashtabletoCode</maml:linkText>
+        <maml:linkText>Convert-HashtableToCode</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Convert-HashTableToCode</command:name>
+      <command:name>Convert-HashtableToCode</command:name>
       <command:verb>Convert</command:verb>
-      <command:noun>HashTableToCode</command:noun>
+      <command:noun>HashtableToCode</command:noun>
       <maml:description>
         <maml:para>Convert a hashtable to a string representation.</maml:para>
       </maml:description>
@@ -950,7 +971,7 @@ CreatedOn                      BOVINE320</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Convert-HashTableToCode</maml:name>
+        <maml:name>Convert-HashtableToCode</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Hashtable</maml:name>
           <maml:Description>
@@ -977,7 +998,7 @@ CreatedOn                      BOVINE320</dev:code>
         </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
-        <maml:name>Convert-HashTableToCode</maml:name>
+        <maml:name>Convert-HashtableToCode</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>Hashtable</maml:name>
           <maml:Description>
@@ -1070,7 +1091,7 @@ CreatedOn                      BOVINE320</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
-PS C:\&gt; convert-hashtabletocode $h
+PS C:\&gt; Convert-HashtableToCode $h
 @{
         Name = 'SRV1'
         Asset = 123454
@@ -1082,7 +1103,7 @@ PS C:\&gt; convert-hashtabletocode $h
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; convert-hashtabletocode $h -inline
+        <dev:code>PS C:\&gt; Convert-HashtableToCode $h -inline
 
 @{Name = 'SRV1';Asset = 123454;Location = 'Omaha'}</dev:code>
         <dev:remarks>
@@ -1223,7 +1244,10 @@ TotalMilliseconds : 47000</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ScheduledTask -TaskName DailyWatcher | Select-Object Taskname,@{Name="ExecutionLimit";Expression = { ConvertFrom-LexicalTimespan $_.settings.ExecutionTimeLimit  }}
+        <dev:code>PS C:\&gt; Get-ScheduledTask -TaskName DailyWatcher |
+Select-Object Taskname,
+@{Name="ExecutionLimit";Expression = `
+{ ConvertFrom-LexicalTimespan $_.settings.ExecutionTimeLimit }}
 
 Taskname     ExecutionLimit
 --------     --------------
@@ -1239,7 +1263,7 @@ DailyWatcher 3.00:00:00</dev:code>
         <maml:uri>http://bit.ly/37C3gJJ</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
-        <maml:linkText>ConvertTo-LexicalTime</maml:linkText>
+        <maml:linkText>ConvertTo-LexicalTimespan</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -1450,7 +1474,7 @@ DailyWatcher 3.00:00:00</dev:code>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $b = "(?&lt;Date&gt;\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}).*(?&lt;Error&gt;\d+),\s+(?&lt;Step&gt;.*):\s+(?&lt;Action&gt;\w+),\s+(?&lt;Path&gt;(\w+\\)*\w+\.\w+)"
-PS C:\&gt; convertfrom-text -pattern $b -path C:\windows\DtcInstall.log
+PS C:\&gt; ConvertFrom-Text -pattern $b -path C:\windows\DtcInstall.log
 
 Date   : 10-18-2018 10:49
 Error  : 0
@@ -1472,7 +1496,7 @@ Path   : com\complus\dtc\dtc\msdtcstp\msdtcplugin.cpp
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $wu = "(?&lt;Date&gt;\d{4}-\d{2}-\d{2})\s+(?&lt;Time&gt;(\d{2}:)+\d{3})\s+(?&lt;PID&gt;\d+)\s+(?&lt;TID&gt;\w+)\s+(?&lt;Component&gt;\w+)\s+(?&lt;Message&gt;.*)"
 PS C:\&gt; $out = ConvertFrom-Text -pattern $wu -path C:\Windows\WindowsUpdate.log -noprogress
-PS C:\&gt; $out | group-object Component | Sort-object Count
+PS C:\&gt; $out | Group-Object Component | Sort-Object Count
 
 Count Name                      Group
 ----- ----                      -----
@@ -1491,7 +1515,9 @@ Count Name                      Group
  2544 AU                        {@{Date=2018-01-26; Time=19:55:27:449; PID=1...
  2839 Agent                     {@{Date=2018-01-26; Time=21:21:23:045; PID=1...
 
-PS C:\&gt; $out | where-object {\[datetime\]$_.date -ge \[datetime\]"2/10/2018" -AND $_.component -eq "AU"} | Format-Table Date,Time,Message -wrap
+PS C:\&gt; $out |
+Where-Object {\[datetime\]$_.date -ge \[datetime\]"2/10/2018" -AND $_.component -eq "AU"} |
+Format-Table Date,Time,Message -wrap
 
 Date       Time         Message
 ----       ----         -------
@@ -1515,7 +1541,8 @@ Date       Time         Message
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content c:\windows\windowsupdate.log -totalcount 50 | ConvertFrom-Text $wu</dev:code>
+        <dev:code>PS C:\&gt; Get-Content c:\windows\windowsupdate.log -totalcount 50 |
+ConvertFrom-Text $wu</dev:code>
         <dev:remarks>
           <maml:para>This example gets the first 50 lines from the Windows update log and converts that to objects using the pattern from the previous example.</maml:para>
         </dev:remarks>
@@ -1523,7 +1550,8 @@ Date       Time         Message
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $c = "(?&lt;Protocol&gt;\w{3})\s+(?&lt;LocalIP&gt;(\d{1,3}\.){3}\d{1,3}):(?&lt;LocalPort&gt;\d+)\s+(?&lt;ForeignIP&gt;.*):(?&lt;ForeignPort&gt;\d+)\s+(?&lt;State&gt;\w+)?"
-PS C:\&gt; netstat | select -skip 4 | convertfrom-text $c | format-table -autosize
+PS C:\&gt; netstat | select -skip 4 | ConvertFrom-Text $c |
+Format-Table -autosize
 
 Protocol LocalIP      LocalPort ForeignIP      ForeignPort State
 -------- -------      --------- ---------      ----------- -----
@@ -1541,7 +1569,9 @@ TCP      192.168.6.98 50753     74.125.129.125 5222        ESTABLISHED</dev:code
       <command:example>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $arp = "(?&lt;IPAddress&gt;(\d{1,3}\.){3}\d{1,3})\s+(?&lt;MAC&gt;(\w{2}-){5}\w{2})\s+(?&lt;Type&gt;\w+$)"
-PS C:\&gt; arp -g -N 172.16.10.22 | select -skip 3 | foreach {$_.Trim()} | convertfrom-text $arp -noprogress -typename arpData
+PS C:\&gt; arp -g -N 172.16.10.22 | Select-Object -skip 3 |
+ForEach-Object {$_.Trim()} |
+ConvertFrom-Text $arp -noprogress -typename arpData
 
 IPAddress                         MAC                              Type
 ---------                         ---                              ----
@@ -1663,13 +1693,17 @@ Monday, March 4, 2019 1:00:00 PM</dev:code>
         <maml:linkText>ConvertTo-UTCTime</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Date</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>ConvertTo-HashTable</command:name>
+      <command:name>ConvertTo-Hashtable</command:name>
       <command:verb>ConvertTo</command:verb>
-      <command:noun>HashTable</command:noun>
+      <command:noun>Hashtable</command:noun>
       <maml:description>
         <maml:para>Convert an object into a hashtable.</maml:para>
       </maml:description>
@@ -1679,7 +1713,7 @@ Monday, March 4, 2019 1:00:00 PM</dev:code>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>ConvertTo-HashTable</maml:name>
+        <maml:name>ConvertTo-Hashtable</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>InputObject</maml:name>
           <maml:Description>
@@ -1807,7 +1841,9 @@ Monday, March 4, 2019 1:00:00 PM</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-process -id $pid | select name,id,handles,workingset | ConvertTo-HashTable
+        <dev:code>PS C:\&gt; Get-Process -id $pid |
+Select-Object name,id,handles,workingset |
+ConvertTo-Hashtable
 
 Name                           Value
 ----                           -----
@@ -1821,7 +1857,8 @@ Handles                        958</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $hash = get-service spooler | ConvertTo-Hashtable -Exclude CanStop,CanPauseandContinue -NoEmpty
+        <dev:code>PS C:\&gt; $hash = Get-Service spooler |
+ConvertTo-Hashtable -Exclude CanStop,CanPauseAndContinue -NoEmpty
 PS C:\&gt; $hash
 
 Name                           Value
@@ -1842,7 +1879,10 @@ DisplayName                    Print Spooler</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-service bits | select Name,Displayname,Status,@{Name="Computername";Expression={$_.Machinename}} | ConvertTo-HashTable -Alphabetical
+        <dev:code>PS C:\&gt; Get-Service bits |
+Select-Object Name,Displayname,Status,
+@{Name="Computername";Expression={$_.Machinename}} |
+ConvertTo-Hashtable -Alphabetical
 
 Name                           Value
 ----                           -----
@@ -1941,7 +1981,7 @@ Status                         Running</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; ConvertTo-LexicalTimespan (new-timespan -Days 7)
+        <dev:code>PS C:\&gt; ConvertTo-LexicalTimespan (New-Timespan -Days 7)
 
 P7D</dev:code>
         <dev:remarks>
@@ -2088,7 +2128,7 @@ Thursday, March 14, 2019 7:00:00 PM</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-timezone -ListAvailable | where id -match hawaii
+        <dev:code>PS C:\&gt; Get-TimeZone -ListAvailable | where-object id -match hawaii
 
 
 Id                         : Hawaiian Standard Time
@@ -2113,6 +2153,10 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-TimeZone</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Date</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
@@ -2324,7 +2368,8 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"
+        <dev:code>PS C:\&gt; Get-Service Bits,Winrm |
+Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"
 
 # Service Check
 
@@ -2343,7 +2388,9 @@ Running  Winrm              Windows Remote Management (WS-Manag...
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Service Bits,Winrm | Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)" -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md</dev:code>
+        <dev:code>PS C:\&gt; Get-Service Bits,Winrm |
+Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"`
+-postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md</dev:code>
         <dev:remarks>
           <maml:para>Re-run the previous command and save output to a file.</maml:para>
         </dev:remarks>
@@ -2352,24 +2399,25 @@ Running  Winrm              Windows Remote Management (WS-Manag...
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $computers = "srv1","srv2","srv4"
 PS C:\&gt; $Title = "System Report"
-PS C:\&gt; $footer = "_report run $(Get-Date) by $($env:USERDOMAIN)\$($env:USERNAME)_"
+PS C:\&gt; $footer = "_report run by $($env:USERDOMAIN)\$($env:USERNAME)_"
 PS C:\&gt; $sb =  {
-&gt;&gt; $os = get-ciminstance -classname win32_operatingsystem -property caption,lastbootUptime
-&gt;&gt; \[PSCustomObject\]@{
-&gt;&gt; PSVersion = $PSVersionTable.PSVersion
-&gt;&gt; OS = $os.caption
-&gt;&gt; Uptime = (Get-Date) - $os.lastbootUpTime
-&gt;&gt; SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
-&gt;&gt; }
-&gt;&gt; }
+$os = Get-CimInstance -classname win32_operatingsystem -property caption,
+lastbootUptime
+\[PSCustomObject\]@{
+PSVersion = $PSVersionTable.PSVersion
+OS = $os.caption
+Uptime = (Get-Date) - $os.lastbootUpTime
+SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
+ }
+}
 PS C:\&gt; $out = Convertto-Markdown -title $Title
 PS C:\&gt; foreach ($computer in $computers) {
-&gt;&gt;  $out+= Invoke-command -scriptblock $sb -ComputerName $computer -HideComputerName |
-&gt;&gt;  Select-Object -Property * -ExcludeProperty RunspaceID |
-&gt;&gt;  ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
-&gt;&gt; }
+$out+= Invoke-command -scriptblock $sb -Computer $computer -HideComputerName |
+Select-Object -Property * -ExcludeProperty RunspaceID |
+ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
+}
 PS C:\&gt;$out += ConvertTo-Markdown -PostContent $footer
-PS C:\&gt;$out | set-content c:\work\report.md</dev:code>
+PS C:\&gt;$out | Set-Content c:\work\report.md</dev:code>
         <dev:remarks>
           <maml:para>Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.</maml:para>
         </dev:remarks>
@@ -2499,7 +2547,7 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; ConvertTo-UTCTime -asstring
+        <dev:code>PS C:\&gt; ConvertTo-UTCTime -asString
 2019-03-04 17:51:47Z</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
@@ -2874,7 +2922,9 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-process | sort-object WS -Descending | Select-object -first 20 ID,Name,WS,VM,PM,Handles,StartTime | Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"</dev:code>
+        <dev:code>PS C:\&gt; Get-Process | Sort-Object WS -Descending |
+Select-object -first 20 ID,Name,WS,VM,PM,Handles,StartTime |
+Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"</dev:code>
         <dev:remarks>
           <maml:para>Get the top 20 processes based on the value of the WorkingSet property and display selected properties in the WPF Grid. The contents will automatically refresh every 20 seconds. You will need to manually close the form.</maml:para>
         </dev:remarks>
@@ -2885,21 +2935,24 @@ Monday, March 4, 2019 5:51:49 PM</dev:code>
 PS C:\&gt; Get-VM -computername $VMHost | Select Name,State,Uptime,
 @{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as [int]}},
 @{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as [int]}} |
-ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvariable VMHost</dev:code>
+ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh
+-uselocalvariable VMHost</dev:code>
         <dev:remarks>
           <maml:para>Get Hyper-V virtual machine information and refresh every 30 seconds. Because the command is using a locally defined variable it is also being used in the form. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-VMData -host CHI-HVR2 | ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile</dev:code>
+        <dev:code>PS C:\&gt; Get-VMData -host CHI-HVR2 |
+ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile</dev:code>
         <dev:remarks>
           <maml:para>This example uses a hypothetical command that might be defined in a PowerShell profile script. ConvertTo-WPFGrid will load the profile scripts so that the data can be updated every 60 seconds.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; (get-processdata -Computername $computers).where({$_.workingset -ge 100mb}) | ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30</dev:code>
+        <dev:code>PS C:\&gt; (Get-Processdata -Computername $computers).where({$_.workingset -ge 100mb}) |
+ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30</dev:code>
         <dev:remarks>
           <maml:para>This command runs a function that is defined in a script file. In order for the form to refresh, it must also dot source the script which is happening with the InitializationScript parameter. The example is also loading the local $computers variable so that it too is available upon refresh.</maml:para>
         </dev:remarks>
@@ -3126,7 +3179,7 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvaria
       <command:verb>Copy</command:verb>
       <command:noun>HelpExample</command:noun>
       <maml:description>
-        <maml:para>Copy code snippet from help examples</maml:para>
+        <maml:para>Copy code snippet from help examples.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -3238,13 +3291,13 @@ ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh -uselocalvaria
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Copy-HelpExample -Name stop-process
+        <dev:code>PS C:\&gt; Copy-HelpExample -Name Stop-Process
 
 Code Samples
 
-Each help example is numbered to the left. At the prompt below,
-select the code samples you want to copy to the clipboard. Separate
-multiple values with a comma.
+Each help example is numbered to the left. At the prompt below, select the code
+samples you want to copy to the clipboard. Separate multiple values with a
+comma.
 
 Some example code includes the output.
 
@@ -3268,7 +3321,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id ProcessName
 [3] Example 3: Stop a process and detect that it has stopped
 
     calc
- $p = Get-Crocess -Name "calc"
+ $p = Get-Process -Name "calc"
  Stop-Process -InputObject $p
  Get-Process | Where-Object {$_.HasExited}
 
@@ -3276,7 +3329,8 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id ProcessName
 
     Get-Process -Name "lsass" | Stop-Process
 
-Stop-Process : Cannot stop process 'lsass (596)' because of the following error: Access is denied
+Stop-Process : Cannot stop process 'lsass (596)' because of the following error
+: Access is denied
 At line:1 char:34
 + Get-Process -Name "lsass" | Stop-Process &lt;&lt;&lt;&lt;
 
@@ -3422,32 +3476,32 @@ Please select items to copy to the clipboard by number. Separate multiple entrie
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; find-cimclass -Classname *protection*
+        <dev:code>PS C:\&gt; Find-CimClass -Classname *protection*
 
 
    NameSpace: Root/CIMV2/mdm/dmmap
 
 CimClassName                        CimClassMethods      CimClassProperties
 ------------                        ---------------      ------------------
-MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
-MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, ParentID, Policy}
-MDM_EnterpriseDataProtection        {}                   {InstanceID, ParentID, Status}
-MDM_EnterpriseDataProtection_Set... {}                   {AllowAzureRMSForEDP, AllowUserDecryption, DataRecoveryCert...
-MDM_Policy_Config01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
-MDM_Policy_Result01_DataProtecti... {}                   {AllowDirectMemoryAccess, InstanceID, LegacySelectiveWipeID...
-MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, LogCount, Logs, ParentID...}
-MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, Logs, ParentID, StartTime...}
-MDM_WindowsAdvancedThreatProtection {}                   {InstanceID, Offboarding, Onboarding, ParentID}
-MDM_WindowsAdvancedThreatProtect... {}                   {GroupIds, InstanceID, ParentID, SampleSharing...}
-MDM_WindowsAdvancedThreatProtect... {}                   {Criticality, Group, IdMethod, InstanceID...}
-MDM_WindowsAdvancedThreatProtect... {}                   {InstanceID, LastConnected, OnboardingState, OrgId...}
+MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, Parent...
+MDM_AppLocker_EnterpriseDataProt... {}                   {InstanceID, Parent...
+MDM_EnterpriseDataProtection        {}                   {InstanceID, Parent...
+MDM_EnterpriseDataProtection_Set... {}                   {AllowAzureRMSForED...
+MDM_Policy_Config01_DataProtecti... {}                   {AllowDirectMemoryA...
+MDM_Policy_Result01_DataProtecti... {}                   {AllowDirectMemoryA...
+MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, LogCou...
+MDM_Reporting_EnterpriseDataProt... {}                   {InstanceID, Logs, ...
+MDM_WindowsAdvancedThreatProtection {}                   {InstanceID, Offboa...
+MDM_WindowsAdvancedThreatProtect... {}                   {GroupIds, Instance...
+MDM_WindowsAdvancedThreatProtect... {}                   {Criticality, Grou ...
+MDM_WindowsAdvancedThreatProtect... {}                   {InstanceID, LastCo...
 
 
    NameSpace: Root/Microsoft/SecurityClient
 
 CimClassName                        CimClassMethods      CimClassProperties
 ------------                        ---------------      ------------------
-ProtectionTechnologyStatus          {}                   {PackedXml, SchemaVersion, Enabled, Name...}
+ProtectionTechnologyStatus          {}                   {PackedXml, SchemaV...
 ...</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
@@ -3455,7 +3509,7 @@ ProtectionTechnologyStatus          {}                   {PackedXml, SchemaVersi
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; find-cimclass -Classname *volume* -Exclude "win32_Perf*"</dev:code>
+        <dev:code>PS C:\&gt; Find-CimClass -Classname *volume* -Exclude "win32_Perf*"</dev:code>
         <dev:remarks>
           <maml:para>Search for any class with 'volume' in the name but exclude anything that starts with 'win32_Perf'.</maml:para>
         </dev:remarks>
@@ -3631,7 +3685,10 @@ ProtectionTechnologyStatus          {}                   {PackedXml, SchemaVersi
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-ciminstance win32_operatingsystem -computer chi-dc04 | select PSComputername,TotalVisibleMemorySize,@{Name="PctFreeMem";Expression={ Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize}}
+        <dev:code>PS C:\&gt; Get-CimInstance win32_operatingsystem -computer chi-dc04 |
+Select-Object PSComputername,TotalVisibleMemorySize,
+@{Name="PctFreeMem";Expression={
+    Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize}}
 
 PSComputerName             TotalVisibleMemorySize           PctFreeMem
 --------------             ----------------------           ----------
@@ -3642,7 +3699,10 @@ chi-dc04                                  1738292                23.92</dev:code
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-ciminstance win32_operatingsystem -computer chi-dc04 | select PSComputername,TotalVisibleMemorySize,@{Name="PctFreeMem";Expression={ Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize -asString}}
+        <dev:code>PS C:\&gt; Get-CimInstance win32_operatingsystem -computer chi-dc04 |
+Select-Object PSComputername,TotalVisibleMemorySize,
+@{Name="PctFreeMem";Expression={
+    Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize -asString}}
 
 PSComputerName             TotalVisibleMemorySize           PctFreeMem
 --------------             ----------------------           ----------
@@ -3840,7 +3900,7 @@ chi-dc04                                  1738292           23.92%</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; "P@ssw0rd" | format-string -Reverse
+        <dev:code>PS C:\&gt; "P@ssw0rd" | Format-String -Reverse
 
 dr0wss@P</dev:code>
         <dev:remarks>
@@ -3849,7 +3909,7 @@ dr0wss@P</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; "P@ssw0rd" | format-string -Reverse -Randomize
+        <dev:code>PS C:\&gt; "P@ssw0rd" | Format-String -Reverse -Randomize
 
 rs0Pd@ws</dev:code>
         <dev:remarks>
@@ -3858,7 +3918,7 @@ rs0Pd@ws</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $env:computername | format-string -Case Lower
+        <dev:code>PS C:\&gt; $env:computername | Format-String -Case Lower
 
 win81-ent-01</dev:code>
         <dev:remarks>
@@ -3867,7 +3927,7 @@ win81-ent-01</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; format-string "p*wer2she!!" -Case Alternate
+        <dev:code>PS C:\&gt; Format-String "p*wer2she!!" -Case Alternate
 
 P*WeR2ShE!!</dev:code>
         <dev:remarks>
@@ -3876,7 +3936,8 @@ P*WeR2ShE!!</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; format-string "alphabet" -Randomize -Replace @{a="@";e=3} -Case Alternate
+        <dev:code>PS C:\&gt; Format-String "alphabet" -Randomize -Replace @{a="@";e=3} `
+-Case Alternate
 
 3bPl@tH@</dev:code>
         <dev:remarks>
@@ -3885,7 +3946,7 @@ P*WeR2ShE!!</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 6 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; "pOWERSHELL" | Format-string -Case Toggle
+        <dev:code>PS C:\&gt; "pOWERSHELL" | Format-String -Case Toggle
 
 Powershell</dev:code>
         <dev:remarks>
@@ -4170,7 +4231,10 @@ Powershell</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-CimInstance -class win32_logicaldisk -filter "DriveType=3" | Select DeviceID,@{Name="SizeGB";Expression={$_.size | format-value -unit GB}},@{Name="FreeGB";Expression={$_.freespace | format-value -unit GB -decimal 2}}
+        <dev:code>PS C:\&gt; Get-CimInstance -class win32_logicaldisk -filter "DriveType=3" |
+Select-Object DeviceID,
+@{Name="SizeGB";Expression={$_.size | Format-Value -unit GB}},
+@{Name="FreeGB";Expression={$_.freespace | Format-Value -unit GB -decimal 2}}
 
 DeviceID             SizeGB                     FreeGB
 --------             ------                     ------
@@ -4183,7 +4247,8 @@ E:                        25                      9.67</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; (get-process chrome | measure ws -sum ).sum | format-value -Autodetect -verbose -Decimal 4
+        <dev:code>PS C:\&gt; (Get-Process chrome | measure ws -sum ).sum |
+Format-Value -Autodetect -verbose -Decimal 4
 
 VERBOSE: Starting: Format-Value
 VERBOSE: Status: Using parameter set Auto
@@ -4200,7 +4265,7 @@ VERBOSE: Ending: Format-Value</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; 3456.5689 | format-value -AsCurrency
+        <dev:code>PS C:\&gt; 3456.5689 | Format-Value -AsCurrency
 
 $3,456.57</dev:code>
         <dev:remarks>
@@ -4209,7 +4274,7 @@ $3,456.57</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; 1234567.8973 | format-value -AsNumber -Decimal 2
+        <dev:code>PS C:\&gt; 1234567.8973 | Format-Value -AsNumber -Decimal 2
 
 1,234,567.90</dev:code>
         <dev:remarks>
@@ -4447,16 +4512,16 @@ $3,456.57</dev:code>
 C:\Windows\system32\notepad.exe
 C:\Windows\notepad.exe</dev:code>
         <dev:remarks>
-          <maml:para>Find notepad.exe in %path% and return the full file name. This is the default behavior.</maml:para>
+          <maml:para>Find notepad.exe in %PATH% and return the full file name. This is the default behavior.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; PSWhere calculator.exe -quiet
+        <dev:code>PS C:\&gt; PSWhere foo.exe -quiet
 
 False</dev:code>
         <dev:remarks>
-          <maml:para>Search for calculator.exe and return $True if found. This command is using the PSWhere alias.</maml:para>
+          <maml:para>Search for foo.exe and return $True if found. This command is using the PSWhere alias.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -4613,7 +4678,9 @@ BOVINE320       D:\temp                                                    146  
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ChildItem d:\ -Directory | Get-FolderSizeInfo | Where-Object TotalSize -gt 1MB | Sort-Object TotalSize -Descending | Format-Table -View mb
+        <dev:code>PS C:\&gt; Get-ChildItem d:\ -Directory | Get-FolderSizeInfo |
+Where-Object TotalSize -gt 1MB | Sort-Object TotalSize -Descending |
+Format-Table -View mb
 
 Computername    Path                                                TotalFiles   TotalSizeMB
 ------------    ----                                                ----------   -----------
@@ -4634,7 +4701,8 @@ BOVINE320       D:\2016                                                      5  
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden | Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
+        <dev:code>PS C:\&gt; Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden |
+Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
 
 
    Path: C:\work
@@ -4752,7 +4820,9 @@ C:\scripts\PiedPiper                            751       6859.9834</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ChildItem c:\scripts -Directory | Get-GitSize | Sort-Object -property Size -descending | Select-Object -first 5 -property Computername,Name,Files,Size
+        <dev:code>PS C:\&gt; Get-ChildItem c:\scripts -Directory | Get-GitSize |
+Sort-Object -property Size -descending |
+Select-Object -first 5 -property Computername,Name,Files,Size
 
 Computername Name           Files      Size
 ------------ ----           -----      ----
@@ -4788,6 +4858,10 @@ C:\scripts\PSReleaseTools                       440          3.0588</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Measure-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Remove-MergedBranch</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -5015,6 +5089,138 @@ Convert-EventLogRecord         clr             Function    Convert EventLogRecor
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Module</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-MyAlias</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>MyAlias</command:noun>
+      <maml:description>
+        <maml:para>Get non-default aliases defined in the current session.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Often you might define aliases for functions and scripts you use all of time. It may difficult sometimes to remember them all or to find them in the default Get-Alias output. This command will list all currently defined aliases that are not part of the initial PowerShell state.</maml:para>
+      <maml:para>The PSScriptTools module also includes a custom formatting file for alias objects which you can use with Get-Alias or Get-MyAlias. See examples.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-MyAlias</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>NoModule</maml:name>
+          <maml:Description>
+            <maml:para>Only show aliases that DO NOT belong to a module.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>NoModule</maml:name>
+        <maml:Description>
+          <maml:para>Only show aliases that DO NOT belong to a module.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.AliasInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyAlias
+
+CommandType     Name                                 Version    Source
+-----------     ----                                 -------    ------
+Alias           abt -&gt; Get-AboutInfo
+Alias           bv -&gt; Brave
+Alias           cal -&gt; Get-Calendar                  1.11.0     PSCalendar
+Alias           cc -&gt; Copy-Command                   2.27.0     PSScriptTools
+Alias           cfn -&gt; New-CustomFileName            2.27.0     PSScriptTools
+Alias           CFS -&gt; ConvertFrom-String            3.1.0.0    Microsoft.PowerShell.Utility
+Alias           cft -&gt; ConvertFrom-Text              2.27.0     PSScriptTools
+Alias           chc -&gt; Convert-HashTableToCode       2.27.0     PSScriptTools
+Alias           che -&gt; Copy-HelpExample              2.27.0     PSScriptTools
+Alias           cl -&gt; Create-List
+Alias           clr -&gt; Convert-EventLogRecord        2.27.0     PSScriptTools
+Alias           clt -&gt; ConvertTo-LocalTime           2.27.0     PSScriptTools
+Alias           cmo -&gt; Compare-Module                2.27.0     PSScriptTools
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Get all aliases that aren't par of the initial session state. This will include aliases defined in any modules you have loaded.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyAlias -NoModule
+
+CommandType     Name                             Version    Source
+-----------     ----                             -------    ------
+Alias           abt -&gt; Get-AboutInfo
+Alias           bv -&gt; Brave
+Alias           cl -&gt; Create-List</dev:code>
+        <dev:remarks>
+          <maml:para>Get defined aliases that don't belong to a module. These should be aliases you have defined in stand-alone scripts or your profile.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyAlias -NoModule | Format-Table -View options
+
+Name Definition    Options  ModuleName Version
+---- ----------    -------  ---------- -------
+abt  Get-AboutInfo None
+bv   Brave         None
+cl   Create-List   None
+np   notepad       ReadOnly</dev:code>
+        <dev:remarks>
+          <maml:para>Get your aliases and pipe to format table using a custom view defined by the PSScriptTools module.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-MyAlias.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Alias</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -5418,7 +5624,7 @@ r    {1, 2, 3, 4...}        Object[]
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-MyVariable | select name,type
+        <dev:code>PS C:\&gt; Get-MyVariable | Select-Object name,type
 
 Name Type
 ---- ----
@@ -5433,14 +5639,20 @@ r    Object[]</dev:code>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-MyVariable | Export-Clixml myvar.xml
-PS C:\&gt; import-clixml .\myvar.xml | foreach {set-variable -Name $_.name -Value $_.value}</dev:code>
+PS C:\&gt; import-clixml .\myvar.xml |
+ForEach-Object {set-variable -Name $_.name -Value $_.value}</dev:code>
         <dev:remarks>
           <maml:para>You can then import this xml file in another session to restore these variables.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; function foo { . c:\scripts\get-myvariable2.ps1;$a=4;$b=2;$c=$a*$b;get-MyVariable -notypeinformation -scope 1 -verbose;$c}
+        <dev:code>PS C:\&gt; function foo {
+     c:\scripts\Get-MyVariable2.ps1;
+     $a=4;$b=2;$c=$a*$b;
+     Get-MyVariable -notypeinformation -scope 1 -verbose;
+     $c
+     }
 
 PS C:\&gt; foo
 VERBOSE: Getting system defined variables
@@ -5462,7 +5674,8 @@ VERBOSE: Finished getting my variables
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-myvariable | where {$_.type -eq "Scriptblock"} | Select name,value
+        <dev:code>PS C:\&gt; Get-MyVariable | where {$_.type -eq "Scriptblock"} |
+Select-Object name,value
 
 Name                               Value
 ----                               -----
@@ -5575,7 +5788,7 @@ up                                 Param(\[string\]$computername=$env:com...</de
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>custom object</maml:name>
+          <maml:name>PSParameterInfo</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -5590,154 +5803,107 @@ up                                 Param(\[string\]$computername=$env:com...</de
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-parameterinfo get-service
+        <dev:code>PS C:\&gt; Get-ParameterInfo Get-Service
+
+
+   ParameterSet: Default
 
 
 Name                            : Name
 Aliases                         : ServiceName
 Mandatory                       : False
+IsDynamic                       : False
 Position                        : 0
+Type                            : System.String[]
 ValueFromPipeline               : True
 ValueFromPipelineByPropertyName : True
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : Default
+
+
+
+   ParameterSet: __AllParameterSets
+
 
 Name                            : ComputerName
 Aliases                         : Cn
 Mandatory                       : False
+IsDynamic                       : False
 Position                        : Named
+Type                            : System.String[]
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : True
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
 
 Name                            : DependentServices
 Aliases                         : DS
 Mandatory                       : False
+IsDynamic                       : False
 Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
 Type                            : System.Management.Automation.SwitchParameter
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : RequiredServices
-Aliases                         : SDO,ServicesDependedOn
-Mandatory                       : False
-Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
-Type                            : System.Management.Automation.SwitchParameter
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : DisplayName
-Aliases                         :
-Mandatory                       : True
-Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : DisplayName
-
-Name                            : Include
-Aliases                         :
-Mandatory                       : False
-Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : Exclude
-Aliases                         :
-Mandatory                       : False
-Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : InputObject
-Aliases                         :
-Mandatory                       : False
-Position                        : Named
-ValueFromPipeline               : True
-ValueFromPipelineByPropertyName : False
-Type                            : System.ServiceProcess.ServiceController[]
-IsDynamic                       : False
-ParameterSet                    : InputObject</dev:code>
+...</dev:code>
         <dev:remarks>
-          <maml:para>Return parameter information for Get-Service</maml:para>
+          <maml:para>Return parameter information for Get-Service using the default list view.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-parameterinfo mkdir  | Select Name,Type,Position,parameterset
+        <dev:code>PS C:\&gt; Get-ParameterInfo mkdir |
+Select-Object Name,Type,Position,parameterset
 
-Name           Type                                         Position ParameterSet
-----           ----                                         -------- ------------
-Path           System.String[]                                     0 pathSet
-Path           System.String[]                                     0 nameSet
-Name           System.String                                   Named nameSet
-Value          System.Object                                   Named __AllParameterSets
-Force          System.Management.Automation.SwitchParameter    Named __AllParameterSets
-Credential     System.Management.Automation.PSCredential       Named __AllParameterSets
-UseTransaction System.Management.Automation.SwitchParameter    Named __AllParameterSets</dev:code>
+Name           Type                                 Position ParameterSet
+----           ----                                 -------- ------------
+Path           System.String[]                             0 pathSet
+Path           System.String[]                             0 nameSet
+Name           System.String                           Named nameSet
+Value          System.Object                           Named __AllParameterSets
+Force          System.Management.Automation.Switch...  Named __AllParameterSets
+Credential     System.Management.Automation.PSCred...  Named __AllParameterSets
+UseTransaction System.Management.Automation.Switch...  Named __AllParameterSets</dev:code>
         <dev:remarks>
           <maml:para>Get selected parameter information for the mkdir command.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-parameterinfo get-ciminstance | sort parameterset | format-table -GroupBy ParameterSet -Property Name,Mandatory,Alias,Position,Type
+        <dev:code>PS C:\&gt; Get-ParameterInfo Test-WSMan | Sort Parameterset | Format-Table
+
 
    ParameterSet: __AllParameterSets
 
-Name                Mandatory Alias Position Type
-----                --------- ----- -------- ----
-OperationTimeoutSec     False       Named    System.UInt32
+Name                  Aliases Mandatory Position Type
+----                  ------- --------- -------- ----
+CertificateThumbprint         False     Named    System.String
+Credential            cred,c  False     Named    System.Management.Automati...
+ComputerName          cn      False     0        System.String
+Authentication        auth,am False     Named    Microsoft.WSMan.Management....
 
 
-   ParameterSet: CimInstanceComputerSet
+   ParameterSet: ComputerName
 
-Name         Mandatory Alias Position Type
-----         --------- ----- -------- ----
-ResourceUri      False       Named    System.Uri
-InputObject       True       0        Microsoft.Management.Infrastructure.CimInstance
-ComputerName     False       Named    System.String[]
-
-
-   ParameterSet: CimInstanceSessionSet
-
-Name        Mandatory Alias Position Type
-----        --------- ----- -------- ----
-CimSession       True       Named    Microsoft.Management.Infrastructure.CimSession[]
-InputObject      True       0        Microsoft.Management.Infrastructure.CimInstance
-ResourceUri     False       Named    System.Uri...</dev:code>
+Name            Aliases Mandatory Position Type
+----            ------- --------- -------- ----
+UseSSL                  False     Named    System.Management.Automation.Swit...
+Port                    False     Named    System.Int32
+ApplicationName         False     Named    System.String</dev:code>
         <dev:remarks>
-          <maml:para>Get all parameters from Get-CimInstance and display details as a formatted table.</maml:para>
+          <maml:para>Get all parameters from Test-WSMan and display details as a formatted table. The object type from Get-ParameterInfo has a default table view.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-ParameterInfo -Command Get-Counter -Parameter computername
 
+   ParameterSet: __AllParameterSets
+
 
 Name                            : computername
 Aliases                         : Cn
 Mandatory                       : False
-Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
 IsDynamic                       : False
-ParameterSet                    : __AllParameterSets</dev:code>
+Position                        : Named
+Type                            : System.String[]
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False</dev:code>
         <dev:remarks>
           <maml:para>Get details on the Computername parameter of the Get-Counter cmdlet.</maml:para>
         </dev:remarks>
@@ -5760,7 +5926,7 @@ ParameterSet                    : __AllParameterSets</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>PathVariable</command:noun>
       <maml:description>
-        <maml:para>Get information from locations in %PATH%</maml:para>
+        <maml:para>Get information from locations in %PATH%.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -6036,7 +6202,7 @@ Platform       : Win32NT</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-pslocation
+        <dev:code>PS C:\&gt; Get-PSLocation
 
 Temp       : C:\Users\Jeff\AppData\Local\Temp\
 Home       : C:\Users\Jeff\Documents
@@ -6048,7 +6214,7 @@ PowerShell : C:\Users\Jeff\Documents\WindowsPowerShell</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-pslocation
+        <dev:code>PS C:\&gt; Get-PSLocation
 
 Temp       : /tmp/
 Home       : /home/jeff
@@ -6066,6 +6232,10 @@ PowerShell : /home/jeff/.config/powershell</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Location</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Set-Location</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -6121,26 +6291,26 @@ PowerShell : /home/jeff/.config/powershell</dev:code>
 
    Verb: Add
 
-Name                        Alias                Synopsis
-----                        -----                --------
-Add-Border                                       Create a text border around a string.
+Name                 Alias                Synopsis
+----                 -----                --------
+Add-Border                                Create a text border around a string.
 
 
    Verb: Compare
 
-Name                        Alias                Synopsis
-----                        -----                --------
-Compare-Module              cmo                  Compare PowerShell module versions.
+Name                 Alias                Synopsis
+----                 -----                --------
+Compare-Module       cmo                  Compare PowerShell module versions.
 
 
    Verb: Convert
 
-Name                        Alias                Synopsis
-----                        -----                --------
-Convert-CommandtoHashtable                       Convert a PowerShell expression into a hashtable.
-Convert-EventLogRecord      clr                  Convert EventLogRecords to structured objects
-Convert-HashtableString                          Convert a hashtable string into a hashtable object.
-Convert-HashTableToCode                          Convert a hashtable to a string representation.
+Name                        Alias          Synopsis
+----                        -----          --------
+Convert-CommandToHashtable                 Convert a PowerShell expression i...
+Convert-EventLogRecord      clr            Convert EventLogRecords to struct...
+Convert-HashtableString                    Convert a hashtable string into a...
+Convert-HashtableToCode                    Convert a hashtable to a string r...
 ...</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
@@ -6148,7 +6318,8 @@ Convert-HashTableToCode                          Convert a hashtable to a string
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-PSScriptTools | Where-object alias | Select-Object Name,alias,Synopsis
+        <dev:code>PS C:\&gt; Get-PSScriptTools | Where-object alias |
+Select-Object Name,alias,Synopsis
 
 Name                   Alias Synopsis
 ----                   ----- --------
@@ -6174,6 +6345,10 @@ ConvertTo-LocalTime    clt   Convert a foreign time to local
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Module</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Open-PSScriptToolsHelp</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -6989,16 +7164,16 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
 
    Computername: BOVINE320
 
-ProductName                    EditionID            ReleaseID  Build  InstalledUTC
------------                    ---------            ---------  -----  ------------
-Windows 10 Pro                 Professional         1909       18363  7/5/2019 10:54:49 PM</dev:code>
+ProductName        EditionID            ReleaseID  Build  InstalledUTC
+-----------        ---------            ---------  -----  ------------
+Windows 10 Pro     Professional         1909       18363  7/5/2019 10:54:49 PM</dev:code>
         <dev:remarks>
           <maml:para>Query the local host.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-windowsversion -Computername srv1,srv2,win10 -Credential company\artd
+        <dev:code>PS C:\&gt; Get-WindowsVersion -Computername srv1,srv2,win10 -Credential $art
 
    Computername: WIN10
 
@@ -7028,7 +7203,7 @@ Evaluation</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-windowsversion -Computername Dom1 | Select-Object *
+        <dev:code>PS C:\&gt; Get-WindowsVersion -Computername Dom1 | Select-Object *
 
 ProductName  : Windows Server 2016 Standard Evaluation
 EditionID    : ServerStandardEval
@@ -7046,6 +7221,10 @@ Computername : DOM1</dev:code>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
         <maml:uri>http://bit.ly/31QKsTt</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-WindowsVersionString</maml:linkText>
+        <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinVer.exe</maml:linkText>
@@ -7264,7 +7443,7 @@ Computername : DOM1</dev:code>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-WindowsVersionString -Computername win10 -credential company\artd
-WIN10 Windows 10 Enterprise Evaluation Version EnterpriseEval (OS Build 15063.1418</dev:code>
+WIN10 Windows 10 Enterprise (OS Build 15063.1418</dev:code>
         <dev:remarks>
           <maml:para>Get a string version of Windows version information from a remote computer and use an alternate credential.</maml:para>
         </dev:remarks>
@@ -7451,7 +7630,8 @@ BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $pass = Invoke-Inputbox -prompt "Enter a new password" -title "New User" -asSecureString -background red</dev:code>
+        <dev:code>PS C:\&gt; $pass = Invoke-Inputbox -prompt "Enter a new password"
+-title "New User" -asSecureString -background red</dev:code>
         <dev:remarks>
           <maml:para>Get a secure string value from the user. This example also changes the form background to red.</maml:para>
         </dev:remarks>
@@ -7593,7 +7773,7 @@ BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)</dev:code>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $a=@{Name="Jeff";Count=3;Color="Green"}
 PS C:\&gt; $b=@{Computer="HAL";Enabled=$True;Year=2020;Color="Red"}
-PS C:\&gt; join-hashtable $a $b
+PS C:\&gt; Join-Hashtable $a $b
 Duplicate key Color
 A Green
 B Red
@@ -7613,7 +7793,7 @@ Count                          3</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt;$c = join-hashtable $a $b -force
+        <dev:code>PS C:\&gt;$c = Join-Hashtable $a $b -force
 PS C:\&gt; $c
 
 Name                           Value
@@ -7646,7 +7826,7 @@ Count                          3</dev:code>
       <command:verb>New</command:verb>
       <command:noun>ANSIBar</command:noun>
       <maml:description>
-        <maml:para>Create an ANSI colored bar</maml:para>
+        <maml:para>Create an ANSI colored bar.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -8117,6 +8297,7 @@ Mode                LastWriteTime         Length Name
     </command:details>
     <maml:description>
       <maml:para>This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new PSDrive. If you prefer to use the first word of the location, use -First. If you prefer to specify a totally different name, then use the -Name parameter.</maml:para>
+      <maml:para>This command will not write anything to the pipeline unless you use -Passthru.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -8178,6 +8359,17 @@ Mode                LastWriteTime         Length Name
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:Description>
+            <maml:para>Pass the new PSDrive object to the pipeline.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>New-PSDriveHere</maml:name>
@@ -8230,6 +8422,17 @@ Mode                LastWriteTime         Length Name
           <maml:name>Confirm</maml:name>
           <maml:Description>
             <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:Description>
+            <maml:para>Pass the new PSDrive object to the pipeline.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -8312,6 +8515,18 @@ Mode                LastWriteTime         Length Name
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Passthru</maml:name>
+        <maml:Description>
+          <maml:para>Pass the new PSDrive object to the pipeline.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -8326,6 +8541,14 @@ Mode                LastWriteTime         Length Name
     <command:returnValues>
       <command:returnValue>
         <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
           <maml:name>System.Management.Automation.PSDrive</maml:name>
         </dev:type>
         <maml:description>
@@ -8335,67 +8558,48 @@ Mode                LastWriteTime         Length Name
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>Originally published at http://jdhitsolutions.com/blog/2010/08/new-psdrivehere/</maml:para>
+        <maml:para>Originally published at http://jdhitsolutions.com/blog/2010/08/New-PSDriveHere/</maml:para>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\users\jeff\documents\Enterprise Mgmt Webinar&gt; new-psdrivehere
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-Webinar                         146.57 FileSystem    C:\users\jeff\Documents\Enter...</dev:code>
+        <dev:code>PS C:\users\jeff\documents\Enterprise Mgmt Webinar\&gt; New-PSDriveHere</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This will create a new PSDrive called Webinar rooted to the current location.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\users\jeff\documents\Enterprise Mgmt Webinar&gt; new-psdrivehere -first
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-Enterprise                      146.57 FileSystem    C:\users\jeff\Documents\Enter...</dev:code>
+        <dev:code>PS C:\users\jeff\documents\Enterprise Mgmt Webinar\&gt; New-PSDriveHere -first</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>This will create a new PSDrive called Enterprise rooted to the current location.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; new-psdrivehere HKLM:\software\microsoft
+        <dev:code>PS C:\&gt; New-PSDriveHere HKLM:\software\microsoft -passthru |
+Select-Object -Expandproperty Name
 
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-microsoft                              Registry      HKEY_LOCAL_MACHINE\software\micr...</dev:code>
+microsoft</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; new-psdrivehere -Path "\\jdh-nvnas\files\powershell" -Name PSFiles
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-PSFiles                                FileSystem    \\jdh-nvnas\files\powershell</dev:code>
+        <dev:code>PS C:\&gt; New-PSDriveHere -Path "\\NAS\files\powershell" -Name PSFiles</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Create a new PSDrive called PSFiles rooted to the specified path.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
-        <dev:code>PS C:\Users\Jeff\Documents\DeepDive&gt; new-psdrivehere . DeepDive -setlocation
-
-Name           Used (GB)     Free (GB) Provider      Root                                 CurrentLocation
-----           ---------     --------- --------      ----                                 ---------------
-DeepDive                        130.53 FileSystem    C:\Users\Jeff\Documents\DeepDive
-
-
+        <dev:code>PS C:\Users\Jeff\Documents\DeepDive\&gt; New-PSDriveHere . DeepDive -setlocation
 PS DeepDive:\&gt;</dev:code>
         <dev:remarks>
-          <maml:para>Set a new PSDrive and change your location to it.</maml:para>
+          <maml:para>Create a new PSDrive and change location to it.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -8765,9 +8969,16 @@ PS C:\&gt; $obj = [PSCustomObject]@{
     Name         = "Jeff"
     Date         = (Get-Date)
     Computername = $env:computername
-    OS           = (Get-Ciminstance win32_operatingsystem -Property Caption).caption
+    OS           = (Get-Ciminstance win32_operatingsystem ).caption
 }
-PS C:\&gt; Update-TypeData -TypeName $tname -MemberType "ScriptProperty" -MemberName "Runtime" -value {(Get-Date) - [datetime]"1/1/2019"} -force
+PS C:\&gt; $upParams = @{
+ TypeName = $tname
+ MemberType = "ScriptProperty"
+ MemberName = "Runtime"
+ Value = {(Get-Date) - [datetime]"1/1/2019"}
+ Force = $True
+}
+PS C:\&gt; Update-TypeData @upParams
 PS C:\&gt; $obj
 
 Name         : Jeff
@@ -8781,11 +8992,12 @@ Runtime      : 40.20:49:43.9205882</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $obj | New-PSFormatXML -Properties Name, Date, Computername, OS -FormatType Table -path "C:\work\$tname.format.ps1xml"
-PS C:\&gt; $obj | New-PSFormatXML -Properties Name, OS, Runtime -FormatType Table -view runtime -path "C:\work\$tname.format.ps1xml" -append
-PS C:\&gt; $obj | New-PSFormatXML -FormatType List -path "C:\work\$tname.format.ps1xml" -append</dev:code>
+        <dev:code>PS C:\&gt; $fmt = "C:\scripts\$tname.format.ps1xml"
+PS C:\&gt; $obj | New-PSFormatXML -Prop Name,Date,Computername,OS -path $fmt
+PS C:\&gt; $obj | New-PSFormatXML -Prop Name,OS,Runtime -view runtime -path $fmt -append
+PS C:\&gt; $obj | New-PSFormatXML -FormatType List -path $fmt -append</dev:code>
         <dev:remarks>
-          <maml:para>The object is then piped to this command to generate a new format.ps1xml. Subsequent commands add more formatted views. When the file is completed it can be modified.</maml:para>
+          <maml:para>The object is then piped to New-PSFormatXML to generate a new format.ps1xml file. Subsequent commands add more formatted views. When the file is completed it can be modified. Note that these examples are using shortened parameter names.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -8797,7 +9009,7 @@ Name Date                 Computername Operating System
 ---- ----                 ------------ ----------------
 Jeff 2/10/2019 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
 
-PS C:\&gt; $obj | format-table -View runtime
+PS C:\&gt; $obj | Format-Table -View runtime
 
 Name OS Runtime
 ---- -- -------
@@ -8817,7 +9029,8 @@ Runtime         : 40.21:12:01</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $obj | New-PSFormatXML -viewname computer -GroupBy Computername -path "c:\work\$tname.format.ps1xml" -append
+        <dev:code>PS C:\&gt; $obj | New-PSFormatXML -view computer -Group Computername
+-path "c:\work\$tname.format.ps1xml" -append
 PS C:\&gt; Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
 PS C:\&gt; $obj | Format-Table -View computer
 
@@ -8833,7 +9046,15 @@ Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481</dev:code
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Service bits | New-PSFormatXML -Properties DisplayName -FormatType Wide -Path C:\work\svc.format.ps1xml -GroupBy Status -ViewName Status</dev:code>
+        <dev:code>PS C:\&gt;$params = @{
+Properties = "DisplayName"
+FormatType = "Wide"
+Path = "C:\work\svc.format.ps1xml"
+GroupBy = "Status"
+ViewName ="Status"
+}
+PS C:\&gt; Get-Service bits | New-PSFormatXML @params
+PS C:\&gt; Update-FormatData $params.path</dev:code>
         <dev:remarks>
           <maml:para>This will create a custom format file for service objects. This will create a wide display using the Displayname property. Once loaded into PowerShell, you can run a command like this:</maml:para>
           <maml:para>Get-Service | Sort-Object Status | Format-Wide -view Status</maml:para>
@@ -8841,9 +9062,10 @@ Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481</dev:code
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 6 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; '' | Select-Object -Property Name,Size,Date,Count,Age | New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml</dev:code>
+        <dev:code>PS C:\&gt; '' | Select-Object -Property Name,Size,Date,Count,Age |
+New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml</dev:code>
         <dev:remarks>
-          <maml:para>This is an example of creating a formatting file from an empty object. Normally you would first define your object and verify it has all the properties you need and then you would create the formatting file. But you may want to create the formatting file in parallel using a technique like this.</maml:para>
+          <maml:para>This is an example of creating a formatting file from an empty object. Normally, you would first define your object and verify it has all the properties you need and then you would create the formatting file. But you may want to create the formatting file in parallel using an older technique like this.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -9039,7 +9261,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
       <command:verb>New</command:verb>
       <command:noun>RedGreenGradient</command:noun>
       <maml:description>
-        <maml:para>Create an ANSI gradient from red to green</maml:para>
+        <maml:para>Create an ANSI gradient from red to green.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -9152,18 +9374,20 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; PS C:\&gt; New-RedGreenGradient -Percent .75</dev:code>
+        <dev:code>PS C:\&gt; New-RedGreenGradient -Percent .75</dev:code>
         <dev:remarks>
           <maml:para>This will display a red to green gradient bar.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Volume | Where-Object {$_.FileSystemType -eq 'NTFS' -AND $_.driveletter -match "[C-Zc-z]"} |
+        <dev:code>PS C:\&gt; Get-Volume |
+Where {$_.FileSystemType -eq 'NTFS' -AND $_.driveletter -match "[C-Zc-z]"} |
 Sort-Object -property DriveLetter |
 Select-Object -property DriveLetter, FileSystemLabel,
 @{Name="FreeGB";Expression={Format-Value -input $_.SizeRemaining -unit GB}},
-@{Name = "PctFree"; Expression = {$pct = Format-Percent -value $_.sizeremaining -total $_.size -decimal 2;
+@{Name = "PctFree"; Expression = {
+$pct = Format-Percent -value $_.sizeremaining -total $_.size -decimal 2;
 "{1} {0}" -f $(New-RedGreenGradient -percent ($pct/100) -step 6),$pct}}
 
 DriveLetter FileSystemLabel FreeGB PctFree
@@ -9511,7 +9735,8 @@ DriveLetter FileSystemLabel FreeGB PctFree
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
+        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Are you sure you want to do this?"
+-Title Confirm -Icon Question -ButtonSet YesNo
 False</dev:code>
         <dev:remarks>
           <maml:para>Display a Yes/No message box. The value of the clicked button will be written to the pipeline. It is assumed you would use this in a script and have logic to determine what to do based on the value.</maml:para>
@@ -9519,14 +9744,17 @@ False</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Press OK when ready to continue." -Title "User Deletion" -Quiet -Background crimson -Icon Shield</dev:code>
+        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Press OK when ready to continue."
+-Title "User Deletion" -Quiet -Background crimson -Icon Shield</dev:code>
         <dev:remarks>
           <maml:para>Display a message box with a crimson background and using the Shield icon. No value will be written to the pipeline and PowerShell will wait until OK is clicked or the form dismissed.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet )[ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})</dev:code>
+        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Select a system option from these choices:"
+-Title "You Decide" -Background cornsilk -Icon Warning
+-CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})</dev:code>
         <dev:remarks>
           <maml:para>Create a custom message box with a user-defined set of buttons.</maml:para>
         </dev:remarks>
@@ -9549,7 +9777,7 @@ False</dev:code>
       <command:verb>Open</command:verb>
       <command:noun>PSScriptToolsHelp</command:noun>
       <maml:description>
-        <maml:para>Open the PSScriptTools manual</maml:para>
+        <maml:para>Open the PSScriptTools manual.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -9574,7 +9802,7 @@ False</dev:code>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>none</maml:name>
+          <maml:name>None</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -9830,7 +10058,7 @@ False</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content c:\scripts\computers.txt
+        <dev:code>PS C:\&gt; Get-Content c:\scripts\computers.txt
 
 win10-ent-01
 srv1
@@ -9841,7 +10069,7 @@ app02
 
 
 
-PS C:\&gt; get-content c:\scripts\computers.txt | optimize-text
+PS C:\&gt; Get-Content c:\scripts\computers.txt | Optimize-Text
 win10-ent-01
 srv1
 quark
@@ -9853,7 +10081,8 @@ app02</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content c:\scripts\computers.txt | optimize-text -property computername
+        <dev:code>PS C:\&gt; Get-Content c:\scripts\computers.txt |
+Optimize-Text -property computername
 
 computername
 ------------
@@ -9868,7 +10097,9 @@ app02</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content computers.txt | optimize-text -prop computername | where { test-connection $_.computername -count 1 -erroraction silentlycontinue} | get-service bits | select Name,Status,Machinename
+        <dev:code>PS C:\&gt; Get-Content computers.txt | Optimize-Text -prop computername |
+Where-Object {Test-Connection $_.computername -count 1 -ea silentlycontinue} |
+Get-Service bits | Select-Object Name,Status,Machinename
 
 Name                          Status MachineName
 ----                          ------ -----------
@@ -9881,7 +10112,8 @@ bits                          Running app02</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content .\ChicagoServers.txt | optimize-text -Ignore "#" -Property ComputerName
+        <dev:code>PS C:\&gt; Get-Content .\ChicagoServers.txt |
+Optimize-Text -Ignore "#" -Property ComputerName
 
 ComputerName
 ------------
@@ -9899,7 +10131,9 @@ chi-db01</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-content .\ChicagoServers.txt | optimize-text -filter "dc\d{2}" -ToUpper -PropertyName Computername | test-connection -count 1
+        <dev:code>PS C:\&gt; Get-Content .\ChicagoServers.txt |
+Optimize-Text -filter "dc\d{2}" -ToUpper -PropertyName Computername |
+Test-Connection -count 1
 
 Source        Destination     IPV4Address      IPV6Address      Bytes    Time(ms)
 ------        -----------     -----------      -----------      -----    --------
@@ -9936,12 +10170,15 @@ win10-ENT-01  CHI-DC04        172.16.30.203                     32       0</dev:
       <maml:para>The default behavior is to use a hash table with a property name and color. The color must be one of the standard console colors used with Write-Host.</maml:para>
       <maml:para>    $c = @{Stopped='Red';Running='Green'}</maml:para>
       <maml:para>You can then pipe an expression to this command, specifying a property name and the hash table. If the property matches the key name, the output for that object will be colored using the corresponding hash table value.</maml:para>
-      <maml:para>    get-service -displayname windows* | out-conditionalcolor $c -property status</maml:para>
+      <maml:para>    Get-Service -displayname windows* | Out-ConditionalColor $c -property status</maml:para>
       <maml:para>Or you can do more complex processing with an ordered hash table constructed using this format:</maml:para>
       <maml:para>    [ordered]@{ &lt;comparison scriptblock&gt; = &lt;color&gt;}</maml:para>
       <maml:para>The comparison scriptblock can use $PSitem.</maml:para>
-      <maml:para>    $h=[ordered]@{         {$psitem.ws -gt 500mb}='red'         {$psitem.ws -gt 300mb}='yellow'         {$psitem.ws -gt 200mb}='cyan'     }</maml:para>
-      <maml:para>    get-process | out-conditionalcolor $h</maml:para>
+      <maml:para>    $h=[ordered]@{</maml:para>
+      <maml:para>      {$psitem.ws -gt 500mb}='red'</maml:para>
+      <maml:para>      {$psitem.ws -gt 300mb}='yellow'</maml:para>
+      <maml:para>      {$psitem.ws -gt 200mb}='cyan'     }</maml:para>
+      <maml:para>    Get-Process | Out-ConditionalColor $h</maml:para>
       <maml:para>When doing a complex comparison you must use an [ordered] hashtable as each key will be processed in order using an If/ElseIf statement.</maml:para>
       <maml:para>This command should be the last part of any pipelined expression. If you pipe to anything else, such as Sort-Object, you will lose your color formatting. Do any other sorting or filtering before piping to this command.</maml:para>
       <maml:para>This command works best in the PowerShell console. It won't do anything in the PowerShell ISE.</maml:para>
@@ -10089,27 +10326,30 @@ win10-ENT-01  CHI-DC04        172.16.30.203                     32       0</dev:
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
-        <maml:para>Originally published at: http://jdhitsolutions.com/blog/powershell/3462/friday-fun-out-conditionalcolor/</maml:para>
+        <maml:para>Originally published at: http://jdhitsolutions.com/blog/powershell/3462/friday-fun-Out-ConditionalColor/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-service -displayname windows* | out-conditionalcolor -propertyconditions @{Stopped='Red'} -property Status</dev:code>
+        <dev:code>PS C:\&gt; Get-Service -displayname windows* |
+Out-ConditionalColor -propertyconditions @{Stopped='Red'} -property Status</dev:code>
         <dev:remarks>
-          <maml:para>Get all services where the displayname starts with windows and display stopped services in red.</maml:para>
+          <maml:para>Get all services where the display name starts with windows and display stopped services in red.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-service -displayname windows* | out-conditionalcolor @{Stopped='Red'} status -ov winstop</dev:code>
+        <dev:code>PS C:\&gt; Get-Service -displayname windows* |
+Out-ConditionalColor @{Stopped='Red'} status -ov winstop</dev:code>
         <dev:remarks>
           <maml:para>Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be colorized. This example uses the parameters positionally.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-eventlog system -newest 50 | out-conditionalcolor @{error='red';warning='yellow'}
+        <dev:code>PS C:\&gt; Get-EventLog system -newest 50 |
+Out-ConditionalColor @{error='red';warning='yellow'}
 Enter a property name: entrytype</dev:code>
         <dev:remarks>
           <maml:para>Get the newest 50 entries from the System event log. Display errors in red and warnings in yellow. If you don't specify a property you will be prompted.</maml:para>
@@ -10117,14 +10357,18 @@ Enter a property name: entrytype</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $c =[ordered]@{{$psitem.length -ge 1mb}='red';{$psitem.length -ge 500KB}='yellow';{$psitem.length -ge 100KB}='cyan'}</dev:code>
+        <dev:code>PS C:\&gt; $c =[ordered]@{
+{$psitem.length -ge 1mb}='red';
+{$psitem.length -ge 500KB}='yellow';
+{$psitem.length -ge 100KB}='cyan'}</dev:code>
         <dev:remarks>
           <maml:para>The first command creates an ordered hashtable based on the Length property.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; dir c:\scripts\*.doc,c:\scripts\*.pdf,c:\scripts\*.xml |  out-conditionalcolor $c</dev:code>
+        <dev:code>PS C:\&gt; dir c:\scripts\*.doc,c:\scripts\*.pdf,c:\scripts\*.xml |
+Out-ConditionalColor $c</dev:code>
         <dev:remarks>
           <maml:para>The next command uses it to get certain file types in the scripts folder and display the selected properties in color depending on the file size.</maml:para>
         </dev:remarks>
@@ -10137,6 +10381,10 @@ Enter a property name: entrytype</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>About_Hash_Tables</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Show-Tree</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -10262,7 +10510,7 @@ Enter a property name: entrytype</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-process | out-more -count 10
+        <dev:code>PS C:\&gt; Get-Process | Out-More -count 10
 
 Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 -------  ------    -----      ----- -----   ------     --  -- -----------
@@ -10281,7 +10529,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; dir c:\work -file -Recurse | out-more -ClearScreen | tee -Variable work</dev:code>
+        <dev:code>PS C:\&gt; dir c:\work -file -Recurse | Out-More -ClearScreen | tee -Variable work</dev:code>
         <dev:remarks>
           <maml:para>List all files in C:\Work and page them to Out-More using the default count, but after clearing the screen first. The results are then piped to Tee-Object which saves them to a variable.</maml:para>
         </dev:remarks>
@@ -10474,6 +10722,10 @@ PS C:\&gt; $verbosePreference = "silentlyContinue"</dev:code>
         <maml:linkText>Write-Detail</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Tee-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -10633,6 +10885,10 @@ Deleted branch patch-254 (was 75f6ab8).</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>git.exe</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-GitSize</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -10804,7 +11060,7 @@ Deleted branch patch-254 (was 75f6ab8).</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; remove-runspace -id 18 -WhatIf
+        <dev:code>PS C:\&gt; Remove-Runspace -id 18 -WhatIf
 What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".</dev:code>
         <dev:remarks>
           <maml:para>Show what would have happened to remove runspace with an ID of 18.</maml:para>
@@ -10812,7 +11068,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-runspace | where ID -gt 1 | Remove-Runspace</dev:code>
+        <dev:code>PS C:\&gt; Get-Runspace | where ID -gt 1 | Remove-Runspace</dev:code>
         <dev:remarks>
           <maml:para>Get all runspaces with an ID greater than 1, which is typically your session, and remove the runspace.</maml:para>
         </dev:remarks>
@@ -10831,9 +11087,9 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Rename-HashTable</command:name>
+      <command:name>Rename-Hashtable</command:name>
       <command:verb>Rename</command:verb>
-      <command:noun>HashTable</command:noun>
+      <command:noun>Hashtable</command:noun>
       <maml:description>
         <maml:para>Rename a hashtable key.</maml:para>
       </maml:description>
@@ -10846,7 +11102,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
-        <maml:name>Rename-HashTable</maml:name>
+        <maml:name>Rename-Hashtable</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Name</maml:name>
           <maml:Description>
@@ -10930,7 +11186,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
         </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
-        <maml:name>Rename-HashTable</maml:name>
+        <maml:name>Rename-Hashtable</maml:name>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
           <maml:name>InputObject</maml:name>
           <maml:Description>
@@ -11143,7 +11399,7 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
-        <maml:para>This code was first described at http://jdhitsolutions.com/blog/2013/01/rename-hashtable-key-revised</maml:para>
+        <maml:para>This code was first described at http://jdhitsolutions.com/blog/2013/01/Rename-Hashtable-key-revised</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -11156,7 +11412,9 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $newhash = Get-Service spooler | ConvertTo-HashTable | Rename-HashTable -Key Machinename -NewKey Computername</dev:code>
+        <dev:code>PS C:\&gt; $newhash = Get-Service spooler |
+ConvertTo-HashTable |
+Rename-Hashtable -Key Machinename -NewKey Computername</dev:code>
         <dev:remarks>
           <maml:para>This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable. The Machinename key is then renamed to Computername.</maml:para>
         </dev:remarks>
@@ -11482,7 +11740,7 @@ Mode                 LastWriteTime         Length Name
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; get-process | select-first 3 -property WS -descending
+        <dev:code>PS C:\&gt; Get-Process | Select-First 3 -property WS -descending
 
 Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 -------  ------    -----      ----- -----   ------     --  -- -----------
@@ -11495,7 +11753,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>1..10 | select-first 3 -Skip 2
+        <dev:code>1..10 | Select-First 3 -Skip 2
 
 3
 4
@@ -11700,12 +11958,12 @@ Mode                LastWriteTime         Length Name
 -a----        1/15/2018   9:23 AM            971 Get-WorkflowVariable.ps1
 -a----        1/15/2018  12:08 PM           1555 Cost.ps1</dev:code>
         <dev:remarks>
-          <maml:para>Get the last 5 ps1 files sorted on the LastWritetime property.</maml:para>
+          <maml:para>Get the last 5 ps1 files sorted on the LastWritetime property. This example is using the alias 'last' for Select-Last.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; 1..10 | select-last 3 -skip 1
+        <dev:code>PS C:\&gt; 1..10 | Select-Last 3 -skip 1
 
 7
 8
@@ -12094,7 +12352,9 @@ Mode                LastWriteTime         Length Name
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; if (Test-IsAdministrator) { Set-ConsoleTitle "Administrator: $($PSVersionTable.PSedition) $($PSVersionTable.PSVersion)" }</dev:code>
+        <dev:code>PS C:\&gt; if (Test-IsAdministrator) {
+    Set-ConsoleTitle "Admin: PS $($PSVersionTable.PSVersion)"
+    }</dev:code>
         <dev:remarks>
           <maml:para>Modify the console title if running as Administrator</maml:para>
         </dev:remarks>
@@ -12415,7 +12675,7 @@ C:\work
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProperty *
+        <dev:code>PS C:\&gt;Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProp *
 
 HKLM:\SOFTWARE\Microsoft\.NETFramework
 +-- Enable64Bit = 1
@@ -12428,15 +12688,15 @@ HKLM:\SOFTWARE\Microsoft\.NETFramework
 |  +--ADOMD.Client 14.0
 |  |  \-- (default) = C:\Program Files\Microsoft.NET\ADOMD.NET\140\
 |  +--Microsoft .NET Framework 3.5 Reference Assemblies
-|  |  \-- (default) = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
+|  |  \-- (default) = C:\Program Files\Reference Assemblies\Microsoft\Framew...
 |  +--SQL Server Assemblies 140
 |  |  \-- (default) = C:\Program Files\Microsoft SQL Server\140\SDK\Assemblies\
 |  +--v3.0
 |  |  +-- &lt;IncludeDotNet2Assemblies&gt; = 1
-|  |  \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\
+|  |  \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsof...
 |  \--v3.5
 |     +-- &lt;IncludeDotNet2Assemblies&gt; = 1
-|     \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
+|     \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsof...
 ...</dev:code>
         <dev:remarks>
           <maml:para>Shows the hierarchy of registry keys and values (-ShowProperty), recursing down two levels.</maml:para>
@@ -12623,7 +12883,7 @@ False</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ChildItem c:\work -Directory | test-EmptyFolder -passthru
+        <dev:code>PS C:\&gt; Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru
 
 
 Path          Name  IsEmpty Computername
@@ -12641,7 +12901,10 @@ C:\work\demos demos   False DESK10
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
+        <dev:code>PS C:\&gt; Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru |
+Where-object {$_.Isempty} |
+Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
+
 What if: Performing the operation "Remove Directory" on target "C:\work\demo3".
 What if: Performing the operation "Remove Directory" on target "C:\work\installers".
 What if: Performing the operation "Remove Directory" on target "C:\work\new".
@@ -12675,8 +12938,7 @@ What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
     </command:details>
     <maml:description>
       <maml:para>This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.</maml:para>
-      <maml:para>The median is calculated by sorting the values in ascending order and selecting the value in the center of the array.</maml:para>
-      <maml:para>If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.</maml:para>
+      <maml:para>The median is calculated by sorting the values in ascending order and selecting the value in the center of the array. If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -12966,7 +13228,10 @@ What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $cred = Get-credential globomantics\administrator
 PS C:\&gt; $c = "chi-dc01","chi-dc04"
-PS C:\&gt; Test-Expression {param ([string[]]$computer,$cred) get-wmiobject -class win32_logicaldisk -computername $computer -credential $cred } -argumentList $c,$cred
+PS C:\&gt; Test-Expression {
+  param ([string[]]$computer,$cred)
+  get-wmiobject win32_logicaldisk -computername $computer -credential $cred
+  } -argumentList $c,$cred
 
 
 Tests        : 1
@@ -12976,16 +13241,16 @@ MinimumMS    : 1990.6779
 MaximumMS    : 1990.6779
 MedianMS     : 1990.6779
 TrimmedMS    :
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+PSVersion    : 5.1.19041.1
+OS           : Microsoft Windows 10 Pro</dev:code>
         <dev:remarks>
           <maml:para>Test a command once passing an argument to the scriptblock. There is no TrimmedMS value because there was only one test.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $sb = {1..1000 | foreach {$_*2}}
-PS C:\&gt; test-expression $sb -count 10 -interval 2
+        <dev:code>PS C:\&gt; $sb = {1..1000 | Foreach-Object {$_*2}}
+PS C:\&gt; Test-Expression $sb -count 10 -interval 2
 
 Tests        : 10
 TestInterval : 2
@@ -12994,12 +13259,11 @@ MinimumMS    : 29.4449
 MaximumMS    : 110.6553
 MedianMS     : 90.3509
 TrimmedMS    : 73.4649625
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
-
+PSVersion    : 5.1.19041.1
+OS           : Microsoft Windows 10 Pro
 
 PS C:\&gt; $sb2 = { foreach ($i in (1..1000)) {$_*2}}
-PS C:\&gt; test-expression $sb2 -Count 10 -interval 2
+PS C:\&gt; Test-Expression $sb2 -Count 10 -interval 2
 
 Tests        : 10
 TestInterval : 2
@@ -13008,15 +13272,18 @@ MinimumMS    : 0.7466
 MaximumMS    : 22.968
 MedianMS     : 2.781
 TrimmedMS    : 5.0392125
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+PSVersion    : 5.1.19041.1
+OS           : Microsoft Windows 10 Pro</dev:code>
         <dev:remarks>
           <maml:para>These examples are testing two different approaches that yield the same results over a span of 10 test runs, pausing for 2 seconds between each test. The values for Average, Minimum and Maximum are in milliseconds.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Test-expression {Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer} -count 5 -IncludeExpression -argumentList chi-hvr2
+        <dev:code>PS C:\&gt; Test-Expression {
+    Param([string]$computer)
+    Get-Service bits,wuauserv,winrm -computername $computer
+    } -count 5 -IncludeExpression -argumentList chi-hvr2
 
 
 Tests        : 5
@@ -13026,9 +13293,9 @@ MinimumMS    : 11.6745
 MaximumMS    : 24.9331
 MedianMS     : 13.8928
 TrimmedMS    : 13.6870666666667
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
-Expression   : Param([string]$computer) get-service bits,wuauserv,winrm -computername $computer
+PSVersion    : 5.1.19041.1
+OS           : Microsoft Windows 10 Pro
+Expression   : Param([string]$computer) get-service bits,wuauserv,winrm -com...
 Arguments    : {chi-hvr2}</dev:code>
         <dev:remarks>
           <maml:para>Include the tested expression in the output.</maml:para>
@@ -13036,14 +13303,8 @@ Arguments    : {chi-hvr2}</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
-
-
-Id     Name            PSJobTypeName   State         HasMoreData     Location             Command
---     ----            -------------   -----         -----------     --------             -------
-184    Job184          RemoteJob       Running       True            WIN81-ENT-01         ...
-
-PS C:\&gt; receive-job 184 -keep
+        <dev:code>PS C:\&gt; $j=Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
+PS C:\&gt; $j | Receive-Job -keep
 
 Tests        : 10
 TestInterval : 5
@@ -13052,8 +13313,8 @@ MinimumMS    : 0.7967
 MaximumMS    : 14.911
 MedianMS     : 1.4469
 TrimmedMS    : 1.5397375
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise
+PSVersion    : 5.1.19041.1
+OS           : Microsoft Windows 10 Pro
 RunspaceId   : f30eb879-fe8f-4ad0-8d70-d4c8b6b4eccc</dev:code>
         <dev:remarks>
           <maml:para>Run the test as a background job. When the job is complete, get the results.</maml:para>
@@ -13061,7 +13322,7 @@ RunspaceId   : f30eb879-fe8f-4ad0-8d70-d4c8b6b4eccc</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; {1..1000} | Test-Expression -count 10 -RandomMinimum 1 -RandomMaximum 10
+        <dev:code>PS C:\&gt;{1..1000} | Test-Expression -count 10 -RandomMinimum 1 -RandomMaximum 10
 
 Tests        : 10
 TestInterval : Random
@@ -13070,8 +13331,8 @@ MinimumMS    : 0.2253
 MaximumMS    : 3.9062
 MedianMS     : 0.24475
 TrimmedMS    : 0.2823
-PSVersion    : 5.1.14409.1005
-OS           : Microsoft Windows 8.1 Enterprise</dev:code>
+PSVersion    : 5.1.19041.1
+OS           : Microsoft Windows 10 Pro</dev:code>
         <dev:remarks>
           <maml:para>Pipe a scriptblock to be tested.</maml:para>
         </dev:remarks>
@@ -13400,7 +13661,12 @@ Montag, 14. Oktober 2019 08:59:01</dev:code>
       </command:example>
       <command:example>
         <maml:title>--------------------------- Example2 ---------------------------</maml:title>
-        <dev:code>PS C\&gt; Test-WithCulture fr-fr -Scriptblock { Get-winEvent -log system -max 500 | Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message | Sort-Object -property TimeCreated | Group-Object {$_.timecreated.toshortdatestring()} -noelement }
+        <dev:code>PS C\&gt; Test-WithCulture fr-fr -Scriptblock {
+  Get-winEvent -log system -max 500 |
+  Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message |
+  Sort-Object -property TimeCreated |
+  Group-Object {$_.timecreated.toshortdatestring()} -noelement
+  }
 
 Count Name
 ----- ----
@@ -13437,7 +13703,7 @@ Count Name
       <command:verb>Write</command:verb>
       <command:noun>ANSIProgress</command:noun>
       <maml:description>
-        <maml:para>Write an ANSI progress bar</maml:para>
+        <maml:para>Write an ANSI progress bar.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -13589,44 +13855,55 @@ PS C:\&gt; $pct | Write-ANSIProgress -BarSymbol Block</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Write-ANSIProgress -PercentComplete .78 -BarSymbol Circle -ProgressColor "$([char]0x1b)[92m"</dev:code>
+        <dev:code>PS C:\&gt; $params = @{
+  PercentComplete = .78
+  BarSymbol = "Circle"
+  "ProgressColor" =  "$([char]0x1b)[92m"
+}
+PS C:\&gt; Write-ANSIProgress @params</dev:code>
         <dev:remarks>
           <maml:para>Create a single progress bar for 78% using the Circle symbol and a custom color.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\scripts&gt; Get-CimInstance win32_operatingsystem |
-Select-Object @{Name = "MemGB"; Expression = {$_.TotalVisibleMemorySize/1MB -as [int]}},
-FreePhysicalMemory, @{Name = "PctFree"; Expression = { $pct = $([math]::round($_.freephysicalmemory/$_.totalvisiblememorysize, 2));
-Write-ANSIProgress -PercentComplete $pct | Select-Object -last 1}}
+        <dev:code>PS C:\&gt; Get-CimInstance -ClassName win32_operatingsystem |
+Select-Object -property @{N="Computername";E={$_.CSName}},
+@{N="TotalMemGB";E={Format-Value $_.TotalVisibleMemorySize -unit MB}},
+@{N="FreeMemGB";E={Format-Value $_.FreePhysicalMemory -unit MB}},
+@{N="PctFree"; E={
+$pct=Format-Percent $_.freephysicalmemory $_.totalVisiblememorySize
+Write-ANSIProgress -PercentComplete ($pct/100) | Select-Last 1
+}}
 
 
-MemGB FreePhysicalMemory PctFree
------ ------------------ -------
-   32           16005324  48% ■■■■■■■■■■■■■■■■■■■■■■■■</dev:code>
+Computername TotalMemGB FreeMemGB PctFree
+------------ ---------- --------- -------
+BOVINE320            32        12 37.87% ■■■■■■■■■■■■■■■■■■■</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Note that this example is using abbreviations in the Select-Object hashtables.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $sb = {
-    Clear-Host
-    $top = Get-ChildItem c:\scripts -Directory
-    $i = 0
-    $out=@()
-    $pos = $host.ui.RawUI.CursorPosition
-    Foreach ($item in $top) {
-        $i++
-        $pct = [math]::round($i/$top.count,2)
-        Write-ANSIProgress -PercentComplete $pct -position $pos
-        Write-Host "  Processing $(($item.fullname).padright(80))" -ForegroundColor Yellow -NoNewline
-        $out+= Get-ChildItem -path $item -Recurse -file | Measure-Object -property length -sum |
-        Select-Object @{Name="Path";Expression={$item.fullname}},Count,@{Name="Size";Expression={$_.Sum}}
-    }
-    Write-Host ""
-    $out | Sort-object -property Size -Descending
+  Clear-Host
+  $top = Get-ChildItem c:\scripts -Directory
+  $i = 0
+  $out=@()
+  $pos = $host.ui.RawUI.CursorPosition
+  Foreach ($item in $top) {
+    $i++
+    $pct = [math]::round($i/$top.count,2)
+    Write-ANSIProgress -PercentComplete $pct -position $pos
+    Write-Host "  Processing $(($item.fullname).padright(80))"  -NoNewline
+    $out+= Get-ChildItem -path $item -Recurse -file |
+    Measure-Object -property length -sum |
+    Select-Object @{Name="Path";Expression={$item.fullname}},Count,
+    @{Name="Size";Expression={$_.Sum}}
+  }
+  Write-Host ""
+  $out | Sort-object -property Size -Descending
 }
 PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
         <dev:remarks>
@@ -13656,8 +13933,10 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full time stamp, or a time string which includes a millisecond value.</maml:para>
-      <maml:para>In a script you might use it like this:</maml:para>
-      <maml:para>Begin {     Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin -time | Write-Verbose     $tabs = "`t" * $tab     Write-Detail "Using a tab of $tab" -Prefix begin -time | Write-Verbose } #begin</maml:para>
+      <maml:para>In a script you might use it like this in a Begin block:</maml:para>
+      <maml:para>    $pfx = "BEGIN"</maml:para>
+      <maml:para>    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix $pfx | Write-Verbose</maml:para>
+      <maml:para>    Write-Detail "PS $($PSVersiontable.PSVersion)" -Prefix $pfx | Write-Verbose</maml:para>
       <maml:para>If you don't specify a prefix, it will default to PROCESS.</maml:para>
     </maml:description>
     <command:syntax>
@@ -13690,7 +13969,7 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Date</maml:name>
           <maml:Description>
-            <maml:para>Display a date value like 9/15/2018 11:36:41</maml:para>
+            <maml:para>Display a date value like 9/15/2018 11:36:41.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -13766,7 +14045,7 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Date</maml:name>
         <maml:Description>
-          <maml:para>Display a date value like 9/15/2018 11:36:41</maml:para>
+          <maml:para>Display a date value like 9/15/2018 11:36:41.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -13816,7 +14095,7 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt;write-detail "Getting file information" -Prefix Process
+        <dev:code>PS C:\&gt; Write-Detail "Getting file information" -Prefix Process
 [PROCESS] Getting file information</dev:code>
         <dev:remarks>
           <maml:para>Normally you would use this command in a function, but here is an example from the console so that you can see what to expect.</maml:para>

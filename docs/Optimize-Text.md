@@ -16,14 +16,15 @@ Clean and optimize text input.
 ### default (Default)
 
 ```yaml
-Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-Ignore <String>] [-ToUpper] [<CommonParameters>]
+Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-Ignore <String>]
+[-ToUpper] [<CommonParameters>]
 ```
 
 ### object
 
 ```yaml
-Optimize-Text [[-Text] <String[]>] [-Filter <Regex>][-Ignore <String>] [-ToUpper]  [-PropertyName <String>]
- [<CommonParameters>]
+Optimize-Text [[-Text] <String[]>] [-Filter <Regex>][-Ignore <String>]
+[-ToUpper]  [-PropertyName <String>]  [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -41,7 +42,7 @@ Finally, you can use the -Filter parameter to specify a regular expression patte
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-content c:\scripts\computers.txt
+PS C:\> Get-Content c:\scripts\computers.txt
 
 win10-ent-01
 srv1
@@ -52,7 +53,7 @@ app02
 
 
 
-PS C:\> get-content c:\scripts\computers.txt | optimize-text
+PS C:\> Get-Content c:\scripts\computers.txt | Optimize-Text
 win10-ent-01
 srv1
 quark
@@ -65,7 +66,8 @@ The first example shows malformed text file. In the second command it has been o
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-content c:\scripts\computers.txt | optimize-text -property computername
+PS C:\> Get-Content c:\scripts\computers.txt |
+Optimize-Text -property computername
 
 computername
 ------------
@@ -81,7 +83,9 @@ Using the same text file, the command creates a custom object using the Computer
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> get-content computers.txt | optimize-text -prop computername | where { test-connection $_.computername -count 1 -erroraction silentlycontinue} | get-service bits | select Name,Status,Machinename
+PS C:\> Get-Content computers.txt | Optimize-Text -prop computername |
+Where-Object {Test-Connection $_.computername -count 1 -ea silentlycontinue} |
+Get-Service bits | Select-Object Name,Status,Machinename
 
 Name                          Status MachineName
 ----                          ------ -----------
@@ -95,7 +99,8 @@ Optimize the computer names in computers.txt and add a Computername property. Te
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> get-content .\ChicagoServers.txt | optimize-text -Ignore "#" -Property ComputerName
+PS C:\> Get-Content .\ChicagoServers.txt |
+Optimize-Text -Ignore "#" -Property ComputerName
 
 ComputerName
 ------------
@@ -114,7 +119,9 @@ Optimize the text file ignoring any lines that start with the # character.
 ### EXAMPLE 5
 
 ```powershell
-PS C:\> get-content .\ChicagoServers.txt | optimize-text -filter "dc\d{2}" -ToUpper -PropertyName Computername | test-connection -count 1
+PS C:\> Get-Content .\ChicagoServers.txt |
+Optimize-Text -filter "dc\d{2}" -ToUpper -PropertyName Computername |
+Test-Connection -count 1
 
 Source        Destination     IPV4Address      IPV6Address      Bytes    Time(ms)
 ------        -----------     -----------      -----------      -----    --------

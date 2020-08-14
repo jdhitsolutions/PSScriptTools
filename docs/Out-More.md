@@ -19,13 +19,9 @@ Out-More [-InputObject] <Object[]> [[-Count] <Int32>] [-ClearScreen]
 
 ## DESCRIPTION
 
-This function is designed to display groups or "pages" of objects to the PowerShell pipeline.
-It is modeled after the legacy More.com command line utility. By default the command will write out objects out to the pipeline in groups of 50. You will be prompted after each grouping.
+This function is designed to display groups or "pages" of objects to the PowerShell pipeline. It is modeled after the legacy More.com command line utility. By default the command will write out objects out to the pipeline in groups of 50. You will be prompted after each grouping.
 
-Pressing M or Enter will get the next group.
-Pressing A will stop paging and display all of the remaining objects.
-Pressing N will display the next object.
-Press Q to stop writing anything else to the pipeline.
+Pressing M or Enter will get the next group. Pressing A will stop paging and display all of the remaining objects. Pressing N will display the next object. Press Q to stop writing anything else to the pipeline.
 
 Note that you may encounter an error message when quitting prematurely, especially on non-Windows platforms. You can ignore these errors.
 
@@ -34,7 +30,7 @@ Note that you may encounter an error message when quitting prematurely, especial
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-process | out-more -count 10
+PS C:\> Get-Process | Out-More -count 10
 
 Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 -------  ------    -----      ----- -----   ------     --  -- -----------
@@ -54,7 +50,7 @@ Display processes in groups of 10.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> dir c:\work -file -Recurse | out-more -ClearScreen | tee -Variable work
+PS C:\> dir c:\work -file -Recurse | Out-More -ClearScreen | tee -Variable work
 ```
 
 List all files in C:\Work and page them to Out-More using the default count, but after clearing the screen first. The results are then piped to Tee-Object which saves them to a variable.

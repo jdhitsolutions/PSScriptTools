@@ -39,7 +39,7 @@ Test a single folder from a parameter.
 ### Example 2
 
 ```powershell
-PS C:\> Get-ChildItem c:\work -Directory | test-EmptyFolder -passthru
+PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru
 
 
 Path          Name  IsEmpty Computername
@@ -58,7 +58,10 @@ Test child folders under C:\work.
 ### Example 3
 
 ```powershell
-PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru | Where-object {$_.Isempty} | Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
+PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru |
+Where-object {$_.Isempty} |
+Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
+
 What if: Performing the operation "Remove Directory" on target "C:\work\demo3".
 What if: Performing the operation "Remove Directory" on target "C:\work\installers".
 What if: Performing the operation "Remove Directory" on target "C:\work\new".
@@ -67,8 +70,7 @@ What if: Performing the operation "Remove Directory" on target "C:\work\todd".
 What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
 ```
 
-Find all empty sub-folders under C:\Work and pipe them to Remove-Item.
-This is one way to remove empty folders.
+Find all empty sub-folders under C:\Work and pipe them to Remove-Item. This is one way to remove empty folders.
 The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work\[data] is a non-standard path.
 
 ## PARAMETERS
@@ -126,4 +128,4 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[Get-FolderSizeInfo]()
+[Get-FolderSizeInfo](Get-FolderSizeInfo.md)

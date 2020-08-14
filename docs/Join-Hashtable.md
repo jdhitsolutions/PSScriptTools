@@ -14,7 +14,8 @@ Combine two hashtables into one.
 ## SYNTAX
 
 ```yaml
-Join-Hashtable [[-First] <Hashtable>] [[-Second] <Hashtable>] [-Force] [<CommonParameters>]
+Join-Hashtable [[-First] <Hashtable>] [[-Second] <Hashtable>] [-Force]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +31,7 @@ The original hashtables will not be modified.
 ```powershell
 PS C:\> $a=@{Name="Jeff";Count=3;Color="Green"}
 PS C:\> $b=@{Computer="HAL";Enabled=$True;Year=2020;Color="Red"}
-PS C:\> join-hashtable $a $b
+PS C:\> Join-Hashtable $a $b
 Duplicate key Color
 A Green
 B Red
@@ -49,7 +50,7 @@ Count                          3
 ### EXAMPLE 2
 
 ```powershell
-PS C:\>$c = join-hashtable $a $b -force
+PS C:\>$c = Join-Hashtable $a $b -force
 PS C:\> $c
 
 Name                           Value

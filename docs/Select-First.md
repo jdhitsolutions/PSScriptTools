@@ -14,8 +14,8 @@ Select first X number of objects.
 ## SYNTAX
 
 ```yaml
-Select-First -InputObject <PSObject> [-First] <Int32> [[-Property] <String>] [-Skip <Int32>] [-Descending]
- [<CommonParameters>]
+Select-First -InputObject <PSObject> [-First] <Int32> [[-Property] <String>]
+[-Skip <Int32>] [-Descending] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +29,7 @@ When using this command there is a trade off of convenience for performance. For
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-process | select-first 3 -property WS -descending
+PS C:\> Get-Process | Select-First 3 -property WS -descending
 
 Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 -------  ------    -----      ----- -----   ------     --  -- -----------
@@ -41,7 +41,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 ### EXAMPLE 2
 
 ```powershell
-1..10 | select-first 3 -Skip 2
+1..10 | Select-First 3 -Skip 2
 
 3
 4
@@ -153,4 +153,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [Select-Object]()
 
-[Select-Last](./Select-Last.md)
+[Select-Last](Select-Last.md)

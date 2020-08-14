@@ -36,7 +36,7 @@ This command does not write anything to the pipeline.
 ### Example 1
 
 ```powershell
-PS C:\> remove-runspace -id 18 -WhatIf
+PS C:\> Remove-Runspace -id 18 -WhatIf
 What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
 ```
 
@@ -45,7 +45,7 @@ Show what would have happened to remove runspace with an ID of 18.
 ### Example 2
 
 ```powershell
-PS C:\> get-runspace | where ID -gt 1 | Remove-Runspace
+PS C:\> Get-Runspace | where ID -gt 1 | Remove-Runspace
 ```
 
 Get all runspaces with an ID greater than 1, which is typically your session, and remove the runspace.

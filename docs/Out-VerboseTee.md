@@ -14,7 +14,8 @@ Write to the Verbose stream and a file.
 ## SYNTAX
 
 ```yaml
-Out-VerboseTee -Value <Object> [-Path] <String> [-Encoding <Encoding>] [-Append] [<CommonParameters>]
+Out-VerboseTee -Value <Object> [-Path] <String> [-Encoding <Encoding>]
+[-Append] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -143,3 +144,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Write-Verbose]()
 
 [Write-Detail]()
+
+[Tee-Object]()
+

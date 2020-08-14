@@ -73,4 +73,6 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[ConvertTo-UTCTime]()
+[ConvertTo-UTCTime](ConvertTo-UTCTime.md)
+
+[Get-Date]()

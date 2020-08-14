@@ -14,8 +14,9 @@ Get Windows version information.
 ## SYNTAX
 
 ```yaml
-Get-WindowsVersionString [[-Computername] <String[]>] [-Credential <PSCredential>] [-UseSSL]
- [-ThrottleLimit <Int32>] [-Authentication <String>] [<CommonParameters>]
+Get-WindowsVersionString [[-Computername] <String[]>]
+[-Credential <PSCredential>] [-UseSSL] [-ThrottleLimit <Int32>]
+[-Authentication <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +29,7 @@ This is a PowerShell version of the winver.exe utility.T his command uses PowerS
 
 ```powershell
 PS C:\> Get-WindowsVersionString -Computername win10 -credential company\artd
-WIN10 Windows 10 Enterprise Evaluation Version EnterpriseEval (OS Build 15063.1418
+WIN10 Windows 10 Enterprise (OS Build 15063.1418
 ```
 
 Get a string version of Windows version information from a remote computer and use an alternate credential.
@@ -176,6 +177,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Get-WindowsVersion]()
+[Get-WindowsVersion](Get-WindowsVersion.md)
 
 [Winver.exe]()

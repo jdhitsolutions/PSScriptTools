@@ -9,12 +9,13 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Copy code snippet from help examples
+Copy code snippet from help examples.
 
 ## SYNTAX
 
 ```yaml
-Copy-HelpExample [-Name] <String> [-Path <String>] [-UseGridView] [<CommonParameters>]
+Copy-HelpExample [-Name] <String> [-Path <String>] [-UseGridView]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,13 +27,13 @@ This command is intended to make it easier to copy code snippets from help examp
 ### Example 1
 
 ```powershell
-PS C:\> Copy-HelpExample -Name stop-process
+PS C:\> Copy-HelpExample -Name Stop-Process
 
 Code Samples
 
-Each help example is numbered to the left. At the prompt below,
-select the code samples you want to copy to the clipboard. Separate
-multiple values with a comma.
+Each help example is numbered to the left. At the prompt below, select the code
+samples you want to copy to the clipboard. Separate multiple values with a
+comma.
 
 Some example code includes the output.
 
@@ -56,7 +57,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id ProcessName
 [3] Example 3: Stop a process and detect that it has stopped
 
     calc
- $p = Get-Crocess -Name "calc"
+ $p = Get-Process -Name "calc"
  Stop-Process -InputObject $p
  Get-Process | Where-Object {$_.HasExited}
 
@@ -64,7 +65,8 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id ProcessName
 
     Get-Process -Name "lsass" | Stop-Process
 
-Stop-Process : Cannot stop process 'lsass (596)' because of the following error: Access is denied
+Stop-Process : Cannot stop process 'lsass (596)' because of the following error
+: Access is denied
 At line:1 char:34
 + Get-Process -Name "lsass" | Stop-Process <<<<
 

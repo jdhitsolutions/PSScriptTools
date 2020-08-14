@@ -47,8 +47,8 @@ Function _TestMe {
     }
 
     $TestResults = $TestData |
-        Measure-Object -Property TotalMilliseconds -Average -Maximum -Minimum |
-        Select-Object -Property @{Name = "Tests"; Expression = { $_.Count } },
+    Measure-Object -Property TotalMilliseconds -Average -Maximum -Minimum |
+    Select-Object -Property @{Name = "Tests"; Expression = { $_.Count } },
     @{Name = "TestInterval"; Expression = { $TestInterval } },
     @{Name = "AverageMS"; Expression = { $_.Average } },
     @{Name = "MinimumMS"; Expression = { $_.Minimum } },
@@ -177,7 +177,7 @@ Function Test-Expression {
             $expression = [scriptblock]::Create($Testparams.Expression)
             $TestParams.Expression = $Expression
             Test-Expression @testparams
-        } -ArgumentList @($PSBoundParameters) -InitializationScript { Import-Module Test-Expression }
+        } -ArgumentList @($PSBoundParameters) -InitializationScript { Import-Module PSScriptTools}
 
     }
     else {
@@ -242,7 +242,7 @@ Function Test-ExpressionForm {
             #this is a function to refresh a UI element
             Param($element)
 
-            $element.Dispatcher.invoke("render", [action]{})
+            $element.Dispatcher.invoke("render", [action] {})
             [System.Threading.Thread]::Sleep(50)
 
         }
@@ -255,47 +255,47 @@ Function Test-ExpressionForm {
                 #uncomment for troubleshooting
                 #write-host "running" -ForegroundColor green
 
-                $form.Dispatcher.invoke([action]{
-                if ($sb.Text -notmatch "\w") {
-                    Write-Warning "You must enter something to test!"
-                    Return
-                }
+                $form.Dispatcher.invoke([action] {
+                        if ($sb.Text -notmatch "\w") {
+                            Write-Warning "You must enter something to test!"
+                            Return
+                        }
 
-                $params = @{
-                    Expression        = [scriptblock]::Create($sb.text)
-                    Count             = $count.text -as [int]
-                    IncludeExpression = $True
-                }
+                        $params = @{
+                            Expression        = [scriptblock]::Create($sb.text)
+                            Count             = $count.text -as [int]
+                            IncludeExpression = $True
+                        }
 
-                If ($argumentList.text) {
-                    $params.Add("ArgumentList", ($argumentList.Text -split ","))
-                }
+                        If ($argumentList.text) {
+                            $params.Add("ArgumentList", ($argumentList.Text -split ","))
+                        }
 
-                if ($radioStatic.IsChecked) {
-                    $interval = [math]::round($slider.value, 1)
-                    $params.Add("interval", $interval)
-                }
-                else {
-                    [double]$minimum = [math]::Round($min.Text, 1)
-                    [double]$maximum = [math]::Round($max.text, 1)
-                    $params.Add("RandomMinimum", $minimum)
-                    $params.Add("RandomMaximum", $maximum)
-                }
+                        if ($radioStatic.IsChecked) {
+                            $interval = [math]::round($slider.value, 1)
+                            $params.Add("interval", $interval)
+                        }
+                        else {
+                            [double]$minimum = [math]::Round($min.Text, 1)
+                            [double]$maximum = [math]::Round($max.text, 1)
+                            $params.Add("RandomMinimum", $minimum)
+                            $params.Add("RandomMaximum", $maximum)
+                        }
 
-                $form.Cursor = [System.Windows.Input.Cursors]::Wait
-                #uncomment for troubleshooting
-                #$params | out-string | write-host -ForegroundColor cyan
+                        $form.Cursor = [System.Windows.Input.Cursors]::Wait
+                        #uncomment for troubleshooting
+                        #$params | out-string | write-host -ForegroundColor cyan
 
-                $script:out = Test-Expression @params -errorvariable ev
-                if ($script:out) {
-                    $data = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
-                }
-                else {
-                    $data = $ev.exception[0].message
-                }
-                $results.text = $data
-                $form.Cursor = [System.Windows.Input.Cursors]::Default
-                })
+                        $script:out = Test-Expression @params -errorvariable ev
+                        if ($script:out) {
+                            $data = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
+                        }
+                        else {
+                            $data = $ev.exception[0].message
+                        }
+                        $results.text = $data
+                        $form.Cursor = [System.Windows.Input.Cursors]::Default
+                    })
             })
 
         [void]$sb.Focus()

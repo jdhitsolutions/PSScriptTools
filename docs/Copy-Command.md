@@ -14,8 +14,8 @@ Copy a PowerShell command.
 ## SYNTAX
 
 ```yaml
-Copy-Command [-Command] <String> [[-NewName] <String>] [-IncludeDynamic] [-AsProxy] [-UseForwardHelp]
- [<CommonParameters>]
+Copy-Command [-Command] <String> [[-NewName] <String>] [-IncludeDynamic]
+[-AsProxy] [-UseForwardHelp] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

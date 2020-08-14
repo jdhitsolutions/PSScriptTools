@@ -16,15 +16,16 @@ Display a customizable WPF-based message box.
 ### standard (Default)
 
 ```yaml
-New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>] [-ButtonSet <String>]
- [-Background <String>] [-Quiet] [<CommonParameters>]
+New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>]
+[-ButtonSet <String>] [-Background <String>] [-Quiet] [<CommonParameters>]
 ```
 
 ### custom
 
 ```yaml
-New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>] [-CustomButtonSet <OrderedDictionary>]
- [-Background <String>] [-Quiet] [<CommonParameters>]
+New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>]
+[-CustomButtonSet <OrderedDictionary>] [-Background <String>] [-Quiet]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -48,7 +49,8 @@ This command requires a Windows platform.
 ### Example 1
 
 ```powershell
-PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
+PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?"
+-Title Confirm -Icon Question -ButtonSet YesNo
 False
 ```
 
@@ -57,7 +59,8 @@ Display a Yes/No message box. The value of the clicked button will be written to
 ### Example 2
 
 ```powershell
-PS C:\> New-WPFMessageBox -Message "Press OK when ready to continue." -Title "User Deletion" -Quiet -Background crimson -Icon Shield
+PS C:\> New-WPFMessageBox -Message "Press OK when ready to continue."
+-Title "User Deletion" -Quiet -Background crimson -Icon Shield
 ```
 
 Display a message box with a crimson background and using the Shield icon. No value will be written to the pipeline and PowerShell will wait until OK is clicked or the form dismissed.
@@ -65,7 +68,9 @@ Display a message box with a crimson background and using the Shield icon. No va
 ### Example 3
 
 ```powershell
-PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet )[ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
+PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:"
+-Title "You Decide" -Background cornsilk -Icon Warning
+-CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
 ```
 
 Create a custom message box with a user-defined set of buttons.
@@ -217,4 +222,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Invoke-InputBox]()
+[Invoke-InputBox](Invoke-InputBox.md)

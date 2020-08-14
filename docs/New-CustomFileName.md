@@ -13,7 +13,7 @@ Create a custom file name based on a template.
 
 ## SYNTAX
 
-```
+```yaml
 New-CustomFileName [-Template] <String> [-Case <String>] [<CommonParameters>]
 ```
 
@@ -180,4 +180,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[New-RandomFileName](./New-RandomFileName.md)
+[New-RandomFileName](New-RandomFileName.md)

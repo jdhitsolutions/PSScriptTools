@@ -16,15 +16,15 @@ Create a text border around a string.
 ### single (Default)
 
 ```yaml
-Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [-ANSIBorder <String>]
- [-ANSIText <String>] [<CommonParameters>]
+Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks]
+[-Tab <Int32>] [-ANSIBorder <String>] [-ANSIText <String>] [<CommonParameters>]
 ```
 
 ### block
 
 ```yaml
-Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <Int32>] [-ANSIBorder <String>]
- [-ANSIText <String>] [<CommonParameters>]
+Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks]
+[-Tab <Int32>] [-ANSIBorder <String>] [-ANSIText <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +36,7 @@ This command will create a character or text based border around a line of text.
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> add-border "PowerShell Wins!"
+PS C:\> Add-Border "PowerShell Wins!"
 
 ********************
 * PowerShell Wins! *
@@ -46,19 +46,19 @@ PS C:\> add-border "PowerShell Wins!"
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> add-border "PowerShell Wins!" -tab 1
+PS C:\> Add-Border "PowerShell Wins!" -tab 1
 
      ********************
      * PowerShell Wins! *
      ********************
 ```
 
-Note that this EXAMPLE may not format properly in the console.
+Note that this example may not format properly in all consoles.
 
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> add-border "PowerShell Wins!" -character "-" -insertBlanks
+PS C:\> Add-Border "PowerShell Wins!" -character "-" -insertBlanks
 
 --------------------
 -                  -
@@ -70,7 +70,7 @@ PS C:\> add-border "PowerShell Wins!" -character "-" -insertBlanks
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> add-border -textblock (get-service win* | out-string).trim()
+PS C:\> Add-Border -textblock (Get-Service win* | Out-String).trim()
 
 **********************************************************************
 * Status   Name               DisplayName                            *
@@ -87,7 +87,9 @@ Create a border around the output of a Get-Service command.
 ### EXAMPLE 5
 
 ```powershell
-PS C:\> add-border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m" -ANSIText "$([char]0x1b)[93m" -InsertBlanks
+PS C:\> Add-Border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m"
+-ANSIText "$([char]0x1b)[93m" -InsertBlanks
+
 
 *******************
 *                 *
@@ -101,7 +103,8 @@ This will write a color version of the text and border. You would this type of A
 ### EXAMPLE 6
 
 ```powershell
-PS C:\scripts> add-border -textblock (Get-PSWho -AsString ).trim() -ANSIBorder "`e[38;5;214m" -Character ([char]0x25CA) -ANSIText "`e[38;5;225m"
+PS C:\> Add-Border -textblock (Get-PSWho -AsString ).trim() -ANSIBorder
+"`e[38;5;214m" -Character ([char]0x25CA) -ANSIText "`e[38;5;225m"
 
 ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
 ◊ User            : BOVINE320\Jeff                    ◊
@@ -118,7 +121,7 @@ PS C:\scripts> add-border -textblock (Get-PSWho -AsString ).trim() -ANSIBorder "
 ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
 ```
 
-This example requires PowerShell 7 because of the escape sequence.
+This example requires PowerShell 7 because of the way the escape sequence is defined. The border character is a diamond. Depending on how you are viewing this help content, it may not display properly.
 
 ## PARAMETERS
 
@@ -244,10 +247,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.String
+### [System.String]
 
 ## NOTES
 
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
+[New-ANSIBar](New-ANSIBar.md)

@@ -81,4 +81,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [Import-PowerShellDatafile]()
 
-[Convert-HashtabletoCode](./Convert-HashtabletoCode.md)
+[Convert-HashtableToCode](Convert-HashtableToCode.md)

@@ -16,15 +16,15 @@ Test your PowerShell code under a different culture.
 ### scriptblock (Default)
 
 ```yaml
-Test-WithCulture [-Culture] <CultureInfo> [-Scriptblock] <ScriptBlock> [-ArgumentList <Object[]>]
- [<CommonParameters>]
+Test-WithCulture [-Culture] <CultureInfo> [-Scriptblock] <ScriptBlock>
+[-ArgumentList <Object[]>] [<CommonParameters>]
 ```
 
 ### file
 
 ```yaml
-Test-WithCulture [-Culture] <CultureInfo> -FilePath <ScriptBlock> [-ArgumentList <Object[]>]
- [<CommonParameters>]
+Test-WithCulture [-Culture] <CultureInfo> -FilePath <ScriptBlock>
+[-ArgumentList <Object[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -45,7 +45,12 @@ Montag, 14. Oktober 2019 08:59:01
 ### Example2
 
 ```powershell
-PS C\> Test-WithCulture fr-fr -Scriptblock { Get-winEvent -log system -max 500 | Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message | Sort-Object -property TimeCreated | Group-Object {$_.timecreated.toshortdatestring()} -noelement }
+PS C\> Test-WithCulture fr-fr -Scriptblock {
+  Get-winEvent -log system -max 500 |
+  Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message |
+  Sort-Object -property TimeCreated |
+  Group-Object {$_.timecreated.toshortdatestring()} -noelement
+  }
 
 Count Name
 ----- ----

@@ -5,7 +5,7 @@ online version: http://bit.ly/2vxGyUP
 schema: 2.0.0
 ---
 
-# Rename-HashTable
+# Rename-Hashtable
 
 ## SYNOPSIS
 
@@ -16,29 +16,24 @@ Rename a hashtable key.
 ### Pipeline (Default)
 
 ```yaml
-Rename-HashTable [-InputObject] <Object> [-Key] <String> [-NewKey] <String> [-Passthru] [-Scope <String>]
- [-WhatIf] [-Confirm] [<CommonParameters>]
+Rename-Hashtable [-InputObject] <Object> [-Key] <String> [-NewKey] <String>
+[-Passthru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Name
 
 ```yaml
-Rename-HashTable [-Name] <String> [-Key] <String> [-NewKey] <String> [-Passthru] [-Scope <String>] [-WhatIf]
- [-Confirm] [<CommonParameters>]
+Rename-Hashtable [-Name] <String> [-Key] <String> [-NewKey] <String>
+[-Passthru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will rename a key in an existing hashtable or ordered dictionary.
-You can either pipe a
-hashtable object to this command or you can specify a variable name for a pre-defined hashtable.
-If you use this option, specify the variable name without the $.
+This command will rename a key in an existing hashtable or ordered dictionary. You can either pipe a hashtable object to this command or you can specify a variable name for a pre-defined hashtable. If you use this option, specify the variable name without the $.
 
-This command will create a temporary copy of the hashtable, create the new key and copy the value from the old key, before removing the old key.
-The temporary hashtable is then set as the new value for your original variable.
+This command will create a temporary copy of the hashtable, create the new key and copy the value from the old key, before removing the old key. The temporary hashtable is then set as the new value for your original variable.
 
-This command does not write anything to the pipeline when you use a variable name unless you use -Passthru.
-If you pipe a hashtable to this command, the new hashtable will automatically be written to the pipeline.
+This command does not write anything to the pipeline when you use a variable name unless you use -Passthru. If you pipe a hashtable to this command, the new hashtable will automatically be written to the pipeline.
 
 You might find this command useful when building a hashtable that you intend to use with splatting where you need to align key names with parameter names.
 
@@ -53,11 +48,12 @@ PS C:\> Rename-Hashtable -name MyHash -key Name -newKey Computername
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> $newhash = Get-Service spooler | ConvertTo-HashTable | Rename-HashTable -Key Machinename -NewKey Computername
+PS C:\> $newhash = Get-Service spooler |
+ConvertTo-HashTable |
+Rename-Hashtable -Key Machinename -NewKey Computername
 ```
 
-This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable.
-The Machinename key is then renamed to Computername.
+This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable. The Machinename key is then renamed to Computername.
 
 ## PARAMETERS
 
@@ -211,12 +207,12 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 Learn more about PowerShell:
 http://jdhitsolutions.com/blog/essential-powershell-resources/
 
-This code was first described at http://jdhitsolutions.com/blog/2013/01/rename-hashtable-key-revised
+This code was first described at http://jdhitsolutions.com/blog/2013/01/Rename-Hashtable-key-revised
 
 ## RELATED LINKS
 
 [About_hash_tables]()
 
-[ConvertTo-Hashtable]()
+[ConvertTo-Hashtable](ConvertTo-Hashtable.md)
 
-[Join-Hashtable]()
+[Join-Hashtable](Join-Hashtable.md)

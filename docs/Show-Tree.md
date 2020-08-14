@@ -16,15 +16,15 @@ Shows the specified path as a tree.
 ### Path (Default)
 
 ```yaml
-Show-Tree [[-Path] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem] [-ShowProperty <String[]>]
- [-InColor] [<CommonParameters>]
+Show-Tree [[-Path] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>]
+[-ShowItem] [-ShowProperty <String[]>] [-InColor] [<CommonParameters>]
 ```
 
 ### LiteralPath
 
 ```yaml
-Show-Tree [[-LiteralPath] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>] [-ShowItem]
- [-ShowProperty <String[]>] [-InColor] [<CommonParameters>]
+Show-Tree [[-LiteralPath] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>]
+[-ShowItem] [-ShowProperty <String[]>] [-InColor] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -70,7 +70,7 @@ Shows the directory tree structure, recursing down two levels.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProperty *
+PS C:\>Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProp *
 
 HKLM:\SOFTWARE\Microsoft\.NETFramework
 +-- Enable64Bit = 1
@@ -83,15 +83,15 @@ HKLM:\SOFTWARE\Microsoft\.NETFramework
 |  +--ADOMD.Client 14.0
 |  |  \-- (default) = C:\Program Files\Microsoft.NET\ADOMD.NET\140\
 |  +--Microsoft .NET Framework 3.5 Reference Assemblies
-|  |  \-- (default) = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
+|  |  \-- (default) = C:\Program Files\Reference Assemblies\Microsoft\Framew...
 |  +--SQL Server Assemblies 140
 |  |  \-- (default) = C:\Program Files\Microsoft SQL Server\140\SDK\Assemblies\
 |  +--v3.0
 |  |  +-- <IncludeDotNet2Assemblies> = 1
-|  |  \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.0\
+|  |  \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsof...
 |  \--v3.5
 |     +-- <IncludeDotNet2Assemblies> = 1
-|     \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsoft\Framework\v3.5\
+|     \-- All Assemblies In = C:\Program Files\Reference Assemblies\Microsof...
 ...
 ```
 

@@ -2,13 +2,17 @@
 Function Get-ParameterInfo {
 
     [cmdletbinding()]
-    [Outputtype("PSCustomobject")]
+    [Outputtype("PSParameterInfo")]
     [alias("gpi")]
 
     Param(
-        [Parameter(Position = 0, Mandatory,
-            ValueFromPipeline, ValueFromPipelineByPropertyName,
-            HelpMessage = "Enter a cmdlet name")]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+            HelpMessage = "Enter a cmdlet name"
+            )]
         [ValidateNotNullorEmpty()]
         [Alias("name")]
         [string]$Command,
@@ -56,16 +60,16 @@ Function Get-ParameterInfo {
             }
             else {
                 Write-Verbose "Getting parameter all non-common parameters"
-                $params = $data.keys | where-object {$common -notcontains $_}
+                $params = $data.keys | Where-Object {$common -notcontains $_}
             }
-            $count = ($params | measure-object).count
+            $count = ($params | Measure-Object).count
             #only keep going if non-common parameters were found
-            write-verbose "Found $count non-common parameters for $command"
+            Write-Verbose "Found $count non-common parameters for $command"
 
             if ($count -gt 0) {
                 #get information from each parameter
 
-                $params | foreach-object {
+                $params | ForEach-Object {
                     $name = $_
                     Write-Verbose "Analyzing $name"
                     $type = $data.item($name).ParameterType
@@ -76,7 +80,7 @@ Function Get-ParameterInfo {
                     foreach ($set in $sets) {
 
                         #retrieve parameter attribute class
-                        $attributes = $data.item($name).Attributes | where-object {$_ -is [system.management.automation.parameterAttribute] -AND $_.ParameterSetName -eq $set}
+                        $attributes = $data.item($name).Attributes | Where-Object {$_ -is [system.management.automation.parameterAttribute] -AND $_.ParameterSetName -eq $set}
 
                         #a parameter could have different positions in different property sets
                         if ($attributes.position -ge 0) {
@@ -88,6 +92,7 @@ Function Get-ParameterInfo {
 
                         #write a custom object to the pipeline
                         [PSCustomObject]@{
+                            PSTypeName                      = "PSParameterInfo"
                             Name                            = $name
                             Aliases                         = $aliases
                             Mandatory                       = $attributes.mandatory
@@ -98,13 +103,12 @@ Function Get-ParameterInfo {
                             IsDynamic                       = $IsDynamic
                             ParameterSet                    = $attributes.ParameterSetName
                         }
-
                     } #foreach set
                 } #foreach object
             } #if $count
         } #if $data
         else {
-            Write-warning "$command has no defined parameters"
+            Write-Warning "$command has no defined parameters"
         }
     } #process
 

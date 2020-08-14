@@ -14,8 +14,8 @@ Options for formatting strings.
 ## SYNTAX
 
 ```yaml
-Format-String [-Text] <String> [-Reverse] [-Case <String>] [-Replace <Hashtable>] [-Randomize]
- [<CommonParameters>]
+Format-String [-Text] <String> [-Reverse] [-Case <String>] [-Replace <Hashtable>]
+[-Randomize] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,7 +34,7 @@ They are applied in this order:
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> "P@ssw0rd" | format-string -Reverse
+PS C:\> "P@ssw0rd" | Format-String -Reverse
 
 dr0wss@P
 ```
@@ -42,7 +42,7 @@ dr0wss@P
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> "P@ssw0rd" | format-string -Reverse -Randomize
+PS C:\> "P@ssw0rd" | Format-String -Reverse -Randomize
 
 rs0Pd@ws
 ```
@@ -50,7 +50,7 @@ rs0Pd@ws
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> $env:computername | format-string -Case Lower
+PS C:\> $env:computername | Format-String -Case Lower
 
 win81-ent-01
 ```
@@ -58,7 +58,7 @@ win81-ent-01
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> format-string "p*wer2she!!" -Case Alternate
+PS C:\> Format-String "p*wer2she!!" -Case Alternate
 
 P*WeR2ShE!!
 ```
@@ -66,7 +66,8 @@ P*WeR2ShE!!
 ### EXAMPLE 5
 
 ```powershell
-PS C:\> format-string "alphabet" -Randomize -Replace @{a="@";e=3} -Case Alternate
+PS C:\> Format-String "alphabet" -Randomize -Replace @{a="@";e=3} `
+-Case Alternate
 
 3bPl@tH@
 ```
@@ -74,7 +75,7 @@ PS C:\> format-string "alphabet" -Randomize -Replace @{a="@";e=3} -Case Alternat
 ### EXAMPLE 6
 
 ```powershell
-PS C:\> "pOWERSHELL" | Format-string -Case Toggle
+PS C:\> "pOWERSHELL" | Format-String -Case Toggle
 
 Powershell
 ```
@@ -187,6 +188,6 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Format-Value](./Format-Value.md)
+[Format-Value](Format-Value.md)
 
-[Format-Percent](./Format-Percent.md)
+[Format-Percent](Format-Percent.md)

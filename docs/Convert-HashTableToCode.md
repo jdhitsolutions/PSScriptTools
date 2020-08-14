@@ -5,7 +5,7 @@ online version: http://bit.ly/31SLU7X
 schema: 2.0.0
 ---
 
-# Convert-HashTableToCode
+# Convert-HashtableToCode
 
 ## SYNOPSIS
 
@@ -16,13 +16,14 @@ Convert a hashtable to a string representation.
 ### psd1 (Default)
 
 ```yaml
-Convert-HashTableToCode [-Hashtable] <Hashtable> [-Indent <Int32>] [<CommonParameters>]
+Convert-HashtableToCode [-Hashtable] <Hashtable> [-Indent <Int32>]
+[<CommonParameters>]
 ```
 
 ### inline
 
 ```yaml
-Convert-HashTableToCode [-Hashtable] <Hashtable> [-Inline] [<CommonParameters>]
+Convert-HashtableToCode [-Hashtable] <Hashtable> [-Inline] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -35,7 +36,7 @@ Use this command to convert a hashtable into its text or string equivalent.
 
 ```powershell
 PS C:\> $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
-PS C:\> convert-hashtabletocode $h
+PS C:\> Convert-HashtableToCode $h
 @{
         Name = 'SRV1'
         Asset = 123454
@@ -48,7 +49,7 @@ Convert a hashtable object to a string equivalent that you can copy into your sc
 ### Example 2
 
 ```powershell
-PS C:\> convert-hashtabletocode $h -inline
+PS C:\> Convert-HashtableToCode $h -inline
 
 @{Name = 'SRV1';Asset = 123454;Location = 'Omaha'}
 ```
@@ -123,4 +124,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 ## RELATED LINKS
 
-[Convert-HashtableString](./Convert-HashtableString.md)
+[Convert-HashtableString](Convert-HashtableString.md)

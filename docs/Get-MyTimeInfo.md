@@ -14,8 +14,8 @@ Display a time settings for a collection of locations.
 ## SYNTAX
 
 ```yaml
-Get-MyTimeInfo [[-Locations] <OrderedDictionary>] [-HomeTimeZone <String>] [-DateTime <DateTime>] [-AsTable]
- [-AsList] [<CommonParameters>]
+Get-MyTimeInfo [[-Locations] <OrderedDictionary>] [-HomeTimeZone <String>]
+[-DateTime <DateTime>] [-AsTable] [-AsList] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

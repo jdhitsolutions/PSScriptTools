@@ -26,7 +26,7 @@ Convert a timespan into a lexical version that you can insert into an XML docume
 ### Example 1
 
 ```powershell
-PS C:\> ConvertTo-LexicalTimespan (new-timespan -Days 7)
+PS C:\> ConvertTo-LexicalTimespan (New-Timespan -Days 7)
 
 P7D
 ```
@@ -70,4 +70,4 @@ http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 
-[ConvertFrom-LexicalTimespan](./ConvertFrom-LexicalTimespan)
+[ConvertFrom-LexicalTimespan](ConvertFrom-LexicalTimespan.md)

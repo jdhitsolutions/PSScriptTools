@@ -14,7 +14,8 @@ Retrieve command parameter information.
 ## SYNTAX
 
 ```yaml
-Get-ParameterInfo [-Command] <String> [-Parameter <String>] [<CommonParameters>]
+Get-ParameterInfo [-Command] <String> [-Parameter <String>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,106 +27,63 @@ Using Get-Command, this function will return information about parameters for an
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> get-parameterinfo get-service
+PS C:\> Get-ParameterInfo Get-Service
+
+
+   ParameterSet: Default
 
 
 Name                            : Name
 Aliases                         : ServiceName
 Mandatory                       : False
+IsDynamic                       : False
 Position                        : 0
+Type                            : System.String[]
 ValueFromPipeline               : True
 ValueFromPipelineByPropertyName : True
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : Default
+
+
+
+   ParameterSet: __AllParameterSets
+
 
 Name                            : ComputerName
 Aliases                         : Cn
 Mandatory                       : False
+IsDynamic                       : False
 Position                        : Named
+Type                            : System.String[]
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : True
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
 
 Name                            : DependentServices
 Aliases                         : DS
 Mandatory                       : False
+IsDynamic                       : False
 Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
 Type                            : System.Management.Automation.SwitchParameter
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : RequiredServices
-Aliases                         : SDO,ServicesDependedOn
-Mandatory                       : False
-Position                        : Named
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
-Type                            : System.Management.Automation.SwitchParameter
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : DisplayName
-Aliases                         :
-Mandatory                       : True
-Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : DisplayName
-
-Name                            : Include
-Aliases                         :
-Mandatory                       : False
-Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : Exclude
-Aliases                         :
-Mandatory                       : False
-Position                        : Named
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
-
-Name                            : InputObject
-Aliases                         :
-Mandatory                       : False
-Position                        : Named
-ValueFromPipeline               : True
-ValueFromPipelineByPropertyName : False
-Type                            : System.ServiceProcess.ServiceController[]
-IsDynamic                       : False
-ParameterSet                    : InputObject
+...
 ```
 
-Return parameter information for Get-Service
+Return parameter information for Get-Service using the default list view.
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> get-parameterinfo mkdir  | Select Name,Type,Position,parameterset
+PS C:\> Get-ParameterInfo mkdir |
+Select-Object Name,Type,Position,parameterset
 
-Name           Type                                         Position ParameterSet
-----           ----                                         -------- ------------
-Path           System.String[]                                     0 pathSet
-Path           System.String[]                                     0 nameSet
-Name           System.String                                   Named nameSet
-Value          System.Object                                   Named __AllParameterSets
-Force          System.Management.Automation.SwitchParameter    Named __AllParameterSets
-Credential     System.Management.Automation.PSCredential       Named __AllParameterSets
-UseTransaction System.Management.Automation.SwitchParameter    Named __AllParameterSets
+Name           Type                                 Position ParameterSet
+----           ----                                 -------- ------------
+Path           System.String[]                             0 pathSet
+Path           System.String[]                             0 nameSet
+Name           System.String                           Named nameSet
+Value          System.Object                           Named __AllParameterSets
+Force          System.Management.Automation.Switch...  Named __AllParameterSets
+Credential     System.Management.Automation.PSCred...  Named __AllParameterSets
+UseTransaction System.Management.Automation.Switch...  Named __AllParameterSets
 ```
 
 Get selected parameter information for the mkdir command.
@@ -133,50 +91,46 @@ Get selected parameter information for the mkdir command.
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> get-parameterinfo get-ciminstance | sort parameterset | format-table -GroupBy ParameterSet -Property Name,Mandatory,Alias,Position,Type
+PS C:\> Get-ParameterInfo Test-WSMan | Sort Parameterset | Format-Table
+
 
    ParameterSet: __AllParameterSets
 
-Name                Mandatory Alias Position Type
-----                --------- ----- -------- ----
-OperationTimeoutSec     False       Named    System.UInt32
+Name                  Aliases Mandatory Position Type
+----                  ------- --------- -------- ----
+CertificateThumbprint         False     Named    System.String
+Credential            cred,c  False     Named    System.Management.Automati...
+ComputerName          cn      False     0        System.String
+Authentication        auth,am False     Named    Microsoft.WSMan.Management....
 
 
-   ParameterSet: CimInstanceComputerSet
+   ParameterSet: ComputerName
 
-Name         Mandatory Alias Position Type
-----         --------- ----- -------- ----
-ResourceUri      False       Named    System.Uri
-InputObject       True       0        Microsoft.Management.Infrastructure.CimInstance
-ComputerName     False       Named    System.String[]
-
-
-   ParameterSet: CimInstanceSessionSet
-
-Name        Mandatory Alias Position Type
-----        --------- ----- -------- ----
-CimSession       True       Named    Microsoft.Management.Infrastructure.CimSession[]
-InputObject      True       0        Microsoft.Management.Infrastructure.CimInstance
-ResourceUri     False       Named    System.Uri...
+Name            Aliases Mandatory Position Type
+----            ------- --------- -------- ----
+UseSSL                  False     Named    System.Management.Automation.Swit...
+Port                    False     Named    System.Int32
+ApplicationName         False     Named    System.String
 ```
 
-Get all parameters from Get-CimInstance and display details as a formatted table.
+Get all parameters from Test-WSMan and display details as a formatted table. The object type from Get-ParameterInfo has a default table view.
 
 ### Example 4
 
 ```powershell
 PS C:\> Get-ParameterInfo -Command Get-Counter -Parameter computername
 
+   ParameterSet: __AllParameterSets
+
 
 Name                            : computername
 Aliases                         : Cn
 Mandatory                       : False
+IsDynamic                       : False
 Position                        : Named
+Type                            : System.String[]
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
-Type                            : System.String[]
-IsDynamic                       : False
-ParameterSet                    : __AllParameterSets
 ```
 
 Get details on the Computername parameter of the Get-Counter cmdlet.
@@ -217,8 +171,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -226,7 +179,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### custom object
+### PSParameterInfo
 
 ## NOTES
 
