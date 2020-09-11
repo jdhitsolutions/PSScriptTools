@@ -550,6 +550,148 @@ UpdateNeeded     : True</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Compare-Script</command:name>
+      <command:verb>Compare</command:verb>
+      <command:noun>Script</command:noun>
+      <maml:description>
+        <maml:para>Compare PowerShell script versions.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to compare script versions between what is installed against an online repository like the PSGallery. Results will be automatically sorted by the script name.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Compare-Script</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="1" aliases="scriptname">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>The name of a script to check. Wildcards are permitted.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Gallery</maml:name>
+          <maml:Description>
+            <maml:para>Specify the remote repository or gallery to check.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>PSGallery</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="1" aliases="scriptname">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>The name of a script to check. Wildcards are permitted.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Gallery</maml:name>
+        <maml:Description>
+          <maml:para>Specify the remote repository or gallery to check.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>PSGallery</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[string]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSCustomObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Compare-Script | Where-object {$_.UpdateNeeded}
+
+Name             : DNSSuffix
+OnlineVersion    : 0.4.1
+InstalledVersion : 0.2.0
+PublishedDate    : 10/22/2018 8:21:46 PM
+UpdateNeeded     : True
+
+Name             : InvokeBuild
+OnlineVersion    : 5.4.2
+InstalledVersion : 3.2.2
+PublishedDate    : 12/7/2018 1:30:46 AM
+UpdateNeeded     : True
+...</dev:code>
+        <dev:remarks>
+          <maml:para>List all scripts that could be updated.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Compare-Script | Where UpdateNeeded |
+Out-Gridview -title "Select scripts to update" -outputMode multiple |
+Foreach-Object { Update-Script $_.name }</dev:code>
+        <dev:remarks>
+          <maml:para>Compare scripts and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what scripts to update.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Compare-Script.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Find-Script</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-InstalledScript</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Update-Script</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Convert-CommandToHashtable</command:name>
       <command:verb>Convert</command:verb>
       <command:noun>CommandToHashtable</command:noun>
@@ -6237,6 +6379,125 @@ PowerShell : /home/jeff/.config/powershell</dev:code>
       <maml:navigationLink>
         <maml:linkText>Set-Location</maml:linkText>
         <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-PSProfile</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>PSProfile</command:noun>
+      <maml:description>
+        <maml:para>Get PowerShell profile locations</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is designed for Windows-based systems to show all possible PowerShell profile scripts. Including those for VS Code and the PowerShell ISE.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-PSProfile</maml:name>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSProfilePath</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSProfile
+
+   Name: PowerShell
+
+Scope                  Path                                                                Exists
+-----                  ----                                                                ------
+AllUsersCurrentHost    C:\Program Files\PowerShell\7\Microsoft.PowerShell_profile.ps1      False
+AllUsersAllHosts       C:\Program Files\PowerShell\7\profile.ps1                           False
+CurrentUserAllHosts    C:\Users\Jeff\Documents\PowerShell\profile.ps1                      True
+CurrentUserCurrentHost C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 True
+
+
+   Name: Windows PowerShell
+
+Scope                  Path                                                                        Exists
+-----                  ----                                                                        ------
+AllUsersCurrentHost    C:\WINDOWS\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1 True
+AllUsersAllHosts       C:\WINDOWS\System32\WindowsPowerShell\v1.0\profile.ps1                      True
+CurrentUserAllHosts    C:\Users\Jeff\Documents\WindowsPowerShell\profile.ps1                       True
+CurrentUserCurrentHost C:\Users\Jeff\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1  True
+
+
+   Name: VSCode PowerShell
+
+Scope                  Path                                                            Exists
+-----                  ----                                                            ------
+CurrentUserCurrentHost C:\Users\Jeff\Documents\PowerShell\Microsoft.VSCode_profile.ps1 True
+AllUsersCurrentHost    C:\Program Files\PowerShell\7\Microsoft.VSCode_profile.ps1      False
+...</dev:code>
+        <dev:remarks>
+          <maml:para>The command has a default formatted table view.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSProfile | Where-Object Exists | Format-List
+
+
+   Name: PowerShell
+
+
+Scope        : CurrentUserAllHosts
+Path         : C:\Users\Jeff\Documents\PowerShell\profile.ps1
+Exists       : True
+LastModified : 9/9/2020 2:35:45 PM
+
+Scope        : CurrentUserCurrentHost
+Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+Exists       : True
+LastModified : 9/9/2020 2:03:44 PM
+
+
+
+   Name: Windows PowerShell
+
+
+Scope        : AllUsersCurrentHost
+Path         : C:\WINDOWS\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1
+Exists       : True
+LastModified : 10/9/2017 4:08:35 PM
+...</dev:code>
+        <dev:remarks>
+          <maml:para>The command has a default list view.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSProfile.md</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>

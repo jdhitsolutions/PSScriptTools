@@ -20,6 +20,7 @@ $prog = @{
 Write-Progress @prog
 
 $ModulePath = Convert-Path $Path
+$moduleName = Split-Path $modulePath -leaf
 Write-Verbose "[$(Get-Date)] Working from $modulePath"
 
 Write-Verbose "[$(Get-Date)] Importing ruby-related functions"
@@ -52,7 +53,8 @@ Write-Verbose "[$(Get-Date)] Importing adoc data from json"
 $data = Get-Content $DataPath | ConvertFrom-Json
 
 Write-Verbose "[$(Get-Date)] Get the module version"
-$ver = (Import-PowerShellDataFile $ModulePath\*.psd1).moduleversion
+$ver = (Test-ModuleManifest -Path .\$modulename.psd1).version.tostring()
+#(Import-PowerShellDataFile $ModulePath\*.psd1).moduleversion
 Write-Verbose "[$(Get-Date)] Found version $ver"
 
 #define a here-string for the main document in Asciidoctor format
@@ -162,7 +164,7 @@ $main | Out-File -FilePath $out -Encoding utf8
 
 Write-Progress -Activity $prog.Activity -Completed
 Write-Host
-$msg = "Edit and review the adoc files and then run makepdf.ps1"
+$msg = "Edit and review the adoc files and then run makepdf.ps1. Also edit pdf-theme.yml with the updated version number for page headers."
 Write-Host $msg -ForegroundColor Cyan
 
 Write-Verbose "[$(Get-Date)] Finished."

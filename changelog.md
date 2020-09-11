@@ -1,5 +1,11 @@
 # ChangeLog for PSScriptTools
 
+## v2.28.0
+
++ Added `Compare-Script` thanks to @cohdjn.
++ Added `Get-PSProfile` and a related formatting file, `psprofilepath.format.ps1xml`.
++ Updated `README.md`.
+
 ## v2.27.0
 
 + Added a new command called `Get-MyAlias` with an alias of `gma`.
@@ -16,7 +22,7 @@
 
 + Cleaned up bad links and code fence re-formatting in `README.md`.
 + Created new base version of `PSScriptToolsHelp.md`.
-+ Generated new help manual with a table of contents and nicer formatting. (Issue #87)
++ Generated a new help manual with a table of contents and nicer formatting. (Issue #87)
 + Renamed help pdf to `PSScriptToolsManual.pdf`.
 
 ## v2.26.1
@@ -135,7 +141,7 @@
 + Added a default ANSI color map file `psansimap.json`.
 + Modified module to use a copy of `psansimap.json` in $HOME if detected. Otherwise, use the module's version.
 + Create a global variable called `PSAnsiFileMap` from importing the `psansimap.json` file.
-+ Updated `Show-Tree` to use an ansi color map. (Issue #69)
++ Updated `Show-Tree` to use an ANSI color map. (Issue #69)
 + Added `FileSystem-ansi.format.ps1xml` which adds a custom view called `ansi`. This colorizes files based on `$PSAnsiMap`.
 + Updated `Show-Tree` to resolve child paths using `-LiteralPath`.
 + Updated `README.md`
@@ -153,7 +159,7 @@
 + Set the default parameter value for `-Path` in `Show-Tree` to the current directory.
 + Modified `Show-Tree` to allow the user to specify an array of properties. This is a __breaking change__ as the parameter has been changed from a `switch` to `string[]`. (Issue #72)
 + Removed `PROPERTY` label in `Show-Tree` output when displaying properties.
-+ Corrected errors in module manifest.
++ Corrected errors in the module manifest.
 + Added auto completer for `Runspace` parameter in `Remove-Runspace`.
 + Added alias `rfn` for `New-RandomFileName`.
 + Added alias `cfn` for `New-CustomFileName`.
@@ -198,7 +204,7 @@
 
 ## v2.16.0
 
-+ Fixed bug in `New-CustomFileName` when using a 24 hour value. (Issue #62)
++ Fixed bug in `New-CustomFileName` when using a 24-hour value. (Issue #62)
 + Updated `Test-ExpressionForm` to clear the text results. (Issue #61)
 + Updated `Convertto-WPFGrid` to display a refresh message. (Issue #43)
 + Updated `foldersizeinfo.format.ps1xml` to include a KB formatted view.
@@ -245,11 +251,11 @@
 + Added 'Convert-EventLogRecord' function and its alias `clr`.
 + Added `Rename-Hashtable` function and its alias `rht`.
 + Updated `Convertto-Markdown` to include options to format as a table.
-+ Updated module manifest to export `ConvertTo-WPFGrid` to all hosts. Code in the command will determine compatibility.
++ Updated module manifest to export `ConvertTo-WPFGrid` to all hosts. The code in the command will determine compatibility.
 + Updated `Find-FileItem` to work better cross-platform.
 + Updated `New-WPFMessagebox` to work on PowerShell 7 on Windows platforms.
 + Help Updates.
-+ Modified module and manifest to export all functions regardless of edition. Any OS limitations will be handled on a per command basis.
++ Modified module and manifest to export all functions regardless of edition. Any OS limitations will be handled on a per-command basis.
 + Updated `README.md`.
 
 ## v2.12.0
@@ -269,7 +275,7 @@
 
 + Added `Test-WithCulture`.
 + Fixed typo in `Copy-Command` help.
-+ Created yaml formatted help files.
++ Created YAML formatted help files.
 + Updated `README.md`.
 + Updated help documentation with online links.
 + Updated `PSScriptTools.md`.
@@ -277,7 +283,7 @@
 ## v2.9.0
 
 + Added `ConvertFrom-Text` and its alias `cft`. (Issue #53)
-+ Updated `ConvertTo-UTC` to include an option to format result as a sortable string. (Issue #52)
++ Updated `ConvertTo-UTC` to include an option to format the result as a sortable string. (Issue #52)
 + Added `Get-WhoIs` and `whoisresult.format.ps1xml`.
 + help documentation clean up.
 + Updated and reorganized `README.md`.
@@ -309,8 +315,8 @@
 
 ## v2.6.0
 
-+ Modified `Convertto-WPFGrid` to set maximum size equal to total available working area. (Issue #36)
-+ Modified `Convertto-WPFGrid` to change cursor on refresh and display a refresh message in the title bar
++ Modified `Convertto-WPFGrid` to set maximum size equal to the total available working area. (Issue #36)
++ Modified `Convertto-WPFGrid` to change the cursor on refresh and display a refresh message in the title bar
 + Added InitializationScript option for `ConvertTo-WPFGrid`. (Issue #42)
 + Added `ConvertTo-LocalTime` with an alias of `clt`.
 + Updated `README.md`.
@@ -318,8 +324,8 @@
 
 ## v2.5.0
 
-+ fixed bug which was hiding the horizontal scroll bar in `ConvertTo-WPFGrid`. (Issue #40)
-+ fixed bug which prevented status bar from updating when manually refreshing in `ConvertTo-WPFGrid`. (Issue #34)
++ Fixed bug which was hiding the horizontal scroll bar in `ConvertTo-WPFGrid`. (Issue #40)
++ Fixed bug which prevented the status bar from updating when manually refreshing in `ConvertTo-WPFGrid`. (Issue #34)
 + Changed time display in `ConvertTo-WPFGrid` as a timespan instead of raw seconds. (Issue #41)
 + Markdown help cleanup.
 + Added `Set-ConsoleTitle`.
@@ -329,8 +335,8 @@
 ## v2.4.0
 
 + Made datagrid in `ConvertTo-WPFGrid` read-only. (Issue #38)
-+ Modified datagrid in `ConvertTo-WPFGrid` to better handle resizing. (Issue #36)
-+ Modified statusbar in `ConvertTo-WPFGrid` to better handle resizing. (Issue #37)
++ Modified the datagrid in `ConvertTo-WPFGrid` to better handle resizing. (Issue #36)
++ Modified the statusbar in `ConvertTo-WPFGrid` to better handle resizing. (Issue #37)
 + Modified form in `ConvertTo-WPFGrid` to better fit in the screen and not exceed the screen area. (Issue #39)
 + Added parameter to allow usage of local variables in `ConvertTo-WPFGrid`. (Issue #35)
 + Help updates.
@@ -339,8 +345,8 @@
 ## v2.3.0
 
 + Fixed bug in `ConvertTo-WPFGrid` that wasn't updating last update time. (Issue #30)
-+ Modified `ConvertTo-WPFGrid` to allow user to load their profile scripts into the runspace. (Issue #29)
-+ Modified auto sizing code in `ConvertTo-WPFGrid`.
++ Modified `ConvertTo-WPFGrid` to allow the user to load their profile scripts into the runspace. (Issue #29)
++ Modified auto-sizing code in `ConvertTo-WPFGrid`.
 + Modified `ConvertTo-WPFGrid` to automatically display scroll bars when necessary.
 + Modified `New-PSFormatXML` to display a warning on invalid property names. (Issue #33)
 + Added `Get-myTimeInfo`, `ConvertTo-UTCTime` and `ConvertFrom-UTCTime` (Issue #31)
@@ -363,7 +369,7 @@
 
 ## v2.1.0
 
-+ Added parameter to allow user to specify a type name with `New-PSFormatXML`. (Issue #26)
++ Added parameter to allow the user to specify a type name with `New-PSFormatXML`. (Issue #26)
 + Added `Get-ParameterInfo` command with an alias of `gpi`.
 + Updated help for `Optimize-Text`.
 + Help updates.
@@ -387,7 +393,7 @@
 
 ## v1.8.0
 
-+ fixed typo in `Write-Detail`. (Thanks @AndrewPla)
++ Fixed typo in `Write-Detail`. (Thanks @AndrewPla)
 + Added `Compare-Module` function. (Issue #19)
 + Added `Get-WindowsVersion` function. (Issue #20)
 + Added `Get-WindowsVersionString` function.
@@ -401,7 +407,7 @@
 
 + Added `New-WPFMessagebox` function. (Issue #11)
 + Added alias `nmb` for `New-WPFMessageBox`.
-+ Added icon files for WPF Message box.
++ Added icon files for the WPF Message box.
 + Updated `README.md`.
 
 ## v1.6.0
@@ -473,7 +479,7 @@
 ## v0.4.0
 
 + Added `Copy-Command`. (Issue #2)
-+ Updated `Copy-Command` to open new file in the ISE or VSCode.
++ Updated `Copy-Command` to open a new file in the ISE or VSCode.
 + Added Format functions. (Issue #3)
 + Updated help.
 + Added new sample files.

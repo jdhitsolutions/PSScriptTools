@@ -3,7 +3,7 @@
   "Title": "PSScriptTools Manual",
   "CodeTheme": "github",
   "CodeThemePath": "",
-  "Theme": "c:\\scripts\\pdf-theme.yml",
+  "Theme": "pdf-theme.yml",
   "Files": [
     {
       "Name": "Intro.md",

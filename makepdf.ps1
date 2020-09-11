@@ -26,7 +26,7 @@ $params = @{
 }
 
 if (Test-Path $data.CodeThemePath) {
-    $params.Add("CodeThemePath")
+    $params.Add("CodeThemePath",$data.CodeThemePath)
 }
 
 $pdf = Export-ADoc @params
