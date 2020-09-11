@@ -48,7 +48,7 @@ List all scripts that could be updated.
 
 ```powershell
 PS C:\> Compare-Script | Where UpdateNeeded |
-Out-Gridview -title "Select modules to update" -outputMode multiple |
+Out-Gridview -title "Select scripts to update" -outputMode multiple |
 Foreach-Object { Update-Script $_.name }
 ```
 
@@ -63,7 +63,7 @@ The name of a script to check. Wildcards are permitted.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: modulename
+Aliases: scriptname
 
 Required: False
 Position: 1
