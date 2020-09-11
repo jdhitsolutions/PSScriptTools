@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: 
+online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Compare-Script.md
 schema: 2.0.0
 ---
 
@@ -19,7 +19,7 @@ Compare-Script [[-Name] <String>] [-Gallery <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Use this command to compare script versions between what is installed against an online repository like the PSGallery. Results will be automatically sorted by script name.
+Use this command to compare script versions between what is installed against an online repository like the PSGallery. Results will be automatically sorted by the script name.
 
 ## EXAMPLES
 

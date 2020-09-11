@@ -37,7 +37,7 @@ or in PowerShell 7:
 Install-Module PSScriptTools [-scope CurrentUser] [-force]
 ```
 
-> Starting in v2.2.0, the module was restructured to better support `Desktop` and `Core` editions. But starting with version 2.13.0, the module design has reverted. All commands will be exported. Anything that is platform specific should be handled on a per command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
+> Starting in v2.2.0, the module was restructured to better support `Desktop` and `Core` editions. But starting with version 2.13.0, the module design has reverted. All commands will be exported. Anything that is platform-specific should be handled on a per-command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
 
 ### Uninstall the Module
 
@@ -50,9 +50,67 @@ Uninstall-Module PSScriptTools -allversions
 
 ## General Tools
 
+### [Get-PSProfile](docs/Get-PSProfile.md)
+
+This command is designed for Windows systems and make it easy to identify all possible PowerShell profile scripts. Including those for hosts such as VSCode or the PowerShell ISE. The command writes a custom object to the pipeline which has defined formatting. The default view is a table.
+
+```text
+PS C:\> get-psprofile
+
+
+   Name: PowerShell
+
+Scope                  Path                                                                Exists
+-----                  ----                                                                ------
+AllUsersCurrentHost    C:\Program Files\PowerShell\7\Microsoft.PowerShell_profile.ps1      False
+AllUsersAllHosts       C:\Program Files\PowerShell\7\profile.ps1                           False
+CurrentUserAllHosts    C:\Users\Jeff\Documents\PowerShell\profile.ps1                      True
+CurrentUserCurrentHost C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 True
+
+
+   Name: Windows PowerShell
+
+Scope                  Path                                                                        Exists
+-----                  ----                                                                        ------
+AllUsersCurrentHost    C:\WINDOWS\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1 True
+AllUsersAllHosts       C:\WINDOWS\System32\WindowsPowerShell\v1.0\profile.ps1                      True
+CurrentUserAllHosts    C:\Users\Jeff\Documents\WindowsPowerShell\profile.ps1                       True
+CurrentUserCurrentHost C:\Users\Jeff\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1  True
+```
+
+There is also a list view.
+
+```text
+PS C:\> get-psprofile | Where-Object {$_.name -eq 'powershell'} | Format-List
+
+
+   Name: PowerShell
+
+
+Scope        : AllUsersCurrentHost
+Path         : C:\Program Files\PowerShell\7\Microsoft.PowerShell_profile.ps1
+Exists       : False
+LastModified :
+
+Scope        : AllUsersAllHosts
+Path         : C:\Program Files\PowerShell\7\profile.ps1
+Exists       : False
+LastModified :
+
+Scope        : CurrentUserAllHosts
+Path         : C:\Users\Jeff\Documents\PowerShell\profile.ps1
+Exists       : True
+LastModified : 9/9/2020 2:35:45 PM
+
+Scope        : CurrentUserCurrentHost
+Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+Exists       : True
+LastModified : 9/9/2020 2:03:44 PM
+```
+
 ### [Get-MyAlias](docs/Get-MyAlias.md)
 
-Often you might define aliases for functions and scripts you use all of time. It may difficult sometimes to remember them all or to find them in the default `Get-Alias` output. This command will list all currently defined aliases that are not part of the initial PowerShell state.
+Often you might define aliases for functions and scripts you use all of the time. It may difficult sometimes to remember them all or to find them in the default `Get-Alias` output. This command will list all currently defined aliases that are not part of the initial PowerShell state.
 
 ![Get-MyAlias](images/gma-1.png)
 
@@ -68,11 +126,11 @@ Get-Alias | Sort-Object Source | Format-Table -View source
 
 ![Alias source](images/alias-source.png)
 
-This command has an alias of *gma*.
+This command has an alias of `gma`.
 
 ### [Get-ModuleCommand](docs/Get-ModuleCommand.md)
 
-This is an alternative to `Get-Command` to make it easier to see at a glance what commands are contained within a module and what they can do. By default, `Get-ModuleCommand` looks for loaded modules. Use `-ListAvailable` to see commands in module not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.
+This is an alternative to `Get-Command` to make it easier to see at a glance what commands are contained within a module and what they can do. By default, `Get-ModuleCommand` looks for loaded modules. Use `-ListAvailable` to see commands in the module not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.
 
 ```text
 PS C:\> Get-ModuleCommand PSCalendar
@@ -141,7 +199,7 @@ ConvertTo-LocalTime    clt   Convert a foreign time to local
 
 ### [Convert-EventLogRecord](docs/Convert-EventLogRecord.md)
 
-When you use [Get-WinEvent](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7&WT.mc_id=ps-gethelp), the results are objects you can work with in PowerShell. However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message. This additional information is not readily exposed. You can use this command to convert results of a Get-WinEvent command into a PowerShell custom object with additional information.
+When you use [Get-WinEvent](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.diagnostics/get-winevent?view=powershell-7&WT.mc_id=ps-gethelp), the results are objects you can work with in PowerShell. However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message. This additional information is not readily exposed. You can use this command to convert the results of a `Get-WinEvent` command into a PowerShell custom object with additional information.
 
 ```text
 PS C:\> Get-WinEvent -FilterHashtable @{Logname='System';ID=7045} -MaxEvents 1|
@@ -314,7 +372,7 @@ Depending on the value and how PowerShell chooses to display it, you may not see
 
 ### [ConvertFrom-Text](docs/ConvertFrom-Text.md)
 
-This command can be used to convert text from a file or a command line tool into objects. It uses a regular expression pattern with named captures and turns the result into a custom object. You have the option of specifying a typename in case you are using custom format files.
+This command can be used to convert text from a file or a command-line tool into objects. It uses a regular expression pattern with named captures and turns the result into a custom object. You have the option of specifying a typename in case you are using custom format files.
 
 ```text
 PS C:\> $arp = '(?<IPAddress>(\d{1,3}\.){3}\d{1,3})\s+(?<MAC>(\w{2}-){5}\w{2})\s+(?<Type>\w+$)'
@@ -503,7 +561,7 @@ Computername    Path                         TotalFiles     TotalSize
 BOVINE320       C:\work                            1375     137516856
 ```
 
-The command includes a format file with additional view to display the total size in KB, MB, GB or TB.
+The command includes a format file with an additional view to display the total size in KB, MB, GB or TB.
 
 ```text
 PS C:\> Get-ChildItem D:\ -Directory | Get-FolderSizeInfo -Hidden |
@@ -695,7 +753,7 @@ Invoke-Inputbox -Prompt "Enter a password for $Name" -AsSecureString
 
 ![secure input box](images/ibx-2.png)
 
-This example also demonstrates that you can change form's background color. This function will **not** work in PowerShell Core.
+This example also demonstrates that you can change the form's background color. This function will **not** work in PowerShell Core.
 
 ### [New-WPFMessageBox](docs/New-WPFMessageBox.md)
 
@@ -744,7 +802,7 @@ You can also have automatically refresh the data.
 ```powershell
 Get-Process | Sort-Object WS -Descending |
 Select-Object -first 20 ID,Name,WS,VM,PM,Handles,StartTime |
-Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
+ConvertTo-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 ```
 
 ![Displaying Top Processes](images/wpfgrid2.png)
@@ -933,7 +991,7 @@ dir c:\scripts\*.ps1 | Sort-Object lastwritetime | last 10
 
 ## Time Functions
 
-The module has a few date and time related commands.
+The module has a couple of date and time-related commands.
 
 ### [ConvertTo-UTCTime](docs/ConvertTo-UTCTime.md)
 
@@ -959,7 +1017,7 @@ Convert a universal datetime to the local time.
 
 ### [Get-MyTimeInfo](docs/Get-MyTimeInfo.md)
 
-Display a time settings for a collection of locations. This command is a PowerShell equivalent of a world clock. It will display a datetime value against a collection of locations. You can specify an ordered hashtable of locations and time zones. You can run command like:
+Display a group of time settings for a collection of locations. This command is a PowerShell equivalent of a world clock. It will display a datetime value against a collection of locations. You can specify an ordered hashtable of locations and time zones. You can run a command like:
 
 ```powershell
 [System.TimeZoneinfo]::GetSystemTimeZones() | Out-GridView
@@ -1137,7 +1195,7 @@ Set-ConsoleColor -background DarkGray -foreground Yellow
 
 ### [Add-Border](docs/Add-Border.md)
 
-This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
+This command will create a character or text-based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
 
 ```text
 PS C:\> Add-Border $env:computername
@@ -1165,7 +1223,7 @@ Add-Border @params
 
 ### [Show-Tree](docs/Show-Tree.md)
 
-Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.
+Shows the specified path as a graphical tree in the console. This is intended as a PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details.
 
 ![show file system tree](images/show-tree1.png)
 
@@ -1173,7 +1231,7 @@ If you are running PowerShell 7 and specifying a file system path, you can displ
 
 ![show file system tree](images/show-tree2.png)
 
-Beginning with v2.21.0, this command uses ANSI Color schemes from a json file. You can customize the file if you wish. See the [PSAnsiMap](#PSAnsiMap) section of this README.
+Beginning with v2.21.0, this command uses ANSI Color schemes from a JSON file. You can customize the file if you wish. See the [PSAnsiMap](#PSAnsiMap) section of this README.
 
 This command has an alias of `pstree`.
 
@@ -1205,7 +1263,7 @@ C:\work\Alpha\
 ...
 ```
 
-This example is using parameter and command aliases. You can display a tree listing with files including user specified properties. Use a value of * to show all properties.
+This example is using parameter and command aliases. You can display a tree listing with files including user-specified properties. Use a value of * to show all properties.
 
 ### [New-ANSIBar](docs/New-ANSIBar.md)
 
@@ -1368,7 +1426,7 @@ Expression   : param([string[]]$Names) Get-Service $names
 Arguments    : {bits, wuauserv, winrm}
 ```
 
-For very long running tests, you can run them as a background job.
+For very long-running tests, you can run them as a background job.
 
 #### Graphical Testing
 
@@ -1380,9 +1438,9 @@ When you quit the form the last result will be written to the pipeline including
 
 ### [Copy-HelpExample](docs/Copy-HelpExample.md)
 
-This command is designed to make it (slightly) easier to copy code snippets from help examples. Specify the name of a function or cmdlet, presumably one with documented help examples, and you will be offered a selection of code snippets to copy to the clipboard. Code snippets have been trimmed of blank lines, most prompts, and comments. Many examples include output. You will have to manually remove what you don't want after pasting.
+This command is designed to make it (slightly) easier to copy code snippets from help examples. Specify the name of a function or cmdlet, presumably one with documented help examples, and you will be offered a selection of code snippets to copy to the clipboard. Code snippets have been trimmed of blank lines, most prompts, and comments. Many examples include command output. You will have to manually remove what you don't want after pasting.
 
-The default behavior is to use a console based menu which works cross-platform.
+The default behavior is to use a console-based menu which works cross-platform.
 
 ![Copy-HelpExample](images/copy-helpexample-1.png)
 
@@ -1423,7 +1481,7 @@ Computername : BOVINE320
 
 ### [Remove-MergedBranch](docs/Remove-MergedBranch.md)
 
-When using `git` you may create a number of branches. Presumably you merge these branches into the main or master branch. You can this command to remove all merged branches other than master and the current branch. You must be in the root of your project to run this command.
+When using `git` you may create a number of branches. Presumably you merge these branches into the main or master branch. You can this command to remove all merged branches other than `master` and the current branch. You must be in the root of your project to run this command.
 
 ```text
 PS C:\MyProject> Remove-MergedBranch
@@ -1479,7 +1537,7 @@ This command will copy a PowerShell command, including parameters and help to a 
 
 ### [Get-ParameterInfo](docs/Get-ParameterInfo.md)
 
-Using `Get-Command`, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. `Get-ParameterInfo` returns a custom object with the most useful information an administrator might need to know. The custom object includes default format views for list and table.
+Using `Get-Command`, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. `Get-ParameterInfo` returns a custom object with the most useful information an administrator might need to know. The custom object includes default format views for a list and table.
 
 ![Get-ParameterInfo summary](images/get-parameterinfo-1.png)
 
@@ -1629,7 +1687,7 @@ This will not work in the PowerShell ISE as it is not ANSI-aware.
 
 ### PSAnsiMap
 
-I have done something similar for output from `Get-ChildItem`. The module includes json file that is exported as a global variable called `PSAnsiFileMap`.
+I have done something similar for output from `Get-ChildItem`. The module includes a JSON file that is exported as a global variable called `PSAnsiFileMap`.
 
 ```text
 PS C:\> $PSAnsiFileMap
@@ -1651,7 +1709,7 @@ The map includes ANSI settings for different file types. You won't see the ANSI 
 
 ![ANSI File listing](images/ansi-file-format.png)
 
-The mapping file is user customizable. Copy the `psansifilemap.json` file from the module's root directory to $HOME. When you import this module, if the file is found, it will be imported and used as `psansifilemap`, otherwise the module's file will be used.
+The mapping file is user-customizable. Copy the `psansifilemap.json` file from the module's root directory to $HOME. When you import this module, if the file is found, it will be imported and used as `psansifilemap`, otherwise the module's file will be used.
 
 The file will look like this:
 
@@ -1705,7 +1763,7 @@ The file will look like this:
 ]
 ```
 
-You can create or modify file groups. The Pattern value should be a regular expression pattern to match on the filename. Don't forget you will need to escape characters for the json format. The Ansi value will be an ANSI escape sequence. You can use `\u001b` for the \``e` character.
+You can create or modify file groups. The Pattern value should be a regular expression pattern to match on the filename. Don't forget you will need to escape characters for the JSON format. The Ansi value will be an ANSI escape sequence. You can use `\u001b` for the \``e` character.
 
 ### PSSpecialChar
 
@@ -1755,6 +1813,6 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 ## Compatibility
 
-Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running this commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
+Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-08-13 21:14:31Z*
+Last Updated *2020-09-11 12:18:44Z*
