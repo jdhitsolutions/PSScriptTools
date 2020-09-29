@@ -1,5 +1,11 @@
 # ChangeLog for PSScriptTools
 
+## v2.29.0
+
++ Modified `Get-WindowsVersion` to not use remoting when connecting to the local computer. (Issue #90)
++ Updated help documentation for `Get-WindowsVersion` and `Get-WindowsVersionString`.
++ Added command `Copy-PSFunction` with an alias of `cpfun`.
+
 ## v2.28.0
 
 + Added `Compare-Script` thanks to @cohdjn.

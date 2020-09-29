@@ -3500,6 +3500,142 @@ Please select items to copy to the clipboard by number. Separate multiple entrie
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Copy-PSFunction</command:name>
+      <command:verb>Copy</command:verb>
+      <command:noun>PSFunction</command:noun>
+      <maml:description>
+        <maml:para>Copy a local PowerShell function to a remote session.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is designed to solve the problem when you want to run a function loaded locally on a remote computer. Copy-PSFunction will copy a PowerShell function that is loaded in your current PowerShell session to a remote PowerShell session. The remote session must already be created. The copied function only exists remotely for the duration of the remote PowerShell session.</maml:para>
+      <maml:para>If the function relies on external or additional files, you will have to copy them to the remote session separately.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Copy-PSFunction</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>Enter the name of a local function.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Force</maml:name>
+          <maml:Description>
+            <maml:para>Overwrite an existing function with the same name. The default behavior is to skip existing functions.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Session</maml:name>
+          <maml:Description>
+            <maml:para>Specify an existing PSSession.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSSession</command:parameterValue>
+          <dev:type>
+            <maml:name>PSSession</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Force</maml:name>
+        <maml:Description>
+          <maml:para>Overwrite an existing function with the same name. The default behavior is to skip existing functions.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>Enter the name of a local function.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Session</maml:name>
+        <maml:Description>
+          <maml:para>Specify an existing PSSession.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSSession</command:parameterValue>
+        <dev:type>
+          <maml:name>PSSession</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Deserialized.System.Management.Automation.FunctionInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; "Get-LastBoot","Get-DiskFree" | Copy-PSFunction -session $S</dev:code>
+        <dev:remarks>
+          <maml:para>Copy the local functions Get-LastBoot and Get-DiskFree to a previously created PSSession saved as $S. You could then run the function remotely using Invoke-Command.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Copy-PSFunction.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Copy-Item</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Find-CimClass</command:name>
       <command:verb>Find</command:verb>
       <command:noun>CimClass</command:noun>
@@ -7225,6 +7361,7 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
     </command:details>
     <maml:description>
       <maml:para>This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command.</maml:para>
+      <maml:para>If you are querying the local computer, all other parameters will be ignored.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -7298,7 +7435,7 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
             <maml:para></maml:para>
             <maml:para>The default value is Default.</maml:para>
             <maml:para>CredSSP authentication is available only in Windows Vista, Windows Server 2008, and later versions of the Windows operating system.</maml:para>
-            <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in theMicrosoft Developer Network (MSDN) library.</maml:para>
+            <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in the Microsoft Developer Network (MSDN) library.</maml:para>
             <maml:para>CAUTION: Credential Security Support Provider (CredSSP) authentication, in which the user's credentials are passed to a remote computer to be authenticated, is designed for commands that require authentication on more than one resource, such as accessing a remote network share. This mechanism increases the security risk of the remote operation. If the remote computer is compromised, the credentials that are passed to it can be used to control the network session.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -7381,7 +7518,7 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
           <maml:para></maml:para>
           <maml:para>The default value is Default.</maml:para>
           <maml:para>CredSSP authentication is available only in Windows Vista, Windows Server 2008, and later versions of the Windows operating system.</maml:para>
-          <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in theMicrosoft Developer Network (MSDN) library.</maml:para>
+          <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in the Microsoft Developer Network (MSDN) library.</maml:para>
           <maml:para>CAUTION: Credential Security Support Provider (CredSSP) authentication, in which the user's credentials are passed to a remote computer to be authenticated, is designed for commands that require authentication on more than one resource, such as accessing a remote network share. This mechanism increases the security risk of the remote operation. If the remote computer is compromised, the credentials that are passed to it can be used to control the network session.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -7459,7 +7596,7 @@ ProductName                    EditionID            ReleaseID  Build  InstalledU
 Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:28:13 PM
 Evaluation</dev:code>
         <dev:remarks>
-          <maml:para>Get windows version information from remote computers using an alternate credential.</maml:para>
+          <maml:para>Get Windows version information from remote computers using an alternate credential.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -7508,6 +7645,7 @@ Computername : DOM1</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This is a PowerShell version of the winver.exe utility.T his command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command. The command writes a string of version information.</maml:para>
+      <maml:para>If you are querying the local computer, all other parameters will be ignored.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -7581,7 +7719,7 @@ Computername : DOM1</dev:code>
             <maml:para></maml:para>
             <maml:para>The default value is Default.</maml:para>
             <maml:para>CredSSP authentication is available only in Windows Vista, Windows Server 2008, and later versions of the Windows operating system.</maml:para>
-            <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in theMicrosoft Developer Network (MSDN) library.</maml:para>
+            <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in the Microsoft Developer Network (MSDN) library.</maml:para>
             <maml:para>CAUTION: Credential Security Support Provider (CredSSP) authentication, in which the user's credentials are passed to a remote computer to be authenticated, is designed for commands that require authentication on more than one resource, such as accessing a remote network share. This mechanism increases the security risk of the remote operation. If the remote computer is compromised, the credentials that are passed to it can be used to control the network session.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
@@ -7664,7 +7802,7 @@ Computername : DOM1</dev:code>
           <maml:para></maml:para>
           <maml:para>The default value is Default.</maml:para>
           <maml:para>CredSSP authentication is available only in Windows Vista, Windows Server 2008, and later versions of the Windows operating system.</maml:para>
-          <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in theMicrosoft Developer Network (MSDN) library.</maml:para>
+          <maml:para>For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in the Microsoft Developer Network (MSDN) library.</maml:para>
           <maml:para>CAUTION: Credential Security Support Provider (CredSSP) authentication, in which the user's credentials are passed to a remote computer to be authenticated, is designed for commands that require authentication on more than one resource, such as accessing a remote network share. This mechanism increases the security risk of the remote operation. If the remote computer is compromised, the credentials that are passed to it can be used to control the network session.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
