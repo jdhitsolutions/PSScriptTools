@@ -50,6 +50,23 @@ Uninstall-Module PSScriptTools -allversions
 
 ## General Tools
 
+### [Copy-PSFunction](docs/Copy-PSFunction.md)
+
+This command is designed to solve the problem when you want to run a function loaded locally on a remote computer. Copy-PSFunction will copy a PowerShell function that is loaded in your current PowerShell session to a remote PowerShell session. The remote session must already be created. The copied function only exists remotely for the duration of the remote PowerShell session.
+
+```powershell
+$s = new-pssession -ComputerName win10 -cred $art
+Copy-PSFunction Get-Status -Session $s
+```
+
+Once copied, you might use `Invoke-Command` to run it.
+
+```powershell
+Invoke-Command { get-status -asstring } -session $s
+```
+
+If the function relies on external or additional files, you will have to copy them to the remote session separately.
+
 ### [Get-PSProfile](docs/Get-PSProfile.md)
 
 This command is designed for Windows systems and make it easy to identify all possible PowerShell profile scripts. Including those for hosts such as VSCode or the PowerShell ISE. The command writes a custom object to the pipeline which has defined formatting. The default view is a table.
@@ -354,7 +371,7 @@ New-PSDrivehere \\ds416\backup\ Backup
 
 ### [Get-MyVariable](docs/Get-MyVariable.md)
 
-This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local or a number 0 through 5.
+This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as `script`, `local` or a number 0 through 5.
 
 ```text
 PS C:\> Get-MyVariable
@@ -1048,7 +1065,7 @@ This is a handy command when traveling and your laptop is using a locally derive
 It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location.
 
 ```text
-PS C:\> Get-TimeZone -ListAvailable | Where-Object id -match hawaii
+PS C:\> Get-TimeZone -ListAvailable | Where-Object id -match Hawaii
 
 
 Id                         : Hawaiian Standard Time
@@ -1628,7 +1645,7 @@ OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01
 ```
 
-If you run this command within VS Code and specify `-Passthru`, the resulting file will be opened in your editor.
+If you run this command from Visual Studio Code and specify `-Passthru`, the resulting file will be opened in your editor.
 
 ### [Test-IsPSWindows](docs/Test-IsPSWindows.md)
 
@@ -1815,4 +1832,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-09-11 12:18:44Z*
+Last Updated *2020-09-29 12:53:26Z*

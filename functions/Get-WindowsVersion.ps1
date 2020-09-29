@@ -1,4 +1,8 @@
 
+<#
+Modified 9/29/2020 so that Invoke-Command doesn't attempt to create a remoting session to the local machine.
+#Issue 90
+#>
 Function Get-WindowsVersion {
 
     [cmdletbinding()]
@@ -19,7 +23,7 @@ Function Get-WindowsVersion {
 
     Begin {
 
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.Mycommand)"
 
         $sb = {
             $RegPath = 'HKLM:\SOFTWARE\Microsoft\Windows nt\CurrentVersion\'
@@ -33,17 +37,27 @@ Function Get-WindowsVersion {
 
         #update PSBoundParameters so it can be splatted to Invoke-Command
         [void]$PSBoundParameters.Add("ScriptBlock", $sb)
-        [void]$PSBoundParameters.add("HideComputername", $True)
+
     } #begin
 
     Process {
         if (Test-IsPSWindows) {
 
-            Write-Verbose "[PROCESS] Invoking command"
-            if (-Not $PSBoundParameters.ContainsKey("Computername")) {
-                #add the default value if nothing was specified
-                [void]$PSBoundParameters.Add("Computername", $Computername)
+            if ($Computername -eq $ENV:Computername) {
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing the local host"
+                #remove all any passed parameters
+                "Credential","UseSSL","ThrottleLimit","Authentication" | foreach-object {
+                    if ($psboundparameters.ContainsKey($_)) {
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Removing parameter $_"
+                        [void]($PSBoundparameters.Remove($_))
+                    }
+                }
             }
+            else {
+                [void]$PSBoundParameters.add("HideComputername", $True)
+            }
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Invoking command"
+
             $PSBoundParameters | Out-String | Write-Verbose
             $results = Invoke-Command @PSBoundParameters | Select-Object -Property * -ExcludeProperty RunspaceID, PS*
             if ($Results) {
@@ -70,7 +84,7 @@ Function Get-WindowsVersion {
 
     End {
 
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay)END    ] Ending $($MyInvocation.Mycommand)"
 
     } #end
 } #close function
@@ -94,11 +108,11 @@ Function Get-WindowsVersionString {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.Mycommand)"
     } #begin
 
     Process {
-        Write-Verbose "[PROCESS] Calling Get-WindowsVersion"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Calling Get-WindowsVersion"
         $results = Get-WindowsVersion @PSBoundParameters
 
         #write a version string for each computer
@@ -109,6 +123,6 @@ Function Get-WindowsVersionString {
     } #process
 
     End {
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.Mycommand)"
     } #end
 }

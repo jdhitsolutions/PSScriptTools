@@ -22,6 +22,8 @@ Get-WindowsVersion [[-Computername] <String[]>] [-Credential <PSCredential>]
 
 This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command.
 
+If you are querying the local computer, all other parameters will be ignored.
+
 ## EXAMPLES
 
 ### EXAMPLE 1
@@ -68,7 +70,7 @@ Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5
 Evaluation
 ```
 
-Get windows version information from remote computers using an alternate credential.
+Get Windows version information from remote computers using an alternate credential.
 
 ### Example 3
 
@@ -183,7 +185,7 @@ The default value is Default.
 
 CredSSP authentication is available only in Windows Vista, Windows Server 2008, and later versions of the Windows operating system.
 
-For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in theMicrosoft Developer Network (MSDN) library.
+For information about the values of this parameter, see the description of the AuthenticationMechanismEnumeration (http://go.microsoft.com/fwlink/?LinkID=144382) in the Microsoft Developer Network (MSDN) library.
 
 CAUTION: Credential Security Support Provider (CredSSP) authentication, in which the user's credentials are passed to a remote computer to be authenticated, is designed for commands that require authentication on more than one resource, such as accessing a remote network share.
 This mechanism increases the security risk of the remote operation. If the remote computer is compromised, the credentials that are passed to it can be used to control the network session.
