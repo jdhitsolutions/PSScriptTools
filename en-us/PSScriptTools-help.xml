@@ -1109,7 +1109,7 @@ CreatedOn                      BOVINE320</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to convert a hashtable into its text or string equivalent.</maml:para>
+      <maml:para>Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1129,7 +1129,7 @@ CreatedOn                      BOVINE320</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="tab">
           <maml:name>Indent</maml:name>
           <maml:Description>
-            <maml:para>Specify the number of tabs to indent. You shouldn't need this parameter. It exists for situations where there are nested hashtables.</maml:para>
+            <maml:para>Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hashtables.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1182,7 +1182,7 @@ CreatedOn                      BOVINE320</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="tab">
         <maml:name>Indent</maml:name>
         <maml:Description>
-          <maml:para>Specify the number of tabs to indent. You shouldn't need this parameter. It exists for situations where there are nested hashtables.</maml:para>
+          <maml:para>Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hashtables.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
