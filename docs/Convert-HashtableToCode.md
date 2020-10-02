@@ -28,7 +28,7 @@ Convert-HashtableToCode [-Hashtable] <Hashtable> [-Inline] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Use this command to convert a hashtable into its text or string equivalent.
+Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type.
 
 ## EXAMPLES
 
@@ -76,7 +76,7 @@ Accept wildcard characters: False
 
 ### -Indent
 
-Specify the number of tabs to indent. You shouldn't need this parameter. It exists for situations where there are nested hashtables.
+Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hashtables.
 
 ```yaml
 Type: Int32

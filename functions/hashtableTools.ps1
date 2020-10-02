@@ -154,13 +154,28 @@ Function Convert-HashtableToCode {
                 if ($_.value[0].Gettype().name -match "int|double") {
                     $value = $_.value -join ','
                 }
+                elseif ($_.value[0].GetType().name -eq "Hashtable") {
+                    #10/2/2020 JDH need to process nested hashtables in an array (Issue #91)
+                    if ($inline) {
+                        $value = ($_.value | Convert-HashtableToCode -inline).trim() -join ","
+                    }
+                    else {
+                        $value = ($_.value | Convert-HashtableToCode).trim() -join ",`n"
+                    }
+                }
                 else {
                     $value = "'{0}'" -f ($_.value -join "','")
                 }
             }
             elseif ($_.value -is [hashtable]) {
                 Write-Verbose "Creating nested entry"
-                $nested = Convert-HashTableToCode $_.value -Indent $($indent + 1)
+                #10/2/2020 JDH convert hashtables using current values
+                if ($inline) {
+                    $nested = Convert-HashtableToCode $_.value -inline
+                }
+                else {
+                    $nested = Convert-HashTableToCode $_.value -Indent $($indent + 1)
+                }
                 $value = "$($nested)"
             }
             elseif ($_.value -is [scriptblock]) {
@@ -171,6 +186,7 @@ Function Convert-HashtableToCode {
                 Write-Verbose "..defaulting as a string"
                 $value = "'$($_.value)'"
             }
+
             if ($inline) {
                 $out += "$($_.key) = $value;"
             }

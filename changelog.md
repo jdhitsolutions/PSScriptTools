@@ -1,5 +1,11 @@
 # ChangeLog for PSScriptTools
 
+## v2.30.0
+
++ Fixed a bug in `Convert-HashtableToCode` when converting hashtables with nested hashtables. (Issue #91)
++ Modified `Convert-HashtableToCode` to honor `-Inline` when processing nested hashtables.
++ Updated help documentation for `Convert-HashtableToCode` to clarify the use of array values in a hashtable.
+
 ## v2.29.0
 
 + Modified `Get-WindowsVersion` to not use remoting when connecting to the local computer. (Issue #90)
