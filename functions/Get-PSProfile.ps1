@@ -6,6 +6,7 @@ Function Get-PSProfile {
 
     Write-Verbose "Starting $($myinvocation.mycommand)"
     if ($IsWindows -OR ($PSEdition -eq "Desktop")) {
+        $myDocsLocation = (Get-PSLocation).Home
         # a collection of known PowerShell profile paths
         $hosts = @(
             @{
@@ -13,34 +14,34 @@ Function Get-PSProfile {
                 Command                = "pwsh.exe"
                 AllUsersAllHosts       = "$env:PROGRAMFILES\PowerShell\7\profile.ps1"
                 AllUsersCurrentHost    = "$env:PROGRAMFILES\PowerShell\7\Microsoft.PowerShell_profile.ps1"
-                CurrentUserAllHosts    = "$env:USERPROFILE\Documents\PowerShell\profile.ps1"
-                CurrentUserCurrentHost = "$env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
+                CurrentUserAllHosts    = "$myDocsLocation\PowerShell\profile.ps1"
+                CurrentUserCurrentHost = "$myDocsLocation\PowerShell\Microsoft.PowerShell_profile.ps1"
             },
             @{
                 Name                   = "Windows PowerShell"
                 Command                = "powershell.exe"
                 AllUsersAllHosts       = "$env:WINDIR\System32\WindowsPowerShell\v1.0\profile.ps1"
                 AllUsersCurrentHost    = "$env:WINDIR\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1"
-                CurrentUserAllHosts    = "$env:USERPROFILE\Documents\WindowsPowerShell\profile.ps1"
-                CurrentUserCurrentHost = "$env:USERPROFILE\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+                CurrentUserAllHosts    = "$myDocsLocation\WindowsPowerShell\profile.ps1"
+                CurrentUserCurrentHost = "$myDocsLocation\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
             },
             @{
                 Name                   = "VSCode PowerShell"
                 Command                = "Code"
                 AllUsersCurrentHost    = "$env:PROGRAMFILES\PowerShell\7\Microsoft.VSCode_profile.ps1"
-                CurrentUserCurrentHost = "$env:USERPROFILE\Documents\PowerShell\Microsoft.VSCode_profile.ps1"
+                CurrentUserCurrentHost = "$myDocsLocation\PowerShell\Microsoft.VSCode_profile.ps1"
             },
             @{
                 Name                   = "VSCode Windows PowerShell"
                 Command                = "Code"
                 AllUsersCurrentHost    = "$env:WINDIR\System32\WindowsPowerShell\v1.0\Microsoft.VSCode_profile.ps1"
-                CurrentUserCurrentHost = "$env:USERPROFILE\Documents\WindowsPowerShell\Microsoft.VSCode_profile.ps1"
+                CurrentUserCurrentHost = "$myDocsLocation\WindowsPowerShell\Microsoft.VSCode_profile.ps1"
             },
             @{
                 Name                   = "PowerShell ISE"
                 Command                = "Powershell_ISE.exe"
                 AllUsersCurrentHost    = "$env:WINDIR\System32\WindowsPowerShell\v1.0\Microsoft.PowerShellISE_profile.ps1"
-                CurrentUserCurrentHost = "$env:USERPROFILE\Documents\WindowsPowerShell\Microsoft.PowerShellISE_profile.ps1"
+                CurrentUserCurrentHost = "$myDocsLocation\WindowsPowerShell\Microsoft.PowerShellISE_profile.ps1"
             }
         )
 
