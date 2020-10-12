@@ -1109,7 +1109,7 @@ CreatedOn                      BOVINE320</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type.</maml:para>
+      <maml:para>Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command is not has not been tested with large or complex hashtables, so you might need to manually edit the output to meet your tastes or requirements.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -5011,6 +5011,155 @@ sunday                          47   24540.6523</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Measure-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-FormatView</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>FormatView</command:noun>
+      <maml:description>
+        <maml:para>Get defined format views.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>PowerShell's formatting system includes a number of custom views that display objects in different ways. Unfortunately, this information is not readily available to a typical PowerShell user. Get-FormatView displays the available views for a given object type. You might get additional views when importing modules such as the PSScriptTools module. The result is there might be different views depending on if you use Format-Table, or Format-List. If you only see a single defined view, that is the default for that type of control.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-FormatView</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+          <maml:name>TypeName</maml:name>
+          <maml:Description>
+            <maml:para>Specify a typename such as System.Diagnostics.Process.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>*</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>PowerShellVersion</maml:name>
+          <maml:Description>
+            <maml:para>Specify the version of PowerShell this cmdlet gets for the formatting data. Enter a two-digit number separated by a period.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+          <dev:type>
+            <maml:name>Version</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>your current PowerShell version</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+        <maml:name>TypeName</maml:name>
+        <maml:Description>
+          <maml:para>Specify a typename such as System.Diagnostics.Process.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>*</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>PowerShellVersion</maml:name>
+        <maml:Description>
+          <maml:para>Specify the version of PowerShell this cmdlet gets for the formatting data. Enter a two-digit number separated by a period.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Version</command:parameterValue>
+        <dev:type>
+          <maml:name>Version</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>your current PowerShell version</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSFormatView</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command relies on data provided by Get-FormatData. Some object types might be stored in PowerShell in unexpected ways. This command should have an alias of gfv.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-FormatView system.diagnostics.process
+
+
+   Type: System.Diagnostics.Process
+
+Format    Name
+------    ----
+Table     process
+Table     Priority
+Table     StartTime
+Wide      process
+Table     WS</dev:code>
+        <dev:remarks>
+          <maml:para>The default view should be the first one listed for each format type. With this information, you can now run a command like `Get-Process | Format-Table -view Priority`. The WS view is added when you import the PSScriptTools module.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-FormatView | Where-Object Format -eq Table |
+Group-Object typename | Where-Object count -gt 1  | Select-Object Name,
+@{Name="Names";Expression = {$_.group.name}}
+
+Name                                            Names
+----                                            -----
+FolderSizeInfo                                  {default, MB, GB, KB...}
+gitsize                                         {mb, default}
+ModuleCommand                                   {default, verb}
+System.Diagnostics.Process                      {process, Priority, StartTime..
+System.IO.DirectoryInfo                         {children, ansi}
+System.IO.FileInfo                              {children, ansi}
+System.Management.Automation.AliasInfo          {CommandInfo, AliasInfo, opti..
+System.Management.Automation.ApplicationInfo    {CommandInfo, ApplicationInfo}
+System.Management.Automation.ExternalScriptInfo {CommandInfo, ExternalScriptI..
+System.Management.Automation.FilterInfo         {CommandInfo, FilterInfo}
+System.Management.Automation.FunctionInfo       {CommandInfo, FunctionInfo}
+System.Management.Automation.ScriptInfo         {CommandInfo, ScriptInfo}
+System.ServiceProcess.ServiceController         {service, service, Ansi}</dev:code>
+        <dev:remarks>
+          <maml:para>This example expression is getting all Table format views for types that have more than 1 defined. If a type only has a single view, that is the default which you are seeing already. The output you see here shows additional table views for different object types.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-FormatData</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Member</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -9027,9 +9176,10 @@ PS DeepDive:\&gt;</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, be it a table or list. Or you may want to have different views display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.</maml:para>
-      <maml:para>Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine tune it. The file will have notes on how to substitute script blocks. If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.</maml:para>
-      <maml:para>Note that table views are set to Autosize. But the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.</maml:para>
+      <maml:para>When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, such as a table or list. Or you may want to have different views that display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.</maml:para>
+      <maml:para>Note that table and wide views are set to Autosize. However, the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes. Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine-tune it. The file will have notes on how to substitute script blocks. Although, beginning with v2.31.0, you can specify a hashtable as a custom property name just as you can with Select-Object.</maml:para>
+      <maml:para>Even though this command was written to make it easier when writing modules that might use custom objects, you can use this command to define additional views for standard objects such as files and processes. See Examples.</maml:para>
+      <maml:para>If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -Passthru, the new file will automatically be opened in your editor.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -9051,9 +9201,9 @@ PS DeepDive:\&gt;</dev:code>
           <maml:Description>
             <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property.</maml:para>
           </maml:Description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
           <dev:type>
-            <maml:name>String[]</maml:name>
+            <maml:name>Object[]</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -9146,7 +9296,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Typename</maml:name>
           <maml:Description>
-            <maml:para>Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.</maml:para>
+            <maml:para>Specify the object typename. If you don't, then the command will use the detected object type from the InputObject.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -9158,7 +9308,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>GroupBy</maml:name>
           <maml:Description>
-            <maml:para>Specify a property name to group on. You can edit the file if you need to change how it is displayed and/or calculated.</maml:para>
+            <maml:para>Specify a property name to group objects on. You can edit the file if you need to change how it is displayed and/or calculated.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -9258,9 +9408,9 @@ PS DeepDive:\&gt;</dev:code>
         <maml:Description>
           <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property.</maml:para>
         </maml:Description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
         <dev:type>
-          <maml:name>String[]</maml:name>
+          <maml:name>Object[]</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -9292,7 +9442,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Typename</maml:name>
         <maml:Description>
-          <maml:para>Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.</maml:para>
+          <maml:para>Specify the object typename. If you don't, then the command will use the detected object type from the InputObject.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9304,7 +9454,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>GroupBy</maml:name>
         <maml:Description>
-          <maml:para>Specify a property name to group on. You can edit the file if you need to change how it is displayed and/or calculated.</maml:para>
+          <maml:para>Specify a property name to group objects on. You can edit the file if you need to change how it is displayed and/or calculated.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9464,7 +9614,21 @@ PS C:\&gt; Update-FormatData $params.path</dev:code>
         <dev:code>PS C:\&gt; '' | Select-Object -Property Name,Size,Date,Count,Age |
 New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml</dev:code>
         <dev:remarks>
-          <maml:para>This is an example of creating a formatting file from an empty object. Normally, you would first define your object and verify it has all the properties you need and then you would create the formatting file. But you may want to create the formatting file in parallel using an older technique like this.</maml:para>
+          <maml:para>This is an example of creating a formatting file from an empty object. Normally, you would first define your object and verify it has all the properties you need, and then you would create the formatting file. But you may want to create the formatting file in parallel using an older technique like this.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 7 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $p = @{
+FormatType = "List"
+ViewName = "run"
+Path  = "c:\scripts\run.ps1xml"
+Properties = "ID","Name","Path","StartTime",
+@{Name="Runtime";Expression={(Get-Date) - $_.starttime}}
+}
+PS C:\&gt; Get-Process -id $pid | New-PSFormatXML @p</dev:code>
+        <dev:remarks>
+          <maml:para>Beginning with v2.31.0 of the PSScriptTools module, you can specify a property defined as a scriptblock, just as you do with Select-Object. The XML file will be automatically created using the script block.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

@@ -8,11 +8,11 @@ Function New-PSFormatXML {
         [Parameter(Mandatory, ValueFromPipeline, HelpMessage = "Specify an object to analyze and generate or update a ps1xml file.")]
         [object]$InputObject,
         [Parameter(HelpMessage = "Enter a set of properties to include. The default is all. If specifying a Wide entry, only specify a single property.")]
-        [string[]]$Properties,
+        [object[]]$Properties,
         [Parameter(HelpMessage = "Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.")]
         [string]$Typename,
         [Parameter(HelpMessage = "Specify whether to create a table ,list or wide view")]
-        [ValidateSet("Table", "List","Wide")]
+        [ValidateSet("Table", "List", "Wide")]
         [string]$FormatType = "Table",
         [string]$ViewName = "default",
         [Parameter(Mandatory, HelpMessage = "Enter full filename and path for the format.ps1xml file.")]
@@ -21,7 +21,7 @@ Function New-PSFormatXML {
         [Parameter(HelpMessage = "Specify a property name to group on.")]
         [ValidateNotNullOrEmpty()]
         [string]$GroupBy,
-        [Parameter(HelpMessage="Wrap long lines. This only applies to Tables.")]
+        [Parameter(HelpMessage = "Wrap long lines. This only applies to Tables.")]
         [Switch]$Wrap,
         [switch]$Append,
         [switch]$Passthru
@@ -45,7 +45,10 @@ Function New-PSFormatXML {
 
             $text = @"
 
-format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
+Format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+https://github.com/jdhitsolutions/PSScriptTools
 
 "@
 
@@ -56,7 +59,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
             $viewdef = $doc.CreateNode("element", "ViewDefinitions", $null)
 
         }
-        elseif ($Append -AND (Test-Path -path $realPath)) {
+        elseif ($Append -AND (Test-Path -Path $realPath)) {
             Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Opening format document $RealPath"
             [xml]$Doc = Get-Content -Path $realPath
         }
@@ -101,7 +104,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 $entry = $doc.CreateNode("element", "TableRowEntry", $null)
                 if ($Wrap) {
                     Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Adding Wrap"
-                    $wrapelement = $doc.CreateNode("element","Wrap",$null)
+                    $wrapelement = $doc.CreateNode("element", "Wrap", $null)
                     [void]($entry.AppendChild($wrapelement))
                 }
             }
@@ -111,7 +114,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 $ListEntry = $doc.CreateNode("element", "ListEntry", $null)
             }
             "Wide" {
-                $Wide = $doc.CreateNode("element","WideControl",$null)
+                $Wide = $doc.CreateNode("element", "WideControl", $null)
                 $wideEntries = $doc.CreateNode("element", "WideEntries", $null)
                 $WideEntry = $doc.CreateNode("element", "WideEntry", $null)
             }
@@ -120,8 +123,8 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
     } #begin
 
     Process {
+         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Counter $counter"
         If ($counter -eq 0) {
-
             if ($Typename) {
                 $tname = $TypeName
             }
@@ -142,16 +145,23 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
 
             #get property members
             $objProperties = $Inputobject.psobject.properties
+            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using object properties: $($objProperties.name -join ',')"
             $members = @()
             if ($properties) {
                 foreach ($property in $properties) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Validating property: $property"
-                    $test = ($objProperties).where({$_.name -like $property})
-                    if ($test) {
-                        $members += $test
+                    if ($property.gettype().Name -match "hashtable") {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Detected a hashtable defined property called named $($property.name)"
+                        $members += $property
                     }
                     else {
-                        Write-Warning "Can't find a property called $property on this object. Did you enter it correctly?"
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Validating property: $property [$($property.gettype().name)]"
+                        $test = ($objProperties).where( { $_.name -like $property })
+                        if ($test) {
+                            $members += $test
+                        }
+                        else {
+                            Write-Warning "Can't find a property called $property on this object. Did you enter it correctly?"
+                        }
                     }
                 }
             }
@@ -164,7 +174,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
             #remove GroupBy property from collection of properties
             if ($GroupBy) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Removing GroupBy property $GroupBy from the list of properties"
-                $members = $members | Where-Object {$_.name -ne $GroupBy}
+                $members = $members | Where-Object { $_.name -ne $GroupBy }
             }
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing $($members.name.count) properties"
 
@@ -182,9 +192,18 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                 foreach ($member in $members) {
 
                     #account for null property values
-                    if (-Not $member.value) {
-                         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
+                    if ($member.Expression) {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has an Expression script block $($member.expression | Out-String)"
+                        $member.Value = "$($member.expression | Out-String)".Trim()
+                        $isScriptBlock = $True
+                    }
+                    elseif (-Not $member.value) {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
                         $member.value = "   "
+                        $isScriptBlock = $False
+                    }
+                    else {
+                        $isScriptBlock = $False
                     }
 
                     $th = $doc.createNode("element", "TableColumnHeader", $null)
@@ -199,7 +218,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                         Use the width of whichever is longer, the name or value
                     #>
 
-                    $longest = $Member.value.tostring().length, $member.name.length | Sort-Object | Select-Object -last 1
+                    $longest = $Member.value.tostring().length, $member.name.length | Sort-Object | Select-Object -Last 1
                     $width.InnerText = $longest + 3
                     [void]$th.AppendChild($width)
 
@@ -209,44 +228,85 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
                     [void]$headers.AppendChild($th)
 
                     $tci = $doc.CreateNode("element", "TableColumnItem", $null)
-                    $prop = $doc.CreateElement("PropertyName")
-                    $prop.InnerText = $member.name
+                    if ($isScriptBlock) {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a ScriptBlock element"
+                        $prop = $doc.CreateElement("ScriptBlock")
+                        $prop.InnerText = "$($member.Value)"
+                    }
+                    else {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a PropertyName element"
+                        $prop = $doc.CreateElement("PropertyName")
+                        $prop.InnerText = $member.name
+                    }
                     [void]$tci.AppendChild($prop)
                     [void]$items.AppendChild($tci)
                 }
             }
-            elseif ($FormatType  -eq 'List') {
+            elseif ($FormatType -eq 'List') {
                 #create a list
                 $items = $doc.CreateNode("element", "ListItems", $null)
                 [void]$items.AppendChild($doc.CreateComment($comment))
                 foreach ($member in $members) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]... $($member.name)"
+                    #account for null property values
+                    if ($member.Expression) {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has an Expression script block $($member.expression | Out-String)"
+                        $member.Value = "$($member.expression | Out-String)".Trim()
+                        $isScriptBlock = $True
+                    }
+                    elseif (-Not $member.value) {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
+                        $member.value = "   "
+                        $isScriptBlock = $False
+                    }
+                    else {
+                        $isScriptBlock = $False
+                    }
 
                     $li = $doc.CreateNode("element", "ListItem", $null)
                     $label = $doc.CreateElement("Label")
                     $label.InnerText = $member.Name
+                    if ($isScriptBlock) {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a ScriptBlock element"
+                        $prop = $doc.CreateElement("ScriptBlock")
+                        $prop.InnerText = "$($member.Value)"
+                    }
+                    else {
+                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a PropertyName element"
+                        $prop = $doc.CreateElement("PropertyName")
+                        $prop.InnerText = $member.name
+                    }
                     [void]$li.AppendChild($label)
-                    $prop = $doc.CreateElement("PropertyName")
-                    $prop.InnerText = $member.name
                     [void]$li.AppendChild($prop)
                     [void]$items.AppendChild($li)
                 }
             }
             else {
                 #create Wide
-                $item = $doc.CreateNode("element","WideItem",$null)
-                [void]$item.AppendChild($doc.CreateComment($comment))
-                $prop = $doc.CreateElement("PropertyName")
-                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]... $($members[0].name)"
-                $prop.InnerText = $members[0].name
-                [void]$item.AppendChild($prop)
+                #there should only be one element in the array
 
+                $item = $doc.CreateNode("element", "WideItem", $null)
+                [void]$item.AppendChild($doc.CreateComment($comment))
+                Write-Verbose "Using $($members.name)"
+                if ($members.Expression) {
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a ScriptBlock element"
+                    $prop = $doc.CreateElement("ScriptBlock")
+                    $prop.InnerText = "$($members.Expression)"
+                }
+                else {
+                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a PropertyName element"
+                    $prop = $doc.CreateElement("PropertyName")
+                    $prop.InnerText = $member.name
+                }
+                [void]$item.AppendChild($prop)
             }
-            $counter++
         }
         else {
-            Write-Warning "Ignoring this object. This command only need sone instance of an object to create the ps1xml file. Your file will still be created."
+            #only display the warning on the first additional object
+            if ($counter -eq 1) {
+                Write-Warning "Ignoring additional objects. This command only needs one instance of an object to create the ps1xml file. Your file will still be created."
+            }
         }
+        $counter++
     } #process
 
     End {
@@ -263,7 +323,7 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
 
             [void]$view.AppendChild($table)
         }
-        elseif ($FormatType -eq  'List') {
+        elseif ($FormatType -eq 'List') {
             [void]$listentry.AppendChild($items)
             [void]$listentries.AppendChild($listentry)
             [void]$list.AppendChild($listentries)
@@ -271,8 +331,11 @@ format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
         }
         else {
             #Wide
-            [void]$WideEntry.AppendChild($item)
             [void]$wideEntries.AppendChild($WideEntry)
+            [void]$WideEntry.AppendChild($item)
+            [void]$Wide.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use PowerShell defaults."))
+            $auto = $doc.CreateElement("AutoSize")
+            [void]$Wide.AppendChild($auto)
             [void]$Wide.AppendChild($wideEntries)
             [void]$view.AppendChild($Wide)
         }
