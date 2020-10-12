@@ -50,6 +50,14 @@ Uninstall-Module PSScriptTools -allversions
 
 ## General Tools
 
+### [Get-FormatView](docs/Get-FormatView.md)
+
+PowerShell's formatting system includes a number of custom views that display objects in different ways. Unfortunately, this information is not readily available to a typical PowerShell user. This command displays the available views for a given object type.
+
+![Get-FormatView](images/get-formatview.png)
+
+This command has an alias of `gfv`.
+
 ### [Copy-PSFunction](docs/Copy-PSFunction.md)
 
 This command is designed to solve the problem when you want to run a function loaded locally on a remote computer. Copy-PSFunction will copy a PowerShell function that is loaded in your current PowerShell session to a remote PowerShell session. The remote session must already be created. The copied function only exists remotely for the duration of the remote PowerShell session.
@@ -1573,7 +1581,7 @@ $obj = [PSCustomObject]@{
   Name         = "Jeff"
   Date         = (Get-Date)
   Computername = $env:computername
-  OS           = (gcim win32_operatingsystem -Property Caption).caption
+  OS           = (Get-CimInstance win32_operatingsystem).caption
 }
 $upParams = @{
   TypeName = $tname
@@ -1645,6 +1653,19 @@ OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01
 ```
 
+Starting with v2.31.0, you can also use a hashtable to define custom properties from scriptblocks.
+
+```powershell
+ $p = @{
+    FormatType = "List"
+    ViewName = "run"
+    Path  = "c:\scripts\run.ps1xml"
+    Properties = "ID","Name","Path","StartTime",
+    @{Name="Runtime";Expression={(Get-Date) - $_.starttime}}
+ }
+ Get-Process -id $pid | New-PSFormatXML @p
+ ```
+
 If you run this command from Visual Studio Code and specify `-Passthru`, the resulting file will be opened in your editor.
 
 ### [Test-IsPSWindows](docs/Test-IsPSWindows.md)
@@ -1688,9 +1709,9 @@ Mode                 LastWriteTime         Length Name
 
 You will need to manually install the file.
 
-## Other
+## Other Module Features
 
-From time to time I will include additional items that you might find useful. One item that you get when you import this module is a custom format.ps1xml file for services. You can run `Get-Service` and pipe it to the table view.
+From time to time I will include additional items that you might find useful in your PowerShell work. This module includes several custom format files for common objects like services. You can run `Get-Service` and pipe it to the custom table view.
 
 ```powershell
 Get-Service | Format-Table -view ansi
@@ -1701,6 +1722,54 @@ This will display the service status color-coded.
 ![ServiceAnsi](images/serviceansi.png)
 
 This will not work in the PowerShell ISE as it is not ANSI-aware.
+
+Here's another custom view for Aliases.
+
+```text
+PS C:\> Get-Alias | Sort-Object Source | Format-Table -view Source
+
+
+   Source:
+
+Name                 Definition
+----                 ----------
+nmo                  New-Module
+ni                   New-Item
+npssc                New-PSSessionConfigurationFile
+nv                   New-Variable
+nsn                  New-PSSession
+...
+
+   Source: Microsoft.PowerShell.Management 3.1.0.0
+
+Name                 Definition
+----                 ----------
+gtz                  Get-TimeZone
+stz                  Set-TimeZone
+...
+
+
+   Source: Microsoft.PowerShell.Utility 3.1.0.0
+
+Name                 Definition
+----                 ----------
+fhx                  Format-Hex
+CFS                  ConvertFrom-String
+
+
+   Source: PSScriptTools 2.31.0
+
+Name                 Definition
+----                 ----------
+clr                  Convert-EventLogRecord
+gsi                  Get-FolderSizeInfo
+wver                 Get-WindowsVersion
+gpi                  Get-ParameterInfo
+che                  Copy-HelpExample
+...
+```
+
+Use [Get-FormatView](docs/Get-FormatView.md) to discover available format views. Or if you'd like to create your own custom views look at [New-PSFormatXML](docs/New-PSFormatXML.md)
 
 ### PSAnsiMap
 
@@ -1810,7 +1879,7 @@ The samples provide suggestions on how you might use some of the commands in thi
 
 ![ProcessPercent.ps1](images/processpercent.png)
 
-### Open-PSScriptToolsHelp
+### [Open-PSScriptToolsHelp](docs/Open-PSScriptToolsHelp.md)
 
 I've created a PDF version of this document which I thought you might find useful since it includes screen shots and sample output rendered nicer than what you can get in PowerShell help. Run this to open the PDF using your default associated application.
 
@@ -1832,4 +1901,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-10-02 19:51:46Z*
+Last Updated *2020-10-12 16:08:05Z*

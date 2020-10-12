@@ -109,7 +109,7 @@ Function ConvertTo-Hashtable {
 Function Convert-HashtableToCode {
     [cmdletbinding(DefaultParameterSetName = "psd1")]
     [alias("chc")]
-    [OutputType([system.string])]
+    [OutputType([System.String])]
 
     Param(
         [Parameter(Position = 0, ValueFromPipeline, Mandatory)]
@@ -152,21 +152,28 @@ Function Convert-HashtableToCode {
                 Write-Verbose "..is an array"
                 #test if an array of numbers otherwise treat as strings
                 if ($_.value[0].Gettype().name -match "int|double") {
-                    $value = $_.value -join ','
+                    $value = "@($($_.value -join ','))"
                 }
                 elseif ($_.value[0].GetType().name -eq "Hashtable") {
                     #10/2/2020 JDH need to process nested hashtables in an array (Issue #91)
                     if ($inline) {
-                        $value = ($_.value | Convert-HashtableToCode -inline).trim() -join ","
+                        $value =  "@($(($_.value | Convert-HashtableToCode -inline).trim() -join ","))"
                     }
                     else {
-                        $value = ($_.value | Convert-HashtableToCode).trim() -join ",`n"
+                        #format nested hashtables with @() Issue #91
+                        $tables = Foreach ($t in $_.value) {
+                            $in = "`t"*$($indent+1)
+                            "{0}{1}" -f $in,(Convert-HashTableToCode -Indent $($indent+2) -Hashtable $t).trimend()
+                        }
+                        $joined = ($tables -join ",`n").TrimEnd()
+                        $close = "`t"*$indent
+                        $value = "@(`n$joined`n$close)".trimEnd()
                     }
                 }
                 else {
-                    $value = "'{0}'" -f ($_.value -join "','")
+                    $value = "@($("'{0}'" -f ($_.value -join "','")))"
                 }
-            }
+            } #arrays
             elseif ($_.value -is [hashtable]) {
                 Write-Verbose "Creating nested entry"
                 #10/2/2020 JDH convert hashtables using current values
@@ -176,7 +183,7 @@ Function Convert-HashtableToCode {
                 else {
                     $nested = Convert-HashTableToCode $_.value -Indent $($indent + 1)
                 }
-                $value = "$($nested)"
+                $value = "$($nested)".trimEnd()
             }
             elseif ($_.value -is [scriptblock]) {
                 Write-Verbose "Parsing scriptblock"
