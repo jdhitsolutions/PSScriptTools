@@ -1843,6 +1843,122 @@ Monday, March 4, 2019 1:00:00 PM</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>ConvertTo-ASCIIArt</command:name>
+      <command:verb>ConvertTo</command:verb>
+      <command:noun>ASCIIArt</command:noun>
+      <maml:description>
+        <maml:para>Convert text to ASCII art.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command can be used to transform a string of text into ASCII art. ConvertTo-ASCIIArt utilizes the web service at https://artii.herokuapp.com which allows you to transform text. You might use this to create headers for your scripts or PowerShell profile.</maml:para>
+      <maml:para>Expect a period of trial and error to find a good font that works with your text. The shorter your text, the better.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-ASCIIArt</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:Description>
+            <maml:para>Enter a short string of text to convert.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Font</maml:name>
+          <maml:Description>
+            <maml:para>Specify a font from https://artii.herokuapp.com/fonts_list. Font names are case-sensitive. You can use tab-completion to cycle through the list.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>big</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Font</maml:name>
+        <maml:Description>
+          <maml:para>Specify a font from https://artii.herokuapp.com/fonts_list. Font names are case-sensitive. You can use tab-completion to cycle through the list.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>big</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:Description>
+          <maml:para>Enter a short string of text to convert.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command has an alias of cart.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertTo-ASCIIArt -text PScriptTools -Font cybermedium
+___  ____ ____ ____ _ ___  ___ ___ ____ ____ _    ____
+|__] [__  |    |__/ | |__]  |   |  |  | |  | |    [__
+|    ___] |___ |  \ | |     |   |  |__| |__| |___ ___]</dev:code>
+        <dev:remarks>
+          <maml:para>Convert the string 'PSScriptTools' with the cybermedium font. The font parameter supports auto-completion so you can tab-complete to see all possible options.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; ConvertTo-ASCIIArt -Text $env:COMPUTERNAME -Font ogre |
+Out-File c:\scripts\computername-art.txt</dev:code>
+        <dev:remarks>
+          <maml:para>Convert the computer name to ASCII art and save the results to a text file. Later you can use Get-Content to display the "artistic" version of the computer name.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertTo-Hashtable</command:name>
       <command:verb>ConvertTo</command:verb>
       <command:noun>Hashtable</command:noun>
@@ -3493,6 +3609,10 @@ Please select items to copy to the clipboard by number. Separate multiple entrie
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3dlKTfI</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-Help</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -3626,7 +3746,7 @@ Please select items to copy to the clipboard by number. Separate multiple entrie
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Copy-PSFunction.md</maml:uri>
+        <maml:uri>https://bit.ly/2FpejNh</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Copy-Item</maml:linkText>
@@ -4577,6 +4697,303 @@ $3,456.57</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-CommandSyntax</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>CommandSyntax</command:noun>
+      <maml:description>
+        <maml:para>Get provider-specific command syntax.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Some PowerShell commands are provider aware and may have special syntax or parameters depending on what PSDrive you are using when you run the command. In Windows PowerShell, the help system could show you syntax based on a given path. However, this no longer appears to work. This command is intended as an alternative. Specify a cmdlet or function name, and the output will display the syntax detected when using different providers. Dynamic parameters will be highlighted with an ANSI-escape sequence.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-CommandSyntax</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:Description>
+            <maml:para>Enter the name of a PowerShell cmdlet or function. Ideally it has been loaded into the current PowerShell session.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:Description>
+          <maml:para>Enter the name of a PowerShell cmdlet or function. Ideally it has been loaded into the current PowerShell session.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-CommandSyntax -Name Get-Item
+
+Registry
+
+Get-Item [-Path] &lt;string[]&gt; [-Filter &lt;string&gt;] [-Include &lt;string[]&gt;]
+[-Exclude &lt;string[]&gt;] [-Force] [-Credential &lt;pscredential&gt;]
+[&lt;CommonParameters&gt;]
+
+Get-Item -LiteralPath &lt;string[]&gt; [-Filter &lt;string&gt;] [-Include &lt;string[]&gt;]
+[-Exclude &lt;string[]&gt;] [-Force] [-Credential &lt;pscredential&gt;]
+[&lt;CommonParameters&gt;]
+
+
+Alias
+
+Get-Item [-Path] &lt;string[]&gt; [-Filter &lt;string&gt;] [-Include &lt;string[]&gt;]
+[-Exclude &lt;string[]&gt;] [-Force] [-Credential &lt;pscredential&gt;]
+[&lt;CommonParameters&gt;]
+
+Get-Item -LiteralPath &lt;string[]&gt; [-Filter &lt;string&gt;] [-Include &lt;string[]&gt;]
+[-Exclude &lt;string[]&gt;] [-Force] [-Credential &lt;pscredential&gt;]
+[&lt;CommonParameters&gt;]
+
+...</dev:code>
+        <dev:remarks>
+          <maml:para>The output will show each PowerShell Provider and the corresponding command syntax. Dynamic parameters will be highlighted by color.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-Help</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Command</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Get-DirectoryInfo</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>DirectoryInfo</command:noun>
+      <maml:description>
+        <maml:para>Get directory information.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is designed to provide quick access to top-level directory information. The default behavior is to show the total number of files in the immediate directory. Although the command will also capture the total file size in the immediate directory. You can use the Depth parameter to recurse through a specified number of levels.</maml:para>
+      <maml:para>The command output will use a wide format by default. However, other wide views are available. See Examples.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-DirectoryInfo</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Path</maml:name>
+          <maml:Description>
+            <maml:para>Specify the top-level path.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Depth</maml:name>
+          <maml:Description>
+            <maml:para>The Depth parameter determines the number of subdirectories to recursively query.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Depth</maml:name>
+        <maml:Description>
+          <maml:para>The Depth parameter determines the number of subdirectories to recursively query.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Path</maml:name>
+        <maml:Description>
+          <maml:para>Specify the top-level path.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>DirectoryStat</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-DirectoryInfo
+
+
+   Path: C:\
+
+
+gemfonts [15]                   PerfLogs [0]
+Pluralsight [17]                Presentations [1]
+Program Files [0]               Program Files (x86) [0]
+Ruby27-x64 [3]                  Scripts [3652]
+Thunderbird [0]                 Training [3]
+Users [0]                       Windows [38]
+Windows.old [0]                 Windows10Upgrade [23]
+work [13]</dev:code>
+        <dev:remarks>
+          <maml:para>The default output will use ANSI escape sequences.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-DirectoryInfo -Path D:\ | Format-Wide -View sizemb
+
+   Path: D:\
+
+
+autolab [0MB]                                            backtemp [0MB]
+Backup [0.01MB]                                          Backups [140.49MB]
+bovine320 [0MB]                                          Databases [0MB]
+Exports [0MB]                                            iso [16137.65MB]
+JDHIT [35.58MB]                                          Logitech [0MB]
+OneDrive [0MB]                                           rip [60.99MB]
+temp [10.67MB]                                           video [83.56MB]
+VMDisks [68053MB]                                        VMs [0MB]</dev:code>
+        <dev:remarks>
+          <maml:para>Using one of the alternate Format-Wide views. Other views are size and sizekb.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-DirectoryInfo D:\Autolab\ -Depth 2 |
+Format-Table -GroupBy parent -Property Name,File* -wrap
+
+
+   Parent: D:\Autolab
+
+Name                   FileCount    FileSize
+----                   ---------    --------
+Configurations                 0           0
+Hotfixes                       0           0
+ISOs                           6 16838768742
+MasterVirtualHardDisks         3 22326280192
+Resources                      0           0
+VMVirtualHardDisks             0           0
+
+
+   Parent: D:\Autolab\Configurations
+
+Name                                  FileCount FileSize
+----                                  --------- --------
+Implement-Windows-Server-DHCP-2016            7    65126
+Jason-DSC-Env                                 7    66933
+microsoft-powershell-implementing-jea         7    65462
+MultiRole                                     7    65820
+MultiRole-Server-2016                         7    62063
+PowerShellLab                                 7    83541
+SingleServer                                  4    15784
+SingleServer2012R2                            4    15937
+SingleServer2012R2-GUI                        4    16005
+SingleServer-GUI-2016                         4    16397
+SingleServer-GUI-2019                         4    15845
+Windows10                                     4    20695
+
+
+   Parent: D:\Autolab\Configurations\PowerShellLab
+
+Name      FileCount FileSize
+----      --------- --------
+PostSetup         5    15275</dev:code>
+        <dev:remarks>
+          <maml:para>Here's an example using the DirectoryStat object with different formatting.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-ChildItem</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-FileItem</command:name>
       <command:verb>Get</command:verb>
       <command:noun>FileItem</command:noun>
@@ -5030,7 +5447,7 @@ sunday                          47   24540.6523</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-FormatView</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByValue)" position="0" aliases="none">
           <maml:name>TypeName</maml:name>
           <maml:Description>
             <maml:para>Specify a typename such as System.Diagnostics.Process.</maml:para>
@@ -5057,7 +5474,7 @@ sunday                          47   24540.6523</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>TypeName</maml:name>
         <maml:Description>
           <maml:para>Specify a typename such as System.Diagnostics.Process.</maml:para>
@@ -5129,6 +5546,23 @@ Table     WS</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; (Get-Service bits).gettype() | Get-FormatView
+
+
+   Type: System.ServiceProcess.ServiceController
+
+Format    Name
+------    ----
+Table     service
+List      System.ServiceProcess.ServiceController
+Table     service
+Table     Ansi</dev:code>
+        <dev:remarks>
+          <maml:para>You can pipe a type name to the command.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-FormatView | Where-Object Format -eq Table |
 Group-Object typename | Where-Object count -gt 1  | Select-Object Name,
 @{Name="Names";Expression = {$_.group.name}}
@@ -5154,6 +5588,10 @@ System.ServiceProcess.ServiceController         {service, service, Ansi}</dev:co
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3dw2Nwo</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-FormatData</maml:linkText>
         <maml:uri></maml:uri>
@@ -6453,7 +6891,12 @@ Exists       : False</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/33UwYKo</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -6782,7 +7225,7 @@ LastModified : 10/9/2017 4:08:35 PM
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSProfile.md</maml:uri>
+        <maml:uri>https://bit.ly/3dqVRjO</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -8603,6 +9046,10 @@ Count                          3</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/33RWeAV</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>New-RedGreenGradient</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -9964,6 +10411,10 @@ DriveLetter FileSystemLabel FreeGB PctFree
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/33WapF8</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>New-ANSIBar</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -10387,6 +10838,10 @@ False</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2SOrYRh</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Help</maml:linkText>
         <maml:uri></maml:uri>
@@ -10948,6 +11403,164 @@ Out-ConditionalColor $c</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Show-Tree</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Out-Copy</command:name>
+      <command:verb>Out</command:verb>
+      <command:noun>Copy</command:noun>
+      <maml:description>
+        <maml:para>Send command output to the pipeline and clipboard.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is intended for writers and those who need to document with PowerShell. You can pipe any command to this function and you will get the regular output in your PowerShell session. Simultaneously a copy of the output will be sent to the Windows clipboard. The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.</maml:para>
+      <maml:para>NOTE: You can only capture what is written to the Success pipeline. This command will not copy any other streams such as Verbose, Warning, or Error.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Out-Copy</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>This is the piped in command.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Width</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the number of characters in each line of output. Any additional characters are truncated, not wrapped.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>80</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CommandOnly</maml:name>
+          <maml:Description>
+            <maml:para>Only copy the executed command, without references to Out-Copy, to the Windows clipboard.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>This is the piped in command.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Width</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the number of characters in each line of output. Any additional characters are truncated, not wrapped.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>80</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CommandOnly</maml:name>
+        <maml:Description>
+          <maml:para>Only copy the executed command, without references to Out-Copy, to the Windows clipboard.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>[object[]]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>[object[]]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell:http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process | Sort WS -Descending | Select -first 5 | Out-Copy</dev:code>
+        <dev:remarks>
+          <maml:para>This will execute your expression and write the output to the pipeline. The output plus the command:</maml:para>
+          <maml:para>PS C:\&gt; Get-Process | Sort WS -Descending | Select -first 5</maml:para>
+          <maml:para>will be copied to the clipboard.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Childitem *.ps1 | Out-File c:\work\ps.txt | Out-Copy</dev:code>
+        <dev:remarks>
+          <maml:para>Even if your command doesn't write anything to the pipeline, Out-Copy will still capture a prompt and PowerShell expression.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3" |
+Out-Copy -commandonly</dev:code>
+        <dev:remarks>
+          <maml:para>This will run the Get-CimInstance command and write results to the pipeline. But the only text that will be copied to the clipboard is:</maml:para>
+          <maml:para>Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3"</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Out-String</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Set-Clipboard</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Tee-Object</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -14475,6 +15088,10 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2SSgQCM</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-ANSIBar</maml:linkText>
         <maml:uri></maml:uri>

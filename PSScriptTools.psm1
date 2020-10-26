@@ -96,16 +96,17 @@ elseif ($psise) {
     }
 }
 
-#define a function to open the PDF version of the README as a help file
-
+#define a function to open the PDF version of the README and other documentation
 Function Open-PSScriptToolsHelp {
     [cmdletbinding()]
     Param()
-
+    Write-Verbose "Starting $($myinvocation.mycommand)"
     $pdf = Join-Path -path $PSScriptRoot -ChildPath PSScriptToolsManual.pdf
+    Write-Verbose "Testing the path $pdf"
     if (Test-Path -Path $pdf) {
         Try {
-            Start-Process -FilePath $pdf -ErrorAction Stop
+            write-Verbose "Invoking the PDF"
+            Invoke-Item -Path $pdf -ErrorAction Stop
         }
         Catch {
             Write-Warning "Failed to automatically open the PDF. You will need to manually open $pdf."
@@ -114,4 +115,5 @@ Function Open-PSScriptToolsHelp {
     else {
         Write-Warning "Can't find $pdf."
     }
+    Write-Verbose "Ending $($myinvocation.MyCommand)"
 }

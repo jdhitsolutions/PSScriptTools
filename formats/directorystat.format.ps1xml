@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+format type data generated 10/07/2020 12:20:03 by PROSPERO\Jeff
+File created with New-PSFormatXML from the PSScriptTools module
+which can be installed from the PowerShell Gallery
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 10/07/2020 12:20:03 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>DirectoryStat</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+        <Label>Path</Label>
+      </GroupBy>
+      <WideControl>
+      <AutoSize />
+        <WideEntries>
+          <WideEntry>
+            <WideItem>
+              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [{1}]" -f $_.Name,$_.filecount</ScriptBlock>
+            </WideItem>
+          </WideEntry>
+        </WideEntries>
+      </WideControl>
+    </View>
+    <View>
+      <!--Created 10/07/2020 12:23:20 by PROSPERO\Jeff-->
+      <Name>size</Name>
+      <ViewSelectedBy>
+        <TypeName>DirectoryStat</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+       <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+        <Label>Path</Label>
+      </GroupBy>
+      <WideControl>
+      <AutoSize />
+        <WideEntries>
+          <WideEntry>
+            <WideItem>
+              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;190m{1}$([char]0x1b)[0m]" -f $_.Name,$_.filesize</ScriptBlock>
+            </WideItem>
+          </WideEntry>
+        </WideEntries>
+      </WideControl>
+    </View>
+    <View>
+      <!--Created 10/07/2020 12:23:20 by PROSPERO\Jeff-->
+      <Name>sizekb</Name>
+      <ViewSelectedBy>
+        <TypeName>DirectoryStat</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+        <Label>Path</Label>
+      </GroupBy>
+      <WideControl>
+        <WideEntries>
+          <WideEntry>
+            <WideItem>
+              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;164m{1}KB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1KB,2))</ScriptBlock>
+            </WideItem>
+          </WideEntry>
+        </WideEntries>
+      </WideControl>
+    </View>
+    <View>
+      <!--Created 10/07/2020 12:23:20 by PROSPERO\Jeff-->
+      <Name>sizemb</Name>
+      <ViewSelectedBy>
+        <TypeName>DirectoryStat</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+        <Label>Path</Label>
+      </GroupBy>
+      <WideControl>
+        <WideEntries>
+          <WideEntry>
+            <WideItem>
+              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))</ScriptBlock>
+            </WideItem>
+          </WideEntry>
+        </WideEntries>
+      </WideControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
