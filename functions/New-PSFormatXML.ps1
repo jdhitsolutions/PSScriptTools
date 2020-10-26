@@ -46,6 +46,7 @@ Function New-PSFormatXML {
             $text = @"
 
 Format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
+
 This file was created using the New-PSFormatXML command that is part
 of the PSScriptTools module.
 https://github.com/jdhitsolutions/PSScriptTools
@@ -216,9 +217,19 @@ https://github.com/jdhitsolutions/PSScriptTools
                     <#
                         set initial width to value length + 3
                         Use the width of whichever is longer, the name or value
-                    #>
 
-                    $longest = $Member.value.tostring().length, $member.name.length | Sort-Object | Select-Object -Last 1
+                        If the value is a ScriptBlock, need to get the length of the
+                        result and not the code length. But this may be impossible so
+                        as a compromise use a value length of 12
+                        Issue #94
+                    #>
+                    if ($isScriptBlock) {
+                        $ValueLength = 12
+                    }
+                    else {
+                        $ValueLength = $Member.value.tostring().length
+                    }
+                    $longest = $valueLength, $member.name.length | Sort-Object | Select-Object -Last 1
                     $width.InnerText = $longest + 3
                     [void]$th.AppendChild($width)
 

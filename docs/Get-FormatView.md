@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://bit.ly/3dw2Nwo
 schema: 2.0.0
 ---
 
@@ -14,8 +14,7 @@ Get defined format views.
 ## SYNTAX
 
 ```yaml
-Get-FormatView [[-TypeName] <String>] [[-PowerShellVersion] <Version>]
-[<CommonParameters>]
+Get-FormatView [[-TypeName] <String>] [[-PowerShellVersion] <Version>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -44,6 +43,24 @@ Table     WS
 The default view should be the first one listed for each format type. With this information, you can now run a command like `Get-Process | Format-Table -view Priority`. The WS view is added when you import the PSScriptTools module.
 
 ### Example 2
+
+```powershell
+PS C:\> (Get-Service bits).gettype() | Get-FormatView
+
+
+   Type: System.ServiceProcess.ServiceController
+
+Format    Name
+------    ----
+Table     service
+List      System.ServiceProcess.ServiceController
+Table     service
+Table     Ansi
+```
+
+You can pipe a type name to the command.
+
+### Example 3
 
 ```powershell
 PS C:\> Get-FormatView | Where-Object Format -eq Table |
@@ -83,7 +100,7 @@ Aliases:
 Required: False
 Position: 0
 Default value: *
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: True
 ```
 

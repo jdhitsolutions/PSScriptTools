@@ -5,10 +5,10 @@ Function Get-FormatView {
     [alias("gfv")]
     [OutputType("PSFormatView")]
     Param(
-        [Parameter(HelpMessage = "Specify a typename such as System.Diagnostics.Process.")]
+        [Parameter(HelpMessage = "Specify a typename such as System.Diagnostics.Process.",ValueFromPipeline)]
         [ValidateNotNullorEmpty()]
         [string]$TypeName = "*",
-        [Parameter(HelpMessage = "Specify the version of PowerShell this cmdlet gets for the formatting data. Enter a two digit number separated by a period.")]
+        [Parameter(HelpMessage = "Specify the version of PowerShell this cmdlet uses for the formatting data. Enter a two digit number separated by a period.")]
         [system.version]$PowerShellVersion = $PSversionTable.psversion
     )
     Begin {

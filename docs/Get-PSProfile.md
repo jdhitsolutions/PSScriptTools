@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-PSProfile.md
+online version: https://bit.ly/3dqVRjO
 schema: 2.0.0
 ---
 

@@ -2,7 +2,7 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSScripttools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSScripttools/)
 
-This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work. Or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any feedback is greatly appreciated.
+This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work, or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems, or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any feedback is greatly appreciated.
 
 *Please note that code samples have been formatted to fit an 80 character width. Some example code breaks lines without using line continuation characters. I'm trusting that you can figure out how to run the example.*
 
@@ -25,7 +25,7 @@ This module contains a collection of functions, variables and format files that 
 
 ## Installation
 
-You can get the current release from this repository or install this the [PowerShell Gallery](https://powershellgallery.com):
+You can get the current release from this repository or install this from the [PowerShell Gallery](https://powershellgallery.com):
 
 ```powershell
 Install-Module PSScriptTools
@@ -37,7 +37,9 @@ or in PowerShell 7:
 Install-Module PSScriptTools [-scope CurrentUser] [-force]
 ```
 
-> Starting in v2.2.0, the module was restructured to better support `Desktop` and `Core` editions. But starting with version 2.13.0, the module design has reverted. All commands will be exported. Anything that is platform-specific should be handled on a per-command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
+Starting in v2.2.0, the module was restructured to better support `Desktop` and `Core` editions. However, starting with v2.13.0, the module design has reverted. All module commands will be exported. Anything that is platform-specific should be handled on a per-command basis. It is assumed you will be running this module in Windows PowerShell 5.1 or PowerShell 7.
+
+It is recommended to install this module from the PowerShell Gallery and not GitHub.
 
 ### Uninstall the Module
 
@@ -49,6 +51,20 @@ Uninstall-Module PSScriptTools -allversions
 ```
 
 ## General Tools
+
+### [Get-DirectoryInfo](docs/Get-DirectoryInfo.md)
+
+This command, which has an alias of *dw*, is designed to provide quick access to top-level directory information. The default behavior is to show the total number of files in the immediate directory. Although the command will also capture the total file size in the immediate directory. You can use the Depth parameter to recurse through a specified number of levels. The default displays use ANSI escape sequences.
+
+![Get-DirectoryInfo](images/dw-1.png)
+
+The command output will use a wide format by default. However, other wide views are available.
+
+![Get-DirectoryInfo MB](images/dw-2.png)
+
+You can use the object in other ways.
+
+![Get-DirectoryInfo table](images/dw-3.png)
 
 ### [Get-FormatView](docs/Get-FormatView.md)
 
@@ -1177,6 +1193,53 @@ These functions were first described at [https://jdhitsolutions.com/blog/powersh
 
 ## Console Utilities
 
+### [ConvertTo-ASCIIArt](docs/ConvertTo-ASCIIArt.md)
+
+`ConvertTo-ASCIIArt` can be used to transform a string of text into ASCII art. It utilizes the web service at https://artii.herokuapp.com which allows you to transform text. You might use this to create headers for your scripts or PowerShell profile.
+
+![ConvertTo-ASCIIArt](images/cart.png)
+
+I used this command to convert a string that I'm using with `Get-PSScriptTools` to display a "splash" header.
+
+```powershell
+    $h = @"
+ ___ ___ ___        _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
+                     |_|
+"@
+    "$([char]0x1b)[1;38;5;177m$h$([char]0x1b)[0m" | Write-Host
+```
+
+![PSScriptTools Splash](images/psscripttools-splash.png)
+
+Expect a period of trial and error to find a good font that works with your text. The shorter your text, the better.
+
+### [Out-Copy](docs/Out-Copy.md)
+
+This command is intended for writers and those who need to document with PowerShell. You can pipe any command to this function and you will get the regular output in your PowerShell session.Simultaneously a copy of the output will be sent to the Windows clipboard. The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.
+
+You can run this a command like this:
+
+```powershell
+Get-Process | Sort WS -Descending | Select -first 5 | Out-Copy
+```
+
+And this text will be copied to the clipboard.
+
+```text
+PS C:\> Get-Process | Sort WS -Descending | Select -first 5
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+   1849     253   810320     820112     445.38  17860   1 firefox
+    765      61   949028     758200      23.36   6052   0 sqlservr
+    446     115   441860     471032      28.59  18204   1 Teams
+   2307     192   313204     459616     325.23  15748   1 firefox
+   2050     163   451744     433772      94.63  19780   1 thunderbird
+```
+
 ### [Out-More](docs/Out-More.md)
 
 This command provides a PowerShell alternative to the cmd.exe **MORE** command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
@@ -1398,6 +1461,22 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [Get-CommandSyntax](docs/Get-CommandSyntax.md)
+
+Some PowerShell commands are provider aware and may have special syntax or parameters depending on what PSDrive you are using when you run the command. In Windows PowerShell, the help system could show you syntax based on a given path. However, this no longer appears to work. `Get-CommandSyntax` is intended as an alternative and should work in both Windows PowerShell and PowerShell 7.
+
+Specify a cmdlet or function name, and the output will display the syntax detected when using different providers.
+
+```powershell
+Get-CommandSyntax -Name Get-Item
+```
+
+Dynamic parameters will be highlighted with an ANSI-escape sequence.
+
+![Get-CommandSyntax](images/get-commandsyntax.png)
+
+This command has an alias of *gsyn*.
 
 ### [Test-Expression](docs/Test-Expression.md)
 
@@ -1901,4 +1980,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-10-12 16:08:05Z*
+Last Updated *2020-10-26 19:37:54Z*

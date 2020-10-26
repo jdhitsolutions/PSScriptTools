@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Copy-PSFunction.md
+online version: https://bit.ly/2FpejNh
 schema: 2.0.0
 ---
 

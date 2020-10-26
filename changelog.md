@@ -2,6 +2,19 @@
 
 This is the most recent change log history for this module.
 
+## v2.32.0
+
++ Added `ConvertTo-ASCIIArt` and its alias *cart*.
++ Added `Get-DirectoryInfo`, its alias *dw*, and a custom formatting file, `directorystat.format.ps1xml`.
++ Modified `Open-PSScriptToolsHelp` to use `Invoke-Item` to launch the PDF file. This should work better on non-Windows platforms.
++ Modified `Get-FormatView` to accept pipeline input for the `Typename` parameter. (Issue #95)
++ Modified `New-PSFormatXML` to use a static value width when using scriptblocks. (Issue #94)
++ Added `Out-Copy` and its alias *oc*.
++ Added `Get-CommandSyntax` and its alias *gsyn*.
++ Updated missing online help links.
++ Added a splash header to `Get-PSScriptTools`. The header writes to the host so it isn't part of the command output.
++ Updated `README.md`.
+
 ## v2.31.0
 
 + Merged PR from @corbob to fix an issue detecting profiles scripts when the user's Documents location has changed. (Issue #93)
@@ -21,138 +34,6 @@ This is the most recent change log history for this module.
 + Modified `Convert-HashtableToCode` to honor `-Inline` when processing nested hashtables.
 + Updated help documentation for `Convert-HashtableToCode` to clarify the use of array values in a hashtable.
 
-## v2.29.0
+## Archive
 
-+ Modified `Get-WindowsVersion` to not use remoting when connecting to the local computer. (Issue #90)
-+ Updated help documentation for `Get-WindowsVersion` and `Get-WindowsVersionString`.
-+ Added command `Copy-PSFunction` with an alias of `cpfun`.
-
-## v2.28.0
-
-+ Added `Compare-Script` thanks to @cohdjn.
-+ Added `Get-PSProfile` and a related formatting file, `psprofilepath.format.ps1xml`.
-+ Updated `README.md`.
-
-## v2.27.0
-
-+ Added a new command called `Get-MyAlias` with an alias of `gma`.
-+ Added a custom formatting file for alias objects with new views of `Options` and `Source`.
-+ Revised the help PDF to include command help.
-+ Help documentation cleanup.
-+ Updated `README.md`
-+ Fixed bug in `Test-Expression` that was importing the wrong module.
-+ Modified `New-PSDriveHere` to not write the new PSDrive object to the pipeline. Added a `-Passthru` parameter. This is a BREAKING change to the command.
-+ Modified `Get-ParameterInfo` to write a custom `PSParameterInfo` object to the pipeline and added a default list formatted view.
-+ Modified `psscripttool.format.ps1xml` to display Verb in color using ANSI.
-
-## v2.26.2
-
-+ Cleaned up bad links and code fence re-formatting in `README.md`.
-+ Created new base version of `PSScriptToolsHelp.md`.
-+ Generated a new help manual with a table of contents and nicer formatting. (Issue #87)
-+ Renamed help pdf to `PSScriptToolsManual.pdf`.
-
-## v2.26.1
-
-+ Replaced links in `PSScriptToolsHelp` (Issue #86)
-+ Updated PDF style when exporting `PSScriptToolsHelp`
-+ Removed Table of Contents from `PSScriptToolsHelp.md`. There is a bug when rendering to PDF that doesn't follow the relative links in the document. Hopefully I can add this back in the future.
-+ Minor changes to `README.md`.
-
-## v2.26.0
-
-+ Added a Documents type to `PSAnsiFileMap.json`.
-+ Added a parameter to `Convert-HashtableToCode` to output an inline string. (Issue #85)
-+ Added an alias `chc` for `Convert-HashtableToCode`.
-+ Added `Copy-HelpExample` command with an alias of `che`.
-+ Added `Open-PSScriptToolsHelp` to open a PDF version of `README.md` as a help manual.
-+ Fixed duplicate entry in `PSAnsiFileMap.json`.
-+ Revised regex patterns in `PSAnsiFileMap.json`. (Issue #83)
-+ Cleaned up code in `filesystem-ansi.format.ps1xml`.
-+ Modified `Convert-HashtableToCode` to (hopefully) better handle scriptblocks. (Issue #84)
-+ Updated `README.md`
-
-## v2.25.1
-
-+ Fixed incorrect sequence for BlackRectangle in `$PSSpecialChar`. (Issue #82)
-+ Fixed incorrect ANSI for System files in `PSAnsiFileMap.json`.
-
-## v2.25.0
-
-+ Added a set of ANSI mappings for temporary files and system files in `psansifilemap.json`.
-+ Added additional file extensions to `psansifilemap.json`.
-+ Added pointers, section sign, and black rectangle to PSSpecialChars hashtable.
-+ Modified `Show-Tree` to make the `InColor` parameter always available. (Issue #80)
-+ Modified `Add-Border` to use ANSI escape codes that will work in both Windows PowerShell and PowerShell 7.
-+ Updated `New-PSFormatXML` to better handle empty or null property values. (Issue #81)
-+ Help Updates
-
-## v2.24.0
-
-+ Added parameter alias of `tb` for `-TextBlock` in `Add-Border`.
-+ Added parameter alias of `border` for `-Character` in `Add-Border`.
-+ Added `New-ANSIBar` command.
-+ Added `New-RedGreenGradient` command.
-+ Added `Write-ANSIProgress` command with an alias of `wap`.
-+ Defined a global variable called `$PSSpecialChar` which is a hash table select special characters you might want to use with `Add-Border` or `New-AnsiBar`.
-+ Added a table view to `modulecommand.format.ps1xml` and made it the default.
-+ Added a new table view called `verb` to `modulecommand.format.ps1xml`.
-+ Added `Get-PathVariable` with its own custom format file. (Issue #74)
-+ Added sample script `Get-Status.ps1`.
-+ Added global variable `$PSSamplePath` to point to the sample script location
-+ Modified `Add-Border` to adjust line length when ANSI escapes are part of the text. (Issue #79)
-+ Modified `Get-PSWho` to trim when using `-AsString`.
-+ Fixed bug in `New-PSFormatXML` what was writing an XML element to the pipeline when using `-Wrap`.
-+ Updated `Get-ModuleCommand` output to include the module name.
-+ Updated `serviceansi.format.ps1xml` and `filesystem-ansi.format.ps1xml` to use an escape sequence available to both Windows PowerShell and PowerShell 7.
-+ Fixed wrong type name in `serviceansi.format.ps1xml`.
-+ Help updates.
-+ Updated sample scripts.
-+ Updated `README.md`.
-+ Removed duplicate line of code in `New-PSFormatXML`.
-
-## v2.23.0
-
-+ Updated `New-PSFormatXML` to include an option to wrap tables. (Issue #78)
-+ Updated `Add-Border` to include parameters to specify an ANSI sequence for the border and one for the text.
-+ Revised `Add-Border` to better support inserting blank lines.
-+ Updated `README.md`.
-
-## v2.22.0
-
-+ Modified `Set-ConsoleTitle` to move parameter validation into the `Process` script block. (Issue #75)
-+ Modified `Get-FolderSizeInfo` to fix an enumeration bug when used in Windows PowerShell. (Issue #77)
-+ Added online help links for `Get-GitSize`, `Get-ModuleCommand` and `Remove-MergedBranch`.
-+ Updated `foldersizeinfo.format.ps1xml` to include a view called `TB` to display values in TB.
-
-## v2.21.0
-
-+ Updated `Set-ConsoleTitle` and `Set-ConsoleColor` to display a warning if not in a console session. (Issue #75)
-+ Added `Get-GitSize` and format file `gitsize.format.ps1xml`
-+ Added a default ANSI color map file `psansimap.json`.
-+ Modified module to use a copy of `psansimap.json` in $HOME if detected. Otherwise, use the module's version.
-+ Create a global variable called `PSAnsiFileMap` from importing the `psansimap.json` file.
-+ Updated `Show-Tree` to use an ANSI color map. (Issue #69)
-+ Added `FileSystem-ansi.format.ps1xml` which adds a custom view called `ansi`. This colorizes files based on `$PSAnsiMap`.
-+ Updated `Show-Tree` to resolve child paths using `-LiteralPath`.
-+ Updated `README.md`
-
-## v2.20.0
-
-+ Restructured `Get-FileSizeInfo` to better handle Windows PowerShell. (Issue #70)
-+ Added `Remove-MergedBranch` with an alias of `rmb`. (Issue #71)
-+ Added `Get-ModuleCommand` with an alias of `gmc`.
-+ Added `modulecommand.format.ps1xml` to format `Get-ModuleCommand` results.
-+ Added an alias of `shtree` for `Show-Tree` because `pstree` is a Linux command.
-+ Added parameter alias `files` for `-ShowItem` in `Show-Tree`.
-+ Added parameter alias `properties` for `-ShowProperties` in `Show-Tree`.
-+ Added parameter alias `ansi` for dynamic parameter `InColor` in `Show-Tree`. (Issue #73)
-+ Set the default parameter value for `-Path` in `Show-Tree` to the current directory.
-+ Modified `Show-Tree` to allow the user to specify an array of properties. This is a __breaking change__ as the parameter has been changed from a `switch` to `string[]`. (Issue #72)
-+ Removed `PROPERTY` label in `Show-Tree` output when displaying properties.
-+ Corrected errors in the module manifest.
-+ Added auto completer for `Runspace` parameter in `Remove-Runspace`.
-+ Added alias `rfn` for `New-RandomFileName`.
-+ Added alias `cfn` for `New-CustomFileName`.
-+ Updated `README.md`.
-+ `ChangeLog.md` clean up.
+If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md)
