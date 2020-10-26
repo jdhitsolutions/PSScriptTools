@@ -9,18 +9,18 @@ This module contains a collection of functions, variables and format files that 
 ## Table of Contents
 
 + [Installation](#Installation)
-+ [General Tools](#General%20Tools)
-+ [File Tools](#File%20Tools)
++ [General Tools](#General-Tools)
++ [File Tools](#File-Tools)
 + [ToDo](#ToDo)
-+ [Graphical Tools](#Graphical%20Tools)
-+ [Hashtable Tools](#Hashtable%20Tools)
-+ [Select Functions](#Select%20Functions)
-+ [Time Functions](#Time%20Functions)
-+ [Console Utilities](#Console%20Utilities)
-+ [Format Functions](#Format%20Functions)
-+ [Scripting Tools](#Scripting%20Tools)
++ [Graphical Tools](#Graphical-Tools)
++ [Hashtable Tools](#Hashtable-Tools)
++ [Select Functions](#Select-Functions)
++ [Time Functions](#Time-Functions)
++ [Console Utilities](#Console-Utilities)
++ [Format Functions](#Format-Functions)
++ [Scripting Tools](#Scripting-Tools)
 + [Other](#Other)
-+ [Related Modules](#Related%20Modules)
++ [Related Modules](#Related-Modules)
 + [Compatibility](#Compatibility)
 
 ## Installation
