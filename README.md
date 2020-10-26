@@ -19,7 +19,7 @@ This module contains a collection of functions, variables and format files that 
 + [Console Utilities](#Console-Utilities)
 + [Format Functions](#Format-Functions)
 + [Scripting Tools](#Scripting-Tools)
-+ [Other](#Other)
++ [Other Module Features](#Other-Module-Features)
 + [Related Modules](#Related-Modules)
 + [Compatibility](#Compatibility)
 
@@ -1966,7 +1966,7 @@ I've created a PDF version of this document which I thought you might find usefu
 Open-PSScriptToolsHelp
 ```
 
-## Other Modules
+## Related Modules
 
 If you find this module useful, you might also want to look at my PowerShell tools for:
 
