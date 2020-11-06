@@ -1,16 +1,16 @@
-#requires -module PSScriptTools
 #requires -version 5.1
+#requires -module PSScriptTools
 
 Function New-Password {
     [cmdletbinding()]
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline, HelpMessage = "Enter a 8+ character string to 'seed' the password.")]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript( {$_.length -ge 8})]
+        [ValidateScript( { $_.length -ge 8 })]
         [string]$SeedText
     )
     Begin {
-        Write-Detail "Starting $($myinvocation.mycommand)" -prefix begin | Write-Verbose
+        Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Write-Verbose
         $hash = @{
             a = "@"
             q = "$"
@@ -23,25 +23,24 @@ Function New-Password {
             c = "<"
         }
         #define a temp file to store results
-        $tmpfile = New-RandomFileName -UseTempFolder
+        $tmpfile = New-RandomFileName -UseTempFolder -Extension log
     } #begin
 
     Process {
         Write-Detail "Using seed '$SeedText'" | Write-Verbose
-        Format-string $SeedText -Randomize -Replace $hash -case Alternate | Tee-Object -FilePath $tmpfile -Append
+        Format-String $SeedText -Randomize -Replace $hash -Case Alternate | Tee-Object -FilePath $tmpfile -Append
     } #process
 
     End {
-        Write-Detail "See $tmpfile for results." -prefix end | Write-Verbose
-        Write-Detail "Ending $($myinvocation.mycommand)" -prefix end | Write-Verbose
+        Write-Detail "See $tmpfile for results." -Prefix end | Write-Verbose
+        Write-Detail "Ending $($myinvocation.mycommand)" -Prefix end | Write-Verbose
     } #end
 
 } #close New-Password
 
 
+'applepies','PSMaster','skldjgb23' | New-Password -verbose
 # New-Password PowerShell
-
-# 'applepies','PSMaster','skldjgb23' | new-password -verbose
 
 # New-Password 'password' | New-Password
 

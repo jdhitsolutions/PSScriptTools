@@ -1,5 +1,5 @@
-#requires -module PSScriptTools
 #requires -version 5.1
+#requires -module PSScriptTools
 
 Function Get-TopProcess {
     [cmdletbinding()]
@@ -20,7 +20,7 @@ Function Get-TopProcess {
         Write-Detail "Starting $($myinvocation.mycommand)" | Tee-Verbose
         Write-Detail "Using verbose log $vlog" | Tee-Verbose
         Write-Detail "Execution metadata" | Tee-Verbose
-        Write-Detail (Add-Border -textblock (Get-PSwho -AsString)| Out-String) | Tee-Verbose
+        Write-Detail (Add-Border -TextBlock (Get-PSWho -AsString) | Out-String) | Tee-Verbose
         Write-Detail "Initializing data array" | Tee-Verbose
     } #begin
 
@@ -30,7 +30,7 @@ Function Get-TopProcess {
         $all += Invoke-Command -ScriptBlock {
             Get-Process |
                 Sort-Object -Property $using:Property -Descending |
-                Select-Object -first $using:Top
+                Select-Object -First $using:Top
         } -ComputerName $computername
     } #process
 
@@ -40,15 +40,15 @@ Function Get-TopProcess {
         if ($VerbosePreference -eq 'Continue') {
             #save results to the verbose log
             #add the detail to the log but don't make it verbose
-            Write-Detail "Data results" | Add-Content -path $vlog
-            $all | Out-String | Add-Content -path $vlog
+            Write-Detail "Data results" | Add-Content -Path $vlog
+            $all | Out-String | Add-Content -Path $vlog
             #save results for each computer to a separate log
-            $all | Group-Object -property PSComputername |
-                foreach-object {
-                $log = New-CustomFileName -Template "$env:temp\$($_.Name)_TopProcess_$Property-%Year%Month%time-%###.txt"
-                Write-Detail "Logging output to $log" | Tee-Verbose
-                $_.Group | Out-String | Set-Content -path $log
-            }
+            $all | Group-Object -Property PSComputername |
+                ForEach-Object {
+                    $log = New-CustomFileName -Template "$env:temp\$($_.Name)_TopProcess_$Property-%Year%Month%time-%###.txt"
+                    Write-Detail "Logging output to $log" | Tee-Verbose
+                    $_.Group | Out-String | Set-Content -Path $log
+                }
         }
 
         Write-Detail "Ending $($myinvocation.mycommand)" | Tee-Verbose

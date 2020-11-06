@@ -11,14 +11,6 @@ format type data generated 02/27/2020 10:21:29 by BOVINE320\Jeff
         <TypeName>PSScriptTool</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
          <ScriptBlock>"$([char]0x1b)[38;5;226m$($_.verb)$([char]0x1b)[0m"</ScriptBlock>
         <Label>Verb</Label>
       </GroupBy>
@@ -31,7 +23,7 @@ format type data generated 02/27/2020 10:21:29 by BOVINE320\Jeff
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Alias</Label>
-            <Width>20</Width>
+            <Width>18</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -43,10 +35,6 @@ format type data generated 02/27/2020 10:21:29 by BOVINE320\Jeff
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>

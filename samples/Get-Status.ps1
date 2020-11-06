@@ -1,6 +1,8 @@
 #requires -version 5.1
 #requires -module PSScriptTools
 
+[CmdletBinding()]
+Param()
 Function Get-Status {
 
     [cmdletbinding(DefaultParameterSetName = 'name')]
@@ -19,16 +21,26 @@ Function Get-Status {
         [pscredential]$Credential,
         [Parameter(ParameterSetName = 'Session', ValueFromPipeline)]
         [CimSession]$Cimsession,
-        [switch]$AsString
+        [switch]$AsString,
+        [Parameter(HelpMessage="Enable with grapical trace window")]
+        [switch]$Trace
     )
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        if ($trace) {
+            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Using Trace"
+            $global:TraceEnabled = $True
+            $traceTitle = "{0} Trace Log" -f $($myinvocation.MyCommand)
+            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] $traceTitle"
+            Trace-Message -Title $traceTitle
+            Trace-Message "Starting $($myinvocation.mycommand)"
+        }
     } #begin
 
     Process {
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using parameter set $($pscmdlet.ParameterSetName)"
-
+        Trace-Message -message "Using parameter set: $($pscmdlet.ParameterSetName)"
         $sessParams = @{
             ErrorAction  = 'stop'
             computername = $null
@@ -39,7 +51,7 @@ Function Get-Status {
         }
 
         if ($pscmdlet.ParameterSetName -eq 'name') {
-            #create a temporary Cimsession
+            Trace-Message -message "Create a temporary Cimsession"
             $sessParams.Computername = $Computername
             if ($Credential) {
                 $sessParams.Credential = $credential
@@ -66,6 +78,7 @@ Function Get-Status {
                 $cimParams.classname = 'Win32_OperatingSystem'
                 $cimParams.CimSession = $Cimsession
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Querying $($cimparams.classname)"
+                Trace-Message  "Querying $($cimparams.classname)"
                 $OS = Get-CimInstance @cimParams
                 $uptime = (Get-Date) - $OS.lastBootUpTime
                 $hash.Add("Uptime", $uptime)
@@ -77,19 +90,24 @@ Function Get-Status {
                 $cimParams.filter = "drivetype=3"
 
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Querying $($cimparams.classname)"
+                Trace-Message  "Querying $($cimparams.classname)"
                 Get-CimInstance @cimParams | ForEach-Object {
                     $name = "PctFree{0}" -f $_.deviceid.substring(0, 1)
                     $pctFree = [math]::Round(($_.FreeSpace / $_.size) * 100, 2)
                     $hash.add($name, $pctfree)
                 }
 
+                Trace-Message -message "Creating new object"
+                $hash | Out-String | Trace-Message
                 $status = New-Object PSObject -Property $hash
 
                 if ($AsString) {
+                    Trace-Message "Formatting result as a string"
                     $upstring = $uptime.toString().substring(0, $uptime.toString().LastIndexOf("."))
 
                     if (($IsWindows -AND $IsCoreCLR) -OR ($PSEdition -eq 'Desktop')) {
                         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Formatting for PowerShell 7.x"
+                        Trace-Message -message "Formatting for PowerShell 7.x"
                         #strip the milliseconds off the uptime
                         $string = "$([char]0x1b)[38;5;47m{0}$([char]0x1b)[0m Up:{1}" -f $status.computername, $upstring
                     }
@@ -104,6 +122,7 @@ Function Get-Status {
                         $sName = $item.name -replace "Pct", "%"
                         if (($IsWindows -AND $IsCoreCLR) -OR ($PSEdition -eq 'Desktop')) {
                             #Colorize values
+                            Trace-Message -message "Colorizing output"
                             if ([double]$item.value -le 20) {
                                 #red
                                 $value = "$([char]0x1b)[91m$($item.value)$([char]0x1b)[0m"
@@ -138,6 +157,7 @@ Function Get-Status {
             #only remove the cimsession if it was created in this function
             if ($tempsession) {
                 Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Removing temporary cimsession"
+                Trace-Message "Removing temporary cimsession"
                 Remove-CimSession -CimSession $Cimsession
             }
         } #if cimsession
@@ -145,10 +165,13 @@ Function Get-Status {
 
     End {
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Trace-Message -message "Ending $($myinvocation.mycommand)"
+        #make sure tracing is turned off
+        $global:TraceEnabled = $False
     } #end
 } #close function
 
-$data = Get-Status 
+$data = Get-Status -trace
 
 #define the Escape character
 $e = "$([char]0x1b)"

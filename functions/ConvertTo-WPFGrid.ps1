@@ -113,7 +113,6 @@ Function ConvertTo-WPFGrid {
 
                     $element.Dispatcher.invoke("render", [action] {})
                     [System.Threading.Thread]::Sleep(50)
-
                 }
 
             #get maximum available working area on the screen
@@ -149,7 +148,6 @@ Function ConvertTo-WPFGrid {
                     $form.left = $s.width / 2 - $form.ActualWidth / 2
                     $form.UpdateLayout()
                     $form.focus
-
                 })
 
             $Form.Add_closing( {
@@ -352,7 +350,6 @@ Function ConvertTo-WPFGrid {
     } #begin
 
     Process {
-
         #add each incoming object to the data array
         if ($psCmdlet.ParameterSetName -eq 'Input') {
             $data += $Inputobject

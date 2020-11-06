@@ -2,6 +2,19 @@
 
 This is the most recent change log history for this module.
 
+## v2.33.0
+
++ Added `Select-Before`,`Select-After`,`Select-Newest` and `Select-Oldest` and their respective aliases of *before*,*after*,*newest*, and *oldest*.
++ Added `Get-MyCounter` and a custom format file `mycounter.format.ps1xml`.
++ Added `Trace-Message` and its alias *trace*.
++ Added more Verbose messages to `Get-PSScriptTools`.
++ Code cleanup in `SelectFunctions.ps1`.
++ Modified `Get-PSScriptTools` to let you specify a verb. Updated command help.
++ Modified `ConvertTo-Markdown` to handle properties with line returns when formatting as a table. (Issue #97)
++ Code cleanup in sample script files.
++ Added sample file `CounterMarkdown.ps1`.
++ Updated `README.md`.
+
 ## v2.32.0
 
 + Added `ConvertTo-ASCIIArt` and its alias *cart*.

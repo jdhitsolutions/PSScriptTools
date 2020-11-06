@@ -70,8 +70,7 @@ What if: Performing the operation "Remove Directory" on target "C:\work\todd".
 What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
 ```
 
-Find all empty sub-folders under C:\Work and pipe them to Remove-Item. This is one way to remove empty folders.
-The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work\[data] is a non-standard path.
+Find all empty sub-folders under C:\Work and pipe them to Remove-Item. This is one way to remove empty folders. The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work\[data] is a non-standard path.
 
 ## PARAMETERS
 
@@ -123,8 +122,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

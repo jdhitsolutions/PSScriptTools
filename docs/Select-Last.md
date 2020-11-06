@@ -20,9 +20,9 @@ Select-Last -InputObject <PSObject> [-Last] <Int32> [[-Property] <String>]
 
 ## DESCRIPTION
 
-This is a script version of Select-Object designed to select the last X number of objects. The command takes pipelined input and selects the last specified number of objects which are then written to the pipeline. You have an option to first sort on the specified property.
+This is a modified version of Select-Object designed to select the last X number of objects. The command takes pipelined input and selects the last specified number of objects which are then written to the pipeline. You have an option to first sort on the specified property.
 
-When using this command there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.
+When using this command, there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.
 
 ## EXAMPLES
 
@@ -36,11 +36,11 @@ Directory: C:\scripts
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----        1/11/2018   7:18 PM           1818 demo-v5Classes.ps1
--a----        1/11/2018   7:20 PM           1255 demo-v5DSCClassResource.ps1
--a----        1/14/2018  12:58 PM           1967 Demo-ParamTest.ps1
--a----        1/15/2018   9:23 AM            971 Get-WorkflowVariable.ps1
--a----        1/15/2018  12:08 PM           1555 Cost.ps1
+-a----        1/11/2020   7:18 PM           1818 demo-v5Classes.ps1
+-a----        1/11/2020   7:20 PM           1255 demo-v5DSCClassResource.ps1
+-a----        1/14/2020  12:58 PM           1967 Demo-ParamTest.ps1
+-a----        1/15/2020   9:23 AM            971 Get-WorkflowVariable.ps1
+-a----        1/15/2020  12:08 PM           1555 Cost.ps1
 ```
 
 Get the last 5 ps1 files sorted on the LastWritetime property. This example is using the alias 'last' for Select-Last.
@@ -141,8 +141,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
