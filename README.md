@@ -52,6 +52,36 @@ Uninstall-Module PSScriptTools -allversions
 
 ## General Tools
 
+### [Get-MyCounter](docs/Get-MyCounter.md)
+
+`Get-MyCounter` is an enhanced version of `Get-Counter` which is available on Windows platforms to retrieve
+performance counter data. One of the challenges with `Get-Counter` is how it formats results. `Get-MyCounter` takes the same information and writes a custom object to the pipeline that is easier to work with. You can pipe counters from Get-Counter to this command.
+
+![Get-MyCounter](images/get-mycounter1.png)
+
+![Get-MyCounter Remote](images/get-mycounter2.png)
+
+One advantage of `Get-MyCounter` over `Get-Counter` is that the performance data is easier to work with.
+
+```powershell
+ Get-MyCounter '\IPv4\datagrams/sec' -MaxSamples 60 -SampleInterval 5 -computer SRV1 | Export-CSV  c:\work\srv1_ipperf.csv -NoTypeInformation
+ ```
+
+In this example, the performance counter is sampled 60 times every 5 seconds and the data is exported to a CSV file which could easily be opened in Microsoft Excel. Here's a sample of the output object.
+
+```text
+Computername : SRV1
+Category     : ipv4
+Counter      : datagrams/sec
+Instance     :
+Value        : 66.0818918347238
+Timestamp    : 11/4/2020 11:31:29 AM
+```
+
+`Get-MyCounter` writes a custom object to the pipeline which has an associated formatting file with custom views.
+
+![Get-MyCounter view](images/get-mycounter3.png)
+
 ### [Get-DirectoryInfo](docs/Get-DirectoryInfo.md)
 
 This command, which has an alias of *dw*, is designed to provide quick access to top-level directory information. The default behavior is to show the total number of files in the immediate directory. Although the command will also capture the total file size in the immediate directory. You can use the Depth parameter to recurse through a specified number of levels. The default displays use ANSI escape sequences.
@@ -215,9 +245,6 @@ Add-Border                            Create a text border around a string.
 Name            Alias                Synopsis
 ----            -----                --------
 Compare-Module  cmo                  Compare PowerShell module versions.
-
-
-   Verb: Convert
 
 ...
 ```
@@ -984,14 +1011,14 @@ DependentServices              {Fax}
 
 ## Select Functions
 
-The module contains 2 functions which simplify the use of `Select-Object`. The commands are intended to make it easier to select the first or last X number of objects. The commands include features so that you can sort the incoming objects on a given property first.
+The module contains several functions that simplify the use of `Select-Object` or `Select-Object` in conjunction with `Where-Object`. The commands are intended to make it easier to select objects in a pipelined expression. The commands include features so that you can sort the incoming objects on a given property first.
 
 ### [Select-First](docs/Select-First.md)
 
 Normally, you might run a command with `Select-Object` like this:
 
-```text
-PS C:\> Get-Process | Select-Object -first 5 -Property WS -Descending
+```powershell
+Get-Process | Select-Object -first 5 -Property WS -Descending
 
 Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 -------  ------    -----      -----     ------     --  -- -----------
@@ -1004,8 +1031,8 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 
 To streamline the process a bit, you can use `Select-First`.
 
-```text
-PS C:\> Get-Process | Select-First 5 -Property WS -Descending
+```powershell
+Get-Process | Select-First 5 -Property WS -Descending
 
 Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 -------  ------    -----      -----     ------     --  -- -----------
@@ -1027,8 +1054,134 @@ Get-Process | Sort-Object ws -Descending | first 5
 You can perform a similar operating using `Select-Last` or its alias *last*.
 
 ```powershell
-dir c:\scripts\*.ps1 | Sort-Object lastwritetime | last 10
+Get-Childitem -path c:\scripts\*.ps1 | Sort-Object lastwritetime | last 10
 ```
+
+### [Select-After](docs/Select-After.md)
+
+`Select-After` is a simplified version of `Select-Object`. The premise is that you can pipe a collection of objects to this command and select objects after a given datetime, based on a property, like LastWriteTime, which is the default. This command has an alias of *after*.
+
+```powershell
+Get-ChildItem -path c:\scripts\ -file | after 11/1/2020
+
+
+    Directory: C:\Scripts
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           11/2/2020 11:08 AM           3522 Get-ServiceWPFRunspace.ps1
+-a---           11/1/2020 11:05 AM           5321 Trace.ps1
+-a---           11/2/2020 11:39 AM           2321 WinFormDemo2.ps1
+```
+
+Or you can specify property depending on the object.
+
+```powershell
+Get-Process | after (Get-Date).Addminutes(-1) -Property StartTime
+
+ NPM(K)    PM(M)      WS(M)     CPU(s)      Id  SI ProcessName
+ ------    -----      -----     ------      --  -- -----------
+     13     3.14      13.73       0.05   19156   2 notepad
+```
+
+This is selecting all processes that started within the last minute.
+
+### [Select-Before](docs/Select-Before.md)]
+
+`Select-Before` is the opposite of `Select-After`.
+
+```powershell
+Get-ChildItem -path c:\scripts -file | before 1/1/2008
+
+
+    Directory: C:\Scripts
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           12/5/2007  2:19 PM          29618 1000MaleNames.txt
+-a---            4/8/2006 10:27 AM           3779 530215.ps1
+-a---            8/7/2005  1:00 AM           4286 ADUser.wsc
+-a---           9/18/2006  9:27 PM           1601 allserviceinfo.ps1
+...
+```
+
+As with `Select-After`, you can specify a property to use.
+
+```powershell
+Get-Aduser -filter * -Properties WhenCreated |
+Before 11/1/2020 -Property WhenCreated | Select-Object Name,WhenCreated
+
+
+Name           WhenCreated
+----           -----------
+Administrator  10/26/2020 6:47:39 PM
+Guest          10/26/2020 6:47:39 PM
+DefaultAccount 10/26/2020 6:47:39 PM
+krbtgt         10/26/2020 6:50:47 PM
+MaryL          10/26/2020 6:56:24 PM
+ArtD           10/26/2020 6:56:24 PM
+AprilS         10/26/2020 6:56:25 PM
+MikeS          10/26/2020 6:56:25 PM
+...
+```
+
+### [Select-Newest](docs/Select-Newest.md)
+
+`Select-Newest` is designed to make it easier to select X number of objects based on a datetime property. The default property value is LastWriteTime.
+
+```powershell
+Get-ChildItem -path d:\temp -file | newest 10
+
+
+    Directory: D:\temp
+
+Mode              LastWriteTime        Length Name
+----              -------------        ------ ----
+-a---        11/4/2020  5:12 PM       5149954 watcherlog.txt
+-a---        11/3/2020 10:00 PM          3215 DailyIncremental_202011031000.txt
+-a---        11/2/2020 10:00 PM         11152 DailyIncremental_202011021000.txt
+-a---        11/2/2020  3:40 PM           852 t.ps1
+-a---        11/1/2020 10:00 PM          2376 DailyIncremental_202011011000.txt
+-a---       10/31/2020 10:00 PM          3150 DailyIncremental_202010311000.txt
+-a---       10/30/2020 10:07 PM         17844 WeeklyFull_202010301000.txt
+-a---       10/30/2020  1:00 PM        208699 datatfile-5.png
+-a---       10/30/2020 12:57 PM       1264567 datatfile-4.png
+-a---       10/30/2020 12:27 PM        421341 datatfile-3.png
+```
+
+Or specify a property.
+
+```powershell
+Get-ADUser -filter * -Properties WhenCreated |
+ Select-Newest 5 -Property WhenCreated |
+ Select-object DistinguishedName,WhenCreated
+
+DistinguishedName                                WhenCreated
+-----------------                                -----------
+CN=Marcia Brady,OU=Employees,DC=Company,DC=Pri   11/4/2020 3:15:27 PM
+CN=Gladys Kravitz,OU=Employees,DC=Company,DC=Pri 11/4/2020 3:14:45 PM
+CN=S.Talone,OU=Employees,DC=Company,DC=Pri       10/26/2020 3:56:31 PM
+CN=A.Fieldhouse,OU=Employees,DC=Company,DC=Pri   10/26/2020 3:56:31 PM
+CN=K.Moshos,OU=Employees,DC=Company,DC=Pri       10/26/2020 3:56:31 PM
+```
+
+### [Select-Oldest](docs/Select-Oldest.md)
+
+`Select-Oldest` is the opposite of `Select-Newest` and works the same way.
+
+```powershell
+Get-Process | newest 5 -Property StartTime
+
+Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
+-------  ------    -----      -----     ------     --  -- -----------
+    145       8     1692       7396       0.02   9676   0 SearchFilterHost
+    344      13     2604      13340       0.02  33668   0 SearchProtocolHost
+    114       7     1340       6116       0.02  35028   0 svchost
+    140       8     2684       8796       0.03  32552   0 svchost
+    118       8     1580       7476       0.02  35668   0 svchost
+```
+
+These custom Select commands are not necessarily designed for peformance and there may be better ways to achieve the same results from these examples.
 
 ## Time Functions
 
@@ -1461,6 +1614,50 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [Trace-Message](docs/Trace-Message.md)
+
+Trace-Message is designed to be used with your script or function on a Windows platform. Its purpose is to create a graphical trace window using Windows Presentation Foundation (WPF). Inside the function or script, you can use this command to send messages to the window. When finished, you have an option to save the output to a text file.
+
+There are 3 steps to using this function. First, in your code, you need to create a boolean global variable called TraceEnabled. When the value is $True, the Trace-Message command will run. When set to false, the command will be ignored. Second, you need to initialize a form, specifying the title and dimensions. Finally, you can send trace messages to the window. All messages are prepended with a timestamp.
+
+Here is a code excerpt from `$PSSamplePath\Get-Status.ps1`:
+
+```powershell
+Function Get-Status {
+
+    [cmdletbinding(DefaultParameterSetName = 'name')]
+    [alias("gst")]
+    Param(
+        ...
+        [Parameter(HelpMessage="Enable with grapical trace window")]
+        [switch]$Trace
+    )
+
+    Begin {
+        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        if ($trace) {
+            $global:TraceEnabled = $True
+            $traceTitle = "{0} Trace Log" -f $($myinvocation.MyCommand)
+            Trace-Message -title $traceTitle
+            Trace "Starting $($myinvocation.mycommand)"
+        }
+    } #begin
+      Process {
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using parameter set $($pscmdlet.ParameterSetName)"
+        Trace-Message -message "Using parameter set: $($pscmdlet.ParameterSetName)"
+    ...
+      } #close function
+    $data = Get-Status -trace
+```
+
+The trace window starts with pre-defined metadata.
+
+![Trace Sample](images/trace.png)
+
+*Your output might vary from this screen shot.*
+
+You have an option to Save the text. The default location is `$env:temp`.
 
 ### [Get-CommandSyntax](docs/Get-CommandSyntax.md)
 
@@ -1980,4 +2177,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-10-26 19:37:54Z*
+Last Updated *2020-11-04 22:51:29Z*

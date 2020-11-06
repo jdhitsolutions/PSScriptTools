@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Select first X number of objects.
+Select the first X number of objects.
 
 ## SYNTAX
 
@@ -20,9 +20,9 @@ Select-First -InputObject <PSObject> [-First] <Int32> [[-Property] <String>]
 
 ## DESCRIPTION
 
-This command takes pipelined input and selects the first specified number of objects which are then written to the pipeline. You also have the option to sort on the specified property.
+This command is intended to take pipelined input and select the first specified number of objects which are then written to the pipeline. You also have the option to sort on a specified property.
 
-When using this command there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.
+When using this command, there is a trade-off of convenience for performance. For a very large number processed objects, use Select-Object directly.
 
 ## EXAMPLES
 
@@ -41,7 +41,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 ### EXAMPLE 2
 
 ```powershell
-1..10 | Select-First 3 -Skip 2
+PS C:\> 1..10 | Select-First 3 -Skip 2
 
 3
 4
@@ -134,8 +134,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

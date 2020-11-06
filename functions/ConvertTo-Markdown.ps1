@@ -63,20 +63,29 @@ Function ConvertTo-Markdown {
                     $line = "| "
                     $values = @()
                     for ($i = 0; $i -lt $names.count; $i++) {
-                        # $line += $item.($names[$i])
-                        $values += $item.($names[$i])
+                        
+                        #if an item value contains return and new line replace them with <br> Issue #97
+                        if ($item.($names[$i]) -match "`n") {
+                            Write-Verbose "[END    ] Replacing line returns for property $($names[$i])"
+                            [string]$val = $($item.($names[$i])).replace("`r`n","<br>") -join ""
+                            Write-Verbose $val
+                        }
+                        else {
+                            [string]$val = $item.($names[$i])
+                        }
+                        
+                        $values += $val
                     }
                     $line += $values -join " | "
                     $line += " |"
                     $text += $line
-                    $text += "`n"
+                    $text += "`r"
                 }
-
             }
             else {
                 #convert data to strings and trim each line
                 Write-Verbose "[END    ] Converting data to strings"
-                [string]$trimmed = (($data | Out-String -Width $width).split("`n")).ForEach( { "$($_.trim())`n" })
+                [string]$trimmed = (($data | Out-String -Width $width).split("`n")).ForEach({ "$($_.trim())`n" })
                 Write-Verbose "[END    ] Adding to markdown"
                 $clean = $($trimmed.trimend())
                 $text += @"
@@ -93,6 +102,7 @@ $clean
             $text += "`n"
             $text += $postcontent
         }
+
         #write the markdown to the pipeline
         $text.TrimEnd()
         Write-Verbose "[END    ] Ending $($myinvocation.MyCommand)"

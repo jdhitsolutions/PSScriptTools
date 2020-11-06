@@ -6092,6 +6092,314 @@ np   notepad       ReadOnly</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-MyCounter</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>MyCounter</command:noun>
+      <maml:description>
+        <maml:para>Get performance counter data.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Get-MyCounter is an enhanced version of Get-Counter which is available on Windows platforms to retrieve performance counter data. One of the challenges with Get-Counter is how it formats results. Get-MyCounter takes the same information and writes a custom object to the pipeline that is easier to work with. You can pipe counters from Get-Counter to this command.</maml:para>
+      <maml:para>The custom object has an associated formatting file with custom views. See examples.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-MyCounter</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+          <maml:name>Counter</maml:name>
+          <maml:Description>
+            <maml:para>Gets data from the specified performance counters. Enter one or more counter paths. Wildcards are permitted only in the Instance value. You can also pipe counter path strings to Get-MyCounter.</maml:para>
+            <maml:para> Each counter path has the following format:</maml:para>
+            <maml:para>"[\&lt;ComputerName&gt;]&lt;CounterSet&gt;(&lt;Instance&gt;)&lt;CounterName&gt;"</maml:para>
+            <maml:para>For example:</maml:para>
+            <maml:para>"\Server01\Processor(2)\% User Time"</maml:para>
+            <maml:para>The &lt;ComputerName&gt; element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Cn">
+          <maml:name>ComputerName</maml:name>
+          <maml:Description>
+            <maml:para>The name of a remote computer. Querying a remote computer does not use PowerShell remoting and requires administrator-level permissions. Typically, the RemoteRegistry service must also be running.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>localhost</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Continuous</maml:name>
+          <maml:Description>
+            <maml:para>Gets samples continuously until you press CTRL+C. By default, Get-MyCounter gets only one counter sample. You can use the SampleInterval parameter to set the interval for continuous sampling.</maml:para>
+          </maml:Description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>MaxSamples</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the number of samples to get from each counter. The default is 1 sample. To get samples continuously (no maximum sample size), use the Continuous parameter.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
+          <dev:type>
+            <maml:name>Int64</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>SampleInterval</maml:name>
+          <maml:Description>
+            <maml:para>Specifies the time between samples in seconds. The minimum value and the default value are 1 second</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Cn">
+        <maml:name>ComputerName</maml:name>
+        <maml:Description>
+          <maml:para>The name of a remote computer. Querying a remote computer does not use PowerShell remoting and requires administrator-level permissions. Typically, the RemoteRegistry service must also be running.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>localhost</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Continuous</maml:name>
+        <maml:Description>
+          <maml:para>Gets samples continuously until you press CTRL+C. By default, Get-MyCounter gets only one counter sample. You can use the SampleInterval parameter to set the interval for continuous sampling.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
+        <maml:name>Counter</maml:name>
+        <maml:Description>
+          <maml:para>Gets data from the specified performance counters. Enter one or more counter paths. Wildcards are permitted only in the Instance value. You can also pipe counter path strings to Get-MyCounter.</maml:para>
+          <maml:para> Each counter path has the following format:</maml:para>
+          <maml:para>"[\&lt;ComputerName&gt;]&lt;CounterSet&gt;(&lt;Instance&gt;)&lt;CounterName&gt;"</maml:para>
+          <maml:para>For example:</maml:para>
+          <maml:para>"\Server01\Processor(2)\% User Time"</maml:para>
+          <maml:para>The &lt;ComputerName&gt; element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>MaxSamples</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the number of samples to get from each counter. The default is 1 sample. To get samples continuously (no maximum sample size), use the Continuous parameter.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int64</command:parameterValue>
+        <dev:type>
+          <maml:name>Int64</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>SampleInterval</maml:name>
+        <maml:Description>
+          <maml:para>Specifies the time between samples in seconds. The minimum value and the default value are 1 second</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>myCounter</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Counter -list "system" | Get-MyCounter
+
+   Computername: SERVER18
+
+Timestamp             Category Counter                           Value
+---------             -------- -------                           -----
+11/4/2020 10:48:47 AM system   file read operations/sec       203.3096
+11/4/2020 10:48:47 AM system   file write operations/sec      252.6566
+11/4/2020 10:48:47 AM system   file control operations/sec    197.3879
+11/4/2020 10:48:47 AM system   file read bytes/sec         206336.5281
+11/4/2020 10:48:47 AM system   file write bytes/sec         56409.5271
+11/4/2020 10:48:47 AM system   file control bytes/sec       10452.6787
+11/4/2020 10:48:47 AM system   context switches/sec          6068.6924
+11/4/2020 10:48:47 AM system   system calls/sec             17854.7266
+11/4/2020 10:48:47 AM system   file data operations/sec       455.9662
+11/4/2020 10:48:47 AM system   system up time               73056.4005
+11/4/2020 10:48:47 AM system   processor queue length                0
+11/4/2020 10:48:47 AM system   processes                           301
+11/4/2020 10:48:47 AM system   threads                            4502
+11/4/2020 10:48:47 AM system   alignment fixups/sec                  0
+11/4/2020 10:48:47 AM system   exception dispatches/sec         6.9086
+11/4/2020 10:48:47 AM system   floating emulations/sec               0
+11/4/2020 10:48:47 AM system   % registry quota in use          4.0327</dev:code>
+        <dev:remarks>
+          <maml:para>Get all of the System counters with Get-Counter and pipe them to Get-MyCounter.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyCounter -computername server18| Format-table -view category
+
+
+   Category: network interface(intel[r] ethernet connection [11] i219-lm)
+
+Computername    Timestamp             Counter                          Value
+------------    ---------             -------                          -----
+SERVER18        11/4/2020 11:20:09 AM bytes total/sec              2662.0477
+
+   Category: network interface(intel[r] wi-fi 6 ax201 160mhz)
+
+Computername    Timestamp             Counter                          Value
+------------    ---------             -------                          -----
+SERVER18        11/4/2020 11:20:09 AM bytes total/sec                      0
+
+   Category: processor(_total)
+
+Computername    Timestamp             Counter                          Value
+------------    ---------             -------                          -----
+SERVER18        11/4/2020 11:20:09 AM % processor time                1.4158
+
+   Category: memory
+
+Computername    Timestamp             Counter                          Value
+------------    ---------             -------                          -----
+SERVER18        11/4/2020 11:20:09 AM % committed bytes in use       40.5214
+SERVER18        11/4/2020 11:20:09 AM cache faults/sec                     0
+
+   Category: physicaldisk(_total)
+
+Computername    Timestamp             Counter                          Value
+------------    ---------             -------                          -----
+SERVER18        11/4/2020 11:20:09 AM % disk time                     0.0217
+SERVER18        11/4/2020 11:20:09 AM current disk queue length            0</dev:code>
+        <dev:remarks>
+          <maml:para>Get the default counter set and pipe to Get-MyCounter to get values for the local host.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $c = (Get-Counter -list logicaldisk).PathsWithinstances |
+Where-Object {$_ -match "\(c:\)\\%"}
+PS C:\&gt; Get-MyCounter -Counter $c -ComputerName SERVER18,SERVER2 |
+Format-Table -view category
+
+   Category: logicaldisk(c:)
+
+Computername    Timestamp             Counter                          Value
+------------    ---------             -------                          -----
+SERVER18        11/4/2020 10:50:03 AM % free space                   48.3822
+SERVER2         11/4/2020 10:50:04 AM % free space                   54.5916
+SERVER18        11/4/2020 10:50:03 AM % disk time                     1.4669
+SERVER2         11/4/2020 10:50:04 AM % disk time                     5.3787
+SERVER18        11/4/2020 10:50:03 AM % disk read time                0.8467
+SERVER2         11/4/2020 10:50:04 AM % disk read time                     0
+SERVER18        11/4/2020 10:50:03 AM % disk write time               0.6203
+SERVER2         11/4/2020 10:50:04 AM % disk write time               5.3787
+SERVER18        11/4/2020 10:50:03 AM % idle time                    98.5846
+SERVER2         11/4/2020 10:50:04 AM % idle time                    93.3567
+
+PS C:\&gt; Get-MyCounter -Counter $c -ComputerName SERVER18,SERVER2 |
+Sort-Object Computername
+
+   Computername: SERVER18
+
+Timestamp             Category        Counter             Value
+---------             --------        -------             -----
+11/4/2020 10:50:35 AM logicaldisk(c:) % free space      48.3822
+11/4/2020 10:50:35 AM logicaldisk(c:) % disk time        0.0263
+11/4/2020 10:50:35 AM logicaldisk(c:) % disk read time        0
+11/4/2020 10:50:35 AM logicaldisk(c:) % disk write time  0.0263
+11/4/2020 10:50:35 AM logicaldisk(c:) % idle time       99.9435
+
+   Computername: SERVER2
+
+Timestamp             Category        Counter             Value
+---------             --------        -------             -----
+11/4/2020 10:50:37 AM logicaldisk(c:) % free space      54.5916
+11/4/2020 10:50:37 AM logicaldisk(c:) % disk time             0
+11/4/2020 10:50:37 AM logicaldisk(c:) % disk read time        0
+11/4/2020 10:50:37 AM logicaldisk(c:) % disk write time       0
+11/4/2020 10:50:37 AM logicaldisk(c:) % idle time       99.0114</dev:code>
+        <dev:remarks>
+          <maml:para>The first command gets a collection of logical disk counters for drive C. The second command gets performance counter data for two remote computers and formats the results using a custom view. The last command repeats the process but sorts the result by the computer name.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $p = Get-MyCounter -Counter "\IPv4\Datagrams/sec" -ComputerName SERVER2
+-SampleInterval 5 -MaxSamples 30</dev:code>
+        <dev:remarks>
+          <maml:para>This command will get the specified counter value every 5 seconds for a total of 30 samples.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-Counter</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-MyTimeInfo</command:name>
       <command:verb>Get</command:verb>
       <command:noun>MyTimeInfo</command:noun>
@@ -7239,14 +7547,39 @@ LastModified : 10/9/2017 4:08:35 PM
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>You can use this command to get a summary display of functions included in the PSScriptTools module.</maml:para>
+      <maml:para>You can use this command to get a summary display of functions included in the PSScriptTools module. Use the -Verb parameter to filter the output.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-PSScriptTools</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Verb</maml:name>
+          <maml:Description>
+            <maml:para>Filter commands based on a standard verb.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
-    <command:parameters />
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Verb</maml:name>
+        <maml:Description>
+          <maml:para>Filter commands based on a standard verb.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
     <command:inputTypes>
       <command:inputType>
         <dev:type>
@@ -7307,19 +7640,43 @@ Convert-HashtableToCode                    Convert a hashtable to a string r...
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-PSScriptTools | Where-object alias |
-Select-Object Name,alias,Synopsis
+        <dev:code>PS C:\&gt; Get-PSScriptTools | Where alias
 
-Name                   Alias Synopsis
-----                   ----- --------
-Compare-Module         cmo   Compare PowerShell module versions.
-Convert-EventLogRecord clr   Convert EventLogRecords to structured objects
-ConvertFrom-Text       cft   Convert structured text to objects.
-ConvertFrom-UTCTime    frut  Convert a datetime value from universal
-ConvertTo-LocalTime    clt   Convert a foreign time to local
+   Verb: Compare
+
+Name                        Alias      Synopsis
+----                        -----      --------
+Compare-Module              cmo        Compare PowerShell module versions.
+Compare-Script              csc        Compare PowerShell script versions.
+
+   Verb: Convert
+
+Name                        Alias      Synopsis
+----                        -----      --------
+Convert-EventLogRecord      clr        Convert EventLogRecords to structured...
+Convert-HashtableToCode     chc        Convert a hashtable to a string repre...
 ...</dev:code>
         <dev:remarks>
           <maml:para>List commands with defined aliases in the PSScriptTools module.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSScriptTools -Verb Select
+
+
+   Verb:Select
+
+Name                        Alias                Synopsis
+----                        -----                --------
+Select-After                after                Select objects after a give...
+Select-Before               before               Select objects before a giv...
+Select-First                First                Select the first X number o...
+Select-Last                 Last                 Select the last X number of...
+Select-Newest               newest               Select the newest X number ...
+Select-Oldest               oldest               Select the oldest X number ...</dev:code>
+        <dev:remarks>
+          <maml:para>Get all module commands that use the Select verb.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -12751,16 +13108,338 @@ Mode                 LastWriteTime         Length Name
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Select-After</command:name>
+      <command:verb>Select</command:verb>
+      <command:noun>After</command:noun>
+      <maml:description>
+        <maml:para>Select objects after a given datetime.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Select-After is a simplified version of Select-Object. The premise is that you can pipe a collection of objects to this command and select objects after a given datetime, based on a property, like LastWriteTime, which is the default.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Select-After</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>After</maml:name>
+          <maml:Description>
+            <maml:para>Enter the cutoff date.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>A piped in object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Property</maml:name>
+          <maml:Description>
+            <maml:para>Enter the property name to use for the datetime sort. It needs to be a datetime object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>LastWriteTime</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>After</maml:name>
+        <maml:Description>
+          <maml:para>Enter the cutoff date.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>A piped in object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Property</maml:name>
+        <maml:Description>
+          <maml:para>Enter the property name to use for the datetime sort. It needs to be a datetime object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>LastWriteTime</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Childitem c:\work -file | Select-After "11/1/2020"
+
+
+    Directory: C:\work
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           11/4/2020 11:36 AM           5008 ipperf.csv</dev:code>
+        <dev:remarks>
+          <maml:para>Select all objects that have been modified after 11/1/2020. This example is using the default -Property value of LastWriteTime.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process | After (Get-Date).AddMinutes(-10) -Property StartTime
+
+ NPM(K)    PM(M)      WS(M)     CPU(s)      Id  SI ProcessName
+ ------    -----      -----     ------      --  -- -----------
+      8     1.49       7.17       0.00   33248   0 SearchFilterHost
+     12     2.46      12.99       0.02   15328   0 SearchProtocolHost
+      8     2.60       8.58       0.03    9756   0 svchost
+     76    20.27      39.93       2.14   22976   0 svchost
+      8     1.53       7.29       0.00   29752   0 svchost</dev:code>
+        <dev:remarks>
+          <maml:para>Get all processes where the StartTime property value is within the last 10 minutes. This example is using the "after" alias.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Select-Before</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Select-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Select-Before</command:name>
+      <command:verb>Select</command:verb>
+      <command:noun>Before</command:noun>
+      <maml:description>
+        <maml:para>Select objects before a given datetime.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Select-Before is a simplified version of Select-Object. The premise is that you can pipe a collection of objects to this command and select objects before a given datetime, based on a property, like LastWriteTime, which is the default.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Select-Before</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Before</maml:name>
+          <maml:Description>
+            <maml:para>Enter the cutoff date.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+          <dev:type>
+            <maml:name>DateTime</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>A piped in object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Property</maml:name>
+          <maml:Description>
+            <maml:para>Enter the property name to use for the datetime sort. It needs to be a datetime object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>LastWritetime</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Before</maml:name>
+        <maml:Description>
+          <maml:para>Enter the cutoff date.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">DateTime</command:parameterValue>
+        <dev:type>
+          <maml:name>DateTime</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>A piped in object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Property</maml:name>
+        <maml:Description>
+          <maml:para>Enter the property name to use for the datetime sort. It needs to be a datetime object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>LastWritetime</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Childitem c:\work -file | Select-Before "11/1/2020"
+
+
+    Directory: C:\work
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          10/10/2020  2:09 PM           8862 Book1.xlsx
+-a---          10/30/2020 10:48 AM              0 dummy.dat
+-a---          10/13/2020  9:35 AM         447743 key1013.pdf
+-a---           10/6/2020  4:03 PM           2986 labsummary.format.ps1xml
+-a---          10/11/2020 12:33 PM           1678 prun.format.ps1xml
+-a---          10/10/2020  6:49 PM           1511 w.format.ps1xml</dev:code>
+        <dev:remarks>
+          <maml:para>Select all objects that have been modified before 11/1/2020. This example is using the default -Property value of LastWriteTime.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process | before (Get-Date).AddMinutes(-10) -Property StartTime
+
+ NPM(K)    PM(M)      WS(M)     CPU(s)      Id  SI ProcessName
+ ------    -----      -----     ------      --  -- -----------
+     33    30.21      46.19       0.81    9952   2 ApplicationFrameHost
+     75   102.42     126.08       4.89   16048   2 Box
+     23    25.27      33.83       0.33    5320   0 Box.Desktop.UpdateService
+     30    46.92      60.98       0.91   17384   2 BoxUI
+     31    39.82       4.34       0.56   26992   2 Calculator
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Get all processes where the StartTime property value is before the last 10 minutes. This example is using the "before" alias.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Select-After</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Select-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Select-First</command:name>
       <command:verb>Select</command:verb>
       <command:noun>First</command:noun>
       <maml:description>
-        <maml:para>Select first X number of objects.</maml:para>
+        <maml:para>Select the first X number of objects.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command takes pipelined input and selects the first specified number of objects which are then written to the pipeline. You also have the option to sort on the specified property.</maml:para>
-      <maml:para>When using this command there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.</maml:para>
+      <maml:para>This command is intended to take pipelined input and select the first specified number of objects which are then written to the pipeline. You also have the option to sort on a specified property.</maml:para>
+      <maml:para>When using this command, there is a trade-off of convenience for performance. For a very large number processed objects, use Select-Object directly.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -12929,7 +13608,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>1..10 | Select-First 3 -Skip 2
+        <dev:code>PS C:\&gt; 1..10 | Select-First 3 -Skip 2
 
 3
 4
@@ -12964,8 +13643,8 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This is a script version of Select-Object designed to select the last X number of objects. The command takes pipelined input and selects the last specified number of objects which are then written to the pipeline. You have an option to first sort on the specified property.</maml:para>
-      <maml:para>When using this command there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.</maml:para>
+      <maml:para>This is a modified version of Select-Object designed to select the last X number of objects. The command takes pipelined input and selects the last specified number of objects which are then written to the pipeline. You have an option to first sort on the specified property.</maml:para>
+      <maml:para>When using this command, there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -13128,11 +13807,11 @@ Directory: C:\scripts
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----        1/11/2018   7:18 PM           1818 demo-v5Classes.ps1
--a----        1/11/2018   7:20 PM           1255 demo-v5DSCClassResource.ps1
--a----        1/14/2018  12:58 PM           1967 Demo-ParamTest.ps1
--a----        1/15/2018   9:23 AM            971 Get-WorkflowVariable.ps1
--a----        1/15/2018  12:08 PM           1555 Cost.ps1</dev:code>
+-a----        1/11/2020   7:18 PM           1818 demo-v5Classes.ps1
+-a----        1/11/2020   7:20 PM           1255 demo-v5DSCClassResource.ps1
+-a----        1/14/2020  12:58 PM           1967 Demo-ParamTest.ps1
+-a----        1/15/2020   9:23 AM            971 Get-WorkflowVariable.ps1
+-a----        1/15/2020  12:08 PM           1555 Cost.ps1</dev:code>
         <dev:remarks>
           <maml:para>Get the last 5 ps1 files sorted on the LastWritetime property. This example is using the alias 'last' for Select-Last.</maml:para>
         </dev:remarks>
@@ -13160,6 +13839,333 @@ Mode                LastWriteTime         Length Name
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Select-First</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Select-Newest</command:name>
+      <command:verb>Select</command:verb>
+      <command:noun>Newest</command:noun>
+      <maml:description>
+        <maml:para>Select the newest X number of objects after a given datetime.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Select-Newest is a variation on Select-Object. It is designed to make it easier to select X number of objects based on a datetime property. The default property value is LastWriteTime.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Select-Newest</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Newest</maml:name>
+          <maml:Description>
+            <maml:para>Enter the number of newest items to select.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>A piped in object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Property</maml:name>
+          <maml:Description>
+            <maml:para>Enter the property name to select on. It must be a datetime object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>LastWriteTime</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>A piped in object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Newest</maml:name>
+        <maml:Description>
+          <maml:para>Enter the number of newest items to select.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Property</maml:name>
+        <maml:Description>
+          <maml:para>Enter the property name to select on. It must be a datetime object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>LastWriteTime</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ChildItem c:\work -file | Select-Newest 1
+
+
+    Directory: C:\work
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           11/4/2020 11:36 AM           5008 ipperf.csv</dev:code>
+        <dev:remarks>
+          <maml:para>Get the newest file in the Work folder. This example is using the default -Property parameter value of LastWriteTime.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process | newest 10 -Property starttime
+
+ NPM(K)    PM(M)      WS(M)     CPU(s)      Id  SI ProcessName
+ ------    -----      -----     ------      --  -- -----------
+     15     5.34      12.85       0.09   25208   0 WmiPrvSE
+      7     1.31       5.95       0.02   10552   0 svchost
+     35   128.28     136.05       8.62    3376   0 esrv_svc
+     98    47.31      40.01       0.48   24496   2 firefox
+     99    48.46      46.07       0.53   22064   2 firefox
+     13     3.41      16.19       0.77   33136   2 notepad
+     14     6.78      10.96       0.06   31784   0 svchost
+     69   110.45     150.37       4.28    8848   2 pwsh
+      5     2.52       4.52       0.02   34024   2 cmd
+     10     2.06       9.00       0.12   25384   2 OpenConsole</dev:code>
+        <dev:remarks>
+          <maml:para>Get the 10 most recent processes based on the StartTime property. This example is using the "newest" alias.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Select-Oldest</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Select-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Select-Oldest</command:name>
+      <command:verb>Select</command:verb>
+      <command:noun>Oldest</command:noun>
+      <maml:description>
+        <maml:para>Select the oldest X number of objects before a given datetime.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Select-Oldest is a variation on Select-Object. It is designed to make it easier to select X number of objects based on a datetime property. The default property value is LastWriteTime.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Select-Oldest</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Oldest</maml:name>
+          <maml:Description>
+            <maml:para>Enter the number of Oldest items to select.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:Description>
+            <maml:para>A piped in object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Property</maml:name>
+          <maml:Description>
+            <maml:para>Enter the property name to select on. It must be a datetime object.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:Description>
+          <maml:para>A piped in object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Oldest</maml:name>
+        <maml:Description>
+          <maml:para>Enter the number of Oldest items to select.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Property</maml:name>
+        <maml:Description>
+          <maml:para>Enter the property name to select on. It must be a datetime object.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ChildItem c:\work -file | Select-oldest 1
+
+
+    Directory: C:\work
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           10/6/2020  4:03 PM           2986 labsummary.format.ps1xml</dev:code>
+        <dev:remarks>
+          <maml:para>Get the oldest file in the Work folder. This example is using the default -Property parameter value of LastWriteTime.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process | where-object name -notmatch "idle|System" |
+oldest 10 -Property starttime
+
+ NPM(K)    PM(M)      WS(M)     CPU(s)      Id  SI ProcessName
+ ------    -----      -----     ------      --  -- -----------
+     16     8.43      99.83       2.27     204   0 Registry
+      3     1.03       1.12       0.44     712   0 smss
+     30     2.23       5.67       4.23     816   0 csrss
+     11     1.52       6.65       0.02    1592   0 wininit
+     11     6.55      11.63      25.33    1676   0 services
+      7     1.10       3.27       0.09    1696   0 LsaIso
+     28     9.81      24.70      29.61    1704   0 lsass
+      4     0.81       3.31       0.00    1824   0 svchost
+     26    13.48      30.38      22.62    1852   0 svchost
+      6     1.91       4.15       0.11    1876   0 fontdrvhost</dev:code>
+        <dev:remarks>
+          <maml:para>Get the oldest 10 processes that don't include Idle or System. This example is using the "oldest" alias.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Select-Newest</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Select-Object</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -13557,9 +14563,9 @@ Mode                LastWriteTime         Length Name
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Shows the specified path as a graphical tree in the console. This is intended as PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider. It should work cross-platform.</maml:para>
-      <maml:para>By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma separated list of properties or use * to view them all.</maml:para>
-      <maml:para>If the Path is a FileSystem path there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. This parameter has an alias of -ansi.</maml:para>
+      <maml:para>Shows the specified path as a graphical tree in the console. Show-Tree is intended as a PowerShell alternative to the tree DOS command. This function should work for any type of PowerShell provider and can be used to explore providers used for configuration like the WSMan provider or the registry. Currently, this will not work with any PSDrives created with the Certificate provider. It should work cross-platform.</maml:para>
+      <maml:para>By default, the output will only show directory or equivalent structures. But you can opt to include items well as item details by using the ShowProperty parameter. Specify a comma-separated list of properties or use * to view them all.</maml:para>
+      <maml:para>If the Path is a FileSystem path there is a dynamic parameter, -InColor, that will write ANSI-colored output to the pipeline. This parameter has an alias of ansi.</maml:para>
       <maml:para>Note: This is an update to an older function in my library. I seem to recall I found the original code somewhere online, perhaps from someone like Lee Holmes. Sadly, I neglected to record the source.</maml:para>
     </maml:description>
     <command:syntax>
@@ -14869,6 +15875,199 @@ Count Name
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-UICulture</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Trace-Message</command:name>
+      <command:verb>Trace</command:verb>
+      <command:noun>Message</command:noun>
+      <maml:description>
+        <maml:para>Create a graphical trace window.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Trace-Message is designed to be used with script or function. Its purpose is to create a graphical trace window using Windows Presentation Foundation. Inside the function or script, you can use this command to send messages to the window. When finished, you have an option to save the output to a text file.</maml:para>
+      <maml:para>There are 3 steps to using this function. First, in your code, you need to create a boolean global variable called TraceEnabled. When the value is $True, the Trace-Message command will run. When set to false, the command will be ignored. Second, you need to initialize a form, specifying the title and dimensions. The form will automatically include some pre-defined metadata. Finally, you can send trace messages to the window. All messages are prepended with a timestamp.</maml:para>
+      <maml:para>This command is not optimized for performance and is intended for development purposes. When your code is finished, you can set $TraceEnabled to $False. If you need to troubleshoot, you can set it to $True.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Trace-Message</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>BackgroundColor</maml:name>
+          <maml:Description>
+            <maml:para>Specify a background color for the trace window. You can use console colors like "Cyan" or HTML color codes.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>"#FFFFF8DC",</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Height</maml:name>
+          <maml:Description>
+            <maml:para>Specify the Width of the trace window.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>500</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:Description>
+            <maml:para>Specify a title for the trace window.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>"Trace Messages"</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Width</maml:name>
+          <maml:Description>
+            <maml:para>Specify the Width of the trace window.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>800</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>Trace-Message</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Message</maml:name>
+          <maml:Description>
+            <maml:para>Specify a message to write to the trace window.</maml:para>
+          </maml:Description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>BackgroundColor</maml:name>
+        <maml:Description>
+          <maml:para>Specify a background color for the trace window. You can use console colors like "Cyan" or HTML color codes.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>"#FFFFF8DC",</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Height</maml:name>
+        <maml:Description>
+          <maml:para>Specify the Width of the trace window.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>500</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Message</maml:name>
+        <maml:Description>
+          <maml:para>Specify a message to write to the trace window.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Title</maml:name>
+        <maml:Description>
+          <maml:para>Specify a title for the trace window.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>"Trace Messages"</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Width</maml:name>
+        <maml:Description>
+          <maml:para>Specify the Width of the trace window.</maml:para>
+        </maml:Description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>800</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Look at $PSSamplePath\Get-Status.ps1 for a demonstration of this command in a function. The buttons have key acclerators of Q and S.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Trace-Message -title "Troubleshooting Log" -width 600</dev:code>
+        <dev:remarks>
+          <maml:para>This command will initialize a trace window with the given title and width. It is assumed you have set $TraceEnabled to $True. This is a command you would normally run in your code and not from the console.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Trace-Message -message "Starting MyCommand"</dev:code>
+        <dev:remarks>
+          <maml:para>This example is a continuation of the previous. The message text will be appended to the graphical form, prepended with a timestamp.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Write-Verbose</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
