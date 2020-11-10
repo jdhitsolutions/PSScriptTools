@@ -20,20 +20,16 @@ Out-Copy [-InputObject] <Object> [-Width <Int32>] [-CommandOnly]
 
 ## DESCRIPTION
 
-This command is intended for writers and those who need to document with PowerShell.
-You can pipe any command to this function and you will get the regular output in your PowerShell session.
-Simultaneously a copy of the output will be sent to the Windows clipboard.
-The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.
+This command is intended for writers and those who need to document with PowerShell. You can pipe any command to this function and you will get the regular output in your PowerShell session. Simultaneously, a copy of the output will be sent to the Windows clipboard. The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.
 
-NOTE: You can only capture what is written to the Success pipeline.
-This command will not copy any other streams such as Verbose, Warning, or Error.
+NOTE: You can only capture what is written to the Success pipeline. This command will not copy any other streams such as Verbose, Warning, or Error.
 
 ## EXAMPLES
 
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> Get-Process | Sort WS -Descending | Select -first 5 | Out-Copy
+PS C:\> Get-Process | Sort WS -Descending | Select-First 5 | Out-Copy
 ```
 
 This will execute your expression and write the output to the pipeline.
@@ -41,7 +37,7 @@ The output plus the command:
 
 PS C:\\> Get-Process | Sort WS -Descending | Select -first 5
 
-will be copied to the clipboard.
+will be copied to the clipboard. This example is using the Select-First function from the PSScriptTools module.
 
 ### EXAMPLE 2
 

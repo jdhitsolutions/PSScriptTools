@@ -21,7 +21,7 @@ ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>]
 
 ## DESCRIPTION
 
-This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output and content to appear after the output.
+This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output, and content to appear after the output. Best efforts have been made to produce markdown output that meets basic standards.
 
 The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.
 
@@ -56,7 +56,7 @@ Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"`
 -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md
 ```
 
-Re-run the previous command and save output to a file.
+Re-run the previous command and save the output to a file.
 
 ### EXAMPLE 3
 
@@ -84,7 +84,7 @@ PS C:\>$out += ConvertTo-Markdown -PostContent $footer
 PS C:\>$out | Set-Content c:\work\report.md
 ```
 
-Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.
+Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document.
 
 ## PARAMETERS
 
@@ -106,7 +106,7 @@ Accept wildcard characters: False
 
 ### -Title
 
-Specify a top level title. You do not need to include any markdown.
+Specify a top-level title. You do not need to include any markdown.
 
 ```yaml
 Type: String

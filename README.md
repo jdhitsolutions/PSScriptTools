@@ -2,7 +2,11 @@
 
 [![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSScripttools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSScripttools/)
 
-This module contains a collection of functions, variables and format files that you can use to enhance your PowerShell scripting work, or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems, or feedback in [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any feedback is greatly appreciated.
+## Abstract
+
+This module contains a collection of functions, variables, and format files that you can use to enhance your PowerShell scripting work, or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems, or feedback at [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any feedback is greatly appreciated.
+
+The contents of this file and other documentation can be viewed using the `Open-PSScriptToolsHelp` command. You can also use `Get-PSScriptTools` to see a summary of module commands.
 
 *Please note that code samples have been formatted to fit an 80 character width. Some example code breaks lines without using line continuation characters. I'm trusting that you can figure out how to run the example.*
 
@@ -41,9 +45,7 @@ Starting in v2.2.0, the module was restructured to better support `Desktop` and 
 
 It is recommended to install this module from the PowerShell Gallery and not GitHub.
 
-### Uninstall the Module
-
-To remove the module from your system you can uninstall it.
+To remove the module from your system you can easily uninstall it with common PowerShell commands.
 
 ```powershell
 Get-Module PSScriptTools | Remove-Module
@@ -1181,7 +1183,7 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
     118       8     1580       7476       0.02  35668   0 svchost
 ```
 
-These custom Select commands are not necessarily designed for peformance and there may be better ways to achieve the same results from these examples.
+These custom Select commands are not necessarily designed for performance and there may be better ways to achieve the same results from these examples.
 
 ## Time Functions
 
@@ -1373,7 +1375,7 @@ Expect a period of trial and error to find a good font that works with your text
 
 This command is intended for writers and those who need to document with PowerShell. You can pipe any command to this function and you will get the regular output in your PowerShell session.Simultaneously a copy of the output will be sent to the Windows clipboard. The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.
 
-You can run this a command like this:
+You can run a command like this:
 
 ```powershell
 Get-Process | Sort WS -Descending | Select -first 5 | Out-Copy
@@ -2177,4 +2179,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-11-04 22:51:29Z*
+Last Updated *2020-11-09 21:23:07Z*

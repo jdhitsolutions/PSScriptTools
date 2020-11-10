@@ -60,7 +60,7 @@ Get all of the System counters with Get-Counter and pipe them to Get-MyCounter.
 ### Example 2
 
 ```powershell
-PS C:\> Get-MyCounter -computername server18| Format-table -view category
+PS C:\> Get-MyCounter -computername server18 | Format-table -view category
 
 
    Category: network interface(intel[r] ethernet connection [11] i219-lm)
@@ -196,13 +196,13 @@ Gets data from the specified performance counters. Enter one or more counter pat
 
  Each counter path has the following format:
 
-"[\\<ComputerName>]\<CounterSet>(<Instance>)\<CounterName>"
+\\\\ComputerName\\CounterSet(Instance)\\CounterName
 
 For example:
 
-"\\Server01\Processor(2)\% User Time"
+\\\\Server01\\Processor(2)\\% User Time
 
-The <ComputerName> element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.
+The ComputerName element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.
 
 ```yaml
 Type: String[]
