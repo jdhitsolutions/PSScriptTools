@@ -11152,7 +11152,7 @@ False</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will launch a PDF manual for all commands in the PSScriptTools module. It is assumed you have a default application for PDF files.</maml:para>
+      <maml:para>This command will launch a PDF manual for all commands in the PSScriptTools module. It is assumed you have a default application associated with PDF files.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -11774,7 +11774,7 @@ Out-ConditionalColor $c</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is intended for writers and those who need to document with PowerShell. You can pipe any command to this function and you will get the regular output in your PowerShell session. Simultaneously a copy of the output will be sent to the Windows clipboard. The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.</maml:para>
+      <maml:para>This command is intended for writers and those who need to document with PowerShell. You can pipe any command to this function and you will get the regular output in your PowerShell session. Simultaneously, a copy of the output will be sent to the Windows clipboard. The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.</maml:para>
       <maml:para>NOTE: You can only capture what is written to the Success pipeline. This command will not copy any other streams such as Verbose, Warning, or Error.</maml:para>
     </maml:description>
     <command:syntax>
@@ -11883,11 +11883,11 @@ Out-ConditionalColor $c</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Process | Sort WS -Descending | Select -first 5 | Out-Copy</dev:code>
+        <dev:code>PS C:\&gt; Get-Process | Sort WS -Descending | Select-First 5 | Out-Copy</dev:code>
         <dev:remarks>
           <maml:para>This will execute your expression and write the output to the pipeline. The output plus the command:</maml:para>
           <maml:para>PS C:\&gt; Get-Process | Sort WS -Descending | Select -first 5</maml:para>
-          <maml:para>will be copied to the clipboard.</maml:para>
+          <maml:para>will be copied to the clipboard. This example is using the Select-First function from the PSScriptTools module.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -11954,7 +11954,7 @@ Out-Copy -commandonly</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i">
           <maml:name>Count</maml:name>
           <maml:Description>
-            <maml:para>The number of objects to group together in a page.</maml:para>
+            <maml:para>The number of objects to group as a page.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -11966,7 +11966,7 @@ Out-Copy -commandonly</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cls">
           <maml:name>ClearScreen</maml:name>
           <maml:Description>
-            <maml:para>Clear the screen prior to writing data to the pipeline.</maml:para>
+            <maml:para>Clear the screen before writing data to the pipeline.</maml:para>
           </maml:Description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -11992,7 +11992,7 @@ Out-Copy -commandonly</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i">
         <maml:name>Count</maml:name>
         <maml:Description>
-          <maml:para>The number of objects to group together in a page.</maml:para>
+          <maml:para>The number of objects to group as a page.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -12004,7 +12004,7 @@ Out-Copy -commandonly</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cls">
         <maml:name>ClearScreen</maml:name>
         <maml:Description>
-          <maml:para>Clear the screen prior to writing data to the pipeline.</maml:para>
+          <maml:para>Clear the screen before writing data to the pipeline.</maml:para>
         </maml:Description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
