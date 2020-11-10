@@ -19,7 +19,7 @@ Open-PSScriptToolsHelp [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will launch a PDF manual for all commands in the PSScriptTools module. It is assumed you have a default application for PDF files.
+This command will launch a PDF manual for all commands in the PSScriptTools module. It is assumed you have a default application associated with PDF files.
 
 ## EXAMPLES
 

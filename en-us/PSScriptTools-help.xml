@@ -2445,7 +2445,7 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed to accept pipelined output and create a markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output and content to appear after the output.</maml:para>
+      <maml:para>This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output, and content to appear after the output. Best efforts have been made to produce markdown output that meets basic standards.</maml:para>
       <maml:para>The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2466,7 +2466,7 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Title</maml:name>
           <maml:Description>
-            <maml:para>Specify a top level title. You do not need to include any markdown.</maml:para>
+            <maml:para>Specify a top-level title. You do not need to include any markdown.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2540,7 +2540,7 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Title</maml:name>
         <maml:Description>
-          <maml:para>Specify a top level title. You do not need to include any markdown.</maml:para>
+          <maml:para>Specify a top-level title. You do not need to include any markdown.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2650,7 +2650,7 @@ Running  Winrm              Windows Remote Management (WS-Manag...
 Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"`
 -postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md</dev:code>
         <dev:remarks>
-          <maml:para>Re-run the previous command and save output to a file.</maml:para>
+          <maml:para>Re-run the previous command and save the output to a file.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -2677,7 +2677,7 @@ ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
 PS C:\&gt;$out += ConvertTo-Markdown -PostContent $footer
 PS C:\&gt;$out | Set-Content c:\work\report.md</dev:code>
         <dev:remarks>
-          <maml:para>Here is an example that create a series of markdown fragments for each computer and at the end creates a markdown document.</maml:para>
+          <maml:para>Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -6111,10 +6111,10 @@ np   notepad       ReadOnly</dev:code>
           <maml:Description>
             <maml:para>Gets data from the specified performance counters. Enter one or more counter paths. Wildcards are permitted only in the Instance value. You can also pipe counter path strings to Get-MyCounter.</maml:para>
             <maml:para> Each counter path has the following format:</maml:para>
-            <maml:para>"[\&lt;ComputerName&gt;]&lt;CounterSet&gt;(&lt;Instance&gt;)&lt;CounterName&gt;"</maml:para>
+            <maml:para>\\ComputerName\CounterSet(Instance)\CounterName</maml:para>
             <maml:para>For example:</maml:para>
-            <maml:para>"\Server01\Processor(2)\% User Time"</maml:para>
-            <maml:para>The &lt;ComputerName&gt; element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.</maml:para>
+            <maml:para>\\Server01\Processor(2)\% User Time</maml:para>
+            <maml:para>The ComputerName element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -6202,10 +6202,10 @@ np   notepad       ReadOnly</dev:code>
         <maml:Description>
           <maml:para>Gets data from the specified performance counters. Enter one or more counter paths. Wildcards are permitted only in the Instance value. You can also pipe counter path strings to Get-MyCounter.</maml:para>
           <maml:para> Each counter path has the following format:</maml:para>
-          <maml:para>"[\&lt;ComputerName&gt;]&lt;CounterSet&gt;(&lt;Instance&gt;)&lt;CounterName&gt;"</maml:para>
+          <maml:para>\\ComputerName\CounterSet(Instance)\CounterName</maml:para>
           <maml:para>For example:</maml:para>
-          <maml:para>"\Server01\Processor(2)\% User Time"</maml:para>
-          <maml:para>The &lt;ComputerName&gt; element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.</maml:para>
+          <maml:para>\\Server01\Processor(2)\% User Time</maml:para>
+          <maml:para>The ComputerName element is optional. If you omit it, Get-MyCounter uses the value of the ComputerName parameter.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -6296,7 +6296,7 @@ Timestamp             Category Counter                           Value
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-MyCounter -computername server18| Format-table -view category
+        <dev:code>PS C:\&gt; Get-MyCounter -computername server18 | Format-table -view category
 
 
    Category: network interface(intel[r] ethernet connection [11] i219-lm)
@@ -11932,7 +11932,7 @@ Out-Copy -commandonly</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function is designed to display groups or "pages" of objects to the PowerShell pipeline. It is modeled after the legacy More.com command line utility. By default the command will write out objects out to the pipeline in groups of 50. You will be prompted after each grouping.</maml:para>
+      <maml:para>This function is designed to display groups or "pages" of objects to the PowerShell pipeline. It is modeled after the legacy More.com command-line utility. By default, the command will write objects out to the pipeline in groups of 50. You will be prompted after each grouping.</maml:para>
       <maml:para>Pressing M or Enter will get the next group. Pressing A will stop paging and display all of the remaining objects. Pressing N will display the next object. Press Q to stop writing anything else to the pipeline.</maml:para>
       <maml:para>Note that you may encounter an error message when quitting prematurely, especially on non-Windows platforms. You can ignore these errors.</maml:para>
     </maml:description>
@@ -16311,7 +16311,7 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with a Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full time stamp, or a time string which includes a millisecond value.</maml:para>
+      <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full-time stamp, or a time string which includes a millisecond value.</maml:para>
       <maml:para>In a script you might use it like this in a Begin block:</maml:para>
       <maml:para>    $pfx = "BEGIN"</maml:para>
       <maml:para>    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix $pfx | Write-Verbose</maml:para>

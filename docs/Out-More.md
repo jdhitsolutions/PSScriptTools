@@ -19,7 +19,7 @@ Out-More [-InputObject] <Object[]> [[-Count] <Int32>] [-ClearScreen]
 
 ## DESCRIPTION
 
-This function is designed to display groups or "pages" of objects to the PowerShell pipeline. It is modeled after the legacy More.com command line utility. By default the command will write out objects out to the pipeline in groups of 50. You will be prompted after each grouping.
+This function is designed to display groups or "pages" of objects to the PowerShell pipeline. It is modeled after the legacy More.com command-line utility. By default, the command will write objects out to the pipeline in groups of 50. You will be prompted after each grouping.
 
 Pressing M or Enter will get the next group. Pressing A will stop paging and display all of the remaining objects. Pressing N will display the next object. Press Q to stop writing anything else to the pipeline.
 
@@ -73,7 +73,7 @@ Accept wildcard characters: False
 
 ### -Count
 
-The number of objects to group together in a page.
+The number of objects to group as a page.
 
 ```yaml
 Type: Int32
@@ -89,7 +89,7 @@ Accept wildcard characters: False
 
 ### -ClearScreen
 
-Clear the screen prior to writing data to the pipeline.
+Clear the screen before writing data to the pipeline.
 
 ```yaml
 Type: SwitchParameter

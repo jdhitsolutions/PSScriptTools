@@ -29,11 +29,12 @@
                 [string]$Message
             )
             Begin {
-                #$global:traceSynchHash | out-String | Write-Verbose
+                $hash =  $global:traceSynchHash
             }
             Process {
+                Write-Verbose "Adding message $message"
                 $content = "$((Get-Date).TimeOfDay) - $message"
-                  $global:traceSynchHash.TextBox.Dispatcher.Invoke([action] {  $global:traceSynchHash.TextBox.AppendText("$Content`n") }, "Normal")
+                $hash.TextBox.Dispatcher.Invoke([action] { $hash.TextBox.AppendText("$Content`n") }, "Normal")
             }
             End {}
         }
@@ -50,15 +51,18 @@
         if ($global:TraceEnabled) {
             if ($PSCmdlet.ParameterSetName -eq 'init') {
 
-                Write-Verbose "Defining synchronized hashtable"
+                Write-Verbose "Defining synchronized hashtable `$global:traceSynchHash"
                 $global:traceSynchHash = [hashtable]::Synchronized(@{Date=(Get-Date)})
 
-                Write-Verbose "Initializing runspace"
+                Write-Verbose "Initializing a new runspace"
                 $newRunspace = [runspacefactory]::CreateRunspace()
                 $newRunspace.ApartmentState = "STA"
                 $newRunspace.ThreadOptions = "ReuseThread"
+                Write-Verbose "Open the new runspace"
                 $newRunspace.Open()
+                Write-Verbose "Setting synchronized hashtable variable"
                 $newRunspace.SessionStateProxy.SetVariable("traceSynchHash", $global:traceSynchHash)
+                $newrunspace.SessionStateProxy.getvariable("traceSynchHash") | Out-String | Write-Verbose
 
                 $formParams = @{
                     Title           = $title
@@ -154,10 +158,19 @@
                 Write-Verbose "Invoking runspace command"
                 $handle = $psCmd.BeginInvoke()
 
-                Write-Verbose "Using this synchronized hashtable"
+                Write-Verbose "Using this global synchronized hashtable"
                 $global:traceSynchHash | Out-String | Write-Verbose
 
-                Write-Verbose "Create runspace cleanup job"
+                #wait for hashtable to initialize with runspace values
+                $i=0
+                do {
+                    $i++
+                    start-sleep -Seconds 1
+                    #uncomment for troubleshooting
+                    #Write-host $i -ForegroundColor yellow -NoNewline
+                } Until ($global:traceSynchHash.TextBox)
+
+                Write-Verbose "Creating a runspace cleanup job"
                 [void](New-RunspaceCleanupJob -Handle $handle -powerShell $pscmd -sleep 30 -passthru)
 
                 Write-Verbose "Getting trace metadata"
