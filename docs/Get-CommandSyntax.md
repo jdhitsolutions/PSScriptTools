@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://bit.ly/2H0mgti
 schema: 2.0.0
 ---
 
@@ -59,7 +59,7 @@ The output will show each PowerShell Provider and the corresponding command synt
 ### -Name
 
 Enter the name of a PowerShell cmdlet or function.
-Ideally it has been loaded into the current PowerShell session.
+Ideally, it has been loaded into the current PowerShell session.
 
 ```yaml
 Type: String

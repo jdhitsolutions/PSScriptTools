@@ -2172,11 +2172,13 @@ If you find this module useful, you might also want to look at my PowerShell too
 + [Creating and managing custom type extensions](https://github.com/jdhitsolutions/PSTypeExtensionTools)
 + [Managing scheduled jobs](https://github.com/jdhitsolutions/ScheduledJobTools)
 + [Running remote commands outside of PowerShell Remoting](https://github.com/jdhitsolutions/PSRemoteOperations).
++ [Getting memory status and information](https://github.com/jdhitsolutions/MemoryTools)
 + [Keeping up to date with PowerShell 7.x releases](https://github.com/jdhitsolutions/PSReleaseTools)
 + [Inventorying your PowerShell script library](https://github.com/jdhitsolutions/PSScriptingInventory)
++ [A simple command-line task and to-do manager](https://github.com/jdhitsolutions/MyTasks)
 
 ## Compatibility
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-11-09 21:23:07Z*
+Last Updated *2020-11-12 18:56:02Z*

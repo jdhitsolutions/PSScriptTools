@@ -15,7 +15,7 @@ Function ConvertTo-WPFGrid {
         [Scriptblock]$Scriptblock,
 
         [string]$Title = "ConvertTo-WPFGrid",
-        [ValidateScript( {$_ -ge 5})]
+        [ValidateScript({$_ -ge 5})]
         [int]$Timeout,
 
         [switch]$Refresh,
@@ -40,8 +40,9 @@ Function ConvertTo-WPFGrid {
     Begin {
 
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
-
-        if ($Refresh -AND $timeout -le 5) {
+        if ($Refresh -AND ($Timeout -lt 5)) {
+            Write-Verbose "Detected a timeout value of $Timeout"
+            Write-Verbose "Refresh is set to $Refresh"
             Throw "You must specify a timeout value in seconds when using -Refresh"
         }
         #set a flag for the process block
