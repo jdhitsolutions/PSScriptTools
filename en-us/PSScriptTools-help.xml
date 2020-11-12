@@ -1955,7 +1955,12 @@ Out-File c:\scripts\computername-art.txt</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/32DadcG</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -4713,7 +4718,7 @@ $3,456.57</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Name</maml:name>
           <maml:Description>
-            <maml:para>Enter the name of a PowerShell cmdlet or function. Ideally it has been loaded into the current PowerShell session.</maml:para>
+            <maml:para>Enter the name of a PowerShell cmdlet or function. Ideally, it has been loaded into the current PowerShell session.</maml:para>
           </maml:Description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -4728,7 +4733,7 @@ $3,456.57</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Name</maml:name>
         <maml:Description>
-          <maml:para>Enter the name of a PowerShell cmdlet or function. Ideally it has been loaded into the current PowerShell session.</maml:para>
+          <maml:para>Enter the name of a PowerShell cmdlet or function. Ideally, it has been loaded into the current PowerShell session.</maml:para>
         </maml:Description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -4796,6 +4801,10 @@ Get-Item -LiteralPath &lt;string[]&gt; [-Filter &lt;string&gt;] [-Include &lt;st
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2H0mgti</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Help</maml:linkText>
         <maml:uri></maml:uri>
@@ -4987,6 +4996,10 @@ PostSetup         5    15275</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2GU4iIK</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -5177,7 +5190,7 @@ PostSetup         5    15275</dev:code>
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>Strings</maml:name>
+          <maml:name>String</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -6392,6 +6405,10 @@ Timestamp             Category        Counter             Value
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2JS5NZ1</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Counter</maml:linkText>
         <maml:uri></maml:uri>
@@ -11909,6 +11926,10 @@ Out-Copy -commandonly</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2K6oY1D</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Out-String</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -13255,6 +13276,10 @@ Mode                 LastWriteTime         Length Name
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/3phhAAm</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Select-Before</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -13418,6 +13443,10 @@ Mode                 LastWriteTime         Length Name
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3nkqnjm</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Select-After</maml:linkText>
         <maml:uri></maml:uri>
@@ -13997,6 +14026,10 @@ Mode                 LastWriteTime         Length Name
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>http://bit.ly/36x3YIG</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Select-Oldest</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -14160,6 +14193,10 @@ oldest 10 -Property starttime
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/2IyQPqx</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Select-Newest</maml:linkText>
         <maml:uri></maml:uri>
@@ -16066,6 +16103,10 @@ Count Name
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3nb3b74</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Write-Verbose</maml:linkText>
         <maml:uri></maml:uri>

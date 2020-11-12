@@ -2,6 +2,12 @@
 
 This is the most recent change log history for this module.
 
+## v2.33.1
+
++ Fixed bug in `ConvertTo-WPFGrid` with refresh and timeout values. (Issue #98)
++ Added missing online help links.
++ Added a few related module links in `README.md`.
+
 ## v2.33.0
 
 + Added `Select-Before`,`Select-After`,`Select-Newest` and `Select-Oldest` and their respective aliases of *before*,*after*,*newest*, and *oldest*.

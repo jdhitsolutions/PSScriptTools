@@ -198,7 +198,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### Strings
+### String
 
 ## OUTPUTS
 
