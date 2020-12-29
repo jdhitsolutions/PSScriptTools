@@ -23,6 +23,7 @@ The contents of this file and other documentation can be viewed using the `Open-
 + [Console Utilities](#Console-Utilities)
 + [Format Functions](#Format-Functions)
 + [Scripting Tools](#Scripting-Tools)
++ [ANSI Tools](#Ansi-Tools)
 + [Other Module Features](#Other-Module-Features)
 + [Related Modules](#Related-Modules)
 + [Compatibility](#Compatibility)
@@ -1088,7 +1089,7 @@ Get-Process | after (Get-Date).Addminutes(-1) -Property StartTime
 
 This is selecting all processes that started within the last minute.
 
-### [Select-Before](docs/Select-Before.md)]
+### [Select-Before](docs/Select-Before.md)
 
 `Select-Before` is the opposite of `Select-After`.
 
@@ -1987,9 +1988,9 @@ Mode                 LastWriteTime         Length Name
 
 You will need to manually install the file.
 
-## Other Module Features
+## ANSI Tools
 
-From time to time I will include additional items that you might find useful in your PowerShell work. This module includes several custom format files for common objects like services. You can run `Get-Service` and pipe it to the custom table view.
+This module includes several custom format files for common objects like services. You can run `Get-Service` and pipe it to the custom table view.
 
 ```powershell
 Get-Service | Format-Table -view ansi
@@ -2069,11 +2070,11 @@ TopContainer
 ChildContainer
 ```
 
-The map includes ANSI settings for different file types. You won't see the ANSI value in the output. The module will add a custom table view called `ansi` which you can use to display file results colorized in PowerShell 7.
+The map includes ANSI settings for different file types. You won't see the ANSI value in the output. The module will add a custom table view called `ansi` which you can use to display colorized file results.
 
 ![ANSI File listing](images/ansi-file-format.png)
 
-The mapping file is user-customizable. Copy the `psansifilemap.json` file from the module's root directory to $HOME. When you import this module, if the file is found, it will be imported and used as `psansifilemap`, otherwise the module's file will be used.
+The mapping file is user-customizable. Copy the `psansifilemap.json` file from the module's root directory to $HOME. When you import this module, if the file is found, it will be imported and used as `psansifilemap`, otherwise, the module's file will be used.
 
 The file will look like this:
 
@@ -2127,7 +2128,39 @@ The file will look like this:
 ]
 ```
 
-You can create or modify file groups. The Pattern value should be a regular expression pattern to match on the filename. Don't forget you will need to escape characters for the JSON format. The Ansi value will be an ANSI escape sequence. You can use `\u001b` for the \``e` character.
+You can create or modify file groups. The Pattern value should be a regular expression pattern to match the filename. Don't forget you will need to escape characters for the JSON format. The Ansi value will be an ANSI escape sequence. You can use `\u001b` for the \``e` character.
+
+If you prefer not to edit JSON files, you can use the PSAnsiFileMap commands from the module.
+
+### [Get-PSAnsiFileMap](docs/Get-PSAnsiFileMap.md)
+
+This command will display the value of the `$PSAnsiFileMap` variable, but will also show the ANSI sequence using the sequence itself.
+
+![get-psansifilemap](images/get-psansifilemap.png)
+
+### [Set-PSAnsiFileMap](docs/Set-PSAnsiFileMap.md)
+
+Use this command to modify an existing entry. You need to specify a regular expression pattern to match on the filename and/or an ANSI escape sequence. If the entry description doesn't exist, you will need to specify the regex pattern and the ANSI sequence to add the entry to $PSAnsiFileMap.
+
+```powershell
+Set-PSAnsiFileMap Archive -Ansi "`e[38;5;75m"
+```
+
+### [Remove-PSAnsiFileEntry](docs/Remove-PSAnsiFileEntry.md)
+
+If you need to, you can remove an entry from `$PSAnsiFileMap`.
+
+```powershell
+Remove-PSAnsiFileEntry DevFiles
+```
+
+### [Export-PSAnsiFileMap](docs/Export-PSAnsiFileMap.md)
+
+Any changes you make to `$PSAnsiFileMap` will only last until you import the module again. To make the change permanent, use [Export-PSAnsiFileMap](docs/Export-PSAnsiFileMap.md). This will create the `psansifilemap.json` file in your `$HOME` directory. When you import the PSSCriptTools module, if this file is found, it will be imported. Otherwise, the default module file will be used.
+
+## Other Module Features
+
+From time to time I will include additional items that you might find useful in your PowerShell work.
 
 ### PSSpecialChar
 
@@ -2181,4 +2214,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-11-12 18:56:02Z*
+Last Updated *2020-12-28 18:38:04Z*

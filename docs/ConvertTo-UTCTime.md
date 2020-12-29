@@ -28,21 +28,21 @@ This command was introduced in v2.3.0.
 ### Example 1
 
 ```powershell
-PS C:\> get-date
+PS C:\> Get-Date
 
-Monday, March 4, 2019 12:51:47 PM
+Monday, December 28, 2020 7:43:13 PM
 
 
 PS C:\> ConvertTo-UTCTime
 
-Monday, March 4, 2019 5:51:49 PM
+Tuesday, December 29, 2020 12:43:37 AM
 ```
 
 ### Example 2
 
 ```powershell
 PS C:\> ConvertTo-UTCTime -asString
-2019-03-04 17:51:47Z
+2020-12-29 00:44:01Z
 ```
 
 ## PARAMETERS
@@ -65,7 +65,7 @@ Accept wildcard characters: False
 
 ### -AsString
 
-Convert the date time value to a sortable string. This is the same thing as running a command like "{0:u}" -f (Get-Date).ToUniversaltime()
+Convert the date-time value to a sortable string. This is the same thing as running a command like "{0:u}" -f (Get-Date).ToUniversaltime()
 
 ```yaml
 Type: SwitchParameter

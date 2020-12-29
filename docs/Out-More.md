@@ -105,7 +105,7 @@ Accept wildcard characters: False
 
 ## INPUTS
 
-### System.Object[]
+### System.Object
 
 ## OUTPUTS
 

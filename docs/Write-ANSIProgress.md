@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Write an ANSI progress bar.
+Display an ANSI progress bar.
 
 ## SYNTAX
 

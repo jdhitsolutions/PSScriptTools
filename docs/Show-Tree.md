@@ -15,7 +15,7 @@ Shows the specified path as a tree.
 
 ### Path (Default)
 
-```yaml
+```yam.
 Show-Tree [[-Path] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>]
 [-ShowItem] [-ShowProperty <String[]>] [-InColor] [<CommonParameters>]
 ```
@@ -152,7 +152,7 @@ C:\work\Alpha\
 ...
 ```
 
-Show a tree listing with files including a few user specified properties in color. This example is using parameter and command aliases.
+Show a tree listing with files including a few user-specified properties in color. This example is using parameter and command aliases.
 
 ## PARAMETERS
 
@@ -163,7 +163,7 @@ The path to the root of the tree that will be shown.
 ```yaml
 Type: String[]
 Parameter Sets: Path
-Aliases:
+Aliases: FullName
 
 Required: False
 Position: 1
@@ -179,7 +179,7 @@ Use a literal path value.
 ```yaml
 Type: String[]
 Parameter Sets: LiteralPath
-Aliases: PSPath
+Aliases:
 
 Required: False
 Position: 1
@@ -206,7 +206,7 @@ Accept wildcard characters: False
 
 ### -IndentSize
 
-The size of the indent per level. The default is 3. Minimum value is 1. You shouldn't have to modify this parameter.
+The size of the indent per level. The default is 3. The minimum value is 1. You shouldn't have to modify this parameter.
 
 ```yaml
 Type: Int32

@@ -34,7 +34,7 @@ PS C:\> Get-TZData Australia/Hobart
 
 Timezone                        Label        Offset     DST                  Time
 --------                        -----        ------     ---                  ----
-Australia/Hobart                AEDT       11:00:00    True  3/16/2019 5:35:46 AM
+Australia/Hobart                AEDT       11:00:00    True  3/16/2020 5:35:46 AM
 ```
 
 Get time zone information for Hobart.
@@ -54,7 +54,7 @@ dst_from     :
 dst          : False
 day_of_year  : 75
 day_of_week  : 6
-datetime     : 2019-03-16T03:36:37.829505+09:00
+datetime     : 2020-03-16T03:36:37.829505+09:00
 abbreviation : JST
 ```
 
@@ -67,16 +67,16 @@ PS C:\> Get-TZList Antarctica | Get-TZData | Sort-Object Offset
 
 Timezone                        Label        Offset     DST                  Time
 --------                        -----        ------     ---                  ----
-Antarctica/Rothera               -03      -03:00:00   False  3/15/2019 3:39:59 PM
-Antarctica/Palmer                -03      -03:00:00   False  3/15/2019 3:39:59 PM
-Antarctica/Troll                 +00       00:00:00   False  3/15/2019 6:40:00 PM
-Antarctica/Syowa                 +03       03:00:00   False  3/15/2019 9:39:59 PM
-Antarctica/Mawson                +05       05:00:00   False 3/15/2019 11:39:59 PM
-Antarctica/Vostok                +06       06:00:00   False 3/16/2019 12:40:00 AM
-Antarctica/Davis                 +07       07:00:00   False  3/16/2019 1:39:58 AM
-Antarctica/Casey                 +08       08:00:00   False  3/16/2019 2:39:58 AM
-Antarctica/DumontDUrville        +10       10:00:00   False  3/16/2019 4:39:58 AM
-Antarctica/Macquarie             +11       11:00:00   False  3/16/2019 5:39:58 AM
+Antarctica/Rothera               -03      -03:00:00   False  3/15/2020 3:39:59 PM
+Antarctica/Palmer                -03      -03:00:00   False  3/15/2020 3:39:59 PM
+Antarctica/Troll                 +00       00:00:00   False  3/15/2020 6:40:00 PM
+Antarctica/Syowa                 +03       03:00:00   False  3/15/2020 9:39:59 PM
+Antarctica/Mawson                +05       05:00:00   False 3/15/2020 11:39:59 PM
+Antarctica/Vostok                +06       06:00:00   False 3/16/2020 12:40:00 AM
+Antarctica/Davis                 +07       07:00:00   False  3/16/2020 1:39:58 AM
+Antarctica/Casey                 +08       08:00:00   False  3/16/2020 2:39:58 AM
+Antarctica/DumontDUrville        +10       10:00:00   False  3/16/2020 4:39:58 AM
+Antarctica/Macquarie             +11       11:00:00   False  3/16/2020 5:39:58 AM
 ```
 
 Get all time zone areas in Antarctica and pipe them to Get-TZData to retrieve the details.
@@ -84,9 +84,9 @@ Get all time zone areas in Antarctica and pipe them to Get-TZData to retrieve th
 ### Example 4
 
 ```powershell
-PS C:\> Get-TZData Europe/Rome | ConvertTo-LocalTime -Datetime "3/15/2019 4:00PM"
+PS C:\> Get-TZData Europe/Rome | ConvertTo-LocalTime -Datetime "3/15/2020 4:00PM"
 
-Friday, March 15, 2019 11:00:00 AM
+Friday, March 15, 2020 11:00:00 AM
 ```
 
 Convert the datetime in Rome to local time, which in this example is Eastern time.
@@ -147,4 +147,3 @@ Learn more about PowerShell:http://jdhitsolutions.com/blog/essential-powershell-
 ## RELATED LINKS
 
 [Get-TZList](Get-TZList.md)
-

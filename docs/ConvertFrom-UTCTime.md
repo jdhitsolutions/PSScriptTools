@@ -30,7 +30,7 @@ This command was introduced in v2.3.0.
 ```powershell
 PS C:\> ConvertFrom-UTCTime "18:00"
 
-Monday, March 4, 2019 1:00:00 PM
+Monday, March 4, 2020 1:00:00 PM
 ```
 
 Covert the time 18:00 for the current day from universal time to local time. This result reflects Eastern Time which on this date is UTC-5.
@@ -68,8 +68,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

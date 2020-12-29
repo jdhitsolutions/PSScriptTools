@@ -28,7 +28,7 @@ Convert-HashtableToCode [-Hashtable] <Hashtable> [-Inline] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command is not has not been tested with large or complex hashtables, so you might need to manually edit the output to meet your tastes or requirements.
+Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command has not been tested with large or complex hashtables, so you might need to manually edit the output to meet your tastes or requirements.
 
 ## EXAMPLES
 
@@ -60,7 +60,7 @@ Create an inline string version of the hashtable.
 
 ### -Hashtable
 
-A hashtable to convert. In can be standard or ordered hashtable.
+A hashtable to convert. It can be standard or ordered hashtable.
 
 ```yaml
 Type: Hashtable

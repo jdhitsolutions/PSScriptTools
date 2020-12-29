@@ -87,7 +87,7 @@ LastModified : 9/9/2020 2:03:44 PM
 Scope        : AllUsersCurrentHost
 Path         : C:\WINDOWS\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1
 Exists       : True
-LastModified : 10/9/2017 4:08:35 PM
+LastModified : 10/9/2020 4:08:35 PM
 ...
 ```
 

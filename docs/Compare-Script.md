@@ -31,13 +31,13 @@ PS C:\> Compare-Script | Where-object {$_.UpdateNeeded}
 Name             : DNSSuffix
 OnlineVersion    : 0.4.1
 InstalledVersion : 0.2.0
-PublishedDate    : 10/22/2018 8:21:46 PM
+PublishedDate    : 10/22/2020 8:21:46 PM
 UpdateNeeded     : True
 
 Name             : InvokeBuild
 OnlineVersion    : 5.4.2
 InstalledVersion : 3.2.2
-PublishedDate    : 12/7/2018 1:30:46 AM
+PublishedDate    : 12/7/2020 1:30:46 AM
 UpdateNeeded     : True
 ...
 ```
@@ -48,7 +48,7 @@ List all scripts that could be updated.
 
 ```powershell
 PS C:\> Compare-Script | Where UpdateNeeded |
-Out-Gridview -title "Select scripts to update" -outputMode multiple |
+Out-Gridview -Title "Select scripts to update" -OutputMode multiple |
 Foreach-Object { Update-Script $_.name }
 ```
 
@@ -95,7 +95,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### [string]
+### System.String
 
 ## OUTPUTS
 

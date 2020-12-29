@@ -1,5 +1,8 @@
 Function New-ANSIBar {
     [cmdletbinding(DefaultParameterSetName = "standard")]
+    [alias('nab')]
+    [outputtype([System.string])]
+
     Param(
         [Parameter(Mandatory, HelpMessage = "Enter a range of 256 color values, e.g. (232..255)")]
         [ValidateNotNullOrEmpty()]
@@ -14,7 +17,6 @@ Function New-ANSIBar {
         [Parameter(HelpMessage = "Display as a single gradient from the first value to the last.")]
         [switch]$Gradient
     )
-
 
     Write-Verbose "Starting $($myinvocation.mycommand)"
     Write-Verbose "Using parameter set $($pscmdlet.ParameterSetName)"

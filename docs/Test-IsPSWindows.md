@@ -19,7 +19,7 @@ Test-IsPSWindows [<CommonParameters>]
 
 ## DESCRIPTION
 
-PowerShell Core introduced the $IsWindows variable. However it is not available on Windows PowerShell. Use this command to perform a simple test if the computer is either running Windows or using the Desktop PSEdition.
+PowerShell Core introduced the $IsWindows variable. However, it is not available on Windows PowerShell. Use this command to perform a simple test if the computer is either running Windows or using the Desktop PSEdition.
 
 ## EXAMPLES
 

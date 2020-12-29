@@ -1,4 +1,4 @@
-﻿#requires -module Microsoft.PowerShell.Diagnostics
+﻿#requires -Module Microsoft.PowerShell.Diagnostics
 
 Class myCounter {
     [string]$Computername

@@ -30,7 +30,7 @@ This command is intended for use in a traditional PowerShell console. It will no
 PS C:\> Set-ConsoleTitle $env:computername
 ```
 
-Set the console title to the computername.
+Set the console title to the computer name.
 
 ### Example 2
 

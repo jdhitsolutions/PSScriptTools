@@ -47,7 +47,7 @@ Desktop    :
 PowerShell : /home/jeff/.config/powershell
 ```
 
-Results on a Linux system running PowerShell Core.
+Results on a Linux system running PowerShell.
 
 ## PARAMETERS
 

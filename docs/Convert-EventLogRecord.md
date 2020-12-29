@@ -20,7 +20,7 @@ Convert-EventLogRecord [-LogRecord] <EventLogRecord[]> [<CommonParameters>]
 ## DESCRIPTION
 
 When you use Get-WinEvent, the results are objects you can work with in PowerShell. However, often times there is additional information that is part of the eventlog record, such as replacement strings, that are used to construct a message. This additional information is not readily exposed.
-You can use this command to convert results of a Get-WinEvent command into a PowerShell custom object with additional information. For best results you, should pipe the same event IDs to this command.
+You can use this command to convert the results of a Get-WinEvent command into a PowerShell custom object with additional information. For best results, you should pipe the same event IDs to this command.
 
 Note that not every event record exposes data that is compatible with this command. For those types of event log records, you will see a RawProperties property with most likely an array of strings.
 Use the Message property for more information.
@@ -191,7 +191,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### [System.Diagnostics.Eventing.Reader.EventLogRecord[]]
+### System.Diagnostics.Eventing.Reader.EventLogRecord
 
 ## OUTPUTS
 

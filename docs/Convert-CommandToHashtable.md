@@ -19,7 +19,7 @@ Convert-CommandToHashtable [-Text] <String> [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression using a number of parameters and you would like to turn it into splatting code.
+This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression with multiple parameters and you would like to turn it into splatting code.
 
 ## EXAMPLES
 
@@ -61,7 +61,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### [Hashtable]
+### Hashtable
 
 ## NOTES
 

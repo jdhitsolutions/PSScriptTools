@@ -153,11 +153,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### [Object]
+### System.Object
 
 ## OUTPUTS
 
-### [System.Collections.Specialized.OrderedDictionary]
+### System.Collections.Specialized.OrderedDictionary
 
 ## NOTES
 

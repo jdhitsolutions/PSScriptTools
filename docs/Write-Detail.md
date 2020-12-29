@@ -35,7 +35,7 @@ Write-Detail [[-Message] <String>] [-Prefix <String>] [-Date]
 
 ## DESCRIPTION
 
-This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with Begin, Process and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full-time stamp, or a time string which includes a millisecond value.
+This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with Begin, Process, and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full-time stamp, or a time string which includes a millisecond value.
 
 In a script you might use it like this in a Begin block:
 
@@ -78,7 +78,7 @@ Accept wildcard characters: False
 
 ### -Prefix
 
-Indicate whether you are in the BEGIN, PROCESS or END script block. Although you can specify any text. It will be displayed in upper case.
+Indicate whether you are in the BEGIN, PROCESS, or END script block. Although you can specify any text. It will be displayed in upper case.
 
 ```yaml
 Type: String
@@ -95,7 +95,7 @@ Accept wildcard characters: False
 
 ### -Date
 
-Display a date value like 9/15/2018 11:36:41.
+Display a date value like 9/15/2020 11:36:41.
 
 ```yaml
 Type: SwitchParameter

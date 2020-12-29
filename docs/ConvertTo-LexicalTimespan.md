@@ -31,7 +31,7 @@ PS C:\> ConvertTo-LexicalTimespan (New-Timespan -Days 7)
 P7D
 ```
 
-You can insert this value into an XML document where you need to represent a time span.
+You can insert this value into an XML document where you need to represent a time-span.
 
 ## PARAMETERS
 
@@ -65,8 +65,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

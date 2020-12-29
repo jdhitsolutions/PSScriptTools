@@ -29,22 +29,13 @@ You will need to manually install it.
 ### Example 1
 
 ```powershell
-C:\> Save-GitSetup -Verbose -Path c:\work -Passthru
-VERBOSE: Getting latest version of git from https://git-scm.com/download/win
-VERBOSE: GET https://git-scm.com/download/win with 0-byte payload
-VERBOSE: received -byte response of content type text/html
-VERBOSE: Found download link https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/Git-2.25.0-64-bit.exe
-VERBOSE: Downloading c:\work\Git-2.25.0-64-bit.exe from https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/Git-2.25.0-64-bit.exe
-VERBOSE: GET https://github.com/git-for-windows/git/releases/download/v2.25.0.windows.1/Git-2.25.0-64-bit.exe with 0-byte payload
-VERBOSE: received 46476880-byte response of content type application/octet-stream
-VERBOSE: Download complete
-
+C:\> Save-GitSetup -Path c:\work -Passthru
 
     Directory: C:\work
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           1/23/2020  4:31 PM       46476880 Git-2.25.0-64-bit.exe
+-a---          12/28/2020  7:29 PM       48578904 Git-2.29.2.3-64-bit.exe
 ```
 
 ## PARAMETERS
@@ -97,8 +88,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

@@ -29,7 +29,7 @@ Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks]
 
 ## DESCRIPTION
 
-This command will create a character or text based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
+This command will create a character or text-based border around a line of text. You might use this to create a formatted text report or to improve the display of information to the screen.
 
 ## EXAMPLES
 
@@ -247,7 +247,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### [System.String]
+### System.String
 
 ## NOTES
 

@@ -101,7 +101,7 @@ Get all module commands that use the Select verb.
 
 ### -Verb
 
-Filter commands based on a standard verb.
+Filter commands based on a standard PowerShell verb.
 
 ```yaml
 Type: String

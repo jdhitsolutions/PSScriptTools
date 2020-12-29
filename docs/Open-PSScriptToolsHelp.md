@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Open the PSScriptTools manual.
+Open the PSScriptTools PDF manual.
 
 ## SYNTAX
 

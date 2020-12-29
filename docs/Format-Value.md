@@ -42,9 +42,9 @@ Format-Value [-InputObject] <Object> [-AsCurrency] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will format a given numeric value. By default it will treat the number as an integer. Or you can specify a certain number of decimal places. The command will also allow you to format the value in KB, MB, etc.
+This command will format a given numeric value. By default, it will treat the number as an integer. Or you can specify a certain number of decimal places. The command will also allow you to format the value in KB, MB, etc.
 
-You can let the command auto-detect the value and divide by an appropriate value.
+You can let the command auto-detect the value and divide with an appropriate value.
 
 ## EXAMPLES
 

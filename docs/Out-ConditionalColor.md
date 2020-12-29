@@ -64,7 +64,7 @@ This command works best in the PowerShell console. It won't do anything in the P
 
 LIMITATIONS
 
-Due to the nature of PowerShell's formatting system there are some limitations with this command. If the first item in your output matches one of your conditions, any text before it, such as headers, will also be colorized. This command will have no affect if the incoming object does not have a defined format view. This means you can't pipe custom objects or something using Select-Object that only includes selected properties to this command.
+Due to the nature of PowerShell's formatting system, there are some limitations with this command. If the first item in your output matches one of your conditions, any text before it, such as headers, will also be colorized. This command will have no effect if the incoming object does not have a defined format view. This means you can't pipe custom objects or something using Select-Object that only includes selected properties to this command.
 
 ## EXAMPLES
 
@@ -136,7 +136,7 @@ Accept wildcard characters: False
 
 ### -InputObject
 
-Output from a PowerShell expression that you want to colorize.
+The output from a PowerShell expression that you want to colorize.
 
 ```yaml
 Type: PSObject[]

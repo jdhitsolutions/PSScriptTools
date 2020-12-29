@@ -116,11 +116,11 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### [object[]]
+### System.Object
 
 ## OUTPUTS
 
-### [object[]]
+### System.Object
 
 ## NOTES
 

@@ -21,7 +21,7 @@ Test-ExpressionForm [<CommonParameters>]
 
 This command will display a WPF-based form that you can use to enter in testing information. Testing intervals are in seconds. All of the values are then passed to the Test-Expression command. Results will be displayed in the form. The results only show you how long the tests took, regardless of whether or not there were errors.
 
-When you close the form, the last result object will be passed to the pipeline, including all metadata, the scriptblock and arguments.
+When you close the form, the last result object will be passed to the pipeline, including all metadata, the scriptblock, and arguments.
 
 This command requires a Windows platform that supports WPF.
 

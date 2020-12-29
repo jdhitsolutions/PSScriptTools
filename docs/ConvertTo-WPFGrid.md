@@ -130,7 +130,7 @@ Accept wildcard characters: False
 
 ### -Timeout
 
-By default the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds. The minimum accepted value is 5 seconds. If you use this parameter with -Refresh, then the datagrid will be refreshed with results of the PowerShell expression you piped to ConvertTo-WPFGrid.
+By default, the grid will remain displayed until you manually close it. But you can specify a timeout interval in seconds. The minimum accepted value is 5 seconds. If you use this parameter with -Refresh, then the datagrid will be refreshed with results of the PowerShell expression you piped to ConvertTo-WPFGrid.
 
 ```yaml
 Type: Int32
@@ -148,7 +148,7 @@ Accept wildcard characters: False
 
 If you specify this parameter and a Timeout value, this command will refresh the datagrid with the PowerShell expression piped into ConvertTo-WPFGrid. You should use a value that is longer than the time it takes to complete the command that generates your data.
 
-This parameter will only work if you are using Convertto-WPFGrid at the end of a pipelined expression. See examples.
+This parameter will only work if you are using ConvertTo-WPFGrid at the end of a pipelined expression. See examples.
 
 ```yaml
 Type: SwitchParameter
@@ -248,7 +248,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### [PSObject]
+### System.Object
 
 ## OUTPUTS
 

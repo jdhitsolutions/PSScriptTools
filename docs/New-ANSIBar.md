@@ -9,20 +9,22 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create an ANSI colored bar.
+Display an ANSI colored bar.
 
 ## SYNTAX
 
 ### standard (Default)
 
 ```yaml
-New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Character <String>] [-Gradient] [<CommonParameters>]
+New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Character <String>]
+[-Gradient] [<CommonParameters>]
 ```
 
 ### custom
 
 ```yaml
-New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Custom <Char>] [-Gradient] [<CommonParameters>]
+New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Custom <Char>] [-Gradient]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -151,8 +153,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

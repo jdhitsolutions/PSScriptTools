@@ -202,7 +202,11 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### String, Boolean or File
+### String
+
+### Boolean
+
+### System.IO.FileInfo
 
 ## NOTES
 

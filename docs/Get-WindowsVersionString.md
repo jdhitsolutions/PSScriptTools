@@ -31,7 +31,7 @@ If you are querying the local computer, all other parameters will be ignored.
 
 ```powershell
 PS C:\> Get-WindowsVersionString -Computername win10 -credential company\artd
-WIN10 Windows 10 Enterprise (OS Build 15063.1418
+WIN10 Windows 10 Enterprise (OS Build 15063.1418)
 ```
 
 Get a string version of Windows version information from a remote computer and use an alternate credential.

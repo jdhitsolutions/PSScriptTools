@@ -42,14 +42,14 @@ This command does not create the file, it only generates a name for you to use.
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> new-randomfilename
+PS C:\> New-RandomFileName
 fykxecvh.ipw
 ```
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> new-randomfilename -extension dat
+PS C:\> New-RandomFileName -extension dat
 emevgq3r.dat
 ```
 
@@ -58,11 +58,11 @@ Specify a file extension.
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> new-randomfilename -extension log -UseHomeFolder
+PS C:\> New-RandomFileName -extension log -UseHomeFolder
 C:\Users\Jeff\Documents\kbyw4fda.log
 ```
 
-Create a random file name using the user's home folder. In Windows this will be the Documents folder.
+Create a random file name using the user's home folder. In Windows, this will be the Documents folder.
 
 ### EXAMPLE 4
 

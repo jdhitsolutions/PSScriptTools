@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get all user defined variables.
+Get all user-defined variables.
 
 ## SYNTAX
 
@@ -19,9 +19,9 @@ Get-MyVariable [[-Scope] <String>] [-NoTypeInformation] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local or a number 0 through 5. The command will also display the value type for each variable. If you want to suppress this output use the -NoTypeInformation switch.
+This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local, or a number 0 through 5. The command will also display the value type for each variable. If you want to suppress this output use the -NoTypeInformation switch.
 
-This function is designed to work with the PowerShell console, NOT the the PowerShell ISE.
+This function is designed to work with the PowerShell console, NOT the PowerShell ISE.
 
 ## EXAMPLES
 
@@ -33,7 +33,7 @@ PS C:\> Get-MyVariable
 NName Value                  Type
 ---- -----                  ----
 a    bits                   ServiceController
-dt   10/22/2018 10:49:38 AM DateTime
+dt   10/22/2020 10:49:38 AM DateTime
 foo  123                    Int32
 r    {1, 2, 3, 4...}        Object[]
 ...
@@ -62,7 +62,7 @@ PS C:\> import-clixml .\myvar.xml |
 ForEach-Object {set-variable -Name $_.name -Value $_.value}
 ```
 
-You can then import this xml file in another session to restore these variables.
+You can then import this XML file in another session to restore these variables.
 
 ### EXAMPLE 4
 
@@ -113,7 +113,7 @@ up                                 Param(\[string\]$computername=$env:com...
 
 ### -Scope
 
-The scope to query. The default is the Global scope but you can also specify Local, Script, Private or a number between 0 and 3 where 0 is the current scope, 1 is the parent scope, 2 is the grandparent scope and so on.
+The scope to query. The default is the Global scope but you can also specify Local, Script, Private or a number between 0 and 3 where 0 is the current scope, 1 is the parent scope, 2 is the grandparent scope, and so on.
 
 ```yaml
 Type: String

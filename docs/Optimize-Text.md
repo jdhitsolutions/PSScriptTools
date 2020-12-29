@@ -61,7 +61,7 @@ dc01
 app02
 ```
 
-The first example shows malformed text file. In the second command it has been optimized or normalized.
+The first example shows a malformed text file. In the second command, it has been optimized or normalized.
 
 ### EXAMPLE 2
 
@@ -123,14 +123,14 @@ PS C:\> Get-Content .\ChicagoServers.txt |
 Optimize-Text -filter "dc\d{2}" -ToUpper -PropertyName Computername |
 Test-Connection -count 1
 
-Source        Destination     IPV4Address      IPV6Address      Bytes    Time(ms)
-------        -----------     -----------      -----------      -----    --------
-win10-ENT-01  CHI-DC01        172.16.30.200                     32       0
-win10-ENT-01  CHI-DC02        172.16.30.201                     32       0
-win10-ENT-01  CHI-DC04        172.16.30.203                     32       0
+Source        Destination     IPV4Address      IPV6Address    Bytes    Time(ms)
+------        -----------     -----------      -----------    -----    --------
+win10-ENT-01  CHI-DC01        172.16.30.200                   32       0
+win10-ENT-01  CHI-DC02        172.16.30.201                   32       0
+win10-ENT-01  CHI-DC04        172.16.30.203                   32       0
 ```
 
-Get names from text file that match the pattern, turn into an object with a property name and pipe to Test-Connection.
+Get names from a text file that match the pattern, turn into an object with a property name, and pipe to Test-Connection.
 
 ## PARAMETERS
 
@@ -196,7 +196,7 @@ Accept wildcard characters: False
 
 ### -Ignore
 
-Specify a character that will be interpreted as a comment character. It must be the first word character in a line.
+Specify a character that will be interpreted as a comment character. It must be the first-word character in a line.
 These lines will be ignored. This parameter has an alias of 'comment'.
 
 ```yaml

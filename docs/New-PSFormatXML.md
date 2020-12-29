@@ -24,7 +24,8 @@ New-PSFormatXML [-InputObject] <Object> [[-Properties] <Object[]>]
 
 When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, such as a table or list. Or you may want to have different views that display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.
 
-Note that table and wide views are set to Autosize. However, the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.
+Note that the table and wide views are set to Autosize. However, the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.
+
 Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine-tune it. The file will have notes on how to substitute script blocks. Although, beginning with v2.31.0, you can specify a hashtable as a custom property name just as you can with Select-Object.
 
 Even though this command was written to make it easier when writing modules that might use custom objects, you can use this command to define additional views for standard objects such as files and processes. See Examples.
@@ -48,14 +49,14 @@ PS C:\> $upParams = @{
  TypeName = $tname
  MemberType = "ScriptProperty"
  MemberName = "Runtime"
- Value = {(Get-Date) - [datetime]"1/1/2019"}
+ Value = {(Get-Date) - [datetime]"1/1/2020"}
  Force = $True
 }
 PS C:\> Update-TypeData @upParams
 PS C:\> $obj
 
 Name         : Jeff
-Date         : 2/10/2019 8:49:10 AM
+Date         : 2/10/2020 8:49:10 AM
 Computername : BOVINE320
 OS           : Microsoft Windows 10 Pro
 Runtime      : 40.20:49:43.9205882
@@ -82,7 +83,7 @@ PS C:\> $obj
 
 Name Date                 Computername Operating System
 ---- ----                 ------------ ----------------
-Jeff 2/10/2019 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
+Jeff 2/10/2020 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
 
 PS C:\> $obj | Format-Table -View runtime
 
@@ -94,7 +95,7 @@ PS C:\> $obj | Format-List
 
 
 Name            : Jeff
-Date            : Sunday, February 10, 2019
+Date            : Sunday, February 10, 2020
 Computername    : BOVINE320
 OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01
@@ -115,7 +116,7 @@ PS C:\> $obj | Format-Table -View computer
 
 Name Date                  OS                       Runtime
 ---- ----                  --                       -------
-Jeff 2/10/2019 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481
+Jeff 2/10/2020 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481
 ```
 
 This adds another view called Computer that groups objects on the Computername property.

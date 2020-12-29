@@ -39,7 +39,7 @@ Function Write-Detail {
 
 Function Out-VerboseTee {
     [CmdletBinding()]
-    [alias("Tee-Verbose","tv")]
+    [alias("tv", "Tee-Verbose")]
     Param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [object]$Value,

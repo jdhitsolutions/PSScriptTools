@@ -22,7 +22,7 @@ Select-First -InputObject <PSObject> [-First] <Int32> [[-Property] <String>]
 
 This command is intended to take pipelined input and select the first specified number of objects which are then written to the pipeline. You also have the option to sort on a specified property.
 
-When using this command, there is a trade-off of convenience for performance. For a very large number processed objects, use Select-Object directly.
+When using this command, there is a trade-off of convenience for performance. For a very large number of processed objects, use Select-Object.
 
 ## EXAMPLES
 
