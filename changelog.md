@@ -16,6 +16,7 @@ This is the most recent change history for this module.
 + Added an alias `ab` for `Add-Border`.
 + Added an alias of `nab` for `New-AnsiBar`.
 + Updated `README.md`.
++ Updated module description.
 + Help updates.
 
 ## v2.33.1
