@@ -42,7 +42,8 @@ Specify a background console color
 Type: ConsoleColor
 Parameter Sets: (All)
 Aliases: bg
-Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta,DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta,
+DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
 Required: False
 Position: 1
@@ -85,13 +86,14 @@ Accept wildcard characters: False
 
 ### -Foreground
 
-Specify a foreground console color
+Specify a foreground console color.
 
 ```yaml
 Type: ConsoleColor
 Parameter Sets: (All)
 Aliases: fg
-Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta,DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
+Accepted values: Black, DarkBlue, DarkGreen, DarkCyan, DarkRed, DarkMagenta,
+DarkYellow, Gray, DarkGray, Blue, Green, Cyan, Red, Magenta, Yellow, White
 
 Required: False
 Position: 0
@@ -102,7 +104,7 @@ Accept wildcard characters: False
 
 ### -Passthru
 
-Display foreground and background color values
+Display foreground and background color values.
 
 ```yaml
 Type: SwitchParameter

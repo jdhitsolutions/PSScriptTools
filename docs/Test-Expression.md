@@ -93,7 +93,7 @@ PSVersion    : 5.1.19041.1
 OS           : Microsoft Windows 10 Pro
 ```
 
-These examples are testing two different approaches that yield the same results over a span of 10 test runs, pausing for 2 seconds between each test. The values for Average, Minimum and Maximum are in milliseconds.
+These examples are testing two different approaches that yield the same results over a span of 10 test runs, pausing for 2 seconds between each test. The values for Average, Minimum, and Maximum are in milliseconds.
 
 ### Example 3
 
@@ -241,7 +241,7 @@ Accept wildcard characters: False
 
 ### -Interval
 
-How much time to sleep in seconds between each test. Maximum is 60. You may want to use a sleep interval to mitigate possible caching effects.
+How much time to sleep in seconds between each test. The maximum value is 60. You may want to use a sleep interval to mitigate possible caching effects.
 
 ```yaml
 Type: Double
@@ -257,7 +257,7 @@ Accept wildcard characters: False
 
 ### -RandomMaximum
 
-You can also specify a random interval by providing a random minimum and maximum values in seconds.
+You can also specify a random interval by providing random minimum and maximum values in seconds.
 
 ```yaml
 Type: Double
@@ -273,7 +273,7 @@ Accept wildcard characters: False
 
 ### -RandomMinimum
 
-You can also specify a random interval by providing a random minimum and maximum values in seconds.
+You can also specify a random interval by providing random minimum and maximum values in seconds.
 
 ```yaml
 Type: Double
@@ -297,7 +297,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### Custom measurement object
+### TestResult
 
 ## NOTES
 

@@ -7,6 +7,8 @@ originally published at
  #>
 Function Add-Border {
     [CmdletBinding(DefaultParameterSetName = "single")]
+    [alias('ab')]
+    [OutputType([System.String])]
 
     Param(
         # The string of text to process

@@ -29,8 +29,8 @@ This command will generate a custom file name based on a template string that yo
 - %month  - The month number
 - %dayofweek - The full name of the week day
 - %day
-- %hour - the hour of the day in 12 hour format to 2 digits
-- %hour24 - the hour of the day in 24 hour format to 2 digits
+- %hour - the hour of the day in 12-hour format to 2 digits
+- %hour24 - the hour of the day in 24-hour format to 2 digits
 - %minute
 - %seconds
 - %time  - A compact string of HourMinuteSecond
@@ -49,7 +49,7 @@ Another option, is to turn the entire custom name into upper or lower case.
 
 ```powershell
 PS C:\> New-CustomFileName %computername_%day%monthname%yr-%time.log
-COWPC_28Nov18-142138.log
+COWPC_28Nov20-142138.log
 ```
 
 ### EXAMPLE 2
@@ -74,7 +74,7 @@ Create an upper case custom file name. The %string placeholder will be replaced 
 
 ```powershell
 PS C:\> Join-Path c:\work (New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower)
-c:\work\2018nov-log-bovine320[jeff].txt
+c:\work\2020nov-log-bovine320[jeff].txt
 ```
 
 Create a lower case filename using Join-Path. This command does not create the file, it only generates a name for you to use.
@@ -95,16 +95,16 @@ PS C:\> 1..10 | foreach-object {
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----        3/15/2019   4:46 PM            976 rcphz2nj-6431.dat
--a----        3/15/2019   4:46 PM           1797 viz32er5-0526.dat
--a----        3/15/2019   4:46 PM           1775 k2mukuv4-8267.dat
--a----        3/15/2019   4:46 PM            666 0encqdlt-8753.dat
--a----        3/15/2019   4:46 PM            513 dbswpujf-6314.dat
--a----        3/15/2019   4:46 PM            371 qlkdufp0-0481.dat
--a----        3/15/2019   4:46 PM           2010 5cxq3tb5-5624.dat
--a----        3/15/2019   4:46 PM           2043 mcvoh4n5-8041.dat
--a----        3/15/2019   4:46 PM           1048 4iwibnmf-1584.dat
--a----        3/15/2019   4:46 PM            378 fgsj0rtd-2894.dat
+-a----        3/15/2020   4:46 PM            976 rcphz2nj-6431.dat
+-a----        3/15/2020   4:46 PM           1797 viz32er5-0526.dat
+-a----        3/15/2020   4:46 PM           1775 k2mukuv4-8267.dat
+-a----        3/15/2020   4:46 PM            666 0encqdlt-8753.dat
+-a----        3/15/2020   4:46 PM            513 dbswpujf-6314.dat
+-a----        3/15/2020   4:46 PM            371 qlkdufp0-0481.dat
+-a----        3/15/2020   4:46 PM           2010 5cxq3tb5-5624.dat
+-a----        3/15/2020   4:46 PM           2043 mcvoh4n5-8041.dat
+-a----        3/15/2020   4:46 PM           1048 4iwibnmf-1584.dat
+-a----        3/15/2020   4:46 PM            378 fgsj0rtd-2894.dat
 ```
 
 Create 10 dummy files with random names and sizes.
@@ -113,7 +113,7 @@ Create 10 dummy files with random names and sizes.
 
 ### -Case
 
-Some values like username or computername might be in different case than what you want. You can use the default value, or return a value that is all upper or lower case.
+Some values like username or computername might be in a different case than what you want. You can use the default value, or return a value that is all upper or lower case.
 
 ```yaml
 Type: String
@@ -141,8 +141,8 @@ You can create a template string using any of these variables, including the % s
 - %month  - The month number
 - %dayofweek - The full name of the week day
 - %day
-- %hour - the hour of the day in 12 hour format to 2 digits
-- %hour24 - the hour of the day in 24 hour format to 2 digits
+- %hour - the hour of the day in 12-hour format to 2 digits
+- %hour24 - the hour of the day in 24-hour format to 2 digits
 - %minute
 - %seconds
 - %time  - A compact string of HourMinuteSecond

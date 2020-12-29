@@ -10,44 +10,59 @@ Function Get-PSScriptTools {
     )
 
     Write-Verbose "Starting $($myinvocation.mycommand)"
+    $thisCmd = Get-Command $myinvocation.MyCommand
+    $thisModule =  $thisCmd.Source
+    $thisVersion = $thisCmd.version.tostring()
+    Write-Verbose "Using version $thisVersion"
 
-    $h = @"
- ___ ___ ___        _      _  _____        _
+    $PSBoundParameters.Module = $thisModule
+
+    Write-Verbose "Using these bound parameters"
+    $PSBoundParameters | Out-String | Write-Verbose
+
+    <#
+$h = @"
+___ ___ ___        _      _  _____        _
 | _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
-                     |_|
+|_|
+
 "@
-    "$([char]0x1b)[1;38;5;177m$h$([char]0x1b)[0m" | write-host
-   #Write-Host $h -ForegroundColor Yellow
+    #>
+    #ignore and suppress errors to create the ASCII art since this is optional and decorative only
+    $h = ConvertTo-ASCIIArt $thisModule -font small -ErrorAction SilentlyContinue
+    $h+= "`n"
+    $h += ConvertTo-ASCIIArt $thisVersion -Font small -ErrorAction SilentlyContinue
 
-    #getting commands directly from the module because for some unknown reason,
-    #probably scope related, when using Get-Command alone to list commands in the module,
-    #it includes private functions
-    Write-Verbose "Getting the PSScriptTools module"
-    $mod = Get-Module -Name PSScriptTools
+    "$([char]0x1b)[1;38;5;177m$h$([char]0x1b)[0m" | Write-Host
+    #Write-Host $h -ForegroundColor Yellow
 
-    Write-Verbose "Using version $($mod.version)"
-    Write-Verbose "Getting exported functions"
-    $funs = $mod.ExportedFunctions.keys | Get-Command
+    Write-Verbose "Getting exported functions from $thisModule"
+    #Using Get-Module instead of Get-Command -module which wants to include private functions
+    $funs = ((Get-Module $thismodule).exportedfunctions).keys
 
-    if ($verb) {
-        Write-Verbose "Filtering on verb $Verb"
-        $funs = $funs.where({$_.verb -eq $verb})
+    if ($Verb) {
+       $funs = $funs.where{$_ -match "^$Verb\-"}
     }
-    Write-Verbose "Found $($funs.count) functions"
+
+    Write-Verbose "Found $($funs.count) functions matching your criteria"
+
+    #get all aliases once
+    $allAliases = Get-Alias
 
     foreach ($fun in $funs) {
-        Write-Verbose "Processing $($fun.name)"
-        #get aliases, ignoring errors for those commands without one
-        $alias = (Get-Alias -Definition $fun.Name -ErrorAction silentlycontinue).nameget
+        Write-Verbose "Processing $fun"
+        #find a matching alias
+        $alias = $allAliases.where({$_.referencedcommand.name -eq $fun}).name
+        Write-Verbose "Detected alias $alias"
 
         [pscustomobject]@{
             PSTypeName = "PSScriptTool"
-            Name       = $fun.name
+            Name       = $fun
             Alias      = $alias
-            Verb       = $fun.verb
-            Synopsis   = (Get-Help $fun.name).synopsis
+            Verb       = $fun.split("-")[0]
+            Synopsis   = (Get-Help $fun).synopsis
             Version    = $fun.version
         }
     }

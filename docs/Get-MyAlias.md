@@ -19,7 +19,7 @@ Get-MyAlias [-NoModule] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Often you might define aliases for functions and scripts you use all of time. It may difficult sometimes to remember them all or to find them in the default Get-Alias output. This command will list all currently defined aliases that are not part of the initial PowerShell state.
+Often you might define aliases for functions and scripts you use often. It may difficult sometimes to remember them all or to find them in the default Get-Alias output. This command will list all currently defined aliases that are not part of the initial PowerShell state.
 
 The PSScriptTools module also includes a custom formatting file for alias objects which you can use with Get-Alias or Get-MyAlias. See examples.
 
@@ -37,7 +37,7 @@ Alias           bv -> Brave
 Alias           cal -> Get-Calendar                  1.11.0     PSCalendar
 Alias           cc -> Copy-Command                   2.27.0     PSScriptTools
 Alias           cfn -> New-CustomFileName            2.27.0     PSScriptTools
-Alias           CFS -> ConvertFrom-String            3.1.0.0    Microsoft.PowerShell.Utility
+Alias           CFS -> ConvertFrom-String            3.1.0.0    Microsoft.Po...
 Alias           cft -> ConvertFrom-Text              2.27.0     PSScriptTools
 Alias           chc -> Convert-HashTableToCode       2.27.0     PSScriptTools
 Alias           che -> Copy-HelpExample              2.27.0     PSScriptTools

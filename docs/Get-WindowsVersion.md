@@ -32,11 +32,11 @@ If you are querying the local computer, all other parameters will be ignored.
 PS C:\>Get-WindowsVersion
 
 
-   Computername: BOVINE320
+   Computername: DESK109
 
-ProductName        EditionID            ReleaseID  Build  InstalledUTC
------------        ---------            ---------  -----  ------------
-Windows 10 Pro     Professional         1909       18363  7/5/2019 10:54:49 PM
+ProductName           EditionID         ReleaseID  Build  InstalledUTC
+-----------           ---------         ---------  -----  ------------
+Windows 10 Pro        Professional      2009       19042  10/16/2020 3:09:01 PM
 ```
 
 Query the local host.
@@ -48,26 +48,25 @@ PS C:\> Get-WindowsVersion -Computername srv1,srv2,win10 -Credential $art
 
    Computername: WIN10
 
-ProductName                    EditionID            ReleaseID  Build  InstalledUTC
------------                    ---------            ---------  -----  ------------
-Windows 10 Enterprise          EnterpriseEval       1903       18362  2/6/2020 5:28:34 PM
-Evaluation
+ProductName                EditionID     ReleaseID  Build  InstalledUTC
+-----------                ---------     ---------  -----  ------------
+Windows 10 Enterprise      Enterprise    1903       18362  2/6/2020 5:28:34 PM
 
 
    Computername: SRV1
 
-ProductName                    EditionID            ReleaseID  Build  InstalledUTC
------------                    ---------            ---------  -----  ------------
-Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:27:42 PM
-Evaluation
+ProductName                EditionID     ReleaseID  Build  InstalledUTC
+-----------                ---------     ---------  -----  ------------
+Windows Server 2016        ServerStandard 1607       14393  2/6/2020 5:27:42 PM
+Standard
 
 
-   Computername: SRV2
+ Computername: SRV2
 
-ProductName                    EditionID            ReleaseID  Build  InstalledUTC
------------                    ---------            ---------  -----  ------------
-Windows Server 2016 Standard   ServerStandardEval   1607       14393  2/6/2020 5:28:13 PM
-Evaluation
+ProductName                EditionID     ReleaseID  Build  InstalledUTC
+-----------                ---------     ---------  -----  ------------
+Windows Server 2016        ServerStandard 1607       14393  2/6/2020 6:47:12 PM
+Standard
 ```
 
 Get Windows version information from remote computers using an alternate credential.

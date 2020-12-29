@@ -75,8 +75,7 @@ Accept wildcard characters: False
 
 ### -String
 
-Enter a lexical time string like P23DT3H43M.
-This is case-sensitive.
+Enter a lexical time string like P23DT3H43M. This is case-sensitive.
 
 ```yaml
 Type: String
@@ -106,8 +105,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

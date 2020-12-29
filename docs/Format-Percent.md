@@ -29,7 +29,7 @@ Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>]
 
 ## DESCRIPTION
 
-This command calculates a percentage of a value from a total, with the formula (value/total)*100. The default is to return a value to 2 decimal places but you can configure that with -Decimal. There is also an option to format the percentage as a string which will include the % symbol.
+This command calculates a percentage of a value from a total, with the formula: (value/total)*100. The default is to return a value to 2 decimal places but you can configure that with -Decimal. There is also an option to format the percentage as a string which will include the % symbol.
 
 ## EXAMPLES
 

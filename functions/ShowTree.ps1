@@ -10,9 +10,9 @@
             ValueFromPipelineByPropertyName
             )]
         [ValidateNotNullOrEmpty()]
+        [alias("FullName")]
         [string[]]$Path = ".",
 
-        [Alias("PSPath")]
         [Parameter(Position = 0,
             ParameterSetName = "LiteralPath",
             ValueFromPipelineByPropertyName
@@ -291,9 +291,10 @@
     } #begin
 
     Process {
+        Write-Verbose "Detected parameter set $($pscmdlet.ParameterSetName)"
         if ($psCmdlet.ParameterSetName -eq "Path") {
             # In the -Path (non-literal) resolve path in case it is wildcarded.
-            $resolvedPaths = @($Path | Resolve-Path | Foreach-object { $_.Path})
+            $resolvedPaths = @($Path | Resolve-Path | Foreach-object {$_.Path})
         }
         else {
             # Must be -LiteralPath

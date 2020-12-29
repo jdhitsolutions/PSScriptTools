@@ -11,7 +11,8 @@ Get-ChildItem -path $PSScriptRoot\functions\*.ps1 | ForEach-Object -process {
 
 Write-Verbose "Define the global PSAnsiFileMap variable"
 $json = "psansifilemap.json"
-#test for user version
+
+#test for user version in $HOME
 $userjson = Join-Path -path $HOME -ChildPath $json
 $modjson = Join-Path -path $PSScriptRoot -ChildPath $json
 
@@ -19,10 +20,24 @@ if (Test-Path -path $userjson) {
     $map = $userjson
 }
 else {
+    #use the file from this module
     $map = $modjson
 }
 
-Set-Variable -Name PSAnsiFileMap -value (Get-Content -path $map | ConvertFrom-Json) -Scope Global
+#ConvertFrom-Json doesn't write simple objects to the pipeline in Windows PowerShell so I
+#need to process the results individually.
+$mapData = [System.Collections.Generic.List[object]]::new()
+
+Get-Content -path $map | ConvertFrom-Json | Foreach-Object {$_} | foreach-Object {
+    $entry = [pscustomobject]@{
+        PSTypeName  = "PSAnsiFileEntry"
+        Description = $_.description
+        Pattern = $_.pattern
+        Ansi = $_.ansi
+    }
+    $mapData.Add($entry)
+}
+Set-Variable -Name PSAnsiFileMap -value $mapdata -Scope Global
 
 Write-Verbose "Define special character map"
 $global:PSSpecialChar = @{

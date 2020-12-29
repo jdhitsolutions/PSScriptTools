@@ -19,7 +19,7 @@ Get-PowerShellEngine [-Detail]
 
 ## DESCRIPTION
 
-Use this command to find the path to the PowerShell executable, or engine that is running your current session. 
+Use this command to find the path to the PowerShell executable, or engine that is running your current session.
 The default is to provide the path only. But you can also get detailed information
 
 ## EXAMPLES
@@ -28,9 +28,8 @@ The default is to provide the path only. But you can also get detailed informati
 
 ```powershell
 PS C:\> Get-PowerShellEngine
-```
-
 C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
+```
 
 ### EXAMPLE 2
 
@@ -48,7 +47,7 @@ Culture        : en-US
 Platform       :
 ```
 
-Result from running in the Visual Studio Code integrated PowerShell terminal
+This result is from running in the Visual Studio Code integrated PowerShell terminal.
 
 ### EXAMPLE 3
 
@@ -56,17 +55,17 @@ Result from running in the Visual Studio Code integrated PowerShell terminal
 PS C:\> Get-PowerShellEngine -detail
 
 
-Path           : C:\Program Files\PowerShell\7-preview\pwsh.exe
-FileVersion    : 7.0.0.0
-PSVersion      : 7.0.0-rc.2
-ProductVersion : 7.0.0-rc.2 SHA: d99b325861d3c15271367a0cece3037d76230e34
+Path           : C:\Program Files\PowerShell\7\pwsh.exe
+FileVersion    : 7.1.0.0
+PSVersion      : 7.1.0
+ProductVersion : 7.1.0 SHA: d2953dcaf8323b95371380639ced00dac4ed209f
 Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
 Platform       : Win32NT
 ```
 
-Result from running in a PowerShell 7 release candidate session on Windows 10
+This result is from running in a PowerShell 7 session on Windows 10
 
 ## PARAMETERS
 
@@ -90,9 +89,9 @@ Accept wildcard characters: False
 
 ## OUTPUTS
 
-### [string]
+### System.String
 
-### [PSCustomObject]
+### PSCustomObject
 
 ## NOTES
 

@@ -14,8 +14,8 @@ Options for formatting strings.
 ## SYNTAX
 
 ```yaml
-Format-String [-Text] <String> [-Reverse] [-Case <String>] [-Replace <Hashtable>]
-[-Randomize] [<CommonParameters>]
+Format-String [-Text] <String> [-Reverse] [-Case <String>]
+[-Replace <Hashtable>] [-Randomize] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

@@ -54,7 +54,7 @@ PS C:\> ConvertTo-LocalTime "10:00AM" -10:00:00
 Thursday, March 14, 2019 4:00:00 PM
 ```
 
-In this example, the user if first determining the UTC offset for Hawaii. Then 10:00AM in say Honolulu, is converted to local time which in this example is in the Eastern Time zone.
+In this example, the user is first determining the UTC offset for Hawaii. Then 10:00AM in Honolulu, is converted to local time which in this example is in the Eastern Time zone.
 
 ## PARAMETERS
 

@@ -22,7 +22,7 @@ Select-Last -InputObject <PSObject> [-Last] <Int32> [[-Property] <String>]
 
 This is a modified version of Select-Object designed to select the last X number of objects. The command takes pipelined input and selects the last specified number of objects which are then written to the pipeline. You have an option to first sort on the specified property.
 
-When using this command, there is a trade off of convenience for performance. For a very large number processed objects, use Select-Object directly.
+When using this command, there is a trade-off of convenience for performance. For a very large number of processed objects, use Select-Object.
 
 ## EXAMPLES
 

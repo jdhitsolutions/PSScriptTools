@@ -27,7 +27,7 @@ Get-ModuleCommand -FullyQualifiedName <ModuleSpecification> [-ListAvailable] [<C
 
 ## DESCRIPTION
 
-This is an alternative to Get-Command to make it easier to see at a glance what commands are contained within a module and what they can do. By default, Get-ModuleCommand looks for loaded modules. Use -ListAvailable to see commands in module not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.
+This is an alternative to Get-Command to make it easier to see at a glance what commands are contained within a module and what they can do. By default, Get-ModuleCommand looks for loaded modules. Use -ListAvailable to see commands in the module but not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.
 
 ## EXAMPLES
 
@@ -51,7 +51,7 @@ Get module commands using the default formatted view. You can install this modul
 ### Example 2
 
 ```powershell
-PS C:\> Get-ModuleCommand smbshare -ListAvailable | format-list
+PS C:\> Get-ModuleCommand smbshare -ListAvailable | Format-List
 
 
 Name     : Block-SmbShareAccess
@@ -73,32 +73,23 @@ Using the default list view.
 ### Example 3
 
 ```powershell
-PS C:\> Get-ModuleCommand PSScriptTools | format-table -view verb
+PS C:\> Get-ModuleCommand PSScriptTools | Format-Table -view verb
 
 
 
    Verb: Add
 
-Name                           Alias           Type        Synopsis
-----                           -----           ----        --------
-Add-Border                                     Function    Create a text border around a string.
+Name             Alias        Type        Synopsis
+----             -----        ----        --------
+Add-Border                    Function    Create a text border around a string.
 
 
    Verb: Compare
 
-Name                           Alias           Type        Synopsis
-----                           -----           ----        --------
-Compare-Module                 cmo             Function    Compare PowerShell module versions.
+Name            Alias           Type        Synopsis
+----            -----           ----        --------
+Compare-Module  cmo             Function    Compare PowerShell module versions.
 
-
-   Verb: Convert
-
-Name                           Alias           Type        Synopsis
-----                           -----           ----        --------
-Convert-CommandtoHashtable                     Function    Convert a PowerShell expression into a
-                                                           hashtable.
-Convert-EventLogRecord         clr             Function    Convert EventLogRecords to structured
-                                                           objects.
 ...
 ```
 
@@ -132,7 +123,7 @@ Accept wildcard characters: False
 
 ### -ListAvailable
 
-Indicates that this cmdlet gets all installed modules. Get-Module gets modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.
+Indicates that this cmdlet gets all installed modules. Get-Module finds modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.
 
 ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.
 

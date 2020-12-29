@@ -41,6 +41,8 @@ This command requires a Windows platform.
 PS C:\> $name = Invoke-Inputbox -prompt "Enter a user name" -title "New User"
 ```
 
+Display an graphical inputbox with a given prompt and title. The entered value will be saved to $name.
+
 ### EXAMPLE 2
 
 ```powershell

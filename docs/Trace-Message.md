@@ -50,7 +50,7 @@ This command will initialize a trace window with the given title and width. It i
 PS C:\> Trace-Message -message "Starting MyCommand"
 ```
 
-This example is a continuation of the previous. The message text will be appended to the graphical form, prepended with a timestamp.
+This example is a continuation of the previous example. The message text will be appended to the graphical form, prepended with a timestamp.
 
 ## PARAMETERS
 

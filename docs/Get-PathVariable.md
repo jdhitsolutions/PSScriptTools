@@ -19,7 +19,7 @@ Get-PathVariable [[-Scope] <String>] [<CommonParameters>]
 
 ## DESCRIPTION
 
-Use this command to test the locations specified in the %PATH% environment variable. On Windows platforms you can distinguish between settings set per machine and those set per user. On non-Windows platforms the scope will be Process.
+Use this command to test the locations specified in the %PATH% environment variable. On Windows platforms, you can distinguish between settings set per machine and those set per user. On non-Windows platforms, the scope will be Process.
 
 ## EXAMPLES
 
@@ -28,15 +28,15 @@ Use this command to test the locations specified in the %PATH% environment varia
 ```powershell
 PS C:\> Get-PathVariable
 
-Scope   UserName Path                                                                     Exists
------   -------- ----                                                                     ------
-User    Jeff     C:\Program Files\kdiff3                                                  True
-User    Jeff     C:\Program Files (x86)\Bitvise SSH Client                                True
-User    Jeff     C:\Program Files\OpenSSH                                                 True
+Scope   UserName Path                                            Exists
+-----   -------- ----                                            ------
+User    Jeff     C:\Program Files\kdiff3                         True
+User    Jeff     C:\Program Files (x86)\Bitvise SSH Client       True
+User    Jeff     C:\Program Files\OpenSSH                        True
 ...
-Machine Jeff     C:\WINDOWS                                                               True
-Machine Jeff     C:\WINDOWS\system32                                                      True
-Machine Jeff     C:\WINDOWS\System32\Wbem                                                 True
+Machine Jeff     C:\WINDOWS                                      True
+Machine Jeff     C:\WINDOWS\system32                             True
+Machine Jeff     C:\WINDOWS\System32\Wbem                        True
 ...
 ```
 

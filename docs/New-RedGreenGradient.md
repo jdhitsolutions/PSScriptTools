@@ -50,7 +50,7 @@ DriveLetter FileSystemLabel FreeGB PctFree
           D Data               104 21.82 ██████████
 ```
 
-The bar graph will be colored from red towards green. This example is using format command from the PSScriptTools module.
+The bar graph will be colored from red towards green. This example is using the Format-Percent and Format-Value commands from the PSScriptTools module.
 
 ## PARAMETERS
 

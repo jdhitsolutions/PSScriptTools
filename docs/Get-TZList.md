@@ -27,7 +27,7 @@ Get-TZList [-All] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command uses a free and publicly available REST API offered by http://worldtimeapi.org to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details. You must have http access to the Internet for this command to work. Note that if the site is busy you may get an error. If that happens, wait a minute and try again.
+This command uses a free and publicly available REST API offered by http://worldtimeapi.org to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details. You must have Internet access for this command to work. Note that if the site is busy you may get an error. If that happens, wait a minute and try again.
 
 ## EXAMPLES
 
@@ -114,7 +114,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-    Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

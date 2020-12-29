@@ -19,7 +19,7 @@ Remove-MergedBranch [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 
 ## DESCRIPTION
 
-When using git you may create a number of branches. Presumably you merge these branches into the main or master branch. The development or patching branch remains. You can use git to remove branches. Or use this command to remove all merged branches other than master and the current branch. You must be in the root of your project to run this command.
+When using git you may create multiple branches. Presumably, you merge these branches into the main or master branch. The development or patching branch remains. You can use git to remove branches. Or use this command to remove all merged branches other than master and the current branch. You must be in the root of your project to run this command.
 
 ## EXAMPLES
 
@@ -125,8 +125,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

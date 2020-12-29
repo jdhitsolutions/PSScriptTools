@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Test your PowerShell code under a different culture.
+Test your PowerShell code using a different culture.
 
 ## SYNTAX
 
@@ -39,7 +39,7 @@ Note that this command is not an absolute test. There may be commands that fail 
 
 ```powershell
 PS C:\> Test-WithCulture de-de -Scriptblock {(Get-Date).addDays(90)}
-Montag, 14. Oktober 2019 08:59:01
+Montag, 14. Oktober 2020 08:59:01
 ```
 
 ### Example2
@@ -54,13 +54,13 @@ PS C\> Test-WithCulture fr-fr -Scriptblock {
 
 Count Name
 ----- ----
-  165 10/07/2019
-  249 11/07/2019
-   17 12/07/2019
-   16 13/07/2019
-   20 14/07/2019
-   26 15/07/2019
-    7 16/07/2019
+  165 10/07/2020
+  249 11/07/2020
+   17 12/07/2020
+   16 13/07/2020
+   20 14/07/2020
+   26 15/07/2020
+    7 16/07/2020
 ```
 
 ## PARAMETERS
@@ -115,7 +115,7 @@ Accept wildcard characters: False
 
 ### -Scriptblock
 
-Enter a scriptblock to execute using the specified culture. Be aware that long or complex pipelined expressions might not give you the culture specific results you expect.
+Enter a scriptblock to execute using the specified culture. Be aware that long or complex pipelined expressions might not give you the culture-specific results you expect.
 
 ```yaml
 Type: ScriptBlock
@@ -143,8 +143,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
 

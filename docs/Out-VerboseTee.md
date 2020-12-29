@@ -51,7 +51,7 @@ PS C:\> $VerbosePreference= "continue"
 PS C:\> $log = New-CustomFileName ".\VerboseLog_%time.txt"
 PS C:\> Write-Detail "This is a verbose log test" | Out-VerboseTee -path $log
 PS C:\> Get-Content $log
-11/29/2017 08:21:31:0704 [PROCESS] This is a verbose log test
+11/29/2020 08:21:31:0704 [PROCESS] This is a verbose log test
 PS C:\> $verbosePreference = "silentlyContinue"
 ```
 
@@ -146,4 +146,3 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Write-Detail]()
 
 [Tee-Object]()
-

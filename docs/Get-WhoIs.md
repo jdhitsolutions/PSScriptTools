@@ -26,7 +26,7 @@ This command queries the ARIN database to lookup WhoIs information for a given I
 ### Example 1
 
 ```powershell
-PS C:\> get-whois 208.67.222.222 | select-object -Property *
+PS C:\> get-whois 208.67.222.222 | Select-Object -Property *
 
 
 IP                     : 208.67.222.222

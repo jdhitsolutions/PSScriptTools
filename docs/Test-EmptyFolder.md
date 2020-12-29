@@ -19,10 +19,7 @@ Test-EmptyFolder [-Path] <String[]> [-Passthru] [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will test if a given folder path is empty of all files anywhere in the path.
-This includes hidden files.
-The command will return True even if there are empty sub-folders.
-The default output is True or False but you can use -Passthru to get more information.
+This command will test if a given folder path is empty of all files anywhere in the path. This includes hidden files. The command will return True even if there are empty sub-folders. The default output is True or False but you can use -Passthru to get more information.
 See examples.
 
 ## EXAMPLES

@@ -29,7 +29,7 @@ New-PSDriveHere [[-Path] <String>] [[-Name] <String>] [-SetLocation]
 
 ## DESCRIPTION
 
-This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new PSDrive. If you prefer to use the first word of the location, use -First. If you prefer to specify a totally different name, then use the -Name parameter.
+This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new PSDrive. If you prefer to use the first word of the location, use -First. If you prefer to specify a completely different name, then use the -Name parameter.
 
 This command will not write anything to the pipeline unless you use -Passthru.
 

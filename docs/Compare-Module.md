@@ -129,7 +129,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## INPUTS
 
-### [string]
+### System.String
 
 ## OUTPUTS
 

@@ -31,11 +31,11 @@ PS C:\> get-content c:\work\test.psd1 | unprotect-cmsmessage | Convert-Hashtable
 Name                           Value
 ----                           -----
 CreatedBy                      BOVINE320\Jeff
-CreatedAt                      10/02/2018 21:28:47 UTC
+CreatedAt                      10/02/2020 21:28:47 UTC
 Computername                   Think51
 Error
 Completed                      True
-Date                           10/02/2018 21:29:35 UTC
+Date                           10/02/2020 21:29:35 UTC
 Scriptblock                    restart-service spooler -force
 CreatedOn                      BOVINE320
 ```
@@ -71,7 +71,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## OUTPUTS
 
-### [hashtable]
+### hashtable
 
 ## NOTES
 
