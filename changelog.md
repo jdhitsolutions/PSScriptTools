@@ -6,7 +6,7 @@ This is the most recent change history for this module.
 
 + Updated `license.txt` with new year.
 + Added missing online help links.
-+ Fixed bug in `Get-ParameterInfo` that failed to display dynamic parameters when using an command alias. (Issue #101)
++ Fixed bug in `Get-ParameterInfo` that failed to display dynamic parameters when using a command alias. (Issue #101)
 + Modified format file for `PSParameterInfo` to display `Mandatory` and `IsDynamic` values in color when the value is `$True`.
 
 ## v2.34.0
