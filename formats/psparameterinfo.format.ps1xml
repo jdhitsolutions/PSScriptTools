@@ -40,11 +40,25 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
               </ListItem>
               <ListItem>
                 <Label>Mandatory</Label>
-                <PropertyName>Mandatory</PropertyName>
+                <ScriptBlock>
+                if ($host.name -eq 'consolehost' -AND $_.mandatory) {
+                    "$([char]0x1b)[38;5;47m$($_.mandatory)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.Mandatory
+                }
+                </ScriptBlock>
               </ListItem>
               <ListItem>
                 <Label>IsDynamic</Label>
-                <PropertyName>IsDynamic</PropertyName>
+                <ScriptBlock>
+                if ($host.name -eq 'consolehost' -AND $_.IsDynamic) {
+                    "$([char]0x1b)[38;5;199m$($_.IsDynamic)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.IsDynamic
+                }
+                </ScriptBlock>
               </ListItem>
               <ListItem>
                 <Label>Position</Label>
@@ -129,7 +143,14 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
                 <PropertyName>Aliases</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Mandatory</PropertyName>
+                <ScriptBlock>
+                if ($host.name -eq 'consolehost' -AND $_.mandatory) {
+                    "$([char]0x1b)[38;5;47m$($_.mandatory)$([char]0x1b)[0m"
+                }
+                else {
+                  $_.Mandatory
+                }
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Position</PropertyName>
