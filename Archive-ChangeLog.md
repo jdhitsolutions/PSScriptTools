@@ -2,6 +2,19 @@
 
 This file contains older change history. It is maintained for reference purposes.
 
+## v2.32.0
+
++ Added `ConvertTo-ASCIIArt` and its alias *cart*.
++ Added `Get-DirectoryInfo`, its alias *dw*, and a custom formatting file, `directorystat.format.ps1xml`.
++ Modified `Open-PSScriptToolsHelp` to use `Invoke-Item` to launch the PDF file. This should work better on non-Windows platforms.
++ Modified `Get-FormatView` to accept pipeline input for the `Typename` parameter. (Issue #95)
++ Modified `New-PSFormatXML` to use a static value width when using scriptblocks. (Issue #94)
++ Added `Out-Copy` and its alias *oc*.
++ Added `Get-CommandSyntax` and its alias *gsyn*.
++ Updated missing online help links.
++ Added a splash header to `Get-PSScriptTools`. The header writes to the host so it isn't part of the command output.
++ Updated `README.md`.
+
 ## v2.31.0
 
 + Merged PR from @corbob to fix an issue detecting profiles scripts when the user's Documents location has changed. (Issue #93)

@@ -20,7 +20,7 @@ Set-ConsoleColor [[-Foreground] <ConsoleColor>] [[-Background] <ConsoleColor>]
 
 ## DESCRIPTION
 
-You can use this command to modify the PowerShell console's foreground and/or background color. Note that if you are running the PSReadline module, that module has commands, like Set-PSReadLineOption, that you can use to modify your console. This command is intended for use in a traditional PowerShell console. It will not work in consoles that are part of the PowerShell ISE or Visual Studio Code.
+You can use this command to modify the PowerShell console's foreground and/or background color. If you are running the PSReadline module, that module has its own commands, like Set-PSReadLineOption, that you can use to modify your console. Set-ConsoleColor is designed for use in a traditional PowerShell console. It will not work in consoles that are part of the PowerShell ISE or Visual Studio Code.
 
 ## EXAMPLES
 
@@ -104,7 +104,7 @@ Accept wildcard characters: False
 
 ### -Passthru
 
-Display foreground and background color values.
+Display the foreground and background color values.
 
 ```yaml
 Type: SwitchParameter
@@ -137,7 +137,9 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
+This cmdlet supports the common parameters: -Debug, -ErrorAction,
+-ErrorVariable, -InformationAction, -InformationVariable, -OutVariable,
+-OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
 For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

@@ -1,6 +1,6 @@
 # PSScriptTools Overview
 
-[![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)](https://www.powershellgallery.com/packages/PSScripttools/) [![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)](https://www.powershellgallery.com/packages/PSScripttools/)
+![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)
 
 ## Abstract
 
@@ -46,7 +46,7 @@ Starting in v2.2.0, the module was restructured to better support `Desktop` and 
 
 It is recommended to install this module from the PowerShell Gallery and not GitHub.
 
-To remove the module from your system you can easily uninstall it with common PowerShell commands.
+To remove the module from your system, you can easily uninstall it with common PowerShell commands.
 
 ```powershell
 Get-Module PSScriptTools | Remove-Module
@@ -2214,4 +2214,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 Where possible these commands have been tested with PowerShell 7, but not every platform. If you encounter problems, have suggestions or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
 
-Last Updated *2020-12-28 18:38:04Z*
+Last Updated *2021-01-21 18:53:39Z*

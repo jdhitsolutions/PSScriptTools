@@ -2,6 +2,13 @@
 
 This is the most recent change history for this module.
 
+## v2.34.1
+
++ Updated `license.txt` with new year.
++ Added missing online help links.
++ Fixed bug in `Get-ParameterInfo` that failed to display dynamic parameters when using an command alias. (Issue #101)
++ Modified format file for `PSParameterInfo` to display `Mandatory` and `IsDynamic` values in color when the value is `$True`.
+
 ## v2.34.0
 
 + Fixed typo bug in `Get-PSScriptTools` that was failing to get command aliases. (Issue #99)
@@ -36,19 +43,6 @@ This is the most recent change history for this module.
 + Modified `ConvertTo-Markdown` to handle properties with line returns when formatting as a table. (Issue #97)
 + Code cleanup in sample script files.
 + Added sample file `CounterMarkdown.ps1`.
-+ Updated `README.md`.
-
-## v2.32.0
-
-+ Added `ConvertTo-ASCIIArt` and its alias *cart*.
-+ Added `Get-DirectoryInfo`, its alias *dw*, and a custom formatting file, `directorystat.format.ps1xml`.
-+ Modified `Open-PSScriptToolsHelp` to use `Invoke-Item` to launch the PDF file. This should work better on non-Windows platforms.
-+ Modified `Get-FormatView` to accept pipeline input for the `Typename` parameter. (Issue #95)
-+ Modified `New-PSFormatXML` to use a static value width when using scriptblocks. (Issue #94)
-+ Added `Out-Copy` and its alias *oc*.
-+ Added `Get-CommandSyntax` and its alias *gsyn*.
-+ Updated missing online help links.
-+ Added a splash header to `Get-PSScriptTools`. The header writes to the host so it isn't part of the command output.
 + Updated `README.md`.
 
 ## Archive

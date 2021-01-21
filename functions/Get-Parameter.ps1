@@ -41,7 +41,15 @@ Function Get-ParameterInfo {
     Process {
         Write-Verbose "Processing $command for parameter information"
         Try {
-            $data = (Get-Command -Name $command -errorAction "Stop").parameters
+            #need to account that the command might be an alias (Issue #101). 1/21/2021 JDH
+            $cmd = Get-Command -name $command -ErrorAction Stop
+            if ($cmd.CommandType -eq 'alias') {
+                Write-Verbose "Resolving the alias $Command to $($cmd.ResolvedCommand)"
+                $data = (Get-Command -Name $cmd.ResolvedCommand -ErrorAction "Stop").parameters
+            }
+            else {
+                $data = $cmd.parameters
+            }
         }
         Catch {
             Write-Warning "Failed to find command $command"
