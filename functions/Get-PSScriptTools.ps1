@@ -35,7 +35,12 @@ ___ ___ ___        _      _  _____        _
     $h+= "`n"
     $h += ConvertTo-ASCIIArt $thisVersion -Font small -ErrorAction SilentlyContinue
 
-    "$([char]0x1b)[1;38;5;177m$h$([char]0x1b)[0m" | Write-Host
+    if ($host.name -match "console") {
+        "$([char]0x1b)[1;38;5;177m$h$([char]0x1b)[0m" | Write-Host
+    }
+    else {
+        Write-Host $h
+    }
     #Write-Host $h -ForegroundColor Yellow
 
     Write-Verbose "Getting exported functions from $thisModule"

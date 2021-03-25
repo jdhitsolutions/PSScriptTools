@@ -72,6 +72,8 @@
             <TableColumnItems>
               <TableColumnItem>
                 <ScriptBlock>
+                if ($host.name -match 'console') {
+
                  If ($_.status -eq "stopped") {
                    "$([char]0x1b)[38;2;197;15;31m$($_.status)$([char]0x1b)[0m"
                   }
@@ -84,6 +86,10 @@
                   else {
                     $_.status
                   }
+                }
+                else {
+                  $_.status
+                }
                 </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>

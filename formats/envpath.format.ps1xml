@@ -38,10 +38,6 @@ format type data generated 05/21/2020 13:35:40 by BOVINE320\Jeff
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Scope</PropertyName>
               </TableColumnItem>

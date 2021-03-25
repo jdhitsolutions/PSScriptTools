@@ -18,6 +18,11 @@ Function Get-PSAnsiFileMap {
     } #begin
 
     Process {
+        if ($host.name -match 'PowerShell ISE') {
+            Write-Warning "This command doesn't work properly in the PowerShell ISE."
+            #bail out
+            return
+        }
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting ANSIFile map from `$PSAnsiFileMap "
         if ($PSAnsiFileMap) {
             $PSAnsiFileMap | ForEach-Object {
@@ -58,6 +63,11 @@ Function Set-PSAnsiFileMap {
     } #begin
 
     Process {
+        if ($host.name -match 'PowerShell ISE') {
+            Write-Warning "This command doesn't work properly in the PowerShell ISE."
+            #bail out
+            return
+        }
         if (($PSBoundParameters.ContainsKey("Pattern")) -OR ($PSBoundParameters.ContainsKey("ansi"))) {
             #test if entry already exists
             if ($global:PSAnsiFileMap.description -contains $Description) {
@@ -108,6 +118,11 @@ Function Export-PSAnsiFileMap {
     } #begin
 
     Process {
+        if ($host.name -match 'PowerShell ISE') {
+            Write-Warning "This command doesn't work properly in the PowerShell ISE."
+            #bail out
+            return
+        }
         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]  Exporting to $Path "
         if ($PScmdlet.ShouldProcess($path)) {
             $PSAnsiFileMap | ConvertTo-Json | Out-File -FilePath $Path
@@ -138,6 +153,11 @@ Function Remove-PSAnsiFileEntry {
     } #begin
 
     Process {
+        if ($host.name -match 'PowerShell ISE') {
+            Write-Warning "This command doesn't work properly in the PowerShell ISE."
+            #bail out
+            return
+        }
         if ($global:PSAnsiFileMap.description -contains $Description) {
             Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Removing entry for $Description"
             if ($pscmdlet.shouldProcess($Description)) {

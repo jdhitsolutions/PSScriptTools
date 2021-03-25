@@ -15,10 +15,6 @@ by BOVINE320\Jeff
         <ListEntries>
           <ListEntry>
             <ListItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <Scriptblock>$_.foo /1mb -as [int]</Scriptblock>
--->
               <ListItem>
                 <Label>Temp</Label>
                 <PropertyName>Temp</PropertyName>
