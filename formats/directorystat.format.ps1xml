@@ -13,7 +13,14 @@ which can be installed from the PowerShell Gallery
         <TypeName>DirectoryStat</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+        <ScriptBlock>
+          If ($host.name -match 'console') {
+            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+          }
+          else {
+            $_.Parent
+          }
+        </ScriptBlock>
         <Label>Path</Label>
       </GroupBy>
       <WideControl>
@@ -21,7 +28,14 @@ which can be installed from the PowerShell Gallery
         <WideEntries>
           <WideEntry>
             <WideItem>
-              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [{1}]" -f $_.Name,$_.filecount</ScriptBlock>
+              <ScriptBlock>
+              if ($host.name -match "console") {
+              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [{1}]" -f $_.Name,$_.filecount
+              }
+              else {
+                  "{0} [{1}]" -f $_.Name,$_.filecount
+              }
+              </ScriptBlock>
             </WideItem>
           </WideEntry>
         </WideEntries>
@@ -34,7 +48,14 @@ which can be installed from the PowerShell Gallery
         <TypeName>DirectoryStat</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-       <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+       <ScriptBlock>
+       If ($host.name -match 'console') {
+            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+          }
+          else {
+            $_.Parent
+          }
+        </ScriptBlock>
         <Label>Path</Label>
       </GroupBy>
       <WideControl>
@@ -42,7 +63,14 @@ which can be installed from the PowerShell Gallery
         <WideEntries>
           <WideEntry>
             <WideItem>
-              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;190m{1}$([char]0x1b)[0m]" -f $_.Name,$_.filesize</ScriptBlock>
+              <ScriptBlock>
+              If ($host.name -match 'console') {
+              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              }
+              else {
+              "{0} [{1}MB]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              }
+              </ScriptBlock>
             </WideItem>
           </WideEntry>
         </WideEntries>
@@ -55,14 +83,28 @@ which can be installed from the PowerShell Gallery
         <TypeName>DirectoryStat</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+        <ScriptBlock>
+          If ($host.name -match 'console') {
+            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+          }
+          else {
+            $_.Parent
+          }
+          </ScriptBlock>
         <Label>Path</Label>
       </GroupBy>
       <WideControl>
         <WideEntries>
           <WideEntry>
             <WideItem>
-              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;164m{1}KB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1KB,2))</ScriptBlock>
+               <ScriptBlock>
+              If ($host.name -match 'console') {
+              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              }
+              else {
+              "{0} [{1}MB]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              }
+              </ScriptBlock>
             </WideItem>
           </WideEntry>
         </WideEntries>
@@ -75,14 +117,28 @@ which can be installed from the PowerShell Gallery
         <TypeName>DirectoryStat</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <ScriptBlock>"$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"</ScriptBlock>
+        <ScriptBlock>
+          If ($host.name -match 'console') {
+            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+          }
+          else {
+            $_.Parent
+          }
+        </ScriptBlock>
         <Label>Path</Label>
       </GroupBy>
       <WideControl>
         <WideEntries>
           <WideEntry>
             <WideItem>
-              <ScriptBlock>"$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))</ScriptBlock>
+              <ScriptBlock>
+              If ($host.name -match 'console') {
+              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              }
+              else {
+              "{0} [{1}MB]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              }
+              </ScriptBlock>
             </WideItem>
           </WideEntry>
         </WideEntries>

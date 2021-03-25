@@ -37,10 +37,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Description</PropertyName>
               </TableColumnItem>

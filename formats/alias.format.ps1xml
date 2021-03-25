@@ -44,10 +44,6 @@ This is a custom formatting file to be used with alias objects
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
@@ -75,14 +71,6 @@ This is a custom formatting file to be used with alias objects
         <TypeName>System.Management.Automation.AliasInfo</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <ScriptBlock>"{0} {1}" -f $_.Source,$_.version</ScriptBlock>
         <Label>Source</Label>
       </GroupBy>

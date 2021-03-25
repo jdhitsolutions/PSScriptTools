@@ -14,15 +14,14 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>PSFormatView</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
-        <ScriptBlock>"$([char]0x1b)[1;4m$($_.typename)$([char]0x1b)[0m"</ScriptBlock>
+        <ScriptBlock>
+        if ($host.name -match "console"){
+        "$([char]0x1b)[1;4m$($_.typename)$([char]0x1b)[0m"
+        }
+        else {
+          $_.Typename
+        }
+        </ScriptBlock>
         <Label>Type</Label>
       </GroupBy>
       <TableControl>

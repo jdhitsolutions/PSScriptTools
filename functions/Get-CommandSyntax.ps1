@@ -17,7 +17,12 @@ Function Get-CommandSyntax {
 
     foreach ($provider in (Get-PSProvider)) {
         Write-Verbose "Testing with the $($provider.name) Provider"
-        "$([char]0x1b)[1;4;38;5;155m$($provider.name)$([char]0x1b)[0m"
+        if ($host.name -match "console") {
+            "$([char]0x1b)[1;4;38;5;155m$($provider.name)$([char]0x1b)[0m"
+        }
+        else {
+            $provider.name
+        }
         #get first drive
         $path = "$($provider.drives[0]):\"
         Write-Verbose "..getting syntax"
@@ -34,7 +39,12 @@ Function Get-CommandSyntax {
             Write-Verbose "...found $($dynamic.count) dynamic parameters"
             Write-Verbose "...$($dynamic -join ",")"
             foreach ($param in $dynamic) {
-                $syn = $syn -replace "\b$param\b", "$([char]0x1b)[1;38;5;213m$param$([char]0x1b)[0m"
+                if ($host.name -match 'console') {
+                    $syn = $syn -replace "\b$param\b", "$([char]0x1b)[1;38;5;213m$param$([char]0x1b)[0m"
+                }
+                else {
+                    #must be in the PowerShell ISE so don't use any ANSI formatting
+                }
             }
         }
         $syn
