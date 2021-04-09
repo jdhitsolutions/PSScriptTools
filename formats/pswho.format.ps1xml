@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Format type data generated 04/09/2021 11:39:49 by PROSPERO\Jeff
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 04/09/2021 11:39:49 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>PSWho</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <ListItem>
+                <Label>User</Label>
+                <PropertyName>User</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Elevated</Label>
+                <ScriptBlock>
+                  If ($host.name -match "console" -AND $_.elevated) {
+                    "$([char]0x1b)[38;5;207m$($_.Elevated)$([char]0x1b)[0m"
+                  }
+                  else {
+                   $_.Elevated
+                  }
+                </ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Computername</Label>
+                <PropertyName>Computername</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>OperatingSystem</Label>
+                <PropertyName>OperatingSystem</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>OSVersion</Label>
+                <PropertyName>OSVersion</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>PSVersion</Label>
+                <PropertyName>PSVersion</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Edition</Label>
+                <PropertyName>Edition</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>PSHost</Label>
+                <PropertyName>PSHost</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>WSMan</Label>
+                <PropertyName>WSMan</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>ExecutionPolicy</Label>
+                <PropertyName>ExecutionPolicy</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Culture</Label>
+                <PropertyName>Culture</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

@@ -30,12 +30,12 @@ The default behavior is to write an object to the pipeline, but you can use the 
 ```powershell
 PS C:\> Get-PSWho
 
-User            : WIN10\Jeff
-Elevated        : True
-Computername    : WIN10
+User            : Desk01\Jeff
+Elevated        : False
+Computername    : Desk01
 OperatingSystem : Microsoft Windows 10 Pro [64-bit]
-OSVersion       : 10.0.18363
-PSVersion       : 5.1.18362.145
+OSVersion       : 10.0.19042
+PSVersion       : 5.1.19041.906
 Edition         : Desktop
 PSHost          : ConsoleHost
 WSMan           : 3.0
@@ -49,11 +49,11 @@ Culture         : English (United States)
 PS /home/jhicks> Get-PSWho
 
 User            : jeff
-Elevated        : NA
-Computername    : WIN10
-OperatingSystem : Linux 4.4.0-18362-Microsoft #476-Microsoft Fri Nov 01 16:53:00 PST 2019
-OSVersion       : Ubuntu 18.04.3 LTS
-PSVersion       : 7.0.0-rc.2
+Elevated        : False
+Computername    : Desk01
+OperatingSystem : Linux 5.4.72-microsoft-standard-WSL2 #1 SMP Wed Oct 28 23:40:43 UTC 2020
+OSVersion       : Ubuntu 20.04.2 LTS
+PSVersion       : 7.1.3
 Edition         : Core
 PSHost          : ConsoleHost
 WSMan           : 3.0
@@ -66,12 +66,12 @@ Culture         : Invariant Language (Invariant Country)
 ```powershell
 PS C:\> Get-PSWho
 
-User            : WIN10\Jeff
+User            : Desk01\Jeff
 Elevated        : True
-Computername    : WIN10
+Computername    : Desk01
 OperatingSystem : Microsoft Windows 10 Pro [64-bit]
 OSVersion       : 10.0.19042
-PSVersion       : 7.1.0
+PSVersion       : 7.1.3
 Edition         : Core
 PSHost          : ConsoleHost
 WSMan           : 3.0
@@ -122,6 +122,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
 
 ## RELATED LINKS
+
+[Test-IsElevated](Test-IsElevated.md)
 
 [Get-CimInstance]()
 

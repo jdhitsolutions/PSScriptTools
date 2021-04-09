@@ -4,9 +4,14 @@ if ($myinvocation.line -match "-verbose") {
 }
 Write-Verbose "Loading public functions"
 
-Get-ChildItem -path $PSScriptRoot\functions\*.ps1 | ForEach-Object -process {
+#exclude Get-MyCounter.ps1 because it requires a Windows platform
+Get-ChildItem -path $PSScriptRoot\functions\*.ps1  -Exclude 'Get-MyCounter.ps1' | ForEach-Object -process {
     Write-Verbose $_.fullname
     . $_.FullName
+}
+
+if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
+    . "$PSScriptRoot\functions\Get-MyCounter.ps1"
 }
 
 Write-Verbose "Define the global PSAnsiFileMap variable"

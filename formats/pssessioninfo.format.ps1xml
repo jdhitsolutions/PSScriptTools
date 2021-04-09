@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Format type data generated 04/09/2021 10:13:27 by PROSPERO\Jeff
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 04/09/2021 10:13:27 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>PSSessionInfo</TypeName>
+      </ViewSelectedBy>
+      <ListControl>
+        <ListEntries>
+          <ListEntry>
+            <ListItems>
+              <ListItem>
+                <Label>ProcessID</Label>
+                <PropertyName>ProcessID</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Command</Label>
+                <PropertyName>Command</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Host</Label>
+                <PropertyName>Host</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Started</Label>
+                <PropertyName>Started</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>PSVersion</Label>
+                <PropertyName>PSVersion</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Elevated</Label>
+                <ScriptBlock>
+                  If ($host.name -match "console" -AND $_.elevated) {
+                    "$([char]0x1b)[38;5;207m$($_.Elevated)$([char]0x1b)[0m"
+                  }
+                  else {
+                   $_.Elevated
+                  }
+                </ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>Parent</Label>
+                <PropertyName>Parent</PropertyName>
+              </ListItem>
+              <ListItem>
+                <Label>Runtime</Label>
+                <ScriptBlock>
+                 $r = $_.Runtime.toString()
+                 $r.Substring(0,$r.lastindexof("."))
+                 </ScriptBlock>
+              </ListItem>
+              <ListItem>
+                <Label>MemoryMB</Label>
+                <PropertyName>Memory</PropertyName>
+              </ListItem>
+            </ListItems>
+          </ListEntry>
+        </ListEntries>
+      </ListControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

@@ -32,6 +32,7 @@ Temp       : C:\Users\Jeff\AppData\Local\Temp\
 Home       : C:\Users\Jeff\Documents
 Desktop    : C:\Users\Jeff\Desktop
 PowerShell : C:\Users\Jeff\Documents\WindowsPowerShell
+PSHome     : C:\Windows\System32\WindowsPowerShell\v1.0
 ```
 
 Results on a Windows system.
@@ -45,6 +46,7 @@ Temp       : /tmp/
 Home       : /home/jeff
 Desktop    :
 PowerShell : /home/jeff/.config/powershell
+PSHome     : /opt/microsoft/powershell/7
 ```
 
 Results on a Linux system running PowerShell.
@@ -61,7 +63,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## OUTPUTS
 
-### System.Object
+### PSLocation
 
 ## NOTES
 

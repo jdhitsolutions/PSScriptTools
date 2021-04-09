@@ -21,7 +21,6 @@ Get-MyVariable [[-Scope] <String>] [-NoTypeInformation] [<CommonParameters>]
 
 This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local, or a number 0 through 5. The command will also display the value type for each variable. If you want to suppress this output use the -NoTypeInformation switch.
 
-This function is designed to work with the PowerShell console, NOT the PowerShell ISE.
 
 ## EXAMPLES
 

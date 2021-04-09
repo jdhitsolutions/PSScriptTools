@@ -19,6 +19,7 @@ Function Get-PSLocation {
         Temp       = [system.io.path]::GetTempPath()
         Desktop    = [system.environment]::GetFolderPath("Desktop")
         PowerShell = Split-Path $profile
+        PSHome     = $PSHome
     }
 
 } #close Get-PSLocation
