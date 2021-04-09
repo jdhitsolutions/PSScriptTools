@@ -12,12 +12,12 @@ This is a custom formatting file to be used with alias objects
         <TypeName>System.Management.Automation.AliasInfo</TypeName>
       </ViewSelectedBy>
       <TableControl>
-        <!--Delete the AutoSize node if you want to use the defined widths.-->
-        <AutoSize />
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
         <TableHeaders>
           <TableColumnHeader>
             <Label>Name</Label>
-            <Width>21</Width>
+            <Width>15</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -27,18 +27,18 @@ This is a custom formatting file to be used with alias objects
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Options</Label>
-            <Width>10</Width>
+            <Width>20</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>ModuleName</Label>
-            <Width>13</Width>
+            <Width>30</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Version</Label>
-            <Width>10</Width>
-            <Alignment>left</Alignment>
+            <Width>8</Width>
+            <Alignment>right</Alignment>
           </TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
@@ -51,7 +51,15 @@ This is a custom formatting file to be used with alias objects
                 <PropertyName>Definition</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Options</PropertyName>
+                <ScriptBlock>
+                  <!-- display ReadOnly option in Red if running in the console host-->
+                  if ($host.name -match 'Console' -AND ($_.Options -match 'ReadOnly')) {
+                    "$([char]0x1b)[91m$($_.Options -join ',')$([char]0x1b)[0m"
+                  }
+                  else {
+                    $_.Options
+                  }
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>ModuleName</PropertyName>
@@ -75,8 +83,6 @@ This is a custom formatting file to be used with alias objects
         <Label>Source</Label>
       </GroupBy>
       <TableControl>
-        <!--Delete the AutoSize node if you want to use the defined widths.
-        <AutoSize />-->
         <TableHeaders>
           <TableColumnHeader>
             <Label>Name</Label>
@@ -97,6 +103,80 @@ This is a custom formatting file to be used with alias objects
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Definition</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 04/09/2021 08:34:30 by PROSPERO\Jeff-->
+      <Name>simple</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Management.Automation.AliasInfo</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>7</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ResolvedCommandName</Label>
+            <Width>22</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ResolvedCommandName</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 04/09/2021 08:39:54 by PROSPERO\Jeff-->
+      <Name>simple</Name>
+      <ViewSelectedBy>
+        <TypeName>System.Management.Automation.AliasInfo</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>7</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ResolvedCommandName</Label>
+            <Width>22</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ResolvedCommandName</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

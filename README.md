@@ -390,11 +390,11 @@ PS C:\> Get-WindowsVersion | Select-Object *
 
 ProductName  : Windows 10 Pro
 EditionID    : Professional
-ReleaseID    : 1909
-Build        : 18363.657
-Branch       : 19h1_release
-InstalledUTC : 7/5/2019 10:54:49 PM
-Computername : BOVINE320
+ReleaseID    : 2009
+Build        : 19042.906
+Branch       : vb_release
+InstalledUTC : 10/16/2020 3:09:01 PM
+Computername : PROSPERO
 ```
 
 #### [Get-WindowsVersionString](docs/Get-WindowsVersionString.md)
@@ -403,8 +403,7 @@ This command is a variation of `Get-WindowsVersion` that returns a formatted str
 
 ```dos
 PS C:\> Get-WindowsVersionString
-BOVINE320 Windows 10 Pro Version Professional (OS Build 18363.657)
-
+PROSPERO Windows 10 Pro Version Professional (OS Build 19042.906)
 ```
 
 ### [New-PSDriveHere](docs/New-PSDriveHere.md)
@@ -1348,6 +1347,16 @@ These functions were first described at [https://jdhitsolutions.com/blog/powersh
 
 ## Console Utilities
 
+### [Get-PSSessionInfo](docs/Get-PSSessionInfo.md)
+
+`Get-PSSessionInfo` will display a summary of your current PowerShell session. It should work on all platforms.
+
+![windows session](images/pssessioninfo-windows.png)
+
+![linux session](images/pssessioninfo-linux.png)
+
+If you are running in a PowerShell console session, and the Elevated value is True, it will be displayed in color. The Memory and Runtime values are calculated ScriptProperties.
+
 ### [ConvertTo-ASCIIArt](docs/ConvertTo-ASCIIArt.md)
 
 `ConvertTo-ASCIIArt` can be used to transform a string of text into ASCII art. It utilizes the web service at https://artii.herokuapp.com which allows you to transform text. You might use this to create headers for your scripts or PowerShell profile.
@@ -1616,6 +1625,17 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [Test-IsElevated](docs/Test-IsElevated.md)
+
+This simple command will test if the current PowerShell session is running elevated, or as Administrator. On Windows platforms the function uses the .NET Framework to test. On non-Windows platforms, the command tests the user's UID value.
+
+```dos
+PS C:\> Test-IsElevated
+False
+```
+
+You can also use the `Get-PSWho` command to get more information.
 
 ### [New-FunctionItem](docs/New-FunctionItem.md)
 
@@ -2202,8 +2222,13 @@ che                  Copy-HelpExample
 ...
 ```
 
-Use [Get-FormatView](docs/Get-FormatView.md) to discover available format views. Or if you'd like to create your own custom views look at [New-PSFormatXML](docs/New-PSFormatXML.md)
+Some custom formats use ANSI to highlight information, assuming you are running in PowerShell Console Host.
 
+![alias options](images/get-alias-option.png)
+
+In this format view, ReadOnly aliases are displayed in Red.
+
+Use [Get-FormatView](docs/Get-FormatView.md) to discover available format views. Or if you'd like to create your own custom views look at [New-PSFormatXML](docs/New-PSFormatXML.md)
 
 ### PSSpecialChar
 
@@ -2251,6 +2276,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 ## Compatibility
 
-Where possible, module commands have been tested with PowerShell 7, but not on every platform. If you encounter problems, have suggestions, or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core or any beta releases of PowerShell 7.
-
-Last Updated *2021-03-25 14:54:50Z*
+Where possible, module commands have been tested with PowerShell 7, but not on every platform. If you encounter problems, have suggestions, or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core, i.e PowerShell 6.x.

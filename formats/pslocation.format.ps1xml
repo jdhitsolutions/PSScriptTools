@@ -6,7 +6,9 @@ by BOVINE320\Jeff
 <Configuration>
   <ViewDefinitions>
     <View>
-      <!--Created 02/20/2019 15:46:14 by BOVINE320\Jeff-->
+      <!--Created 02/20/2019 15:46:14 by BOVINE320\Jeff
+      This is used by the Get-PSLocation command
+      -->
       <Name>default</Name>
       <ViewSelectedBy>
         <TypeName>psLocation</TypeName>
@@ -30,6 +32,10 @@ by BOVINE320\Jeff
               <ListItem>
                 <Label>PowerShell</Label>
                 <PropertyName>PowerShell</PropertyName>
+              </ListItem>
+               <ListItem>
+                <Label>PSHome</Label>
+                <PropertyName>PSHome</PropertyName>
               </ListItem>
             </ListItems>
           </ListEntry>

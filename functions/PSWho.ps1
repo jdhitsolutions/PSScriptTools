@@ -32,7 +32,7 @@ Function Get-PSWho {
         $os = $PSVersionTable.OS
         $lsb = lsb_release -d
         $osver = ($lsb -split ":")[1].Trim()
-        $elevated = "NA"
+        $elevated =  Test-IsElevated
         $user = [System.Environment]::UserName
         $computer = [System.Environment]::MachineName
     }
