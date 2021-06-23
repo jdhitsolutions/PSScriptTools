@@ -5,8 +5,8 @@ if ($IsCoreCLR) {
     $esc = "`e"
 }
 else {
-    $escString = "`$([char]0x1b)"
-    $esc = $([char]0x1b)
+    $escString = "`$([char]27)"
+    $esc = $([char]27)
 }
 
 Function Get-PSAnsiFileMap {

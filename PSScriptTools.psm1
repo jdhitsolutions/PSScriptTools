@@ -5,7 +5,8 @@ if ($myinvocation.line -match "-verbose") {
 Write-Verbose "Loading public functions"
 
 #exclude Get-MyCounter.ps1 because it requires a Windows platform
-Get-ChildItem -path $PSScriptRoot\functions\*.ps1  -Exclude 'Get-MyCounter.ps1' | ForEach-Object -process {
+Get-ChildItem -path $PSScriptRoot\functions\*.ps1  -Exclude 'Get-MyCounter.ps1' |
+ForEach-Object -process {
     Write-Verbose $_.fullname
     . $_.FullName
 }

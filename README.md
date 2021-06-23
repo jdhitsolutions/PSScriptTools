@@ -2058,7 +2058,7 @@ This will display the service status color-coded.
 
 ![ServiceAnsi](images/serviceansi.png)
 
-This will not work in the PowerShell ISE as it is not ANSI-aware.
+__ANSI formatting will only work in a PowerShell 5.1 console window or VS Code. It will not display properly in the PowerShell ISE, or older versions of PowerShell.__
 
 ### PSAnsiMap
 
@@ -2140,7 +2140,7 @@ The file will look like this:
 
 You can create or modify file groups. The Pattern value should be a regular expression pattern to match the filename. Don't forget you will need to escape characters for the JSON format. The Ansi value will be an ANSI escape sequence. You can use `\u001b` for the \``e` character.
 
-If you prefer not to edit JSON files, you can use the PSAnsiFileMap commands from the module.
+If you prefer not to edit JSON files, you can use the PSAnsiFileMap commands from this module.
 
 ### [Get-PSAnsiFileMap](docs/Get-PSAnsiFileMap.md)
 
@@ -2266,14 +2266,15 @@ I've created a PDF version of this document which I thought you might find usefu
 
 If you find this module useful, you might also want to look at my PowerShell tools for:
 
++ [Keeping up to date with PowerShell 7.x releases](https://github.com/jdhitsolutions/PSReleaseTools)
++ [Reporting on Active Directory](https://github.com/jdhitsolutions/ADReportingTools)
 + [Creating and managing custom type extensions](https://github.com/jdhitsolutions/PSTypeExtensionTools)
 + [Managing scheduled jobs](https://github.com/jdhitsolutions/ScheduledJobTools)
 + [Running remote commands outside of PowerShell Remoting](https://github.com/jdhitsolutions/PSRemoteOperations).
 + [Getting memory status and information](https://github.com/jdhitsolutions/MemoryTools)
-+ [Keeping up to date with PowerShell 7.x releases](https://github.com/jdhitsolutions/PSReleaseTools)
 + [Inventorying your PowerShell script library](https://github.com/jdhitsolutions/PSScriptingInventory)
 + [A simple command-line task and to-do manager](https://github.com/jdhitsolutions/MyTasks)
 
 ## Compatibility
 
-Where possible, module commands have been tested with PowerShell 7, but not on every platform. If you encounter problems, have suggestions, or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core, i.e PowerShell 6.x.
+Where possible, module commands have been tested with PowerShell 7.x, but not on every platform. If you encounter problems, have suggestions, or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core, i.e PowerShell 6.x.

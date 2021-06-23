@@ -2,6 +2,19 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
+## v2.37.0
+
++ Updated `Convertto-WPFGrid` to better handle non-standard property names. ([Issue #108](https://github.com/jdhitsolutions/PSScriptTools/issues/108)).
++ Modified custom format files that use ANSI to test if host name matches 'console' or 'code' to support VSCode.
++ Modified `Summary` view in `psparameterinfo.format.ps1xml` to not use autosizing.
++ Added `<AutoSize/>` back to `serviceansi.format.ps1xml` so that ANSI output displays properly.
++ Modified `Show-ANSI` and `Get-PSAnsiFileMap` to use `[char]27` instead of `[char]0x1b` for Windows PowerShell sessions.
++ Modified ANSI sequences in format files to use `[char]27`. ([Issue #107](https://github.com/jdhitsolutions/PSScriptTools/issues/107)).
++ Modified ANSI sequences in format files recognize a remote PSSession. ([Issue #106](https://github.com/jdhitsolutions/PSScriptTools/issues/106)).
++ Update `Get-PSLocation` to work in a PowerShell remoting session where there is no profile.  ([Issue #104](https://github.com/jdhitsolutions/PSScriptTools/issues/104)).
++ Updated help.
++ Updated `README.md`.
+
 ## v2.36.0
 
 + Update `Get-MyVariable` to make it more compatible with PowerShell 7 ([Issue #103](https://github.com/jdhitsolutions/PSScriptTools/issues/103)). This also makes the command now compatible with the PowerShell ISE.
@@ -50,25 +63,6 @@ This file contains the most recent change history for the PSScriptTools module.
 + Updated `README.md`.
 + Updated module description.
 + Help updates.
-
-## v2.33.1
-
-+ Fixed bug in `ConvertTo-WPFGrid` with refresh and timeout values. (Issue #98)
-+ Added missing online help links.
-+ Added a few related module links in `README.md`.
-
-## v2.33.0
-
-+ Added `Select-Before`,`Select-After`,`Select-Newest` and `Select-Oldest` and their respective aliases of *before*,*after*,*newest*, and *oldest*.
-+ Added `Get-MyCounter` and a custom format file `mycounter.format.ps1xml`.
-+ Added `Trace-Message` and its alias *trace*.
-+ Added more Verbose messages to `Get-PSScriptTools`.
-+ Code cleanup in `SelectFunctions.ps1`.
-+ Modified `Get-PSScriptTools` to let you specify a verb. Updated command help.
-+ Modified `ConvertTo-Markdown` to handle properties with line returns when formatting as a table. (I[Issue #97](https://github.com/jdhitsolutions/PSScriptTools/issues/97))
-+ Code cleanup in sample script files.
-+ Added sample file `CounterMarkdown.ps1`.
-+ Updated `README.md`.
 
 ## Archive
 

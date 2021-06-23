@@ -35,7 +35,7 @@ Text         \.((txt)|(log)|(htm(l)?))$  `e[38;2;58;120;255m`e[38;2;58;120;255m
 ...
 ```
 
-The  output will display the ANSI sequence using the sequence itself. The escape character will be based on the version of PowerShell you are using.
+The  output will display the ANSI sequence using the sequence itself. The escape character will be based on the version of PowerShell you are using. This example shows output from PowerShell 7.
 
 ## PARAMETERS
 

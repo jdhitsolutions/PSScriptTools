@@ -12,8 +12,8 @@ format type data generated 02/27/2020 10:21:29 by BOVINE320\Jeff
       </ViewSelectedBy>
       <GroupBy>
          <ScriptBlock>
-         if ($host.name -match 'console') {
-         "$([char]0x1b)[38;5;226m$($_.verb)$([char]0x1b)[0m"
+         if ($host.name -match 'console|code|remotehost') {
+         "$([char]27)[38;5;226m$($_.verb)$([char]27)[0m"
          }
          else {
            $_.verb

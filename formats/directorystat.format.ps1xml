@@ -14,8 +14,8 @@ which can be installed from the PowerShell Gallery
       </ViewSelectedBy>
       <GroupBy>
         <ScriptBlock>
-          If ($host.name -match 'console') {
-            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+          If ($host.name -match 'console|code|remotehost') {
+            "$([char]27)[1;93m$($_.Parent)$([char]27)[0m"
           }
           else {
             $_.Parent
@@ -29,8 +29,8 @@ which can be installed from the PowerShell Gallery
           <WideEntry>
             <WideItem>
               <ScriptBlock>
-              if ($host.name -match "console") {
-              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [{1}]" -f $_.Name,$_.filecount
+              if ($host.name -match "console|code|remotehost") {
+              "$([char]27)[92m{0}$([char]27)[0m [{1}]" -f $_.Name,$_.filecount
               }
               else {
                   "{0} [{1}]" -f $_.Name,$_.filecount
@@ -49,8 +49,8 @@ which can be installed from the PowerShell Gallery
       </ViewSelectedBy>
       <GroupBy>
        <ScriptBlock>
-       If ($host.name -match 'console') {
-            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+       If ($host.name -match 'console|code|remotehost') {
+            "$([char]27)[1;93m$($_.Parent)$([char]27)[0m"
           }
           else {
             $_.Parent
@@ -64,8 +64,8 @@ which can be installed from the PowerShell Gallery
           <WideEntry>
             <WideItem>
               <ScriptBlock>
-              If ($host.name -match 'console') {
-              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              If ($host.name -match 'console|code|remotehost') {
+              "$([char]27)[92m{0}$([char]27)[0m [$([char]27)[38;5;147m{1}MB$([char]27)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
               }
               else {
               "{0} [{1}MB]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
@@ -84,8 +84,8 @@ which can be installed from the PowerShell Gallery
       </ViewSelectedBy>
       <GroupBy>
         <ScriptBlock>
-          If ($host.name -match 'console') {
-            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+          If ($host.name -match 'console|code|remotehost') {
+            "$([char]27)[1;93m$($_.Parent)$([char]27)[0m"
           }
           else {
             $_.Parent
@@ -98,8 +98,8 @@ which can be installed from the PowerShell Gallery
           <WideEntry>
             <WideItem>
                <ScriptBlock>
-              If ($host.name -match 'console') {
-              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              If ($host.name -match 'console|code|remotehost') {
+              "$([char]27)[92m{0}$([char]27)[0m [$([char]27)[38;5;147m{1}MB$([char]27)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
               }
               else {
               "{0} [{1}MB]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
@@ -118,8 +118,8 @@ which can be installed from the PowerShell Gallery
       </ViewSelectedBy>
       <GroupBy>
         <ScriptBlock>
-          If ($host.name -match 'console') {
-            "$([char]0x1b)[1;93m$($_.Parent)$([char]0x1b)[0m"
+          If ($host.name -match 'console|code|remotehost') {
+            "$([char]27)[1;93m$($_.Parent)$([char]27)[0m"
           }
           else {
             $_.Parent
@@ -132,8 +132,8 @@ which can be installed from the PowerShell Gallery
           <WideEntry>
             <WideItem>
               <ScriptBlock>
-              If ($host.name -match 'console') {
-              "$([char]0x1b)[92m{0}$([char]0x1b)[0m [$([char]0x1b)[38;5;147m{1}MB$([char]0x1b)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              If ($host.name -match 'console|code|remotehost') {
+              "$([char]27)[92m{0}$([char]27)[0m [$([char]27)[38;5;147m{1}MB$([char]27)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
               }
               else {
               "{0} [{1}MB]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
