@@ -50,6 +50,7 @@
       </ViewSelectedBy>
       <TableControl>
         <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize/>
         <TableHeaders>
           <TableColumnHeader>
             <Label>Status</Label>
@@ -72,16 +73,16 @@
             <TableColumnItems>
               <TableColumnItem>
                 <ScriptBlock>
-                if ($host.name -match 'console') {
+                if ($host.name -match 'console|code|remotehost') {
 
                  If ($_.status -eq "stopped") {
-                   "$([char]0x1b)[38;2;197;15;31m$($_.status)$([char]0x1b)[0m"
+                   "$([char]27)[38;2;197;15;31m$($_.status)$([char]27)[0m"
                   }
                   elseif ($_.status -eq "running") {
-                    "$([char]0x1b)[38;2;19;161;14m$($_.status)$([char]0x1b)[0m"
+                    "$([char]27)[38;2;19;161;14m$($_.status)$([char]27)[0m"
                   }
                   elseif ($_.status -eq "paused") {
-                    "$([char]0x1b)[38;2;252;127;0m$($_.status)$([char]0x1b)[0m"
+                    "$([char]27)[38;2;252;127;0m$($_.status)$([char]27)[0m"
                   }
                   else {
                     $_.status

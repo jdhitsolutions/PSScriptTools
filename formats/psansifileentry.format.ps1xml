@@ -48,7 +48,7 @@ https://github.com/jdhitsolutions/PSScriptTools
                 if ($IsCoreCLR) {
                     $esc = "`e"
                 } else {
-                    $esc = $([char]0x1b)
+                    $esc = $([char]27)
                 }
                 [regex]$rx="\[[\d;]+m"
                 $m = $rx.match($_.ansi)

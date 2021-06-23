@@ -49,8 +49,8 @@ Function Show-ANSISequence {
         $max = 3
     }
     else {
-        $esc = $([char]0x1b)
-        $escText = '$([char]0x1b)'
+        $esc = $([char]27)
+        $escText = '$([char]27)'
         $max = 2
     }
 

@@ -41,8 +41,8 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
               <ListItem>
                 <Label>Mandatory</Label>
                 <ScriptBlock>
-                if ($host.name -eq 'consolehost' -AND $_.mandatory) {
-                    "$([char]0x1b)[38;5;47m$($_.mandatory)$([char]0x1b)[0m"
+                if ($host.name -match 'console|code|remotehost' -AND $_.mandatory) {
+                    "$([char]27)[38;5;47m$($_.mandatory)$([char]27)[0m"
                 }
                 else {
                   $_.Mandatory
@@ -52,8 +52,8 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
               <ListItem>
                 <Label>IsDynamic</Label>
                 <ScriptBlock>
-                if ($host.name -eq 'consolehost' -AND $_.IsDynamic) {
-                    "$([char]0x1b)[38;5;199m$($_.IsDynamic)$([char]0x1b)[0m"
+                if ($host.name -match'console|code|remotehost' -AND $_.IsDynamic) {
+                    "$([char]27)[38;5;199m$($_.IsDynamic)$([char]27)[0m"
                 }
                 else {
                   $_.IsDynamic
@@ -100,17 +100,17 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
         <Label>ParameterSet</Label>
       </GroupBy>
       <TableControl>
-        <!--Delete the AutoSize node if you want to use the defined widths.-->
-        <AutoSize />
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
         <TableHeaders>
           <TableColumnHeader>
             <Label>Name</Label>
-            <Width>7</Width>
+            <Width>15</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Aliases</Label>
-            <Width>10</Width>
+            <Width>15</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -125,7 +125,7 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Type</Label>
-            <Width>18</Width>
+
             <Alignment>left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
@@ -144,8 +144,8 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>
-                if ($host.name -eq 'consolehost' -AND $_.mandatory) {
-                    "$([char]0x1b)[38;5;47m$($_.mandatory)$([char]0x1b)[0m"
+                if ($host.name -match 'console|code|remotehost' -AND $_.mandatory) {
+                    "$([char]27)[38;5;47m$($_.mandatory)$([char]27)[0m"
                 }
                 else {
                   $_.Mandatory

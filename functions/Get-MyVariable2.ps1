@@ -51,7 +51,7 @@ Function Get-MyVariable {
     $filtered = $variables | Where-Object { $psvariables -notcontains $_.name }
 
     if ($NoTypeInformation) {
-        #write results with not object types
+        #write results without object types
         $filtered
     }
     else {
@@ -61,7 +61,6 @@ Function Get-MyVariable {
     }
 
     Write-Verbose "Finished getting my variables"
-
 
 } #end function
 
