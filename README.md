@@ -15,7 +15,7 @@ The contents of this file and other documentation can be viewed using the `Open-
 + [Installation](#Installation)
 + [General Tools](#General-Tools)
 + [File Tools](#File-Tools)
-+ [ToDo](#ToDo)
++ [Editor Integrations](#Editor-Integrations)
 + [Graphical Tools](#Graphical-Tools)
 + [Hashtable Tools](#Hashtable-Tools)
 + [Select Functions](#Select-Functions)
@@ -431,7 +431,7 @@ PS C:\> Get-MyVariable
 NName Value                  Type
 ---- -----                  ----
 a    bits                   ServiceController
-dt   10/22/2018 10:49:38 AM DateTime
+dt   10/22/2020 10:49:38 AM DateTime
 foo  123                    Int32
 r    {1, 2, 3, 4...}        Object[]
 ...
@@ -781,12 +781,16 @@ which generates this markdown:
 
 Because the function writes markdown to the pipeline you will need to pipe it to a command `Out-File` to create a file.
 
-## ToDo
+## Editor Integrations
 
-Because this module is intended to make scripting easier for you, it adds options to insert ToDo statements into PowerShell files. If you are using the PowerShell ISE or VS Code and import this module, it will add the capability to insert a line like this:
+Because this module is intended to make scripting easier for you, it adds a few editor specific features if you import this module in either the PowerShell ISE or Visual Studio Code. The VS Code features assume you are using the integrated PowerShell terminal.
+
+### Insert ToDo
+
+One such feature is the ability to insert ToDo statements into PowerShell files. If you are using the PowerShell ISE or VS Code and import this module, it will add the capability to insert a line like this:
 
 ```dos
-    # [12/13/2018 16:52:40] TODO: Add parameters
+    # [12/13/2020 16:52:40] TODO: Add parameters
 ```
 
 In the PowerShell ISE, you will get a new menu under Add-Ons.
@@ -800,6 +804,17 @@ You can use the menu or keyboard shortcut which will launch an input box.
 The comment will be inserted at the current cursor location.
 
 In VS Code, access the command palette (Ctrl+Shift+P) and then `PowerShell: Show Additional Commands from PowerShell Modules`. Select `Insert ToDo` from the list, and you'll get the same input box. Note that this will only work for PowerShell files.
+
+### Set Terminal Location
+
+Another feature is the ability to set your terminal location to match that of the the currently active file. For example, if the current file is located in C:\Scripts\Foo and your terminal location is D:\Temp\ABC, you can quickly jump to the file location.
+
+```dos
+PS D:\Temp\ABC\> sd
+PS C:\Scripts\Foo\>
+```
+
+The full command name is `Set-LocationToFile` but you'll find it easier to use the `sd` or `jmp` aliases. This command will also clear the host.
 
 ## Graphical Tools
 
@@ -910,11 +925,11 @@ Convert-HashtableString
 Name                           Value
 ----                           -----
 CreatedBy                      BOVINE320\Jeff
-CreatedAt                      10/02/2018 21:28:47 UTC
+CreatedAt                      10/02/2020 21:28:47 UTC
 Computername                   Think51
 Error
 Completed                      True
-Date                           10/02/2018 21:29:35 UTC
+Date                           10/02/2020 21:29:35 UTC
 Scriptblock                    restart-service spooler -force
 CreatedOn                      BOVINE320
 ```
@@ -1303,7 +1318,7 @@ utc_offset   : +11:00
 unixtime     : 1552668285
 timezone     : Australia/Hobart
 dst_until    : 2019-04-06T16:00:00+00:00
-dst_from     : 2018-10-06T16:00:00+00:00
+dst_from     : 2020-10-06T16:00:00+00:00
 dst          : True
 day_of_year  : 75
 day_of_week  : 6
@@ -1625,6 +1640,46 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [Get-PSUnique](docs/Get-PSUnique.md)
+
+For the most part, objects you work with in PowerShell are guaranteed to be unique. But you might import data where there is the possibility of duplicate items. Consider this CSV sample.
+
+```powershell
+$Obj = "Animal,Snack,Color
+Horse,Quiche,Chartreuse
+Cat,Doritos,Red
+Cat,Pringles,Yellow
+Dog,Doritos,Yellow
+Dog,Doritos,Yellow
+Rabbit,Pretzels,Green
+Rabbit,Popcorn,Green
+Marmoset,Cheeseburgers,Black
+Dog,Doritos,White
+Dog,Doritos,White
+Dog,Doritos,White
+" | ConvertFrom-Csv
+```
+
+There are duplicate objects you might want to filter out. For that task, you can use `Get-PSUnique`.
+
+```DOS
+PS C:\> $obj | Get-PSUnique | Sort-Object animal
+
+
+Animal   Snack         Color
+------   -----         -----
+Cat      Pringles      Yellow
+Cat      Doritos       Red
+Dog      Doritos       White
+Dog      Doritos       Yellow
+Horse    Quiche        Chartreuse
+Marmoset Cheeseburgers Black
+Rabbit   Popcorn       Green
+Rabbit   Pretzels      Green
+```
+
+The duplicate items have been removed. This command works best with simple objects. If your objects have nested object properties, you will need to test if this command can properly filter for unique items.
 
 ### [Test-IsElevated](docs/Test-IsElevated.md)
 
@@ -2011,7 +2066,7 @@ This command is designed to be used within your functions and scripts to make it
 
 ```dos
 PS C:\> write-detail "Getting file information" -Prefix Process -Date
-9/15/2018 11:42:43 [PROCESS] Getting file information
+9/15/2020 11:42:43 [PROCESS] Getting file information
 ```
 
 In a script you might use it like this:
@@ -2230,6 +2285,61 @@ In this format view, ReadOnly aliases are displayed in Red.
 
 Use [Get-FormatView](docs/Get-FormatView.md) to discover available format views. Or if you'd like to create your own custom views look at [New-PSFormatXML](docs/New-PSFormatXML.md)
 
+### Custom Type Extensions
+
+When you import the module, you will also get custom type extensions. These are designed to make it easier to work with common objects in PowerShell.
+
+#### System.IO.FileInfo
+
+The module will extend file objects with the following alias properties:
+
+| New Alias | Property |
+| --- | --- |
+| Size | Length |
+| Created | CreationTime |
+| Modified | LastWriteTime |
+
+You also have new script properties
+
+| Script Property | Description |
+| --- | --- |
+| ModifiedAge | A timespan between the current date the and last write time |
+| CreatedAge | A timespan between the current date the and creation time |
+| SizeKB | The file size formatted in KB to 2 decimal places |
+| SizeMB | The file size formatted in MB to 2 decimal places |
+
+```dos
+PS C:\> Get-Childitem C:\work\pswork.xml | Select-Object Name,Size,SizeKB,SizeMB,Created,CreatedAge,Modified,ModifiedAge
+
+Name        : pswork.xml
+Size        : 32072432
+SizeKB      : 31320.73
+SizeMB      : 30.59
+Created     : 1/5/2021 6:46:43 PM
+CreatedAge  : 175.17:47:00.4966770
+Modified    : 1/6/2021 11:53:20 AM
+ModifiedAge : 175.00:40:23.3527674
+```
+
+#### System.Diagnostics.Process
+
+The module will extend process objects with a `Runtime` script property.
+
+```dos
+PS C:\> Get-Process | Sort-Object runtime -Descending |
+Select-Object -first 5 -Property ID,Name,Runtime
+
+ Id Name          Runtime
+ -- ----          -------
+120 Secure System 20:44:51.6139043
+204 Registry      20:44:51.3661961
+  4 System        20:44:48.2820565
+704 smss          20:44:48.2726401
+820 csrss         20:44:44.7760844
+```
+
+The Idle process will have a null value for this property.
+
 ### PSSpecialChar
 
 A number of the commands in this module can use special characters. To make it easier, when you import the module, it will create a global variable that is a hash table of common special characters. Because it is a hashtable, you can add to it.
@@ -2254,7 +2364,7 @@ This PowerShell module contains several functions you might use to enhance your 
 dir $pssamplepath
 ```
 
-The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered AS-IS and are for demonstration purposes only.
+The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered __AS-IS__ and are for demonstration purposes only.
 
 ![ProcessPercent.ps1](images/processpercent.png)
 

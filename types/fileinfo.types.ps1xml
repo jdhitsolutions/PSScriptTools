@@ -1,0 +1,44 @@
+<!--
+This file was created with Export-PSTypeExtension from the
+PSTypeExtensionTools module which you can install from
+the PowerShell Gallery.
+
+Use Update-TypeData to import this file in your PowerShell session.
+
+Created 06/30/2021 11:25:52
+-->
+<Types>
+  <Type>
+    <Name>System.IO.FileInfo</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Size</Name>
+        <ReferencedMemberName>Length</ReferencedMemberName>
+      </AliasProperty>
+      <ScriptProperty>
+        <Name>SizeKB</Name>
+        <GetScriptBlock>[math]::Round($this.length/1KB,2)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>SizeMB</Name>
+        <GetScriptBlock>[math]::Round($this.length/1MB,2)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>ModifiedAge</Name>
+        <GetScriptBlock> New-TimeSpan -Start $this.LastWriteTime -End (Get-Date)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>CreatedAge</Name>
+        <GetScriptBlock> New-TimeSpan -Start $this.CreationTime -End (Get-Date)</GetScriptBlock>
+      </ScriptProperty>
+      <AliasProperty>
+        <Name>Created</Name>
+        <ReferencedMemberName>CreationTime</ReferencedMemberName>
+      </AliasProperty>
+      <AliasProperty>
+        <Name>Modified</Name>
+        <ReferencedMemberName>LastWriteTime</ReferencedMemberName>
+      </AliasProperty>
+    </Members>
+  </Type>
+</Types>

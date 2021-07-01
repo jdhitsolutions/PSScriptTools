@@ -232,7 +232,7 @@ Accept wildcard characters: False
 
 ### -Passthru
 
-Write the ps1xml file object to the pipeline. If you run this command inside the VS Code PowerShell integrated console and use this parameter, the file will be opened in the editor.
+Write the ps1xml file object to the pipeline. If you run this command inside the VS Code PowerShell integrated console, or the PowerShell ISE and use this parameter, the file will be opened in the editor.
 
 ```yaml
 Type: SwitchParameter
@@ -264,7 +264,7 @@ Accept wildcard characters: False
 
 ### -Properties
 
-Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property.
+Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created.
 
 ```yaml
 Type: Object[]

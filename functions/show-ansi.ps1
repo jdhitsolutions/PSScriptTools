@@ -18,9 +18,22 @@ Function Show-ANSISequence {
         [switch]$AsString
     )
 
+    Write-Verbose "Starting $($myinvocation.MyCommand)"
+    Write-Debug "Using parameter set $($PSCmdlet.ParameterSetName)"
+    Write-Debug "Bound parameters"
+    $PSBoundParameters | Out-String | Write-Debug
+
     #default to Basic even if the user doesn't specify the -Basic parameter
     if ($PSCmdlet.parametersetname -eq 'basic') {
         $Basic = $True
+    }
+    elseif ($PSCmdlet.parametersetname -eq 'foreback') {
+        if ( (-Not ($PSBoundParameters.ContainsKey('foreground'))) -OR (-Not ($PSBoundParameters.ContainsKey('background')))) {
+            #default to foreground Issue # 110
+            Write-Debug "Setting Foreground as default"
+            $Foreground = $True
+        }
+
     }
 
     # a private function to display results in columns on the screen
@@ -44,11 +57,13 @@ Function Show-ANSISequence {
     }
 
     if ($IsCoreCLR) {
+        Write-Debug "CoreCLR"
         $esc = "`e"
         $escText = '`e'
         $max = 3
     }
     else {
+        Write-Debug "Desktop"
         $esc = $([char]27)
         $escText = '$([char]27)'
         $max = 2
@@ -56,7 +71,7 @@ Function Show-ANSISequence {
 
     #region basic
     if ($basic) {
-
+        Write-Debug "Get basic settings"
         Add-Border "Basic Sequences" -ANSIText "$esc[1m" | Write-Host
 
         $basichash = @{
@@ -85,7 +100,7 @@ Function Show-ANSISequence {
     #region foreground
 
     If ($Foreground) {
-
+        Write-Debug "Getting foreground"
         if ($Type -match "All|Simple") {
             Add-Border "Foreground" -ANSIText "$esc[93m" | Write-Host
             $n = 30..37
@@ -123,7 +138,7 @@ Function Show-ANSISequence {
 
     #region background
     If ($Background) {
-
+        Write-Debug "Getting background"
         if ($Type -match "All|Simple") {
             Add-Border "Background" -ANSIText "$esc[46m" | Write-Host
             $n = 40..47
@@ -163,7 +178,7 @@ Function Show-ANSISequence {
     #region RGB
 
     if ($RGB) {
-
+        Write-Debug "Using RBG values"
         if ($rgb.count -ne 3) {
             Write-Warning "Wrong number of arguments. Specify RED,GREEN and BLUE values"
             return
@@ -192,4 +207,6 @@ Function Show-ANSISequence {
 
     #insert a blank line to set off the results
     Write-Host "`r"
+
+    Write-Verbose "Ending $($myinvocation.MyCommand)"
 }

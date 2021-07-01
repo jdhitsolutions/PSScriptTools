@@ -2,6 +2,19 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
+## v2.38.0
+
++ Added `Get-PSUnique` function with an alias of `gpsu`. ([Issue #109](https://github.com/jdhitsolutions/PSScriptTools/issues/109)).
++ Modified `Show-AnsiSequence` to default to `Foreground` when using `-Type` ([Issue #110](https://github.com/jdhitsolutions/PSScriptTools/issues/110)).
++ Cleaned up module manifest.
++ Updated `New-PSFormatXML` to __not__ create the ps1xml file if a bad property is detected ([Issue #111](https://github.com/jdhitsolutions/PSScriptTools/issues/111)).
++ Modified `New-PSFormatXML` to __not__ add an explicit declaration. This means the files will now be saved in the correct UTF-8 format and not UTF-8 with BOM.
++ Modified TODO VSCode command to put date at the end. Otherwise, it breaks the `Better Comments` extension.
++ Added `Set-LocationToFile` which is only loaded when importing the module in VS Code or the PowerShell ISE.
++ Re-saved all `.ps1xml` files as `UTF-8`.
++ Added custom type extension files `fileinfo.types.ps1xml` and `system.diagnostics.process.types.ps1xml`.
++ Updated `README.md`.
+
 ## v2.37.0
 
 + Updated `Convertto-WPFGrid` to better handle non-standard property names. ([Issue #108](https://github.com/jdhitsolutions/PSScriptTools/issues/108)).
@@ -47,23 +60,6 @@ This file contains the most recent change history for the PSScriptTools module.
 + Fixed bug in `Get-ParameterInfo` that failed to display dynamic parameters when using a command alias. ([Issue #101](https://github.com/jdhitsolutions/PSScriptTools/issues/101))
 + Modified format file for `PSParameterInfo` to display `Mandatory` and `IsDynamic` values in color when the value is `$True`.
 
-## v2.34.0
-
-+ Fixed typo bug in `Get-PSScriptTools` that was failing to get command aliases. ([Issue #99](https://github.com/jdhitsolutions/PSScriptTools/issues/99))
-+ Modified `Get-PSScriptTools` to improve performance. Assuming that all exported functions are using standard verbs.
-+ Added `Get-PSAnsiFileMap`.
-+ Added `Set-PSAnsiFileMapEntry`.
-+ Added `Remove-PSAnsiFileMapEntry`.
-+ Added `Export-PSAnsiFileMap`.
-+ Added `Show-ANSISequence`.
-+ Updated `filesystem.ansi.format.ps1xml` to use last matching pattern.
-+ Modified `Show-Tree` to better handle piped-in file and directory objects.
-+ Added an alias `ab` for `Add-Border`.
-+ Added an alias of `nab` for `New-AnsiBar`.
-+ Updated `README.md`.
-+ Updated module description.
-+ Help updates.
-
 ## Archive
 
-If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md)
+If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md) online.

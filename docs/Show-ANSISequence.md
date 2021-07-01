@@ -113,7 +113,7 @@ Accept wildcard characters: False
 
 ### -Foreground
 
-Display foreground ANSI format settings.
+Display foreground ANSI format settings. If you use -Type without specifying -Foreground or -Background, -Foreground will be used by default.
 
 ```yaml
 Type: SwitchParameter
@@ -145,7 +145,7 @@ Accept wildcard characters: False
 
 ### -Type
 
-You can display simple ANSI, 8-bit, or all sequences. Valid values are all,simple and 8bit.
+You can display simple ANSI, 8-bit, or all sequences. Valid values are All,Simple and 8bit.
 
 ```yaml
 Type: String
