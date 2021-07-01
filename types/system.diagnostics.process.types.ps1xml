@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file was created with Export-PSTypeExtension from the
+PSTypeExtensionTools module which you can install from
+the PowerShell Gallery.
+
+Use Update-TypeData to import this file in your PowerShell session.
+
+Created 06/30/2021 13:44:23
+-->
+<Types>
+  <Type>
+    <Name>System.Diagnostics.Process</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>Runtime</Name>
+        <!-- Some processes don't have a starttime in Windows PowerShell-->
+        <GetScriptBlock>
+         if ($this.starttime) {
+           New-Timespan -start $this.StartTime -end (Get-Date)
+         }
+         else {
+            $null
+         }
+         </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>

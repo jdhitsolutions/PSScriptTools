@@ -87,7 +87,7 @@ if ($psEditor) {
         $prompt = "What do you need to do?"
         $title = "To Do"
         $item = Invoke-InputBox -Title $title -Prompt $prompt
-        $todo = "# [$(Get-Date)] TODO: $item"
+        $todo = "# TODO: $item [$(Get-Date)]"
         $context.CurrentFile.InsertText($todo)
     }
     $rParams = @{
@@ -97,7 +97,31 @@ if ($psEditor) {
         SuppressOutput = $false
     }
     Register-EditorCommand @rParams
-}
+
+    Write-Verbose "Adding Set-LocationToFile"
+    Function Set-LocationToFile {
+        #set location to directory of current file
+        [CmdletBinding()]
+        [alias("sd", "jmp")]
+        [outputtype("none")]
+        Param ()
+
+        if ($host.name -match "Code") {
+
+            $context = $psEditor.GetEditorContext()
+            $thispath = $context.CurrentFile.Path
+            $target = Split-Path -Path $thispath
+            Write-Verbose "Using $thispath"
+            Write-Verbose "Changing to $target"
+            Set-Location -Path $target
+
+            Clear-Host
+        }
+        else {
+            Write-Warning "This command must be run in the VS Code integrated PowerShell terminal."
+        }
+    }
+} #VSCode
 elseif ($psise) {
     Write-Verbose "Defining ISE additions"
 
@@ -115,7 +139,25 @@ elseif ($psise) {
         #add the action to the Add-Ons menu
         $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("ToDo", $Action, "Ctrl+Alt+2" ) | Out-Null
     }
+
+    Function Set-LocationToFile {
+        [cmdletbinding()]
+        [alias("sd","jmp")]
+        [OutputType("none")]
+        Param()
+
+        if ($host.name -match "ISE") {
+
+            $path = Split-Path -Path $psISE.CurrentFile.FullPath
+            set-location -path $path
+            clear-host
+        }
+        Else {
+            Write-Warning "This command must be run the the PowerShell ISE."
+        }
+    }
 }
+
 
 #define a function to open the PDF version of the README and other documentation
 Function Open-PSScriptToolsHelp {

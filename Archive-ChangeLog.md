@@ -2,6 +2,23 @@
 
 This file contains older change history. It is maintained for reference purposes.
 
+## v2.34.0
+
++ Fixed typo bug in `Get-PSScriptTools` that was failing to get command aliases. ([Issue #99](https://github.com/jdhitsolutions/PSScriptTools/issues/99))
++ Modified `Get-PSScriptTools` to improve performance. Assuming that all exported functions are using standard verbs.
++ Added `Get-PSAnsiFileMap`.
++ Added `Set-PSAnsiFileMapEntry`.
++ Added `Remove-PSAnsiFileMapEntry`.
++ Added `Export-PSAnsiFileMap`.
++ Added `Show-ANSISequence`.
++ Updated `filesystem.ansi.format.ps1xml` to use last matching pattern.
++ Modified `Show-Tree` to better handle piped-in file and directory objects.
++ Added an alias `ab` for `Add-Border`.
++ Added an alias of `nab` for `New-AnsiBar`.
++ Updated `README.md`.
++ Updated module description.
++ Help updates.
+
 ## v2.33.1
 
 + Fixed bug in `ConvertTo-WPFGrid` with refresh and timeout values. (Issue #98)

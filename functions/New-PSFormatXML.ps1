@@ -38,10 +38,15 @@ Function New-PSFormatXML {
             Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Initializing a new XML document"
             [xml]$Doc = New-Object -TypeName System.Xml.XmlDocument
 
-            #create declaration
+  <#
+            Disabling this because the declaration results in saving the file as UTF8 with BOM
+            https://github.com/dotnet/runtime/issues/28218
+            JDH 6/30/2021
+
+  #create declaration
             $dec = $Doc.CreateXmlDeclaration("1.0", "UTF-8", $null)
             #append to document
-            [void]$doc.AppendChild($dec)
+            [void]$doc.AppendChild($dec) #>
 
             $text = @"
 
@@ -49,6 +54,7 @@ Format type data generated $(Get-Date) by $env:USERDOMAIN\$env:username
 
 This file was created using the New-PSFormatXML command that is part
 of the PSScriptTools module.
+
 https://github.com/jdhitsolutions/PSScriptTools
 
 "@
@@ -124,7 +130,7 @@ https://github.com/jdhitsolutions/PSScriptTools
     } #begin
 
     Process {
-         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Counter $counter"
+        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Counter $counter"
         If ($counter -eq 0) {
             if ($Typename) {
                 $tname = $TypeName
@@ -161,7 +167,10 @@ https://github.com/jdhitsolutions/PSScriptTools
                             $members += $test
                         }
                         else {
-                            Write-Warning "Can't find a property called $property on this object. Did you enter it correctly?"
+                            Write-Warning "Can't find a property called $property on this object. Did you enter it correctly? The ps1xml file will NOT be created."
+                            $BadProperty = $True
+                            #Bail out
+                            return
                         }
                     }
                 }
@@ -321,58 +330,67 @@ https://github.com/jdhitsolutions/PSScriptTools
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Finalizing XML"
-        #Add elements to each parent
-        if ($FormatType -eq 'Table') {
-            [void]$entry.AppendChild($items)
-            [void]$TableRowEntries.AppendChild($entry)
-            [void]$table.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use the defined widths."))
-            $auto = $doc.CreateElement("AutoSize")
-            [void]$table.AppendChild($auto)
-            [void]$table.AppendChild($headers)
-            [void]$table.AppendChild($TableRowEntries)
 
-            [void]$view.AppendChild($table)
-        }
-        elseif ($FormatType -eq 'List') {
-            [void]$listentry.AppendChild($items)
-            [void]$listentries.AppendChild($listentry)
-            [void]$list.AppendChild($listentries)
-            [void]$view.AppendChild($list)
-        }
-        else {
-            #Wide
-            [void]$wideEntries.AppendChild($WideEntry)
-            [void]$WideEntry.AppendChild($item)
-            [void]$Wide.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use PowerShell defaults."))
-            $auto = $doc.CreateElement("AutoSize")
-            [void]$Wide.AppendChild($auto)
-            [void]$Wide.AppendChild($wideEntries)
-            [void]$view.AppendChild($Wide)
-        }
+        if (-Not $BadProperty) {
+            #don't create the file if a bad property as specified. Issue #111
+            Write-Verbose "[$((Get-Date).TimeofDay) END    ] Finalizing XML"
+            #Add elements to each parent
+            if ($FormatType -eq 'Table') {
+                [void]$entry.AppendChild($items)
+                [void]$TableRowEntries.AppendChild($entry)
+                [void]$table.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use the defined widths."))
+                $auto = $doc.CreateElement("AutoSize")
+                [void]$table.AppendChild($auto)
+                [void]$table.AppendChild($headers)
+                [void]$table.AppendChild($TableRowEntries)
 
-        if ($append) {
-            Write-Verbose "[$((Get-Date).TimeofDay) END    ] Appending to existing XML"
-            [void]$doc.Configuration.ViewDefinitions.AppendChild($View)
-        }
-        else {
-            [void]$viewdef.AppendChild($view)
-            [void]$config.AppendChild($viewdef)
-            [void]$doc.AppendChild($config)
-        }
+                [void]$view.AppendChild($table)
+            }
+            elseif ($FormatType -eq 'List') {
+                [void]$listentry.AppendChild($items)
+                [void]$listentries.AppendChild($listentry)
+                [void]$list.AppendChild($listentries)
+                [void]$view.AppendChild($list)
+            }
+            else {
+                #Wide
+                [void]$wideEntries.AppendChild($WideEntry)
+                [void]$WideEntry.AppendChild($item)
+                [void]$Wide.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use PowerShell defaults."))
+                $auto = $doc.CreateElement("AutoSize")
+                [void]$Wide.AppendChild($auto)
+                [void]$Wide.AppendChild($wideEntries)
+                [void]$view.AppendChild($Wide)
+            }
 
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Saving to $realpath"
-        if ($PSCmdlet.ShouldProcess($realPath, "Adding $formattype view $viewname")) {
-            $doc.Save($realPath)
-            if ($Passthru) {
-                Get-Item $realPath
-                #If you run this command in VS Code and specify -passthru, then open the file
-                #for further editing
-                if ($host.name -match "Visual Studio Code") {
-                    Open-EditorFile -Path $realpath
+            if ($append) {
+                Write-Verbose "[$((Get-Date).TimeofDay) END    ] Appending to existing XML"
+                [void]$doc.Configuration.ViewDefinitions.AppendChild($View)
+            }
+            else {
+                [void]$viewdef.AppendChild($view)
+                [void]$config.AppendChild($viewdef)
+                [void]$doc.AppendChild($config)
+            }
+
+            Write-Verbose "[$((Get-Date).TimeofDay) END    ] Saving to $realpath"
+            if ($PSCmdlet.ShouldProcess($realPath, "Adding $formattype view $viewname")) {
+                $doc.Save($realPath)
+                if ($Passthru) {
+                    if ($host.name -match "Visual Studio Code") {
+                        #If you run this command in VS Code and specify -passthru, then open the file
+                        #for further editing
+                        Open-EditorFile -Path $realpath
+                    }
+                    elseif ($host.name -match "PowerShell ISE") {
+                        psedit $realpath
+                    }
+                    else {
+                        Get-Item $realPath
+                    }
                 }
             }
-        }
+        } #if not bad property
 
         Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
 
