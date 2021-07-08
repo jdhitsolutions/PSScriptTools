@@ -52,7 +52,7 @@ Function Get-ModuleCommand {
     Write-Verbose "Getting exported functions"
     $cmds += $mod.Exportedfunctions.keys | Get-Command
     Write-Verbose "Getting exported cmdlets"
-    $cmds += $mod.Exportedcmdlets.keys | Get-Command
+    $cmds += $mod.Exportedcmdlets.keys | Foreach-Object { $mod.Exportedcmdlets[$_].ToString() } | Get-Command
 
     Write-Verbose "Found $($cmds.count) functions and/or cmdlets"
 
