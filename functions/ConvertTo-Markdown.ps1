@@ -20,8 +20,7 @@ Function ConvertTo-Markdown {
 
     Begin {
         Write-Verbose "[BEGIN  ] Starting $($myinvocation.MyCommand)"
-        #initialize an array to hold incoming data
-        #$data = @()
+        #initialize a collection to hold incoming data
         $data = [System.Collections.Generic.list[object]]::new()
         #initialize an empty here string for markdown text
         $text = @"

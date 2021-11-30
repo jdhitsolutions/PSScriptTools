@@ -592,6 +592,12 @@ User    Jeff     C:\Program Files (x86)\Vale\                              True
 
 ## File Tools
 
+### [Get-FileExtensionInfo](docs/Get-FileExtensionInfo.md)
+
+This command will search a given directory and produce a report of all files based on their file extension. This command is only available in PowerShell 7. The extension with the largest total size will be highlighted in color.
+
+![Get-FileExtensionInfo](images/gfei.png)
+
 ### [Test-EmptyFolder](docs/Test-EmptyFolder.md)
 
 This command will test if a given folder path is empty of all files anywhere in the path. This includes hidden files. The command will return True even if there are empty sub-folders. The default output is True or False but you can use -Passthru to get more information.
@@ -1640,6 +1646,90 @@ TotalMemGB FreeMemGB PctFree
 ```
 
 ## Scripting Tools
+
+### [New-PSDynamicParameter](docs/New-PSDynamicParameter)
+
+This command will create the code for a dynamic parameter that you can insert into your PowerShell script file. You need to specify a parameter name and a condition. The condition value is code that would run inside an If statement. Use a value like $True if you want to add it later in your scripting editor.
+
+```powershell
+PS C:\> New-PSDynamicParameter -Condition "$PSEdition -eq 'Core'" -ParameterName ANSI -Alias color -Comment "Create a parameter to use ANSI if running PowerShell 7" -ParameterType switch
+
+    DynamicParam {
+    # Create a parameter to use ANSI if running PowerShell 7
+        If (Core -eq 'Core') {
+
+        $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+
+        # Defining parameter attributes
+        $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+        $attributes = New-Object System.Management.Automation.ParameterAttribute
+        $attributes.ParameterSetName = '__AllParameterSets'
+        $attributeCollection.Add($attributes)
+
+        # Adding a parameter alias
+        $dynalias = New-Object System.Management.Automation.AliasAttribute -ArgumentList 'color'
+        $attributeCollection.Add($dynalias)
+
+        # Defining the runtime parameter
+        $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter('ANSI', [Switch], $attributeCollection)
+        $paramDictionary.Add('ANSI', $dynParam1)
+
+        return $paramDictionary
+    } # end if
+} #end DynamicParam
+```
+
+This creates dynamic parameter code that you can use in a PowerShell function. Normally you would save this output to a file or copy to the clipboard so that you can paste it into scripting editor.
+
+You can also use a WPF-based front-end command, [New-PSDynamicParameterForm](docs/New-PSDynamicParameterForm.md). You can enter the values in the form. Required values are indicated by an asterisk.
+
+![New-PSDynamicParameterForm](images/new-psdynamicparameter-form.png)
+
+Clicking `Create` will generate the dynamic parameter code and copy it to the Windows clipboard. You can then paste it into your scripting editor.
+
+```powershell
+DynamicParam {
+
+    If ($Filter -eq 'domain') {
+
+    $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+
+    # Defining parameter attributes
+    $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+    $attributes = New-Object System.Management.Automation.ParameterAttribute
+    $attributes.ParameterSetName = '__AllParameterSets'
+    $attributes.ValueFromPipelineByPropertyName = $True
+
+    # Adding ValidatePattern parameter validation
+    $value = '^\w+-\w+$'
+    $v = New-Object System.Management.Automation.ValidatePatternAttribute($value)
+    $AttributeCollection.Add($v)
+
+    # Adding ValidateNotNullOrEmpty parameter validation
+    $v = New-Object System.Management.Automation.ValidateNotNullOrEmptyAttribute
+    $AttributeCollection.Add($v)
+    $attributeCollection.Add($attributes)
+
+    # Adding a parameter alias
+    $dynalias = New-Object System.Management.Automation.AliasAttribute -ArgumentList 'cn'
+    $attributeCollection.Add($dynalias)
+
+    # Defining the runtime parameter
+    $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter('Computername', [String], $attributeCollection)
+    $paramDictionary.Add('Computername', $dynParam1)
+
+    return $paramDictionary
+} # end if
+} #end DynamicParam
+```
+
+If you import the PSScriptTools module in the PowerShell ISE, you will get a menu shortcut under Add-Ins.
+
+![New-PSDynamicParameter ISE](images/new-psdynamicparameter-ise.png)
+
+If you import the module in VS Code using the integrated PowerShell terminal, it will a new command. In the command palette, use `PowerShell: Show Additional Commands from PowerShell Modules".
+
+![New-PSDynamicParameter VSCode](images/new-psdynamicparameter-vscode.png)
 
 ### [Get-PSUnique](docs/Get-PSUnique.md)
 
