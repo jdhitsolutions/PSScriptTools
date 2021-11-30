@@ -592,6 +592,61 @@ User    Jeff     C:\Program Files (x86)\Vale\                              True
 
 ## File Tools
 
+### [Get-LastModifiedFile](docs/Get-LastModifiedFile.md)
+
+Get files last modified within a certain interval. The default is 24 hours.
+
+```dos
+PS C:\> Get-LastModifiedFile -Path c:\work
+
+    Directory: C:\work
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          11/30/2021  1:52 PM           2010 a.txt
+-a---          11/30/2021  1:52 PM           5640 b.txt
+```
+
+But you can specify other ranges.
+
+```dos
+PS C:\> Get-LastModifiedFile -Path c:\scripts -filter *.xml -Interval Months -IntervalCount 6
+
+    Directory: C:\Scripts
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---           8/31/2021  7:12 PM          17580 DefaultDomainPolicy.xml
+-a---           8/31/2021  7:12 PM          17290 PKIAutoEnroll.xml
+-a---           8/31/2021  8:43 PM           9786 sample-gpo.xml
+-a---           8/31/2021  7:24 PM          50062 TestUser.xml
+-a---           6/22/2021  7:47 PM           4628 vaults.xml
+```
+
+You might use this command with other PowerShell commands to get usage statistics.
+
+```dos
+PS C:\> Get-LastModifiedFile -Path c:\scripts -Recurse -Interval Years -IntervalCount 1 |
+>> Group-Object {$_.LastWriteTime.month} |
+>> Select-Object @{Name="Month";Expression = {"{0:MMM}" -f (Get-Date -Month $_.Name)}},
+>> Count
+
+Month Count
+----- -----
+Jan     152
+Feb     200
+Mar     228
+Apr     169
+May     106
+Jun      92
+Jul      86
+Aug     112
+Sep     109
+Oct     136
+Nov     225
+Dec     216
+```
+
 ### [Get-FileExtensionInfo](docs/Get-FileExtensionInfo.md)
 
 This command will search a given directory and produce a report of all files based on their file extension. This command is only available in PowerShell 7. The extension with the largest total size will be highlighted in color.

@@ -1,15 +1,23 @@
-#display a summary of tools in a specific module
 Function Get-ModuleCommand {
     [cmdletbinding(DefaultParameterSetName = "name")]
     [Alias("gmc")]
     [OutputType("ModuleCommand")]
 
     Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "The name of an installed module", ParameterSetName = "name")]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            HelpMessage = "The name of an installed module",
+            ParameterSetName = "name"
+        )]
         [ValidateNotNullorEmpty()]
         [string]$Name,
 
-        [Parameter(Mandatory, HelpMessage = "The fully qualified name of an installed module", ParameterSetName = "fqdn")]
+        [Parameter(
+            Mandatory,
+            HelpMessage = "The fully qualified name of an installed module",
+            ParameterSetName = "fqdn"
+        )]
         [ValidateNotNullorEmpty()]
         [Microsoft.PowerShell.Commands.ModuleSpecification]$FullyQualifiedName,
 

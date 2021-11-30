@@ -54,8 +54,12 @@ Function Get-ParameterInfo {
         Catch {
             Write-Warning "Failed to find command $command"
         }
-        #keep going if parameters were found
-        if ($data.psbase.count -gt 0) {
+
+        # keep going if parameters were found
+        # Explicitly calling base, to prevent .count from being shadowed
+        #
+        if ($data.psbase.Count -gt 0) {
+
             #$data is a hash table
             if ($Parameter) {
                 Write-Verbose "Getting parameter $Parameter"
@@ -67,8 +71,8 @@ Function Get-ParameterInfo {
                 }
             }
             else {
-                Write-Verbose "Getting parameter all non-common parameters"
-                $params = $data.keys | Where-Object {$common -notcontains $_}
+                Write-Verbose 'Getting parameter all non-common parameters'
+                $params = $data.keys | Where-Object { $common -notcontains $_ }
             }
             $count = ($params | Measure-Object).count
             #only keep going if non-common parameters were found
@@ -81,26 +85,26 @@ Function Get-ParameterInfo {
                     $name = $_
                     Write-Verbose "Analyzing $name"
                     $type = $data.item($name).ParameterType
-                    $aliases = $data.item($name).Aliases -join ","
+                    $aliases = $data.item($name).Aliases -join ','
 
                     $sets = $data.item($name).ParameterSets.Keys
                     $IsDynamic = $data.item($name).IsDynamic
                     foreach ($set in $sets) {
 
                         #retrieve parameter attribute class
-                        $attributes = $data.item($name).Attributes | Where-Object {$_ -is [system.management.automation.parameterAttribute] -AND $_.ParameterSetName -eq $set}
+                        $attributes = $data.item($name).Attributes | Where-Object { $_ -is [system.management.automation.parameterAttribute] -AND $_.ParameterSetName -eq $set }
 
                         #a parameter could have different positions in different property sets
                         if ($attributes.position -ge 0) {
                             $position = $attributes.position
                         }
                         else {
-                            $position = "Named"
+                            $position = 'Named'
                         }
 
                         #write a custom object to the pipeline
                         [PSCustomObject]@{
-                            PSTypeName                      = "PSParameterInfo"
+                            PSTypeName                      = 'PSParameterInfo'
                             Name                            = $name
                             Aliases                         = $aliases
                             Mandatory                       = $attributes.mandatory
@@ -125,5 +129,3 @@ Function Get-ParameterInfo {
     } #end
 
 } #end function
-
-

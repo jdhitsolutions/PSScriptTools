@@ -2,6 +2,13 @@
 
 This file contains older change history. It is maintained for reference purposes.
 
+## v2.34.1
+
++ Updated `license.txt` with the new year.
++ Added missing online help links.
++ Fixed bug in `Get-ParameterInfo` that failed to display dynamic parameters when using a command alias. ([Issue #101](https://github.com/jdhitsolutions/PSScriptTools/issues/101))
++ Modified format file for `PSParameterInfo` to display `Mandatory` and `IsDynamic` values in color when the value is `$True`.
+
 ## v2.34.0
 
 + Fixed typo bug in `Get-PSScriptTools` that was failing to get command aliases. ([Issue #99](https://github.com/jdhitsolutions/PSScriptTools/issues/99))
