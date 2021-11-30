@@ -2,6 +2,16 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
+## v2.39.0
+
++ Updated `Test-WithCulture` to include additional Verbose output.
++ Added command [Get-FileExtensionInfo](docs/Get-FileExtensionInfo.md) with format file `FileExtensionInfo.format.ps1xml'. This command will require PowerShell 7.
++ Added `New-PSDynamicParameter` and `New-PSDynamicParameterForm`.
++ Incorporated pull request [#116](https://github.com/jdhitsolutions/PSScriptTools/pull/116) to fix bug with `Get-ParameterInfo` when the command has a `count` parameter. Thanks @ninmonkey.
++ Added command [Get-LastModifiedFile](docs/Get-LastModifiedFile.md) and its alias *glm*.
++ Help updates.
++ Updated `README.md`.
+
 ## v2.38.0
 
 + Added `Get-PSUnique` function with an alias of `gpsu`. ([Issue #109](https://github.com/jdhitsolutions/PSScriptTools/issues/109)).
@@ -53,12 +63,6 @@ This file contains the most recent change history for the PSScriptTools module.
 + Updated `Get-CommandSyntax` to not use ANSI formatting when running in a non-console host.
 + Updated `README.md`.
 
-## v2.34.1
-
-+ Updated `license.txt` with the new year.
-+ Added missing online help links.
-+ Fixed bug in `Get-ParameterInfo` that failed to display dynamic parameters when using a command alias. ([Issue #101](https://github.com/jdhitsolutions/PSScriptTools/issues/101))
-+ Modified format file for `PSParameterInfo` to display `Mandatory` and `IsDynamic` values in color when the value is `$True`.
 
 ## Archive
 
