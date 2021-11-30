@@ -4,15 +4,21 @@ if ($myinvocation.line -match "-verbose") {
 }
 Write-Verbose "Loading public functions"
 
-#exclude Get-MyCounter.ps1 because it requires a Windows platform
-Get-ChildItem -path $PSScriptRoot\functions\*.ps1  -Exclude 'Get-MyCounter.ps1' |
+#exclude files that have special requirements
+Get-ChildItem -path $PSScriptRoot\functions\*.ps1  -Exclude 'Get-MyCounter.ps1','Get-FileExtensionInfo.ps1' |
 ForEach-Object -process {
     Write-Verbose $_.fullname
     . $_.FullName
 }
 
+Write-Verbose "Loading Windows-specific commands"
 if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
     . "$PSScriptRoot\functions\Get-MyCounter.ps1"
+}
+
+if ($IsCoreCLR) {
+    Write-Verbose "Loading PowerShell 7 specific commands"
+    . "$PSScriptRoot\functions\Get-FileExtensionInfo.ps1"
 }
 
 Write-Verbose "Define the global PSAnsiFileMap variable"
@@ -180,3 +186,5 @@ Function Open-PSScriptToolsHelp {
     }
     Write-Verbose "Ending $($myinvocation.MyCommand)"
 }
+
+$VerbosePreference = "silentlyContinue"

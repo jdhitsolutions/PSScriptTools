@@ -13,14 +13,14 @@ Function Test-WithCulture {
         [ValidateNotNullorEmpty()]
         [ValidatePattern('\.ps1$')]
         [ValidateScript( {
-                if (Test-Path $_ ) {
-                    $True
-                }
-                else {
-                    throw "Failed to find the file $_."
-                    $false
-                }
-            })]
+            if (Test-Path $_ ) {
+                $True
+            }
+            else {
+                throw "Failed to find the file $_."
+                $false
+            }
+        })]
         [scriptblock]$FilePath,
         [Parameter(HelpMessage = "Specify an array of positional arguments to pass to the scriptblock for file.")]
         [object[]]$ArgumentList
@@ -38,7 +38,9 @@ Function Test-WithCulture {
     [System.Threading.Thread]::CurrentThread.CurrentUICulture = $culture
 
     #update PSBoundparameters which will be splatted to Invoke-Command
-
+    Write-Verbose "Using PowerShell $($PSVersionTable.PSVersion)"
+    Write-Verbose "Current Thread Culture = $([System.Threading.Thread]::CurrentThread.CurrentCulture)"
+    Write-Verbose "Current Thread UICulture = $([System.Threading.Thread]::CurrentThread.CurrentUICulture)"
     [void]$PSBoundParameters.remove("Culture")
     [void]$PSBoundParameters.add("ErrorAction", "stop")
     Try {
@@ -49,7 +51,7 @@ Function Test-WithCulture {
         else {
             Write-Verbose "Invoking file $Filepath"
         }
-        Invoke-command @PSBoundParameters
+        Invoke-Command @PSBoundParameters
     }
     Catch {
         Write-Warning "There was a problem. $($_.exception.message)"

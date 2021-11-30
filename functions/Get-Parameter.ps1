@@ -55,7 +55,7 @@ Function Get-ParameterInfo {
             Write-Warning "Failed to find command $command"
         }
         #keep going if parameters were found
-        if ($data.count -gt 0) {
+        if ($data.psbase.count -gt 0) {
             #$data is a hash table
             if ($Parameter) {
                 Write-Verbose "Getting parameter $Parameter"
