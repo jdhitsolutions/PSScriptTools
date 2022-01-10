@@ -827,7 +827,7 @@ which generates this markdown:
 ```markdown
     # Service Check
 
-    ## BOVINE320
+    ## THINKX1
 
     ```dos
 
@@ -837,8 +837,56 @@ which generates this markdown:
     Running  Winrm              Windows Remote Management (WS-Manag...
     ```
 
-    _report 09/25/2019 09:57:12_
+    _report 09/25/2021 09:57:12_
 ```
+
+You also have the option to format the output as a markdown table.
+
+```powershell
+ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -postcontent "_Confidential_" -AsTable
+```
+
+Which creates this markdown output.
+
+```markdown
+# OS Summary
+
+## THINKX1-JH
+
+| ProductName | EditionID | ReleaseID | Build | Branch | InstalledUTC | Computername |
+| ----------- | --------- | --------- | ----- | ------ | ------------ | ------------ |
+| Windows 10 Pro | Professional | 2009 | 22000.376 | co_release | 08/10/2021 00:17:07 | THINKX1-JH |
+
+_Confidential_
+```
+
+![convertto-markdown table](images/convert-markdown-table.png)
+
+Or you can create a list table with the property name in one columen and the value in the second column.
+
+```powershell
+Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -postcontent "_Confidential_" -AsList
+```
+
+```markdown
+# OS Summary
+
+## THINKX1-JH
+
+|    |    |
+|----|----|
+|ProductName|Windows 10 Pro|
+|EditionID|Professional|
+|ReleaseID|2009|
+|Build|22000.376|
+|Branch|co_release|
+|InstalledUTC|8/10/2021 12:17:07 AM|
+|Computername|THINKX1-JH|
+
+_Confidential_
+```
+
+![convertto-markdown list](images/convert-markdown-list.png)
 
 Because the function writes markdown to the pipeline you will need to pipe it to a command `Out-File` to create a file.
 
@@ -2367,6 +2415,21 @@ Remove-PSAnsiFileEntry DevFiles
 ### [Export-PSAnsiFileMap](docs/Export-PSAnsiFileMap.md)
 
 Any changes you make to `$PSAnsiFileMap` will only last until you import the module again. To make the change permanent, use [Export-PSAnsiFileMap](docs/Export-PSAnsiFileMap.md). This will create the `psansifilemap.json` file in your `$HOME` directory. When you import the PSSCriptTools module, if this file is found, it will be imported. Otherwise, the default module file will be used.
+
+### [Convert-HtmlToAnsi](docs/Convert-HtmlToAnsi.md)
+
+This simple function is designed to convert an HTML color code like #ff5733 into an ANSI escape sequence.
+
+```text
+PS C:\> Convert-HtmlToAnsi "#ff5733"
+[38;2;255;87;51m
+```
+
+To use the resulting value you still need to construct an ANSI string with the escape character and the closing [0m.
+
+![convert html to ansi](images/convert-htmltoansi.png)
+
+In PowerShell 7 you can use `` `e ``. Or `$([char]27)` which works in all PowerShell versions.
 
 ## Other Module Features
 
