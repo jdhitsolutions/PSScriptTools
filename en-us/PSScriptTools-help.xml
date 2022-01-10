@@ -1266,6 +1266,96 @@ PS C:\&gt; Convert-HashtableToCode $h
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Convert-HtmlToAnsi</command:name>
+      <command:verb>Convert</command:verb>
+      <command:noun>HtmlToAnsi</command:noun>
+      <maml:description>
+        <maml:para>Convert an HTML color code to ANSI.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This simple function is designed to convert an HTML color code like #ff5733 into an ANSI escape sequence. To use the resulting value you still need to construct an ANSI string with the escape character and the closing [0m.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Convert-HtmlToAnsi</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="code">
+          <maml:name>HtmlCode</maml:name>
+          <maml:description>
+            <maml:para>Specify an HTML color code like #13A10E. You need to include the # character.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="code">
+        <maml:name>HtmlCode</maml:name>
+        <maml:description>
+          <maml:para>Specify an HTML color code like #13A10E. You need to include the # character.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Convert-HtmlToAnsi  "#ff5733"
+
+[38;2;255;87;51m</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; "Running processes: `e$(cha "#ff337d")$((Get-Process).count)`e[0m"
+
+Running processes: 306</dev:code>
+        <dev:remarks>
+          <maml:para>The number of processes will be displayed in color. This example is using the cha alias for Convert-HtmlToAnsi.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks />
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>ConvertFrom-LexicalTimespan</command:name>
       <command:verb>ConvertFrom</command:verb>
       <command:noun>LexicalTimespan</command:noun>
@@ -2450,7 +2540,8 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output, and content to appear after the output. Best efforts have been made to produce markdown output that meets basic standards.</maml:para>
+      <maml:para>This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. The AsList parameter technically still create a table, but it is two columns with the property namd and value.</maml:para>
+      <maml:para>You can optionally define a title, content to appear before the output, and content to appear after the output. Best efforts have been made to produce markdown output that meets basic standards.</maml:para>
       <maml:para>The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2471,7 +2562,7 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Title</maml:name>
           <maml:description>
-            <maml:para>Specify a top-level title. You do not need to include any markdown.</maml:para>
+            <maml:para>Specify a top-level title. You do not need to include any markdown. It will automatically be formatted with a H1 tag.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -2516,10 +2607,123 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
           </dev:type>
           <dev:defaultValue>80</dev:defaultValue>
         </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-Markdown</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>Inputobject</maml:name>
+          <maml:description>
+            <maml:para>Typically the results of a PowerShell command or expression.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:description>
+            <maml:para>Specify a top-level title. You do not need to include any markdown. It will automatically be formatted with a H1 tag.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PreContent</maml:name>
+          <maml:description>
+            <maml:para>Enter whatever content you want to appear before converted input. You can use whatever markdown you wish.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PostContent</maml:name>
+          <maml:description>
+            <maml:para>Enter whatever content you want to appear after converted input. You can use whatever markdown you wish.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="table">
           <maml:name>AsTable</maml:name>
           <maml:description>
             <maml:para>Format the incoming data as a markdown table. This works best with similar content such as the result of running a PowerShell command.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>ConvertTo-Markdown</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="1" aliases="none">
+          <maml:name>Inputobject</maml:name>
+          <maml:description>
+            <maml:para>Typically the results of a PowerShell command or expression.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:description>
+            <maml:para>Specify a top-level title. You do not need to include any markdown. It will automatically be formatted with a H1 tag.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PreContent</maml:name>
+          <maml:description>
+            <maml:para>Enter whatever content you want to appear before converted input. You can use whatever markdown you wish.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PostContent</maml:name>
+          <maml:description>
+            <maml:para>Enter whatever content you want to appear after converted input. You can use whatever markdown you wish.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="list">
+          <maml:name>AsList</maml:name>
+          <maml:description>
+            <maml:para>Display results as a 2 column markdown table. The first column will be the property name with the value formatted as a string in the second column.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -2545,7 +2749,7 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Title</maml:name>
         <maml:description>
-          <maml:para>Specify a top-level title. You do not need to include any markdown.</maml:para>
+          <maml:para>Specify a top-level title. You do not need to include any markdown. It will automatically be formatted with a H1 tag.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -2590,10 +2794,22 @@ Thursday, March 14, 2019 4:00:00 PM</dev:code>
         </dev:type>
         <dev:defaultValue>80</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="table">
         <maml:name>AsTable</maml:name>
         <maml:description>
           <maml:para>Format the incoming data as a markdown table. This works best with similar content such as the result of running a PowerShell command.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="list">
+        <maml:name>AsList</maml:name>
+        <maml:description>
+          <maml:para>Display results as a 2 column markdown table. The first column will be the property name with the value formatted as a string in the second column.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -2682,7 +2898,44 @@ ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
 PS C:\&gt;$out += ConvertTo-Markdown -PostContent $footer
 PS C:\&gt;$out | Set-Content c:\work\report.md</dev:code>
         <dev:remarks>
-          <maml:para>Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document.</maml:para>
+          <maml:para>Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document. The commands are shown at a PowerShell prompt, but you are likely to put them in a PowerShell script file.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -AsList
+# OS Summary
+
+## THINKX1
+
+|    |    |
+|----|----|
+|ProductName|Windows 10 Pro|
+|EditionID|Professional|
+|ReleaseID|2009|
+|Build|22000.376|
+|Branch|co_release|
+|InstalledUTC|8/10/2021 12:17:07 AM|
+|Computername|THINKX1-JH|</dev:code>
+        <dev:remarks>
+          <maml:para>Create a "list" table with output from the Get-WindowsVersion command.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- EXAMPLE 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Service | Sort-Object -property Displayname |
+Foreach-Object -begin {
+    "# Service Status`n"
+} -process {
+    $name = $_.Displayname
+    $_ | Select-Object -property Name,StartType,Status,
+    @{Name="RequiredServices";Expression = {$_.requiredservices.name -join ','}} |
+    ConvertTo-Markdown -asList -PreContent "## $Name"
+} -end {
+    "### $($env:computername) $(Get-Date)"
+} | Out-File c:\work\services.md</dev:code>
+        <dev:remarks>
+          <maml:para>The example will create a markdown file with a title of Service Status. Each service will be converted to a markdown list with the DisplayName as pre-content.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -5428,6 +5681,10 @@ Extension Count TotalSize Smallest   Average  Largest
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3f50Wjs</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-FolderSizeInfo</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -6396,6 +6653,10 @@ Mode                 LastWriteTime         Length Name
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3FbzOu3</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
         <maml:uri></maml:uri>
@@ -8618,6 +8879,10 @@ MemoryMB    : 133</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3FcGibX</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Compare-Object</maml:linkText>
         <maml:uri></maml:uri>
@@ -11598,6 +11863,10 @@ PS DeepDive:\&gt;</dev:code>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3JX8R0w</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>New-PSDynamicParameterForm</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -11661,6 +11930,10 @@ PS DeepDive:\&gt;</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3HNNcpU</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSDynamicParameter</maml:linkText>
         <maml:uri></maml:uri>
@@ -16481,6 +16754,10 @@ PS C:\Scripts\Foo\&gt;</dev:code>
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3zE4LFO</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-Location</maml:linkText>
         <maml:uri></maml:uri>

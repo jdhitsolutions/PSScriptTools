@@ -13,15 +13,30 @@ Convert pipeline output to a markdown document.
 
 ## SYNTAX
 
+### text (Default)
+
 ```yaml
 ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>]
-[-PreContent <String[]>] [-PostContent <String[]>] [-Width <Int32>] [-AsTable]
-[<CommonParameters>]
+[-PreContent <String[]>] [-PostContent <String[]>] [-Width <Int32>] [<CommonParameters>]
+```
+
+### table
+
+```yaml
+ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsTable] [<CommonParameters>]
+```
+
+### list
+
+```yaml
+ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsList] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. You can optionally define a title, content to appear before the output, and content to appear after the output. Best efforts have been made to produce markdown output that meets basic standards.
+This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. The AsList parameter technically still create a table, but it is two columns with the property namd and value.
+
+You can optionally define a title, content to appear before the output, and content to appear after the output. Best efforts have been made to produce markdown output that meets basic standards.
 
 The command does not create a text file. You need to pipe results from this command to a cmdlet like Out-File or Set-Content. See examples.
 
@@ -84,7 +99,46 @@ PS C:\>$out += ConvertTo-Markdown -PostContent $footer
 PS C:\>$out | Set-Content c:\work\report.md
 ```
 
-Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document.
+Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document. The commands are shown at a PowerShell prompt, but you are likely to put them in a PowerShell script file.
+
+### EXAMPLE 4
+
+```powershell
+PS C:\> Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -AsList
+# OS Summary
+
+## THINKX1
+
+|    |    |
+|----|----|
+|ProductName|Windows 10 Pro|
+|EditionID|Professional|
+|ReleaseID|2009|
+|Build|22000.376|
+|Branch|co_release|
+|InstalledUTC|8/10/2021 12:17:07 AM|
+|Computername|THINKX1-JH|
+```
+
+Create a "list" table with output from the Get-WindowsVersion command.
+
+### EXAMPLE 5
+
+```powershell
+PS C:\> Get-Service | Sort-Object -property Displayname |
+Foreach-Object -begin {
+    "# Service Status`n"
+} -process {
+    $name = $_.Displayname
+    $_ | Select-Object -property Name,StartType,Status,
+    @{Name="RequiredServices";Expression = {$_.requiredservices.name -join ','}} |
+    ConvertTo-Markdown -asList -PreContent "## $Name"
+} -end {
+    "### $($env:computername) $(Get-Date)"
+} | Out-File c:\work\services.md
+```
+
+The example will create a markdown file with a title of Service Status. Each service will be converted to a markdown list with the DisplayName as pre-content.
 
 ## PARAMETERS
 
@@ -106,7 +160,7 @@ Accept wildcard characters: False
 
 ### -Title
 
-Specify a top-level title. You do not need to include any markdown.
+Specify a top-level title. You do not need to include any markdown. It will automatically be formatted with a H1 tag.
 
 ```yaml
 Type: String
@@ -158,7 +212,7 @@ Specify the document width. Depending on what you intend to do with the markdown
 
 ```yaml
 Type: Int32
-Parameter Sets: (All)
+Parameter Sets: text
 Aliases:
 
 Required: False
@@ -175,8 +229,24 @@ This works best with similar content such as the result of running a PowerShell 
 
 ```yaml
 Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
+Parameter Sets: table
+Aliases: table
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -AsList
+
+Display results as a 2 column markdown table. The first column will be the property name with the value formatted as a string in the second column.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: list
+Aliases: list
 
 Required: False
 Position: Named
