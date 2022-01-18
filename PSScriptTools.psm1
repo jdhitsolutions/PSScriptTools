@@ -5,8 +5,8 @@ if ($myinvocation.line -match "-verbose") {
 Write-Verbose "Loading public functions"
 
 #exclude files that have special requirements
-Get-ChildItem -path $PSScriptRoot\functions\*.ps1  -Exclude 'Get-MyCounter.ps1','Get-FileExtensionInfo.ps1' |
-ForEach-Object -process {
+Get-ChildItem -Path $PSScriptRoot\functions\*.ps1 -Exclude 'Get-MyCounter.ps1', 'Get-FileExtensionInfo.ps1' |
+ForEach-Object -Process {
     Write-Verbose $_.fullname
     . $_.FullName
 }
@@ -25,10 +25,10 @@ Write-Verbose "Define the global PSAnsiFileMap variable"
 $json = "psansifilemap.json"
 
 #test for user version in $HOME
-$userjson = Join-Path -path $HOME -ChildPath $json
-$modjson = Join-Path -path $PSScriptRoot -ChildPath $json
+$userjson = Join-Path -Path $HOME -ChildPath $json
+$modjson = Join-Path -Path $PSScriptRoot -ChildPath $json
 
-if (Test-Path -path $userjson) {
+if (Test-Path -Path $userjson) {
     $map = $userjson
 }
 else {
@@ -40,16 +40,16 @@ else {
 #need to process the results individually.
 $mapData = [System.Collections.Generic.List[object]]::new()
 
-Get-Content -path $map | ConvertFrom-Json | Foreach-Object {$_} | foreach-Object {
+Get-Content -Path $map | ConvertFrom-Json | ForEach-Object { $_ } | ForEach-Object {
     $entry = [pscustomobject]@{
         PSTypeName  = "PSAnsiFileEntry"
         Description = $_.description
-        Pattern = $_.pattern
-        Ansi = $_.ansi
+        Pattern     = $_.pattern
+        Ansi        = $_.ansi
     }
     $mapData.Add($entry)
 }
-Set-Variable -Name PSAnsiFileMap -value $mapdata -Scope Global
+Set-Variable -Name PSAnsiFileMap -Value $mapdata -Scope Global
 
 Write-Verbose "Define special character map"
 $global:PSSpecialChar = @{
@@ -80,7 +80,7 @@ $global:PSSpecialChar = @{
 }
 
 Write-Verbose "Defining the variable `$PSSamplePath to the samples folder for this module"
-$global:PSSamplePath = Join-Path -path $PSScriptroot -ChildPath Samples
+$global:PSSamplePath = Join-Path -Path $PSScriptroot -ChildPath Samples
 
 Write-Verbose "Add ToDo options to the ISE or VS Code"
 if ($psEditor) {
@@ -148,15 +148,15 @@ elseif ($psise) {
 
     Function Set-LocationToFile {
         [cmdletbinding()]
-        [alias("sd","jmp")]
+        [alias("sd", "jmp")]
         [OutputType("none")]
         Param()
 
         if ($host.name -match "ISE") {
 
             $path = Split-Path -Path $psISE.CurrentFile.FullPath
-            set-location -path $path
-            clear-host
+            Set-Location -Path $path
+            Clear-Host
         }
         Else {
             Write-Warning "This command must be run the the PowerShell ISE."
@@ -170,11 +170,11 @@ Function Open-PSScriptToolsHelp {
     [cmdletbinding()]
     Param()
     Write-Verbose "Starting $($myinvocation.mycommand)"
-    $pdf = Join-Path -path $PSScriptRoot -ChildPath PSScriptToolsManual.pdf
+    $pdf = Join-Path -Path $PSScriptRoot -ChildPath PSScriptToolsManual.pdf
     Write-Verbose "Testing the path $pdf"
     if (Test-Path -Path $pdf) {
         Try {
-            write-Verbose "Invoking the PDF"
+            Write-Verbose "Invoking the PDF"
             Invoke-Item -Path $pdf -ErrorAction Stop
         }
         Catch {

@@ -14,8 +14,7 @@ Send command output to the pipeline and clipboard.
 ## SYNTAX
 
 ```yaml
-Out-Copy [-InputObject] <Object> [-Width <Int32>] [-CommandOnly]
-[<CommonParameters>]
+Out-Copy [-InputObject] <Object> [-Width <Int32>] [-CommandOnly] [-Ansi] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -26,20 +25,16 @@ NOTE: You can only capture what is written to the Success pipeline. This command
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Process | Sort WS -Descending | Select-First 5 | Out-Copy
 ```
 
 This will execute your expression and write the output to the pipeline.
-The output plus the command:
+The output plus the command except for the pipe to Out-Copy will be copied to the clipboard. This example is using the Select-First function from the PSScriptTools module.
 
-PS C:\\> Get-Process | Sort WS -Descending | Select -first 5
-
-will be copied to the clipboard. This example is using the Select-First function from the PSScriptTools module.
-
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-Childitem *.ps1 | Out-File c:\work\ps.txt | Out-Copy
@@ -47,7 +42,7 @@ PS C:\> Get-Childitem *.ps1 | Out-File c:\work\ps.txt | Out-Copy
 
 Even if your command doesn't write anything to the pipeline, Out-Copy will still capture a prompt and PowerShell expression.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3" |
@@ -58,6 +53,14 @@ This will run the Get-CimInstance command and write results to the pipeline.
 But the only text that will be copied to the clipboard is:
 
 Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3"
+
+### Example 4
+
+```powershell
+PS C:\> Get-Process | Sort WS -Descending | Select-Object -first 5  | Out-Copy -ansi
+```
+
+Copy the command and output including any ANSI formatting which you might get in PowerShell 7.
 
 ## PARAMETERS
 
@@ -110,6 +113,22 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Ansi
+
+Include any Ansi formatting. The default behavior is to capture plain text.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -133,3 +152,5 @@ Learn more about PowerShell:http://jdhitsolutions.com/blog/essential-powershell-
 [Set-Clipboard]()
 
 [Tee-Object]()
+
+[Copy-HistoryCommand](Copy-HistoryCommand.md)

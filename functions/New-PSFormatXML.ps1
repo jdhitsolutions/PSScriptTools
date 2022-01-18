@@ -38,7 +38,7 @@ Function New-PSFormatXML {
             Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Initializing a new XML document"
             [xml]$Doc = New-Object -TypeName System.Xml.XmlDocument
 
-  <#
+            <#
             Disabling this because the declaration results in saving the file as UTF8 with BOM
             https://github.com/dotnet/runtime/issues/28218
             JDH 6/30/2021
@@ -200,7 +200,6 @@ https://github.com/jdhitsolutions/PSScriptTools
                 [void]$items.AppendChild($doc.CreateComment($comment))
 
                 foreach ($member in $members) {
-
                     #account for null property values
                     if ($member.Expression) {
                         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has an Expression script block $($member.expression | Out-String)"
@@ -209,7 +208,7 @@ https://github.com/jdhitsolutions/PSScriptTools
                     }
                     elseif (-Not $member.value) {
                         Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
-                        $member.value = "   "
+                        #$member.value = "   "
                         $isScriptBlock = $False
                     }
                     else {
@@ -235,8 +234,12 @@ https://github.com/jdhitsolutions/PSScriptTools
                     if ($isScriptBlock) {
                         $ValueLength = 12
                     }
-                    else {
+                    elseif ($Member.value) {
                         $ValueLength = $Member.value.tostring().length
+                    }
+                    else {
+                        #set a default length.
+                        $valueLength = $label.InnerText.Length
                     }
                     $longest = $valueLength, $member.name.length | Sort-Object | Select-Object -Last 1
                     $width.InnerText = $longest + 3

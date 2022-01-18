@@ -54,17 +54,20 @@ Get module commands using the default formatted view. You can install this modul
 PS C:\> Get-ModuleCommand smbshare -ListAvailable | Format-List
 
 
-Name     : Block-SmbShareAccess
-Alias    : blsmba
-Synopsis : Adds a deny ACE for a trustee to the security descriptor of the SMB share.
+ModuleName : SmbShare
+Name       : Block-SmbShareAccess
+Alias      : blsmba
+Synopsis   : Adds a deny ACE for a trustee to the security descriptor of the SMB share.
 
-Name     : Close-SmbOpenFile
-Alias    : cssmbo
-Synopsis : Closes a file that is open by one of the clients of the SMB server.
+ModuleName : SmbShare
+Name       : Close-SmbOpenFile
+Alias      : cssmbo
+Synopsis   : Closes a file that is open by one of the clients of the SMB server.
 
-Name     : Close-SmbSession
-Alias    : cssmbse
-Synopsis : Ends forcibly the SMB session.
+ModuleName : SmbShare
+Name       : Close-SmbSession
+Alias      : cssmbse
+Synopsis   : Ends forcibly the SMB session.
 ...
 ```
 
@@ -94,6 +97,24 @@ Compare-Module  cmo             Function    Compare PowerShell module versions.
 ```
 
 Display commands using a custom table view called 'Verb'.
+
+### Example 4
+
+```powershell
+PS C:\ Get-ModuleCommand PSScriptTools | Format-Table -view version
+
+   ModuleName: PSScriptTools [v2.41.0]
+
+Name                        Alias             Compatible      PSVersion
+----                        -----             ----------      ---------
+Add-Border                  ab                {Desktop, Core}       5.1
+Compare-Module              cmo               {Desktop, Core}       5.1
+Compare-Script              csc               {Desktop, Core}       5.1
+Convert-CommandToHashtable                    {Desktop, Core}       5.1
+...
+```
+
+Using the custom table view 'version'.
 
 ## PARAMETERS
 
@@ -151,7 +172,7 @@ Aliases:
 Required: True
 Position: 0
 Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByPropertyName)
 Accept wildcard characters: False
 ```
 
