@@ -4,7 +4,7 @@
 
 ## Abstract
 
-This module contains a collection of functions, variables, and format files that you can use to enhance your PowerShell scripting work or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems, or feedback at [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues). Any feedback is greatly appreciated.
+This module contains a collection of functions, variables, and format files that you can use to enhance your PowerShell scripting work or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems, or feedback at [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues) section of this module's Github repository. Feedback is greatly appreciated.
 
 The contents of this file and other documentation can be viewed using the `Open-PSScriptToolsHelp` command. You can also use `Get-PSScriptTools` to see a summary of module commands.
 
@@ -2589,8 +2589,7 @@ If you find this module useful, you might also want to look at my PowerShell too
 + [Creating and managing custom type extensions](https://github.com/jdhitsolutions/PSTypeExtensionTools)
 + [Managing scheduled jobs](https://github.com/jdhitsolutions/ScheduledJobTools)
 + [Running remote commands outside of PowerShell Remoting](https://github.com/jdhitsolutions/PSRemoteOperations).
-+ [Getting memory status and information](https://github.com/jdhitsolutions/MemoryTools)
-+ [Inventorying your PowerShell script library](https://github.com/jdhitsolutions/PSScriptingInventory)
++ [Automating the PowerShell scripting process](https://github.com/jdhitsolutions/PSFunctionTools)
 + [A simple command-line task and to-do manager](https://github.com/jdhitsolutions/MyTasks)
 
 ## Compatibility

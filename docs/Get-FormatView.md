@@ -143,3 +143,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Get-FormatData]()
 
 [Get-Member]()
+
+[New-PSFormatXML](New-PSFormatXML.md)

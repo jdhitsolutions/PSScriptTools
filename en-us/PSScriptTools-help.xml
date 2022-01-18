@@ -1352,7 +1352,12 @@ Running processes: 306</dev:code>
         </dev:remarks>
       </command:example>
     </command:examples>
-    <command:relatedLinks />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3qfPnwj</maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
@@ -3973,6 +3978,206 @@ Please select items to copy to the clipboard by number. Separate multiple entrie
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Copy-HistoryCommand</command:name>
+      <command:verb>Copy</command:verb>
+      <command:noun>HistoryCommand</command:noun>
+      <maml:description>
+        <maml:para>Copy a history command line to the clipboard.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>You can use this command to copy the commandline from a given PowerShell history item to the clipboard.The default item will the be last history item. Once copied, you can paste into your following prompt to edit and/or re-run.</maml:para>
+      <maml:para>Linux platforms require the xclip utility to be in the path.</maml:para>
+      <maml:para>Lee Holmes has a similar function called Copy-History in the PowerShell Cookbook that lets you copy a range of history commands to the clipboard.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Copy-HistoryCommand</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>ID</maml:name>
+          <maml:description>
+            <maml:para>The history ID number. The default is the last command.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>$(Get-History).Count</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Passthru</maml:name>
+          <maml:description>
+            <maml:para>Use this parameter if you also want to see the command as well as copy it to the clipboard.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>ID</maml:name>
+        <maml:description>
+          <maml:para>The history ID number. The default is the last command.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>$(Get-History).Count</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Passthru</maml:name>
+        <maml:description>
+          <maml:para>Use this parameter if you also want to see the command as well as copy it to the clipboard.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>Int</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Copy-HistoryCommand</dev:code>
+        <dev:remarks>
+          <maml:para>Copy the last command to the clipboard.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Copy-HistoryCommand 25 -passthru
+get-process -computername $computer | sort ws -Descending | select -first 3</dev:code>
+        <dev:remarks>
+          <maml:para>Copy the command from history item 25 to the clipboard and also pass it to the pipeline.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Copy-HistoryCommand (100..110)</dev:code>
+        <dev:remarks>
+          <maml:para>Copy history items 100 through 110 to the clipboard.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $c = [scriptblock]::Create($(Copy-HistoryCommand 25 -passthru))
+PS C:\&gt; &amp;$c
+
+Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
+-------  ------    -----      ----- -----   ------     --  -- -----------
+  10414   12744   488164     461596 ...76            3128   0 dns
+    581      67   171868     141620 ...82            3104   0 MsMpEng
+    678      48   118132      89572   840            7180   0 ServerManager</dev:code>
+        <dev:remarks>
+          <maml:para>This copies the command from history item 25 and turns it into a scriptblock.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Get-History</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Set-Clipboard</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Out-Copy</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Copy-PSFunction</command:name>
       <command:verb>Copy</command:verb>
       <command:noun>PSFunction</command:noun>
@@ -6314,6 +6519,10 @@ System.ServiceProcess.ServiceController         {service, service, Ansi}</dev:co
         <maml:linkText>Get-Member</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-PSFormatXML</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -6717,7 +6926,7 @@ Mode                 LastWriteTime         Length Name
       </command:syntaxItem>
       <command:syntaxItem>
         <maml:name>Get-ModuleCommand</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
             <maml:para>The name of an installed module.</maml:para>
@@ -6773,7 +6982,7 @@ Mode                 LastWriteTime         Length Name
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
           <maml:para>The name of an installed module.</maml:para>
@@ -6833,17 +7042,20 @@ Show-GuiCalendar gcal  Display a WPF-based calendar</dev:code>
         <dev:code>PS C:\&gt; Get-ModuleCommand smbshare -ListAvailable | Format-List
 
 
-Name     : Block-SmbShareAccess
-Alias    : blsmba
-Synopsis : Adds a deny ACE for a trustee to the security descriptor of the SMB share.
+ModuleName : SmbShare
+Name       : Block-SmbShareAccess
+Alias      : blsmba
+Synopsis   : Adds a deny ACE for a trustee to the security descriptor of the SMB share.
 
-Name     : Close-SmbOpenFile
-Alias    : cssmbo
-Synopsis : Closes a file that is open by one of the clients of the SMB server.
+ModuleName : SmbShare
+Name       : Close-SmbOpenFile
+Alias      : cssmbo
+Synopsis   : Closes a file that is open by one of the clients of the SMB server.
 
-Name     : Close-SmbSession
-Alias    : cssmbse
-Synopsis : Ends forcibly the SMB session.
+ModuleName : SmbShare
+Name       : Close-SmbSession
+Alias      : cssmbse
+Synopsis   : Ends forcibly the SMB session.
 ...</dev:code>
         <dev:remarks>
           <maml:para>Using the default list view.</maml:para>
@@ -6871,6 +7083,23 @@ Compare-Module  cmo             Function    Compare PowerShell module versions.
 ...</dev:code>
         <dev:remarks>
           <maml:para>Display commands using a custom table view called 'Verb'.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\ Get-ModuleCommand PSScriptTools | Format-Table -view version
+
+   ModuleName: PSScriptTools [v2.41.0]
+
+Name                        Alias             Compatible      PSVersion
+----                        -----             ----------      ---------
+Add-Border                  ab                {Desktop, Core}       5.1
+Compare-Module              cmo               {Desktop, Core}       5.1
+Compare-Script              csc               {Desktop, Core}       5.1
+Convert-CommandToHashtable                    {Desktop, Core}       5.1
+...</dev:code>
+        <dev:remarks>
+          <maml:para>Using the custom table view 'version'.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -11978,7 +12207,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>Properties</maml:name>
           <maml:description>
-            <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created.</maml:para>
+            <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created. Ideally, you will specify an instance of the object that contains a value for all the properties you want to use.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
           <dev:type>
@@ -12185,7 +12414,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>Properties</maml:name>
         <maml:description>
-          <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created.</maml:para>
+          <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created. Ideally, you will specify an instance of the object that contains a value for all the properties you want to use.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
         <dev:type>
@@ -12418,6 +12647,10 @@ PS C:\&gt; Get-Process -id $pid | New-PSFormatXML @p</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Update-FormatData</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-FormatView</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -13790,6 +14023,17 @@ Out-ConditionalColor $c</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Ansi</maml:name>
+          <maml:description>
+            <maml:para>Include any Ansi formatting. The default behavior is to capture plain text.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -13829,6 +14073,18 @@ Out-ConditionalColor $c</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Ansi</maml:name>
+        <maml:description>
+          <maml:para>Include any Ansi formatting. The default behavior is to capture plain text.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -13857,28 +14113,33 @@ Out-ConditionalColor $c</dev:code>
     </maml:alertSet>
     <command:examples>
       <command:example>
-        <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-Process | Sort WS -Descending | Select-First 5 | Out-Copy</dev:code>
         <dev:remarks>
-          <maml:para>This will execute your expression and write the output to the pipeline. The output plus the command:</maml:para>
-          <maml:para>PS C:\&gt; Get-Process | Sort WS -Descending | Select -first 5</maml:para>
-          <maml:para>will be copied to the clipboard. This example is using the Select-First function from the PSScriptTools module.</maml:para>
+          <maml:para>This will execute your expression and write the output to the pipeline. The output plus the command except for the pipe to Out-Copy will be copied to the clipboard. This example is using the Select-First function from the PSScriptTools module.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-Childitem *.ps1 | Out-File c:\work\ps.txt | Out-Copy</dev:code>
         <dev:remarks>
           <maml:para>Even if your command doesn't write anything to the pipeline, Out-Copy will still capture a prompt and PowerShell expression.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3" |
 Out-Copy -commandonly</dev:code>
         <dev:remarks>
           <maml:para>This will run the Get-CimInstance command and write results to the pipeline. But the only text that will be copied to the clipboard is:</maml:para>
           <maml:para>Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3"</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process | Sort WS -Descending | Select-Object -first 5  | Out-Copy -ansi</dev:code>
+        <dev:remarks>
+          <maml:para>Copy the command and output including any ANSI formatting which you might get in PowerShell 7.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -13897,6 +14158,10 @@ Out-Copy -commandonly</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Tee-Object</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Copy-HistoryCommand</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

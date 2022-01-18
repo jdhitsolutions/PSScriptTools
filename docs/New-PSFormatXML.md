@@ -264,7 +264,7 @@ Accept wildcard characters: False
 
 ### -Properties
 
-Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created.
+Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created. Ideally, you will specify an instance of the object that contains a value for all the properties you want to use.
 
 ```yaml
 Type: Object[]
@@ -379,3 +379,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Update-FormatData]()
+
+[Get-FormatView](Get-FormatView.md)
