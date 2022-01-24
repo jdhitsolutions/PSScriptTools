@@ -4163,6 +4163,10 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3nPKjwX</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>Get-History</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -10836,6 +10840,10 @@ Count                          3</dev:code>
         <maml:linkText>Write-ANSIProgress</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Show-ANSISequence</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
@@ -17458,7 +17466,10 @@ PS C:\Scripts\Foo\&gt;</dev:code>
       </command:returnValue>
     </command:returnValues>
     <maml:alertSet>
-      <maml:alert />
+      <maml:alert>
+        <maml:para>Learn more about ANSI sequences at https://en.wikipedia.org/wiki/ANSI_escape_code</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+      </maml:alert>
     </maml:alertSet>
     <command:examples>
       <command:example>
@@ -17482,7 +17493,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt;Show-ANSISequence -Foreground -Type Simple
+        <dev:code>PS C:\&gt; Show-ANSISequence -Foreground -Type simple
 
 **************
 * Foreground *
@@ -17509,14 +17520,22 @@ PS C:\Scripts\Foo\&gt;</dev:code>
         <maml:title>-------------------------- EXAMPLE 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Show-ANSISequence -RGB 225,100,50 -AsString | Set-Clipboard</dev:code>
         <dev:remarks>
-          <maml:para>Repeat the previous example but write the output as a plain string and copy it to the Windows clipboard.</maml:para>
+          <maml:para>Repeat the previous example but write the output as a plain string and copy it to the clipboard.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
-        <maml:linkText>https://en.wikipedia.org/wiki/ANSI_escape_code</maml:linkText>
-        <maml:uri>https://en.wikipedia.org/wiki/ANSI_escape_code</maml:uri>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3Ix5s77</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Write-ANSIProgress</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>New-ANSIBar</maml:linkText>
+        <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -19408,7 +19427,7 @@ BOVINE320            32        12 37.87% ■■■■■■■■■■■■■
     @{Name="Size";Expression={$_.Sum}}
   }
   Write-Host ""
-  $out | Sort-object -property Size -Descending
+  $out | Sort-Object -property Size -Descending
 }
 PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
         <dev:remarks>
@@ -19427,6 +19446,10 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-RedGreenGradient</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Show-ANSISequence</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
