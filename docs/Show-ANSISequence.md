@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://en.wikipedia.org/wiki/ANSI_escape_code
+online version: https://bit.ly/3Ix5s77
 schema: 2.0.0
 ---
 
@@ -63,7 +63,7 @@ The output will be formatted using the corresponding ANSI escape sequence as see
 ### EXAMPLE 2
 
 ```powershell
-PS C:\>Show-ANSISequence -Foreground -Type Simple
+PS C:\> Show-ANSISequence -Foreground -Type simple
 
 **************
 * Foreground *
@@ -73,6 +73,7 @@ PS C:\>Show-ANSISequence -Foreground -Type Simple
 `e[34mHello`e[0m    `e[35mHello`e[0m    `e[36mHello`e[0m
 `e[90mHello`e[0m    `e[91mHello`e[0m    `e[92mHello`e[0m
 `e[94mHello`e[0m    `e[95mHello`e[0m    `e[96mHello`e[0m
+
 ```
 
 ### EXAMPLE 3
@@ -91,7 +92,7 @@ Show an RGB ANSI sequence. The output will be formatted using the sequence.
 PS C:\> Show-ANSISequence -RGB 225,100,50 -AsString | Set-Clipboard
 ```
 
-Repeat the previous example but write the output as a plain string and copy it to the Windows clipboard.
+Repeat the previous example but write the output as a plain string and copy it to the clipboard.
 
 ## PARAMETERS
 
@@ -205,6 +206,14 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
+## Notes
+
+Learn more about ANSI sequences at https://en.wikipedia.org/wiki/ANSI_escape_code
+
+Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+
 ## RELATED LINKS
 
-[https://en.wikipedia.org/wiki/ANSI_escape_code](https://en.wikipedia.org/wiki/ANSI_escape_code)
+[Write-ANSIProgress](Write-ANSIProgress.md)
+
+[New-ANSIBar](New-ANSIBar.md)

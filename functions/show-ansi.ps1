@@ -33,7 +33,6 @@ Function Show-ANSISequence {
             Write-Debug "Setting Foreground as default"
             $Foreground = $True
         }
-
     }
 
     # a private function to display results in columns on the screen
@@ -48,13 +47,16 @@ Function Show-ANSISequence {
                 $row
                 $c = 1
                 $row = ""
+                #need to reset $i otherwise the entry gets omitted
+                # Issue #125
+                $i--
             }
             else {
                 $row += "$($all[$i]) `t"
                 $c++
             }
         }
-    }
+    } #display function
 
     if ($IsCoreCLR) {
         Write-Debug "CoreCLR"
@@ -103,8 +105,9 @@ Function Show-ANSISequence {
         Write-Debug "Getting foreground"
         if ($Type -match "All|Simple") {
             Add-Border "Foreground" -ANSIText "$esc[93m" | Write-Host
-            $n = 30..37
-            $n += 90..97
+            $n = [System.Collections.Generic.list[int]]::new()
+            30..37 | ForEach-Object {$n.Add($_)}
+            90..97 | ForEach-Object {$n.Add($_)}
 
             $all = $n | ForEach-Object {
                 $sequence = "$esctext[$($_)mHello$esctext[0m"

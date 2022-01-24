@@ -1641,52 +1641,11 @@ C:\work\Alpha\
 
 This example is using parameter and command aliases. You can display a tree listing with files including user-specified properties. Use a value of * to show all properties.
 
-### [New-ANSIBar](docs/New-ANSIBar.md)
-
-You can use this command to create colorful bars using ANSI escape sequences based on a 256 color scheme. The default behavior is to create a gradient bar that goes from first to last values in the range and then back down again. Or you can create a single gradient that runs from the beginning of the range to the end. You can use one of the default characters or specify a custom one.
-
-![New-ANSIBar](images/ansibar.png)
-
 ### [New-RedGreenGradient](docs/New-RedGreenGradient.md)
 
-A related command is `New-RedGreenGradient`, which displays a bar going from red to green. This might be handy when you want to present a visual indicator.
+`New-RedGreenGradient`, which displays a bar going from red to green. This might be handy when you want to present a visual indicator.
 
 ![New-RedGreenGradient](images/redgreen.png)
-
-### [Write-ANSIProgress](docs/Write-ANSIProgress.md)
-
-You could also use `Write-ANSIProgress` to show a custom ANSI bar.
-
-![Write-ANSIProgress simple](images/write-ansprogress-1.png)
-
-![write-ANSIProgress in code](images/write-ansprogress-2.png)
-
-Or you can use it in your code to display a console progress bar.
-
-```powershell
-$sb = {
-  Clear-Host
-  $top = Get-ChildItem c:\scripts -Directory
-  $i = 0
-  $out=@()
-  $pos = $host.ui.RawUI.CursorPosition
-  Foreach ($item in $top) {
-      $i++
-      $pct = [math]::round($i/$top.count,2)
-      Write-ANSIProgress -PercentComplete $pct -position $pos
-      Write-Host "  Processing $(($item.fullname).padright(80))"
-      -ForegroundColor Yellow -NoNewline
-      $out+= Get-ChildItem -path $item -Recurse -file |
-      Measure-Object -property length -sum |
-      Select-Object @{Name="Path";Expression={$item.fullname}},Count,
-      @{Name="Size";Expression={$_.Sum}}
-  }
-  Write-Host ""
-  $out | Sort-Object -property Size -Descending
-    }
-```
-
-![Write-ANSIProgress script](images/write-ansprogress-3.png)
 
 ## Format Functions
 
@@ -2430,6 +2389,66 @@ To use the resulting value you still need to construct an ANSI string with the e
 ![convert html to ansi](images/convert-htmltoansi.png)
 
 In PowerShell 7 you can use `` `e ``. Or `$([char]27)` which works in all PowerShell versions.
+
+### [New-ANSIBar](docs/New-ANSIBar.md)
+
+You can use this command to create colorful bars using ANSI escape sequences based on a 256 color scheme. The default behavior is to create a gradient bar that goes from first to last values in the range and then back down again. Or you can create a single gradient that runs from the beginning of the range to the end. You can use one of the default characters or specify a custom one.
+
+![New-ANSIBar](images/ansibar.png)
+
+### [Write-ANSIProgress](docs/Write-ANSIProgress.md)
+
+You could also use `Write-ANSIProgress` to show a custom ANSI bar.
+
+![Write-ANSIProgress simple](images/write-ansprogress-1.png)
+
+![write-ANSIProgress in code](images/write-ansprogress-2.png)
+
+Or you can use it in your code to display a console progress bar.
+
+```powershell
+$sb = {
+  Clear-Host
+  $top = Get-ChildItem c:\scripts -Directory
+  $i = 0
+  $out=@()
+  $pos = $host.ui.RawUI.CursorPosition
+  Foreach ($item in $top) {
+      $i++
+      $pct = [math]::round($i/$top.count,2)
+      Write-ANSIProgress -PercentComplete $pct -position $pos
+      Write-Host "  Processing $(($item.fullname).padright(80))"
+      -ForegroundColor Yellow -NoNewline
+      $out+= Get-ChildItem -path $item -Recurse -file |
+      Measure-Object -property length -sum |
+      Select-Object @{Name="Path";Expression={$item.fullname}},Count,
+      @{Name="Size";Expression={$_.Sum}}
+  }
+  Write-Host ""
+  $out | Sort-Object -property Size -Descending
+    }
+```
+
+![Write-ANSIProgress script](images/write-ansprogress-3.png)
+
+
+### [Show-ANSISequence](docs/Show-ANSISequence.md)
+
+You can use `Show-ANSISequence` to preview how it will look in your PowerShell session. You might get a difference appearance in Windows Terminal depending on the color scheme you are using.
+
+The default behavior is to show basic sequences.
+
+![show basic ansi sequence](images/show-ansi-basic.png)
+
+You can also view foreground and or background settings.
+
+![show ansi foreground](images/show-ansi-foreground.png)
+
+You can even use an RGB value.
+
+![show ansi rgb sequence](images/show-ansi-rgb.png)
+
+The escape character will match what is acceptable in your version of PowerShell. These screen shots are showing PowerShell 7.
 
 ## Other Module Features
 

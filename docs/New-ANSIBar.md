@@ -160,3 +160,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [New-RedGreenGradient](New-RedGreenGradient.md)
 
 [Write-ANSIProgress](Write-ANSIProgress.md)
+
+[Show-ANSISequence](Show-ANSISequence.md)

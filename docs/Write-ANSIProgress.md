@@ -88,7 +88,7 @@ PS C:\> $sb = {
     @{Name="Size";Expression={$_.Sum}}
   }
   Write-Host ""
-  $out | Sort-object -property Size -Descending
+  $out | Sort-Object -property Size -Descending
 }
 PS C:\> Invoke-Command -scriptblock $sb
 ```
@@ -185,3 +185,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [New-ANSIBar](New-ANSIBar.md)
 
 [New-RedGreenGradient](New-RedGreenGradient.md)
+
+[Show-ANSISequence](Show-ANSISequence.md)
