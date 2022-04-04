@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+    - name: README
+      url: https://github.com/jdhitsolutions/PSScriptTools/blob/master/README.md
+      about: Open this module's README.md file.

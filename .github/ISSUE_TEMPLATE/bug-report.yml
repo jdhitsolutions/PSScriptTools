@@ -1,0 +1,68 @@
+name: 🪲 Bug Report
+description: Report a bug or problem.
+title: "[Bug]: "
+labels: ["bug","triage"]
+assignees:
+  - jdhitsolutions
+body:
+  - type: markdown
+    attributes:
+      value: "## Thank you for bringing this to our attention."
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the problem
+      description: Please describe the bug or problem including the exact syntax you are using and any error or warning messages.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expectation
+      description: What did you expect to happen?
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Do you have any additional information or context that you think will be helpful in resolving this issue?
+  - type: dropdown
+    id: psversion
+    attributes:
+      label: PowerShell version
+      description: What version of PowerShell are you running?
+      options:
+        - '4.0'
+        - '5.1'
+        - 6.x
+        - '7.0'
+        - '7.1'
+        - '7.2'
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: What operating system are you running?
+      options:
+        - Windows 10 Home
+        - Windows 11 Home
+        - Windows 10 Pro or Enterprise
+        - Windows 11 Pro or Enterprise
+        - MacOS
+        - Linux
+        - Other
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Additional Checks
+      description: Have you verified the following?
+      options:
+        - label: You are using the latest version of this module.
+          required: true
+        - label: You have read this repository's README file.
+        - label: You have read full help and examples for the command you are having problems with.
+        - label: You are running PowerShell in an elevated session.
+        - label: You are running in a traditional PowerShell console or Windows Terminal
+

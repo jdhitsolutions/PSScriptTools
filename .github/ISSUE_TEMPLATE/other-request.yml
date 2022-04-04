@@ -1,0 +1,44 @@
+name: 🤔Other Request or Question
+description: Open a request for all other issues
+title: "[Question]: "
+labels: ["question","triage"]
+assignees:
+  - jdhitsolutions
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the question or issue
+      description: What is on your mind?
+    validations:
+      required: true
+  - type: dropdown
+    id: psversion
+    attributes:
+      label: PowerShell version
+      description: What version of PowerShell are you running?
+      options:
+        - '4.0'
+        - '5.1'
+        - 6.x
+        - '7.0'
+        - '7.1'
+        - '7.2'
+        - Other
+    validations:
+      required: false
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: What operating system are you running?
+      options:
+        - Windows 10 Home
+        - Windows 11 Home
+        - Windows 10 Pro or Enterprise
+        - Windows 11 Pro or Enterprise
+        - MacOS
+        - Linux
+        - Other
+
+
