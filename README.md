@@ -1481,29 +1481,6 @@ These functions were first described at [https://jdhitsolutions.com/blog/powersh
 
 If you are running in a PowerShell console session, and the Elevated value is True, it will be displayed in color. The Memory and Runtime values are calculated ScriptProperties.
 
-### [ConvertTo-ASCIIArt](docs/ConvertTo-ASCIIArt.md)
-
-`ConvertTo-ASCIIArt` can be used to transform a string of text into ASCII art. It utilizes the web service at https://artii.herokuapp.com which allows you to transform text. You might use this to create headers for your scripts or PowerShell profile.
-
-![ConvertTo-ASCIIArt](images/cart.png)
-
-I used this command to convert a string that I'm using with `Get-PSScriptTools` to display a "splash" header.
-
-```powershell
-    $h = @"
- ___ ___ ___        _      _  _____        _
-| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
-|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
-|_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
-                     |_|
-"@
-    "$([char]0x1b)[1;38;5;177m$h$([char]0x1b)[0m" | Write-Host
-```
-
-![PSScriptTools Splash](images/psscripttools-splash.png)
-
-Expect a period of trial and error to find a good font that works with your text. The shorter your text, the better.
-
 ### [Out-Copy](docs/Out-Copy.md)
 
 This command is intended for writers and those who need to document with PowerShell. You can pipe any command to this function, and you will get the regular output in your PowerShell session. Simultaneously, a copy of the output will be sent to the Windows clipboard. The copied output will include a prompt constructed from the current location unless you use the CommandOnly parameter.

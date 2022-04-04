@@ -20,27 +20,29 @@ Function Get-PSScriptTools {
     Write-Verbose "Using these bound parameters"
     $PSBoundParameters | Out-String | Write-Verbose
 
-    <#
+<#
 $h = @"
-___ ___ ___        _      _  _____        _
+___ ___ ___         _      _  _____        _
 | _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
 
 "@
-    #>
-    #ignore and suppress errors to create the ASCII art since this is optional and decorative only
-    $h = ConvertTo-ASCIIArt $thisModule -font small -ErrorAction SilentlyContinue
-    $h+= "`n"
-    $h += ConvertTo-ASCIIArt $thisVersion -Font small -ErrorAction SilentlyContinue
+#>
 
-    if ($host.name -match "console") {
+    #Convertto-ASCIIArt has been removed from the module 4/4/2022
+    #ignore and suppress errors to create the ASCII art since this is optional and decorative only
+    #$h = ConvertTo-ASCIIArt $thisModule -font small -ErrorAction SilentlyContinue
+   # $h+= "`n"
+    #$h += ConvertTo-ASCIIArt $thisVersion -Font small -ErrorAction SilentlyContinue
+
+<#     if ($host.name -match "console") {
         "$([char]0x1b)[1;38;5;177m$h$([char]0x1b)[0m" | Write-Host
     }
     else {
         Write-Host $h
-    }
+    } #>
     #Write-Host $h -ForegroundColor Yellow
 
     Write-Verbose "Getting exported functions from $thisModule"

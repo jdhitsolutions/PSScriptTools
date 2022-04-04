@@ -1,4 +1,5 @@
 ﻿
+#Removed 4/4/2022 as the online resources no longer exist
 <#
 font list at https://artii.herokuapp.com/fonts_list
 font names are case-sensitive

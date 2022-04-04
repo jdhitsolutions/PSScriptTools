@@ -43,14 +43,14 @@ Function Get-FolderSizeInfo {
                     }
 
                     $data = $($d.GetFiles("*", $opt))
-                    if ($data.count -gt 1) {
+                    if ($data -AND $data.count -gt 1) {
                         $files.AddRange($data)
                     }
-                    elseif ($data.count -eq 1) {
+                    elseif ($data -AND $data.count -eq 1) {
                         [void]($files.Add($data))
                     }
 
-                } #if newer that Windows PowerShell 5.1
+                } #if newer than Windows PowerShell 5.1
                 else {
                     Write-Verbose "Using legacy code"
                     #need to account for errors when accessing folders without permissions
@@ -94,10 +94,10 @@ Function Get-FolderSizeInfo {
                         $data = $($d.GetFiles()).Where({$_.attributes -notmatch "hidden"})
                     }
 
-                    if ($data.count -gt 1) {
+                    if ($data -AND $data.count -gt 1) {
                         $files.AddRange($data)
                     }
-                    elseif ($data.count -eq 1) {
+                    elseif ($data -AND $data.count -eq 1) {
                         [void]($files.Add($data))
                     }
 
@@ -110,6 +110,7 @@ Function Get-FolderSizeInfo {
                     $all = _enumdir @eparam
 
                     #get the files in each subfolder
+                    if ($all) {
                     Write-Verbose "Getting files from $($all.count) subfolders"
 
                     ($all).Foreach( {
@@ -122,10 +123,10 @@ Function Get-FolderSizeInfo {
                                 else {
                                     $data = (([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles()).where({$_.Attributes -notmatch "Hidden"})
                                 }
-                                if ($data.count -gt 1) {
+                                if ($data -AND $data.count -gt 1) {
                                     $files.AddRange($data)
                                 }
-                                elseif ($data.count -eq 1) {
+                                elseif ($data -AND $data.count -eq 1) {
                                     [void]($files.Add($data))
                                 }
                             }
@@ -135,6 +136,7 @@ Function Get-FolderSizeInfo {
                                 Clear-variable data
                             }
                         })
+                    } #if $all
                 } #else 5.1
 
                 If ($files.count -gt 0) {
