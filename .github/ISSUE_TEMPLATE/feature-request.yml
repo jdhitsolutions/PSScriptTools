@@ -1,0 +1,47 @@
+name: 💡Feature Request
+description: Request a new feature or enhancement
+title: "[Request]: "
+labels: ["enhancement","triage"]
+assignees:
+  - jdhitsolutions
+body:
+  - type: markdown
+    attributes:
+      value: "## Thank you for bringing this to our attention."
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the request
+      description: Please describe your feature request or enhancement in detail. What deficiency does it address in the module? What use cases support your request?
+    validations:
+      required: true
+  - type: dropdown
+    id: psversion
+    attributes:
+      label: PowerShell version
+      description: What version of PowerShell are you running?
+      options:
+        - '4.0'
+        - '5.1'
+        - 6.x
+        - '7.0'
+        - '7.1'
+        - '7.2'
+        - Other
+    validations:
+      required: false
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform
+      description: What operating system are you running?
+      options:
+        - Windows 10 Home
+        - Windows 11 Home
+        - Windows 10 Pro or Enterprise
+        - Windows 11 Pro or Enterprise
+        - MacOS
+        - Linux
+        - Other
+
+
