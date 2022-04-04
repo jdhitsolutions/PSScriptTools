@@ -84,12 +84,9 @@ $global:PSSamplePath = Join-Path -Path $PSScriptroot -ChildPath Samples
 
 Write-Verbose "Add ToDo options to the ISE or VS Code"
 if ($psEditor) {
-    #This may not be working in newer versions of the PowerShell extension under PowerShell 7
     Write-Verbose "Defining VSCode additions"
     $sb = {
-        Param(
-            [Microsoft.PowerShell.EditorServices.Extensions.EditorContext]$context
-        )
+        Param($context = $psEditor.GetEditorContext() )
         $prompt = "What do you need to do?"
         $title = "To Do"
         $item = Invoke-InputBox -Title $title -Prompt $prompt
@@ -153,7 +150,6 @@ elseif ($psise) {
         Param()
 
         if ($host.name -match "ISE") {
-
             $path = Split-Path -Path $psISE.CurrentFile.FullPath
             Set-Location -Path $path
             Clear-Host
