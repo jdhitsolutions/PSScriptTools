@@ -2,7 +2,8 @@
 
 ![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)
 
-## PowerShellGet v3 Beta :spider:
+## PowerShellGet v3 Beta :spider
+
 There is a bug with the new cmdlets in the PowerShellGet v3 beta module and this module. You cannot use the beta cmdlets to install or update this module. Use `Install-Module` or `Update-Module` from the current stable release of PowerShellGet.
 
 ## Abstract
@@ -1563,7 +1564,7 @@ PS C:\> Add-Border $env:computername
 
 Starting in v2.23.0 you can also use ANSI escape sequences to color the text and/or the border.
 
-![ansi border](images/Add-Border-ansi.png)
+![ansi border](images/add-border-ansi.png)
 
 ```powershell
 $params =@{
@@ -1575,7 +1576,7 @@ $params =@{
 Add-Border @params
  ```
 
-![ansi diamond border](images/Add-Border-ansi3.png)
+![ansi diamond border](images/add-border-ansi3.png)
 
 ### [Show-Tree](docs/Show-Tree.md)
 
@@ -2245,7 +2246,7 @@ This will display the service status color-coded.
 
 ![ServiceAnsi](images/serviceansi.png)
 
-__ANSI formatting will only work in a PowerShell 5.1 console window or VS Code. It will not display properly in the PowerShell ISE, or older versions of PowerShell.__
+**ANSI formatting will only work in a PowerShell 5.1 console window or VS Code. It will not display properly in the PowerShell ISE, or older versions of PowerShell.**
 
 ### PSAnsiMap
 
@@ -2411,7 +2412,6 @@ $sb = {
 
 ![Write-ANSIProgress script](images/write-ansprogress-3.png)
 
-
 ### [Show-ANSISequence](docs/Show-ANSISequence.md)
 
 You can use `Show-ANSISequence` to preview how it will look in your PowerShell session. You might get a difference appearance in Windows Terminal depending on the color scheme you are using.
@@ -2571,7 +2571,7 @@ This PowerShell module contains several functions you might use to enhance your 
 dir $pssamplepath
 ```
 
-The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered __AS-IS__ and are for demonstration purposes only.
+The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered **AS-IS** and are for demonstration purposes only.
 
 ![ProcessPercent.ps1](images/processpercent.png)
 
@@ -2593,4 +2593,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 ## Compatibility
 
-Where possible, module commands have been tested with PowerShell 7.x, but not on every platform. If you encounter problems, have suggestions, or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core, i.e PowerShell 6.x.
+Where possible, module commands have been tested with PowerShell 7.x, but not on every platform. If you encounter problems, have suggestions, or other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will **not** be running these commands on any edition of PowerShell Core, i.e PowerShell 6.x.
