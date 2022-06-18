@@ -2,7 +2,7 @@
 
 ![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)
 
-## PowerShellGet v3 Beta :spider
+## PowerShellGet v3 Beta :spider:
 
 There is a bug with the new cmdlets in the PowerShellGet v3 beta module and this module. You cannot use the beta cmdlets to install or update this module. Use `Install-Module` or `Update-Module` from the current stable release of PowerShellGet.
 
