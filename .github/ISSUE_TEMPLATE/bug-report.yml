@@ -33,10 +33,11 @@ body:
       options:
         - '4.0'
         - '5.1'
-        - 6.x
+        - '6.x'
         - '7.0'
         - '7.1'
         - '7.2'
+        - '7.3'
         - Other
     validations:
       required: true
