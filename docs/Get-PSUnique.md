@@ -21,7 +21,7 @@ Get-PSUnique [-InputObject] <Object> [<CommonParameters>]
 
 You can use this command to filter for truly unique objects. That is, every property on every object is considered unique. Most things in PowerShell are already guaranteed to be unique, but you might import data from a CSV file with duplicate entries. Get-PSUnique can help filter.
 
-This command works best with simple objects. Objects with nested objects as properties may not be properly deteted.
+This command works best with simple objects. Objects with nested objects as properties may not be properly detected.
 
 ## EXAMPLES
 
