@@ -27,8 +27,10 @@ Function Show-ANSISequence {
     if ($PSCmdlet.parametersetname -eq 'basic') {
         $Basic = $True
     }
-    elseif ($PSCmdlet.parametersetname -eq 'foreback') {
-        if ( (-Not ($PSBoundParameters.ContainsKey('foreground'))) -OR (-Not ($PSBoundParameters.ContainsKey('background')))) {
+    elseif ($PSCmdlet.ParameterSetName -eq 'foreback') {
+        Write-Debug "Testing bound parameters"
+        #9/15/2022 Fixed logic to avoid including Foreground unless specified. Issue #130 JDH
+        if ( (-Not ($PSBoundParameters.ContainsKey('foreground'))) -AND (-Not ($PSBoundParameters.ContainsKey('background')))) {
             #default to foreground Issue # 110
             Write-Debug "Setting Foreground as default"
             $Foreground = $True
