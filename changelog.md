@@ -2,6 +2,12 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
+## v2.44.0
+
++ Updated `Show-ANSISequence` to fix a bug where foreground samples where included when specifying background. [Issue #130](https://github.com/jdhitsolutions/PSScriptTools/issues/130)
++ Updated contributing guidelines.
++ Updated `README.md`.
+
 ## v2.43.0
 
 + Fixed VSCode snippets to run in a PowerShell 7 integrated console. [Issue #124](https://github.com/jdhitsolutions/PSScriptTools/issues/124)
@@ -31,14 +37,6 @@ This file contains the most recent change history for the PSScriptTools module.
 + Updated `Get-ModuleCommand` to include version information and to accept pipeline input.
 + Updated `modulecommand.format.ps1xml` with a new table view called `version`.
 + Updated missing online help links.
-+ Updated `README.md`.
-
-## v2.40.0
-
-+ Updated parameter validation for IP address in `Get-WhoIs` to allow addresses with 255 in an octet. [Issue #117](https://github.com/jdhitsolutions/PSScriptTools/issues/117).
-+ Updated help files with missing online links.
-+ Added command `Convert-HtmlToAnsi` with an alias of `cha`.
-+ Modified `Convertto-Markdown` to add a `AsList` parameter. [Issue #114](https://github.com/jdhitsolutions/PSScriptTools/issues/114)
 + Updated `README.md`.
 
 ## Archive

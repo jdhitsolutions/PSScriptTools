@@ -2,10 +2,6 @@
 
 ![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)
 
-## PowerShellGet v3 Beta :spider:
-
-There is a bug with the new cmdlets in the PowerShellGet v3 beta module and this module. You cannot use the beta cmdlets to install or update this module. Use `Install-Module` or `Update-Module` from the current stable release of PowerShellGet.
-
 ## Abstract
 
 This module contains a collection of functions, variables, and format files that you can use to enhance your PowerShell scripting work or get more done from a PowerShell prompt with less typing. Most of the commands are designed to work cross-platform. Please post any questions, problems, or feedback at [Issues](https://github.com/jdhitsolutions/PSScriptTools/issues) section of this module's Github repository. Feedback is greatly appreciated.

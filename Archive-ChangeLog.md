@@ -2,6 +2,14 @@
 
 This file contains older change history. It is maintained for reference purposes.
 
+## v2.40.0
+
++ Updated parameter validation for IP address in `Get-WhoIs` to allow addresses with 255 in an octet. [Issue #117](https://github.com/jdhitsolutions/PSScriptTools/issues/117).
++ Updated help files with missing online links.
++ Added command `Convert-HtmlToAnsi` with an alias of `cha`.
++ Modified `Convertto-Markdown` to add a `AsList` parameter. [Issue #114](https://github.com/jdhitsolutions/PSScriptTools/issues/114)
++ Updated `README.md`.
+
 ## v2.39.0
 
 + Updated `Test-WithCulture` to include additional Verbose output.
