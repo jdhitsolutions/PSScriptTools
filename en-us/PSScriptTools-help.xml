@@ -8923,7 +8923,7 @@ MemoryMB    : 133</dev:code>
     </command:details>
     <maml:description>
       <maml:para>You can use this command to filter for truly unique objects. That is, every property on every object is considered unique. Most things in PowerShell are already guaranteed to be unique, but you might import data from a CSV file with duplicate entries. Get-PSUnique can help filter.</maml:para>
-      <maml:para>This command works best with simple objects. Objects with nested objects as properties may not be properly deteted.</maml:para>
+      <maml:para>This command works best with simple objects. Objects with nested objects as properties may not be properly detected.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -9617,6 +9617,7 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
     <maml:description>
       <maml:para>This is a PowerShell version of the winver.exe utility. This command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command.</maml:para>
       <maml:para>If you are querying the local computer, all other parameters will be ignored.</maml:para>
+      <maml:para>This command is an alternative to using Get-CimInstance and querying the Win32_OperatingSystem.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -9815,11 +9816,11 @@ OPENDNS-NET-1   208.67.222.222 Cisco OpenDNS, LLC                      208.67.21
         <dev:code>PS C:\&gt;Get-WindowsVersion
 
 
-   Computername: DESK109
+   Computername: WINDESK11
 
-ProductName           EditionID         ReleaseID  Build  InstalledUTC
------------           ---------         ---------  -----  ------------
-Windows 10 Pro        Professional      2009       19042  10/16/2020 3:09:01 PM</dev:code>
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows 11 Pro       Professional             22H2 22622  5/12/2022 1:01:53 PM</dev:code>
         <dev:remarks>
           <maml:para>Query the local host.</maml:para>
         </dev:remarks>
@@ -9830,24 +9831,25 @@ Windows 10 Pro        Professional      2009       19042  10/16/2020 3:09:01 PM<
 
    Computername: WIN10
 
-ProductName                EditionID     ReleaseID  Build  InstalledUTC
------------                ---------     ---------  -----  ------------
-Windows 10 Enterprise      Enterprise    1903       18362  2/6/2020 5:28:34 PM
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows 10           Enterprise               21H2 19044  8/26/2022 4:25:49 PM
+Enterprise
+
+
+   Computername: SRV2
+
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows Server 2016  ServerStandard                 14393  8/26/2022 4:26:00 PM
+Standard
 
 
    Computername: SRV1
 
-ProductName                EditionID     ReleaseID  Build  InstalledUTC
------------                ---------     ---------  -----  ------------
-Windows Server 2016        ServerStandard 1607       14393  2/6/2020 5:27:42 PM
-Standard
-
-
- Computername: SRV2
-
-ProductName                EditionID     ReleaseID  Build  InstalledUTC
------------                ---------     ---------  -----  ------------
-Windows Server 2016        ServerStandard 1607       14393  2/6/2020 6:47:12 PM
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows Server 2016  ServerStandard                14393  8/26/2022 4:25:54 PM
 Standard</dev:code>
         <dev:remarks>
           <maml:para>Get Windows version information from remote computers using an alternate credential.</maml:para>
@@ -9857,13 +9859,14 @@ Standard</dev:code>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-WindowsVersion -Computername Dom1 | Select-Object *
 
-ProductName  : Windows Server 2016 Standard Evaluation
-EditionID    : ServerStandardEval
-ReleaseID    : 1607
-Build        : 14393.3474
-Branch       : rs1_release
-InstalledUTC : 2/6/2020 5:18:50 PM
-Computername : DOM1</dev:code>
+ProductName    : Microsoft Windows Server 2016 Standard
+ReleaseVersion :
+EditionID      : ServerStandard
+ReleaseID      : 1607
+Build          : 14393.693
+Branch         : rs1_release
+InstalledUTC   : 8/26/2022 4:17:05 PM
+Computername   : DOM1</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -9880,6 +9883,10 @@ Computername : DOM1</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>WinVer.exe</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>SystemInfo.exe</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
