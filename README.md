@@ -388,14 +388,17 @@ The output has a default table view but there are other properties you might wan
 PS C:\> Get-WindowsVersion | Select-Object *
 
 
-ProductName  : Windows 10 Pro
-EditionID    : Professional
-ReleaseID    : 2009
-Build        : 19042.906
-Branch       : vb_release
-InstalledUTC : 10/16/2020 3:09:01 PM
-Computername : PROSPERO
+ProductName    : Microsoft Windows 11 Pro
+ReleaseVersion : 22H2
+EditionID      : Professional
+ReleaseID      : 2009
+Build          : 22622.598
+Branch         : ni_release
+InstalledUTC   : 5/12/2022 1:01:53 PM
+Computername   : WINDESK11
 ```
+
+Beginning with version 2.45.0, `Get-WindowsVersion` will use the command-line tool `systeminfo.exe` to retrieve the operating system name. If this fails, then the registry value will be used. Windows 11 systems don't yet reflect with Windows 11 name in the registry.
 
 #### [Get-WindowsVersionString](docs/Get-WindowsVersionString.md)
 
@@ -483,12 +486,12 @@ This command will provide a summary of relevant information for the current user
 ```dos
 PS C:\> Get-PSWho
 
-User            : BOVINE320\Jeff
+User            : WINDESK11\Art
 Elevated        : True
-Computername    : BOVINE320
-OperatingSystem : Microsoft Windows 10 Pro [64-bit]
-OSVersion       : 10.0.18363
-PSVersion       : 5.1.18362.145
+Computername    : WINDESK11
+OperatingSystem : Microsoft Windows 11 Pro [64-bit]
+OSVersion       : 10.0.22622
+PSVersion       : 5.1.22621.436
 Edition         : Desktop
 PSHost          : ConsoleHost
 WSMan           : 3.0
@@ -2585,7 +2588,7 @@ If you find this module useful, you might also want to look at my PowerShell too
 + [Managing scheduled jobs](https://github.com/jdhitsolutions/ScheduledJobTools)
 + [Running remote commands outside of PowerShell Remoting](https://github.com/jdhitsolutions/PSRemoteOperations).
 + [Automating the PowerShell scripting process](https://github.com/jdhitsolutions/PSFunctionTools)
-+ [A simple command-line task and to-do manager](https://github.com/jdhitsolutions/MyTasks)
++ [A simple command-line task and to-do manager](https://github.com/jdhitsolutions/PSWorkItem)
 
 ## Compatibility
 
