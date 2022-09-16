@@ -6,7 +6,7 @@ Modified 9/29/2020 so that Invoke-Command doesn't attempt to create a remoting s
 Function Get-WindowsVersion {
 
     [cmdletbinding()]
-    [OutputType("custom object")]
+    [OutputType("WindowsVersion")]
     [alias('wver')]
 
     Param (
@@ -27,11 +27,26 @@ Function Get-WindowsVersion {
 
         $sb = {
             $RegPath = 'HKLM:\SOFTWARE\Microsoft\Windows nt\CurrentVersion\'
-
-            Get-ItemProperty -Path $RegPath | Select-Object -Property ProductName, EditionID, ReleaseID, BuildBranch,
-            @{Name = "Build"; Expression = {"$($_.CurrentBuild).$($_.UBR)"}},
-            @{Name = "InstalledUTC"; Expression = { ([datetime]"1/1/1601").AddTicks($_.InstallTime) }},
-            @{Name = "Computername"; Expression = {$env:computername}}
+            <#
+            9/15/2022 JDH
+            Revised to use `ysteminfo to retrieve the operating system name and
+            if that fails, fall back to using the registry entry.
+            The registry entry for Windows 11 typically still shows Windows 10.
+            #>
+            $regData =  Get-ItemProperty -Path $RegPath
+            $tmpCsv = [system.io.path]::GetTempFileName()
+            Start-Process systeminfo -ArgumentList "/fo csv" -wait -WindowStyle Hidden -RedirectStandardOutput $tmpCSV
+            if ((Get-Item $tmpCSV).Length -gt 0) {
+                $osName = Import-CSV $tmpCsv | Select-Object -expand "OS Name"
+                Remove-Item -Path $tmpCsv
+            }
+            else {
+                $osName = $regData.ProductName
+            }
+            $regData | Select-Object -Property @{Name="ProductName";Expression={$osname}}, EditionID, ReleaseID, BuildBranch,
+            @{Name = "Build"; Expression = { "$($_.CurrentBuild).$($_.UBR)" } }, DisplayVersion,
+            @{Name = "InstalledUTC"; Expression = { ([datetime]"1/1/1601").AddTicks($_.InstallTime) } },
+            @{Name = "Computername"; Expression = { $env:computername } }
 
         } #close scriptblock
 
@@ -46,7 +61,7 @@ Function Get-WindowsVersion {
             if ($Computername -eq $ENV:Computername) {
                 Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing the local host"
                 #remove all any passed parameters
-                "Credential","UseSSL","ThrottleLimit","Authentication" | foreach-object {
+                "Credential", "UseSSL", "ThrottleLimit", "Authentication" | ForEach-Object {
                     if ($psboundparameters.ContainsKey($_)) {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Removing parameter $_"
                         [void]($PSBoundparameters.Remove($_))
@@ -64,14 +79,15 @@ Function Get-WindowsVersion {
                 foreach ($item in $results) {
 
                     [pscustomobject]@{
-                        PSTypeName   = "WindowsVersion"
-                        ProductName  = $item.ProductName
-                        EditionID    = $item.EditionID
-                        ReleaseID    = $item.ReleaseID
-                        Build        = $item.Build
-                        Branch       = $item.BuildBranch
-                        InstalledUTC = $item.InstalledUTC
-                        Computername = $item.Computername
+                        PSTypeName     = "WindowsVersion"
+                        ProductName    = $item.ProductName
+                        ReleaseVersion = $item.DisplayVersion
+                        EditionID      = $item.EditionID
+                        ReleaseID      = $item.ReleaseID
+                        Build          = $item.Build
+                        Branch         = $item.BuildBranch
+                        InstalledUTC   = $item.InstalledUTC
+                        Computername   = $item.Computername
                     }
                 }
             }

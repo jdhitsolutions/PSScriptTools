@@ -24,6 +24,8 @@ This is a PowerShell version of the winver.exe utility. This command uses PowerS
 
 If you are querying the local computer, all other parameters will be ignored.
 
+This command is an alternative to using Get-CimInstance and querying the Win32_OperatingSystem.
+
 ## EXAMPLES
 
 ### EXAMPLE 1
@@ -32,11 +34,11 @@ If you are querying the local computer, all other parameters will be ignored.
 PS C:\>Get-WindowsVersion
 
 
-   Computername: DESK109
+   Computername: WINDESK11
 
-ProductName           EditionID         ReleaseID  Build  InstalledUTC
------------           ---------         ---------  -----  ------------
-Windows 10 Pro        Professional      2009       19042  10/16/2020 3:09:01 PM
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows 11 Pro       Professional             22H2 22622  5/12/2022 1:01:53 PM
 ```
 
 Query the local host.
@@ -48,24 +50,25 @@ PS C:\> Get-WindowsVersion -Computername srv1,srv2,win10 -Credential $art
 
    Computername: WIN10
 
-ProductName                EditionID     ReleaseID  Build  InstalledUTC
------------                ---------     ---------  -----  ------------
-Windows 10 Enterprise      Enterprise    1903       18362  2/6/2020 5:28:34 PM
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows 10           Enterprise               21H2 19044  8/26/2022 4:25:49 PM
+Enterprise
+
+
+   Computername: SRV2
+
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows Server 2016  ServerStandard                 14393  8/26/2022 4:26:00 PM
+Standard
 
 
    Computername: SRV1
 
-ProductName                EditionID     ReleaseID  Build  InstalledUTC
------------                ---------     ---------  -----  ------------
-Windows Server 2016        ServerStandard 1607       14393  2/6/2020 5:27:42 PM
-Standard
-
-
- Computername: SRV2
-
-ProductName                EditionID     ReleaseID  Build  InstalledUTC
------------                ---------     ---------  -----  ------------
-Windows Server 2016        ServerStandard 1607       14393  2/6/2020 6:47:12 PM
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows Server 2016  ServerStandard                14393  8/26/2022 4:25:54 PM
 Standard
 ```
 
@@ -76,13 +79,14 @@ Get Windows version information from remote computers using an alternate credent
 ```powershell
 PS C:\> Get-WindowsVersion -Computername Dom1 | Select-Object *
 
-ProductName  : Windows Server 2016 Standard Evaluation
-EditionID    : ServerStandardEval
-ReleaseID    : 1607
-Build        : 14393.3474
-Branch       : rs1_release
-InstalledUTC : 2/6/2020 5:18:50 PM
-Computername : DOM1
+ProductName    : Microsoft Windows Server 2016 Standard
+ReleaseVersion :
+EditionID      : ServerStandard
+ReleaseID      : 1607
+Build          : 14393.693
+Branch         : rs1_release
+InstalledUTC   : 8/26/2022 4:17:05 PM
+Computername   : DOM1
 ```
 
 ## PARAMETERS
@@ -223,5 +227,7 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Get-WindowsVersionString](Get-WindowsVersionString.md)
 
 [WinVer.exe]()
+
+[SystemInfo.exe]()
 
 [Invoke-Command]()

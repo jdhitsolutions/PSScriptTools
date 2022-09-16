@@ -2,6 +2,15 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
+## v2.45.0
+
++ Fixed help typo for `Get-PSUnique` [PR 133](https://github.com/jdhitsolutions/PSScriptTools/pull/133). Thank you @fiala-sns.
++ Updated `Get-WindowsVersion` to inlcude `DisplayVersion`, e.g. `22H2`.
++ Modified format file `windowsversion.format.ps1xml` to replace `ReleaseID` with the `DisplayVersion` value.
++ Revised `Get-WindowsVersion` to use `systeminfo` to retrieve the operating system name and if that fails, fall back to using the registry entry. The registry entry for Windows 11 typically still shows Windows 10.
++ Help updates.
++ Updated `README.md`.
+
 ## v2.44.0
 
 + Updated `Show-ANSISequence` to fix a bug where foreground samples where included when specifying background. [Issue #130](https://github.com/jdhitsolutions/PSScriptTools/issues/130)
