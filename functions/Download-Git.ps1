@@ -8,7 +8,7 @@ Function Save-GitSetup {
         [ValidateScript({ Test-Path $_ })]
         [string]$Path = $env:TEMP,
         [Parameter(HelpMessage = "Show the downloaded file.")]
-        [switch]$Passthru
+        [switch]$PassThru
     )
 
     if ( (Test-IsPSWindows)) {
@@ -47,7 +47,7 @@ Function Save-GitSetup {
             Throw $_
         }
         Write-Verbose "Download complete"
-        if ($Passthru) {
+        if ($PassThru) {
             Get-Item -Path $out
         }
     } #if windows

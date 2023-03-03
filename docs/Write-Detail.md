@@ -43,7 +43,7 @@ In a script you might use it like this in a Begin block:
 
     Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix $pfx | Write-Verbose
 
-    Write-Detail "PS $($PSVersiontable.PSVersion)" -Prefix $pfx | Write-Verbose
+    Write-Detail "PS $($PSVersionTable.PSVersion)" -Prefix $pfx | Write-Verbose
 
 If you don't specify a prefix, it will default to PROCESS.
 

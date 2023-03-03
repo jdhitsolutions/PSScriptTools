@@ -27,23 +27,23 @@ Select-Before is a simplified version of Select-Object. The premise is that you 
 ### Example 1
 
 ```powershell
-PS C:\> Get-Childitem c:\work -file | Select-Before "11/1/2020"
+PS C:\> Get-ChildItem c:\work -file | Select-Before "11/1/2022"
 
 
     Directory: C:\work
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---          10/10/2020  2:09 PM           8862 Book1.xlsx
--a---          10/30/2020 10:48 AM              0 dummy.dat
--a---          10/13/2020  9:35 AM         447743 key1013.pdf
--a---           10/6/2020  4:03 PM           2986 labsummary.format.ps1xml
--a---          10/11/2020 12:33 PM           1678 prun.format.ps1xml
--a---          10/10/2020  6:49 PM           1511 w.format.ps1xml
+-a---          10/10/2022  2:09 PM           8862 Book1.xlsx
+-a---          10/30/2022 10:48 AM              0 dummy.dat
+-a---          10/13/2022  9:35 AM         447743 key1013.pdf
+-a---           10/6/2022  4:03 PM           2986 labsummary.format.ps1xml
+-a---          10/11/2022 12:33 PM           1678 prun.format.ps1xml
+-a---          10/10/2022  6:49 PM           1511 w.format.ps1xml
 
 ```
 
-Select all objects that have been modified before 11/1/2020. This example is using the default -Property value of LastWriteTime.
+Select all objects that have been modified before 11/1/2022. This example is using the default -Property value of LastWriteTime.
 
 ### Example 2
 

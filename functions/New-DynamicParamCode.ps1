@@ -1,5 +1,3 @@
-#requires -version 5.1
-
 Function New-PSDynamicParameter {
 <#
 .Synopsis
@@ -13,9 +11,13 @@ about_Functions_Advanced_Parameters
 
     [cmdletbinding()]
     [alias("ndp")]
-    [outputtype([System.String[]])]
+    [OutputType([System.String[]])]
     Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of your dynamic parameter.`nThis is a required value.")]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            HelpMessage = "Enter the name of your dynamic parameter.`nThis is a required value."
+            )]
         [ValidateNotNullOrEmpty()]
         [alias("Name")]
         [string[]]$ParameterName,
@@ -64,7 +66,7 @@ about_Functions_Advanced_Parameters
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $out = @"
     DynamicParam {
     $(If ($comment) { "$([char]35) $comment"})
@@ -87,7 +89,7 @@ about_Functions_Advanced_Parameters
         #this is structured for future development where you might need to create
         #multiple dynamic parameters. This feature is incomplete at this time
         Foreach ($Name in $ParameterName) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Defining dynamic parameter $Name [$($parametertype.name)]"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Defining dynamic parameter $Name [$($parametertype.name)]"
             $out += "`n        # Defining parameter attributes`n"
             $out += "        `$attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]`n"
             $out += "        `$attributes = New-Object System.Management.Automation.ParameterAttribute`n"
@@ -95,7 +97,7 @@ about_Functions_Advanced_Parameters
             $attributeProperties = 'ParameterSetName', 'Mandatory', 'ValueFromPipeline', 'ValueFromPipelineByPropertyName', 'ValueFromRemainingArguments', 'HelpMessage'
             foreach ($item in $attributeProperties) {
                 if ($PSBoundParameters.ContainsKey($item)) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Defining $item"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Defining $item"
                     if ( $PSBoundParameters[$item] -is [string]) {
                         $value = "'$($PSBoundParameters[$item])'"
                     }
@@ -109,9 +111,9 @@ about_Functions_Advanced_Parameters
 
             #add parameter validations
             if ($validations) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing validations"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing validations"
                 foreach ($validation in $Validations) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] ... $($validation.key)"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] ... $($validation.key)"
                     $out += "`n        # Adding $($validation.key) parameter validation`n"
                     Switch ($Validation.key) {
                         "ValidateNotNullOrEmpty" {
@@ -156,7 +158,7 @@ about_Functions_Advanced_Parameters
             $out += "        `$attributeCollection.Add(`$attributes)`n"
 
             if ($Alias) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Adding parameter alias $($alias -join ',')"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Adding parameter alias $($alias -join ',')"
                 Foreach ($item in $alias) {
                     $out += "`n        # Adding a parameter alias`n"
                     $out += "        `$dynalias = New-Object System.Management.Automation.AliasAttribute -ArgumentList '$Item'`n"
@@ -176,7 +178,7 @@ about_Functions_Advanced_Parameters
 
             $out += "        `$dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter('$Name', [$paramType], `$attributeCollection)`n"
             if ($DefaultValue) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using default value $($DefaultValue)"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using default value $($DefaultValue)"
                 if ( $DefaultValue[0] -is [string]) {
                     $value = "'$($DefaultValue)'"
                 }
@@ -200,14 +202,14 @@ about_Functions_Advanced_Parameters
 } #end DynamicParam
 "@
         $out
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
 
 Function New-PSDynamicParameterForm {
     [cmdletbinding()]
     [alias("dpf")]
-    [Outputtype("None")]
+    [OutputType("None")]
     Param()
 
     Try {
@@ -251,7 +253,7 @@ Function New-PSDynamicParameterForm {
         <TextBox x:Name="Condition" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="123,137,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="500"/>
         <Border BorderThickness="1" BorderBrush="Black" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="1" Margin="10,162,0,0" VerticalAlignment="Top" Width="634"/>
         <Label x:Name="label4" Content="Parameter Validations" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="7,166,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="ValidateNotNullOrEmpty" Content="ValidateNotNullorEmpty" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="39,196,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="ValidateNotNullOrEmpty" Content="ValidateNotNullOrEmpty" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="39,196,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label5" Content="ValidateCount" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="35,212,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="ValidateCount" HorizontalAlignment="Left" Margin="124,216,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="60" Grid.Column="1"/>
         <Label x:Name="label5_Copy" Content="ValidateLength" HorizontalAlignment="Left" Margin="210,212,0,0" VerticalAlignment="Top" Grid.Column="1"/>
@@ -276,7 +278,7 @@ Function New-PSDynamicParameterForm {
     $all = (Get-Command New-PSDynamicParameter).parameters
     #filter out common parameters
     $common = [System.Management.Automation.Cmdlet]::CommonParameters
-    $paramList = $all.GetEnumerator().where({$common -notcontains $_.key}).key
+    $paramList = $all.GetEnumerator().where({$common -NotContains $_.key}).key
 
     #get controls
     foreach ($item in $paramList) {
@@ -334,12 +336,12 @@ Function New-PSDynamicParameterForm {
 
 #add scripting editor shortcuts or you can run the functions in the editor's console window.
 if ($host.name -eq 'Visual Studio Code Host') {
-    Register-EditorCommand -Name "DynamicParameterForm" -DisplayName "Define a dynamic parameter" -ScriptBlock (Get-Item -path Function:\New-PSDynamicParameterForm).scriptblock -SuppressOutput
+    Register-EditorCommand -Name "DynamicParameterForm" -DisplayName "Define a dynamic parameter" -ScriptBlock (Get-Item -Path Function:\New-PSDynamicParameterForm).scriptblock -SuppressOutput
 }
 elseif ($host.name -match "PowerShell ISE") {
-    if ($psise.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notcontains "New Dynamic Parameter") {
+    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -NotContains "New Dynamic Parameter") {
         $action = {New-PSDynamicParameterForm}
-        [void]($Psise.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("New Dynamic Parameter", $action, "Ctrl+Alt+D"))
+        [void]($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("New Dynamic Parameter", $action, "Ctrl+Alt+D"))
     }
 }
 

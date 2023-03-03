@@ -2,7 +2,7 @@
 Function New-RandomFileName {
     [cmdletbinding(DefaultParameterSetName = "none")]
     [Alias("rfn")]
-    [outputtype([string])]
+    [OutputType([string])]
     Param(
         [parameter(Position = 0)]
         [Parameter(ParameterSetName = 'none')]
@@ -22,8 +22,8 @@ Function New-RandomFileName {
         $filename = [system.io.path]::GetTempFileName()
     }
     elseif ($UseHomeFolder) {
-         $homedocs =[Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
-         $filename = Join-Path -Path $homedocs -ChildPath ([system.io.path]::GetRandomFileName())
+         $homeDocs =[Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
+         $filename = Join-Path -Path $homeDocs -ChildPath ([system.io.path]::GetRandomFileName())
         }
     else {
         $filename = [system.io.path]::GetRandomFileName()
@@ -44,7 +44,7 @@ Function New-RandomFileName {
 Function New-CustomFileName {
     [cmdletbinding()]
     [Alias("cfn")]
-    [outputtype([string])]
+    [OutputType([string])]
     Param (
         [Parameter(
             Position = 0,
@@ -79,11 +79,11 @@ You can create a template string using any of these variables, including the % s
     #convert placeholders to lower case but leave everything else as is
     [regex]$rx = "%\w+(?=%|-|\.|\s|\(|\)|\[|\])"
 
-    Write-Detail "Starting $($myinvocation.MyCommand)" | Write-Verbose
+    Write-Detail "Starting $($MyInvocation.MyCommand)" | Write-Verbose
     Write-Detail "Processing template: $template" | Write-Verbose
     $rx.matches($Template) | ForEach-Object {
         Write-Detail "Converting $($_.value) to lower case" | Write-Verbose
-        $Template = $Template.replace($_.value, $_.value.tolower())
+        $Template = $Template.replace($_.value, $_.value.ToLower())
     }
 
     [string]$filename = $Template
@@ -138,7 +138,7 @@ You can create a template string using any of these variables, including the % s
     Write-Detail "Converting case to $Case" | Write-Verbose
     Switch ($Case) {
         "Upper" {
-            $filename.toUpper()
+            $filename.ToUpper()
         }
         "Lower" {
             $filename.ToLower()
@@ -148,6 +148,6 @@ You can create a template string using any of these variables, including the % s
         }
     } #close switch
 
-    Write-Detail "Ending $($myinvocation.MyCommand)" | Write-Verbose
+    Write-Detail "Ending $($MyInvocation.MyCommand)" | Write-Verbose
 } #end New-CustomFileName
 

@@ -14,7 +14,7 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
         [datetime]$Timestamp
 
         myCounter ([Microsoft.PowerShell.Commands.GetCounter.PerformanceCounterSample]$CounterSample) {
-            $this.Computername = $countersample.path.split("\")[2].toUpper()
+            $this.Computername = $countersample.path.split("\")[2].ToUpper()
             $this.Counter = $countersample.path.split("\")[-1]
             $this.Category = $countersample.path.split("\")[-2]
             $this.Instance = $countersample.InstanceName
@@ -51,7 +51,7 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
         )
 
         Begin {
-            Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+            Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         } #begin
 
         Process {
@@ -70,7 +70,7 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
         } #process
 
         End {
-            Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+            Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
         } #end
 
     } #close function Get-MyCounter

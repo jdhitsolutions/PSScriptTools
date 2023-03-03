@@ -3,7 +3,7 @@ Function Select-First {
     [Alias("First")]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [psobject]$InputObject,
+        [PSObject]$InputObject,
 
         [Parameter(Position = 0, Mandatory, HelpMessage = "How many items do you want to select?")]
         [ValidateRange(0, 2147483647)]
@@ -23,7 +23,7 @@ Function Select-First {
 
     Begin {
 
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         if ($PSBoundParameters.ContainsKey("Property")) {
             $sortParams = @{Property = $Property }
@@ -52,8 +52,8 @@ Function Select-First {
             Write-Verbose "[PROCESS] Processing input"
         }
         #verify property
-        if ($property -AND $InputObject.psobject.properties.name -notcontains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the inputobject.")
+        if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
+            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -70,7 +70,7 @@ Function Select-First {
         }
         $data | Microsoft.PowerShell.Utility\Select-Object -First $first -Skip $skip
 
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 
@@ -81,7 +81,7 @@ Function Select-Last {
     [Alias("Last")]
     param(
         [Parameter(Mandatory, ValueFromPipeline )]
-        [psobject]$InputObject,
+        [PSObject]$InputObject,
 
         [Parameter(Position = 0, Mandatory, HelpMessage = "How many items do you want to select?")]
         [ValidateRange(0, 2147483647)]
@@ -100,7 +100,7 @@ Function Select-Last {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         if ($PSBoundParameters.ContainsKey("Property")) {
             $sortParams = @{Property = $Property }
@@ -128,8 +128,8 @@ Function Select-Last {
             Write-Verbose "[PROCESS] Processing input"
         }
         #verify property
-        if ($property -AND $InputObject.psobject.properties.name -notcontains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the inputobject.")
+        if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
+            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -145,7 +145,7 @@ Function Select-Last {
         }
         $data | Select-Object -Last $Last -Skip $skip
 
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 
@@ -157,7 +157,7 @@ Function Select-After {
     [alias("after")]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [psobject]$InputObject,
+        [PSObject]$InputObject,
 
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the cutoff date")]
         [DateTime]$After,
@@ -168,14 +168,14 @@ Function Select-After {
     )
 
     begin {
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Selecting objects after $after based on the $Property property"
     } #begin
 
     process {
         #verify property
-        if ($InputObject.psobject.properties.name -notcontains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the inputobject.")
+        if ($InputObject.PSObject.properties.name -NotContains $property) {
+            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -184,7 +184,7 @@ Function Select-After {
     } #process
 
     end {
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #end function
@@ -194,7 +194,7 @@ Function Select-Before {
     [alias("before")]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [psobject]$InputObject,
+        [PSObject]$InputObject,
 
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the cutoff date")]
         [DateTime]$Before,
@@ -205,14 +205,14 @@ Function Select-Before {
     )
 
     begin {
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Selecting objects before $before based on the $Property property"
     } #begin
 
     process {
         #verify property
-        if ($InputObject.psobject.properties.name -notcontains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the inputobject.")
+        if ($InputObject.PSObject.properties.name -NotContains $property) {
+            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -221,7 +221,7 @@ Function Select-Before {
     } #process
 
     end {
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #end function
@@ -231,7 +231,7 @@ function Select-Newest {
     [alias("newest")]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [psobject]$InputObject,
+        [PSObject]$InputObject,
 
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the number of newest items to get")]
         [ValidateRange(0, 2147483647)]
@@ -243,7 +243,7 @@ function Select-Newest {
     )
 
     begin {
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $data = [System.Collections.generic.list[object]]::new()
     } #begin
 
@@ -252,8 +252,8 @@ function Select-Newest {
             Write-Verbose "[PROCESS] Processing input"
         }
         #verify property
-        if ($InputObject.psobject.properties.name -notcontains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the inputobject.")
+        if ($InputObject.PSObject.properties.name -NotContains $property) {
+            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -264,7 +264,7 @@ function Select-Newest {
     end {
         Write-Verbose "[END    ] Selecting newest $newest object(s) based on $property"
         $data | Sort-Object -Property $property -Descending | Select-Object -First $Newest
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 }
@@ -274,7 +274,7 @@ function Select-Oldest {
     [alias("oldest")]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
-        [psobject]$InputObject,
+        [PSObject]$InputObject,
 
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the number of Oldest items to get")]
         [ValidateRange(0, 2147483647)]
@@ -286,7 +286,7 @@ function Select-Oldest {
     )
 
     begin {
-        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $data = [System.Collections.generic.list[object]]::new()
     } #begin
 
@@ -295,8 +295,8 @@ function Select-Oldest {
             Write-Verbose "[PROCESS] Processing input"
         }
         #verify property
-        if ($InputObject.psobject.properties.name -notcontains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the inputobject.")
+        if ($InputObject.PSObject.properties.name -NotContains $property) {
+            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -307,6 +307,6 @@ function Select-Oldest {
     end {
         Write-Verbose "[END    ] Selecting oldest $oldest object(s) based on $property"
         $data | Sort-Object -Property $property | Select-Object -First $Oldest
-        Write-Verbose "[END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }

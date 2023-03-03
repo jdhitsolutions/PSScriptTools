@@ -155,8 +155,6 @@ Accept wildcard characters: False
 
 ### -Parameter
 
-{{Fill Parameter Description}}
-
 ```yaml
 Type: String
 Parameter Sets: (All)
@@ -188,3 +186,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-Command]()
+
+[Get-CommandSyntax](Get-CommandSyntax.md)

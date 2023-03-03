@@ -10,12 +10,12 @@ Function ConvertTo-WPFGrid {
 
     [cmdletbinding(DefaultParameterSetName = "input")]
     [Alias("cwg")]
-    [outputtype("none")]
+    [OutputType("none")]
 
     Param(
         [Parameter(ValueFromPipeline, ParameterSetName = "Input")]
         [ValidateNotNullOrEmpty()]
-        [psobject]$InputObject,
+        [PSObject]$InputObject,
 
         [Parameter(ParameterSetName = "scriptblock", HelpMessage = "Enter a scriptblock that will generate data to be populated in the form")]
         [ValidateNotNullOrEmpty()]
@@ -30,7 +30,7 @@ Function ConvertTo-WPFGrid {
         [Parameter(HelpMessage = "Control how grid lines are displayed")]
         [ValidateSet("All", "Horizontal", "None", "Vertical")]
         [ValidateNotNullOrEmpty()]
-        [string]$Gridlines = "All",
+        [string]$GridLines = "All",
 
         [Parameter(HelpMessage = "Run this scriptblock to initialize the background runspace")]
         [scriptblock]$InitializationScript,
@@ -45,7 +45,6 @@ Function ConvertTo-WPFGrid {
     )
 
     Begin {
-
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         if ($Refresh -AND ($Timeout -lt 5)) {
             Write-Verbose "Detected a timeout value of $Timeout"
@@ -81,7 +80,7 @@ Function ConvertTo-WPFGrid {
             $newRunspace.dispose()
 
             Write-Warning "Incompatible runspace detected. This command will most likely fail on this platform with this version of PowerShell."
-            #bail out of the comman
+            #bail out of the command
             break
         }
         $newRunspace.ThreadOptions = "ReuseThread"
@@ -108,7 +107,7 @@ Function ConvertTo-WPFGrid {
                 [object[]]$Data,
                 [scriptblock]$cmd,
                 [switch]$Refresh,
-                [string]$Gridlines
+                [string]$GridLines
             )
 
             # It may not be necessary to add these types but it doesn't hurt to include them
@@ -189,7 +188,7 @@ Function ConvertTo-WPFGrid {
                     $timer.stop()
                     Start-Sleep -seconds 3
 
-                    $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
+                    $datagrid.ItemsSource = Invoke-Command -ScriptBlock $cmd
 
                     foreach ($col in $datagrid.Columns) {
                         #because of the way I am loading data into the grid
@@ -202,9 +201,9 @@ Function ConvertTo-WPFGrid {
 
                     if ($script:count) {
                         $script:count = $Timeout
-                        [datetime]$script:terminate = $now.AddSeconds($timeout)
+                        [DateTime]$script:terminate = $now.AddSeconds($timeout)
                         $ts = New-TimeSpan -Seconds $script:count
-                        $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
+                        $status.text = " Last updated $script:Now - refresh in $($ts.ToString())"
                     }
                     else {
                         $status.text = " last updated $Script:Now"
@@ -241,7 +240,7 @@ Function ConvertTo-WPFGrid {
             $datagrid.margin = "0,50,0,25"
 
             $datagrid.ColumnWidth = "Auto"
-            $datagrid.GridLinesVisibility = $Gridlines
+            $datagrid.GridLinesVisibility = $GridLines
             $datagrid.VerticalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
             $datagrid.HorizontalScrollBarVisibility = [System.Windows.Controls.ScrollBarVisibility]::Auto
             $datagrid.CanUserSortColumns = $True
@@ -257,20 +256,20 @@ Function ConvertTo-WPFGrid {
             $DataTable = New-Object System.Data.DataTable
 
             #create headers
-            $data[0].psobject.properties.Name |
+            $data[0].PSObject.properties.Name |
             ForEach-Object {
-                if ($datatable.columns.caption -notcontains $_) {
+                if ($DataTable.columns.caption -NotContains $_) {
                     [void]$DataTable.Columns.add($_)
                 }
             }
             foreach ($obj in $data) {
-                $props = $obj.psobject.Properties
+                $props = $obj.PSObject.Properties
                 [void]$DataTable.rows.add($props.value)
             }
 
-            for ($i = 0; $i -lt $datatable.Columns.Count; $i++) {
+            for ($i = 0; $i -lt $DataTable.Columns.Count; $i++) {
                 $col = New-Object System.Windows.Controls.DataGridTextColumn
-                $col.Header = $datatable.Columns[$i].ColumnName
+                $col.Header = $DataTable.Columns[$i].ColumnName
                 $col.Binding = New-Object system.Windows.data.binding("[$i]")
                 [void]$dataGrid.Columns.Add($col)
             }
@@ -304,19 +303,17 @@ Function ConvertTo-WPFGrid {
             if ($Timeout -gt 0) {
                 [int]$script:count = $Timeout
                 $timer = New-Object System.Windows.Threading.DispatcherTimer
-                [datetime]$script:terminate = $now.AddSeconds($timeout)
+                [DateTime]$script:terminate = $now.AddSeconds($timeout)
                 $timer.Interval = [TimeSpan]"0:0:1.00"
 
                 $timer.add_tick( {
-
                         $ts = New-TimeSpan -seconds $script:count
                         if ((Get-Date) -lt $script:terminate -AND $Refresh) {
-                            $status.text = " Last updated $script:Now - refresh in $($ts.tostring())"
+                            $status.text = " Last updated $script:Now - refresh in $($ts.ToString())"
                             $script:count--
                         }
                         elseif ( (Get-Date) -lt $script:terminate) {
-
-                            $status.text = " Last updated $script:Now - closing in $($ts.tostring())"
+                            $status.text = " Last updated $script:Now - closing in $($ts.ToString())"
                             $script:count--
                         }
                         else {
@@ -324,7 +321,7 @@ Function ConvertTo-WPFGrid {
                             if ($Refresh) {
                                 $form.Title = "$Title ...refreshing content. Please wait."
                                 [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Wait
-                                $datagrid.itemssource = Invoke-Command -ScriptBlock $cmd
+                                $datagrid.ItemsSource = Invoke-Command -ScriptBlock $cmd
 
                                 foreach ($col in $datagrid.Columns) {
                                     #because of the way I am loading data into the grid
@@ -334,9 +331,9 @@ Function ConvertTo-WPFGrid {
                                 }
                                 $script:count = $timeout
                                 $script:now = Get-Date
-                                [datetime]$script:terminate = $now.AddSeconds($timeout)
+                                [DateTime]$script:terminate = $now.AddSeconds($timeout)
                                 $ts = New-TimeSpan -Seconds $script:count
-                                $status.text = " Last updated $script:Now - refresh in $($ts.tostring()) seconds"
+                                $status.text = " Last updated $script:Now - refresh in $($ts.ToString()) seconds"
                                 $Timer.Start()
                                 $form.title = $Title
                                 [System.Windows.Input.Mouse]::OverrideCursor = [System.Windows.Input.Cursors]::Arrow
@@ -359,17 +356,17 @@ Function ConvertTo-WPFGrid {
             $profiles = $profile.AllUsersAllHosts, $profile.AllUsersCurrentHost,
             $profile.CurrentUserAllHosts, $profile.CurrentUserCurrentHost
             foreach ($file in $profiles) {
-                if (Test-Path -path $file) {
+                if (Test-Path -Path $file) {
                     [void]$psCmd.AddScript($file)
                 }
             }
         }
         if ($InitializationScript) {
             Write-Verbose "Loading an initialization scriptblock"
-            [void]$pscmd.AddScript($InitializationScript)
+            [void]$psCmd.AddScript($InitializationScript)
         }
 
-        [void]$pscmd.AddScript($gridScript)
+        [void]$psCmd.AddScript($gridScript)
 
         #initialize a list to hold all processed objects
         $data = [System.Collections.Generic.list[object]]::new()
@@ -389,7 +386,7 @@ Function ConvertTo-WPFGrid {
                 $data.AddRange($InputObject)
             }
             else {
-                $data.Add($Inputobject)
+                $data.Add($InputObject)
             }
         }
         else {
@@ -399,9 +396,9 @@ Function ConvertTo-WPFGrid {
     } #process
 
     End {
-        Write-Verbose "Updating PSBoundparameters"
+        Write-Verbose "Updating PSBoundParameters"
         $PSBoundParameters.Data = $data
-        [void]$PSBoundParameters.remove("Inputobject")
+        [void]$PSBoundParameters.remove("InputObject")
         if ($PSBoundParameters.ContainsKey("UseProfile")) {
             [void]$PSBoundParameters.Remove("UseProfile")
         }
@@ -409,10 +406,10 @@ Function ConvertTo-WPFGrid {
         if ($psCmdlet.ParameterSetName -eq 'input') {
 
             #parse the invocation to get the pipelined expression up to this command
-            #Write-verbose $($myinvocation | Out-string)
-            Write-Verbose "Parsing $($myinvocation.line) into a scriptblock"
+            #Write-verbose $($MyInvocation | Out-string)
+            Write-Verbose "Parsing $($MyInvocation.line) into a scriptblock"
             Try {
-                $cmd = [scriptblock]::Create($myinvocation.line.substring(0, $myinvocation.line.LastIndexOf("|")))
+                $cmd = [scriptblock]::Create($MyInvocation.line.substring(0, $MyInvocation.line.LastIndexOf("|")))
             }
             Catch {
                 Write-Warning "Error created the cmd scriptblock: $($_.exception.message)"
@@ -425,18 +422,18 @@ Function ConvertTo-WPFGrid {
             $cmd = $Scriptblock
         }
 
-        $psboundparameters.cmd = $cmd
+        $PSBoundParameters.cmd = $cmd
         Write-Verbose "Refresh command: $cmd"
 
-        Write-Verbose "Sending PSBoundparameters to runspace"
+        Write-Verbose "Sending PSBoundParameters to runspace"
 
         [void]$psCmd.AddParameters($PSBoundParameters)
         $psCmd.Runspace = $newRunspace
         Write-Verbose "Begin Invoke()"
         $handle = $psCmd.BeginInvoke()
 
-        $threadjob = New-RunspaceCleanupJob -Handle $handle -powerShell $pscmd -sleep 30 -passthru
-        Write-Verbose "Created monitoring threadjob $($threadjob.id)"
+        $ThreadJob = New-RunspaceCleanupJob -Handle $handle -powerShell $psCmd -sleep 30 -PassThru
+        Write-Verbose "Created monitoring ThreadJob $($ThreadJob.id)"
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
 
     } #end

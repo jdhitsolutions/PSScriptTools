@@ -8,7 +8,7 @@ Function Test-EmptyFolder {
         [alias("PSPath")]
         [string[]]$Path,
         [Parameter(HelpMessage = "Write a test object to the pipeline")]
-        [switch]$Passthru
+        [switch]$PassThru
     )
 
     Begin {
@@ -17,14 +17,14 @@ Function Test-EmptyFolder {
 
     Process {
         foreach ($item in $path) {
-            $cPath = (Convert-Path -literalpath $item)
+            $cPath = (Convert-Path -LiteralPath $item)
             Write-Verbose "Measuring $cPath on $([System.Environment]::MachineName)"
 
-            if (Test-Path -literalpath $cPath) {
+            if (Test-Path -LiteralPath $cPath) {
 
                 $d = [System.IO.DirectoryInfo]::new($cPath)
 
-                If ($psversiontable.psversion.major -gt 5  ) {
+                If ($PSVersionTable.PSVersion.major -gt 5  ) {
                     #this .NET class is not available in Windows PowerShell 5.1
                     $opt = [System.IO.EnumerationOptions]::new()
                     $opt.RecurseSubdirectories = $True
@@ -54,7 +54,7 @@ Function Test-EmptyFolder {
                     Write-Verbose "Found $($files.count) files"
                     $Empty = $False
                 }
-                if ($Passthru) {
+                if ($PassThru) {
                     [PSCustomObject]@{
                         PSTypeName = 'EmptyFolder'
                         Path       = $cPath

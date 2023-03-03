@@ -1,0 +1,198 @@
+﻿<!--
+Format type data generated 02/10/2023 17:04:02 by PROSPERO\Jeff
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 02/10/2023 17:04:02 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>psTypeMember</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+          -->
+        <PropertyName>Type</PropertyName>
+        <Label>Type</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>MemberType</Label>
+            <Width>13</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ResultType</Label>
+            <Width>18</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IsStatic</Label>
+            <Width>11</Width>
+            <Alignment>Right</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                 <ScriptBlock>
+                  <!-- Display Static members in Green if in the console or VSCode.
+                This won't work in the PowerShell ISE
+                -->
+                if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
+                  "$([char]27)[92m$($_.Name)$([char]27)[0m"
+                }
+                else {
+                  $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                  <ScriptBlock>
+                  <!-- Display Static members in Green if in the console or VSCode.
+                This won't work in the PowerShell ISE
+                -->
+                if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
+                  "$([char]27)[92m$($_.MemberType)$([char]27)[0m"
+                }
+                else {
+                  $_.MemberType
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($_.MemberType -eq 'Method') {
+                  $r = $_.ReturnType.Name
+                }
+                elseif ($_.MemberType -eq 'Property') {
+                  $r = $_.PropertyType.Name
+                }
+                   elseif ($_.MemberType -eq 'Field') {
+                  $r =$_.FieldType
+                }
+                else {
+                  $r = $Null
+                }
+                  <ScriptBlock>
+                  <!-- Display Static members in Green if in the console or VSCode.
+                This won't work in the PowerShell ISE
+                -->
+                if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
+                  "$([char]27)[92m$($r)$([char]27)[0m"
+                }
+                else {
+                  $r
+                }
+                </ScriptBlock>
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  <!-- Display Static members in Green if in the console or VSCode.
+                This won't work in the PowerShell ISE
+                -->
+                if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
+                  "$([char]27)[92m$($_.IsStatic)$([char]27)[0m"
+                }
+                else {
+                  $_.IsStatic
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 02/20/2023 10:45:55 by PROSPERO\Jeff-->
+      <Name>syntax</Name>
+      <ViewSelectedBy>
+        <TypeName>psTypeMember</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <!--
+            You can also use a scriptblock to define a custom property name.
+            You must have a Label tag.
+            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <Label>Computername</Label>
+
+            Use <Label> to set the displayed value.
+-->
+        <PropertyName>Type</PropertyName>
+        <Label>Type</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>7</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ReturnType</Label>
+            <Width>16</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Syntax</Label>
+            <Width>16</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <!--
+            By default the entries use property names, but you can replace them with scriptblocks.
+            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
+-->
+              <TableColumnItem>
+                 <ScriptBlock>
+                  <!-- Display Static members in Green if in the console or VSCode.
+                This won't work in the PowerShell ISE
+                -->
+                if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
+                  "$([char]27)[92m$($_.Name)$([char]27)[0m"
+                }
+                else {
+                  $_.Name
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>$_.ReturnType.Name</ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Syntax</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

@@ -56,7 +56,7 @@ https://github.com/jdhitsolutions/PSScriptTools
               <ListItem>
                 <Label>Runtime</Label>
                 <ScriptBlock>
-                 $r = $_.Runtime.toString()
+                 $r = $_.Runtime.ToString()
                  $r.Substring(0,$r.lastindexof("."))
                  </ScriptBlock>
               </ListItem>

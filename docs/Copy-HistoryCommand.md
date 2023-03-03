@@ -13,13 +13,13 @@ Copy a history command line to the clipboard.
 
 ## SYNTAX
 
-```yanml
-Copy-HistoryCommand [[-ID] <Int32[]>] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+```yaml
+Copy-HistoryCommand [[-ID] <Int32[]>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-You can use this command to copy the commandline from a given PowerShell
+You can use this command to copy the command line from a given PowerShell
 history item to the clipboard.The default item will the be last history
 item. Once copied, you can paste into your following prompt to edit and/or
 re-run.
@@ -42,7 +42,7 @@ Copy the last command to the clipboard.
 ### Example 2
 
 ```powershell
-PS C:\> Copy-HistoryCommand 25 -passthru
+PS C:\> Copy-HistoryCommand 25 -PassThru
 get-process -computername $computer | sort ws -Descending | select -first 3
 ```
 
@@ -59,7 +59,7 @@ Copy history items 100 through 110 to the clipboard.
 ### Example 4
 
 ```powershell
-PS C:\> $c = [scriptblock]::Create($(Copy-HistoryCommand 25 -passthru))
+PS C:\> $c = [scriptblock]::Create($(Copy-HistoryCommand 25 -PassThru))
 PS C:\> &$c
 
 Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
@@ -105,7 +105,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
 Use this parameter if you also want to see the command as well as copy it to the clipboard.
 

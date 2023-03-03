@@ -14,7 +14,7 @@ Get folder size information.
 ## SYNTAX
 
 ```yaml
-Get-FolderSizeInfo [-Path] <String[]> [-Hidden] [<CommonParameters>]
+Get-FolderSizeInfo [-Path] <String[]> [-Hidden] [-EnableLongFileName] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -74,7 +74,7 @@ Get the top-level directories from D and pipe them to Get-FolderSizeInfo. Items 
 ### Example 4
 
 ```powershell
-PS C:\> Get-Childitem c:\work -Directory | Get-FolderSizeInfo -Hidden |
+PS C:\> Get-ChildItem c:\work -Directory | Get-FolderSizeInfo -Hidden |
 Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
 
 
@@ -121,6 +121,22 @@ Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -EnableLongFileName
+
+Enable support for long file and folder names. Read https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation?tabs=registry to learn more.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: lfn
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

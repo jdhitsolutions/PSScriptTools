@@ -1,5 +1,6 @@
 ﻿
 Function Out-ConditionalColor {
+    #This command is marked as deprecated 3/3/2023
     [cmdletbinding(DefaultParameterSetName = "property")]
     [alias("occ")]
 
@@ -12,7 +13,7 @@ Function Out-ConditionalColor {
         [ValidateScript( {
                 #validate colors
                 $allowed = [enum]::GetNames([system.consolecolor])
-                $bad = $_.Values | Where-Object {$allowed -notcontains $_}
+                $bad = $_.Values | Where-Object {$allowed -NotContains $_}
                 if ($bad) {
                     $valid = $allowed -join ','
                     Throw "You are using one or more invalid colors: $($bad -join ','). Valid colors are $Valid"
@@ -45,9 +46,9 @@ Function Out-ConditionalColor {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
-        Write-Verbose "Using parameter set $($pscmdlet.ParameterSetName)"
+        Write-Verbose "Using parameter set $($PSCmdlet.ParameterSetName)"
         #save original color
-        $saved = $Host.UI.RawUI.ForegroundColor
+        $saved = $host.UI.RawUI.ForegroundColor
 
         Write-Verbose "Original foreground color is $saved"
 
@@ -61,13 +62,13 @@ Function Out-ConditionalColor {
             #the Here-strings must be left justified
             $If = @"
  if ($($compare[0])) {
-  `$host.ui.RawUI.ForegroundColor = '$($conditions.item($($compare[0])))'
+  `$host.UI.RawUI.ForegroundColor = '$($conditions.item($($compare[0])))'
  }
 "@
             #now add the remaining comparisons as ElseIf
             for ($i = 1; $i -lt $conditions.count; $i++) {
                 $If += "elseif ($($compare[$i])) {
-         `$host.ui.RawUI.ForegroundColor = '$($conditions.item($($compare[$i])))'
+         `$host.UI.RawUI.ForegroundColor = '$($conditions.item($($compare[$i])))'
          }
          "
             } #for
@@ -75,7 +76,7 @@ Function Out-ConditionalColor {
             #add the final else
             $if += @"
 Else {
-`$host.ui.RawUI.ForegroundColor = `$saved
+`$host.UI.RawUI.ForegroundColor = `$saved
 }
 "@
 
@@ -93,16 +94,16 @@ Else {
         } #end complex
         else {
             #get property value as a string
-            $value = $Inputobject.$Property.ToString()
+            $value = $InputObject.$Property.ToString()
             Write-Verbose "Testing property value $value"
-            if ($PropertyConditions.containsKey($value)) {
+            if ($PropertyConditions.ContainsKey($value)) {
                 Write-Verbose "Property match"
-                $host.ui.RawUI.ForegroundColor = $PropertyConditions.item($value)
+                $host.UI.RawUI.ForegroundColor = $PropertyConditions.item($value)
             }
             else {
                 #use orginal color
                 Write-Verbose "No matches found"
-                $host.ui.RawUI.ForegroundColor = $saved
+                $host.UI.RawUI.ForegroundColor = $saved
             }
         } #simple
 
@@ -114,7 +115,7 @@ Else {
     End {
         Write-Verbose "Restoring original foreground color"
         #set color back
-        $host.ui.RawUI.ForegroundColor = $saved
+        $host.UI.RawUI.ForegroundColor = $saved
     } #end
 
 } #close function

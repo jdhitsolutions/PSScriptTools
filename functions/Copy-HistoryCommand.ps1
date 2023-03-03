@@ -2,33 +2,33 @@ Function Copy-HistoryCommand {
 
     [CmdletBinding(SupportsShouldProcess)]
     [alias("ch")]
-    [outputtype("None", "System.String")]
+    [OutputType("None", "System.String")]
     Param(
         [Parameter(Position = 0)]
         [ValidateNotNullOrEmpty()]
         [int[]]$ID = $(Get-History).Count,
-        [switch]$Passthru)
+        [switch]$PassThru)
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
         $idString = $id -join ','
-        Write-Verbose "[PROCESS] Getting commandline from history item: $idstring"
+        Write-Verbose "[PROCESS] Getting command line from history item: $idstring"
         $cmdstring = (Get-History -Id $($id)).CommandLine
         If ($PSCmdlet.ShouldProcess("ID #$idstring")) {
             $cmdstring | Microsoft.PowerShell.Management\Set-Clipboard
 
-            If ($Passthru) {
+            If ($PassThru) {
                 #write the command to the pipeline
                 $cmdstring
-            } #If passthru
+            } #If PassThru
         }
     } #process
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 
 } #close function

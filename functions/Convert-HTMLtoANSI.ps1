@@ -15,17 +15,17 @@ Function Convert-HtmlToAnsi {
         [string]$HtmlCode
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Converting $HTMLCode"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $HTMLCode"
         $code = [System.Drawing.ColorTranslator]::FromHtml($htmlCode)
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] RGB = $($code.r),$($code.g),$($code.b)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] RGB = $($code.r),$($code.g),$($code.b)"
         $ansi = '[38;2;{0};{1};{2}m' -f $code.R,$code.G,$code.B
         $ansi
     } #process
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 } #close Convert-HTMLtoANSI

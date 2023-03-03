@@ -1,6 +1,6 @@
 
 <#
-need an easy way to determine certain locations depending on whether you
+an easy way to determine certain locations depending on whether you
 are running Windows or Linux
 
 TEMP

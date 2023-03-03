@@ -10,7 +10,7 @@ Function New-PSDriveHere {
         [string]$Path = ".",
 
         [Parameter(Position = 1, ParameterSetName = "Name")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Name,
 
         [Parameter(ParameterSetName = "Folder")]
@@ -20,17 +20,17 @@ Function New-PSDriveHere {
         [switch]$SetLocation,
 
         [Parameter(HelpMessage="Pass the new PSDrive object to the pipeline.")]
-        [switch]$Passthru
+        [switch]$PassThru
     )
 
-    Write-Verbose "Starting: $($MyInvocation.Mycommand)"
+    Write-Verbose "Starting: $($MyInvocation.MyCommand)"
 
     Write-Verbose "Getting the location for $path"
     #get the specified location
     $location = Get-Item -Path $path
 
     #did the user specify a name?
-    if ($pscmdlet.ParameterSetName -eq "Name") {
+    if ($PSCmdlet.ParameterSetName -eq "Name") {
         Write-Verbose "Defining a new PSDrive with the name $Name."
     } #if $name
     else {
@@ -44,7 +44,6 @@ Function New-PSDriveHere {
         }
         #Make sure name contains valid characters. This function
         #should work for all but the oddest named folders.
-
         if ($location.Name -match $pattern) {
             $name = $matches[0]
         }
@@ -59,8 +58,9 @@ Function New-PSDriveHere {
     #verify a PSDrive doesn't already exist
     Write-Verbose "Testing $($name):"
 
-    If (-not (Test-Path -path "$($name):")) {
+    If (-not (Test-Path -Path "$($name):")) {
         Write-Verbose "Creating PSDrive for $name"
+        #a hash table of parameter values to splat to New-PSDrive
         $paramHash = @{
             Name        = $name
             PSProvider  = $location.PSProvider
@@ -72,7 +72,7 @@ Function New-PSDriveHere {
 
         Try {
             $result = New-PSDrive @paramHash
-            if ($Passthru) {
+            if ($PassThru) {
                 $result
             }
             if ($SetLocation) {
@@ -89,7 +89,7 @@ Function New-PSDriveHere {
         Write-Warning "A PSDrive for $name already exists"
     }
 
-    Write-Verbose "Ending: $($MyInvocation.Mycommand)"
+    Write-Verbose "Ending: $($MyInvocation.MyCommand)"
 
 } #function
 

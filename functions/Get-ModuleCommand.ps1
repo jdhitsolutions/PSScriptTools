@@ -11,7 +11,7 @@ Function Get-ModuleCommand {
             ParameterSetName = "name",
             ValueFromPipelineByPropertyName
         )]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Name,
 
         [Parameter(
@@ -19,15 +19,15 @@ Function Get-ModuleCommand {
             HelpMessage = "The fully qualified name of an installed module",
             ParameterSetName = "fqdn"
         )]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [Microsoft.PowerShell.Commands.ModuleSpecification]$FullyQualifiedName,
 
         [switch]$ListAvailable
     )
 
     Begin {
-        Write-Verbose "Starting $($myinvocation.mycommand)"
-        $psboundParameters.Add("ErrorAction", "stop")
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        $PSBoundParameters.Add("ErrorAction", "stop")
     }
 
     Process {
@@ -61,7 +61,7 @@ Function Get-ModuleCommand {
             return
         }
 
-        if ($pscmdlet.parameterSetName -eq 'name' -AND $mod.count -gt 1) {
+        if ($PSCmdlet.parameterSetName -eq 'name' -AND $mod.count -gt 1) {
             #make sure to get the latest version
             Write-Verbose "Getting the latest version of $($mod[0].name)"
             $mod = $mod | Sort-Object -Property Version -Descending | Select-Object -First 1
@@ -80,10 +80,10 @@ Function Get-ModuleCommand {
         $out = foreach ($cmd in $cmds) {
             Write-Verbose "Processing $($cmd.name)"
             #get aliases, ignoring errors for those commands without one
-            $alias = (Get-Alias -Definition $cmd.Name -ErrorAction silentlycontinue).name
+            $alias = (Get-Alias -Definition $cmd.Name -ErrorAction SilentlyContinue).name
 
             #it is assumed you have updated help
-            [pscustomobject]@{
+            [PSCustomObject]@{
                 PSTypeName = "ModuleCommand"
                 Name       = $cmd.name
                 Alias      = $alias
@@ -103,7 +103,7 @@ Function Get-ModuleCommand {
     $out | Sort-Object -Property Name
 }
 End {
-    Write-Verbose "Ending $($myinvocation.mycommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }
 
 } #close function

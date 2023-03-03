@@ -9,7 +9,7 @@ Function New-PSFormatXML {
         [object]$InputObject,
         [Parameter(HelpMessage = "Enter a set of properties to include. The default is all. If specifying a Wide entry, only specify a single property.")]
         [object[]]$Properties,
-        [Parameter(HelpMessage = "Specify the object typename. If you don't, then the command will use the detected object type from the Inputobject.")]
+        [Parameter(HelpMessage = "Specify the object typename. If you don't, then the command will use the detected object type from the InputObject.")]
         [string]$Typename,
         [Parameter(HelpMessage = "Specify whether to create a table ,list or wide view")]
         [ValidateSet("Table", "List", "Wide")]
@@ -24,10 +24,10 @@ Function New-PSFormatXML {
         [Parameter(HelpMessage = "Wrap long lines. This only applies to Tables.")]
         [Switch]$Wrap,
         [switch]$Append,
-        [switch]$Passthru
+        [switch]$PassThru
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         #convert the parent path into a real file system path
         $parent = Convert-Path -Path (Split-Path -Path $path)
@@ -35,7 +35,7 @@ Function New-PSFormatXML {
         $realPath = Join-Path -Path $parent -ChildPath (Split-Path -Path $path -Leaf)
 
         if (-Not $Append) {
-            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Initializing a new XML document"
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Initializing a new XML document"
             [xml]$Doc = New-Object -TypeName System.Xml.XmlDocument
 
             <#
@@ -67,7 +67,7 @@ https://github.com/jdhitsolutions/PSScriptTools
 
         }
         elseif ($Append -AND (Test-Path -Path $realPath)) {
-            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Opening format document $RealPath"
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Opening format document $RealPath"
             [xml]$Doc = Get-Content -Path $realPath
         }
         else {
@@ -81,13 +81,13 @@ https://github.com/jdhitsolutions/PSScriptTools
         $select = $doc.createnode("element", "ViewSelectedBy", $null)
 
         if ($GroupBy) {
-            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Grouping by $GroupBy"
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Grouping by $GroupBy"
 
             $groupcomment = @"
 
             You can also use a scriptblock to define a custom property name.
             You must have a Label tag.
-            <ScriptBlock>`$_.machinename.toUpper()</ScriptBlock>
+            <ScriptBlock>`$_.machinename.ToUpper()</ScriptBlock>
             <Label>Computername</Label>
 
             Use <Label> to set the displayed value.
@@ -110,7 +110,7 @@ https://github.com/jdhitsolutions/PSScriptTools
                 $TableRowEntries = $doc.CreateNode("element", "TableRowEntries", $null)
                 $entry = $doc.CreateNode("element", "TableRowEntry", $null)
                 if ($Wrap) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Adding Wrap"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Adding Wrap"
                     $wrapelement = $doc.CreateNode("element", "Wrap", $null)
                     [void]($entry.AppendChild($wrapelement))
                 }
@@ -130,13 +130,13 @@ https://github.com/jdhitsolutions/PSScriptTools
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Counter $counter"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Counter $counter"
         If ($counter -eq 0) {
             if ($Typename) {
                 $tname = $TypeName
             }
             else {
-                $tname = $Inputobject.psobject.typenames[0]
+                $tname = $InputObject.PSObject.TypeNames[0]
             }
             $tnameElement = $doc.CreateElement("TypeName")
             #you can't use [void] on a property assignment and we don't want to see the XML result
@@ -148,20 +148,20 @@ https://github.com/jdhitsolutions/PSScriptTools
                 [void]$view.AppendChild($group)
             }
 
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating an format document for object type $tname "
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating an format document for object type $tname "
 
             #get property members
-            $objProperties = $Inputobject.psobject.properties
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using object properties: $($objProperties.name -join ',')"
+            $objProperties = $InputObject.PSObject.properties
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using object properties: $($objProperties.name -join ',')"
             $members = @()
             if ($properties) {
                 foreach ($property in $properties) {
                     if ($property.gettype().Name -match "hashtable") {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Detected a hashtable defined property called named $($property.name)"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Detected a hashtable defined property called named $($property.name)"
                         $members += $property
                     }
                     else {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Validating property: $property [$($property.gettype().name)]"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Validating property: $property [$($property.gettype().name)]"
                         $test = ($objProperties).where( { $_.name -like $property })
                         if ($test) {
                             $members += $test
@@ -177,16 +177,16 @@ https://github.com/jdhitsolutions/PSScriptTools
             }
             else {
                 #use auto detected properties
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Auto detected $($objProperties.name.count) properties"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Auto detected $($objProperties.name.count) properties"
                 $members = $objProperties
             }
 
             #remove GroupBy property from collection of properties
             if ($GroupBy) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Removing GroupBy property $GroupBy from the list of properties"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Removing GroupBy property $GroupBy from the list of properties"
                 $members = $members | Where-Object { $_.name -ne $GroupBy }
             }
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing $($members.name.count) properties"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing $($members.name.count) properties"
 
             $comment = @"
 
@@ -202,12 +202,12 @@ https://github.com/jdhitsolutions/PSScriptTools
                 foreach ($member in $members) {
                     #account for null property values
                     if ($member.Expression) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has an Expression script block $($member.expression | Out-String)"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] $($member.name) has an Expression script block $($member.expression | Out-String)"
                         $member.Value = "$($member.expression | Out-String)".Trim()
                         $isScriptBlock = $True
                     }
                     elseif (-Not $member.value) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
                         #$member.value = "   "
                         $isScriptBlock = $False
                     }
@@ -217,7 +217,7 @@ https://github.com/jdhitsolutions/PSScriptTools
 
                     $th = $doc.createNode("element", "TableColumnHeader", $null)
 
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]... $($member.name)"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS]... $($member.name)"
                     $label = $doc.CreateElement("Label")
                     $label.InnerText = $member.Name
                     [void]$th.AppendChild($label)
@@ -235,7 +235,7 @@ https://github.com/jdhitsolutions/PSScriptTools
                         $ValueLength = 12
                     }
                     elseif ($Member.value) {
-                        $ValueLength = $Member.value.tostring().length
+                        $ValueLength = $Member.value.ToString().length
                     }
                     else {
                         #set a default length.
@@ -252,12 +252,12 @@ https://github.com/jdhitsolutions/PSScriptTools
 
                     $tci = $doc.CreateNode("element", "TableColumnItem", $null)
                     if ($isScriptBlock) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a ScriptBlock element"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a ScriptBlock element"
                         $prop = $doc.CreateElement("ScriptBlock")
                         $prop.InnerText = "$($member.Value)"
                     }
                     else {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a PropertyName element"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a PropertyName element"
                         $prop = $doc.CreateElement("PropertyName")
                         $prop.InnerText = $member.name
                     }
@@ -272,12 +272,12 @@ https://github.com/jdhitsolutions/PSScriptTools
                 foreach ($member in $members) {
                     #account for null property values
                     if ($member.Expression) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has an Expression script block $($member.expression | Out-String)"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] $($member.name) has an Expression script block $($member.expression | Out-String)"
                         $member.Value = "$($member.expression | Out-String)".Trim()
                         $isScriptBlock = $True
                     }
                     elseif (-Not $member.value) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
                         $member.value = "   "
                         $isScriptBlock = $False
                     }
@@ -289,12 +289,12 @@ https://github.com/jdhitsolutions/PSScriptTools
                     $label = $doc.CreateElement("Label")
                     $label.InnerText = $member.Name
                     if ($isScriptBlock) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a ScriptBlock element"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a ScriptBlock element"
                         $prop = $doc.CreateElement("ScriptBlock")
                         $prop.InnerText = "$($member.Value)"
                     }
                     else {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a PropertyName element"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a PropertyName element"
                         $prop = $doc.CreateElement("PropertyName")
                         $prop.InnerText = $member.name
                     }
@@ -311,12 +311,12 @@ https://github.com/jdhitsolutions/PSScriptTools
                 [void]$item.AppendChild($doc.CreateComment($comment))
                 Write-Verbose "Using $($members.name)"
                 if ($members.Expression) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a ScriptBlock element"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a ScriptBlock element"
                     $prop = $doc.CreateElement("ScriptBlock")
                     $prop.InnerText = "$($members.Expression)"
                 }
                 else {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating a PropertyName element"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a PropertyName element"
                     $prop = $doc.CreateElement("PropertyName")
                     $prop.InnerText = $member.name
                 }
@@ -336,7 +336,7 @@ https://github.com/jdhitsolutions/PSScriptTools
 
         if (-Not $BadProperty) {
             #don't create the file if a bad property as specified. Issue #111
-            Write-Verbose "[$((Get-Date).TimeofDay) END    ] Finalizing XML"
+            Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Finalizing XML"
             #Add elements to each parent
             if ($FormatType -eq 'Table') {
                 [void]$entry.AppendChild($items)
@@ -367,7 +367,7 @@ https://github.com/jdhitsolutions/PSScriptTools
             }
 
             if ($append) {
-                Write-Verbose "[$((Get-Date).TimeofDay) END    ] Appending to existing XML"
+                Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Appending to existing XML"
                 [void]$doc.Configuration.ViewDefinitions.AppendChild($View)
             }
             else {
@@ -376,12 +376,12 @@ https://github.com/jdhitsolutions/PSScriptTools
                 [void]$doc.AppendChild($config)
             }
 
-            Write-Verbose "[$((Get-Date).TimeofDay) END    ] Saving to $realpath"
+            Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Saving to $realpath"
             if ($PSCmdlet.ShouldProcess($realPath, "Adding $formattype view $viewname")) {
                 $doc.Save($realPath)
-                if ($Passthru) {
+                if ($PassThru) {
                     if ($host.name -match "Visual Studio Code") {
-                        #If you run this command in VS Code and specify -passthru, then open the file
+                        #If you run this command in VS Code and specify -PassThru, then open the file
                         #for further editing
                         Open-EditorFile -Path $realpath
                     }
@@ -395,7 +395,7 @@ https://github.com/jdhitsolutions/PSScriptTools
             }
         } #if not bad property
 
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 

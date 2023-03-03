@@ -1,11 +1,11 @@
 Function ConvertTo-Markdown {
     [cmdletbinding(DefaultParameterSetName = "text")]
-    [outputtype([string[]])]
+    [OutputType([string[]])]
     [alias('ctm')]
 
     Param(
         [Parameter(Position = 0, ValueFromPipeline)]
-        [object]$Inputobject,
+        [object]$InputObject,
         [Parameter()]
         [string]$Title,
         [string[]]$PreContent,
@@ -22,7 +22,7 @@ Function ConvertTo-Markdown {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting $($myinvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         #initialize a collection to hold incoming data
         $data = [System.Collections.Generic.list[object]]::new()
         #initialize a list for markdown text
@@ -32,9 +32,9 @@ Function ConvertTo-Markdown {
             Write-Verbose "[BEGIN  ] Adding Title: $Title"
             $text.Add("# $Title`r`n")
         }
-        If ($precontent) {
-            Write-Verbose "[BEGIN  ] Adding Precontent"
-            $text.Add("$precontent`r`n")
+        If ($PreContent) {
+            Write-Verbose "[BEGIN  ] Adding PreContent"
+            $text.Add("$PreContent`r`n")
             #$text.Add("`n`n")
         }
 
@@ -49,15 +49,15 @@ Function ConvertTo-Markdown {
             $flag = $False
         }
         #add incoming objects to data array
-        $data.Add($inputobject)
+        $data.Add($InputObject)
     } #process
     End {
         #add the data to the text
         if ($data.count -gt 0) {
-            Switch ($pscmdlet.ParameterSetName) {
+            Switch ($PSCmdlet.ParameterSetName) {
                 "Table" {
                     Write-Verbose "[END    ] Formatting as a table"
-                    $names = $data[0].psobject.Properties.name
+                    $names = $data[0].PSObject.Properties.name
                     $head = "| $($names -join " | ") |"
                     $text.Add($head)
 
@@ -92,9 +92,9 @@ Function ConvertTo-Markdown {
                     $text.Add("|    |    |")
                     $text.Add("|----|----|")
                     foreach ($item in $data) {
-                        $item.psobject.properties | ForEach-Object {
+                        $item.PSObject.properties | ForEach-Object {
                             if ($_.value) {
-                                $v = $_.value.toString()
+                                $v = $_.value.ToString()
                             }
                             else {
                                 $v = $null
@@ -112,7 +112,7 @@ Function ConvertTo-Markdown {
                     Write-Verbose "[END    ] Converting data to strings"
                     [string]$trimmed = (($data | Out-String -Width $width).split("`n")).ForEach({ "$($_.trim())`n" })
                     Write-Verbose "[END    ] Adding to markdown"
-                    $clean = $($trimmed.trimend())
+                    $clean = $($trimmed.TrimEnd())
                     $text.Add("``````text")
                     $text.Add($clean)
                     $text.Add("```````r`n")
@@ -120,15 +120,15 @@ Function ConvertTo-Markdown {
             } #switch
         } #if $data
 
-        If ($postcontent) {
-            Write-Verbose "[END    ] Adding postcontent"
-            $text.Add("$postcontent`r`n")
+        If ($PostContent) {
+            Write-Verbose "[END    ] Adding PostContent"
+            $text.Add("$PostContent`r`n")
         }
 
         #write the markdown to the pipeline
         Write-Verbose "[END    ] Writing final markdown to the pipeline"
         $text
-        Write-Verbose "[END    ] Ending $($myinvocation.MyCommand)"
+        Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close ConvertTo-Markdown

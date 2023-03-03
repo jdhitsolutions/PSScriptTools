@@ -10,7 +10,7 @@ Function Convert-HashtableString {
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -29,7 +29,7 @@ Function Convert-HashtableString {
     }
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 
 }
@@ -47,7 +47,7 @@ Function ConvertTo-Hashtable {
             HelpMessage = "Please specify an object",
             ValueFromPipeline
         )]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [object]$InputObject,
         [switch]$NoEmpty,
         [string[]]$Exclude,
@@ -86,14 +86,14 @@ Function ConvertTo-Hashtable {
         #go through the list of names and add each property and value to the hash table
         $names | ForEach-Object {
             #only add properties that haven't been excluded
-            if ($Exclude -notcontains $_) {
+            if ($Exclude -NotContains $_) {
                 #only add if -NoEmpty is not called and property has a value
-                if ($NoEmpty -AND -Not ($inputobject.$_)) {
+                if ($NoEmpty -AND -Not ($InputObject.$_)) {
                     Write-Verbose "Skipping $_ as empty"
                 }
                 else {
                     Write-Verbose "Adding property $_"
-                    $hash.Add($_, $inputobject.$_)
+                    $hash.Add($_, $InputObject.$_)
                 }
             } #if exclude notcontains
             else {
@@ -113,7 +113,7 @@ Function Convert-HashtableToCode {
 
     Param(
         [Parameter(Position = 0, ValueFromPipeline, Mandatory)]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [hashtable]$Hashtable,
 
         [Parameter(ParameterSetName = "psd1")]
@@ -125,7 +125,7 @@ Function Convert-HashtableToCode {
     )
 
     Begin {
-        Write-Verbose "Starting $($myinvocation.mycommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
         if ($Inline) {
             Write-Verbose "Creating an inline expression"
         }
@@ -216,7 +216,7 @@ Function Convert-HashtableToCode {
 
     } #process
     End {
-        Write-Verbose "Ending $($myinvocation.mycommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 } #end function
 Function Join-Hashtable {
@@ -270,7 +270,7 @@ Function Convert-CommandToHashtable {
 
     Param(
         [Parameter(Mandatory)]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         #"Enter a PowerShell expression with full parameter names"
         [string]$Text
     )
@@ -362,7 +362,7 @@ Function Rename-Hashtable {
             HelpMessage = "Enter the name of your hash table variable without the `$",
             ParameterSetName = "Name"
         )]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Name,
         [parameter(
             Position = 0,
@@ -370,31 +370,31 @@ Function Rename-Hashtable {
             ValueFromPipeline,
             ParameterSetName = "Pipeline"
         )]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [object]$InputObject,
         [parameter(
             Position = 1,
             Mandatory,
             HelpMessage = "Enter the existing key name you want to rename")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Key,
         [parameter(position = 2, Mandatory, HelpMessage = "Enter the NEW key name"
         )]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$NewKey,
-        [switch]$Passthru,
+        [switch]$PassThru,
         [ValidateSet("Global", "Local", "Script", "Private", 0, 1, 2, 3)]
         [ValidateNotNullOrEmpty()]
         [string]$Scope = "Global"
     )
 
     Begin {
-        Write-Verbose -Message "Starting $($MyInvocation.Mycommand)"
+        Write-Verbose -Message "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "using parameter set $($PSCmdlet.ParameterSetName)"
     }
 
     Process {
-        Write-Verbose "PSBoundparameters"
+        Write-Verbose "PSBoundParameters"
         Write-Verbose $($PSBoundParameters | Out-String)
         #validate Key and NewKey are not the same
         if ($key -eq $NewKey) {
@@ -410,7 +410,7 @@ Function Rename-Hashtable {
                 $name = [system.io.path]::GetRandomFileName()
                 Write-Verbose "Creating temporary hashtable ($name) from pipeline input"
                 Set-Variable -Name $name -Scope $scope -value $InputObject -WhatIf:$False
-                $passthru = $True
+                $PassThru = $True
             }
             else {
                 Write-Verbose "Using hashtable variable $name"
@@ -441,7 +441,7 @@ Function Rename-Hashtable {
                 #>
                 $tempHash = $var.Value.Clone()
 
-                if ($pscmdlet.ShouldProcess($NewKey, "Replace key $key")) {
+                if ($PSCmdlet.ShouldProcess($NewKey, "Replace key $key")) {
                     Write-Verbose "Writing the new hashtable to variable named $hashname"
                     #create a key with the new name using the value from the old key
                     Write-Verbose "Adding new key $newKey to the temporary hashtable"
@@ -452,7 +452,7 @@ Function Rename-Hashtable {
                     #write the new value to the variable
                     Write-Verbose "Writing the new hashtable to variable named $Name"
                     Write-Verbose ($tempHash | Out-String)
-                    Set-Variable -Name $Name -Value $tempHash -Scope $Scope -Force -PassThru:$Passthru |
+                    Set-Variable -Name $Name -Value $tempHash -Scope $Scope -Force -PassThru:$PassThru |
                     Select-Object -ExpandProperty Value
                 }
             }
@@ -469,14 +469,14 @@ Function Rename-Hashtable {
                 #save the current value
                 $val = $varhash.item($i)
 
-                if ($pscmdlet.ShouldProcess($NewKey, "Replace key $key at $i")) {
+                if ($PSCmdlet.ShouldProcess($NewKey, "Replace key $key at $i")) {
                     #remove at the index number
                     $varhash.RemoveAt($i)
                     #insert the new value at the index number
                     $varhash.Insert($i, $NewKey, $val)
                     Write-Verbose "Writing the new hashtable to variable named $name"
                     Write-Verbose ($varHash | Out-String)
-                    Set-Variable -Name $name -Value $varhash -Scope $Scope -Force -PassThru:$Passthru |
+                    Set-Variable -Name $name -Value $varhash -Scope $Scope -Force -PassThru:$PassThru |
                     Select-Object -ExpandProperty Value
                 }
             }
@@ -498,7 +498,7 @@ Function Rename-Hashtable {
             Write-Verbose "Removing temporary variable $name"
             Remove-Variable -name $Name -Scope $scope -WhatIf:$False
         }
-        Write-Verbose -Message "Ending $($MyInvocation.Mycommand)"
+        Write-Verbose -Message "Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #end Rename-Hashtable

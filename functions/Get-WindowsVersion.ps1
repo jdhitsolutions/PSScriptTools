@@ -17,19 +17,19 @@ Function Get-WindowsVersion {
         [switch]$UseSSL,
         [Int32]$ThrottleLimit,
         [ValidateSet('Default', 'Basic', 'Credssp', 'Digest', 'Kerberos', 'Negotiate', 'NegotiateWithImplicitCredential')]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Authentication = "default"
     )
 
     Begin {
 
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         $sb = {
             $RegPath = 'HKLM:\SOFTWARE\Microsoft\Windows nt\CurrentVersion\'
             <#
             9/15/2022 JDH
-            Revised to use `ysteminfo to retrieve the operating system name and
+            Revised to use `systeminfo to retrieve the operating system name and
             if that fails, fall back to using the registry entry.
             The registry entry for Windows 11 typically still shows Windows 10.
             #>
@@ -62,9 +62,9 @@ Function Get-WindowsVersion {
                 Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing the local host"
                 #remove all any passed parameters
                 "Credential", "UseSSL", "ThrottleLimit", "Authentication" | ForEach-Object {
-                    if ($psboundparameters.ContainsKey($_)) {
+                    if ($PSBoundParameters.ContainsKey($_)) {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Removing parameter $_"
-                        [void]($PSBoundparameters.Remove($_))
+                        [void]($PSBoundParameters.Remove($_))
                     }
                 }
             }
@@ -77,8 +77,7 @@ Function Get-WindowsVersion {
             $results = Invoke-Command @PSBoundParameters | Select-Object -Property * -ExcludeProperty RunspaceID, PS*
             if ($Results) {
                 foreach ($item in $results) {
-
-                    [pscustomobject]@{
+                    [PSCustomObject]@{
                         PSTypeName     = "WindowsVersion"
                         ProductName    = $item.ProductName
                         ReleaseVersion = $item.DisplayVersion
@@ -99,8 +98,7 @@ Function Get-WindowsVersion {
     } #process
 
     End {
-
-        Write-Verbose "[$((Get-Date).TimeOfDay)END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay)END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 } #close function
@@ -109,7 +107,7 @@ Function Get-WindowsVersion {
 Function Get-WindowsVersionString {
 
     [cmdletbinding()]
-    [OutputType("system.string")]
+    [OutputType("System.String")]
 
     Param (
         [Parameter(ValueFromPipeline, ValueFromPipelineByPropertyName, Position = 0)]
@@ -119,12 +117,12 @@ Function Get-WindowsVersionString {
         [switch]$UseSSL,
         [Int32]$ThrottleLimit,
         [ValidateSet('Default', 'Basic', 'Credssp', 'Digest', 'Kerberos', 'Negotiate', 'NegotiateWithImplicitCredential')]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Authentication = "default"
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -139,6 +137,6 @@ Function Get-WindowsVersionString {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }

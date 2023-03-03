@@ -10,11 +10,11 @@ Function Get-DiskData {
     )
 
     Begin {
-        Write-Detail "Starting $($myinvocation.MyCommand)" -Prefix BEGIN -Time | Write-Verbose
+        Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix BEGIN -Time | Write-Verbose
     } #begin
 
     Process {
-        Write-Detail "Processing $($computername.toUpper())" -Prefix PROCESS -Time | Write-Verbose
+        Write-Detail "Processing $($computername.ToUpper())" -Prefix PROCESS -Time | Write-Verbose
         Try {
             $data = Get-CimInstance -Class Win32_logicaldisk -Filter "DriveType=3" -ComputerName $Computername -ErrorAction Stop
             $data | ForEach-Object {
@@ -29,7 +29,7 @@ Function Get-DiskData {
     } #process
 
     End {
-        Write-Detail "Ending $($myinvocation.MyCommand)" -Prefix END -Time | Write-Verbose
+        Write-Detail "Ending $($MyInvocation.MyCommand)" -Prefix END -Time | Write-Verbose
     } #end
 
 }

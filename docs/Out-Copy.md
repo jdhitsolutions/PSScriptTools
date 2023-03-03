@@ -37,7 +37,7 @@ The output plus the command except for the pipe to Out-Copy will be copied to th
 ### Example 2
 
 ```powershell
-PS C:\> Get-Childitem *.ps1 | Out-File c:\work\ps.txt | Out-Copy
+PS C:\> Get-ChildItem *.ps1 | Out-File c:\work\ps.txt | Out-Copy
 ```
 
 Even if your command doesn't write anything to the pipeline, Out-Copy will still capture a prompt and PowerShell expression.

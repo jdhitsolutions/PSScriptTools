@@ -20,7 +20,7 @@ Copy-HelpExample [-Name] <String> [-Path <String>] [-UseGridView]
 
 ## DESCRIPTION
 
-This command is intended to make it easier to copy code snippets from help examples to the clipboard. You can select one or more examples which have been trimmed of comments, blank lines and most prompts. Some code examples contain the output or have several lines of code. You will need to manually delete what you don't want. If this command is run on a Windows system you have a dynamic parameter to use Out-Gridview to display your choices. When prompted enter a comma-separated list of the examples you wish to copy. Otherwise, the command will display a console-based menu. Note that if you are using the PowerShell ISE you will be forced to use Out-GridView.
+This command is intended to make it easier to copy code snippets from help examples to the clipboard. You can select one or more examples which have been trimmed of comments, blank lines and most prompts. Some code examples contain the output or have several lines of code. You will need to manually delete what you don't want. If this command is run on a Windows system you have a dynamic parameter to use Out-GridView to display your choices. When prompted enter a comma-separated list of the examples you wish to copy. Otherwise, the command will display a console-based menu. Note that if you are using the PowerShell ISE you will be forced to use Out-GridView.
 
 ## EXAMPLES
 
@@ -118,7 +118,7 @@ Accept wildcard characters: False
 
 ### -UseGridView
 
-Select help examples using Out-Gridview. This parameter is only available on Windows systems. The parameter has an alias of 'ogv'.
+Select help examples using Out-GridView. This parameter is only available on Windows systems. The parameter has an alias of 'ogv'.
 
 ```yaml
 Type: SwitchParameter

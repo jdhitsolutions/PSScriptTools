@@ -1,7 +1,7 @@
 Function New-ANSIBar {
     [cmdletbinding(DefaultParameterSetName = "standard")]
     [alias('nab')]
-    [outputtype([System.string])]
+    [OutputType([System.String])]
 
     Param(
         [Parameter(Mandatory, HelpMessage = "Enter a range of 256 color values, e.g. (232..255)")]
@@ -18,10 +18,10 @@ Function New-ANSIBar {
         [switch]$Gradient
     )
 
-    Write-Verbose "Starting $($myinvocation.mycommand)"
-    Write-Verbose "Using parameter set $($pscmdlet.ParameterSetName)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Using parameter set $($PSCmdlet.ParameterSetName)"
 
-    if ($pscmdlet.ParameterSetName -eq "Standard") {
+    if ($PSCmdlet.ParameterSetName -eq "Standard") {
         Write-Verbose "Using standard character $character"
         Switch ($Character) {
             "FullBlock" {
@@ -68,6 +68,6 @@ Function New-ANSIBar {
     }
     $out -join ""
 
-    Write-Verbose "Starting $($myinvocation.mycommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
 } #close function

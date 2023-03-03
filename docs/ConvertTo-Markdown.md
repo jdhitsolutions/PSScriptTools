@@ -16,20 +16,20 @@ Convert pipeline output to a markdown document.
 ### text (Default)
 
 ```yaml
-ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>]
+ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>]
 [-PreContent <String[]>] [-PostContent <String[]>] [-Width <Int32>] [<CommonParameters>]
 ```
 
 ### table
 
 ```yaml
-ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsTable] [<CommonParameters>]
+ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsTable] [<CommonParameters>]
 ```
 
 ### list
 
 ```yaml
-ConvertTo-Markdown [[-Inputobject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsList] [<CommonParameters>]
+ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsList] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -80,7 +80,7 @@ PS C:\> $computers = "srv1","srv2","srv4"
 PS C:\> $Title = "System Report"
 PS C:\> $footer = "_report run by $($env:USERDOMAIN)\$($env:USERNAME)_"
 PS C:\> $sb =  {
-$os = Get-CimInstance -classname win32_operatingsystem -property caption,
+$os = Get-CimInstance -classname Win32_OperatingSystem -property caption,
 lastbootUptime
 \[PSCustomObject\]@{
 PSVersion = $PSVersionTable.PSVersion
@@ -93,7 +93,7 @@ PS C:\> $out = Convertto-Markdown -title $Title
 PS C:\> foreach ($computer in $computers) {
 $out+= Invoke-command -scriptblock $sb -Computer $computer -HideComputerName |
 Select-Object -Property * -ExcludeProperty RunspaceID |
-ConvertTo-Markdown -PreContent "## $($computer.toUpper())"
+ConvertTo-Markdown -PreContent "## $($computer.ToUpper())"
 }
 PS C:\>$out += ConvertTo-Markdown -PostContent $footer
 PS C:\>$out | Set-Content c:\work\report.md
@@ -125,11 +125,11 @@ Create a "list" table with output from the Get-WindowsVersion command.
 ### EXAMPLE 5
 
 ```powershell
-PS C:\> Get-Service | Sort-Object -property Displayname |
+PS C:\> Get-Service | Sort-Object -property DisplayName |
 Foreach-Object -begin {
     "# Service Status`n"
 } -process {
-    $name = $_.Displayname
+    $name = $_.DisplayName
     $_ | Select-Object -property Name,StartType,Status,
     @{Name="RequiredServices";Expression = {$_.requiredservices.name -join ','}} |
     ConvertTo-Markdown -asList -PreContent "## $Name"
@@ -142,7 +142,7 @@ The example will create a markdown file with a title of Service Status. Each ser
 
 ## PARAMETERS
 
-### -Inputobject
+### -InputObject
 
 Typically the results of a PowerShell command or expression.
 

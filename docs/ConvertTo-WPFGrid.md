@@ -17,7 +17,7 @@ Send command output to an interactive WPF-based grid.
 
 ```yaml
 ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
-[-Gridlines <String>] [-InitializationScript <ScriptBlock>]
+[-GridLines <String>] [-InitializationScript <ScriptBlock>]
 [-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
@@ -25,7 +25,7 @@ ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
 
 ```yaml
 ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>]
-[[-Timeout] <Int32>] [-Refresh] [-Gridlines <String>]
+[[-Timeout] <Int32>] [-Refresh] [-GridLines <String>]
 [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>]
 [-UseProfile] [<CommonParameters>]
 ```
@@ -34,14 +34,14 @@ ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>]
 
 ```yaml
 ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>]
-[[-Timeout] <Int32>] [-Refresh] [-Gridlines <String>]
+[[-Timeout] <Int32>] [-Refresh] [-GridLines <String>]
 [-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>]
 [-UseProfile] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is an alternative to Out-Gridview. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.
+This command is an alternative to Out-GridView. It works much the same way. Run a PowerShell command and pipe it to this command. The output will be displayed in an auto-sized data grid. You can click on column headings to sort. You can resize columns and you can re-order columns. You will want to be selective about which properties you pipe through to this command. See examples.
 
 You can specify a timeout value which will automatically close the form. If you specify a timeout and the Refresh parameter, then the contents of the datagrid will automatically refreshed using the timeout value as an integer. This will only work when you pipe a PowerShell expression to ConvertTo-WPFGrid as one command. This will fail if you break the command in the PowerShell ISE or use a nested prompt. Beginning with v2.4.0 the form now has a Refresh button which will automatically refresh the datagrid. You should set a refresh interval that is greater than the time it takes to complete the command.
 
@@ -58,7 +58,7 @@ This command requires a Windows platform.
 ```powershell
 PS C:\> Get-Process | Sort-Object WS -Descending |
 Select-object -first 20 ID,Name,WS,VM,PM,Handles,StartTime |
-Convertto-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
+ConvertTo-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 ```
 
 Get the top 20 processes based on the value of the WorkingSet property and display selected properties in the WPF Grid. The contents will automatically refresh every 20 seconds. You will need to manually close the form.
@@ -88,7 +88,7 @@ This example uses a hypothetical command that might be defined in a PowerShell p
 ### EXAMPLE 4
 
 ```powershell
-PS C:\> (Get-Processdata -Computername $computers).where({$_.workingset -ge 100mb}) |
+PS C:\> (Get-ProcessData -Computername $computers).where({$_.workingset -ge 100mb}) |
 ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30
 ```
 
@@ -226,7 +226,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Gridlines
+### -GridLines
 
 Control how grid lines are displayed in the form. You may not want to have any or perhaps only vertical or horizontal lines.
 

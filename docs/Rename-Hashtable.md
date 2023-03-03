@@ -17,14 +17,14 @@ Rename a hashtable key.
 
 ```yaml
 Rename-Hashtable [-InputObject] <Object> [-Key] <String> [-NewKey] <String>
-[-Passthru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+[-PassThru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Name
 
 ```yaml
 Rename-Hashtable [-Name] <String> [-Key] <String> [-NewKey] <String>
-[-Passthru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+[-PassThru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -33,7 +33,7 @@ This command will rename a key in an existing hashtable or ordered dictionary. Y
 
 This command will create a temporary copy of the hashtable, create the new key, and copy the value from the old key, before removing the old key. The temporary hashtable is then set as the new value for your original variable.
 
-This command does not write anything to the pipeline when you use a variable name unless you use -Passthru. If you pipe a hashtable to this command, the new hashtable will automatically be written to the pipeline.
+This command does not write anything to the pipeline when you use a variable name unless you use -PassThru. If you pipe a hashtable to this command, the new hashtable will automatically be written to the pipeline.
 
 You might find this command useful when building a hashtable that you intend to use with splatting where you need to align key names with parameter names.
 
@@ -122,9 +122,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
-Write the revised hashtable back to the pipeline. If you pipe a variable to this command, passthru will happen automatically.
+Write the revised hashtable back to the pipeline. If you pipe a variable to this command, PassThru will happen automatically.
 
 ```yaml
 Type: SwitchParameter

@@ -16,7 +16,7 @@ Create a new PSDrive at the current location.
 ### Folder (Default)
 
 ```yaml
-New-PSDriveHere [[-Path] <String>] [-First] [-SetLocation] [-Passthru]
+New-PSDriveHere [[-Path] <String>] [-First] [-SetLocation] [-PassThru]
 [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
@@ -24,14 +24,14 @@ New-PSDriveHere [[-Path] <String>] [-First] [-SetLocation] [-Passthru]
 
 ```yaml
 New-PSDriveHere [[-Path] <String>] [[-Name] <String>] [-SetLocation]
-[-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+[-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 This function will create a new PSDrive at the specified location. The default is the current location, but you can specify any PSPath. The function will take the last word of the path and use it as the name of the new PSDrive. If you prefer to use the first word of the location, use -First. If you prefer to specify a completely different name, then use the -Name parameter.
 
-This command will not write anything to the pipeline unless you use -Passthru.
+This command will not write anything to the pipeline unless you use -PassThru.
 
 ## EXAMPLES
 
@@ -54,7 +54,7 @@ This will create a new PSDrive called Enterprise rooted to the current location.
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> New-PSDriveHere HKLM:\software\microsoft -passthru |
+PS C:\> New-PSDriveHere HKLM:\software\microsoft -PassThru |
 Select-Object -Expandproperty Name
 
 microsoft
@@ -175,7 +175,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
 Pass the new PSDrive object to the pipeline.
 

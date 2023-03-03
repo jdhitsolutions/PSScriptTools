@@ -1,9 +1,8 @@
 
 Function Get-ParameterInfo {
-
     [cmdletbinding()]
-    [Outputtype("PSParameterInfo")]
-    [alias("gpi")]
+    [OutputType('PSParameterInfo')]
+    [alias('gpi')]
 
     Param(
         [Parameter(
@@ -11,30 +10,32 @@ Function Get-ParameterInfo {
             Mandatory,
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
-            HelpMessage = "Enter a cmdlet name"
-            )]
-        [ValidateNotNullorEmpty()]
-        [Alias("name")]
+            HelpMessage = 'Enter a cmdlet name'
+        )]
+        [ValidateNotNullOrEmpty()]
+        [Alias('name')]
         [string]$Command,
         [string]$Parameter
     )
 
     Begin {
-        Write-Verbose "Starting $($myinvocation.MyCommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
         #define the set of common parameters to exclude
-        $common = @("Verbose",
-            "Debug",
-            "ErrorAction",
-            "ErrorVariable",
-            "WarningAction",
-            "WarningVariable",
-            "OutVariable",
-            "OutBuffer",
-            "WhatIf",
-            "Confirm",
-            "InformationAction",
-            "InformationVariable",
-            "PipelineVariable"
+        #I could get these from PowerShell but it is just as easy to list them
+        $common = @(
+            'Verbose',
+            'Debug',
+            'ErrorAction',
+            'ErrorVariable',
+            'WarningAction',
+            'WarningVariable',
+            'OutVariable',
+            'OutBuffer',
+            'WhatIf',
+            'Confirm',
+            'InformationAction',
+            'InformationVariable',
+            'PipelineVariable'
         )
     } #begin
 
@@ -42,10 +43,10 @@ Function Get-ParameterInfo {
         Write-Verbose "Processing $command for parameter information"
         Try {
             #need to account that the command might be an alias (Issue #101). 1/21/2021 JDH
-            $cmd = Get-Command -name $command -ErrorAction Stop
+            $cmd = Get-Command -Name $command -ErrorAction Stop
             if ($cmd.CommandType -eq 'alias') {
                 Write-Verbose "Resolving the alias $Command to $($cmd.ResolvedCommand)"
-                $data = (Get-Command -Name $cmd.ResolvedCommand -ErrorAction "Stop").parameters
+                $data = (Get-Command -Name $cmd.ResolvedCommand -ErrorAction 'Stop').parameters
             }
             else {
                 $data = $cmd.parameters
@@ -58,7 +59,7 @@ Function Get-ParameterInfo {
         # keep going if parameters were found
         # Explicitly calling base, to prevent .count from being shadowed
         #
-        if ($data.psbase.Count -gt 0) {
+        if ($data.PSBase.Count -gt 0) {
 
             #$data is a hash table
             if ($Parameter) {
@@ -72,7 +73,7 @@ Function Get-ParameterInfo {
             }
             else {
                 Write-Verbose 'Getting parameter all non-common parameters'
-                $params = $data.keys | Where-Object { $common -notcontains $_ }
+                $params = $data.keys | Where-Object { $common -NotContains $_ }
             }
             $count = ($params | Measure-Object).count
             #only keep going if non-common parameters were found
@@ -125,7 +126,7 @@ Function Get-ParameterInfo {
     } #process
 
     End {
-        Write-Verbose "Ending $($myinvocation.MyCommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #end function

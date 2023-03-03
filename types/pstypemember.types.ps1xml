@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+This file was created with Export-PSTypeExtenstion from the
+PSTypeExtensionTools module which you can install from
+the PowerShell Gallery.
+
+Use Update-TypeData to import this file in your PowerShell session.
+
+Created 02/20/2023 11:24:17
+-->
+<Types>
+  <Type>
+    <Name>psTypeMember</Name>
+    <Members>
+      <AliasProperty>
+        <Name>TypeName</Name>
+        <ReferencedMemberName>Type</ReferencedMemberName>
+      </AliasProperty>
+      <PropertySet>
+        <Name>MethodSyntax</Name>
+        <ReferencedProperties>
+          <Name>Name</Name>
+          <Name>ReturnType</Name>
+          <Name>IsStatic</Name>
+          <Name>Syntax</Name>
+        </ReferencedProperties>
+      </PropertySet>
+    </Members>
+  </Type>
+</Types>

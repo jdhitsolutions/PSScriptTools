@@ -48,11 +48,11 @@ List all scripts that could be updated.
 
 ```powershell
 PS C:\> Compare-Script | Where UpdateNeeded |
-Out-Gridview -Title "Select scripts to update" -OutputMode multiple |
+Out-GridView -Title "Select scripts to update" -OutputMode multiple |
 Foreach-Object { Update-Script $_.name }
 ```
 
-Compare scripts and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what scripts to update.
+Compare scripts and send results to Out-GridView. Use Out-GridView as an object picker to decide what scripts to update.
 
 ## PARAMETERS
 

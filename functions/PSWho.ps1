@@ -16,7 +16,7 @@ Function Get-PSWho {
     if ($PSVersionTable.PSEdition -eq "desktop" -OR $PSVersionTable.OS -match "Windows") {
 
         #get some basic information about the operating system
-        $cimos = Get-CimInstance win32_operatingsystem -Property Caption, Version, OSArchitecture
+        $cimos = Get-CimInstance Win32_OperatingSystem -Property Caption, Version, OSArchitecture
         $os = "$($cimos.Caption) [$($cimos.OSArchitecture)]"
         $osver = $cimos.Version
 
@@ -38,7 +38,7 @@ Function Get-PSWho {
     }
 
     #object properties will be displayed in the order they are listed here
-    $who = [pscustomObject]@{
+    $who = [PSCustomObject]@{
         PSTypeName      = "PSWho"
         User            = $user
         Elevated        = $elevated

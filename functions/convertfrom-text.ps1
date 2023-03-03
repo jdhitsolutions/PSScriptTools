@@ -1,18 +1,16 @@
-
 Function ConvertFrom-Text {
-
-    [cmdletbinding(DefaultParameterSetname = "File")]
+    [cmdletbinding(DefaultParameterSetName = "File")]
     [alias("cft")]
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter a regular expression pattern that uses named captures")]
         [ValidateScript( {
-                if (($_.GetGroupNames() | Where-Object {$_ -notmatch "^\d{1}$"}).Count -ge 1) {
-                    $True
-                }
-                else {
-                    Throw "No group names found in your regular expression pattern."
-                }
-            })]
+            if (($_.GetGroupNames() | Where-Object {$_ -notmatch "^\d{1}$"}).Count -ge 1) {
+                $True
+            }
+            else {
+                Throw "No group names found in your regular expression pattern."
+            }
+        })]
         [Alias("regex", "rx")]
         [regex]$Pattern,
 
@@ -21,21 +19,21 @@ Function ConvertFrom-Text {
         [alias("file")]
         [string]$Path,
 
-        [Parameter(Position = 1, Mandatory, ValueFromPipeline, ParameterSetName = 'Inputobject')]
-        [ValidateNotNullorEmpty()]
+        [Parameter(Position = 1, Mandatory, ValueFromPipeline, ParameterSetName = 'InputObject')]
+        [ValidateNotNullOrEmpty()]
         [ValidateScript( {
-                if ($_ -match "\S+") {
-                    $true
-                }
-                else {
-                    Throw "Cannot process an empty or null line of next."
-                    $false
-                }
-            })]
+            if ($_ -match "\S+") {
+                $true
+            }
+            else {
+                Throw "Cannot process an empty or null line of next."
+                $false
+            }
+        })]
         [string]$InputObject,
 
         [Parameter(HelpMessage = "Enter an optional typename for the object output.")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$TypeName,
 
         [Parameter(HelpMessage = "Do not use Write-Progress to report on processing. This can improve performance on large data sets.")]
@@ -44,7 +42,7 @@ Function ConvertFrom-Text {
 
     Begin {
         $begin = Get-Date
-        Write-Verbose "$((Get-Date).TimeOfDay) Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "$((Get-Date).TimeOfDay) Starting $($MyInvocation.MyCommand)"
         Write-Verbose "$((Get-Date).TimeOfDay) Using pattern $($pattern.ToString())"
 
         if ($NoProgress) {
@@ -57,7 +55,7 @@ Function ConvertFrom-Text {
 
         #define a hashtable of parameters to splat with Write-Progress
         $progParam = @{
-            Activity = $myinvocation.mycommand
+            Activity = $MyInvocation.MyCommand
             Status   = "pre-processing"
         }
     } #begin
@@ -69,7 +67,7 @@ Function ConvertFrom-Text {
                 $progParam.CurrentOperation = "Getting content from $path"
                 $progParam.Status = "Processing"
                 Write-Progress @progParam
-                $content = Get-Content -path $path | Where-Object {$_ -match "\S+"}
+                $content = Get-Content -Path $path | Where-Object {$_ -match "\S+"}
                 Write-Verbose "$((Get-Date).TimeOfDay) Will process $($content.count) entries"
             } #try
             Catch {
@@ -80,7 +78,7 @@ Function ConvertFrom-Text {
             }
         } #if file parameter set
         else {
-            Write-Verbose "$((Get-Date).TimeOfDay) processing input: $Inputobject"
+            Write-Verbose "$((Get-Date).TimeOfDay) processing input: $InputObject"
             $content = $InputObject
         }
 
@@ -97,7 +95,7 @@ Function ConvertFrom-Text {
 
                 foreach ($match in $pattern.matches($_)) {
                     Write-Verbose "$((Get-Date).TimeOfDay) processing match"
-                    $progParam.currentoperation = $match
+                    $progParam.CurrentOperation = $match
                     Write-Progress @progParam
 
                     #get named matches and create a hash table for each one
@@ -118,14 +116,14 @@ Function ConvertFrom-Text {
                     }
                     Write-Verbose "$((Get-Date).TimeOfDay) writing object to pipeline"
                     #write a custom object to the pipeline
-                    [pscustomobject]$hash
+                    [PSCustomObject]$hash
                 }
             } #foreach line in the content
         } #if $content
     } #process
 
     End {
-        Write-Verbose "$((Get-Date).TimeOfDay) Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "$((Get-Date).TimeOfDay) Ending $($MyInvocation.MyCommand)"
         $end = Get-Date
         Write-Verbose "$((Get-Date).TimeOfDay) Total processing time $($end-$begin)"
     } #end

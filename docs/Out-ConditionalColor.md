@@ -37,7 +37,7 @@ The default behavior is to use a hash table with a property name and color. The 
 
 You can then pipe an expression to this command, specifying a property name and the hash table. If the property matches the key name, the output for that object will be colored using the corresponding hash table value.
 
-    Get-Service -displayname windows* | Out-ConditionalColor $c -property status
+    Get-Service -DisplayName windows* | Out-ConditionalColor $c -property status
 
 Or you can do more complex processing with an ordered hash table constructed using this format:
 
@@ -66,12 +66,14 @@ LIMITATIONS
 
 Due to the nature of PowerShell's formatting system, there are some limitations with this command. If the first item in your output matches one of your conditions, any text before it, such as headers, will also be colorized. This command will have no effect if the incoming object does not have a defined format view. This means you can't pipe custom objects or something using Select-Object that only includes selected properties to this command.
 
+NOTE: This command has been marked as deprecated and will be removed in a future release.
+
 ## EXAMPLES
 
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> Get-Service -displayname windows* |
+PS C:\> Get-Service -DisplayName windows* |
 Out-ConditionalColor -propertyconditions @{Stopped='Red'} -property Status
 ```
 
@@ -80,7 +82,7 @@ Get all services where the display name starts with windows and display stopped 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-Service -displayname windows* |
+PS C:\> Get-Service -DisplayName windows* |
 Out-ConditionalColor @{Stopped='Red'} status -ov winstop
 ```
 

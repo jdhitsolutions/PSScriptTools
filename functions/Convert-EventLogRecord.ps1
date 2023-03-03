@@ -1,17 +1,19 @@
-﻿
-Function Convert-EventLogRecord {
-
+﻿Function Convert-EventLogRecord {
     [cmdletbinding()]
     [alias("clr")]
 
     Param(
-        [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
-        [ValidateNotNullorEmpty()]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline
+        )]
+        [ValidateNotNullOrEmpty()]
         [System.Diagnostics.Eventing.Reader.EventLogRecord[]]$LogRecord
     )
 
     Begin {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -98,6 +100,6 @@ Function Convert-EventLogRecord {
     } #process
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 }

@@ -8,7 +8,7 @@ Function Get-FileExtensionInfo {
     [OutputType("FileExtensionInfo")]
     Param(
         [Parameter(Position = 0, HelpMessage = "Specify the root directory path to search")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [ValidateScript( { Test-Path $_ })]
         [string]$Path = ".",
         [Parameter(HelpMessage = "Recurse through all folders.")]
@@ -20,7 +20,7 @@ Function Get-FileExtensionInfo {
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         #convert the path to a file system path
         $cPath = Convert-Path -Path $Path
@@ -34,11 +34,11 @@ Function Get-FileExtensionInfo {
         }
 
         if ($Recurse) {
-            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Getting files recursively"
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Getting files recursively"
         }
         $enumOpt.RecurseSubdirectories = $Recurse
         if ($Hidden) {
-            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Including hidden files"
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Including hidden files"
             $enumOpt.AttributesToSkip -= 2
         }
         #initialize a list to hold the results
@@ -47,16 +47,16 @@ Function Get-FileExtensionInfo {
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Processing $cPath"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing $cPath"
         $dir = Get-Item -Path $cpath
         $files = $dir.getfiles('*', $enumOpt)
 
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($files.count) files"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($files.count) files"
         $group = $files | Group-Object -Property extension
 
         #Group and measure
         foreach ($item in $group) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Measuring $($item.count) $($item.name) files"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Measuring $($item.count) $($item.name) files"
             $measure = $item.Group | Measure-Object -Property length -Minimum -Maximum -Average -Sum
 
             #create a custom object
@@ -83,7 +83,7 @@ Function Get-FileExtensionInfo {
         ($list | Sort-Object -Property TotalSize,Count)[-1].IsLargest = $true
         #write the results to the pipeline
         $list
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
 

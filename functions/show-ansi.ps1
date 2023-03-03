@@ -1,6 +1,6 @@
 Function Show-ANSISequence {
     [cmdletbinding(DefaultParameterSetName = "basic")]
-    [outputtype([system.string])]
+    [OutputType([System.String])]
 
     Param(
         [Parameter(ParameterSetName = "basic", HelpMessage = "Display basic ANSI escape sequences. This is the default setting.")]
@@ -18,7 +18,7 @@ Function Show-ANSISequence {
         [switch]$AsString
     )
 
-    Write-Verbose "Starting $($myinvocation.MyCommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Debug "Using parameter set $($PSCmdlet.ParameterSetName)"
     Write-Debug "Bound parameters"
     $PSBoundParameters | Out-String | Write-Debug
@@ -213,5 +213,5 @@ Function Show-ANSISequence {
     #insert a blank line to set off the results
     Write-Host "`r"
 
-    Write-Verbose "Ending $($myinvocation.MyCommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }

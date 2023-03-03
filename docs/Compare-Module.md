@@ -48,11 +48,11 @@ List all modules that could be updated.
 
 ```powershell
 PS C:\> Compare-Module | Where UpdateNeeded |
-Out-Gridview -title "Select modules to update" -outputMode multiple |
+Out-GridView -title "Select modules to update" -outputMode multiple |
 Foreach-Object { Update-Module $_.name }
 ```
 
-Compare modules and send results to Out-Gridview. Use Out-Gridview as an object picker to decide what modules to update.
+Compare modules and send results to Out-GridView. Use Out-GridView as an object picker to decide what modules to update.
 
 ### EXAMPLE 3
 

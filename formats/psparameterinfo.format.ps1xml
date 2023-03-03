@@ -29,8 +29,9 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
               <ListItem>
                 <Label>Mandatory</Label>
                 <ScriptBlock>
+                <!--show mandatory in yellow-->
                 if ($host.name -match 'console|code|remotehost' -AND $_.mandatory) {
-                    "$([char]27)[38;5;47m$($_.mandatory)$([char]27)[0m"
+                    "$([char]27)[38;5;219m$($_.mandatory)$([char]27)[0m"
                 }
                 else {
                   $_.Mandatory
@@ -58,11 +59,27 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
               </ListItem>
               <ListItem>
                 <Label>ValueFromPipeline</Label>
-                <PropertyName>ValueFromPipeline</PropertyName>
+                <ScriptBlock>
+                <!--show in green if true-->
+                if ($host.name -match 'console|code|remotehost' -AND $_.ValueFromPipeline) {
+                    "$([char]27)[38;5;47m$($_.ValueFromPipeline)$([char]27)[0m"
+                }
+                else {
+                  $_.ValueFromPipeline
+                }
+                </ScriptBlock>
               </ListItem>
               <ListItem>
                 <Label>ValueFromPipelineByPropertyName</Label>
-                <PropertyName>ValueFromPipelineByPropertyName</PropertyName>
+                             <ScriptBlock>
+                <!--show in green if true-->
+                if ($host.name -match 'console|code|remotehost' -AND $_.ValueFromPipelineByPropertyName) {
+                    "$([char]27)[38;5;47m$($_.ValueFromPipelineByPropertyName)$([char]27)[0m"
+                }
+                else {
+                  $_.ValueFromPipelineByPropertyName
+                }
+                </ScriptBlock>
               </ListItem>
             </ListItems>
           </ListEntry>
@@ -76,14 +93,6 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
         <TypeName>PSParameterInfo</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
--->
         <PropertyName>ParameterSet</PropertyName>
         <Label>ParameterSet</Label>
       </GroupBy>
@@ -113,17 +122,12 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>Type</Label>
-
             <Alignment>left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
           <TableRowEntry>
             <TableColumnItems>
-              <!--
-            By default the entries use property names, but you can replace them with scriptblocks.
-            <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
--->
               <TableColumnItem>
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
@@ -133,7 +137,7 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
               <TableColumnItem>
                 <ScriptBlock>
                 if ($host.name -match 'console|code|remotehost' -AND $_.mandatory) {
-                    "$([char]27)[38;5;47m$($_.mandatory)$([char]27)[0m"
+                    "$([char]27)[38;5;219m$($_.mandatory)$([char]27)[0m"
                 }
                 else {
                   $_.Mandatory

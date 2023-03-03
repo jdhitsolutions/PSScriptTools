@@ -27,17 +27,17 @@ Select-After is a simplified version of Select-Object. The premise is that you c
 ### Example 1
 
 ```powershell
-PS C:\> Get-Childitem c:\work -file | Select-After "11/1/2020"
+PS C:\> Get-ChildItem c:\work -file | Select-After "11/1/2022"
 
 
     Directory: C:\work
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           11/4/2020 11:36 AM           5008 ipperf.csv
+-a---           11/4/2022 11:36 AM           5008 ipperf.csv
 ```
 
-Select all objects that have been modified after 11/1/2020. This example is using the default -Property value of LastWriteTime.
+Select all objects that have been modified after 11/1/2022. This example is using the default -Property value of LastWriteTime.
 
 ### Example 2
 

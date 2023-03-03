@@ -15,7 +15,7 @@ Modify or add a PSAnsiFileEntry
 
 ```yaml
 Set-PSAnsiFileMap [-Description] <String> [-Pattern <String>] [-Ansi <String>]
-[-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+[-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -91,7 +91,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
 Display the updated map.
 

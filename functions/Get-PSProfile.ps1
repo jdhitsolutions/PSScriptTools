@@ -4,7 +4,7 @@ Function Get-PSProfile {
     [OutputType("PSProfilePath")]
     Param()
 
-    Write-Verbose "Starting $($myinvocation.mycommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
     if ($IsWindows -OR ($PSEdition -eq "Desktop")) {
         $myDocsLocation = (Get-PSLocation).Home
         # a collection of known PowerShell profile paths
@@ -56,7 +56,7 @@ Function Get-PSProfile {
                 foreach ($item in $profiles) {
                     #test the file
                     Write-Verbose "Testing $($item.value)"
-                    if (Test-Path -path $item.value) {
+                    if (Test-Path -Path $item.value) {
                         $Exists = $True
                         $Modified = (Get-Item $item.value).LastWriteTime
                     }
@@ -65,7 +65,7 @@ Function Get-PSProfile {
                         $Modified = $null
                     }
                     #create a custom object
-                    [pscustomobject]@{
+                    [PSCustomObject]@{
                         PSTypeName   = "PSProfilePath"
                         Name         = $h.Name
                         Scope        = $item.name
@@ -86,5 +86,5 @@ Function Get-PSProfile {
         Write-Warning "This command is intended for a Windows system."
     }
 
-    Write-verbose "Ending $($myinvocation.mycommand)"
+    Write-verbose "Ending $($MyInvocation.MyCommand)"
 }

@@ -20,7 +20,7 @@ ConvertFrom-Text [-Pattern] <Regex> [-Path] <String> [-TypeName <String>]
 [-NoProgress] [<CommonParameters>]
 ```
 
-### Inputobject
+### InputObject
 
 ```yaml
 ConvertFrom-Text [-Pattern] <Regex> [-InputObject] <String>
@@ -39,7 +39,7 @@ The command will write a generic custom object to the pipeline. However, you can
 
 ```powershell
 PS C:\> $b = "(?<Date>\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}).*(?<Error>\d+),\s+(?<Step>.*):\s+(?<Action>\w+),\s+(?<Path>(\w+\\)*\w+\.\w+)"
-PS C:\> ConvertFrom-Text -pattern $b -path C:\windows\DtcInstall.log
+PS C:\> ConvertFrom-Text -pattern $b -Path C:\windows\DtcInstall.log
 
 Date   : 10-18-2020 10:49
 Error  : 0
@@ -61,7 +61,7 @@ The first command creates a variable to hold the regular expression pattern that
 
 ```powershell
 PS C:\> $wu = "(?<Date>\d{4}-\d{2}-\d{2})\s+(?<Time>(\d{2}:)+\d{3})\s+(?<PID>\d+)\s+(?<TID>\w+)\s+(?<Component>\w+)\s+(?<Message>.*)"
-PS C:\> $out = ConvertFrom-Text -pattern $wu -path C:\Windows\WindowsUpdate.log -noprogress
+PS C:\> $out = ConvertFrom-Text -pattern $wu -Path C:\Windows\WindowsUpdate.log -noprogress
 PS C:\> $out | Group-Object Component | Sort-Object Count
 
 Count Name                      Group
@@ -165,7 +165,7 @@ Any text that you want to pipe into this command. It can be a certain number of 
 
 ```yaml
 Type: String
-Parameter Sets: Inputobject
+Parameter Sets: InputObject
 Aliases:
 
 Required: True

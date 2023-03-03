@@ -26,11 +26,11 @@ Function _TestMe {
           argument when using Invoke-Command. It appears to pass it as
           a string so I'm recreating it as a scriptblock here.
          #>
-        $script:testblock = [scriptblock]::Create($Expression)
+        $script:TestBlock = [scriptblock]::Create($Expression)
 
     } -process {
         #invoke the scriptblock with any arguments and measure
-        Measure-Command -Expression { $($script:testblock).Invoke(@($argumentlist)) } -OutVariable +out
+        Measure-Command -Expression { $($script:TestBlock).Invoke(@($argumentlist)) } -OutVariable +out
 
         #} -outvariable +out
         #pause to mitigate any caching effects
@@ -55,7 +55,7 @@ Function _TestMe {
     @{Name = "MaximumMS"; Expression = { $_.Maximum } },
     @{Name = "MedianMS"; Expression = {
             #sort the values to calculate the median and trimmed values
-            $sort = $out.totalmilliseconds | Sort-Object
+            $sort = $out.TotalMilliseconds | Sort-Object
 
             #test if there are an even or odd number of elements
             if ( ($sort.count) % 2) {
@@ -72,7 +72,7 @@ Function _TestMe {
     },
     @{Name = "TrimmedMS"; Expression = {
             #values must be sorted in ascending order
-            $data = $out.totalmilliseconds | Sort-Object
+            $data = $out.TotalMilliseconds | Sort-Object
             #select elements from the second to next to last
             ($data[1..($data.count - 2)] | Measure-Object -Average).Average
 
@@ -80,18 +80,18 @@ Function _TestMe {
     }
 
     #add metadata
-    $OS = Get-CimInstance -ClassName win32_operatingsystem
-    $TestResults | Add-Member -MemberType Noteproperty -Name PSVersion -Value $PSVersionTable.PSVersion.ToString()
-    $TestResults | Add-Member -MemberType Noteproperty -Name OS -Value $OS.caption
+    $OS = Get-CimInstance -ClassName Win32_OperatingSystem
+    $TestResults | Add-Member -MemberType NoteProperty -Name PSVersion -Value $PSVersionTable.PSVersion.ToString()
+    $TestResults | Add-Member -MemberType NoteProperty -Name OS -Value $OS.caption
 
     if ($IncludeExpression) {
         Write-Verbose "Adding expression to output"
-        $TestResults | Add-Member -MemberType Noteproperty -Name Expression -Value $Expression
-        $TestResults | Add-Member -MemberType Noteproperty -Name Arguments -Value $ArgumentList
+        $TestResults | Add-Member -MemberType NoteProperty -Name Expression -Value $Expression
+        $TestResults | Add-Member -MemberType NoteProperty -Name Arguments -Value $ArgumentList
     }
 
     Write-Verbose "Inserting a new type name"
-    $TestResults.psobject.typenames.insert(0, "my.TestResult")
+    $TestResults.PSObject.TypeNames.insert(0, "my.TestResult")
 
     #write the result to the pipeline
     $testResults
@@ -147,7 +147,7 @@ Function Test-Expression {
 
     )
 
-    Write-Verbose "Starting: $($MyInvocation.Mycommand)"
+    Write-Verbose "Starting: $($MyInvocation.MyCommand)"
     Write-Verbose ($PSBoundParameters | Out-String)
     Write-Verbose "Measuring expression:"
     Write-Verbose ($Expression | Out-String)
@@ -166,7 +166,7 @@ Function Test-Expression {
         Write-Verbose "Running as a background job"
         [void]$PSBoundParameters.remove("AsJob")
         Start-Job -ScriptBlock {
-            Param([hashtable]$Testparams)
+            Param([hashtable]$TestParams)
 
             <#
           PowerShell doesn't seem to like passing a scriptblock as an
@@ -174,19 +174,18 @@ Function Test-Expression {
           a string so I'm recreating it as a scriptblock here.
         #>
 
-            $expression = [scriptblock]::Create($Testparams.Expression)
+            $expression = [scriptblock]::Create($TestParams.Expression)
             $TestParams.Expression = $Expression
-            Test-Expression @testparams
+            Test-Expression @TestParams
         } -ArgumentList @($PSBoundParameters) -InitializationScript { Import-Module PSScriptTools}
 
     }
     else {
-
         [void]$PSBoundParameters.remove("AsJob")
         _TestMe @PSBoundParameters
     }
 
-    Write-Verbose "Ending: $($MyInvocation.Mycommand)"
+    Write-Verbose "Ending: $($MyInvocation.MyCommand)"
 
 } #end function
 
@@ -200,22 +199,22 @@ Function Test-ExpressionForm {
         Add-Type -AssemblyName PresentationFramework
         Add-Type -assemblyName PresentationCore
 
-        [xml]$xaml = Get-Content $psscriptroot\form.xaml
+        [xml]$xaml = Get-Content $PSScriptRoot\form.xaml
 
-        $reader = New-Object system.xml.xmlnodereader $xaml
-        $form = [windows.markup.xamlreader]::Load($reader)
+        $reader = New-Object System.Xml.XmlNodeReader $xaml
+        $form = [Windows.Markup.XamlReader]::Load($reader)
 
         $sb = $form.FindName("txtScriptBlock")
         $count = $form.FindName("txtCount")
         $results = $form.FindName("tbResults")
-        $slider = $form.Findname("sliderStatic")
+        $slider = $form.FindName("sliderStatic")
         $radioStatic = $form.FindName("radioStatic")
         $radioRandom = $form.FindName("radioRandom")
         $min = $form.FindName("txtMin")
         $Max = $form.FindName("txtMax")
         $argumentList = $form.FindName("txtArguments")
         $run = $form.FindName("btnRun")
-        $quit = $form.Findname("btnQuit")
+        $quit = $form.FindName("btnQuit")
 
         #defaults
         $min.Text = 1
@@ -286,7 +285,7 @@ Function Test-ExpressionForm {
                         #uncomment for troubleshooting
                         #$params | out-string | write-host -ForegroundColor cyan
 
-                        $script:out = Test-Expression @params -errorvariable ev
+                        $script:out = Test-Expression @params -ErrorVariable ev
                         if ($script:out) {
                             $data = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
                         }

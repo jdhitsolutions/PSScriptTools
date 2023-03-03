@@ -14,25 +14,25 @@
     <Controls>
         <Control>
             <Name>FileSystemTypes-GroupingFormat</Name>
-                    <CustomControl>
-                        <CustomEntries>
-                            <CustomEntry>
+            <CustomControl>
+                <CustomEntries>
+                    <CustomEntry>
+                        <CustomItem>
+                            <Frame>
+                                <LeftIndent>4</LeftIndent>
                                 <CustomItem>
-                                    <Frame>
-                                        <LeftIndent>4</LeftIndent>
-                                        <CustomItem>
-                                            <Text AssemblyName="System.Management.Automation" BaseName="FileSystemProviderStrings" ResourceId="DirectoryDisplayGrouping"/>
-                                            <ExpressionBinding>
-                                              <ScriptBlock>
+                                    <Text AssemblyName="System.Management.Automation" BaseName="FileSystemProviderStrings" ResourceId="DirectoryDisplayGrouping"/>
+                                    <ExpressionBinding>
+                                        <ScriptBlock>
                                                   $_.PSParentPath.Replace("Microsoft.PowerShell.Core\FileSystem::", "")
-                                              </ScriptBlock>
-                                            </ExpressionBinding>
-                                            <NewLine/>
-                                        </CustomItem>
-                                    </Frame>
+                                        </ScriptBlock>
+                                    </ExpressionBinding>
+                                    <NewLine/>
                                 </CustomItem>
-                            </CustomEntry>
-                        </CustomEntries>
+                            </Frame>
+                        </CustomItem>
+                    </CustomEntry>
+                </CustomEntries>
             </CustomControl>
         </Control>
     </Controls>
@@ -40,7 +40,7 @@
     <!-- ################ VIEW DEFINITIONS ################ -->
 
     <ViewDefinitions>
-       <View>
+        <View>
             <Name>ansi</Name>
             <ViewSelectedBy>
                 <SelectionSetName>FileSystemTypes</SelectionSetName>
@@ -51,11 +51,11 @@
             </GroupBy>
             <TableControl>
                 <TableHeaders>
-                   <TableColumnHeader>
-                      <Label>Mode</Label>
-                      <Width>7</Width>
-                      <Alignment>left</Alignment>
-                   </TableColumnHeader>
+                    <TableColumnHeader>
+                        <Label>Mode</Label>
+                        <Width>7</Width>
+                        <Alignment>left</Alignment>
+                    </TableColumnHeader>
                     <TableColumnHeader>
                         <Label>LastWriteTime</Label>
                         <Width>25</Width>
@@ -84,11 +84,11 @@
                                 </ScriptBlock>
                             </TableColumnItem>
                             <TableColumnItem>
-                           	<PropertyName>Length</PropertyName>
+                                <PropertyName>Length</PropertyName>
                             </TableColumnItem>
                             <TableColumnItem>
                                 <ScriptBlock>
-                                <!--$PSAnsiFileMap is a global variable importing the json color map-->
+                                    <!--$PSAnsiFileMap is a global variable importing the json color map-->
                                 $file = $_.name.trim()
 
                                 if ($host.name -match "console|code|remotehost") {
@@ -96,7 +96,7 @@
                                     $fmt = $PSAnsiFileMap.where({$_.description -eq 'topcontainer'})
                                   }
                                   else {
-                                      <!-- If there are duplicate matches, use the last one-->
+                                    <!-- If there are duplicate matches, use the last one-->
                                     $fmt= $($global:PSAnsiFileMap).where({($_.Pattern) -AND ($file -match $_.Pattern)}) | Select-Object -last 1
                                   }
                                     if ($fmt.description) {

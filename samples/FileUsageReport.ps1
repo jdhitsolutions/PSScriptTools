@@ -12,12 +12,12 @@ Param(
 
 #create a transcript if -Verbose is used
 if ($VerbosePreference -eq 'Continue') {
-    $transcript = New-CustomFileName -Template "Transcript-$($myinvocation.MyCommand)-%Year%Month%Day%Time.log"
+    $transcript = New-CustomFileName -Template "Transcript-$($MyInvocation.MyCommand)-%Year%Month%Day%Time.log"
     Start-Transcript -Path $transcript -IncludeInvocationHeader
 }
 
 $PSDefaultParameterValues."write-detail:date" = $True
-Write-Detail "Starting $($myinvocation.mycommand)" | Write-Verbose
+Write-Detail "Starting $($MyInvocation.MyCommand)" | Write-Verbose
 Write-Detail "Execution metadata" | Write-Verbose
 Write-Detail (Get-PSWho -AsString) | Write-Verbose
 Write-Detail "Using parameter values" | Write-Verbose
@@ -54,7 +54,7 @@ Set-Content -Path $log -Value "Usage Report for $Path"
 Add-Content -Path $log -Value (Get-Date)
 $data | Select-Object Count, Name, Size | Out-String | Add-Content -Path $log
 
-Write-Detail "Ending $($myinvocation.mycommand)" | Write-Verbose
+Write-Detail "Ending $($MyInvocation.MyCommand)" | Write-Verbose
 
 $PSDefaultParameterValues.Remove("write-detail:date")
 

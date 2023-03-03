@@ -34,7 +34,7 @@ PS C:\> Get-ChildItem c:\work -file | Select-Newest 1
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           11/4/2020 11:36 AM           5008 ipperf.csv
+-a---           11/4/2022 11:36 AM           5008 ipperf.csv
 ```
 
 Get the newest file in the Work folder. This example is using the default -Property parameter value of LastWriteTime.

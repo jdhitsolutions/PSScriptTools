@@ -5,7 +5,7 @@ Function Test-IsElevated {
     [OutputType("Boolean")]
     Param()
 
-    Write-Verbose "Starting $($MyInvocation.mycommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
     if ($ISWindows -OR $PSEdition -eq 'Desktop') {
         Write-Verbose "Windows detected"
         $user = [Security.Principal.WindowsIdentity]::GetCurrent();
@@ -16,5 +16,5 @@ Function Test-IsElevated {
         #Assuming the same non-Windows code works until someone gives me feedback
         if ( (id -u) -eq 0) {$True} else {$False}
     }
-    Write-Verbose "Ending $($MyInvocation.mycommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }

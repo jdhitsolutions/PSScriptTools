@@ -11,23 +11,23 @@ Function Get-CommandParameter {
         [string[]]$ParameterName
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $common = "Verbose", "Debug", "erroraction", "warningaction",
         "informationaction", "errorvariable", "warningvariable", "informationvariable",
         "outvariable", "outbuffer", "pipelinevariable"
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting parameter data for $Name "
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting parameter data for $Name "
         $gcm = Get-Command -Name $name -ErrorAction Stop
         if ($gcm.CommandType -eq 'alias') {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Resolving alias $Name "
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Resolving alias $Name "
             $gcm = Get-Command -name $gcm.ResolvedCommandName
         }
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting parameters for $($gcm.name)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting parameters for $($gcm.name)"
         $Params = $gcm.parameters
 
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Filtering out common parameters"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Filtering out common parameters"
         foreach ($var in $common) {
             [void]$params.Remove($var)
         }
@@ -49,7 +49,7 @@ Function Get-CommandParameter {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 
@@ -65,12 +65,12 @@ Function Get-CommandMetadata {
         [string]$Name
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting command metadata for $Name "
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting command metadata for $Name "
         $gcm = Get-Command -Name $name -ErrorAction Stop
         #allow an alias or command name
         if ($gcm.CommandType -eq 'Alias') {
@@ -83,7 +83,7 @@ Function Get-CommandMetadata {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 
@@ -96,14 +96,14 @@ Function Copy-Command {
 
     [cmdletbinding()]
     [alias("cc")]
-    [OutputType([system.string[]])]
+    [OutputType([System.String[]])]
 
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a PowerShell command")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Command,
         [Parameter(Position = 1, HelpMessage = "Enter the new name for your command using Verb-Noun convention")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$NewName,
         [switch]$IncludeDynamic,
         [switch]$AsProxy,
@@ -111,7 +111,7 @@ Function Copy-Command {
     )
 
     Try {
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Getting command metadata for $command"
         $gcm = Get-Command -Name $command -ErrorAction Stop
         #allow an alias or command name
@@ -156,7 +156,7 @@ Author : $env:username
         #define the beginning of text for the new command
         #dynamically insert the command's module if one exists
         $text = @"
-#requires -version $(([regex]"\d+\.\d+").match($psversiontable.psversion).value)
+#requires -version $(([regex]"\d+\.\d+").match($PSVersionTable.PSVersion).value)
 $(if ($gcm.modulename -AND $gcm.modulename -notmatch "Microsoft\.PowerShell\.\w+") { "#requires -module $($gcm.modulename)" })
 
 $myComment
@@ -226,7 +226,7 @@ $NewParameters
 
 Begin {
 
-    Write-Verbose "[BEGIN  ] Starting `$(`$MyInvocation.Mycommand)"
+    Write-Verbose "[BEGIN  ] Starting `$(`$MyInvocation.MyCommand)"
     Write-Verbose "[BEGIN  ] Using parameter set `$(`$PSCmdlet.ParameterSetName)"
     Write-Verbose (`$PSBoundParameters | Out-String)
 
@@ -264,7 +264,7 @@ Process {
 
 End {
 
-    Write-Verbose "[END    ] Ending `$(`$MyInvocation.Mycommand)"
+    Write-Verbose "[END    ] Ending `$(`$MyInvocation.MyCommand)"
 
 "@
 

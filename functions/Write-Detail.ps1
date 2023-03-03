@@ -5,7 +5,7 @@ Function Write-Detail {
         [Parameter(ParameterSetName = "Default")]
         [Parameter(ParameterSetName = "Date")]
         [Parameter(ParameterSetName = "Time")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Message,
 
         [Parameter(ParameterSetName = "Default")]
@@ -31,7 +31,7 @@ Function Write-Detail {
         $Text = "[$($prefix.ToUpper())] $Message"
     }
     else {
-        $Text = "$dt [$($prefix.toUpper())] $Message"
+        $Text = "$dt [$($prefix.ToUpper())] $Message"
     }
     $Text
 
@@ -66,7 +66,7 @@ Function Out-VerboseTee {
         }
     }
     End {
-        $VerbosePreference = "silentlycontinue"
+        $VerbosePreference = "SilentlyContinue"
     }
 } #close Out-VerboseTee
 

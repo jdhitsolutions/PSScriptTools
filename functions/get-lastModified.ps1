@@ -10,7 +10,7 @@ Function Get-LastModifiedFile {
         [Parameter(Position = 1, HelpMessage = "Specify the folder to search.")]
         [ValidateScript({
           #this will write a custom error message if validation fails
-          If ((Test-Path -path $_ -PathType Container) -AND ((Get-Item -path $_).psprovider.name -eq 'Filesystem')) {
+          If ((Test-Path -Path $_ -PathType Container) -AND ((Get-Item -Path $_).psprovider.name -eq 'Filesystem')) {
               return $True
           }
           else {
@@ -33,7 +33,7 @@ Function Get-LastModifiedFile {
         [switch]$Recurse
     )
 
-    Write-Verbose "Starting $($myinvocation.mycommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
     $msg ="Searching {0} for {1} files modified in the last {2} {3}." -f (Convert-Path $Path),$filter,$IntervalCount,$Interval
     Write-Verbose $msg
 
@@ -65,6 +65,6 @@ Function Get-LastModifiedFile {
     #better performance
     (Get-ChildItem @PSBoundParameters).Where({$_.LastWriteTime -ge $last})
 
-    Write-Verbose "Ending $($myinvocation.mycommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }
 

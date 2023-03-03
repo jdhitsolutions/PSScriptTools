@@ -32,7 +32,7 @@ Function Copy-HelpExample {
 
             #define a parameter attribute object
             $attributes = New-Object System.Management.Automation.ParameterAttribute
-            $attributes.HelpMessage = "Select help examples using Out-Gridview."
+            $attributes.HelpMessage = "Select help examples using Out-GridView."
 
             #define a collection for attributes
             $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
@@ -55,7 +55,7 @@ Function Copy-HelpExample {
     } #dynamic param
 
     Begin {
-        Write-Verbose "Starting $($myinvocation.mycommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
         #A regex pattern to strip off prompts, comments and empty lines from the code sample
         $rx = [System.Text.RegularExpressions.Regex]::new("(PS.*>)|(#.*)|(^\s$)", "Multiline")
@@ -77,9 +77,9 @@ Function Copy-HelpExample {
             $choices = $help.examples.example | Select-Object -Property Title,
             @{Name = "CodeSample"; Expression = {($rx.replace($_.code, "")).trim()}}
 
-            #force the ISE to use Out-Gridview
+            #force the ISE to use Out-GridView
             if ($ogv -OR ($host.name -match "PowerShell ISE")) {
-                Write-Verbose "Launching Out-Gridview"
+                Write-Verbose "Launching Out-GridView"
                 $choices | Out-GridView -Title "Select one or more code samples to copy" -PassThru |
                 ForEach-Object {$_.codeSample} | Set-Clipboard
             } #if gridview
@@ -106,7 +106,7 @@ Some example code includes the output.
                 "`r"
                 "    $($choices[$i].codesample)"
                 #add the sample to the temporary hashtable
-                $hash.add(($i+1).tostring(),$choices[$i].codesample)
+                $hash.add(($i+1).ToString(),$choices[$i].codesample)
             }
 
             #prompt the user for a choice
@@ -140,6 +140,6 @@ Some example code includes the output.
     }
     } #process
     End {
-        Write-Verbose "Ending $($myinvocation.mycommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end
 } #end function
