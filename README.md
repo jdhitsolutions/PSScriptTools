@@ -1858,7 +1858,7 @@ You can also use the `Get-PSWho` command to get more information.
 {Get-Date -format g | Set-Clipboard} | New-FunctionItem -name Copy-Date
 ```
 
-The scriptblock has been converted into a function.
+The script block has been converted into a function.
 
 ```dos
 PS C:\> get-command copy-date
