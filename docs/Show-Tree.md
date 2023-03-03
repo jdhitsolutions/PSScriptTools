@@ -15,7 +15,7 @@ Shows the specified path as a tree.
 
 ### Path (Default)
 
-```yam.
+```yaml
 Show-Tree [[-Path] <String[]>] [[-Depth] <Int32>] [-IndentSize <Int32>]
 [-ShowItem] [-ShowProperty <String[]>] [-InColor] [<CommonParameters>]
 ```

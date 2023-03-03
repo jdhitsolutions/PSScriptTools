@@ -27,20 +27,20 @@ Function Get-Status {
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         if ($trace) {
-            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Using Trace"
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Using Trace"
             $global:TraceEnabled = $True
-            $traceTitle = "{0} Trace Log" -f $($myinvocation.MyCommand)
-            Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] $traceTitle"
+            $traceTitle = "{0} Trace Log" -f $($MyInvocation.MyCommand)
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] $traceTitle"
             Trace-Message -Title $traceTitle
-            Trace-Message "Starting $($myinvocation.mycommand)"
+            Trace-Message "Starting $($MyInvocation.MyCommand)"
         }
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Using parameter set $($pscmdlet.ParameterSetName)"
-        Trace-Message -message "Using parameter set: $($pscmdlet.ParameterSetName)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using parameter set $($PSCmdlet.ParameterSetName)"
+        Trace-Message -message "Using parameter set: $($PSCmdlet.ParameterSetName)"
         $sessParams = @{
             ErrorAction  = 'stop'
             computername = $null
@@ -50,7 +50,7 @@ Function Get-Status {
             classname   = $null
         }
 
-        if ($pscmdlet.ParameterSetName -eq 'name') {
+        if ($PSCmdlet.ParameterSetName -eq 'name') {
             Trace-Message -message "Create a temporary Cimsession"
             $sessParams.Computername = $Computername
             if ($Credential) {
@@ -58,7 +58,7 @@ Function Get-Status {
             }
 
             Try {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Creating temporary cimsession to $computername"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating temporary cimsession to $computername"
                 $Cimsession = New-CimSession @sessParams
                 $tempsession = $True
             }
@@ -72,12 +72,12 @@ Function Get-Status {
         if ($Cimsession) {
 
             $hash = [ordered]@{
-                Computername = $cimsession.computername.toUpper()
+                Computername = $cimsession.computername.ToUpper()
             }
             Try {
                 $cimParams.classname = 'Win32_OperatingSystem'
                 $cimParams.CimSession = $Cimsession
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Querying $($cimparams.classname)"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Querying $($cimparams.classname)"
                 Trace-Message  "Querying $($cimparams.classname)"
                 $OS = Get-CimInstance @cimParams
                 $uptime = (Get-Date) - $OS.lastBootUpTime
@@ -89,7 +89,7 @@ Function Get-Status {
                 $cimParams.classname = 'Win32_Logicaldisk'
                 $cimParams.filter = "drivetype=3"
 
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Querying $($cimparams.classname)"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Querying $($cimparams.classname)"
                 Trace-Message  "Querying $($cimparams.classname)"
                 Get-CimInstance @cimParams | ForEach-Object {
                     $name = "PctFree{0}" -f $_.deviceid.substring(0, 1)
@@ -103,10 +103,10 @@ Function Get-Status {
 
                 if ($AsString) {
                     Trace-Message "Formatting result as a string"
-                    $upstring = $uptime.toString().substring(0, $uptime.toString().LastIndexOf("."))
+                    $upstring = $uptime.ToString().substring(0, $uptime.ToString().LastIndexOf("."))
 
                     if (($IsWindows -AND $IsCoreCLR) -OR ($PSEdition -eq 'Desktop')) {
-                        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Formatting for PowerShell 7.x"
+                        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Formatting for PowerShell 7.x"
                         Trace-Message -message "Formatting for PowerShell 7.x"
                         #strip the milliseconds off the uptime
                         $string = "$([char]0x1b)[38;5;47m{0}$([char]0x1b)[0m Up:{1}" -f $status.computername, $upstring
@@ -116,7 +116,7 @@ Function Get-Status {
                     }
 
                     #Get free properties
-                    $free = $status.psobject.properties | Where-Object Name -match PctFree
+                    $free = $status.PSObject.properties | Where-Object Name -match PctFree
 
                     foreach ($item in $free) {
                         $sName = $item.name -replace "Pct", "%"
@@ -156,7 +156,7 @@ Function Get-Status {
 
             #only remove the cimsession if it was created in this function
             if ($tempsession) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Removing temporary cimsession"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Removing temporary cimsession"
                 Trace-Message "Removing temporary cimsession"
                 Remove-CimSession -CimSession $Cimsession
             }
@@ -164,8 +164,8 @@ Function Get-Status {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
-        Trace-Message -message "Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
+        Trace-Message -message "Ending $($MyInvocation.MyCommand)"
         #make sure tracing is turned off
         $global:TraceEnabled = $False
     } #end

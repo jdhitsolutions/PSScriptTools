@@ -1,9 +1,9 @@
 Function Test-IsPSWindows {
     [cmdletbinding()]
-    [outputtype([Boolean])]
+    [OutputType([Boolean])]
     Param( )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
     } #begin
 
@@ -21,7 +21,7 @@ Function Test-IsPSWindows {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 

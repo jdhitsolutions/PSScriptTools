@@ -9,16 +9,16 @@ Function Compare-Script {
             Position = 0,
             ValueFromPipelineByPropertyName
         )]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [Alias("scriptname")]
         [string]$Name,
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Gallery = "PSGallery"
     )
 
     Begin {
 
-        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
 
         $progParam = @{
             Activity         = $MyInvocation.MyCommand
@@ -104,7 +104,7 @@ Function Compare-Script {
     } #Progress
 
     End {
-        Write-Verbose "[END    ] Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "[END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 
 } #close function

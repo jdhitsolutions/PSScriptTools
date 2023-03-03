@@ -4,7 +4,7 @@
 Function ConvertTo-UTCTime {
     [cmdletbinding()]
     [alias("tout")]
-    [outputtype([Datetime],[System.String])]
+    [OutputType([Datetime],[System.String])]
     Param(
         [Parameter(ValueFromPipeline, HelpMessage = "Enter a Datetime value")]
         [ValidateNotNullOrEmpty()]
@@ -12,12 +12,12 @@ Function ConvertTo-UTCTime {
         [switch]$AsString
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Converting $DateTime to UTC"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $DateTime to UTC"
         $utc = $datetime.ToUniversalTime()
         if ($AsString) {
             "{0:u}" -f $utc
@@ -29,7 +29,7 @@ Function ConvertTo-UTCTime {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 
@@ -38,7 +38,7 @@ Function ConvertTo-UTCTime {
 Function ConvertFrom-UTCTime {
     [cmdletbinding()]
     [alias("frut")]
-    [outputtype([datetime])]
+    [OutputType([datetime])]
 
     Param(
         [Parameter(Mandatory, HelpMessage = "Enter a Universal Datetime value", ValueFromPipeline)]
@@ -46,16 +46,16 @@ Function ConvertFrom-UTCTime {
         [datetime]$DateTime
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Converting $DateTime UTC to local time"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $DateTime UTC to local time"
         $DateTime.ToLocalTime()
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close ConvertFrom-UTCTime
@@ -67,7 +67,7 @@ Function ConvertFrom-UTCTime {
 Function ConvertTo-LocalTime {
     [cmdletbinding()]
     [alias("clt")]
-    [outputtype("DateTime")]
+    [OutputType("DateTime")]
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter a non local date time")]
         [datetime]$Datetime,
@@ -79,15 +79,15 @@ Function ConvertTo-LocalTime {
         [switch]$DaylightSavingTime
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Converting $Datetime (UTC $UTCOffset) to local time "
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $Datetime (UTC $UTCOffset) to local time "
         $u = ($Datetime).addminutes( - ($UTCOffset.TotalMinutes))
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] UTC is $u"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] UTC is $u"
         if ($DaylightSavingTime) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Accounting for DST"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Accounting for DST"
             $u.ToLocalTime().AddHours(-1)
         }
         else {
@@ -97,14 +97,14 @@ Function ConvertTo-LocalTime {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close ConvertTo-LocalTime
 
 <#
 list time zones
-    [System.TimeZoneinfo]::GetSystemTimeZones() | out-gridview
+    [System.TimeZoneinfo]::GetSystemTimeZones() | Out-GridView
     or
     Get-TimeZone -listavailable
 time zone IDs are case sensitive
@@ -114,7 +114,7 @@ time zone IDs are case sensitive
 Function Get-MyTimeInfo {
 
     [cmdletbinding()]
-    [Outputtype("myTimeInfo", "String")]
+    [OutputType("myTimeInfo", "String")]
     [alias("gti")]
 
     Param(
@@ -142,7 +142,7 @@ Function Get-MyTimeInfo {
         [switch]$AsList
     )
 
-    Write-Verbose "Starting $($myinvocation.mycommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
     $now = $DateTime
     $utc = $now.ToUniversalTime()
@@ -165,9 +165,9 @@ Function Get-MyTimeInfo {
     $hash.add("IsDaylightSavings", $now.IsDaylightSavingTime())
 
     $tobj = New-Object -TypeName PSObject -Property $hash
-    $tobj.psobject.TypeNames.insert(0, "myTimeInfo")
+    $tobj.PSObject.TypeNames.insert(0, "myTimeInfo")
 
-    $cities = $tobj.psobject.properties.where( {$_.name -notmatch 'utc|now'}).Name
+    $cities = $tobj.PSObject.properties.where( {$_.name -notmatch 'utc|now'}).Name
     if ($AsTable) {
         Write-Verbose "Formatting output as a table"
         $tobj | Format-Table -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String
@@ -181,12 +181,12 @@ Function Get-MyTimeInfo {
         $tobj
     }
 
-    Write-Verbose "Ending $($myinvocation.mycommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 } #end function
 
 Function Get-TZData {
     [cmdletbinding()]
-    [OutputType("pscustomobject", "TimeZoneData")]
+    [OutputType("PSCustomObject", "TimeZoneData")]
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline,
             HelpMessage = "Enter a timezone location like Pacific/Auckland. It is case sensitive.")]
@@ -195,12 +195,12 @@ Function Get-TZData {
         [switch]$Raw
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $base = "http://worldtimeapi.org/api/timezone"
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting time zone information for $TimeZoneArea "
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting time zone information for $TimeZoneArea "
         $target = "$base/$TimeZoneArea"
         Try {
             $data = Invoke-RestMethod -Uri $target -DisableKeepAlive -UseBasicParsing -ErrorAction Stop -ErrorVariable e
@@ -230,7 +230,7 @@ Function Get-TZData {
             $data
         }
         elseif ($data) {
-            [pscustomobject]@{
+            [PSCustomObject]@{
                 PSTypename         = "TimeZoneData"
                 Timezone           = $data.timezone
                 Abbreviation       = $data.abbreviation
@@ -242,7 +242,7 @@ Function Get-TZData {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 
@@ -260,17 +260,17 @@ Function Get-TZList {
         [switch]$All
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $base = "http://worldtimeapi.org/api/timezone"
     } #begin
 
     Process {
         if ($all) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting all time zones "
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting all time zones "
             $target = $base
         }
         else {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting time zones for $TimeZoneArea "
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting time zones for $TimeZoneArea "
             $target = "$base/$TimeZoneArea"
 
         }
@@ -283,7 +283,7 @@ Function Get-TZList {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Get-TZList

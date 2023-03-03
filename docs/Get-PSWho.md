@@ -66,17 +66,18 @@ Culture         : Invariant Language (Invariant Country)
 ```powershell
 PS C:\> Get-PSWho
 
-User            : Desk01\Jeff
+User            : DESK11\Jeff
 Elevated        : True
-Computername    : Desk01
-OperatingSystem : Microsoft Windows 10 Pro [64-bit]
-OSVersion       : 10.0.19042
-PSVersion       : 7.1.3
+Computername    : DESK11
+OperatingSystem : Microsoft Windows 11 Pro [64-bit]
+OSVersion       : 10.0.22623
+PSVersion       : 7.3.3
 Edition         : Core
 PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : RemoteSigned
 Culture         : English (United States)
+
 ```
 
 ### EXAMPLE 4
@@ -131,4 +132,4 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 
 [$PSVersionTable]()
 
-[$Host]()
+[Get-Host]()

@@ -16,7 +16,7 @@ if ($data) {
         VS Code. You can test using Show-Markdown in PowerShell 7.x with the
         -UseBrowser parameter
     #>
-    $graphic = Get-Item "$PSScriptroot\..\images\db.png"
+    $graphic = Get-Item "$PSScriptRoot\..\images\db.png"
 
     Trace-Message "Using graphic file from $($graphic.fullname)"
     $graphicPath = $graphic.Fullname -replace "\\", "/"
@@ -50,6 +50,6 @@ if ($data) {
     }
 } #if $data
 
-Trace-Message "$($myinvocation.mycommand) completed"
+Trace-Message "$($MyInvocation.MyCommand) completed"
 Trace-Message "Disabling tracing"
 $global:traceEnabled = $False

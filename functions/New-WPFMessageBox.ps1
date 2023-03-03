@@ -7,7 +7,7 @@ Function New-WPFMessageBox {
 
     [cmdletbinding(DefaultParameterSetName = "standard")]
     [alias("nmb")]
-    [Outputtype([int], [boolean], [string])]
+    [OutputType([int], [boolean], [string])]
 
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the text message to display.")]
@@ -37,7 +37,7 @@ Function New-WPFMessageBox {
             #make sure we abort
             return
         }
-        
+
         $form = New-Object System.Windows.Window
         #define what it looks like
         $form.Title = $Title
@@ -58,7 +58,7 @@ Function New-WPFMessageBox {
         $grid = New-Object System.Windows.Controls.Grid
 
         $img = New-Object System.Windows.Controls.Image
-        $img.Source = Join-Path "$psscriptroot\..\icons" -ChildPath "$icon.png"
+        $img.Source = Join-Path "$PSScriptRoot\..\icons" -ChildPath "$icon.png"
         $img.Width = 50
         $img.Height = 50
         $img.HorizontalAlignment = "left"

@@ -22,7 +22,7 @@ Function Get-DirectoryInfo {
     )
 
     Begin {
-        Write-Verbose "Starting $($myinvocation.MyCommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
         #initialize a collection to hold the results
         $data = [System.Collections.Generic.list[object]]::new()
@@ -78,7 +78,7 @@ Function Get-DirectoryInfo {
         I'll also pre-sort the results alphabetically.
         #>
         $data | ForEach-Object {$_} | Sort-Object -Property Parent, Name
-        Write-Verbose "Ending $($myinvocation.MyCommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 }
 

@@ -2,7 +2,7 @@
 Function Get-CommandSyntax {
     [cmdletbinding()]
     [alias("gsyn")]
-    [outputtype("System.String")]
+    [OutputType("System.String")]
     Param(
         [Parameter(
             Position = 0,
@@ -13,7 +13,7 @@ Function Get-CommandSyntax {
         [string]$Name
     )
 
-    Write-Verbose "Starting $($MyInvocation.mycommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
     foreach ($provider in (Get-PSProvider)) {
         Write-Verbose "Testing with the $($provider.name) Provider"
@@ -50,5 +50,5 @@ Function Get-CommandSyntax {
         $syn
     } #foreach Provider
 
-    Write-Verbose "Ending $($MyInvocation.mycommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }

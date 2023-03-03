@@ -14,7 +14,7 @@ Export a PSAnsiFileMap to a file.
 ## SYNTAX
 
 ```yaml
-Export-PSAnsiFileMap [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+Export-PSAnsiFileMap [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,7 +28,7 @@ The command will export the settings to a JSON file called psansifilemap.json in
 ### Example 1
 
 ```powershell
-PS C:\>Export-PSAnsiFileMap -Passthru
+PS C:\>Export-PSAnsiFileMap -PassThru
 
     Directory: C:\Users\Jeff
 
@@ -55,7 +55,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
 ```yaml
 Type: SwitchParameter

@@ -13,7 +13,7 @@ Show a function in written form.
 
 ## SYNTAX
 
-```yaml
+```yamnl
 Show-FunctionItem [-Name] <String> [<CommonParameters>]
 ```
 

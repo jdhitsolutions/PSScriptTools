@@ -6,7 +6,7 @@ Function Get-PathVariable {
         [string]$Scope = "All"
     )
 
-    Write-Verbose "Starting $($myinvocation.MyCommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
     #private helper function to create the custom object
     Function NewEnvPath {
@@ -17,7 +17,7 @@ Function Get-PathVariable {
         )
 
         Process {
-            [pscustomobject]@{
+            [PSCustomObject]@{
                 PSTypeName   = "EnvPath"
                 Scope        = $Scope
                 Computername = [System.Environment]::MachineName
@@ -71,7 +71,7 @@ Function Get-PathVariable {
         Write-Verbose "Found $($paths.count) path entries"
         $paths
     }
-    Write-Verbose "Ending $($myinvocation.MyCommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 
 } #end function
 

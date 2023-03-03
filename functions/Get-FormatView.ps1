@@ -6,13 +6,13 @@ Function Get-FormatView {
     [OutputType("PSFormatView")]
     Param(
         [Parameter(HelpMessage = "Specify a typename such as System.Diagnostics.Process.",ValueFromPipeline)]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$TypeName = "*",
         [Parameter(HelpMessage = "Specify the version of PowerShell this cmdlet uses for the formatting data. Enter a two digit number separated by a period.")]
-        [system.version]$PowerShellVersion = $PSversionTable.psversion
+        [system.version]$PowerShellVersion = $PSVersionTable.PSVersion
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         #a regular expression pattern to match on the format type
         [regex]$rx = "Table|List|Wide|Custom"
     } #begin
@@ -25,14 +25,14 @@ Function Get-FormatView {
             Throw $_
         }
         if ($data) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Found $($data.count) type definitions"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($data.count) type definitions"
             #$data | Out-String | Write-Verbose
             foreach ($item in $data) {
-                #there might be a collection of typenames
+                #there might be a collection of TypeNames
                 foreach ($tn in $item.TypeNames) {
                     #$tn | out-string | write-verbose
 
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting formatting view for $($tn)"
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting formatting view for $($tn)"
                     foreach ($view in $item.FormatViewDefinition) {
                         [PSCustomObject]@{
                             PSTypename = "PSFormatView"
@@ -48,7 +48,7 @@ Function Get-FormatView {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Get-FormatView

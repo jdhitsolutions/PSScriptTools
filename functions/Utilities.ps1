@@ -1,13 +1,12 @@
 Function Get-PowerShellEngine {
-
     [CmdletBinding()]
     Param([switch]$Detail)
 
     #get the current PowerShell process and the file that launched it
     $engine = Get-Process -id $pid | Get-Item
     if ($Detail) {
-        [pscustomobject]@{
-            Path           = $engine.Fullname
+        [PSCustomObject]@{
+            Path           = $engine.FullName
             FileVersion    = $engine.VersionInfo.FileVersion
             PSVersion      = $PSVersionTable.PSVersion.ToString()
             ProductVersion = $engine.VersionInfo.ProductVersion
@@ -23,7 +22,6 @@ Function Get-PowerShellEngine {
 }
 
 Function Out-More {
-
     [cmdletbinding()]
     [alias("om")]
     Param(
@@ -41,7 +39,7 @@ Function Out-More {
             Clear-Host
         }
 
-        Write-Verbose "Starting: $($MyInvocation.Mycommand)"
+        Write-Verbose "Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "Using a count of $count"
 
         #initialize an array to hold objects
@@ -57,7 +55,6 @@ Function Out-More {
     } #begin
 
     Process {
-
         if ($Quit) {
             Write-Verbose "Quitting"
             Break
@@ -73,7 +70,7 @@ Function Out-More {
         }
         elseif ($data.count -lt $count) {
             Write-Verbose "Adding data"
-            $data += $Inputobject
+            $data += $InputObject
         }
         else {
             #write the data to the pipeline
@@ -130,13 +127,13 @@ Function Out-More {
         #to be broken apart
 
         if ([regex]::Matches($data, "`n").count -gt 1) {
-            [void]$PSBoundParameters.remove("Inputobject")
+            [void]$PSBoundParameters.remove("InputObject")
             Write-Verbose "Splitting input and re-running through Out-More"
             $data.split("`n") | Out-More @PSBoundParameters
         }
-        elseif ($data[0].psobject.typenames -contains "MamlCommandHelpInfo") {
+        elseif ($data[0].PSObject.TypeNames -contains "MamlCommandHelpInfo") {
             Write-Verbose "Help output detected"
-            [void]$PSBoundParameters.remove("Inputobject")
+            [void]$PSBoundParameters.remove("InputObject")
             ($data | Out-String).split("`n") | Out-More @PSBoundParameters
         }
         #display whatever is left in $data
@@ -144,30 +141,29 @@ Function Out-More {
             Write-Verbose "Displaying remaining data"
             $data
         }
-        Write-Verbose "Ending: $($MyInvocation.Mycommand)"
+        Write-Verbose "Ending: $($MyInvocation.MyCommand)"
     } #end
 
 } #end Out-More
 
 Function Invoke-InputBox {
-
     [cmdletbinding(DefaultParameterSetName = "plain")]
     [alias("ibx")]
-    [OutputType([system.string], ParameterSetName = 'plain')]
-    [OutputType([system.security.securestring], ParameterSetName = 'secure')]
+    [OutputType([System.String], ParameterSetName = 'plain')]
+    [OutputType([System.Security.SecureString], ParameterSetName = 'secure')]
 
     Param(
         [Parameter(ParameterSetName = "secure")]
         [Parameter(HelpMessage = "Enter the title for the input box. No more than 25 characters.",
             ParameterSetName = "plain")]
 
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [ValidateScript( {$_.length -le 25})]
         [string]$Title = "User Input",
 
         [Parameter(ParameterSetName = "secure")]
         [Parameter(HelpMessage = "Enter a prompt. No more than 50 characters.", ParameterSetName = "plain")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [ValidateScript( {$_.length -le 50})]
         [string]$Prompt = "Please enter a value:",
 
@@ -202,16 +198,16 @@ Function Invoke-InputBox {
         $stack.AddChild($label)
 
         if ($AsSecureString) {
-            $inputbox = New-Object System.Windows.Controls.PasswordBox
+            $InputBox = New-Object System.Windows.Controls.PasswordBox
         }
         else {
-            $inputbox = New-Object System.Windows.Controls.TextBox
+            $InputBox = New-Object System.Windows.Controls.TextBox
         }
 
-        $inputbox.Width = 300
-        $inputbox.HorizontalAlignment = "center"
+        $InputBox.Width = 300
+        $InputBox.HorizontalAlignment = "center"
 
-        $stack.AddChild($inputbox)
+        $stack.AddChild($InputBox)
 
         $space = New-Object System.Windows.Controls.Label
         $space.Height = 10
@@ -227,10 +223,10 @@ Function Invoke-InputBox {
         #add an event handler
         $btn.Add_click( {
                 if ($AsSecureString) {
-                    $script:myInput = $inputbox.SecurePassword
+                    $script:myInput = $InputBox.SecurePassword
                 }
                 else {
-                    $script:myInput = $inputbox.text
+                    $script:myInput = $InputBox.text
                 }
                 $form.Close()
             })
@@ -258,7 +254,7 @@ Function Invoke-InputBox {
         $form.AddChild($stack)
 
         #show the form
-        [void]$inputbox.Focus()
+        [void]$InputBox.Focus()
         $form.WindowStartupLocation = [System.Windows.WindowStartupLocation]::CenterScreen
 
         [void]$form.ShowDialog()
@@ -279,11 +275,11 @@ Function Set-ConsoleTitle {
     [OutputType("None")]
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the title for the console window.")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Title
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $width =  ($host.UI.RawUI.MaxWindowSize.Width * 2)
     } #begin
 
@@ -295,38 +291,39 @@ Function Set-ConsoleTitle {
             Write-Warning "Your title is too long. It needs to be less than $width to fit your current console."
         }
         else {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Setting console title to $Title"
-            if ($pscmdlet.ShouldProcess($Title)) {
-                $host.ui.RawUI.WindowTitle = $Title
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Setting console title to $Title"
+            if ($PSCmdlet.ShouldProcess($Title)) {
+                $host.UI.RawUI.WindowTitle = $Title
             }
         }
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Set-ConsoleTitle
 
 Function Set-ConsoleColor {
+    #This command is marked as deprecated 3/3/2023
     [cmdletbinding(SupportsShouldProcess)]
     [OutputType("None")]
 
     Param(
         [Parameter(HelpMessage = "Specify a foreground console color")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [alias("fg")]
         [System.ConsoleColor]$Foreground,
         [Parameter( HelpMessage = "Specify a background console color")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [alias("bg")]
         [System.ConsoleColor]$Background,
         [Alias("cls")]
         [switch]$ClearScreen,
-        [switch]$Passthru
+        [switch]$PassThru
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -335,29 +332,29 @@ Function Set-ConsoleColor {
             #bail out
         }
 
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Bound Parameters"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Bound Parameters"
         $PSBoundParameters | Out-String | Write-Verbose
 
         # ! There are issues with this if PSReadline is running
 
         if (Get-Module -name PSReadline) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Detected PSReadline Module is loaded"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Detected PSReadline Module is loaded"
             Write-Warning "You appear to be running the PSReadline module. Please use Set-PSReadlineOption or related command to modify the console."
             #make sure we don't clear the screen
             $ClearScreen = $False
         }
         else {
             if ($Foreground) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Configuring console foreground color to $Foreground"
-                if ($pscmdlet.ShouldProcess($Foreground)) {
-                    $host.ui.RawUI.ForegroundColor = $Foreground
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Configuring console foreground color to $Foreground"
+                if ($PSCmdlet.ShouldProcess($Foreground)) {
+                    $host.UI.RawUI.ForegroundColor = $Foreground
                     $modified = $True
                 }
             }
             if ($Background) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Configuring console background color to $Background"
-                if ($pscmdlet.ShouldProcess($Background)) {
-                    $host.ui.RawUI.BackgroundColor = $Background
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Configuring console background color to $Background"
+                if ($PSCmdlet.ShouldProcess($Background)) {
+                    $host.UI.RawUI.BackgroundColor = $Background
                     $modified = $True
                 }
             }
@@ -368,11 +365,11 @@ Function Set-ConsoleColor {
         if ($ClearScreen) {
             Clear-Host
         }
-        #only passthru if asked for and if a change was made.
-        if ($Passthru -AND $modified) {
-            $host.ui.RawUI | Select-Object -Property ForegroundColor, BackgroundColor
+        #only PassThru if asked for and if a change was made.
+        if ($PassThru -AND $modified) {
+            $host.UI.RawUI | Select-Object -Property ForegroundColor, BackgroundColor
         }
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Set-ConsoleTitle
@@ -396,16 +393,16 @@ Function New-RunspaceCleanupJob {
     [OutputType("None", "ThreadJob")]
     Param(
         [Parameter(Mandatory, HelpMessage = "This should be the System.Management.Automation.Runspaces.AsyncResult object from the BeginInvoke() method.")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [object]$Handle,
         [Parameter(Mandatory)]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [System.Management.Automation.PowerShell]$PowerShell,
         [Parameter(HelpMessage = "Specify a sleep interval in seconds")]
         [ValidateRange(5, 600)]
         [int32]$SleepInterval = 10,
         [Parameter(HelpMessage = "Pass the thread job object to the pipeline")]
-        [switch]$Passthru
+        [switch]$PassThru
     )
 
     $job = Start-ThreadJob -ScriptBlock {
@@ -430,7 +427,7 @@ Function New-RunspaceCleanupJob {
         Write-Host "[$(Get-Date)] Ending job"
     } -ArgumentList $Handle, $PowerShell, $SleepInterval
 
-    if ($passthru) {
+    if ($PassThru) {
         #Write the ThreadJob object to the pipeline
         $job
     }

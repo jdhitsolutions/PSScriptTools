@@ -8,21 +8,21 @@ Function Format-Percent {
 
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "What is the value?")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [Alias("X", "Numerator")]
         $Value,
         [Parameter(Position = 1, Mandatory, HelpMessage = "What is the total value?")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [Alias("Y", "Denominator")]
         $Total,
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [ValidateRange(0, 15)]
         [int]$Decimal = 2,
         [Parameter(ParameterSetName = "String")]
         [Switch]$AsString
     )
 
-    Write-Verbose "STARTING: $($MyInvocation.Mycommand)"  
+    Write-Verbose "STARTING: $($MyInvocation.MyCommand)"
     Write-Verbose "STATUS: Calculating percentage from $Value/$Total to $decimal places"
     $result = $Value / $Total
 
@@ -40,7 +40,7 @@ Function Format-Percent {
         [math]::Round( ($result * 100), $Decimal)
     }
 
-    Write-Verbose "ENDING: $($MyInvocation.Mycommand)"
+    Write-Verbose "ENDING: $($MyInvocation.MyCommand)"
 
 } #end function
 
@@ -51,7 +51,7 @@ Function Format-Value {
 
     Param(
         [Parameter(Position = 1, Mandatory, ValueFromPipeline)]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         $InputObject,
         [Parameter(Position = 0, ParameterSetName = "Default")]
         [ValidateSet("KB", "MB", "GB", "TB", "PB")]
@@ -70,12 +70,12 @@ Function Format-Value {
     )
 
     Begin {
-        Write-Verbose "STARTING: $($MyInvocation.Mycommand)"  
+        Write-Verbose "STARTING: $($MyInvocation.MyCommand)"
         Write-Verbose "STATUS: Using parameter set $($PSCmdlet.ParameterSetName)"
     } #begin
 
     Process {
-        Write-Verbose "STATUS: Formatting $Inputobject"
+        Write-Verbose "STATUS: Formatting $InputObject"
 
         <#
         divide the incoming value by the specified unit
@@ -86,41 +86,41 @@ Function Format-Value {
             "Default" {
                 Write-Verbose "..as $Unit"
                 Switch ($Unit) {
-                    "KB" { $value = $Inputobject / 1KB ; break }
-                    "MB" { $value = $Inputobject / 1MB ; break }
-                    "GB" { $value = $Inputobject / 1GB ; break }
-                    "TB" { $value = $Inputobject / 1TB ; break }
-                    "PB" { $value = $Inputobject / 1PB ; break }
-                    default { 
+                    "KB" { $value = $InputObject / 1KB ; break }
+                    "MB" { $value = $InputObject / 1MB ; break }
+                    "GB" { $value = $InputObject / 1GB ; break }
+                    "TB" { $value = $InputObject / 1TB ; break }
+                    "PB" { $value = $InputObject / 1PB ; break }
+                    default {
                         #just use the raw value
-                        $value = $Inputobject 
+                        $value = $InputObject
                     }
                 } #default
             }
             "Auto" {
                 Write-Verbose "STATUS: Using Autodetect"
-      
+
                 if ($InputObject -ge 1PB) {
                     Write-Verbose "..as PB"
-                    $value = $Inputobject / 1PB
+                    $value = $InputObject / 1PB
                 }
                 elseif ($InputObject -ge 1TB) {
                     Write-Verbose "..as TB"
-                    $value = $Inputobject / 1TB
+                    $value = $InputObject / 1TB
                 }
                 elseif ($InputObject -ge 1GB) {
                     Write-Verbose "..as GB"
-                    $value = $Inputobject / 1GB
+                    $value = $InputObject / 1GB
                 }
                 elseif ($InputObject -ge 1MB) {
                     Write-Verbose "..as MB"
-                    $value = $Inputobject / 1MB
+                    $value = $InputObject / 1MB
                 }
                 elseif ($InputObject -ge 1KB) {
                     Write-Verbose "..as KB"
-                    $value = $Inputobject / 1KB
+                    $value = $InputObject / 1KB
                 }
-                else { 
+                else {
                     Write-Verbose "..as bytes"
                     $value = $InputObject
                 }
@@ -161,19 +161,19 @@ Function Format-Value {
     } #process
 
     End {
-        Write-Verbose "ENDING: $($MyInvocation.Mycommand)"
+        Write-Verbose "ENDING: $($MyInvocation.MyCommand)"
     } #end
-} 
+}
 
 Function Format-String {
 
     [cmdletbinding()]
     [OutputType([string])]
     [alias("fs")]
-    
+
     Param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string]$Text,
         [switch]$Reverse,
         [ValidateSet("Upper", "Lower", "Proper", "Toggle", "Alternate")]
@@ -183,7 +183,7 @@ Function Format-String {
     )
 
     Begin {
-        Write-Verbose "STARTING: $($MyInvocation.Mycommand)"  
+        Write-Verbose "STARTING: $($MyInvocation.MyCommand)"
         Write-Verbose "STATUS: Using parameter set $($PSCmdlet.parameterSetName)"
     } #begin
 
@@ -198,7 +198,7 @@ Function Format-String {
         else {
             #copy the Text value to this internal variable
             $str = $Text
-        } 
+        }
 
         if ($Randomize) {
             Write-Verbose "STATUS: Randomizing text"
@@ -224,14 +224,14 @@ Function Format-String {
             } #lower
             "Proper" {
                 Write-Verbose "STATUS: Setting to proper case"
-                $str = "{0}{1}" -f $str[0].toString().toUpper(), -join $str.Substring(1).ToLower()
+                $str = "{0}{1}" -f $str[0].ToString().ToUpper(), -join $str.Substring(1).ToLower()
             } #proper
             "Alternate" {
                 Write-Verbose "STATUS: Setting to alternate case"
                 $alter = for ($i = 0 ; $i -lt $str.length ; $i++) {
                     #Odd numbers are uppercase
                     if ($i % 2) {
-                        $str[$i].ToString().Tolower()
+                        $str[$i].ToString().ToLower()
                     }
                     else {
                         $str[$i].ToString().ToUpper()
@@ -243,10 +243,10 @@ Function Format-String {
                 Write-Verbose "STATUS: setting to toggle case"
                 <#
             use a regular expression pattern for a case sensitive match
-            Other characters like ! and numbers will fail the test 
+            Other characters like ! and numbers will fail the test
             but the ToUpper() method will have no effect.
         #>
-       
+
                 #code to use methods from [CHAR] which should better handle other cultures
                 $toggle = for ($i = 0 ; $i -lt $str.length ; $i++) {
                     if ([char]::IsUpper($str[$i])) {
@@ -269,7 +269,7 @@ Function Format-String {
     } #process
 
     End {
-        Write-Verbose "ENDING: $($MyInvocation.Mycommand)"
+        Write-Verbose "ENDING: $($MyInvocation.MyCommand)"
     } #end
 }
 

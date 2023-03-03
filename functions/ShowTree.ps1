@@ -4,7 +4,8 @@
     [alias("pstree","shtree")]
 
     Param(
-        [Parameter(Position = 0,
+        [Parameter(
+            Position = 0,
             ParameterSetName = "Path",
             ValueFromPipeline,
             ValueFromPipelineByPropertyName
@@ -13,7 +14,8 @@
         [alias("FullName")]
         [string[]]$Path = ".",
 
-        [Parameter(Position = 0,
+        [Parameter(
+            Position = 0,
             ParameterSetName = "LiteralPath",
             ValueFromPipelineByPropertyName
             )]
@@ -38,16 +40,16 @@
     )
     DynamicParam {
         #define the InColor parameter if the path is a FileSystem path
-        if ($PSBoundParameters.containsKey("Path")) {
-            $here = $psboundParameters["Path"]
+        if ($PSBoundParameters.ContainsKey("Path")) {
+            $here = $PSBoundParameters["Path"]
         }
-        elseif ($PSBoundParameters.containsKey("LiteralPath")) {
-            $here = $psboundParameters["LiteralPath"]
+        elseif ($PSBoundParameters.ContainsKey("LiteralPath")) {
+            $here = $PSBoundParameters["LiteralPath"]
         }
         else {
             $here = (Get-Location).path
         }
-       if (((Get-Item -path $here).PSprovider.Name -eq 'FileSystem' )-OR ((Get-Item -literalpath $here).PSprovider.Name -eq 'FileSystem')) {
+       if (((Get-Item -Path $here).PSprovider.Name -eq 'FileSystem' )-OR ((Get-Item -LiteralPath $here).PSprovider.Name -eq 'FileSystem')) {
 
             #define a parameter attribute object
             $attributes = New-Object System.Management.Automation.ParameterAttribute
@@ -73,12 +75,12 @@
     } #DynamicParam
 
     Begin {
-        Write-Verbose "Starting $($myinvocation.MyCommand)"
-        if (-Not $Path -and $psCmdlet.ParameterSetName -eq "Path") {
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        if (-Not $Path -and $PSCmdlet.ParameterSetName -eq "Path") {
             $Path = Get-Location
         }
 
-        if ($PSBoundParameters.containskey("InColor")) {
+        if ($PSBoundParameters.ContainsKey("InColor")) {
             $Colorize = $True
             $script:top = ($global:PSAnsiFileMap).where( {$_.description -eq 'TopContainer'}).Ansi
             $script:child = ($global:PSAnsiFileMap).where( {$_.description -eq 'ChildContainer'}).Ansi
@@ -87,7 +89,7 @@
             [CmdletBinding()]
             Param([bool[]]$IsLast)
 
-            Write-Verbose "Starting $($myinvocation.MyCommand)"
+            Write-Verbose "Starting $($MyInvocation.MyCommand)"
             #  $numPadChars = 1
             $str = ''
             for ($i = 0; $i -lt $IsLast.Count - 1; $i++) {
@@ -102,7 +104,7 @@
             $str += "-" * ($IndentSize - 1)
             $str
 
-            Write-Verbose "Ending $($myinvocation.MyCommand)"
+            Write-Verbose "Ending $($MyInvocation.MyCommand)"
         }
 
         function ShowProperty() {
@@ -112,7 +114,7 @@
                 [string]$Value,
                 [bool[]]$IsLast
             )
-            Write-Verbose "Starting $($myinvocation.MyCommand)"
+            Write-Verbose "Starting $($MyInvocation.MyCommand)"
             $indentStr = GetIndentString $IsLast
             $propStr = "${indentStr} $Name = "
             $availableWidth = $host.UI.RawUI.BufferSize.Width - $propStr.Length - 1
@@ -125,7 +127,7 @@
             }
             $propStr += $val
             $propStr
-            Write-Verbose "Ending $($myinvocation.MyCommand)"
+            Write-Verbose "Ending $($MyInvocation.MyCommand)"
         }
         function ShowItem {
             [CmdletBinding()]
@@ -138,7 +140,7 @@
                 [ValidateSet("topcontainer","childcontainer","file")]
                 [string]$ItemType
             )
-            Write-Verbose "Starting $($myinvocation.MyCommand)"
+            Write-Verbose "Starting $($MyInvocation.MyCommand)"
             $PSBoundParameters | Out-String | Write-Verbose
             if ($IsLast.Count -eq 0) {
                 if ($Color) {
@@ -195,13 +197,13 @@
 
                 $excludedProviderNoteProps = 'PSChildName', 'PSDrive', 'PSParentPath', 'PSPath', 'PSProvider'
                 $props = @(Get-ItemProperty $Path -ea 0)
-                if ($props[0] -is [pscustomobject]) {
+                if ($props[0] -is [PSCustomObject]) {
                     if ($ShowProperty  -eq "*") {
-                        $props = @($props[0].psobject.properties | Where-object {$excludedProviderNoteProps -notcontains $_.Name })
+                        $props = @($props[0].PSObject.properties | Where-object {$excludedProviderNoteProps -NotContains $_.Name })
                     }
                     else {
-                        $props = @($props[0].psobject.properties |
-                        Where-object {$excludedProviderNoteProps -notcontains $_.Name -AND $showproperty -contains $_.name})
+                        $props = @($props[0].PSObject.properties |
+                        Where-object {$excludedProviderNoteProps -NotContains $_.Name -AND $showproperty -contains $_.name})
                     }
                 }
 
@@ -216,7 +218,7 @@
                     ShowProperty @showParams
                 }
             }
-            Write-Verbose "Ending $($myinvocation.MyCommand)"
+            Write-Verbose "Ending $($MyInvocation.MyCommand)"
         }
 
         function ShowContainer {
@@ -229,21 +231,21 @@
                 [switch]$Color
             )
 
-            Write-Verbose "Starting $($myinvocation.MyCommand) on $Path"
+            Write-Verbose "Starting $($MyInvocation.MyCommand) on $Path"
             $PSBoundParameters | Out-String | Write-Verbose
             if ($IsLast.Count -gt $Depth) { return }
 
             $childItems = @()
             if ($IsLast.Count -lt $Depth) {
                 try {
-                    $rpath = Resolve-Path -literalpath $Path -ErrorAction stop
+                    $rPath = Resolve-Path -LiteralPath $Path -ErrorAction stop
                 }
                 catch {
                     Throw "Failed to resolve $path. This PSProvider and path may be incompatible with this command."
                     #bail out
                     return
                 }
-                $childItems = @(Get-ChildItem $rpath -ErrorAction $ErrorActionPreference |
+                $childItems = @(Get-ChildItem $rPath -ErrorAction $ErrorActionPreference |
                         Where-object {$ShowItem -or $_.PSIsContainer})
             }
             $hasChildItems = $childItems.Count -gt 0
@@ -286,14 +288,14 @@
                     ShowItem @iParams
                 }
             }
-            Write-Verbose "Ending $($myinvocation.MyCommand)"
+            Write-Verbose "Ending $($MyInvocation.MyCommand)"
         }
     } #begin
 
     Process {
-        Write-Verbose "Detected parameter set $($pscmdlet.ParameterSetName)"
-        if ($psCmdlet.ParameterSetName -eq "Path") {
-            # In the -Path (non-literal) resolve path in case it is wildcarded.
+        Write-Verbose "Detected parameter set $($PSCmdlet.ParameterSetName)"
+        if ($PSCmdlet.ParameterSetName -eq "Path") {
+            # In the -Path (non-literal) resolve path in case if it is wildcarded.
             $resolvedPaths = @($Path | Resolve-Path | Foreach-object {$_.Path})
         }
         else {
@@ -303,10 +305,10 @@
         Write-Verbose "Using these PSBoundParameters"
         $PSBoundParameters | Out-String | Write-Verbose
 
-        foreach ($rpath in $resolvedPaths) {
-            Write-Verbose "Processing $rpath"
+        foreach ($rPath in $resolvedPaths) {
+            Write-Verbose "Processing $rPath"
             $showParams = @{
-                Path  = $rpath
+                Path  = $rPath
                 Color = $colorize
                 IsTop = $True
             }
@@ -314,6 +316,6 @@
           }
     } #process
     end {
-        Write-Verbose "Ending $($myinvocation.MyCommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 }

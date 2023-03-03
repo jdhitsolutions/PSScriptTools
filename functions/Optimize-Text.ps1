@@ -2,7 +2,7 @@
 
     [cmdletbinding(DefaultParameterSetName = "default")]
     [OutputType([System.String], ParameterSetName = "default")]
-    [OutputType([psobject], ParameterSetName = "object")]
+    [OutputType([PSObject], ParameterSetName = "object")]
     [Alias("ot")]
 
     Param(
@@ -28,7 +28,7 @@
     )
 
     Begin {
-        Write-Verbose "Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -48,7 +48,7 @@
                 if ($output) {
                     Write-Verbose "Post processing $output"
                     if ($ToUpper) {
-                        $output = $output.toUpper()
+                        $output = $output.ToUpper()
                     } #if to upper
 
                     #filter out if using the comment character
@@ -72,7 +72,7 @@
     } #process
 
     End {
-        Write-Verbose "Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #end function

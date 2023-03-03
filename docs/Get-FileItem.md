@@ -57,7 +57,7 @@ Search for foo.exe and return $True if found. This command is using the PSWhere 
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Get-FileItem "^\d+\S+\.txt" -Regex -path c:\scripts -full
+PS C:\> Get-FileItem "^\d+\S+\.txt" -Regex -Path c:\scripts -full
 
 Directory: C:\scripts
 

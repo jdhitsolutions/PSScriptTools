@@ -13,15 +13,13 @@ Create a function item from the console
 
 ## SYNTAX
 
-```powershell
-New-FunctionItem [-Name] <String> [-Scriptblock] <ScriptBlock>
-[[-Description] <String>] [-Passthru] [-WhatIf]  [-Confirm]
-[<CommonParameters>]
+```yaml
+New-FunctionItem [-Name] <String> [-Scriptblock] <ScriptBlock> [[-Description] <String>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-You can use this function to create a quick function definition directly from the console. This command does not write anything to the pipeline unless you use -Passthru.
+You can use this function to create a quick function definition directly from the console. This command does not write anything to the pipeline unless you use -PassThru.
 
 ## EXAMPLES
 
@@ -29,7 +27,7 @@ You can use this function to create a quick function definition directly from th
 
 ```powershell
 PS C:\> New-FunctionItem -name ToTitle -scriptblock {param([string]$Text)
-(Get-Culture).TextInfo.ToTitleCase($text.toLower())} -passthru
+(Get-Culture).TextInfo.ToTitleCase($text.ToLower())} -PassThru
 
 CommandType     Name                   Version    Source
 -----------     ----                   -------    ------
@@ -92,7 +90,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
 Show the newly created function.
 
@@ -146,7 +144,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### Scriptbloclk
+### Scriptblock
 
 ## OUTPUTS
 

@@ -14,7 +14,7 @@ Remove a PSAnsiFileMap entry.
 ## SYNTAX
 
 ```yaml
-Remove-PSAnsiFileEntry [-Description] <String> [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-PSAnsiFileEntry [-Description] <String> [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -65,7 +65,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
 Display the updated PSAnsiFileMap.
 

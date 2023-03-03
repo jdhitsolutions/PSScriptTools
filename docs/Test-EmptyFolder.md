@@ -14,12 +14,12 @@ Test if a folder is empty of files.
 ## SYNTAX
 
 ```yaml
-Test-EmptyFolder [-Path] <String[]> [-Passthru] [<CommonParameters>]
+Test-EmptyFolder [-Path] <String[]> [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will test if a given folder path is empty of all files anywhere in the path. This includes hidden files. The command will return True even if there are empty sub-folders. The default output is True or False but you can use -Passthru to get more information.
+This command will test if a given folder path is empty of all files anywhere in the path. This includes hidden files. The command will return True even if there are empty sub-folders. The default output is True or False but you can use -PassThru to get more information.
 See examples.
 
 ## EXAMPLES
@@ -36,7 +36,7 @@ Test a single folder from a parameter.
 ### Example 2
 
 ```powershell
-PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru
+PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -PassThru
 
 
 Path          Name  IsEmpty Computername
@@ -55,7 +55,7 @@ Test child folders under C:\work.
 ### Example 3
 
 ```powershell
-PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -passthru |
+PS C:\> Get-ChildItem c:\work -Directory | Test-EmptyFolder -PassThru |
 Where-object {$_.Isempty} |
 Foreach-Object { Remove-Item -LiteralPath $_.path -Recurse -force -whatif}
 
@@ -71,7 +71,7 @@ Find all empty sub-folders under C:\Work and pipe them to Remove-Item. This is o
 
 ## PARAMETERS
 
-### -Passthru
+### -PassThru
 
 Write a test object to the pipeline.
 

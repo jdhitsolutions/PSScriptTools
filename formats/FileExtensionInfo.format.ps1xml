@@ -20,7 +20,7 @@ https://github.com/jdhitsolutions/PSScriptTools
         <!--
             You can also use a scriptblock to define a custom property name.
             You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <ScriptBlock>$_.machinename.ToUpper()</ScriptBlock>
             <Label>Computername</Label>
 
             Use <Label> to set the displayed value.
@@ -148,7 +148,7 @@ https://github.com/jdhitsolutions/PSScriptTools
         <!--
             You can also use a scriptblock to define a custom property name.
             You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <ScriptBlock>$_.machinename.ToUpper()</ScriptBlock>
             <Label>Computername</Label>
 
             Use <Label> to set the displayed value.
@@ -207,7 +207,7 @@ https://github.com/jdhitsolutions/PSScriptTools
         <!--
             You can also use a scriptblock to define a custom property name.
             You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
+            <ScriptBlock>$_.machinename.ToUpper()</ScriptBlock>
             <Label>Computername</Label>
 
             Use <Label> to set the displayed value.

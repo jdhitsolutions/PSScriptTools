@@ -2,7 +2,7 @@
 Function Get-FileItem {
 
     [cmdletbinding(DefaultParameterSetName = "Default")]
-    [outputtype("System.IO.FileInfo", "System.Boolean")]
+    [OutputType("System.IO.FileInfo", "System.Boolean")]
     [alias("pswhere")]
 
     Param(
@@ -10,7 +10,7 @@ Function Get-FileItem {
             Position = 0,
             Mandatory,
             HelpMessage = "Enter a filename or pattern to search for")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string[]]$Pattern,
         [switch]$Regex,
         [Parameter(ParameterSetName = "Path")]
@@ -38,16 +38,16 @@ Function Get-FileItem {
             [string]$String
         )
 
-        Write-Verbose "Starting $($myinvocation.mycommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Resolving environmental variables in $String"
         [environment]::ExpandEnvironmentVariables($string)
-        Write-Verbose "Ending $($myinvocation.mycommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end Resolve-EnvVariable function
 
 #endregion
 
     #This is the main part of Get-FileItem
-    Write-Verbose "Starting $($myinvocation.MyCommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Searching for $pattern"
     Write-Verbose "Quiet mode is $Quiet"
     Write-Verbose "Full mode is $Full"
@@ -100,11 +100,11 @@ Function Get-FileItem {
                 #not thrilled with this structure but it works
                 if ($Regex) {
                     Write-Verbose "...as regex"
-                    $results += (Get-Childitem @dirParams).where( {$_.name -match $p})
+                    $results += (Get-ChildItem @dirParams).where( {$_.name -match $p})
                 }
                 elseif ($Regex -AND $first) {
                     Write-Verbose "...as regex"
-                    $results += (Get-Childitem @dirParams).where( {$_.name -match $p}) |
+                    $results += (Get-ChildItem @dirParams).where( {$_.name -match $p}) |
                         Select-Object -First 1
                 }
                 elseif ($First) {
@@ -147,10 +147,10 @@ Function Get-FileItem {
     }
     Else {
         #else just write full name
-        $results | Select-Object -expandproperty Fullname
+        ($results).FullName
     }
 
-    Write-Verbose "Ending $($myinvocation.MyCommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 
 } #end function
 

@@ -28,6 +28,11 @@ You can use this command to get a summary display of functions included in the P
 ```powershell
 PS C:\> Get-PSScriptTools
 
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
+|_|
 
    Verb: Add
 
@@ -54,10 +59,18 @@ Convert-HashtableToCode                    Convert a hashtable to a string r...
 ...
 ```
 
+The header is written to the host and not the pipeline.
+
 ### Example 2
 
 ```powershell
 PS C:\> Get-PSScriptTools | Where alias
+
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
+|_|
 
    Verb: Compare
 
@@ -82,6 +95,11 @@ List commands with defined aliases in the PSScriptTools module.
 ```powershell
 PS C:\> Get-PSScriptTools -Verb Select
 
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
+|_|
 
    Verb:Select
 

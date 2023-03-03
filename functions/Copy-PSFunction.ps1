@@ -2,7 +2,7 @@
 #You must use a PSSession
 
 #get the locally loaded function
-# $f = $(get-item function:\Get-Foo).scriptblock
+# $f = $(Get-Item function:\Get-Foo).scriptblock
 
 #copy it to the remote session
 # Invoke-Command { New-Item -Name Get-Foo -Path Function: -Value $($using:f)} -session $s
@@ -17,24 +17,24 @@ Function Copy-PSFunction {
     [Alias("cpfun")]
     Param(
         [Parameter(Position = 1, Mandatory, ValueFromPipeline, HelpMessage = "Enter the name of a local function.")]
-        [ValidateNotNullorEmpty()]
+        [ValidateNotNullOrEmpty()]
         [string[]]$Name,
         [Parameter(Mandatory, HelpMessage = "Specify an existing PSSession")]
         [System.Management.Automation.Runspaces.PSSession]$Session,
         [switch]$Force
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
         foreach ($item in $Name) {
             #verify the function Exists
-            $funPath = Join-Path -path Function: -childpath $item
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Validating $funPath"
-            if (Test-Path -path $funPath) {
-                    Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Copying $item to $($session.computername)"
-                    $f = $(Get-Item -path $funPath).scriptblock
+            $funPath = Join-Path -Path Function: -ChildPath $item
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Validating $funPath"
+            if (Test-Path -Path $funPath) {
+                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Copying $item to $($session.computername)"
+                    $f = $(Get-Item -Path $funPath).scriptblock
                     Invoke-Command -scriptblock { New-Item -Name $using:item -Path Function: -Value $($using:f) -force:$using:force} -session $Session
 
                 } #if Test-Path
@@ -47,7 +47,7 @@ Function Copy-PSFunction {
         } #process
 
         End {
-            Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+            Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
         } #end
 

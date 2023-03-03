@@ -84,7 +84,7 @@ Using the same text file, the command creates a custom object using the Computer
 
 ```powershell
 PS C:\> Get-Content computers.txt | Optimize-Text -prop computername |
-Where-Object {Test-Connection $_.computername -count 1 -ea silentlycontinue} |
+Where-Object {Test-Connection $_.computername -count 1 -ea SilentlyContinue} |
 Get-Service bits | Select-Object Name,Status,Machinename
 
 Name                          Status MachineName

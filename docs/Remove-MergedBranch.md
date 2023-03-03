@@ -1,6 +1,6 @@
 ---
 external help file: PSScriptTools-help.xml
-Module Name: psscripttools
+Module Name: PSScriptTools
 online version: https://bit.ly/3crxxg9
 schema: 2.0.0
 ---
@@ -14,7 +14,7 @@ Removed merged git branches.
 ## SYNTAX
 
 ```yaml
-Remove-MergedBranch [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
+Remove-MergedBranch [-MainBranch <String>] [-Force] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -53,12 +53,12 @@ By default you will be prompted to remove each branch.
 ### Example 2
 
 ```powershell
-PS C:\MyProject> Remove-MergedBranch -force
+PS C:\MyProject> Remove-MergedBranch main -force
 Deleted branch 2.1.1 (was 75f6ab8).
 Deleted branch patch-254 (was 75f6ab8).
 ```
 
-Remove all branches with no prompting.
+Remove all branches with no prompting. This example assumes the master branch is called main.
 
 ## PARAMETERS
 
@@ -107,6 +107,22 @@ Aliases: wi
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -MainBranch
+
+Specify the name of your master branch.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: master
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

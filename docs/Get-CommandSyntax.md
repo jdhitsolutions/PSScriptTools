@@ -31,22 +31,22 @@ PS C:\> Get-CommandSyntax -Name Get-Item
 Registry
 
 Get-Item [-Path] <string[]> [-Filter <string>] [-Include <string[]>]
-[-Exclude <string[]>] [-Force] [-Credential <pscredential>]
+[-Exclude <string[]>] [-Force] [-Credential <PSCredential>]
 [<CommonParameters>]
 
 Get-Item -LiteralPath <string[]> [-Filter <string>] [-Include <string[]>]
-[-Exclude <string[]>] [-Force] [-Credential <pscredential>]
+[-Exclude <string[]>] [-Force] [-Credential <PSCredential>]
 [<CommonParameters>]
 
 
 Alias
 
 Get-Item [-Path] <string[]> [-Filter <string>] [-Include <string[]>]
-[-Exclude <string[]>] [-Force] [-Credential <pscredential>]
+[-Exclude <string[]>] [-Force] [-Credential <PSCredential>]
 [<CommonParameters>]
 
 Get-Item -LiteralPath <string[]> [-Filter <string>] [-Include <string[]>]
-[-Exclude <string[]>] [-Force] [-Credential <pscredential>]
+[-Exclude <string[]>] [-Force] [-Credential <PSCredential>]
 [<CommonParameters>]
 
 ...
@@ -94,3 +94,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 [Get-Help]()
 
 [Get-Command]()
+
+[Get-ParameterInfo](Get-ParameterInfo.md)

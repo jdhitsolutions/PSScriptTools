@@ -1,7 +1,7 @@
 ﻿Function Trace-Message {
     [cmdletbinding(DefaultParameterSetName = "message")]
     [alias("trace")]
-    [outputtype("none")]
+    [OutputType("none")]
 
     Param(
         [Parameter(HelpMessage = "Specify a title for the trace window.", ParameterSetName = "init")]
@@ -47,7 +47,7 @@
             #bail out
             return
         }
-        Write-Verbose "Using parameter set $($pscmdlet.ParameterSetName)"
+        Write-Verbose "Using parameter set $($PSCmdlet.ParameterSetName)"
         if ($global:TraceEnabled) {
             if ($PSCmdlet.ParameterSetName -eq 'init') {
 
@@ -55,14 +55,14 @@
                 $global:traceSynchHash = [hashtable]::Synchronized(@{Date=(Get-Date)})
 
                 Write-Verbose "Initializing a new runspace"
-                $newRunspace = [runspacefactory]::CreateRunspace()
+                $newRunspace = [RunspaceFactory]::CreateRunspace()
                 $newRunspace.ApartmentState = "STA"
                 $newRunspace.ThreadOptions = "ReuseThread"
                 Write-Verbose "Open the new runspace"
                 $newRunspace.Open()
                 Write-Verbose "Setting synchronized hashtable variable"
                 $newRunspace.SessionStateProxy.SetVariable("traceSynchHash", $global:traceSynchHash)
-                $newrunspace.SessionStateProxy.getvariable("traceSynchHash") | Out-String | Write-Verbose
+                $newRunspace.SessionStateProxy.GetVariable("traceSynchHash") | Out-String | Write-Verbose
 
                 $formParams = @{
                     Title           = $title
@@ -91,7 +91,7 @@
 
                         $grid = New-Object System.Windows.Controls.Grid
 
-                        $text = New-Object System.Windows.Controls.Textbox
+                        $text = New-Object System.Windows.Controls.TextbBox
                         $text.text = ""
                         #$text.Text = "Starting...`n"
                         $text.Padding = 5
@@ -153,7 +153,7 @@
                     })
 
                 #add parameters
-                [void]$psCmd.Addparameters($formParams)
+                [void]$psCmd.AddParameters($formParams)
                 $psCmd.Runspace = $newRunspace
                 Write-Verbose "Invoking runspace command"
                 $handle = $psCmd.BeginInvoke()
@@ -171,11 +171,11 @@
                 } Until ($global:traceSynchHash.TextBox)
 
                 Write-Verbose "Creating a runspace cleanup job"
-                [void](New-RunspaceCleanupJob -Handle $handle -powerShell $pscmd -sleep 30 -passthru)
+                [void](New-RunspaceCleanupJob -Handle $handle -powerShell $pscmd -sleep 30 -PassThru)
 
                 Write-Verbose "Getting trace metadata"
-                $elevated = ([security.principal.windowsprincipal]([security.principal.windowsidentity]::Getcurrent())).IsInRole([system.security.principal.securityidentifier]"S-1-5-32-544")
-                $os = Get-CimInstance -ClassName win32_operatingsystem -Property Caption, Version, OSArchitecture
+                $elevated = ([Security.Principal.WindowsPrincipal]([security.principal.windowsidentity]::Getcurrent())).IsInRole([system.security.principal.securityidentifier]"S-1-5-32-544")
+                $os = Get-CimInstance -ClassName Win32_OperatingSystem -Property Caption, Version, OSArchitecture
 
                 $init = @(
                     "*************************************************",

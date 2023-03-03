@@ -30,7 +30,7 @@ Begin {
 
     $log = New-RandomFilename -useTemp -extension log
 
-    Write-Detail "Starting $($myinvocation.mycommand)" -Prefix begin | Tee-Verbose $log
+    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin | Tee-Verbose $log
 
     Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append
 
@@ -49,10 +49,10 @@ When the command is run with -Verbose you will see the verbose output and it wil
 ```powershell
 PS C:\> $VerbosePreference= "continue"
 PS C:\> $log = New-CustomFileName ".\VerboseLog_%time.txt"
-PS C:\> Write-Detail "This is a verbose log test" | Out-VerboseTee -path $log
+PS C:\> Write-Detail "This is a verbose log test" | Out-VerboseTee -Path $log
 PS C:\> Get-Content $log
 11/29/2020 08:21:31:0704 [PROCESS] This is a verbose log test
-PS C:\> $verbosePreference = "silentlyContinue"
+PS C:\> $verbosePreference = "SilentlyContinue"
 ```
 
 Normally you would use this command inside a function or script, but you can run it from the console if you want to understand how it works.

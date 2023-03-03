@@ -5,7 +5,12 @@ Function Write-ANSIProgress {
     [OutputType([System.String])]
 
     Param (
-        [Parameter(Position = 0,Mandatory, ValueFromPipeline, HelpMessage = "Enter a percentage in decimal value like .25")]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            HelpMessage = "Enter a percentage in decimal value like .25"
+            )]
         [ValidateScript({$_ -gt 0 -AND $_ -le 1})]
         [double]$PercentComplete,
 
@@ -17,11 +22,11 @@ Function Write-ANSIProgress {
         [string]$BarSymbol = "Box",
 
         [Parameter(HelpMessage = "Specify the cursor position")]
-        [System.Management.Automation.Host.Coordinates]$Position = $host.ui.rawui.CursorPosition
+        [System.Management.Automation.Host.Coordinates]$Position = $host.UI.RawUI.CursorPosition
         )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         #Validate the progress color. The normal parameter validation techniques don't like the regex pattern
         if ( -Not [regex]::IsMatch($ProgressColor, "$([char]0x1b)\[\d+[\d;]+m")) {
@@ -42,7 +47,7 @@ Function Write-ANSIProgress {
         $x = $position.x
         $y = $position.y + 1
         #may need to insert a line in case we are at the bottom of a console or terminal screen
-        if ($env:WT_SESSION -AND ($position.y + 1 -ge $host.ui.RawUI.BufferSize.Height)) {
+        if ($env:WT_SESSION -AND ($position.y + 1 -ge $host.UI.RawUI.BufferSize.Height)) {
             Write-Output "`n"
         }
 
@@ -54,20 +59,20 @@ Function Write-ANSIProgress {
             #bail out
             return
         }
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] $PercentComplete %"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] $PercentComplete %"
         [int]$len = $max * $PercentComplete
         #get current cursor position if in Windows Terminal
-        if ($env:WT_SESSION -AND ($position.y + 1 -ge $host.ui.RawUI.BufferSize.Height)) {
-            $y = $host.ui.RawUI.CursorPosition.Y-1
+        if ($env:WT_SESSION -AND ($position.y + 1 -ge $host.UI.RawUI.BufferSize.Height)) {
+            $y = $host.UI.RawUI.CursorPosition.Y-1
         }
         [System.Console]::SetCursorPosition($x, $y)
         #align and pad the percentage value
         $pct = "$($percentComplete*100)%".PadLeft(4)
-        "$pct $ProgressColor$($($Block.toString())*$len)$End"
+        "$pct $ProgressColor$($($Block.ToString())*$len)$End"
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Write-ANSIProgress

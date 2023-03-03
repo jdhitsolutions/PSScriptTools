@@ -14,7 +14,7 @@ Download the latest 64bit version of Git for Windows.
 ## SYNTAX
 
 ```yaml
-Save-GitSetup [[-Path] <String>] [-Passthru] [<CommonParameters>]
+Save-GitSetup [[-Path] <String>] [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -29,7 +29,7 @@ You will need to manually install it.
 ### Example 1
 
 ```powershell
-C:\> Save-GitSetup -Path c:\work -Passthru
+C:\> Save-GitSetup -Path c:\work -PassThru
 
     Directory: C:\work
 
@@ -40,7 +40,7 @@ Mode                 LastWriteTime         Length Name
 
 ## PARAMETERS
 
-### -Passthru
+### -PassThru
 
 Show the downloaded file.
 

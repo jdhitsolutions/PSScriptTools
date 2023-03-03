@@ -5,11 +5,11 @@ Function Get-PSSessionInfo {
     [OutputType("PSSessionInfo")]
     Param()
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting information for PSSession $PID "
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting information for PSSession $PID "
 
         $proc = Get-Process -Id $PID
         #get the command line from CIM if in Windows PowerShell
@@ -37,7 +37,7 @@ Function Get-PSSessionInfo {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Get-PSSessionInfo

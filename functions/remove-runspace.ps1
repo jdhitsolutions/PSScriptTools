@@ -1,20 +1,27 @@
 Function Remove-Runspace {
-
     [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = "id")]
-    [Outputtype("None")]
+    [OutputType("None")]
 
-    Param
-    (
-        [Parameter(Mandatory, Position = 0, ParameterSetName = "id")]
-        [ValidateNotNullorEmpty()]
+    Param (
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ParameterSetName = "id"
+            )]
+        [ValidateNotNullOrEmpty()]
         [int32]$ID,
 
-        [Parameter(Mandatory, ValueFromPipeline, Position = 0, ParameterSetName = "runspace")]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            ParameterSetName = "runspace"
+            )]
         [System.Management.Automation.Runspaces.Runspace]$Runspace
     )
 
     Begin {
-        Write-Verbose "Starting $($MyInvocation.Mycommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -41,7 +48,7 @@ Function Remove-Runspace {
 
 
     End {
-        Write-Verbose "Ending $($MyInvocation.Mycommand)"
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close function
@@ -50,7 +57,7 @@ Function Remove-Runspace {
 Register-ArgumentCompleter -CommandName Remove-Runspace -ParameterName Runspace -ScriptBlock {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
 
-    (Get-Runspace).where( {$_.runspaceavailability -ne 'busy'}).name|
+    (Get-Runspace).where( {$_.RunspaceAvailability -ne 'busy'}).name|
         foreach-object {
         # completion text,listitem text,result type,Tooltip
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)

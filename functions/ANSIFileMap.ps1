@@ -14,7 +14,7 @@ Function Get-PSAnsiFileMap {
     [OutputType("PSAnsiFileEntry")]
     Param( )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -23,10 +23,10 @@ Function Get-PSAnsiFileMap {
             #bail out
             return
         }
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Getting ANSIFile map from `$PSAnsiFileMap "
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting ANSIFile map from `$PSAnsiFileMap "
         if ($PSAnsiFileMap) {
             $PSAnsiFileMap | ForEach-Object {
-                [pscustomobject]@{
+                [PSCustomObject]@{
                     PSTypeName  = "PSAnsiFileEntry"
                     Description = $_.description
                     Pattern     = $_.pattern
@@ -40,7 +40,7 @@ Function Get-PSAnsiFileMap {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Get-PSAnsiFileMap
@@ -56,10 +56,10 @@ Function Set-PSAnsiFileMap {
         [string]$Pattern,
         [Parameter(HelpMessage = "Specify an ANSI escape sequence")]
         [string]$Ansi,
-        [switch]$Passthru
+        [switch]$PassThru
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -71,28 +71,28 @@ Function Set-PSAnsiFileMap {
         if (($PSBoundParameters.ContainsKey("Pattern")) -OR ($PSBoundParameters.ContainsKey("ansi"))) {
             #test if entry already exists
             if ($global:PSAnsiFileMap.description -contains $Description) {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Updating $Description"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Updating $Description"
                 $index = $PSAnsiFileMap.FindIndex( { $args[0].description -eq $Description })
-                if ($Pattern -AND ($pscmdlet.shouldprocess($Description, "Set pattern $pattern"))) {
+                if ($Pattern -AND ($PSCmdlet.ShouldProcess($Description, "Set pattern $pattern"))) {
                     $PSAnsiFileMap.Item($index).Pattern = $pattern
                 }
-                if ($Ansi -AND ($pscmdlet.shouldprocess($Description, "Set Ansi pattern"))) {
+                if ($Ansi -AND ($PSCmdlet.ShouldProcess($Description, "Set Ansi pattern"))) {
                     $PSAnsiFileMap.Item($index).ansi = $ansi
                 }
             }
             else {
-                Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Adding $Description"
-                $new = [pscustomobject]@{
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Adding $Description"
+                $new = [PSCustomObject]@{
                     PSTypename  = "PSAnsiFileEntry"
                     Description = $Description
                     Pattern     = $Pattern
                     Ansi        = $ansi
                 }
-                If ($pscmdlet.shouldprocess($Description, "Add PSAnsiFileMapEntry")) {
+                If ($PSCmdlet.ShouldProcess($Description, "Add PSAnsiFileMapEntry")) {
                     $global:PSAnsiFileMap.Add($new)
                 }
             }
-            if ($Passthru -AND (-Not $WhatIfPreference)) { Get-PSAnsiFileMap }
+            if ($PassThru -AND (-Not $WhatIfPreference)) { Get-PSAnsiFileMap }
         }
         else {
             Write-Warning "You need to specify a pattern and/or ANSI sequence."
@@ -100,7 +100,7 @@ Function Set-PSAnsiFileMap {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Set-PSAnsiFileMap
@@ -110,10 +110,10 @@ Function Export-PSAnsiFileMap {
     [cmdletbinding(SupportsShouldProcess)]
     [OutputType("None", "System.IO.FileInfo")]
     Param(
-        [switch]$Passthru
+        [switch]$PassThru
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $Path = Join-Path -Path $HOME -ChildPath "psansifilemap.json"
     } #begin
 
@@ -123,17 +123,17 @@ Function Export-PSAnsiFileMap {
             #bail out
             return
         }
-        Write-Verbose "[$((Get-Date).TimeofDay) PROCESS]  Exporting to $Path "
-        if ($PScmdlet.ShouldProcess($path)) {
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS]  Exporting to $Path "
+        if ($PSCmdlet.ShouldProcess($path)) {
             $PSAnsiFileMap | ConvertTo-Json | Out-File -FilePath $Path
-            If ($Passthru) {
+            If ($PassThru) {
                 Get-Item -Path $Path
             }
         }
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Export-PSAnsiFileMap
@@ -146,10 +146,10 @@ Function Remove-PSAnsiFileEntry {
         [Parameter(Position = 0, Mandatory, HelpMessage = "Specify the description of the entry to remove.")]
         [ArgumentCompleter( { $global:PSAnsiFileMap.Description })]
         [string]$Description,
-        [switch]$Passthru
+        [switch]$PassThru
     )
     Begin {
-        Write-Verbose "[$((Get-Date).TimeofDay) BEGIN  ] Starting $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     } #begin
 
     Process {
@@ -159,11 +159,11 @@ Function Remove-PSAnsiFileEntry {
             return
         }
         if ($global:PSAnsiFileMap.description -contains $Description) {
-            Write-Verbose "[$((Get-Date).TimeofDay) PROCESS] Removing entry for $Description"
-            if ($pscmdlet.shouldProcess($Description)) {
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Removing entry for $Description"
+            if ($PSCmdlet.ShouldProcess($Description)) {
                 $index = $PSAnsiFileMap.FindIndex( { $args[0].description -eq $Description })
                 $PSAnsiFileMap.RemoveAt($index)
-                if ($Passthru -AND (-Not $WhatIfPreference)) { Get-PSAnsiFileMap }
+                if ($PassThru -AND (-Not $WhatIfPreference)) { Get-PSAnsiFileMap }
             }
         }
         else {
@@ -172,7 +172,7 @@ Function Remove-PSAnsiFileEntry {
     } #process
 
     End {
-        Write-Verbose "[$((Get-Date).TimeofDay) END    ] Ending $($myinvocation.mycommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Remove-PSAnsiFileEntry

@@ -8,7 +8,7 @@ Function Find-CimClass {
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a CIM/WMI class. Wildcards are permitted.")]
         [ValidateNotNullOrEmpty()]
-        [string]$Classname,
+        [string]$ClassName,
 
         [Parameter(HelpMessage = "Enter a pattern for class names to EXCLUDE from the results. You can use wildcards or regular expressions.")]
         [string]$Exclude,
@@ -18,7 +18,7 @@ Function Find-CimClass {
         [string]$Computername = $env:COMPUTERNAME
     )
 
-    Write-Verbose "Starting $($myinvocation.MyCommand)"
+    Write-Verbose "Starting $($MyInvocation.MyCommand)"
 
     #the command requires CIM cmdlets which won't work on non-Windows platforms.
 
@@ -26,7 +26,7 @@ Function Find-CimClass {
 
         #define a hashtable of parameters to splat to Write-Progress
         $progParams = @{
-            Activity         = $myinvocation.MyCommand
+            Activity         = $MyInvocation.MyCommand
             PercentComplete  = 0
             Status           = "Enumerating namespaces on $($Computername.ToUpper())"
             CurrentOperation = "Creating temporary CIMSession"
@@ -76,14 +76,14 @@ Function Find-CimClass {
             $i++
             $pct = ($i / $namespaces.count) * 100
             $progParams.PercentComplete = $pct
-            $progParams.Status = "Searching for class $classname in $($namespaces.count) namespaces"
-            $progParams.CurrentOperation = "processing \\$($computername.toUpper())\$ns"
+            $progParams.Status = "Searching for class $ClassName in $($namespaces.count) namespaces"
+            $progParams.CurrentOperation = "processing \\$($computername.ToUpper())\$ns"
             Write-Progress @progparams
             Write-Verbose $ns
             Try {
-                $classes = Get-CimClass -Namespace $ns -ClassName $classname -CimSession $cs -ErrorAction Stop
+                $classes = Get-CimClass -Namespace $ns -ClassName $ClassName -CimSession $cs -ErrorAction Stop
                 if ($classes -AND $Exclude) {
-                    $classes.Where( { $_.cimclassname -notmatch $Exclude }) | Sort-Object -Property CimClassName
+                    $classes.Where( { $_.cimClassName -notmatch $Exclude }) | Sort-Object -Property CimClassName
                 }
                 else {
                     $classes | Sort-Object -Property CimClassName
@@ -94,12 +94,12 @@ Function Find-CimClass {
             }
         } #foreach ns
 
-        Write-Verbose "Removing tempory CIMSession"
+        Write-Verbose "Removing temporary CIMSession"
         $cs | Remove-CimSession
     }
     else {
         Write-Warning "This command requires a Windows platform."
     }
-    Write-Verbose "Ending $($myinvocation.MyCommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 
 } #close function

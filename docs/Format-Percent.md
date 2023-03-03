@@ -46,10 +46,10 @@ Calculate a percentage from 1234.567 out of 5000 (i.e. 1234.567/5000) to 4 decim
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-CimInstance win32_operatingsystem -computer chi-dc04 |
+PS C:\> Get-CimInstance Win32_OperatingSystem -computer chi-dc04 |
 Select-Object PSComputername,TotalVisibleMemorySize,
 @{Name="PctFreeMem";Expression={
-    Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize}}
+Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize}}
 
 PSComputerName             TotalVisibleMemorySize           PctFreeMem
 --------------             ----------------------           ----------
@@ -59,10 +59,10 @@ chi-dc04                                  1738292                23.92
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Get-CimInstance win32_operatingsystem -computer chi-dc04 |
+PS C:\> Get-CimInstance Win32_OperatingSystem -computer chi-dc04 |
 Select-Object PSComputername,TotalVisibleMemorySize,
 @{Name="PctFreeMem";Expression={
-    Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize -asString}}
+Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize -asString}}
 
 PSComputerName             TotalVisibleMemorySize           PctFreeMem
 --------------             ----------------------           ----------

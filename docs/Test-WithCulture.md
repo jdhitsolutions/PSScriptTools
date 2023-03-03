@@ -47,7 +47,7 @@ Montag, 14. Oktober 2020 08:59:01
 ```powershell
 PS C\> Test-WithCulture fr-fr -Scriptblock {
   Get-winEvent -log system -max 500 |
-  Select-Object -Property TimeCreated,ID,OpCodeDisplayname,Message |
+  Select-Object -Property TimeCreated,ID,OpCodeDisplayName,Message |
   Sort-Object -property TimeCreated |
   Group-Object {$_.timecreated.toshortdatestring()} -noelement
   }

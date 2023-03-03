@@ -66,7 +66,7 @@ This created a hashtable from the Spooler service object, skipping empty propert
 
 ```powershell
 PS C:\> Get-Service bits |
-Select-Object Name,Displayname,Status,
+Select-Object Name,DisplayName,Status,
 @{Name="Computername";Expression={$_.Machinename}} |
 ConvertTo-Hashtable -Alphabetical
 

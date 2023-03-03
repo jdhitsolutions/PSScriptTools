@@ -15,12 +15,14 @@ Set the PowerShell console color.
 
 ```yaml
 Set-ConsoleColor [[-Foreground] <ConsoleColor>] [[-Background] <ConsoleColor>]
-[-ClearScreen] [-Passthru] [-WhatIf] [-Confirm] [<CommonParameters>]
+[-ClearScreen] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 You can use this command to modify the PowerShell console's foreground and/or background color. If you are running the PSReadline module, that module has its own commands, like Set-PSReadLineOption, that you can use to modify your console. Set-ConsoleColor is designed for use in a traditional PowerShell console. It will not work in consoles that are part of the PowerShell ISE or Visual Studio Code.
+
+NOTE: This command has been marked as deprecated and will be removed in a future release.
 
 ## EXAMPLES
 
@@ -100,7 +102,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Passthru
+### -PassThru
 
 Display the foreground and background color values.
 

@@ -1,165 +1,181 @@
-
 Function Get-FolderSizeInfo {
-
     [cmdletbinding()]
-    [alias("gsi")]
-    [OutputType("FolderSizeInfo")]
+    [alias('gsi')]
+    [OutputType('FolderSizeInfo')]
 
     Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter a file system path like C:\Scripts.", ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter a file system path like C:\Scripts.', ValueFromPipeline, ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
-        [alias("PSPath")]
+        [alias('PSPath')]
         [string[]]$Path,
-        [Parameter(HelpMessage = "Include hidden directories")]
-        [switch]$Hidden
+        [Parameter(HelpMessage = 'Include hidden directories')]
+        [switch]$Hidden,
+        [Parameter(HelpMessage = "Enable support for long file and folder names.")]
+        [alias('lfn')]
+        [switch]$EnableLongFileName
     )
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+
+        #a function to recurse and get all non-hidden directories
+        #This function will only be called on Windows PowerShell systems.
+        Function _EnumDir {
+            [cmdletbinding()]
+            Param([string]$Path, [switch]$Hidden)
+            # write-host $path -ForegroundColor cyan
+            $path = Convert-Path -LiteralPath $path
+            $ErrorActionPreference = 'Stop'
+            try {
+                $di = [System.IO.DirectoryInfo]::new($path)
+                if ($hidden) {
+                    $top = $di.GetDirectories()
+                }
+                else {
+                    $top = ($di.GetDirectories()).Where( { $_.attributes -notmatch 'hidden' })
+                }
+                $top
+                foreach ($t in $top) {
+                    $params = @{
+                        Path   = $t.FullName
+                        Hidden = $Hidden
+                    }
+                    _EnumDir @params
+                }
+            }
+            Catch {
+                Write-Warning "Failed on $path. $($_.exception.message)."
+            }
+        } # _EnumDir
     } #Begin
 
     Process {
         foreach ($item in $path) {
-            $cPath = (Convert-Path -literalpath $item)
+            #Enable long file name support Issue #134
+            if ($EnableLongFileName) {
+                Write-Verbose "Enabling long file name support"
+                $item = if ($item -match '^\\\\') {
+                    "\\?\UNC\$($item.substring(2))"
+                }
+                else {
+                    "\\?\$item"
+                }
+            }
+            #need to convert to file system paths
+            $cPath = (Convert-Path -LiteralPath $item)
             Write-Verbose "Measuring $cPath on $([System.Environment]::MachineName)"
 
-            if (Test-Path -literalpath $cPath) {
+            if (Test-Path -LiteralPath $cPath) {
 
                 $d = [System.IO.DirectoryInfo]::new($cPath)
 
-                $files = [system.collections.arraylist]::new()
+                #Changed from ArrayList to generic list 28 Feb 2023 JDH
+                #suggestion from @ScriptingStudio Issue #134
+                #[System.Collections.Arraylist]::new()
+                $files = [System.Collections.Generic.list[System.IO.FileInfo]]::New()
 
-                If ($psversiontable.psversion.major -gt 5  ) {
+                If ($PSVersionTable.PSVersion.major -gt 5  ) {
                     #this .NET class is not available in Windows PowerShell 5.1
                     $opt = [System.IO.EnumerationOptions]::new()
                     $opt.RecurseSubdirectories = $True
 
                     if ($hidden) {
-                        Write-Verbose "Including hidden files"
-                        $opt.AttributesToSkip = "SparseFile", "ReparsePoint"
+                        Write-Verbose 'Including hidden files'
+                        $opt.AttributesToSkip = 'SparseFile', 'ReparsePoint'
                     }
                     else {
-                        $opt.attributestoSkip = "Hidden"
+                        $opt.AttributesToSkip = 'Hidden'
                     }
 
-                    $data = $($d.GetFiles("*", $opt))
+                    [System.IO.FileInfo[]]$data = $($d.GetFiles('*', $opt))
+                    Write-Verbose "Found $($data.count) files(s)"
                     if ($data -AND $data.count -gt 1) {
                         $files.AddRange($data)
                     }
                     elseif ($data -AND $data.count -eq 1) {
-                        [void]($files.Add($data))
+                        $files.Add($data[0])
                     }
 
                 } #if newer than Windows PowerShell 5.1
                 else {
-                    Write-Verbose "Using legacy code"
+                    Write-Verbose 'Using legacy code'
                     #need to account for errors when accessing folders without permissions
-                    #a function to recurse and get all non-hidden directories
-
-                    Function _enumdir {
-                        [cmdletbinding()]
-                        Param([string]$Path, [switch]$Hidden)
-                        # write-host $path -ForegroundColor cyan
-                        $path = Convert-Path -literalpath $path
-                        $ErrorActionPreference = "Stop"
-                        try {
-                            $di = [System.IO.DirectoryInfo]::new($path)
-                            if ($hidden) {
-                                $top = $di.GetDirectories()
-                            }
-                            else {
-                                $top = ($di.GetDirectories()).Where( {$_.attributes -notmatch "hidden"})
-                            }
-                            $top
-                            foreach ($t in $top) {
-                                $params = @{
-                                    Path   = $t.fullname
-                                    Hidden = $Hidden
-                                }
-                                _enumdir @params
-                            }
-                        }
-                        Catch {
-                            Write-Warning "Failed on $path. $($_.exception.message)."
-                        }
-                    } #enumdir
 
                     # get files in the root of the folder
                     if ($hidden) {
-                        Write-Verbose "Including hidden files"
+                        Write-Verbose 'Including hidden files'
                         $data = $d.GetFiles()
                     }
                     else {
                         #get files in current location
-                        $data = $($d.GetFiles()).Where({$_.attributes -notmatch "hidden"})
+                        $data = $($d.GetFiles()).Where({ $_.attributes -notmatch 'hidden' })
                     }
 
+                    Write-Verbose "Found $($data.count) files"
                     if ($data -AND $data.count -gt 1) {
-                        $files.AddRange($data)
+                        $files.AddRange([System.IO.FileInfo[]]$data)
                     }
                     elseif ($data -AND $data.count -eq 1) {
-                        [void]($files.Add($data))
+                        $files.Add($data[0])
                     }
 
-                    #get a list of all non-hidden subfolders
-                    Write-Verbose "Getting subfolders (Hidden = $Hidden)"
+                    #get a list of all non-hidden sub-folders
+                    Write-Verbose "Getting sub-folders (Hidden = $Hidden)"
                     $eParam = @{
-                        Path   = $cpath
+                        Path   = $cPath
                         Hidden = $hidden
                     }
-                    $all = _enumdir @eparam
+                    $all = _EnumDir @eparam
 
                     #get the files in each subfolder
                     if ($all) {
-                    Write-Verbose "Getting files from $($all.count) subfolders"
+                        Write-Verbose "Getting files from $($all.count) sub-folders"
 
                     ($all).Foreach( {
-                            Write-Verbose $_.fullname
-                            $ErrorActionPreference = "Stop"
-                            Try {
-                                if ($hidden) {
-                                    $data = (([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles())
-                                }
-                                else {
-                                    $data = (([System.IO.DirectoryInfo]"$($_.fullname)").GetFiles()).where({$_.Attributes -notmatch "Hidden"})
-                                }
-                                if ($data -AND $data.count -gt 1) {
-                                    $files.AddRange($data)
-                                }
-                                elseif ($data -AND $data.count -eq 1) {
-                                    [void]($files.Add($data))
-                                }
+                        $currentFolder = $_.FullName
+                        Write-Verbose $CurrentFolder
+                        $ErrorActionPreference = 'Stop'
+                        Try {
+                            if ($hidden) {
+                               $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles())
                             }
-                            Catch {
-                                Write-Warning "Failed on $path. $($_.exception.message)."
-                                #clearing the variable as a precaution
-                                Clear-variable data
+                            else {
+                               $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles()).where({ $_.Attributes -notmatch 'Hidden' })
                             }
-                        })
+                            Write-Verbose "Found $($data.count) files"
+                            if ($data -AND $data.count -gt 1) {
+                                $files.AddRange([System.IO.FileInfo[]]$data)
+                            }
+                            elseif ($data -AND $data.count -eq 1) {
+                                $files.Add($data[0])
+                            }
+                        }
+                        Catch {
+                            Write-Warning "Failed on $CurrentFolder. $($_.exception.message)."
+                            #clearing the variable as a precaution
+                            Clear-Variable data
+                        }
+                    })
                     } #if $all
                 } #else 5.1
 
                 If ($files.count -gt 0) {
                     Write-Verbose "Found $($files.count) files"
-                    # there appears to be a bug with the array list in Windows PowerShell
-                    # where it doesn't always properly enumerate. Passing the list
-                    # items via ForEach appears to solve the problem and doesn't
-                    # adversely affect PowerShell 7. Addeed in v2.22.0. JH
-                    $stats = $files.foreach( {$_}) | Measure-Object -property length -sum
-                    $totalFiles = $stats.count
+                   $stats = $Files  | Measure-Object -Property length -Sum
+                   $totalFiles = $stats.count
                     $totalSize = $stats.sum
                 }
                 else {
-                    Write-Verbose "Found an empty folder"
+                    Write-Verbose 'Found an empty folder'
                     $totalFiles = 0
                     $totalSize = 0
                 }
 
-                [pscustomobject]@{
-                    PSTypename   = "FolderSizeInfo"
+                [PSCustomObject]@{
+                    PSTypename   = 'FolderSizeInfo'
                     Computername = [System.Environment]::MachineName
                     Path         = $cPath
-                    Name         = $(Split-Path $cpath -leaf)
+                    Name         = $(Split-Path  -Path $cPath -Leaf)
                     TotalFiles   = $totalFiles
                     TotalSize    = $totalSize
                 }

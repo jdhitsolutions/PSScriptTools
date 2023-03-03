@@ -13,11 +13,11 @@ Function Get-TopProcess {
         [string]$Computername = $env:computername
     )
     Begin {
-        $vlog = New-CustomFileName -Template "$env:temp\$($myinvocation.mycommand)-%time.log"
+        $vlog = New-CustomFileName -Template "$env:temp\$($MyInvocation.MyCommand)-%time.log"
         $PSDefaultParameterValues."Out-VerboseTee:Path" = $vlog
         $PSDefaultParameterValues."Out-VerboseTee:Append" = $True
         $PSDefaultParameterValues."Write-Detail:Prefix" = 'Begin'
-        Write-Detail "Starting $($myinvocation.mycommand)" | Tee-Verbose
+        Write-Detail "Starting $($MyInvocation.MyCommand)" | Tee-Verbose
         Write-Detail "Using verbose log $vlog" | Tee-Verbose
         Write-Detail "Execution metadata" | Tee-Verbose
         Write-Detail (Add-Border -TextBlock (Get-PSWho -AsString) | Out-String) | Tee-Verbose
@@ -51,7 +51,7 @@ Function Get-TopProcess {
                 }
         }
 
-        Write-Detail "Ending $($myinvocation.mycommand)" | Tee-Verbose
+        Write-Detail "Ending $($MyInvocation.MyCommand)" | Tee-Verbose
         $PSDefaultParameterValues.Remove("Out-VerboseTee:Path")
         $PSDefaultParameterValues.Remove("Out-VerboseTee:Append")
         $PSDefaultParameterValues.Remove("Write-Detail:Prefix")

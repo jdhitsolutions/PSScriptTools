@@ -14,13 +14,13 @@ Search CIM for a class.
 ## SYNTAX
 
 ```yaml
-Find-CimClass [-Classname] <String> [-Exclude <String>]
+Find-CimClass [-ClassName] <String> [-Exclude <String>]
 [-Computername <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This function is designed to search an entire CIM repository for a class name. Sometimes, you can guess a CIM/WMI class name but not know the full name or even the correct namespace. Find-CimClass will recursively search for a given classname in all namespaces. You can use wildcards and search remote computers.
+This function is designed to search an entire CIM repository for a class name. Sometimes, you can guess a CIM/WMI class name but not know the full name or even the correct namespace. Find-CimClass will recursively search for a given class name in all namespaces. You can use wildcards and search remote computers.
 
 This command requires a Windows platform.
 
@@ -29,7 +29,7 @@ This command requires a Windows platform.
 ### Example 1
 
 ```powershell
-PS C:\> Find-CimClass -Classname *protection*
+PS C:\> Find-CimClass -ClassName *protection*
 
 
    NameSpace: Root/CIMV2/mdm/dmmap
@@ -61,14 +61,14 @@ ProtectionTechnologyStatus          {}                   {PackedXml, SchemaV...
 ### Example 2
 
 ```powershell
-PS C:\> Find-CimClass -Classname *volume* -Exclude "win32_Perf*"
+PS C:\> Find-CimClass -ClassName *volume* -Exclude "win32_Perf*"
 ```
 
 Search for any class with 'volume' in the name but exclude anything that starts with 'win32_Perf'.
 
 ## PARAMETERS
 
-### -Classname
+### -ClassName
 
 Enter the name of a CIM/WMI class. Wildcards are permitted.
 
