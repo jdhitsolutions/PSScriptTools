@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://bit.ly/3JVpGLB
 schema: 2.0.0
 ---
 
@@ -45,42 +45,50 @@ The command in this module includes custom format and type extensions. See help 
 ```powershell
 PS C:\> Get-TypeMember DateTime
 
-Type: System.DateTime
+   Type: System.DateTime
 
-    Name                 MemberType ResultType   IsStatic
-    ----                 ---------- ----------   --------
-    MaxValue             Field      datetime         True
-    MinValue             Field      datetime         True
-    UnixEpoch            Field      datetime         True
-    Add                  Method     DateTime        False
-    AddDays              Method     DateTime        False
-    AddHours             Method     DateTime        False
-    ...
-    Date                 Property   DateTime
-    Day                  Property   Int32
-    DayOfWeek            Property   DayOfWeek
-    DayOfYear            Property   Int32
-    Hour                 Property   Int32
-    ...
+Name                 MemberType ResultType   IsStatic IsEnum
+----                 ---------- ----------   -------- ------
+MaxValue             Field      datetime         True
+MinValue             Field      datetime         True
+Add                  Method     DateTime
+AddDays              Method     DateTime
+AddHours             Method     DateTime
+AddMilliseconds      Method     DateTime
+AddMinutes           Method     DateTime
+AddMonths            Method     DateTime
+AddSeconds           Method     DateTime
+...
+Date                 Property   DateTime
+Day                  Property   Int32
+DayOfWeek            Property   DayOfWeek               True
+DayOfYear            Property   Int32
+Hour                 Property   Int32
+Kind                 Property   DateTimeKind            True
+Millisecond          Property   Int32
+Minute               Property   Int32
+...
 ```
 
-Static items will be shown in green.
+Static items will be shown in green. Enum properties will be shown in orange.
 
 ### EXAMPLE 2
 
 ```powershell
 PS C:\> Get-TypeMember DateTime -StaticOnly
 
-Type: System.DateTime
+   Type: System.DateTime
 
-    Name            MemberType ResultType IsStatic
-    ----            ---------- ---------- --------
-    MaxValue        Field      datetime       True
-    MinValue        Field      datetime       True
-    UnixEpoch       Field      datetime       True
-    Compare         Method     Int32          True
-    DaysInMonth     Method     Int32          True
-    ...
+Name            MemberType ResultType IsStatic IsEnum
+----            ---------- ---------- -------- ------
+MaxValue        Field      datetime       True
+MinValue        Field      datetime       True
+Compare         Method     Int32          True
+DaysInMonth     Method     Int32          True
+Equals          Method     Boolean        True
+FromBinary      Method     DateTime       True
+FromFileTime    Method     DateTime       True
+...
 ```
 
 ### EXAMPLE 3
@@ -88,16 +96,19 @@ Type: System.DateTime
 ```powershell
 PS C:\> Get-TypeMember system.io.fileinfo -MemberType Property
 
-Type: System.IO.FileInfo
+   Type: System.IO.FileInfo
 
-    Name              MemberType ResultType     IsStatic
-    ----              ---------- ----------     --------
-    Attributes        Property   FileAttributes
-    CreationTime      Property   DateTime
-    CreationTimeUtc   Property   DateTime
-    Directory         Property   DirectoryInfo
-    DirectoryName     Property   String
-    ...
+Name              MemberType ResultType     IsStatic IsEnum
+----              ---------- ----------     -------- ------
+Attributes        Property   FileAttributes            True
+CreationTime      Property   DateTime
+CreationTimeUtc   Property   DateTime
+Directory         Property   DirectoryInfo
+DirectoryName     Property   String
+Exists            Property   Boolean
+Extension         Property   String
+FullName          Property   String
+...
 ```
 
 Get only properties for System.IO.FileInfo.
@@ -109,18 +120,18 @@ PS C:\> Get-TypeMember datetime -MemberName add* | Format-Table -view syntax
 
         Type: System.DateTime
 
-    Name            ReturnType Syntax
-    ----            ---------- ------
-    Add             DateTime   $obj.Add(\[TimeSpan\]value)
-    AddDays         DateTime   $obj.AddDays(\[Double\]value)
-    AddHours        DateTime   $obj.AddHours(\[Double\]value)
-    AddMicroseconds DateTime   $obj.AddMicroseconds(\[Double\]value)
-    AddMilliseconds DateTime   $obj.AddMilliseconds(\[Double\]value)
-    AddMinutes      DateTime   $obj.AddMinutes(\[Double\]value)
-    AddMonths       DateTime   $obj.AddMonths(\[Int32\]months)
-    AddSeconds      DateTime   $obj.AddSeconds(\[Double\]value)
-    AddTicks        DateTime   $obj.AddTicks(\[Int64\]value)
-    AddYears        DateTime   $obj.AddYears(\[Int32\]value)
+Name            ReturnType Syntax
+----            ---------- ------
+Add             DateTime   $obj.Add(\[TimeSpan\]value)
+AddDays         DateTime   $obj.AddDays(\[Double\]value)
+AddHours        DateTime   $obj.AddHours(\[Double\]value)
+AddMicroseconds DateTime   $obj.AddMicroseconds(\[Double\]value)
+AddMilliseconds DateTime   $obj.AddMilliseconds(\[Double\]value)
+AddMinutes      DateTime   $obj.AddMinutes(\[Double\]value)
+AddMonths       DateTime   $obj.AddMonths(\[Int32\]months)
+AddSeconds      DateTime   $obj.AddSeconds(\[Double\]value)
+AddTicks        DateTime   $obj.AddTicks(\[Int64\]value)
+AddYears        DateTime   $obj.AddYears(\[Int32\]value)
 ```
 
 Use the custom table view to see method syntax.

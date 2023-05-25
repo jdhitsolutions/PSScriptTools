@@ -11,7 +11,7 @@ Function Get-FolderSizeInfo {
         [Parameter(HelpMessage = 'Include hidden directories')]
         [switch]$Hidden,
         [Parameter(HelpMessage = "Enable support for long file and folder names.")]
-        [alias('lfn')]
+        [alias('lfn','EnableLN')]
         [switch]$EnableLongFileName
     )
 

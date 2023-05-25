@@ -1703,6 +1703,12 @@ The output will only show native members, including static methods, but not thos
 
 ![static members](images/typemember-static.png)
 
+The command will highlight properties that are enumerations.
+
+![enum properties](images/typemember-enum.png)
+
+The hightlighting only works in the console and VSCode.
+
 The output includes a property set type extension.
 
 ```dos
@@ -1715,6 +1721,28 @@ AddDays              System.DateTime    False $obj.AddDays([Double]value)
 AddHours             System.DateTime    False $obj.AddHours([Double]value)
 AddMilliseconds      System.DateTime    False $obj.AddMilliseconds([Double]value)
 AddMinutes           System.DateTime    False $obj.AddMinutes([Double]value)
+...
+```
+
+Or you can use the custom view.
+
+```dos
+PS C:\> Get-TypeMember datetime -MemberType method | Format-Table -View Syntax
+
+
+   Type: System.DateTime
+
+Name                 ReturnType Syntax
+----                 ---------- ------
+Add                  DateTime   $obj.Add([TimeSpan]value)
+AddDays              DateTime   $obj.AddDays([Double]value)
+AddHours             DateTime   $obj.AddHours([Double]value)
+AddMilliseconds      DateTime   $obj.AddMilliseconds([Double]value)
+AddMinutes           DateTime   $obj.AddMinutes([Double]value)
+AddMonths            DateTime   $obj.AddMonths([Int32]months)
+AddSeconds           DateTime   $obj.AddSeconds([Double]value)
+AddTicks             DateTime   $obj.AddTicks([Int64]value)
+AddYears             DateTime   $obj.AddYears([Int32]value)
 ...
 ```
 

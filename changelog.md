@@ -2,6 +2,18 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
+## v2.47.0
+
+### Changed
+
+- Added missing online help links.
+- Updated module description in the manifest.
+- Added `EnableLN` parameter alias to `Get-FolderSizeInfo`.
+- Help updates.
+- Update `Get-TypeMember` to identify properties that are enumerations.
+- Updated format file for `Get-TypeMember` to highlight enum properties.
+- Updated `README.md`.
+
 ## v2.46.0
 
 ### Changed

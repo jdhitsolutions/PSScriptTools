@@ -6101,7 +6101,7 @@ Mode                LastWriteTime     Length Name
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="lfn">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="lfn, EnableLN">
           <maml:name>EnableLongFileName</maml:name>
           <maml:description>
             <maml:para>Enable support for long file and folder names. Read https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation?tabs=registry to learn more.</maml:para>
@@ -6139,7 +6139,7 @@ Mode                LastWriteTime     Length Name
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="lfn">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="lfn, EnableLN">
         <maml:name>EnableLongFileName</maml:name>
         <maml:description>
           <maml:para>Enable support for long file and folder names. Read https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation?tabs=registry to learn more.</maml:para>
@@ -6182,9 +6182,9 @@ Mode                LastWriteTime     Length Name
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-FolderSizeInfo -Path d:\temp
 
-Computername    Path                                                TotalFiles     TotalSize
-------------    ----                                                ----------     ---------
-BOVINE320       D:\temp                                                     48     121824451</dev:code>
+Computername    Path                          TotalFiles     TotalSize
+------------    ----                          ----------     ---------
+BOVINE320       D:\temp                               48     121824451</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -6193,9 +6193,9 @@ BOVINE320       D:\temp                                                     48  
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-FolderSizeInfo -Path d:\temp -hidden
 
-Computername    Path                                                TotalFiles     TotalSize
-------------    ----                                                ----------     ---------
-BOVINE320       D:\temp                                                    146     125655552</dev:code>
+Computername    Path                          TotalFiles     TotalSize
+------------    ----                          ----------     ---------
+BOVINE320       D:\temp                              146     125655552</dev:code>
         <dev:remarks>
           <maml:para>Include hidden files.</maml:para>
         </dev:remarks>
@@ -6206,19 +6206,19 @@ BOVINE320       D:\temp                                                    146  
 Where-Object TotalSize -gt 1MB | Sort-Object TotalSize -Descending |
 Format-Table -View mb
 
-Computername    Path                                                TotalFiles   TotalSizeMB
-------------    ----                                                ----------   -----------
-BOVINE320       D:\VMDisks                                                  18   114873.7246
-BOVINE320       D:\ISO                                                      17    42526.8204
-BOVINE320       D:\SQLServer2017Media                                        1      710.8545
-BOVINE320       D:\officeViewers                                             4      158.9155
-BOVINE320       D:\Temp                                                     48      116.1809
-BOVINE320       D:\Sysinternals                                            153       59.6169
-BOVINE320       D:\blog                                                     41       21.9948
-BOVINE320       D:\BackTemp                                                  2       21.6734
-BOVINE320       D:\rip                                                       3       11.1546
-BOVINE320       D:\logs                                                    134        3.9517
-BOVINE320       D:\2016                                                      5        1.5608</dev:code>
+Computername    Path                         TotalFiles   TotalSizeMB
+------------    ----                        ----------   -----------
+BOVINE320       D:\VMDisks                          18   114873.7246
+BOVINE320       D:\ISO                              17    42526.8204
+BOVINE320       D:\SQLServer2017Media                1      710.8545
+BOVINE320       D:\officeViewers                     4      158.9155
+BOVINE320       D:\Temp                             48      116.1809
+BOVINE320       D:\Sysinternals                    153       59.6169
+BOVINE320       D:\blog                             41       21.9948
+BOVINE320       D:\BackTemp                          2       21.6734
+BOVINE320       D:\rip                               3       11.1546
+BOVINE320       D:\logs                            134        3.9517
+BOVINE320       D:\2016                              5        1.5608</dev:code>
         <dev:remarks>
           <maml:para>Get the top-level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater than 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly.</maml:para>
         </dev:remarks>
@@ -9382,41 +9382,49 @@ Culture         : English (United States)</dev:code>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-TypeMember DateTime
 
-Type: System.DateTime
+   Type: System.DateTime
 
-    Name                 MemberType ResultType   IsStatic
-    ----                 ---------- ----------   --------
-    MaxValue             Field      datetime         True
-    MinValue             Field      datetime         True
-    UnixEpoch            Field      datetime         True
-    Add                  Method     DateTime        False
-    AddDays              Method     DateTime        False
-    AddHours             Method     DateTime        False
-    ...
-    Date                 Property   DateTime
-    Day                  Property   Int32
-    DayOfWeek            Property   DayOfWeek
-    DayOfYear            Property   Int32
-    Hour                 Property   Int32
-    ...</dev:code>
+Name                 MemberType ResultType   IsStatic IsEnum
+----                 ---------- ----------   -------- ------
+MaxValue             Field      datetime         True
+MinValue             Field      datetime         True
+Add                  Method     DateTime
+AddDays              Method     DateTime
+AddHours             Method     DateTime
+AddMilliseconds      Method     DateTime
+AddMinutes           Method     DateTime
+AddMonths            Method     DateTime
+AddSeconds           Method     DateTime
+...
+Date                 Property   DateTime
+Day                  Property   Int32
+DayOfWeek            Property   DayOfWeek               True
+DayOfYear            Property   Int32
+Hour                 Property   Int32
+Kind                 Property   DateTimeKind            True
+Millisecond          Property   Int32
+Minute               Property   Int32
+...</dev:code>
         <dev:remarks>
-          <maml:para>Static items will be shown in green.</maml:para>
+          <maml:para>Static items will be shown in green. Enum properties will be shown in orange.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-TypeMember DateTime -StaticOnly
 
-Type: System.DateTime
+   Type: System.DateTime
 
-    Name            MemberType ResultType IsStatic
-    ----            ---------- ---------- --------
-    MaxValue        Field      datetime       True
-    MinValue        Field      datetime       True
-    UnixEpoch       Field      datetime       True
-    Compare         Method     Int32          True
-    DaysInMonth     Method     Int32          True
-    ...</dev:code>
+Name            MemberType ResultType IsStatic IsEnum
+----            ---------- ---------- -------- ------
+MaxValue        Field      datetime       True
+MinValue        Field      datetime       True
+Compare         Method     Int32          True
+DaysInMonth     Method     Int32          True
+Equals          Method     Boolean        True
+FromBinary      Method     DateTime       True
+FromFileTime    Method     DateTime       True
+...</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -9425,16 +9433,19 @@ Type: System.DateTime
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-TypeMember system.io.fileinfo -MemberType Property
 
-Type: System.IO.FileInfo
+   Type: System.IO.FileInfo
 
-    Name              MemberType ResultType     IsStatic
-    ----              ---------- ----------     --------
-    Attributes        Property   FileAttributes
-    CreationTime      Property   DateTime
-    CreationTimeUtc   Property   DateTime
-    Directory         Property   DirectoryInfo
-    DirectoryName     Property   String
-    ...</dev:code>
+Name              MemberType ResultType     IsStatic IsEnum
+----              ---------- ----------     -------- ------
+Attributes        Property   FileAttributes            True
+CreationTime      Property   DateTime
+CreationTimeUtc   Property   DateTime
+Directory         Property   DirectoryInfo
+DirectoryName     Property   String
+Exists            Property   Boolean
+Extension         Property   String
+FullName          Property   String
+...</dev:code>
         <dev:remarks>
           <maml:para>Get only properties for System.IO.FileInfo.</maml:para>
         </dev:remarks>
@@ -9445,18 +9456,18 @@ Type: System.IO.FileInfo
 
         Type: System.DateTime
 
-    Name            ReturnType Syntax
-    ----            ---------- ------
-    Add             DateTime   $obj.Add(\[TimeSpan\]value)
-    AddDays         DateTime   $obj.AddDays(\[Double\]value)
-    AddHours        DateTime   $obj.AddHours(\[Double\]value)
-    AddMicroseconds DateTime   $obj.AddMicroseconds(\[Double\]value)
-    AddMilliseconds DateTime   $obj.AddMilliseconds(\[Double\]value)
-    AddMinutes      DateTime   $obj.AddMinutes(\[Double\]value)
-    AddMonths       DateTime   $obj.AddMonths(\[Int32\]months)
-    AddSeconds      DateTime   $obj.AddSeconds(\[Double\]value)
-    AddTicks        DateTime   $obj.AddTicks(\[Int64\]value)
-    AddYears        DateTime   $obj.AddYears(\[Int32\]value)</dev:code>
+Name            ReturnType Syntax
+----            ---------- ------
+Add             DateTime   $obj.Add(\[TimeSpan\]value)
+AddDays         DateTime   $obj.AddDays(\[Double\]value)
+AddHours        DateTime   $obj.AddHours(\[Double\]value)
+AddMicroseconds DateTime   $obj.AddMicroseconds(\[Double\]value)
+AddMilliseconds DateTime   $obj.AddMilliseconds(\[Double\]value)
+AddMinutes      DateTime   $obj.AddMinutes(\[Double\]value)
+AddMonths       DateTime   $obj.AddMonths(\[Int32\]months)
+AddSeconds      DateTime   $obj.AddSeconds(\[Double\]value)
+AddTicks        DateTime   $obj.AddTicks(\[Int64\]value)
+AddYears        DateTime   $obj.AddYears(\[Int32\]value)</dev:code>
         <dev:remarks>
           <maml:para>Use the custom table view to see method syntax.</maml:para>
         </dev:remarks>
@@ -9481,6 +9492,10 @@ GetFullPath                 System.String      True $obj.GetFullPath([String]...
       </command:example>
     </command:examples>
     <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://bit.ly/3JVpGLB</maml:uri>
+      </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Member</maml:linkText>
         <maml:uri></maml:uri>

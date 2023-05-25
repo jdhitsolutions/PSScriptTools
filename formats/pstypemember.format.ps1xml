@@ -15,14 +15,6 @@ https://github.com/jdhitsolutions/PSScriptTools
         <TypeName>psTypeMember</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <!--
-            You can also use a scriptblock to define a custom property name.
-            You must have a Label tag.
-            <ScriptBlock>$_.machinename.toUpper()</ScriptBlock>
-            <Label>Computername</Label>
-
-            Use <Label> to set the displayed value.
-          -->
         <PropertyName>Type</PropertyName>
         <Label>Type</Label>
       </GroupBy>
@@ -47,7 +39,12 @@ https://github.com/jdhitsolutions/PSScriptTools
           </TableColumnHeader>
           <TableColumnHeader>
             <Label>IsStatic</Label>
-            <Width>11</Width>
+            <Width>15</Width>
+            <Alignment>Right</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>IsEnum</Label>
+            <Width>7</Width>
             <Alignment>Right</Alignment>
           </TableColumnHeader>
         </TableHeaders>
@@ -55,12 +52,15 @@ https://github.com/jdhitsolutions/PSScriptTools
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-                 <ScriptBlock>
+                <ScriptBlock>
                   <!-- Display Static members in Green if in the console or VSCode.
                 This won't work in the PowerShell ISE
                 -->
                 if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
                   "$([char]27)[92m$($_.Name)$([char]27)[0m"
+                }
+                elseif ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsEnum)) {
+                  "$([char]27)[38;5;208m$($_.Name)$([char]27)[0m"
                 }
                 else {
                   $_.Name
@@ -75,6 +75,9 @@ https://github.com/jdhitsolutions/PSScriptTools
                 if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
                   "$([char]27)[92m$($_.MemberType)$([char]27)[0m"
                 }
+                elseif ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsEnum)) {
+                  "$([char]27)[38;5;208m$($_.MemberType)$([char]27)[0m"
+                }
                 else {
                   $_.MemberType
                 }
@@ -88,7 +91,7 @@ https://github.com/jdhitsolutions/PSScriptTools
                 elseif ($_.MemberType -eq 'Property') {
                   $r = $_.PropertyType.Name
                 }
-                   elseif ($_.MemberType -eq 'Field') {
+                  elseif ($_.MemberType -eq 'Field') {
                   $r =$_.FieldType
                 }
                 else {
@@ -100,6 +103,9 @@ https://github.com/jdhitsolutions/PSScriptTools
                 -->
                 if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsStatic)) {
                   "$([char]27)[92m$($r)$([char]27)[0m"
+                }
+                elseif ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsEnum)) {
+                  "$([char]27)[38;5;208m$r$([char]27)[0m"
                 }
                 else {
                   $r
@@ -116,7 +122,20 @@ https://github.com/jdhitsolutions/PSScriptTools
                   "$([char]27)[92m$($_.IsStatic)$([char]27)[0m"
                 }
                 else {
-                  $_.IsStatic
+                  <!--$_.IsStatic-->
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  <!-- Display Enum members in Orange if in the console or VSCode.
+                This won't work in the PowerShell ISE
+                -->
+                if ( ($host.name -match "ConsoleHost|Code") -AND ($_.IsEnum)) {
+                  "$([char]27)[38;5;208m$($_.IsEnum)$([char]27)[0m"
+                }
+                else {
+                  <!--$_.IsEnum-->
                 }
                 </ScriptBlock>
               </TableColumnItem>
@@ -171,7 +190,7 @@ https://github.com/jdhitsolutions/PSScriptTools
             <ScriptBlock>$_.foo /1mb -as [int]</ScriptBlock>
 -->
               <TableColumnItem>
-                 <ScriptBlock>
+                <ScriptBlock>
                   <!-- Display Static members in Green if in the console or VSCode.
                 This won't work in the PowerShell ISE
                 -->

@@ -30,9 +30,9 @@ Note that this command has been optimized for performance, but if you have a lot
 ```powershell
 PS C:\> Get-FolderSizeInfo -Path d:\temp
 
-Computername    Path                                                TotalFiles     TotalSize
-------------    ----                                                ----------     ---------
-BOVINE320       D:\temp                                                     48     121824451
+Computername    Path                          TotalFiles     TotalSize
+------------    ----                          ----------     ---------
+BOVINE320       D:\temp                               48     121824451
 ```
 
 ### Example 2
@@ -40,9 +40,9 @@ BOVINE320       D:\temp                                                     48  
 ```powershell
 PS C:\> Get-FolderSizeInfo -Path d:\temp -hidden
 
-Computername    Path                                                TotalFiles     TotalSize
-------------    ----                                                ----------     ---------
-BOVINE320       D:\temp                                                    146     125655552
+Computername    Path                          TotalFiles     TotalSize
+------------    ----                          ----------     ---------
+BOVINE320       D:\temp                              146     125655552
 ```
 
 Include hidden files.
@@ -54,19 +54,19 @@ PS C:\> Get-ChildItem d:\ -Directory | Get-FolderSizeInfo |
 Where-Object TotalSize -gt 1MB | Sort-Object TotalSize -Descending |
 Format-Table -View mb
 
-Computername    Path                                                TotalFiles   TotalSizeMB
-------------    ----                                                ----------   -----------
-BOVINE320       D:\VMDisks                                                  18   114873.7246
-BOVINE320       D:\ISO                                                      17    42526.8204
-BOVINE320       D:\SQLServer2017Media                                        1      710.8545
-BOVINE320       D:\officeViewers                                             4      158.9155
-BOVINE320       D:\Temp                                                     48      116.1809
-BOVINE320       D:\Sysinternals                                            153       59.6169
-BOVINE320       D:\blog                                                     41       21.9948
-BOVINE320       D:\BackTemp                                                  2       21.6734
-BOVINE320       D:\rip                                                       3       11.1546
-BOVINE320       D:\logs                                                    134        3.9517
-BOVINE320       D:\2016                                                      5        1.5608
+Computername    Path                         TotalFiles   TotalSizeMB
+------------    ----                        ----------   -----------
+BOVINE320       D:\VMDisks                          18   114873.7246
+BOVINE320       D:\ISO                              17    42526.8204
+BOVINE320       D:\SQLServer2017Media                1      710.8545
+BOVINE320       D:\officeViewers                     4      158.9155
+BOVINE320       D:\Temp                             48      116.1809
+BOVINE320       D:\Sysinternals                    153       59.6169
+BOVINE320       D:\blog                             41       21.9948
+BOVINE320       D:\BackTemp                          2       21.6734
+BOVINE320       D:\rip                               3       11.1546
+BOVINE320       D:\logs                            134        3.9517
+BOVINE320       D:\2016                              5        1.5608
 ```
 
 Get the top-level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater than 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly.
@@ -131,7 +131,7 @@ Enable support for long file and folder names. Read https://learn.microsoft.com/
 ```yaml
 Type: SwitchParameter
 Parameter Sets: (All)
-Aliases: lfn
+Aliases: lfn,EnableLN
 
 Required: False
 Position: Named

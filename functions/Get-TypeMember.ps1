@@ -1,10 +1,5 @@
-#requires -version 5.1
-
 <#
-This is an alternative function you can use in-place of Get-Member. This file and the
-ps1xml file must be in the same folder. Dot-source the script file
-
-PS C:\scripts\> . .\Get-TypeMember.ps1
+This is an alternative function you can use in-place of Get-Member.
 #>
 
 Function Get-MemberMethod {
@@ -78,11 +73,11 @@ Function Get-TypeMember {
         [string]$MemberType,
         [Parameter(
             Mandatory,
-            HelpMessage = "Specify a member name",
-            ParameterSetName = "name"
+            HelpMessage = 'Specify a member name',
+            ParameterSetName = 'name'
         )]
         [SupportsWildCards()]
-        [alias("Name")]
+        [alias('Name')]
         [string]$MemberName
     )
 
@@ -92,7 +87,7 @@ Function Get-TypeMember {
         #define the appropriate filter
         if ($MemberName) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering by member name $MemberName"
-            $filter = { -Not $_.IsSpecialName -AND $_.Name -Like $MemberName}
+            $filter = { -Not $_.IsSpecialName -AND $_.Name -Like $MemberName }
         }
         elseif ($StaticOnly) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for Static methods"
@@ -123,6 +118,7 @@ Function Get-TypeMember {
                 ReturnType   = $_.ReturnType
                 FieldType    = $_.FieldType
                 IsStatic     = $_.IsStatic
+                IsEnum       = $_.PropertyType.IsEnum
                 Syntax       = Get-MemberMethod -Type $typename.FullName -MethodName $_.Name
             }
         } #Foreach-Object

@@ -121,9 +121,9 @@ if ($psEditor) {
         if ($host.name -match 'Code') {
 
             $context = $psEditor.GetEditorContext()
-            $thispath = $context.CurrentFile.Path
-            $target = Split-Path -Path $thispath
-            Write-Verbose "Using $thispath"
+            $ThisPath = $context.CurrentFile.Path
+            $target = Split-Path -Path $ThisPath
+            Write-Verbose "Using $ThisPath"
             Write-Verbose "Changing to $target"
             Set-Location -Path $target
 
@@ -134,7 +134,7 @@ if ($psEditor) {
         }
     }
 } #VSCode
-elseif ($psIse) {
+elseif ($psISE) {
     Write-Verbose 'Defining ISE additions'
 
     if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -NotContains 'ToDo') {
@@ -144,9 +144,9 @@ elseif ($psIse) {
             $title = 'To Do'
             $item = Invoke-InputBox -Title $title -Prompt $prompt
             $todo = "# [$(Get-Date)] TODO: $item"
-            $psise.CurrentFile.Editor.InsertText($todo)
+            $psISE.CurrentFile.Editor.InsertText($todo)
             #jump cursor to the end
-            $psise.CurrentFile.editor.SetCaretPosition($psise.CurrentFile.Editor.CaretLine, $psise.CurrentFile.Editor.CaretColumn)
+            $psISE.CurrentFile.editor.SetCaretPosition($psISE.CurrentFile.Editor.CaretLine, $psISE.CurrentFile.Editor.CaretColumn)
         }
         #add the action to the Add-Ons menu
         $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add('ToDo', $Action, 'Ctrl+Alt+2' ) | Out-Null
