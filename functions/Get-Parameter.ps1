@@ -117,7 +117,8 @@ Function Get-ParameterInfo {
                             ParameterSet                    = $attributes.ParameterSetName
                         }
                     } #foreach set
-                } #foreach object
+                    #Save output so it can be sorted by parameter set. Issue #138
+                } | Sort-Object -Property ParameterSet
             } #if $count
         } #if $data
         else {

@@ -5315,6 +5315,18 @@ $3,456.57</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ProviderName</maml:name>
+          <maml:description>
+            <maml:para>Enter a specific provider name. The default is all currently loaded providers.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -5322,6 +5334,18 @@ $3,456.57</dev:code>
         <maml:name>Name</maml:name>
         <maml:description>
           <maml:para>Enter the name of a PowerShell cmdlet or function. Ideally, it has been loaded into the current PowerShell session.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ProviderName</maml:name>
+        <maml:description>
+          <maml:para>Enter a specific provider name. The default is all currently loaded providers.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -8049,52 +8073,36 @@ up                                 Param(\[string\]$computername=$env:com...</de
     <command:examples>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ParameterInfo Get-Service
-
-
-   ParameterSet: Default
-
-
-Name                            : Name
-Aliases                         : ServiceName
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : 0
-Type                            : System.String[]
-ValueFromPipeline               : True
-ValueFromPipelineByPropertyName : True
-
-
+        <dev:code>PS C:\&gt;  Get-ParameterInfo Export-Clixml
 
    ParameterSet: __AllParameterSets
 
+Name            Aliases         Mandatory    Position    Type
+----            -------         ---------    --------    ----
+Depth                           False        Named       System.Int32
+InputObject                     True         Named       System.Management.Automation.PSObject
+Force                           False        Named       System.Management.Automation.SwitchParamet…
+NoClobber       NoOverwrite     False        Named       System.Management.Automation.SwitchParamet…
+Encoding                        False        Named       System.Text.Encoding
 
-Name                            : ComputerName
-Aliases                         : Cn
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : Named
-Type                            : System.String[]
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : True
+   ParameterSet: ByLiteralPath
 
-Name                            : DependentServices
-Aliases                         : DS
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : Named
-Type                            : System.Management.Automation.SwitchParameter
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-...</dev:code>
+Name            Aliases         Mandatory    Position    Type
+----            -------         ---------    --------    ----
+LiteralPath     PSPath,LP       True         Named       System.String
+
+   ParameterSet: ByPath
+
+Name            Aliases         Mandatory    Position    Type
+----            -------         ---------    --------    ----
+Path                            True         0           System.String</dev:code>
         <dev:remarks>
-          <maml:para>Return parameter information for Get-Service using the default list view.</maml:para>
+          <maml:para>Return parameter information for Export-Clixml using the default table view.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ParameterInfo mkdir |
-Select-Object Name,Type,Position,parameterset
+        <dev:code>PS C:\&gt; Get-ParameterInfo mkdir | Select-Object Name,Type,Position,parameterset
 
 Name           Type                                 Position ParameterSet
 ----           ----                                 -------- ------------
@@ -8111,28 +8119,78 @@ UseTransaction System.Management.Automation.Switch...  Named __AllParameterSets<
       </command:example>
       <command:example>
         <maml:title>-------------------------- EXAMPLE 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ParameterInfo Test-WSMan | Sort Parameterset | Format-Table
-
+        <dev:code>PS C:\&gt; Get-ParameterInfo Test-WSMan | Format-List
 
    ParameterSet: __AllParameterSets
 
-Name                  Aliases Mandatory Position Type
-----                  ------- --------- -------- ----
-CertificateThumbprint         False     Named    System.String
-Credential            cred,c  False     Named    System.Management.Automati...
-ComputerName          cn      False     0        System.String
-Authentication        auth,am False     Named    Microsoft.WSMan.Management....
+Name                            : ComputerName
+Aliases                         : cn
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : 0
+Type                            : System.String
+ValueFromPipeline               : True
+ValueFromPipelineByPropertyName : False
+
+Name                            : Authentication
+Aliases                         : auth,am
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : Microsoft.WSMan.Management.AuthenticationMecha
+                                  nism
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+
+Name                            : Credential
+Aliases                         : cred,c
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.Management.Automation.PSCredential
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : True
+
+Name                            : CertificateThumbprint
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.String
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
 
 
    ParameterSet: ComputerName
 
-Name            Aliases Mandatory Position Type
-----            ------- --------- -------- ----
-UseSSL                  False     Named    System.Management.Automation.Swit...
-Port                    False     Named    System.Int32
-ApplicationName         False     Named    System.String</dev:code>
+Name                            : Port
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.Int32
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+
+Name                            : UseSSL
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.Management.Automation.SwitchParameter
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+
+Name                            : ApplicationName
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.String
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False</dev:code>
         <dev:remarks>
-          <maml:para>Get all parameters from Test-WSMan and display details as a formatted table. The object type from Get-ParameterInfo has a default table view.</maml:para>
+          <maml:para>Get all parameters from Test-WSMan and display details as a list.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>

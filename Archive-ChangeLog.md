@@ -2,6 +2,26 @@
 
 This file contains older change history. It is maintained for reference purposes.
 
+## v2.42.0
+
+- Updated module manifest to load required .NET assembly for `Convert-HTMLtoAnsi`. [Issue #124](https://github.com/jdhitsolutions/PSScriptTools/issues/124)
+- Updated `Show-AnsiSequence` to fix a display bug that was dropping values. [Issue #125](https://github.com/jdhitsolutions/PSScriptTools/issues/125)
+- Updated missing online help links.
+- Added new sample script `today.ps1`.
+- Help updates.
+- Updated `README.md`.
+
+## v2.41.0
+
+- Added function `Copy-CommandHistory` with an alias of `ch`.
+- Updated `Out-Copy` to ignore ANSI unless specified. [Issue #118](https://github.com/jdhitsolutions/PSScriptTools/issues/118)
+- Added an alias of `oc` for `Out-Copy`.
+- Updated `New-PSFormatXML` to fix ReadOnly property error. [Issue #121](https://github.com/jdhitsolutions/PSScriptTools/issues/121)
+- Updated `Get-ModuleCommand` to include version information and to accept pipeline input.
+- Updated `modulecommand.format.ps1xml` with a new table view called `version`.
+- Updated missing online help links.
+- Updated `README.md`.
+
 ## v2.40.0
 
 - Updated parameter validation for IP address in `Get-WhoIs` to allow addresses with 255 in an octet. [Issue #117](https://github.com/jdhitsolutions/PSScriptTools/issues/117).

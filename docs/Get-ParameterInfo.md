@@ -27,53 +27,37 @@ Using Get-Command, this function will return information about parameters for an
 ### EXAMPLE 1
 
 ```powershell
-PS C:\> Get-ParameterInfo Get-Service
-
-
-   ParameterSet: Default
-
-
-Name                            : Name
-Aliases                         : ServiceName
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : 0
-Type                            : System.String[]
-ValueFromPipeline               : True
-ValueFromPipelineByPropertyName : True
-
-
+PS C:\>  Get-ParameterInfo Export-Clixml
 
    ParameterSet: __AllParameterSets
 
+Name            Aliases         Mandatory    Position    Type
+----            -------         ---------    --------    ----
+Depth                           False        Named       System.Int32
+InputObject                     True         Named       System.Management.Automation.PSObject
+Force                           False        Named       System.Management.Automation.SwitchParamet…
+NoClobber       NoOverwrite     False        Named       System.Management.Automation.SwitchParamet…
+Encoding                        False        Named       System.Text.Encoding
 
-Name                            : ComputerName
-Aliases                         : Cn
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : Named
-Type                            : System.String[]
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : True
+   ParameterSet: ByLiteralPath
 
-Name                            : DependentServices
-Aliases                         : DS
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : Named
-Type                            : System.Management.Automation.SwitchParameter
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-...
+Name            Aliases         Mandatory    Position    Type
+----            -------         ---------    --------    ----
+LiteralPath     PSPath,LP       True         Named       System.String
+
+   ParameterSet: ByPath
+
+Name            Aliases         Mandatory    Position    Type
+----            -------         ---------    --------    ----
+Path                            True         0           System.String
 ```
 
-Return parameter information for Get-Service using the default list view.
+Return parameter information for Export-Clixml using the default table view.
 
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-ParameterInfo mkdir |
-Select-Object Name,Type,Position,parameterset
+PS C:\> Get-ParameterInfo mkdir | Select-Object Name,Type,Position,parameterset
 
 Name           Type                                 Position ParameterSet
 ----           ----                                 -------- ------------
@@ -91,29 +75,80 @@ Get selected parameter information for the mkdir command.
 ### EXAMPLE 3
 
 ```powershell
-PS C:\> Get-ParameterInfo Test-WSMan | Sort Parameterset | Format-Table
-
+PS C:\> Get-ParameterInfo Test-WSMan | Format-List
 
    ParameterSet: __AllParameterSets
 
-Name                  Aliases Mandatory Position Type
-----                  ------- --------- -------- ----
-CertificateThumbprint         False     Named    System.String
-Credential            cred,c  False     Named    System.Management.Automati...
-ComputerName          cn      False     0        System.String
-Authentication        auth,am False     Named    Microsoft.WSMan.Management....
+Name                            : ComputerName
+Aliases                         : cn
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : 0
+Type                            : System.String
+ValueFromPipeline               : True
+ValueFromPipelineByPropertyName : False
+
+Name                            : Authentication
+Aliases                         : auth,am
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : Microsoft.WSMan.Management.AuthenticationMecha
+                                  nism
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+
+Name                            : Credential
+Aliases                         : cred,c
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.Management.Automation.PSCredential
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : True
+
+Name                            : CertificateThumbprint
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.String
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
 
 
    ParameterSet: ComputerName
 
-Name            Aliases Mandatory Position Type
-----            ------- --------- -------- ----
-UseSSL                  False     Named    System.Management.Automation.Swit...
-Port                    False     Named    System.Int32
-ApplicationName         False     Named    System.String
+Name                            : Port
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.Int32
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+
+Name                            : UseSSL
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.Management.Automation.SwitchParameter
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+
+Name                            : ApplicationName
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.String
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
+
 ```
 
-Get all parameters from Test-WSMan and display details as a formatted table. The object type from Get-ParameterInfo has a default table view.
+Get all parameters from Test-WSMan and display details as a list.
 
 ### Example 4
 

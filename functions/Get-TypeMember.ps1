@@ -68,6 +68,8 @@ Function Get-TypeMember {
         [type]$TypeName,
         [Parameter(ParameterSetName = 'static', HelpMessage = 'Get only static members.')]
         [switch]$StaticOnly,
+        [Parameter(ParameterSetName = 'enum', HelpMessage = 'Get only enum members.')]
+        [switch]$EnumOnly,
         [Parameter(ParameterSetName = 'member', HelpMessage = 'Filter for a specific member type.')]
         [ValidateSet('Property', 'Method', 'Event', 'Field')]
         [string]$MemberType,
@@ -87,7 +89,7 @@ Function Get-TypeMember {
         #define the appropriate filter
         if ($MemberName) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering by member name $MemberName"
-            $filter = { -Not $_.IsSpecialName -AND $_.Name -Like $MemberName }
+            $filter = { (-Not $_.IsSpecialName) -AND ($_.Name -Like $MemberName) }
         }
         elseif ($StaticOnly) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for Static methods"
@@ -97,9 +99,16 @@ Function Get-TypeMember {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for $MemberType methods"
             $filter = { -Not $_.IsSpecialName -AND $_.MemberType -eq $MemberType }
         }
+        elseif ($EnumOnly) {
+            Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for Enum properties"
+            $filter = { -Not $_.IsSpecialName -AND $_.propertyType.IsEnum }
+        }
+        elseif ($force) {
+
+        }
         else {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for all non-special members"
-            $filter = { -Not $_.IsSpecialName }
+            $filter = { -Not $_.IsSpecialName -AND -Not $_.IsVirtual }
         }
     } #begin
     Process {

@@ -2,6 +2,19 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
+## v2.48.0
+
+### Added
+
+- Added parameter `ProviderName` to `Get-CommandSyntax to let the user specify a provider.`[Issue #139](https://github.com/jdhitsolutions/PSScriptTools/issues/139)
+
+### Changed
+
+- Modified `Get-ParameterInfo` to sort output by parameter set. [Issue #138](https://github.com/jdhitsolutions/PSScriptTools/issues/138)
+- Modified the format file for `psparameterinfo` objects to use a table as the default.
+- Added `EnumOnly` parameter to `Get-TypeMember` [Issue #135](https://github.com/jdhitsolutions/PSScriptTools/issues/135)
+- Help updates
+
 ## v2.47.0
 
 ### Changed
@@ -66,26 +79,6 @@ This file contains the most recent change history for the PSScriptTools module.
 - Updated `Get-FoldersizeInfo` to better handle null values. [Issue #129](https://github.com/jdhitsolutions/PSScriptTools/issues/129)
 - Added new sample script `today.ps1`.
 - Help updates.
-- Updated `README.md`.
-
-## v2.42.0
-
-- Updated module manifest to load required .NET assembly for `Convert-HTMLtoAnsi`. [Issue #124](https://github.com/jdhitsolutions/PSScriptTools/issues/124)
-- Updated `Show-AnsiSequence` to fix a display bug that was dropping values. [Issue #125](https://github.com/jdhitsolutions/PSScriptTools/issues/125)
-- Updated missing online help links.
-- Added new sample script `today.ps1`.
-- Help updates.
-- Updated `README.md`.
-
-## v2.41.0
-
-- Added function `Copy-CommandHistory` with an alias of `ch`.
-- Updated `Out-Copy` to ignore ANSI unless specified. [Issue #118](https://github.com/jdhitsolutions/PSScriptTools/issues/118)
-- Added an alias of `oc` for `Out-Copy`.
-- Updated `New-PSFormatXML` to fix ReadOnly property error. [Issue #121](https://github.com/jdhitsolutions/PSScriptTools/issues/121)
-- Updated `Get-ModuleCommand` to include version information and to accept pipeline input.
-- Updated `modulecommand.format.ps1xml` with a new table view called `version`.
-- Updated missing online help links.
 - Updated `README.md`.
 
 ## Archive

@@ -4,9 +4,78 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
 -->
 <Configuration>
   <ViewDefinitions>
+      <View>
+      <!--Created 08/13/2020 16:13:15 by BOVINE320\Jeff-->
+      <Name>summary</Name>
+      <ViewSelectedBy>
+        <TypeName>PSParameterInfo</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <PropertyName>ParameterSet</PropertyName>
+        <Label>ParameterSet</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.
+        <AutoSize />-->
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Aliases</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Mandatory</Label>
+            <Width>12</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Position</Label>
+            <Width>11</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Type</Label>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Aliases</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.name -match 'console|code|remotehost' -AND $_.mandatory) {
+                    "$([char]27)[38;5;219m$($_.mandatory)$([char]27)[0m"
+                }
+                else {
+                  $_.Mandatory
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Position</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Type</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
     <View>
       <!--Created 08/13/2020 16:04:11 by BOVINE320\Jeff-->
-      <Name>default</Name>
+      <Name>list</Name>
       <ViewSelectedBy>
         <TypeName>PSParameterInfo</TypeName>
       </ViewSelectedBy>
@@ -86,74 +155,6 @@ format type data generated 08/13/2020 16:04:11 by BOVINE320\Jeff
         </ListEntries>
       </ListControl>
     </View>
-    <View>
-      <!--Created 08/13/2020 16:13:15 by BOVINE320\Jeff-->
-      <Name>summary</Name>
-      <ViewSelectedBy>
-        <TypeName>PSParameterInfo</TypeName>
-      </ViewSelectedBy>
-      <GroupBy>
-        <PropertyName>ParameterSet</PropertyName>
-        <Label>ParameterSet</Label>
-      </GroupBy>
-      <TableControl>
-        <!--Delete the AutoSize node if you want to use the defined widths.
-        <AutoSize />-->
-        <TableHeaders>
-          <TableColumnHeader>
-            <Label>Name</Label>
-            <Width>15</Width>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Aliases</Label>
-            <Width>15</Width>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Mandatory</Label>
-            <Width>12</Width>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Position</Label>
-            <Width>11</Width>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-          <TableColumnHeader>
-            <Label>Type</Label>
-            <Alignment>left</Alignment>
-          </TableColumnHeader>
-        </TableHeaders>
-        <TableRowEntries>
-          <TableRowEntry>
-            <TableColumnItems>
-              <TableColumnItem>
-                <PropertyName>Name</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Aliases</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <ScriptBlock>
-                if ($host.name -match 'console|code|remotehost' -AND $_.mandatory) {
-                    "$([char]27)[38;5;219m$($_.mandatory)$([char]27)[0m"
-                }
-                else {
-                  $_.Mandatory
-                }
-                </ScriptBlock>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Position</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
-                <PropertyName>Type</PropertyName>
-              </TableColumnItem>
-            </TableColumnItems>
-          </TableRowEntry>
-        </TableRowEntries>
-      </TableControl>
-    </View>
+
   </ViewDefinitions>
 </Configuration>
