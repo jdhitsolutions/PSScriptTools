@@ -4,6 +4,8 @@ This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
 
+## [2.49.0] - 2024-06-06
+
 ### Added
 
 - Modified `ConvertTo-Markdown` to use `Property`and `Value` headings when converting to a list.
@@ -13,6 +15,9 @@ This file contains the most recent change history for the PSScriptTools module.
 
 ### Changed
 
+- Modified module manifest to remove version logic on function export. Now exporting everything. If there is an OS limitation, try to handle it on a per-command basis. **This may be a breaking change**.
+- Changed PDF manual theme from `github` to `github.dark`.
+- Changed PDF manual theme from `github` to `github.dark`.
 - Updated `Get-ParameterInfo` to recognize `ProgressAction` as a common parameter. This parameter was add in PowerShell 7.
 - Updated the default table view for output from `Get-ModuleCommand` to include the module version number.
 - Modified `Show-Tree` to better handle multi-string and binary values in the registry.
@@ -27,7 +32,6 @@ This file contains the most recent change history for the PSScriptTools module.
 
 - Revised `Get-WindowsVersion` to handle non-English cultures. ([Issue #142](https://github.com/jdhitsolutions/PSScriptTools/issues/142))
 - Fixed bug in `Convert-EventLogRecord` that failed on duplicate property name `ID`. ([Issue #143](https://github.com/jdhitsolutions/Scripts/issues/143))
-
 
 ## [v2.48.0] - 2023-07-28
 
@@ -91,12 +95,6 @@ This file contains the most recent change history for the PSScriptTools module.
 - Help updates.
 - Updated `README.md`.
 
-## [v2.44.0] -
-
-- Updated `Show-ANSISequence` to fix a bug where foreground samples where included when specifying background. [Issue #130](https://github.com/jdhitsolutions/PSScriptTools/issues/130)
-- Updated contributing guidelines.
-- Updated `README.md`.
-
 ## [v2.43.0] - 2022-04-04
 
 - Fixed VSCode snippets to run in a PowerShell 7 integrated console. [Issue #124](https://github.com/jdhitsolutions/PSScriptTools/issues/124)
@@ -112,7 +110,8 @@ This file contains the most recent change history for the PSScriptTools module.
 
 If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md) online.
 
-[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/..HEAD
+[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.49.0..HEAD
+[2.49.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/vv2.48.0..v2.49.0
 [v2.48.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.47.0..v2.48.0
 [v2.47.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.46.0..v2.47.0
 [v2.46.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.45.0..v2.46.0

@@ -573,7 +573,7 @@ Begin {
 
 When the command is run with -Verbose you will see the verbose output **and** it will be saved to the specified log file.
 
-### [Remove-Runspace]
+### [Remove-Runspace](docs/Remove-Runspace.md)
 
 Throughout your PowerShell work, you may discover that some commands and scripts can leave behind runspaces such as `ConvertTo-WPFGrid`. You may even deliberately be creating additional runspaces. These runspaces will remain until you exit your PowerShell session. Or use this command to cleanly close and dispose of runspaces.
 
