@@ -111,7 +111,7 @@ This file contains the most recent change history for the PSScriptTools module.
 If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md) online.
 
 [Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.49.0..HEAD
-[2.49.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/vv2.48.0..v2.49.0
+[2.49.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.48.0..v2.49.0
 [v2.48.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.47.0..v2.48.0
 [v2.47.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.46.0..v2.47.0
 [v2.46.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.45.0..v2.46.0
