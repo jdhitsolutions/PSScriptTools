@@ -23,6 +23,10 @@ This command is an alternative to discovering the size of a folder, or at least 
 
 Note that this command has been optimized for performance, but if you have a lot of files to count that will take time, especially when using Windows PowerShell. When querying system folders like C:\Windows on a Windows PowerShell platform, you might get better results including hidden files. Due to the nature of the .NET Framework changes, you might see different results for the same folder when run in PowerShell 7 compared to Windows PowerShell 5.1.
 
+This command will ignore reparse points, such as symbolic links and junctions.
+
+If using on a profile folder, you will most likely get access denied warnings in Windows PowerShell and you can assume those locations will not be counted.
+
 ## EXAMPLES
 
 ### Example 1
@@ -75,7 +79,7 @@ Get the top-level directories from D and pipe them to Get-FolderSizeInfo. Items 
 
 ```powershell
 PS C:\> Get-ChildItem c:\work -Directory | Get-FolderSizeInfo -Hidden |
-Where-Object {$_.totalsize -ge 2mb} | Format-Table -view name
+Where-Object {$_.TotalSize -ge 2mb} | Format-Table -view name
 
 
    Path: C:\work

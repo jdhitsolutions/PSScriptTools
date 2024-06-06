@@ -1,17 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--
-format type data generated 02/29/2020 12:21:51 by BOVINE320\Jeff
--->
 <Configuration>
   <ViewDefinitions>
     <View>
-      <!--Created 05/21/2020 11:24:58 by BOVINE320\Jeff-->
       <Name>default</Name>
       <ViewSelectedBy>
         <TypeName>ModuleCommand</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-        <PropertyName>ModuleName</PropertyName>
+        <ScriptBlock>"{0} [v{1}]" -f $_.ModuleName,$_.version</ScriptBlock>
         <Label>ModuleName</Label>
       </GroupBy>
       <TableControl>

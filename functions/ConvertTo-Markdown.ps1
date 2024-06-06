@@ -89,7 +89,7 @@ Function ConvertTo-Markdown {
                 } #asTable
                 "List" {
                     Write-Verbose "[END    ] Formatting as a list table"
-                    $text.Add("|    |    |")
+                    $text.Add("| Property | Value |")
                     $text.Add("|----|----|")
                     foreach ($item in $data) {
                         $item.PSObject.properties | ForEach-Object {

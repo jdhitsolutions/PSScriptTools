@@ -34,16 +34,25 @@ Function Get-WindowsVersion {
             The registry entry for Windows 11 typically still shows Windows 10.
             #>
             $regData =  Get-ItemProperty -Path $RegPath
+
+            <#
+            30 May 2024 It appears that SystemInfo is localized so I can't assume "OS Name"
+            will always be the property name. I am trusting the output order will always be the
+            same. Issue #142
+            #>
             $tmpCsv = [system.io.path]::GetTempFileName()
             Start-Process systeminfo -ArgumentList "/fo csv" -wait -WindowStyle Hidden -RedirectStandardOutput $tmpCSV
             if ((Get-Item $tmpCSV).Length -gt 0) {
-                $osName = Import-CSV $tmpCsv | Select-Object -expand "OS Name"
+                #$OSName = Import-CSV $tmpCsv | Select-Object -expand "OS Name"
+                $in = Import-CSV $tmpCsv
+                #getting properties from the PSObject
+                $OSName = $in.PSObject.Properties | Select-Object -skip 1 -first 1 -ExpandProperty Value
                 Remove-Item -Path $tmpCsv
             }
             else {
-                $osName = $regData.ProductName
+                $OSName = $regData.ProductName
             }
-            $regData | Select-Object -Property @{Name="ProductName";Expression={$osname}}, EditionID, ReleaseID, BuildBranch,
+            $regData | Select-Object -Property @{Name="ProductName";Expression={$OSName}}, EditionID, ReleaseID, BuildBranch,
             @{Name = "Build"; Expression = { "$($_.CurrentBuild).$($_.UBR)" } }, DisplayVersion,
             @{Name = "InstalledUTC"; Expression = { ([datetime]"1/1/1601").AddTicks($_.InstallTime) } },
             @{Name = "Computername"; Expression = { $env:computername } }
@@ -57,7 +66,6 @@ Function Get-WindowsVersion {
 
     Process {
         if (Test-IsPSWindows) {
-
             if ($Computername -eq $ENV:Computername) {
                 Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing the local host"
                 #remove all any passed parameters
@@ -133,7 +141,6 @@ Function Get-WindowsVersionString {
     `   foreach ($result in $results) {
             "{3} {0} Version {1} (OS Build {2})" -f $result.ProductName, $result.EditionID, $result.build, $result.computername
         }
-
     } #process
 
     End {

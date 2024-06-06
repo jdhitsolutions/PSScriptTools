@@ -14,12 +14,12 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
         [datetime]$Timestamp
 
         myCounter ([Microsoft.PowerShell.Commands.GetCounter.PerformanceCounterSample]$CounterSample) {
-            $this.Computername = $countersample.path.split("\")[2].ToUpper()
-            $this.Counter = $countersample.path.split("\")[-1]
-            $this.Category = $countersample.path.split("\")[-2]
-            $this.Instance = $countersample.InstanceName
-            $this.Value = $countersample.CookedValue
-            $this.Timestamp = $countersample.Timestamp
+            $this.Computername = $CounterSample.path.split("\")[2].ToUpper()
+            $this.Counter = $CounterSample.path.split("\")[-1]
+            $this.Category = $CounterSample.path.split("\")[-2]
+            $this.Instance = $CounterSample.InstanceName
+            $this.Value = $CounterSample.CookedValue
+            $this.Timestamp = $CounterSample.Timestamp
         }
     }
 
@@ -63,7 +63,7 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
                 Write-Verbose "[PROCESS] Using parameter set $($PSCmdlet.ParameterSetName) with these bound parameters"
                 Write-Verbose ($PSBoundParameters | Out-String)
 
-                Get-Counter @PSBoundParameters | Select-Object -ExpandProperty Countersamples |
+                Get-Counter @PSBoundParameters | Select-Object -ExpandProperty CounterSamples |
                 ForEach-Object { [mycounter]::new($_) }
             }
 

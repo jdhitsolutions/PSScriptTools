@@ -1,0 +1,200 @@
+<!--
+Format type data generated 07/31/2023 17:50:29 by PROSPERO\Jeff
+
+This file was created using the New-PSFormatXML command that is part
+of the PSScriptTools module.
+
+https://github.com/jdhitsolutions/PSScriptTools
+-->
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <!--Created 07/31/2023 17:50:29 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>CimClassProperty</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+          if ($host.name -match "console|code") {
+            "$([char]27)[3;93m{0}:$([char]27)[96m{1}$([char]27)[0m" -f $_.Namespace,$_.ClassName
+          }
+          else {
+          "{0}:{1}" -f $_.Namespace,$_.ClassName
+          }
+          </ScriptBlock>
+        <Label>Class</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Property</Label>
+            <Width>15</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ValueType</Label>
+            <Width>12</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Flags</Label>
+            <Width>32</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <ScriptBlock>
+                if ($host.Name -match "console|code" -AND ($_.flags -match "key")) {
+                  "$([char]27)[92m$($_.Property)$([char]27)[0m"
+                } else {
+                  $_.Property
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <ScriptBlock>
+                  if ($host.Name -match "console|code" -AND ($_.flags -match "key")) {
+                  "$([char]27)[92m$($_.ValueType)$([char]27)[0m"
+                } else {
+                  $_.ValueType
+                }
+                </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <!-- Remove 'Property as a flag for conciseness. The flag is redundant for the
+              purpose of the Get-CimClassProperty command'-->
+                <ScriptBlock>
+                $_.flags -replace "Property, ",""
+                </ScriptBlock>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 07/31/2023 18:42:33 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>cimClassPropertyQualifier</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+          if ($host.name -match "console|code") {
+            "$([char]27)[3;93m{0}:$([char]27)[96m{1}$([char]27)[0m $([char]27)[92m[{2}]$([char]27)[0m" -f $_.Namespace,$_.ClassName,$_.Property
+          }
+          else {
+          "{0}:{1} [{2}]" -f $_.Namespace,$_.ClassName,$_.Property
+          }
+
+
+        </ScriptBlock>
+        <Label>Property</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>7</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Value</Label>
+            <Width>8</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>CimType</Label>
+            <Width>10</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Flags</Label>
+            <Width>29</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Value</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>CimType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Flags</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
+      <!--Created 08/01/2023 09:01:46 by PROSPERO\Jeff-->
+      <Name>default</Name>
+      <ViewSelectedBy>
+        <TypeName>CimClassMethod</TypeName>
+      </ViewSelectedBy>
+      <GroupBy>
+        <ScriptBlock>
+          if ($host.name -match "console|code") {
+            "$([char]27)[3;93m{0}:$([char]27)[96m{1}$([char]27)[0m" -f $_.Namespace,$_.ClassName
+          }
+          else {
+          "{0}:{1}" -f $_.Namespace,$_.ClassName
+          }
+          </ScriptBlock>
+        <Label>Class</Label>
+      </GroupBy>
+      <TableControl>
+        <!--Delete the AutoSize node if you want to use the defined widths.-->
+        <AutoSize />
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+            <Width>9</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>ResultType</Label>
+            <Width>13</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Parameters</Label>
+            <Width>92</Width>
+            <Alignment>left</Alignment>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>ResultType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Parameters</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>

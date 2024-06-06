@@ -151,7 +151,6 @@ Function Select-Last {
 
 } #end function Select-Last
 
-
 Function Select-After {
     [CmdletBinding()]
     [alias("after")]
@@ -310,3 +309,4 @@ function Select-Oldest {
         Write-Verbose "[END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
+

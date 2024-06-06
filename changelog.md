@@ -2,7 +2,34 @@
 
 This file contains the most recent change history for the PSScriptTools module.
 
-## v2.48.0
+## [Unreleased]
+
+### Added
+
+- Modified `ConvertTo-Markdown` to use `Property`and `Value` headings when converting to a list.
+- Added CimMember functions `Get-CimNamespace`,`Get-CimClassMethod`, `Get-CimClassProperty`,`Get-CimClassPropertyQualifier`, `Get-CimClassName` and `Get-CimMember`. ([Issue #137](https://github.com/jdhitsolutions/PSScriptTools/issues/137))
+- Added custom formatting for `Get-CimClassName`.
+- Added the module `ThreadJob` as a module dependency to the manifest.
+
+### Changed
+
+- Updated `Get-ParameterInfo` to recognize `ProgressAction` as a common parameter. This parameter was add in PowerShell 7.
+- Updated the default table view for output from `Get-ModuleCommand` to include the module version number.
+- Modified `Show-Tree` to better handle multi-string and binary values in the registry.
+- Modified `Show-Tree` to use `PSStyle.FileInfo` for color information if detected. ([Issue #147](https://github.com/jdhitsolutions/PSScriptTools/issues/147))
+- Updated `README.md`
+- Revised `Get-FolderSizeInfo` to be more consistent between PowerShell versions. The command will skip counting all reparse points. **This may be a breaking change**. ([Issue #145](https://github.com/jdhitsolutions/PSScriptTools/issues/145))
+- Re-wrote `Find-CimClass` to use `CimSession`.
+- Revised `Get-ParameterInfo` to sort output by default using ParameterSet,Position, and Name
+- Help updates.
+
+### Fixed
+
+- Revised `Get-WindowsVersion` to handle non-English cultures. ([Issue #142](https://github.com/jdhitsolutions/PSScriptTools/issues/142))
+- Fixed bug in `Convert-EventLogRecord` that failed on duplicate property name `ID`. ([Issue #143](https://github.com/jdhitsolutions/Scripts/issues/143))
+
+
+## [v2.48.0] - 2023-07-28
 
 ### Added
 
@@ -15,7 +42,7 @@ This file contains the most recent change history for the PSScriptTools module.
 - Added `EnumOnly` parameter to `Get-TypeMember` [Issue #135](https://github.com/jdhitsolutions/PSScriptTools/issues/135)
 - Help updates
 
-## v2.47.0
+## [v2.47.0] - 2023-05-25
 
 ### Changed
 
@@ -27,7 +54,7 @@ This file contains the most recent change history for the PSScriptTools module.
 - Updated format file for `Get-TypeMember` to highlight enum properties.
 - Updated `README.md`.
 
-## v2.46.0
+## [v2.46.0] - 2023-03-03
 
 ### Changed
 
@@ -55,7 +82,7 @@ This file contains the most recent change history for the PSScriptTools module.
 
 - Marked `Out-ConditionalColor` and `Set-ConsoleColor` as deprecated. They will be removed in a future release.
 
-## v2.45.0
+## [v2.45.0] - 2022-09-16
 
 - Fixed help typo for `Get-PSUnique` [PR 133](https://github.com/jdhitsolutions/PSScriptTools/pull/133). Thank you @fiala-sns.
 - Updated `Get-WindowsVersion` to include `DisplayVersion`, e.g. `22H2`.
@@ -64,13 +91,13 @@ This file contains the most recent change history for the PSScriptTools module.
 - Help updates.
 - Updated `README.md`.
 
-## v2.44.0
+## [v2.44.0] -
 
 - Updated `Show-ANSISequence` to fix a bug where foreground samples where included when specifying background. [Issue #130](https://github.com/jdhitsolutions/PSScriptTools/issues/130)
 - Updated contributing guidelines.
 - Updated `README.md`.
 
-## v2.43.0
+## [v2.43.0] - 2022-04-04
 
 - Fixed VSCode snippets to run in a PowerShell 7 integrated console. [Issue #124](https://github.com/jdhitsolutions/PSScriptTools/issues/124)
 - Updated `Show-AnsiSequence` to fix a display bug that was dropping values. [Issue #125](https://github.com/jdhitsolutions/PSScriptTools/issues/125)
@@ -84,3 +111,10 @@ This file contains the most recent change history for the PSScriptTools module.
 ## Archive
 
 If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md) online.
+
+[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/..HEAD
+[v2.48.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.47.0..v2.48.0
+[v2.47.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.46.0..v2.47.0
+[v2.46.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.45.0..v2.46.0
+[v2.45.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.44.0..v2.45.0
+[v2.44.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.43.0..v2.44.0

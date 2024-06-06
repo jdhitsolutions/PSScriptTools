@@ -34,7 +34,7 @@ ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <Str
 
 ## DESCRIPTION
 
-This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. The AsList parameter technically still create a table, but it is two columns with the property namd and value.
+This command is designed to accept pipelined output and create a generic markdown document. The pipeline output will formatted as a text block or you can specify a table. The AsList parameter technically still create a table, but it is two columns with the property name and value.
 
 You can optionally define a title, content to appear before the output, and content to appear after the output. Best efforts have been made to produce markdown output that meets basic standards.
 
@@ -46,83 +46,64 @@ The command does not create a text file. You need to pipe results from this comm
 
 ```powershell
 PS C:\> Get-Service Bits,Winrm |
-Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"
-
-# Service Check
-
-## THINK51
-
-\`\`\`text
-
-Status   Name               DisplayName
-------   ----               -----------
-Running  Bits               Background Intelligent Transfer Ser...
-Running  Winrm              Windows Remote Management (WS-Manag...
-\`\`\`
+ConvertTo-Markdown -title "Service Check" -PreContent "## $($env:computername)"`
+-PostContent "_report $(Get-Date)_" | Out-File c:\work\svc.md
 ```
 
-Create markdown output from a Get-Service command.
+Create markdown output from a Get-Service command and save the output to a file.
 
 ### EXAMPLE 2
 
-```powershell
-PS C:\> Get-Service Bits,Winrm |
-Convertto-Markdown -title "Service Check" -precontent "## $($env:computername)"`
--postcontent "_report $(Get-Date)_" | Out-File c:\work\svc.md
-```
-
-Re-run the previous command and save the output to a file.
-
-### EXAMPLE 3
-
-```powershell
+````powershell
 PS C:\> $computers = "srv1","srv2","srv4"
 PS C:\> $Title = "System Report"
 PS C:\> $footer = "_report run by $($env:USERDOMAIN)\$($env:USERNAME)_"
 PS C:\> $sb =  {
-$os = Get-CimInstance -classname Win32_OperatingSystem -property caption,
-lastbootUptime
-\[PSCustomObject\]@{
+$os = Get-CimInstance -ClassName Win32_OperatingSystem -property caption,
+LastBootUpTime
+[PSCustomObject]@{
 PSVersion = $PSVersionTable.PSVersion
 OS = $os.caption
-Uptime = (Get-Date) - $os.lastbootUpTime
+Uptime = (Get-Date) - $os.LastBootUpTime
 SizeFreeGB = (Get-Volume -DriveLetter C).SizeRemaining /1GB
  }
 }
-PS C:\> $out = Convertto-Markdown -title $Title
+PS C:\> $out = ConvertTo-Markdown -title $Title
 PS C:\> foreach ($computer in $computers) {
-$out+= Invoke-command -scriptblock $sb -Computer $computer -HideComputerName |
+$out+= Invoke-command -ScriptBlock $sb -Computer $computer -HideComputerName |
 Select-Object -Property * -ExcludeProperty RunspaceID |
 ConvertTo-Markdown -PreContent "## $($computer.ToUpper())"
 }
 PS C:\>$out += ConvertTo-Markdown -PostContent $footer
 PS C:\>$out | Set-Content c:\work\report.md
-```
+````
 
 Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document. The commands are shown at a PowerShell prompt, but you are likely to put them in a PowerShell script file.
 
-### EXAMPLE 4
+### EXAMPLE 3
 
 ```powershell
 PS C:\> Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -AsList
+
 # OS Summary
 
-## THINKX1
+## THINKX1-JH
 
-|    |    |
+| Property | Value |
 |----|----|
-|ProductName|Windows 10 Pro|
+|ProductName|Microsoft Windows 11 Pro|
+|ReleaseVersion|23H2|
 |EditionID|Professional|
 |ReleaseID|2009|
-|Build|22000.376|
-|Branch|co_release|
-|InstalledUTC|8/10/2021 12:17:07 AM|
+|Build|22631.2191|
+|Branch|ni_release|
+|InstalledUTC|5/17/2022 6:54:52 PM|
 |Computername|THINKX1-JH|
 ```
 
 Create a "list" table with output from the Get-WindowsVersion command.
 
-### EXAMPLE 5
+### EXAMPLE 4
 
 ```powershell
 PS C:\> Get-Service | Sort-Object -property DisplayName |
@@ -131,7 +112,7 @@ Foreach-Object -begin {
 } -process {
     $name = $_.DisplayName
     $_ | Select-Object -property Name,StartType,Status,
-    @{Name="RequiredServices";Expression = {$_.requiredservices.name -join ','}} |
+    @{Name="RequiredServices";Expression = {$_.RequiredServices.name -join ','}} |
     ConvertTo-Markdown -asList -PreContent "## $Name"
 } -end {
     "### $($env:computername) $(Get-Date)"
@@ -273,6 +254,6 @@ Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershel
 
 ## RELATED LINKS
 
-[Convertto-HTML]()
+[ConvertTo-HTML]()
 
 [Out-File]()

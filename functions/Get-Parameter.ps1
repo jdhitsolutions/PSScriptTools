@@ -35,14 +35,15 @@ Function Get-ParameterInfo {
             'Confirm',
             'InformationAction',
             'InformationVariable',
-            'PipelineVariable'
+            'PipelineVariable',
+            'ProgressAction'
         )
     } #begin
 
     Process {
         Write-Verbose "Processing $command for parameter information"
         Try {
-            #need to account that the command might be an alias (Issue #101). 1/21/2021 JDH
+            #need to take into account that the command might be an alias (Issue #101). 1/21/2021 JDH
             $cmd = Get-Command -Name $command -ErrorAction Stop
             if ($cmd.CommandType -eq 'alias') {
                 Write-Verbose "Resolving the alias $Command to $($cmd.ResolvedCommand)"
@@ -118,7 +119,7 @@ Function Get-ParameterInfo {
                         }
                     } #foreach set
                     #Save output so it can be sorted by parameter set. Issue #138
-                } | Sort-Object -Property ParameterSet
+                } | Sort-Object -Property ParameterSet,Position,Name
             } #if $count
         } #if $data
         else {

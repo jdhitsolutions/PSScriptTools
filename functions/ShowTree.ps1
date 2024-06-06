@@ -1,24 +1,24 @@
 ﻿function Show-Tree {
 
-    [CmdletBinding(DefaultParameterSetName = "Path")]
-    [alias("pstree","shtree")]
+    [CmdletBinding(DefaultParameterSetName = 'Path')]
+    [alias('pstree', 'shtree')]
 
     Param(
         [Parameter(
             Position = 0,
-            ParameterSetName = "Path",
+            ParameterSetName = 'Path',
             ValueFromPipeline,
             ValueFromPipelineByPropertyName
-            )]
+        )]
         [ValidateNotNullOrEmpty()]
-        [alias("FullName")]
-        [string[]]$Path = ".",
+        [alias('FullName')]
+        [string[]]$Path = '.',
 
         [Parameter(
             Position = 0,
-            ParameterSetName = "LiteralPath",
+            ParameterSetName = 'LiteralPath',
             ValueFromPipelineByPropertyName
-            )]
+        )]
         [ValidateNotNullOrEmpty()]
         [string[]]$LiteralPath,
 
@@ -31,32 +31,32 @@
         [int]$IndentSize = 3,
 
         [Parameter()]
-        [alias("files")]
+        [alias('files')]
         [switch]$ShowItem,
 
-        [Parameter(HelpMessage = "Display item properties. Use * to show all properties or specify a comma separated list.")]
-        [alias("properties")]
+        [Parameter(HelpMessage = 'Display item properties. Use * to show all properties or specify a comma separated list.')]
+        [alias('properties')]
         [string[]]$ShowProperty
     )
     DynamicParam {
         #define the InColor parameter if the path is a FileSystem path
-        if ($PSBoundParameters.ContainsKey("Path")) {
-            $here = $PSBoundParameters["Path"]
+        if ($PSBoundParameters.ContainsKey('Path')) {
+            $here = $PSBoundParameters['Path']
         }
-        elseif ($PSBoundParameters.ContainsKey("LiteralPath")) {
-            $here = $PSBoundParameters["LiteralPath"]
+        elseif ($PSBoundParameters.ContainsKey('LiteralPath')) {
+            $here = $PSBoundParameters['LiteralPath']
         }
         else {
             $here = (Get-Location).path
         }
-       if (((Get-Item -Path $here).PSprovider.Name -eq 'FileSystem' )-OR ((Get-Item -LiteralPath $here).PSprovider.Name -eq 'FileSystem')) {
+        if (((Get-Item -Path $here).PSprovider.Name -eq 'FileSystem' ) -OR ((Get-Item -LiteralPath $here).PSprovider.Name -eq 'FileSystem')) {
 
             #define a parameter attribute object
             $attributes = New-Object System.Management.Automation.ParameterAttribute
-            $attributes.HelpMessage = "Show tree and item colorized."
+            $attributes.HelpMessage = 'Show tree and item colorized for the filesystem.'
 
             #add an alias
-            $alias = [System.Management.Automation.AliasAttribute]::new("ansi")
+            $alias = [System.Management.Automation.AliasAttribute]::new('ansi')
 
             #define a collection for attributes
             $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
@@ -64,26 +64,33 @@
             $attributeCollection.Add($alias)
 
             #define the dynamic param
-            $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter("InColor", [Switch], $attributeCollection)
+            $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter('InColor', [Switch], $attributeCollection)
 
             #create array of dynamic parameters
             $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
-            $paramDictionary.Add("InColor", $dynParam1)
+            $paramDictionary.Add('InColor', $dynParam1)
             #use the array
             return $paramDictionary
-       }
+        }
     } #DynamicParam
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
-        if (-Not $Path -and $PSCmdlet.ParameterSetName -eq "Path") {
+        if (-Not $Path -and $PSCmdlet.ParameterSetName -eq 'Path') {
             $Path = Get-Location
         }
 
-        if ($PSBoundParameters.ContainsKey("InColor")) {
+        if ($PSBoundParameters.ContainsKey('InColor')) {
             $Colorize = $True
-            $script:top = ($global:PSAnsiFileMap).where( {$_.description -eq 'TopContainer'}).Ansi
-            $script:child = ($global:PSAnsiFileMap).where( {$_.description -eq 'ChildContainer'}).Ansi
+            #30 May 2024 Use PSStyle.FileInfo if found
+            if ($PSStyle.FileInfo) {
+                $script:top = $PSstyle.FileInfo.Directory
+                $script:child =  $PSstyle.FileInfo.Directory
+            }
+            else {
+                $script:top = ($global:PSAnsiFileMap).where( { $_.description -eq 'TopContainer' }).Ansi
+                $script:child = ($global:PSAnsiFileMap).where( { $_.description -eq 'ChildContainer' }).Ansi
+            }
         }
         function GetIndentString {
             [CmdletBinding()]
@@ -93,15 +100,15 @@
             #  $numPadChars = 1
             $str = ''
             for ($i = 0; $i -lt $IsLast.Count - 1; $i++) {
-                $sepChar = if ($IsLast[$i]) {' '} else {'|'}
+                $sepChar = if ($IsLast[$i]) { ' ' } else { '|' }
                 $str += "$sepChar"
-                $str += " " * ($IndentSize - 1)
+                $str += ' ' * ($IndentSize - 1)
             }
 
             #The \ indicates the item is the last in the container
-            $teeChar = if ($IsLast[-1]) {'\'} else {'+'}
+            $teeChar = if ($IsLast[-1]) { '\' } else { '+' }
             $str += "$teeChar"
-            $str += "-" * ($IndentSize - 1)
+            $str += '-' * ($IndentSize - 1)
             $str
 
             Write-Verbose "Ending $($MyInvocation.MyCommand)"
@@ -111,7 +118,7 @@
             [cmdletbinding()]
             Param(
                 [string]$Name,
-                [string]$Value,
+                [string[]]$Value,
                 [bool[]]$IsLast
             )
             Write-Verbose "Starting $($MyInvocation.MyCommand)"
@@ -137,16 +144,15 @@
                 [bool[]]$IsLast,
                 [bool]$HasChildItems = $false,
                 [switch]$Color,
-                [ValidateSet("topcontainer","childcontainer","file")]
+                [ValidateSet('TopContainer', 'ChildContainer', 'file')]
                 [string]$ItemType
             )
             Write-Verbose "Starting $($MyInvocation.MyCommand)"
             $PSBoundParameters | Out-String | Write-Verbose
             if ($IsLast.Count -eq 0) {
                 if ($Color) {
-                   # Write-Output "$([char]0x1b)[38;2;0;255;255m$("$(Resolve-Path $Path)")$([char]0x1b)[0m"
-                    Write-Output "$($script:top)$("$(Resolve-Path $Path)")$([char]0x1b)[0m"
-
+                    # Write-Output "$([char]27)[38;2;0;255;255m$("$(Resolve-Path $Path)")$([char]27)[0m"
+                    Write-Output "$($script:top)$("$(Resolve-Path $Path)")$([char]27)[0m"
                 }
                 else {
                     "$(Resolve-Path $Path)"
@@ -155,31 +161,42 @@
             else {
                 $indentStr = GetIndentString $IsLast
                 if ($Color) {
-                    #ToDo - define a user configurable color map
                     Switch ($ItemType) {
-                        "topcontainer" {
-                            Write-Output "$indentStr$($script:top)$($Name)$([char]0x1b)[0m"
-                            #Write-Output "$indentStr$([char]0x1b)[38;2;0;255;255m$("$Name")$([char]0x1b)[0m"
+                        'TopContainer' {
+                            Write-Output "$indentStr$($script:top)$($Name)$([char]27)[0m"
+                            #Write-Output "$indentStr$([char]27)[38;2;0;255;255m$("$Name")$([char]27)[0m"
                         }
-                        "childcontainer" {
-                            Write-Output "$indentStr$($script:child)$($Name)$([char]0x1b)[0m"
-                            #Write-Output "$indentStr$([char]0x1b)[38;2;255;255;0m$("$Name")$([char]0x1b)[0m"
+                        'ChildContainer' {
+                            Write-Output "$indentStr$($script:child)$($Name)$([char]27)[0m"
+                            #Write-Output "$indentStr$([char]27)[38;2;255;255;0m$("$Name")$([char]27)[0m"
                         }
-                        "file" {
-
-                            #only use map items with regex patterns
-                            foreach ($item in ($global:PSAnsiFileMap | Where-object Pattern)) {
-                                if ($name -match $item.pattern -AND (-not $done)) {
-                                    write-Verbose "Detected a $($item.description) file"
-                                    Write-Output "$indentStr$($item.ansi)$($Name)$([char]0x1b)[0m"
-                                    #set a flag indicating we've made a match to stop looking
-                                    $done = $True
+                        'file' {
+                            #30 May 2024 Use PSStyle.FileInfo if found
+                            if ($PSStyle.FileInfo) {
+                                if ($name -match "\.exe$") {
+                                    Write-Output "$indentStr$($PSStyle.FileInfo.Executable)$($Name)$([char]27)[0m"
+                                }
+                                else {
+                                    $ext = $name.Split('.')[-1]
+                                    Write-Output "$indentStr$($PSStyle.FileInfo.Extension[".$ext"])$($Name)$([char]27)[0m"
+                                }
+                                $done = $True
+                            }
+                            else {
+                                #only use map items with regex patterns
+                                foreach ($item in ($global:PSAnsiFileMap | Where-Object Pattern)) {
+                                    if ($name -match $item.pattern -AND (-not $done)) {
+                                        Write-Verbose "Detected a $($item.description) file"
+                                        Write-Output "$indentStr$($item.ansi)$($Name)$([char]27)[0m"
+                                        #set a flag indicating we've made a match to stop looking
+                                        $done = $True
+                                    }
                                 }
                             }
                             #no match was found so just write the item.
                             if (-Not $done) {
-                                write-verbose "No ansi match for $Name"
-                                Write-Output "$indentStr$Name$([char]0x1b)[0m"
+                                Write-Verbose "No ansi match for $Name"
+                                Write-Output "$indentStr$Name$([char]27)[0m"
                             }
                         } #file
                         Default {
@@ -198,21 +215,28 @@
                 $excludedProviderNoteProps = 'PSChildName', 'PSDrive', 'PSParentPath', 'PSPath', 'PSProvider'
                 $props = @(Get-ItemProperty $Path -ea 0)
                 if ($props[0] -is [PSCustomObject]) {
-                    if ($ShowProperty  -eq "*") {
-                        $props = @($props[0].PSObject.properties | Where-object {$excludedProviderNoteProps -NotContains $_.Name })
+                    if ($ShowProperty -eq '*') {
+                        $props = @($props[0].PSObject.properties | Where-Object { $excludedProviderNoteProps -NotContains $_.Name })
                     }
                     else {
                         $props = @($props[0].PSObject.properties |
-                        Where-object {$excludedProviderNoteProps -NotContains $_.Name -AND $showproperty -contains $_.name})
+                            Where-Object { $excludedProviderNoteProps -NotContains $_.Name -AND $ShowProperty -contains $_.name })
                     }
                 }
 
                 for ($i = 0; $i -lt $props.Count; $i++) {
                     $prop = $props[$i]
                     $IsLast[-1] = ($i -eq $props.count - 1) -and (-Not $HasChildItems)
+                    #30 May 2024 better accommodate binary values in the registry
+                    if ($prop.Value -is [byte[]]) {
+                        $Value = 'Binary or byte array'
+                    }
+                    else {
+                        $Value = $prop.Value
+                    }
                     $showParams = @{
-                        Name = $prop.Name
-                        Value = $prop.Value
+                        Name   = $prop.Name
+                        Value  = $Value
                         IsLast = $IsLast
                     }
                     ShowProperty @showParams
@@ -246,7 +270,7 @@
                     return
                 }
                 $childItems = @(Get-ChildItem $rPath -ErrorAction $ErrorActionPreference |
-                        Where-object {$ShowItem -or $_.PSIsContainer})
+                    Where-Object { $ShowItem -or $_.PSIsContainer })
             }
             $hasChildItems = $childItems.Count -gt 0
 
@@ -257,7 +281,7 @@
                 IsLast        = $IsLast
                 hasChildItems = $hasChildItems
                 Color         = $Color
-                ItemType      =  If ($isTop) {"topcontainer"} else {"childcontainer"}
+                ItemType      = If ($isTop) { 'TopContainer' } else { 'ChildContainer' }
             }
             ShowItem @sParams
 
@@ -279,11 +303,11 @@
                     $unresolvedPath = $ExecutionContext.SessionState.Path.GetUnresolvedProviderPathFromPSPath($childItem.PSPath)
                     $name = Split-Path $unresolvedPath -Leaf
                     $iParams = @{
-                        Path   = $childItem.PSPath
-                        Name   = $name
-                        IsLast = $IsLast
-                        Color  = $Color
-                       ItemType = "File"
+                        Path     = $childItem.PSPath
+                        Name     = $name
+                        IsLast   = $IsLast
+                        Color    = $Color
+                        ItemType = 'File'
                     }
                     ShowItem @iParams
                 }
@@ -294,15 +318,15 @@
 
     Process {
         Write-Verbose "Detected parameter set $($PSCmdlet.ParameterSetName)"
-        if ($PSCmdlet.ParameterSetName -eq "Path") {
+        if ($PSCmdlet.ParameterSetName -eq 'Path') {
             # In the -Path (non-literal) resolve path in case if it is wildcarded.
-            $resolvedPaths = @($Path | Resolve-Path | Foreach-object {$_.Path})
+            $resolvedPaths = @($Path | Resolve-Path | ForEach-Object { $_.Path })
         }
         else {
             # Must be -LiteralPath
             $resolvedPaths = @($LiteralPath)
         }
-        Write-Verbose "Using these PSBoundParameters"
+        Write-Verbose 'Using these PSBoundParameters'
         $PSBoundParameters | Out-String | Write-Verbose
 
         foreach ($rPath in $resolvedPaths) {
@@ -313,7 +337,7 @@
                 IsTop = $True
             }
             ShowContainer @showParams
-          }
+        }
     } #process
     end {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"

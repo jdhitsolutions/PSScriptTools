@@ -27,7 +27,7 @@ Get-ModuleCommand -FullyQualifiedName <ModuleSpecification> [-ListAvailable] [<C
 
 ## DESCRIPTION
 
-This is an alternative to Get-Command to make it easier to see at a glance what commands are contained within a module and what they can do. By default, Get-ModuleCommand looks for loaded modules. Use -ListAvailable to see commands in the module but not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results.
+This is an alternative to Get-Command to make it easier to see at a glance what commands are contained within a module and what they can do. By default, Get-ModuleCommand looks for loaded modules. Use -ListAvailable to see commands in the module but not currently loaded. Note that if the help file is malformed or missing, you might get oddly formatted results. If the help file does not define a synopsis, you will see the command's syntax.
 
 ## EXAMPLES
 
@@ -37,7 +37,7 @@ This is an alternative to Get-Command to make it easier to see at a glance what 
 PS C:\> Get-ModuleCommand PSCalendar
 
 
-   ModuleName: PSCalendar
+   ModuleName: PSCalendar [v2.9.0]
 
 Name             Alias Synopsis
 ----             ----- --------

@@ -27,17 +27,17 @@ Using Get-Command, this function will return information about parameters for an
 ### EXAMPLE 1
 
 ```powershell
-PS C:\>  Get-ParameterInfo Export-Clixml
+PS C:\> Get-ParameterInfo Export-Clixml
 
    ParameterSet: __AllParameterSets
 
 Name            Aliases         Mandatory    Position    Type
 ----            -------         ---------    --------    ----
 Depth                           False        Named       System.Int32
-InputObject                     True         Named       System.Management.Automation.PSObject
-Force                           False        Named       System.Management.Automation.SwitchParamet…
-NoClobber       NoOverwrite     False        Named       System.Management.Automation.SwitchParamet…
 Encoding                        False        Named       System.Text.Encoding
+Force                           False        Named       System.Management.Auto…
+InputObject                     True         Named       System.Management.Auto…
+NoClobber       NoOverwrite     False        Named       System.Management.Auto…
 
    ParameterSet: ByLiteralPath
 
@@ -57,17 +57,17 @@ Return parameter information for Export-Clixml using the default table view.
 ### EXAMPLE 2
 
 ```powershell
-PS C:\> Get-ParameterInfo mkdir | Select-Object Name,Type,Position,parameterset
+PS C:\> Get-ParameterInfo mkdir | Select-Object Name,Type,Position,ParameterSet
 
-Name           Type                                 Position ParameterSet
-----           ----                                 -------- ------------
-Path           System.String[]                             0 pathSet
-Path           System.String[]                             0 nameSet
-Name           System.String                           Named nameSet
-Value          System.Object                           Named __AllParameterSets
-Force          System.Management.Automation.Switch...  Named __AllParameterSets
-Credential     System.Management.Automation.PSCred...  Named __AllParameterSets
-UseTransaction System.Management.Automation.Switch...  Named __AllParameterSets
+Name       Type                                         Position ParameterSet
+----       ----                                         -------- ------------
+Credential System.Management.Automation.PSCredential    Named    __AllParameter…
+Force      System.Management.Automation.SwitchParameter Named    __AllParameter…
+Value      System.Object                                Named    __AllParameter…
+Path       System.String[]                              0        nameSet
+Name       System.String                                Named    nameSet
+Path       System.String[]                              0        pathSet
+
 ```
 
 Get selected parameter information for the mkdir command.
@@ -98,15 +98,6 @@ Type                            : Microsoft.WSMan.Management.AuthenticationMecha
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 
-Name                            : Credential
-Aliases                         : cred,c
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : Named
-Type                            : System.Management.Automation.PSCredential
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : True
-
 Name                            : CertificateThumbprint
 Aliases                         :
 Mandatory                       : False
@@ -116,8 +107,26 @@ Type                            : System.String
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
 
+Name                            : Credential
+Aliases                         : cred,c
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.Management.Automation.PSCredential
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : True
+
 
    ParameterSet: ComputerName
+
+Name                            : ApplicationName
+Aliases                         :
+Mandatory                       : False
+IsDynamic                       : False
+Position                        : Named
+Type                            : System.String
+ValueFromPipeline               : False
+ValueFromPipelineByPropertyName : False
 
 Name                            : Port
 Aliases                         :
@@ -136,16 +145,6 @@ Position                        : Named
 Type                            : System.Management.Automation.SwitchParameter
 ValueFromPipeline               : False
 ValueFromPipelineByPropertyName : False
-
-Name                            : ApplicationName
-Aliases                         :
-Mandatory                       : False
-IsDynamic                       : False
-Position                        : Named
-Type                            : System.String
-ValueFromPipeline               : False
-ValueFromPipelineByPropertyName : False
-
 ```
 
 Get all parameters from Test-WSMan and display details as a list.

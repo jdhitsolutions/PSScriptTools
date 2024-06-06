@@ -46,7 +46,7 @@ Function Get-ModuleCommand {
             if (-not $mod) {
                 Throw "Failed to find a matching module. Try again using the -ListAvailable parameter."
             }
-            #get prelease from private data
+            #get prerelease from private data
             if ($mod.PrivateData -and $mod.PrivateData.ContainsKey('PSData') -and $mod.PrivateData.PSData.ContainsKey('PreRelease')) {
                 $prerelease = $mod.PrivateData.PSData.PreRelease
             }
@@ -71,9 +71,9 @@ Function Get-ModuleCommand {
 
         $cmds = @()
         Write-Verbose "Getting exported functions"
-        $cmds += $mod.Exportedfunctions.keys | Get-Command
+        $cmds += $mod.ExportedFunctions.keys | Get-Command
         Write-Verbose "Getting exported cmdlets"
-        $cmds += $mod.Exportedcmdlets.keys | Get-Command
+        $cmds += $mod.ExportedCmdlets.keys | Get-Command
 
         Write-Verbose "Found $($cmds.count) functions and/or cmdlets"
 
@@ -111,9 +111,8 @@ End {
 Register-ArgumentCompleter -CommandName Get-ModuleCommand -ParameterName Name -ScriptBlock {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
 
-    (Get-Module -Name "$wordtoComplete*").name |
+    (Get-Module -Name "$WordToComplete*").name |
     ForEach-Object {
-        # completion text,listitem text,result type,Tooltip
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }

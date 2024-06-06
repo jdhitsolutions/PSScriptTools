@@ -14,7 +14,7 @@ Function Get-DirectoryInfo {
     [OutputType("DirectoryStat")]
     Param(
         [Parameter(Position = 0,HelpMessage = "Specify the top level path.")]
-        [ValidateScript( { (Test-Path $_ ) -AND ((Get-Item $_).psprovider.name -eq "FileSystem") })]
+        [ValidateScript( { (Test-Path $_ ) -AND ((Get-Item $_).PSProvider.name -eq "FileSystem") })]
         [string]$Path = ".",
         [Parameter(HelpMessage = " The Depth parameter determines the number of subdirectory
     levels to recursively query.")]
@@ -60,7 +60,7 @@ Function Get-DirectoryInfo {
         }
         if ($PSBoundParameters["Depth"]) {
             $gciParams.Add("Depth", $PSBoundParameters["Depth"])
-             $gciParams.Add("Recurse",$True)
+            $gciParams.Add("Recurse",$True)
         }
 
     } #begin

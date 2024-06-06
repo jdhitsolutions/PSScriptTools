@@ -5,7 +5,7 @@ if ($MyInvocation.line -match '-verbose') {
 Write-Verbose 'Loading public functions'
 
 #exclude files that have special requirements
-Get-ChildItem -Path $PSScriptRoot\functions\*.ps1 -Exclude 'Get-MyCounter.ps1', 'Get-FileExtensionInfo.ps1' |
+Get-ChildItem -Path $PSScriptRoot\functions\*.ps1 -Exclude 'Get-MyCounter.ps1', 'Get-FileExtensionInfo.ps1','CimMember.ps1' |
 ForEach-Object -Process {
     Write-Verbose $_.FullName
     . $_.FullName
@@ -14,6 +14,7 @@ ForEach-Object -Process {
 Write-Verbose 'Loading Windows-specific commands'
 if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
     . "$PSScriptRoot\functions\Get-MyCounter.ps1"
+    . "$PSScriptRoot\functions\CimMember.ps1"
 }
 
 if ($IsCoreCLR) {

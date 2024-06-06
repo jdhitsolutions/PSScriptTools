@@ -14,8 +14,7 @@ Search CIM for a class.
 ## SYNTAX
 
 ```yaml
-Find-CimClass [-ClassName] <String> [-Exclude <String>]
-[-Computername <String>] [<CommonParameters>]
+Find-CimClass [-ClassName] <String> [-Exclude <String>] [-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -84,22 +83,6 @@ Accept pipeline input: False
 Accept wildcard characters: True
 ```
 
-### -Computername
-
-Enter the name of a computer to search.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: localhost
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -Exclude
 
 Enter a pattern for class names to EXCLUDE from the results. You can use wildcards or regular expressions.
@@ -113,13 +96,26 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
+Accept wildcard characters: True
+```
+
+### -CimSession
+Specify a computer name or an existing CimSession object.
+
+```yaml
+Type: CimSession
+Parameter Sets: (All)
+Aliases: CN
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
-
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -136,3 +132,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell
 ## RELATED LINKS
 
 [Get-CimClass]()
+
+[Get-CimMember](Get-CimMember.md)

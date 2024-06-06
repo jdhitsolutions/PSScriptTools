@@ -254,7 +254,7 @@ Accept wildcard characters: False
 
 ### -InColor
 
-Show tree and item colorized. Values are from the $PSAnsiMap variable.
+Show tree and item colorized. Values are from the $PSAnsiMap variable, unless you have $PSStyle and have configured FileInfo settings.
 
 ```yaml
 Type: SwitchParameter
