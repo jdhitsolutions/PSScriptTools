@@ -304,8 +304,10 @@ Function Set-ConsoleTitle {
 
 } #close Set-ConsoleTitle
 
+<#
 Function Set-ConsoleColor {
     #This command is marked as deprecated 3/3/2023
+    #9 June 2024 this command has been removed from the module
     [cmdletbinding(SupportsShouldProcess)]
     [OutputType("None")]
 
@@ -373,7 +375,7 @@ Function Set-ConsoleColor {
     } #end
 
 } #close Set-ConsoleTitle
-
+ #>
 #This command is not exported
 
 <#

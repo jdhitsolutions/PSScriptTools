@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get details about the current PowerShell session
+Get details about the current PowerShell session.
 
 ## SYNTAX
 

@@ -91,6 +91,9 @@ $global:PSSpecialChar = @{
 Write-Verbose "Defining the variable `$PSSamplePath to the samples folder for this module"
 $global:PSSamplePath = Join-Path -Path $PSScriptRoot -ChildPath Samples
 
+#define a private variable with PSScriptTools data
+$ToolDataPath = "$PSScriptRoot\PSScriptToolData.json"
+
 #region editor integrations
 Write-Verbose 'Add ToDo options to the ISE or VS Code'
 if ($psEditor) {

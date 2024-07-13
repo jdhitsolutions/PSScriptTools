@@ -9,15 +9,14 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create a PowerShell dynamic parameter.
+Create a PowerShell function dynamic parameter.
 
 ## SYNTAX
 
 ```yaml
-New-PSDynamicParameter [-ParameterName] <String[]> -Condition <String> [-Mandatory] [-DefaultValue <Object[]>] [-Alias <String[]>]
-[-ParameterType <Type>] [-HelpMessage <String>][-ValueFromPipelineByPropertyName]  [-ParameterSetName <String>]
-[-Comment <String>] [-ValidateNotNullOrEmpty] [-ValidateLength <Int32[]>]
-[-ValidateSet <Object[]>] [-ValidateRange <Int32[]>] [-ValidateCount <Int32[]>] [-ValidatePattern <String>] [-ValidateScript <ScriptBlock>] [<CommonParameters>]
+New-PSDynamicParameter [-ParameterName] <String[]> -Condition <String> [-Mandatory]
+[-DefaultValue <Object[]>] [-Alias <String[]>] [-ParameterType <Type>] [-HelpMessage <String>][-ValueFromPipelineByPropertyName] [-ParameterSetName <String>][-Comment <String>] [-ValidateNotNullOrEmpty] [-ValidateLength <Int32[]>] [-ValidateSet <Object[]>]
+[-ValidateRange <Int32[]>] [-ValidateCount <Int32[]>] [-ValidatePattern <String>] [-ValidateScript <ScriptBlock>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

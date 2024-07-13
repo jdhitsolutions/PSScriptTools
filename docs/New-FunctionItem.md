@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Create a function item from the console
+Create a function item from the console.
 
 ## SYNTAX
 

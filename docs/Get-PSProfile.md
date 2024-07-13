@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get PowerShell profile locations
+Get PowerShell profile locations.
 
 ## SYNTAX
 

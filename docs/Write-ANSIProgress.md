@@ -13,14 +13,14 @@ Display an ANSI progress bar.
 
 ## SYNTAX
 
-```yaml
-Write-ANSIProgress [-PercentComplete] <Double> [-ProgressColor <String>]
-[-BarSymbol <String>] [-Position <Coordinates>] [<CommonParameters>]
+```
+Write-ANSIProgress [-PercentComplete] <Double> [-ProgressColor <String>] [-BarSymbol <String>]
+ [-Position <Coordinates>] [-ToHost] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-You can use this command to write an ANSI colored progress bar to the console. The output will be an array of strings. The item may be a blank line. See examples.
+You can use this command to write an ANSI-styled progress bar to the console. The output will be an array of strings. The item may be a blank line. See examples. If you are incorporating this command into a script or function, you may want to use the -ToHost parameter to write the progress bar to the host instead of the pipeline.
 
 NOTE: If you are using the Windows Terminal and are at the bottom of the screen, you may get improperly formatted results. Clear the host and try again.
 
@@ -29,19 +29,20 @@ NOTE: If you are using the Windows Terminal and are at the bottom of the screen,
 ### Example 1
 
 ```powershell
-PS C:\> $pct = @(.10, .12, .19, .25, .43, .55, .66, .78, .90, .95,1)
-PS C:\> $pct | Write-ANSIProgress -BarSymbol Block
+PS C:\> Write-ANSIProgress -BarSymbol Block -PercentComplete .78 -ToHost
+
+ 78% ███████████████████████████████████████
 ```
 
-This will build a progress bar using a block symbol and the default ANSI color escape.
+This will build a progress bar using a block symbol and the default ANSI color escape. The output will be to the host, not the pipeline.
 
 ### Example 2
 
 ```powershell
 PS C:\> $params = @{
   PercentComplete = .78
-  BarSymbol = "Circle"
-  "ProgressColor" =  "$([char]0x1b)[92m"
+  BarSymbol       = "Circle"
+  "ProgressColor" =  "$([char]27)[92m"
 }
 PS C:\> Write-ANSIProgress @params
 ```
@@ -52,11 +53,11 @@ Create a single progress bar for 78% using the Circle symbol and a custom color.
 
 ```powershell
 PS C:\> Get-CimInstance -ClassName Win32_OperatingSystem |
-Select-Object -property @{N="Computername";E={$_.CSName}},
-@{N="TotalMemGB";E={Format-Value $_.TotalVisibleMemorySize -unit MB}},
-@{N="FreeMemGB";E={Format-Value $_.FreePhysicalMemory -unit MB}},
-@{N="PctFree"; E={
-$pct=Format-Percent $_.freephysicalmemory $_.totalVisiblememorySize
+Select-Object -property @{Name="Computername";Expression={$_.CSName}},
+@{Name="TotalMemGB";Expression={Format-Value $_.TotalVisibleMemorySize -unit MB}},
+@{Name="FreeMemGB";Expression={Format-Value $_.FreePhysicalMemory -unit MB}},
+@{Name="PctFree"; Expression={
+$pct = Format-Percent $_.FreePhysicalMemory $_.TotalVisibleMemorySize
 Write-ANSIProgress -PercentComplete ($pct/100) | Select-Last 1
 }}
 
@@ -66,7 +67,7 @@ Computername TotalMemGB FreeMemGB PctFree
 BOVINE320            32        12 37.87% ■■■■■■■■■■■■■■■■■■■
 ```
 
-Note that this example is using abbreviations in the Select-Object hashtables.
+Note that this example uses abbreviations in the Select-Object hashtables.
 
 ### Example 4
 
@@ -81,10 +82,10 @@ PS C:\> $sb = {
     $i++
     $pct = [math]::round($i/$top.count,2)
     Write-ANSIProgress -PercentComplete $pct -position $pos
-    Write-Host "  Processing $(($item.fullname).padright(80))"  -NoNewline
+    Write-Host "  Processing $(($item.FullName).PadRight(80))"  -NoNewline
     $out+= Get-ChildItem -Path $item -Recurse -file |
     Measure-Object -property length -sum |
-    Select-Object @{Name="Path";Expression={$item.fullname}},Count,
+    Select-Object @{Name="Path";Expression={$item.FullName}},Count,
     @{Name="Size";Expression={$_.Sum}}
   }
   Write-Host ""
@@ -116,7 +117,7 @@ Accept wildcard characters: False
 
 ### -PercentComplete
 
-Enter a percentage in decimal value like .25 up to 1.
+Enter a percentage in a decimal value like .25 up to 1.
 
 ```yaml
 Type: Double
@@ -148,7 +149,7 @@ Accept wildcard characters: False
 
 ### -ProgressColor
 
-Specify an ANSI escape sequence for the progress bar color.
+Specify an ANSI escape sequence for the progress bar color. You could also use a PSStyle setting.
 
 ```yaml
 Type: String
@@ -162,8 +163,23 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### CommonParameters
+### -ToHost
 
+Write to the host, not the PowerShell pipeline. You may want to do this if using this command in a script or function so the output is not commingled with your command output.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

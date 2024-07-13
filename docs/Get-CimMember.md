@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get information about CIM class members
+Get information about CIM class members.
 
 ## SYNTAX
 

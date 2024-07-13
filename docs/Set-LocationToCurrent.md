@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Change script editor terminal location.
+Change your script editor terminal location. Only valid in VSCode or the ISE.
 
 ## SYNTAX
 

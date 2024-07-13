@@ -1,14 +1,4 @@
 Function New-PSDynamicParameter {
-<#
-.Synopsis
-Create a PowerShell dynamic parameter
-.Description
-This command will create the code for a dynamic parameter that you can insert into your PowerShell script file.
-.Link
-about_Functions_Advanced_Parameters
-
-#>
-
     [cmdletbinding()]
     [alias("ndp")]
     [OutputType([System.String[]])]
@@ -89,7 +79,7 @@ about_Functions_Advanced_Parameters
         #this is structured for future development where you might need to create
         #multiple dynamic parameters. This feature is incomplete at this time
         Foreach ($Name in $ParameterName) {
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Defining dynamic parameter $Name [$($parametertype.name)]"
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Defining dynamic parameter $Name [$($ParameterType.name)]"
             $out += "`n        # Defining parameter attributes`n"
             $out += "        `$attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]`n"
             $out += "        `$attributes = New-Object System.Management.Automation.ParameterAttribute`n"
@@ -267,8 +257,8 @@ Function New-PSDynamicParameterForm {
         <TextBox x:Name="ValidateScript" AcceptsReturn = "True" VerticalScrollBarVisibility="Auto" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="121,274,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="250" Height="70"/>
         <Label x:Name="label7" Content="ValidateSet" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="34,351,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="ValidateSet" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="16" Margin="117,356,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="328"/>
-     </Grid>
-  </Window>
+    </Grid>
+</Window>
 "@
 
     $reader = New-Object System.Xml.XmlNodeReader $xaml
@@ -286,7 +276,7 @@ Function New-PSDynamicParameterForm {
         Try {
             $tmp = New-Variable -Name $item -Value ($Window.FindName($item)) -ErrorAction Stop -PassThru
             #add a help tool tip
-            $tip = $all[$item].attributes.where({$_.typeid.name -eq 'parameterattribute'}).helpMessage
+            $tip = $all[$item].attributes.where({$_.typeid.name -eq 'ParameterAttribute'}).helpMessage
             write-Verbose "Found help $tip"
             $tmp.Value.ToolTip = $tip
             $list.Add((Get-Variable -Name $item))
@@ -306,10 +296,10 @@ Function New-PSDynamicParameterForm {
         $splat = @{}
         $list | where-object {$_.value.text} | foreach-object {
         $splat.Add($_.Name,$_.value.Text)
-         }
-         #add switches
+        }
+        #add switches
         $list | where-object {$_.value.IsChecked} | foreach-object {
-         $splat.Add($_.Name,$True)
+        $splat.Add($_.Name,$True)
         }
 
         #turn values into arrays as needed

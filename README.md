@@ -1563,19 +1563,6 @@ Get-Service | Out-More
 
 This also works in PowerShell 7.
 
-### [Out-ConditionalColor](docs/Out-ConditionalColor.md)
-
-__This command is marked as deprecated and will be removed in a future release.__
-
-This command is designed to take pipeline input and display it in a colorized format, based on a set of conditions. Unlike `Write-Host`, which doesn't write to the pipeline, this command will write output to the pipeline. You can use a simple hashtable to define a color if the given property matches the hashtable key.
-
-![Out-ConditionalColor-1](images/occ-1.png)
-
-Or you can specify an ordered hashtable for more complex processing.
-![Out-ConditionalColor-2](images/occ-2.png)
-
-This command doesn't always work depending on the type of object you pipe to it. The problem appears to be related to the formatting system. Development and testing are ongoing.
-
 ### [Set-ConsoleTitle](docs/Set-ConsoleTitle.md)
 
 Set the title bar of the current PowerShell console window.
@@ -1584,16 +1571,6 @@ Set the title bar of the current PowerShell console window.
 if (Test-IsAdministrator) {
   Set-ConsoleTitle "Administrator:  $($PSVersionTable.PSVersion)"
   }
-```
-
-### [Set-ConsoleColor](docs/Set-ConsoleColor.md)
-
-__This command is marked as deprecated and will be removed in a future release.__
-
-Configure the foreground or background color of the current PowerShell console window. Note that if you are running the PSReadLine module, this command won't work. You should use `Set-PSReadLineOption` or a similar command to configure your session settings.
-
-```powershell
-Set-ConsoleColor -background DarkGray -foreground Yellow
 ```
 
 ### [Add-Border](docs/Add-Border.md)
@@ -1910,7 +1887,7 @@ Rabbit   Popcorn       Green
 Rabbit   Pretzels      Green
 ```
 
-The duplicate items have been removed. This command works best with simple objects. If your objects have nested object properties, you will need to test if this command can properly filter for unique items.
+The duplicate items have been removed. This command works best with simple objects. If your objects have nested object properties, you will need to test if this command can properly filter for unique items. For more complex objects, you should use the `Property` parameter.
 
 ### [Test-IsElevated](docs/Test-IsElevated.md)
 
@@ -2473,7 +2450,7 @@ PS C:\> Get-CimMember -ClassName win32_Volume -Property q*
     QuotasRebuilding Boolean   ReadOnly, NullValue
 ```
 
-### Get-CimClassPropertyQualifier](docs/Get-CimClassPropertyQualifier.md)
+### [Get-CimClassPropertyQualifier](docs/Get-CimClassPropertyQualifier.md)
 
 This command is an alternative to Get-CimClass to make it easier to get information about property qualifiers of a WMI/CIM class.
 
@@ -2654,7 +2631,7 @@ $sb = {
       $i++
       $pct = [math]::round($i/$top.count,2)
       Write-ANSIProgress -PercentComplete $pct -position $pos
-      Write-Host "  Processing $(($item.FullName).padright(80))"
+      Write-Host "  Processing $(($item.FullName).PadRight(80))"
       -ForegroundColor Yellow -NoNewline
       $out+= Get-ChildItem -Path $item -Recurse -file |
       Measure-Object -property length -sum |
@@ -2837,7 +2814,7 @@ I've created a PDF version of this document which I thought you might find usefu
 
 ## Deprecated Commands
 
-The following commands have been marked as deprecated and will be removed in a future release.
+The following commands have been removed as of v2.50.0.
 
 + [Set-ConsoleColor](docs/Set-ConsoleColor.md)
 + [Out-ConditionalColor](docs/Out-ConditionalColor.md)

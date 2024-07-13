@@ -1,8 +1,7 @@
-
 Function Write-ANSIProgress {
     [cmdletbinding()]
     [alias("wap")]
-    [OutputType([System.String])]
+    [OutputType("None","String")]
 
     Param (
         [Parameter(
@@ -14,26 +13,29 @@ Function Write-ANSIProgress {
         [ValidateScript({$_ -gt 0 -AND $_ -le 1})]
         [double]$PercentComplete,
 
-        [Parameter(HelpMessage = "Specify an ANSI escape sequence for the progress bar color.")]
-        [string]$ProgressColor = "$([char]0x1b)[38;5;51m",
+        [Parameter(HelpMessage = "Specify an ANSI escape sequence or a PSStyle setting for the progress bar color.")]
+        [string]$ProgressColor = "$([char]27)[38;5;51m",
 
         [Parameter(HelpMessage = "Specify what shape to use for the progress bar.")]
         [ValidateSet("Box", "Block", "Circle")]
         [string]$BarSymbol = "Box",
 
         [Parameter(HelpMessage = "Specify the cursor position")]
-        [System.Management.Automation.Host.Coordinates]$Position = $host.UI.RawUI.CursorPosition
+        [System.Management.Automation.Host.Coordinates]$Position = $host.UI.RawUI.CursorPosition,
+
+        [Parameter(HelpMessage = "Write to the host not the pipeline")]
+        [switch]$ToHost
         )
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         #Validate the progress color. The normal parameter validation techniques don't like the regex pattern
-        if ( -Not [regex]::IsMatch($ProgressColor, "$([char]0x1b)\[\d+[\d;]+m")) {
+        if ( -Not [regex]::IsMatch($ProgressColor, "$([char]27)\[\d+[\d;]+m")) {
             Throw "You entered an invalid ANSI escape sequence"
         }
         #the closing ANSI sequence
-        $end = "$([char]0x1b)[0m"
+        $end = "$([char]27)[0m"
 
         #a length of 50 is the max or 100%
         $max = 50
@@ -45,12 +47,13 @@ Function Write-ANSIProgress {
 
         #these values will be used to set the progress bar position
         $x = $position.x
-        $y = $position.y + 1
+        #modified July 12, 2024 to not add an extra line
+        $y = $position.y #+ 1
         #may need to insert a line in case we are at the bottom of a console or terminal screen
         if ($env:WT_SESSION -AND ($position.y + 1 -ge $host.UI.RawUI.BufferSize.Height)) {
-            Write-Output "`n"
+            #Write-Output "`n"
+            Write-Host "`n"
         }
-
     } #begin
 
     Process {
@@ -68,7 +71,12 @@ Function Write-ANSIProgress {
         [System.Console]::SetCursorPosition($x, $y)
         #align and pad the percentage value
         $pct = "$($percentComplete*100)%".PadLeft(4)
-        "$pct $ProgressColor$($($Block.ToString())*$len)$End"
+        #Modified June 27, 2024 to write to the host so progress isn't part of any command output
+        if ($ToHost) {
+            Write-Host "$pct $ProgressColor$($($Block.ToString())*$len)$End"
+        } else {
+            Write-Output "$pct $ProgressColor$($($Block.ToString())*$len)$End"
+        }
     } #process
 
     End {

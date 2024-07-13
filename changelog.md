@@ -4,19 +4,37 @@ This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
 
+## [2.50.0] - 2024-07-13
+
+### Added
+
+- Added an argument completer for the `Name` parameter of `Show-FunctionItem`.
+- Added a new `Property` parameter to `Get-PSUnique` to allow the user to specify a property or properties to use for comparison. The command will also display a warning if a comparison can't be made. [Issue #150](https://github.com/jdhitsolutions/PSScriptTools/issues/150)
+
+### Changed
+
+- Ongoing and general code cleanup.
+- Removed previously deprecated commands `Set-ConsoleColor` and `Out-ConditionalColor`.
+- Changed `Get-PSScriptTools to use saved data from a JSON file instead of building the data from `Get-Command`, `Get-Alias`, and `Get-Help`. This also fixes display problems with the Synopsis property in Linux.
+- Changed `Write-ANSIProgress` by adding a parameter to write to the host and not the pipeline.
+- Updated `README`.
+
+### Fixed
+
+- Removed obsolete comment-based help for `New-PSDynamicParameter`.
+
 ## [2.49.0] - 2024-06-06
 
 ### Added
 
-- Modified `ConvertTo-Markdown` to use `Property`and `Value` headings when converting to a list.
-- Added CimMember functions `Get-CimNamespace`,`Get-CimClassMethod`, `Get-CimClassProperty`,`Get-CimClassPropertyQualifier`, `Get-CimClassName` and `Get-CimMember`. ([Issue #137](https://github.com/jdhitsolutions/PSScriptTools/issues/137))
+- Modified `ConvertTo-Markdown` to use `Property` and `Value` headings when converting to a list.
+- Added CimMember functions `Get-CimNamespace`, `Get-CimClassMethod`, `Get-CimClassProperty`, `Get-CimClassPropertyQualifier`, `Get-CimClassName` and `Get-CimMember`. ([Issue #137](https://github.com/jdhitsolutions/PSScriptTools/issues/137))
 - Added custom formatting for `Get-CimClassName`.
 - Added the module `ThreadJob` as a module dependency to the manifest.
 
 ### Changed
 
 - Modified module manifest to remove version logic on function export. Now exporting everything. If there is an OS limitation, try to handle it on a per-command basis. **This may be a breaking change**.
-- Changed PDF manual theme from `github` to `github.dark`.
 - Changed PDF manual theme from `github` to `github.dark`.
 - Updated `Get-ParameterInfo` to recognize `ProgressAction` as a common parameter. This parameter was add in PowerShell 7.
 - Updated the default table view for output from `Get-ModuleCommand` to include the module version number.
@@ -25,7 +43,7 @@ This file contains the most recent change history for the PSScriptTools module.
 - Updated `README.md`
 - Revised `Get-FolderSizeInfo` to be more consistent between PowerShell versions. The command will skip counting all reparse points. **This may be a breaking change**. ([Issue #145](https://github.com/jdhitsolutions/PSScriptTools/issues/145))
 - Re-wrote `Find-CimClass` to use `CimSession`.
-- Revised `Get-ParameterInfo` to sort output by default using ParameterSet,Position, and Name
+- Revised `Get-ParameterInfo` to sort the output by default using ParameterSet, Position, and Name
 - Help updates.
 
 ### Fixed
@@ -37,7 +55,7 @@ This file contains the most recent change history for the PSScriptTools module.
 
 ### Added
 
-- Added parameter `ProviderName` to `Get-CommandSyntax to let the user specify a provider.`[Issue #139](https://github.com/jdhitsolutions/PSScriptTools/issues/139)
+- Added parameter `ProviderName` to `Get-CommandSyntax to let the user specify a provider.` [Issue #139](https://github.com/jdhitsolutions/PSScriptTools/issues/139)
 
 ### Changed
 
@@ -110,7 +128,8 @@ This file contains the most recent change history for the PSScriptTools module.
 
 If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md) online.
 
-[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.49.0..HEAD
+[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.50.0..HEAD
+[2.50.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.49.0..v2.50.0
 [2.49.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.48.0..v2.49.0
 [v2.48.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.47.0..v2.48.0
 [v2.47.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.46.0..v2.47.0

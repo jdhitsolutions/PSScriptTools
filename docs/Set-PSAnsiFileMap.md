@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Modify or add a PSAnsiFileEntry
+Modify or add a PSAnsiFileEntry.
 
 ## SYNTAX
 

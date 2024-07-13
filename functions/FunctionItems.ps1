@@ -48,6 +48,13 @@ Function Show-FunctionItem {
             HelpMessage = 'What is the name of your function?'
         )]
         [ValidateNotNullOrEmpty()]
+        #Add an argument completer to get the names of functions from the Function: PSDrive
+        [ArgumentCompleter({param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+            Get-ChildItem -path Function:\ | where {$_.Name -like "*$wordToComplete*"} |
+            ForEach-Object {
+                [System.Management.Automation.CompletionResult]::new($_.Name, $_.Name, 'ParameterValue', $_.Source)
+            }
+        })]
         [string]$Name
     )
 

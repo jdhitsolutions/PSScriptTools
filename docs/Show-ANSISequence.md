@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Display ANSI escape sequences
+Display ANSI escape sequences.
 
 ## SYNTAX
 

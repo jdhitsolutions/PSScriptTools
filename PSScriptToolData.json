@@ -1,0 +1,730 @@
+[
+  {
+    "Name": "Add-Border",
+    "Alias": "ab",
+    "Verb": "Add",
+    "Synopsis": "Create a text border around a string.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Compare-Module",
+    "Alias": "cmo",
+    "Verb": "Compare",
+    "Synopsis": "Compare PowerShell module versions.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Compare-Script",
+    "Alias": null,
+    "Verb": "Compare",
+    "Synopsis": "Compare PowerShell script versions.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Convert-CommandToHashtable",
+    "Alias": null,
+    "Verb": "Convert",
+    "Synopsis": "Convert a PowerShell expression into a splatting equivalent.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Convert-EventLogRecord",
+    "Alias": "clr",
+    "Verb": "Convert",
+    "Synopsis": "Convert EventLogRecords to structured objects.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Convert-HashtableString",
+    "Alias": null,
+    "Verb": "Convert",
+    "Synopsis": "Convert a hashtable string into a hashtable object.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Convert-HashtableToCode",
+    "Alias": "chc",
+    "Verb": "Convert",
+    "Synopsis": "Convert a hashtable to a string representation.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Convert-HtmlToAnsi",
+    "Alias": "cha",
+    "Verb": "Convert",
+    "Synopsis": "Convert an HTML color code to ANSI.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertFrom-LexicalTimeSpan",
+    "Alias": null,
+    "Verb": "ConvertFrom",
+    "Synopsis": "Convert a lexical timespan into a PowerShell timespan.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertFrom-Text",
+    "Alias": "cft",
+    "Verb": "ConvertFrom",
+    "Synopsis": "Convert structured text to objects.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertFrom-UTCTime",
+    "Alias": "frut",
+    "Verb": "ConvertFrom",
+    "Synopsis": "Convert a datetime value from universal.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertTo-Hashtable",
+    "Alias": null,
+    "Verb": "ConvertTo",
+    "Synopsis": "Convert an object into a hashtable.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertTo-LexicalTimeSpan",
+    "Alias": null,
+    "Verb": "ConvertTo",
+    "Synopsis": "Convert a timespan to lexical time.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertTo-LocalTime",
+    "Alias": "clt",
+    "Verb": "ConvertTo",
+    "Synopsis": "Convert a foreign time to local.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertTo-Markdown",
+    "Alias": "ctm",
+    "Verb": "ConvertTo",
+    "Synopsis": "Convert pipeline output to a markdown document.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertTo-TitleCase",
+    "Alias": "title totc",
+    "Verb": "ConvertTo",
+    "Synopsis": "Convert a string to title case.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertTo-UTCTime",
+    "Alias": "tout",
+    "Verb": "ConvertTo",
+    "Synopsis": "Convert a local datetime to universal time.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "ConvertTo-WPFGrid",
+    "Alias": "cwg",
+    "Verb": "ConvertTo",
+    "Synopsis": "Send command output to an interactive WPF-based grid.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Copy-Command",
+    "Alias": "cc",
+    "Verb": "Copy",
+    "Synopsis": "Copy a PowerShell command.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Copy-HelpExample",
+    "Alias": "che",
+    "Verb": "Copy",
+    "Synopsis": "Copy code snippet from help examples.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Copy-HistoryCommand",
+    "Alias": "ch",
+    "Verb": "Copy",
+    "Synopsis": "Copy a history command line to the clipboard.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Copy-PSFunction",
+    "Alias": "cpfun",
+    "Verb": "Copy",
+    "Synopsis": "Copy a local PowerShell function to a remote session.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Export-PSAnsiFileMap",
+    "Alias": null,
+    "Verb": "Export",
+    "Synopsis": "Export a PSAnsiFileMap to a file.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Find-CimClass",
+    "Alias": "fcc",
+    "Verb": "Find",
+    "Synopsis": "Search CIM for a class.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Format-Percent",
+    "Alias": "fp",
+    "Verb": "Format",
+    "Synopsis": "Format a value as a percentage.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Format-String",
+    "Alias": "fs",
+    "Verb": "Format",
+    "Synopsis": "Options for formatting strings.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Format-Value",
+    "Alias": "fv",
+    "Verb": "Format",
+    "Synopsis": "Format a numeric value.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-CimClassListing",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "A faster way to list CIM classes in a given namespace.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-CimClassMethod",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get the methods of a CIM class.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-CimClassProperty",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get the properties of a CIM class.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-CimClassPropertyQualifier",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get the property qualifiers of a CIM class.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-CimMember",
+    "Alias": "cmm",
+    "Verb": "Get",
+    "Synopsis": "Get information about CIM class members.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-CimNamespace",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Enumerate WMI/CIM namespaces.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-CommandSyntax",
+    "Alias": "gsyn",
+    "Verb": "Get",
+    "Synopsis": "Get provider-specific command syntax.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-DirectoryInfo",
+    "Alias": "dw",
+    "Verb": "Get",
+    "Synopsis": "Get directory information.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-FileItem",
+    "Alias": "pswhere",
+    "Verb": "Get",
+    "Synopsis": "A PowerShell version of the Where CLI command.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-FolderSizeInfo",
+    "Alias": "gsi",
+    "Verb": "Get",
+    "Synopsis": "Get folder size information.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-FormatView",
+    "Alias": "gfv",
+    "Verb": "Get",
+    "Synopsis": "Get defined format views.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-GitSize",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get the size of .git folder.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-LastModifiedFile",
+    "Alias": "glm",
+    "Verb": "Get",
+    "Synopsis": "Get files based on last modified data.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-ModuleCommand",
+    "Alias": "gmc",
+    "Verb": "Get",
+    "Synopsis": "Get a summary of module commands.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-MyAlias",
+    "Alias": "gma",
+    "Verb": "Get",
+    "Synopsis": "Get non-default aliases defined in the current session.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-MyCounter",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get performance counter data.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-MyTimeInfo",
+    "Alias": "gti",
+    "Verb": "Get",
+    "Synopsis": "Display time settings for a collection of locations.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-MyVariable",
+    "Alias": "gmv",
+    "Verb": "Get",
+    "Synopsis": "Get all user-defined variables.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-ParameterInfo",
+    "Alias": "gpi",
+    "Verb": "Get",
+    "Synopsis": "Retrieve command parameter information.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PathVariable",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get information from locations in %PATH%.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PowerShellEngine",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get the path to the current PowerShell engine.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PSAnsiFileMap",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Display the PSAnsiFileMap.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PSLocation",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get common location values.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PSProfile",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get PowerShell profile locations.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PSScriptTools",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get a summary of PSScriptTools commands.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PSSessionInfo",
+    "Alias": "gsin",
+    "Verb": "Get",
+    "Synopsis": "Get details about the current PowerShell session.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PSUnique",
+    "Alias": "gpsu",
+    "Verb": "Get",
+    "Synopsis": "Filter for unique objects.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-PSWho",
+    "Alias": "pswho",
+    "Verb": "Get",
+    "Synopsis": "Get PowerShell user summary information.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-TypeMember",
+    "Alias": "gtm",
+    "Verb": "Get",
+    "Synopsis": "Get type member information.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-TZData",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get time zone details.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-TZList",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get a list of time zone areas.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-WhoIs",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Lookup WhoIS data for a given IPv4 address.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-WindowsVersion",
+    "Alias": "wver",
+    "Verb": "Get",
+    "Synopsis": "Get Windows version information.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Get-WindowsVersionString",
+    "Alias": null,
+    "Verb": "Get",
+    "Synopsis": "Get Windows version information.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Invoke-InputBox",
+    "Alias": "ibx",
+    "Verb": "Invoke",
+    "Synopsis": "Launch a graphical input box.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Join-Hashtable",
+    "Alias": null,
+    "Verb": "Join",
+    "Synopsis": "Combine two hashtables into one.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-ANSIBar",
+    "Alias": "nab",
+    "Verb": "New",
+    "Synopsis": "Display an ANSI colored bar.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-CustomFileName",
+    "Alias": null,
+    "Verb": "New",
+    "Synopsis": "Create a custom file name based on a template.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-FunctionItem",
+    "Alias": "nfi",
+    "Verb": "New",
+    "Synopsis": "Create a function item from the console.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-PSDriveHere",
+    "Alias": "npsd",
+    "Verb": "New",
+    "Synopsis": "Create a new PSDrive at the current location.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-PSDynamicParameter",
+    "Alias": "ndp",
+    "Verb": "New",
+    "Synopsis": "Create a PowerShell dynamic parameter",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-PSDynamicParameterForm",
+    "Alias": "dpf",
+    "Verb": "New",
+    "Synopsis": "Launch a WPF front-end to New-PSDynamicParameter.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-PSFormatXML",
+    "Alias": "nfx",
+    "Verb": "New",
+    "Synopsis": "Create or modify a format.ps1xml file.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-RandomFileName",
+    "Alias": null,
+    "Verb": "New",
+    "Synopsis": "Create a random file name.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-RedGreenGradient",
+    "Alias": null,
+    "Verb": "New",
+    "Synopsis": "Create an ANSI gradient from red to green.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "New-WPFMessageBox",
+    "Alias": "nmb",
+    "Verb": "New",
+    "Synopsis": "Display a customizable WPF-based message box.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Open-PSScriptToolsHelp",
+    "Alias": null,
+    "Verb": "Open",
+    "Synopsis": "Open the PSScriptTools PDF manual.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Optimize-Text",
+    "Alias": "ot",
+    "Verb": "Optimize",
+    "Synopsis": "Clean and optimize text input.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Out-Copy",
+    "Alias": "oc",
+    "Verb": "Out",
+    "Synopsis": "Send command output to the pipeline and clipboard.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Out-More",
+    "Alias": "om",
+    "Verb": "Out",
+    "Synopsis": "Send \"pages\" of objects to the pipeline.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Out-VerboseTee",
+    "Alias": "Tee-Verbose tv",
+    "Verb": "Out",
+    "Synopsis": "Write to the Verbose stream and a file.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Remove-MergedBranch",
+    "Alias": "rmb",
+    "Verb": "Remove",
+    "Synopsis": "Removed merged git branches.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Remove-PSAnsiFileEntry",
+    "Alias": null,
+    "Verb": "Remove",
+    "Synopsis": "Remove a PSAnsiFileMap entry.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Remove-Runspace",
+    "Alias": null,
+    "Verb": "Remove",
+    "Synopsis": "Remove a runspace from your session.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Rename-Hashtable",
+    "Alias": "rht",
+    "Verb": "Rename",
+    "Synopsis": "Rename a hashtable key.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Save-GitSetup",
+    "Alias": null,
+    "Verb": "Save",
+    "Synopsis": "Download the latest 64bit version of Git for Windows.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Select-After",
+    "Alias": "after",
+    "Verb": "Select",
+    "Synopsis": "Select objects after a given datetime.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Select-Before",
+    "Alias": "before",
+    "Verb": "Select",
+    "Synopsis": "Select objects before a given datetime.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Select-First",
+    "Alias": "First",
+    "Verb": "Select",
+    "Synopsis": "Select the first X number of objects.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Select-Last",
+    "Alias": "Last",
+    "Verb": "Select",
+    "Synopsis": "Select the last X number of objects.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Select-Newest",
+    "Alias": "newest",
+    "Verb": "Select",
+    "Synopsis": "Select the newest X number of objects after a given datetime.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Select-Oldest",
+    "Alias": "oldest",
+    "Verb": "Select",
+    "Synopsis": "Select the oldest X number of objects before a given datetime.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Set-ConsoleTitle",
+    "Alias": null,
+    "Verb": "Set",
+    "Synopsis": "Set the console title text.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Set-LocationToFile",
+    "Alias": "jmp sd",
+    "Verb": "Set",
+    "Synopsis": "Change your script editor terminal location. Only valid in VSCode or the ISE.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Set-PSAnsiFileMap",
+    "Alias": null,
+    "Verb": "Set",
+    "Synopsis": "Modify or add a PSAnsiFileEntry.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Show-ANSISequence",
+    "Alias": null,
+    "Verb": "Show",
+    "Synopsis": "Display ANSI escape sequences.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Show-FunctionItem",
+    "Alias": "sfi",
+    "Verb": "Show",
+    "Synopsis": "Show a function in written form.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Show-Tree",
+    "Alias": "pstree shtree",
+    "Verb": "Show",
+    "Synopsis": "Shows the specified path as a tree.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Test-EmptyFolder",
+    "Alias": null,
+    "Verb": "Test",
+    "Synopsis": "Test if a folder is empty of files.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Test-Expression",
+    "Alias": "tex",
+    "Verb": "Test",
+    "Synopsis": "Test a PowerShell expression over a period of time.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Test-ExpressionForm",
+    "Alias": "texf",
+    "Verb": "Test",
+    "Synopsis": "Display a graphical test form for Test-Expression.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Test-IsElevated",
+    "Alias": null,
+    "Verb": "Test",
+    "Synopsis": "Test if the current user is running elevated.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Test-IsPSWindows",
+    "Alias": null,
+    "Verb": "Test",
+    "Synopsis": "Test if running PowerShell on a Windows platform.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Test-WithCulture",
+    "Alias": null,
+    "Verb": "Test",
+    "Synopsis": "Test your PowerShell code using a different culture.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Trace-Message",
+    "Alias": "trace",
+    "Verb": "Trace",
+    "Synopsis": "Create a graphical trace window.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Write-ANSIProgress",
+    "Alias": "wap",
+    "Verb": "Write",
+    "Synopsis": "Display an ANSI progress bar.",
+    "Version": "2.50.0"
+  },
+  {
+    "Name": "Write-Detail",
+    "Alias": null,
+    "Verb": "Write",
+    "Synopsis": "Write a detailed message string.",
+    "Version": "2.50.0"
+  }
+]

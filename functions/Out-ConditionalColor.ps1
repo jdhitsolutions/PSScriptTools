@@ -1,4 +1,5 @@
-﻿
+﻿#9 June 2024 this command has been removed from the module
+RETURN
 Function Out-ConditionalColor {
     #This command is marked as deprecated 3/3/2023
     [cmdletbinding(DefaultParameterSetName = "property")]

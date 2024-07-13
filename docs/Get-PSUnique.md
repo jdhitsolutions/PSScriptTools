@@ -13,15 +13,15 @@ Filter for unique objects.
 
 ## SYNTAX
 
-```yaml
-Get-PSUnique [-InputObject] <Object> [<CommonParameters>]
+```
+Get-PSUnique [-InputObject] <Object> [-Property <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 You can use this command to filter for truly unique objects. That is, every property on every object is considered unique. Most things in PowerShell are already guaranteed to be unique, but you might import data from a CSV file with duplicate entries. Get-PSUnique can help filter.
 
-This command works best with simple objects. Objects with nested objects as properties may not be properly detected.
+This command works best with simple objects. Objects with nested objects as properties may not be properly detected. For complex objects, you might need to specify the property or properties to use for comparison.
 
 ## EXAMPLES
 
@@ -48,6 +48,22 @@ Required: True
 Position: 1
 Default value: None
 Accept pipeline input: True (ByValue)
+Accept wildcard characters: False
+```
+
+### -Property
+
+Specify a property to use for the comparison.
+
+```yaml
+Type: String[]
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 

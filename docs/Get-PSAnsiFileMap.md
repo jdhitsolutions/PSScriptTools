@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Display the PSAnsiFileMap
+Display the PSAnsiFileMap.
 
 ## SYNTAX
 

@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Enumerate WMI/CIM namespaces
+Enumerate WMI/CIM namespaces.
 
 ## SYNTAX
 
