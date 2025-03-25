@@ -1,5 +1,5 @@
 #requires -version 5.1
-#requires -module PSscripttools
+#requires -module PSScripttools
 
 $global:traceEnabled = $True
 Trace-Message -title "Getting Counter Markdown" -Width 500 -BackgroundColor "#0fb93a"
@@ -19,7 +19,7 @@ if ($data) {
     $graphic = Get-Item "$PSScriptRoot\..\images\db.png"
 
     Trace-Message "Using graphic file from $($graphic.fullname)"
-    $graphicPath = $graphic.Fullname -replace "\\", "/"
+    $graphicPath = $graphic.FullName -replace "\\", "/"
     Trace-Message "Formatted path to $GraphicPath"
 
     $pre = @"

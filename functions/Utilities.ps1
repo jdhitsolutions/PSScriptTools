@@ -175,7 +175,6 @@ Function Invoke-InputBox {
     )
 
     if ((Test-IsPSWindows)) {
-
         Add-Type -AssemblyName PresentationFramework
         Add-Type -AssemblyName PresentationCore
 

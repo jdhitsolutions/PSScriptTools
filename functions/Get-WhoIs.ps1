@@ -24,19 +24,18 @@
     )
 
     Begin {
-        Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         $baseURL = 'http://whois.arin.net/rest'
         #default is XML anyway
         $header = @{"Accept" = "application/xml"}
-
     } #begin
 
     Process {
-        Write-Verbose "Getting WhoIs information for $IPAddress"
-        $url = "$baseUrl/ip/$ipaddress"
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting WhoIs information for $IPAddress"
+        $url = "$baseUrl/ip/$IPAddress"
         Try {
-            $r = Invoke-Restmethod $url -Headers $header -ErrorAction stop
-            Write-verbose ($r.net | Out-String)
+            $r = Invoke-RestMethod $url -Headers $header -ErrorAction stop
+            Write-Verbose ($r.net | Out-String)
         }
         Catch {
             $errMsg = "Sorry. There was an error retrieving WhoIs information for $IPAddress. $($_.exception.message)"
@@ -44,22 +43,30 @@
         }
 
         if ($r.net) {
-            Write-Verbose "Creating result"
+            if ($r.net.orgRef) {
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting city information from $($r.net.orgRef.'#text')"
+                $city = (Invoke-RestMethod $r.net.orgRef.'#text').org.city
+            }
+            else {
+                $City = $Null
+            }
+            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating result"
+
             [PSCustomObject]@{
                 PSTypeName             = "WhoIsResult"
-                IP                     = $ipaddress
+                IP                     = $IPAddress
                 Name                   = $r.net.name
                 RegisteredOrganization = $r.net.orgRef.name
-                City                   = (Invoke-RestMethod $r.net.orgRef.'#text').org.city
-                StartAddress           = $r.net.startAddress
+                City                   = $city
+                StartAddress           = $r.net.StartAddress
                 EndAddress             = $r.net.endAddress
-                NetBlocks              = $r.net.netBlocks.netBlock | foreach-object {"$($_.startaddress)/$($_.cidrLength)"}
+                NetBlocks              = $r.net.netBlocks.netBlock | foreach-object {"$($_.StartAddress)/$($_.cidrLength)"}
                 Updated                = $r.net.updateDate -as [datetime]
             }
         } #If $r.net
     } #Process
 
     End {
-        Write-Verbose "Ending $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }

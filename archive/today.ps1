@@ -1,7 +1,8 @@
 #requires -version 7.2
 #requires -module PSScriptTools
 
-$dow = ConvertTo-ASCIIArt (Get-date).dayofweek -Font cybersmall
+#2 August 2024 Removing this sample since ConvertTo-ASCIIArt has been removed.
+$dow = ConvertTo-ASCIIArt (Get-date).dayofweek -Font CyberSmall
 $bar = New-ANSIBar -range (232..255)
 $head = @"
 $bar

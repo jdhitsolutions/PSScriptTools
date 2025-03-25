@@ -16,9 +16,9 @@ Function Get-PSWho {
     if ($PSVersionTable.PSEdition -eq "desktop" -OR $PSVersionTable.OS -match "Windows") {
 
         #get some basic information about the operating system
-        $cimos = Get-CimInstance Win32_OperatingSystem -Property Caption, Version, OSArchitecture
-        $os = "$($cimos.Caption) [$($cimos.OSArchitecture)]"
-        $osver = $cimos.Version
+        $CimOS = Get-CimInstance Win32_OperatingSystem -Property Caption, Version, OSArchitecture
+        $os = "$($CimOS.Caption) [$($CimOS.OSArchitecture)]"
+        $OSVer = $CimOS.Version
 
         #determine the current user so we can test if the user is running in an elevated session
         $current = [Security.Principal.WindowsIdentity]::GetCurrent()
@@ -31,7 +31,7 @@ Function Get-PSWho {
         #non-Windows values
         $os = $PSVersionTable.OS
         $lsb = lsb_release -d
-        $osver = ($lsb -split ":")[1].Trim()
+        $OSVer = ($lsb -split ":")[1].Trim()
         $elevated =  Test-IsElevated
         $user = [System.Environment]::UserName
         $computer = [System.Environment]::MachineName
@@ -44,7 +44,7 @@ Function Get-PSWho {
         Elevated        = $elevated
         Computername    = $computer
         OperatingSystem = $os
-        OSVersion       = $osver
+        OSVersion       = $OSVer
         PSVersion       = $PSVersionTable.PSVersion.ToString()
         Edition         = $PSVersionTable.PSEdition
         PSHost          = $host.Name

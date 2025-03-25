@@ -71,7 +71,7 @@
                     Height          = $Height
                 }
                 Write-Verbose "Creating runspace script"
-                $psCmd = [PowerShell]::Create().AddScript( {
+                $PSCmd = [PowerShell]::Create().AddScript( {
                         Param([string]$Title, [object]$BackgroundColor, [int]$width, [int]$height)
 
                         Add-Type -AssemblyName PresentationFramework -ErrorAction stop
@@ -91,7 +91,7 @@
 
                         $grid = New-Object System.Windows.Controls.Grid
 
-                        $text = New-Object System.Windows.Controls.TextbBox
+                        $text = New-Object System.Windows.Controls.TextBox
                         $text.text = ""
                         #$text.Text = "Starting...`n"
                         $text.Padding = 5
@@ -153,10 +153,10 @@
                     })
 
                 #add parameters
-                [void]$psCmd.AddParameters($formParams)
-                $psCmd.Runspace = $newRunspace
+                [void]$PSCmd.AddParameters($formParams)
+                $PSCmd.Runspace = $newRunspace
                 Write-Verbose "Invoking runspace command"
-                $handle = $psCmd.BeginInvoke()
+                $handle = $PSCmd.BeginInvoke()
 
                 Write-Verbose "Using this global synchronized hashtable"
                 $global:traceSynchHash | Out-String | Write-Verbose
@@ -171,10 +171,10 @@
                 } Until ($global:traceSynchHash.TextBox)
 
                 Write-Verbose "Creating a runspace cleanup job"
-                [void](New-RunspaceCleanupJob -Handle $handle -powerShell $pscmd -sleep 30 -PassThru)
+                [void](New-RunspaceCleanupJob -Handle $handle -powerShell $PSCmd -sleep 30 -PassThru)
 
                 Write-Verbose "Getting trace metadata"
-                $elevated = ([Security.Principal.WindowsPrincipal]([security.principal.windowsidentity]::Getcurrent())).IsInRole([system.security.principal.securityidentifier]"S-1-5-32-544")
+                $elevated = ([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([System.Security.Principal.SecurityIdentifier]"S-1-5-32-544")
                 $os = Get-CimInstance -ClassName Win32_OperatingSystem -Property Caption, Version, OSArchitecture
 
                 $init = @(

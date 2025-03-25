@@ -4,7 +4,6 @@ Function Test-IsPSWindows {
     Param( )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-
     } #begin
 
     Process {
@@ -17,12 +16,10 @@ Function Test-IsPSWindows {
         else {
             $False
         }
-
     } #process
 
     End {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
-
     } #end
 
 } #close Test-IsPSWindows

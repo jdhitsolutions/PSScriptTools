@@ -46,7 +46,7 @@ Function Out-Copy {
 
     End {
         #format data as string
-        $datastrings = $data | Out-String -Width $width
+        $DataStrings = $data | Out-String -Width $width
         #write data to the pipeline
         Write-Verbose "[$($MyInvocation.MyCommand) END    ] Here is the captured command output"
         if ($PSBoundParameters.ContainsKey("Ansi")) {
@@ -55,9 +55,9 @@ Function Out-Copy {
         else {
             #strip off ANSI sequences
             Write-Verbose "[$($MyInvocation.MyCommand) END    ] Removing any Ansi formatting"
-            [regex]$ansiopen = "$([char]0x1b)\[\d+[\d;]+m"
-            [regex]$ansiclose= "$([char]27)\[0m"
-            $datastrings = $ansiopen.replace($datastrings,"") -replace $ansiclose,""
+            [regex]$AnsiOpen = "$([char]0x1b)\[\d+[\d;]+m"
+            [regex]$AnsiClose= "$([char]27)\[0m"
+            $DataStrings = $AnsiOpen.replace($DataStrings,"") -replace $AnsiClose,""
         }
 
         if ($CommandOnly) {
@@ -78,7 +78,7 @@ Function Out-Copy {
             $text += "`n"
             Write-Verbose "[$($MyInvocation.MyCommand) END    ] Converting data to text"
             #using a regular expression to try and clean up the output
-            $text += $datastrings  -replace "(?<=\S*)\s+`r`n$", "`r`n"
+            $text += $DataStrings  -replace "(?<=\S*)\s+`r`n$", "`r`n"
         }
 
         Write-Verbose "[$($MyInvocation.MyCommand) END    ] Copy text to the clipboard"

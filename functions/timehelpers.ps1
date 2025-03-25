@@ -41,7 +41,11 @@ Function ConvertFrom-UTCTime {
     [OutputType([datetime])]
 
     Param(
-        [Parameter(Mandatory, HelpMessage = "Enter a Universal Datetime value", ValueFromPipeline)]
+        [Parameter(
+            Mandatory,
+            HelpMessage = "Enter a Universal Datetime value",
+            ValueFromPipeline
+        )]
         [ValidateNotNullOrEmpty()]
         [datetime]$DateTime
     )
@@ -84,7 +88,7 @@ Function ConvertTo-LocalTime {
 
     Process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $Datetime (UTC $UTCOffset) to local time "
-        $u = ($Datetime).addminutes( - ($UTCOffset.TotalMinutes))
+        $u = ($Datetime).AddMinutes( - ($UTCOffset.TotalMinutes))
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] UTC is $u"
         if ($DaylightSavingTime) {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Accounting for DST"
@@ -151,34 +155,34 @@ Function Get-MyTimeInfo {
 
     $hash = [Ordered]@{
         Now  = $now
-        Home = [System.TimeZoneinfo]::ConvertTimeBySystemTimeZoneId($now, $HomeTimeZone)
+        Home = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId($now, $HomeTimeZone)
         UTC  = $UTC
     }
 
     $locations.GetEnumerator() | ForEach-Object {
         Write-Verbose "Getting time for $($_.key)"
-        $remote = [System.TimeZoneinfo]::ConvertTimeBySystemTimeZoneId($now, $_.value)
+        $remote = [System.TimeZoneInfo]::ConvertTimeBySystemTimeZoneId($now, $_.value)
         Write-Verbose $remote
         $hash.Add($_.key, $remote)
     }
 
     $hash.add("IsDaylightSavings", $now.IsDaylightSavingTime())
 
-    $tobj = New-Object -TypeName PSObject -Property $hash
-    $tobj.PSObject.TypeNames.insert(0, "myTimeInfo")
+    $tObj = New-Object -TypeName PSObject -Property $hash
+    $tObj.PSObject.TypeNames.insert(0, "myTimeInfo")
 
-    $cities = $tobj.PSObject.properties.where( {$_.name -notmatch 'utc|now'}).Name
+    $cities = $tObj.PSObject.properties.where( {$_.name -notmatch 'utc|now'}).Name
     if ($AsTable) {
         Write-Verbose "Formatting output as a table"
-        $tobj | Format-Table -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String
+        $tObj | Format-Table -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String
     }
     elseif ($AsList) {
         Write-Verbose "Formatting output as a list"
-        $tobj | Format-List -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String
+        $tObj | Format-List -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String
     }
     else {
         Write-Verbose "Writing object to the pipeline"
-        $tobj
+        $tObj
     }
 
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
@@ -211,19 +215,19 @@ Function Get-TZData {
             }
         }
         Catch {
-            Throw $e.innerexception
+            Throw $e.InnerException
         }
         if ($data -AND $Raw -AND ($psEdition -eq 'Core')) {
 
             #PowerShell Core automatically converts datetime strings and I want to preserve the raw value
             $toUTC = ([datetime]$data.datetime).ToUniversalTime().AddHours($offset.hours)
-            [string]$dtstring = "{0:s}.{2:ffffff}{1}" -f ([datetime]$toUTC.datetime), ($data.utc_offset),([datetime]$toUTC.DateTime)
+            [string]$dtString = "{0:s}.{2:ffffff}{1}" -f ([datetime]$toUTC.datetime), ($data.utc_offset),([datetime]$toUTC.DateTime)
 
             $data | Select-Object week_number, utc_offset, unixtime, timezone,
             @{Name = "dst_until"; expression = {"{0:s}+00:00" -f ([datetime]$data.dst_until).ToUniversalTime() }},
             @{Name = "dst_from"; expression = {"{0:s}+00:00" -f ([datetime]$data.dst_from).ToUniversalTime()  }},
             dst, day_of_year, day_of_week,
-            @{Name = "datetime"; expression = {$dtstring}},
+            @{Name = "datetime"; expression = {$dtString}},
             abbreviation
         }
         elseif ($data -AND $Raw -AND ($psEdition -eq 'Desktop')) {
@@ -236,7 +240,7 @@ Function Get-TZData {
                 Abbreviation       = $data.abbreviation
                 Offset             = $offset
                 DaylightSavingTime = $data.dst
-                Time               = ([datetime]"1/1/1970").AddSeconds($data.unixtime).addhours($offset.hours)
+                Time               = ([datetime]"1/1/1970").AddSeconds($data.unixtime).AddHours($offset.hours)
             }
         }
     } #process

@@ -61,7 +61,7 @@ Function Get-ModuleCommand {
             return
         }
 
-        if ($PSCmdlet.parameterSetName -eq 'name' -AND $mod.count -gt 1) {
+        if ($PSCmdlet.ParameterSetName -eq 'name' -AND $mod.count -gt 1) {
             #make sure to get the latest version
             Write-Verbose "Getting the latest version of $($mod[0].name)"
             $mod = $mod | Sort-Object -Property Version -Descending | Select-Object -First 1

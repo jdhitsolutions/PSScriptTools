@@ -184,7 +184,7 @@ Function Format-String {
 
     Begin {
         Write-Verbose "STARTING: $($MyInvocation.MyCommand)"
-        Write-Verbose "STATUS: Using parameter set $($PSCmdlet.parameterSetName)"
+        Write-Verbose "STATUS: Using parameter set $($PSCmdlet.ParameterSetName)"
     } #begin
 
     Process {

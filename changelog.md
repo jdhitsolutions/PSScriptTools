@@ -3,6 +3,16 @@
 This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
+### Changed
+- Changed required module from the soon to be deprecated `ThreadJob` to `Microsoft.PowerShell.ThreadJob`.
+
+### Removed
+- Removed sample script `today.ps1` because `ConvertTo-ASCIIArt` is no longer part of this module.
+
+### Fixed
+- Corrected wrong type name for the `FilePath` parameter in `Test-WithCulture`.
+- Corrected a bug in `Get-PSWhoIs` that was failing when no organization information was present. [Issue #151](https://github.com/jdhitsolutions/PSScriptTools/issues/151)
+- Corrected code typo on `Trace-Message`.
 
 ## [2.50.0] - 2024-07-13
 

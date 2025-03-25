@@ -32,7 +32,7 @@ Function Test-WithCulture {
                 $false
             }
         })]
-        [scriptblock]$FilePath,
+        [string]$FilePath,
         [Parameter(HelpMessage = "Specify an array of positional arguments to pass to the scriptblock for file.")]
         [object[]]$ArgumentList
     )
@@ -60,6 +60,8 @@ Function Test-WithCulture {
             Write-Verbose "Testing $scriptblock"
         }
         else {
+            Write-Verbose "Adding computername parameter"
+            $PSBoundParameters.add("ComputerName", "localhost")
             Write-Verbose "Invoking file $Filepath"
         }
         Invoke-Command @PSBoundParameters

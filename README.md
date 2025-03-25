@@ -716,7 +716,7 @@ What if: Performing the operation "Remove Directory" on target "C:\work\todd".
 What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
 ```
 
-Find all empty sub-folders under C:\Work and pipe them to `Remove-Item`. This is one way to remove empty folders. The example is piping objects to `ForEach-Object` so that `Remove-Item` can use the -LiteralPath parameter because `C:\work\[data]` is a non-standard path.
+Find all empty sub-folders under `C:\Work` and pipe them to `Remove-Item`. This is one way to remove empty folders. The example is piping objects to `ForEach-Object` so that `Remove-Item` can use the -LiteralPath parameter because `C:\work\[data]` is a non-standard path.
 
 ### [Get-FolderSizeInfo](docs/Get-FolderSizeInfo.md)
 
@@ -962,7 +962,7 @@ In VS Code, access the command palette (Ctrl+Shift+P) and then `PowerShell: Show
 
 ### Set Terminal Location
 
-Another feature is the ability to set your terminal location to match that of the currently active file. For example, if the current file is located in C:\Scripts\Foo and your terminal location is D:\Temp\ABC, you can quickly jump to the file location.
+Another feature is the ability to set your terminal location to match that of the currently active file. For example, if the current file is located in `C:\Scripts\Foo` and your terminal location is `D:\Temp\ABC`, you can quickly jump to the file location.
 
 ```dos
 PS D:\Temp\ABC\> sd

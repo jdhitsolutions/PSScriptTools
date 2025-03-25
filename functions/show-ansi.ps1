@@ -24,7 +24,7 @@ Function Show-ANSISequence {
     $PSBoundParameters | Out-String | Write-Debug
 
     #default to Basic even if the user doesn't specify the -Basic parameter
-    if ($PSCmdlet.parametersetname -eq 'basic') {
+    if ($PSCmdlet.ParameterSetName -eq 'basic') {
         $Basic = $True
     }
     elseif ($PSCmdlet.ParameterSetName -eq 'foreback') {
@@ -63,13 +63,13 @@ Function Show-ANSISequence {
     if ($IsCoreCLR) {
         Write-Debug "CoreCLR"
         $esc = "`e"
-        $escText = '`e'
+        $EscText = '`e'
         $max = 3
     }
     else {
         Write-Debug "Desktop"
         $esc = $([char]27)
-        $escText = '$([char]27)'
+        $EscText = '$([char]27)'
         $max = 2
     }
 
@@ -78,7 +78,7 @@ Function Show-ANSISequence {
         Write-Debug "Get basic settings"
         Add-Border "Basic Sequences" -ANSIText "$esc[1m" | Write-Host
 
-        $basichash = @{
+        $BasicHash = @{
             1 = "Bold"
             2 = "Faint"
             3 = "Italic"
@@ -89,8 +89,8 @@ Function Show-ANSISequence {
             9 = "CrossedOut"
         }
 
-        $basichash.GetEnumerator() | ForEach-Object {
-            $sequence = "$esctext[$($_.name)m$($_.value)$esctext[0m"
+        $BasicHash.GetEnumerator() | ForEach-Object {
+            $sequence = "$EscText[$($_.name)m$($_.value)$EscText[0m"
             if ($AsString) {
                 $sequence
             }
@@ -112,7 +112,7 @@ Function Show-ANSISequence {
             90..97 | ForEach-Object {$n.Add($_)}
 
             $all = $n | ForEach-Object {
-                $sequence = "$esctext[$($_)mHello$esctext[0m"
+                $sequence = "$EscText[$($_)mHello$EscText[0m"
                 if ($AsString) {
                     $sequence
                 }
@@ -128,7 +128,7 @@ Function Show-ANSISequence {
         if ($Type -match "All|8bit") {
             Add-Border "8-Bit Foreground" -ANSIText "$esc[38;5;10m" | Write-Host
             $all = 1..255 | ForEach-Object {
-                $sequence = "$esctext[38;5;$($_)mHello$esctext[0m"
+                $sequence = "$EscText[38;5;$($_)mHello$EscText[0m"
                 if ($AsString) {
                     $sequence
                 }
@@ -149,7 +149,7 @@ Function Show-ANSISequence {
             $n = 40..47
             $n += 100..107
             $all = $n | ForEach-Object {
-                $sequence = "$esctext[$($_)mHello$esctext[0m"
+                $sequence = "$EscText[$($_)mHello$EscText[0m"
                 if ($AsString) {
                     $sequence
                 }
@@ -166,7 +166,7 @@ Function Show-ANSISequence {
         if ($Type -match "All|8bit") {
             Add-Border "8-Bit Background" -ANSIText "$esc[7;38;5;10m" | Write-Host
             $all = 1..255 | ForEach-Object {
-                $sequence = "$esctext[48;5;$($_)mHello$esctext[0m"
+                $sequence = "$EscText[48;5;$($_)mHello$EscText[0m"
                 if ($AsString) {
                     $sequence
                 }
@@ -199,7 +199,7 @@ Function Show-ANSISequence {
         $b = $rgb[2]
 
         Write-Host "`r"
-        $sequence = "$esctext[38;2;$r;$g;$($b)m256 Color (R:$r)(G:$g)(B:$b)$esctext[0m"
+        $sequence = "$EscText[38;2;$r;$g;$($b)m256 Color (R:$r)(G:$g)(B:$b)$EscText[0m"
         if ($AsString) {
             $sequence
         }
@@ -208,7 +208,7 @@ Function Show-ANSISequence {
         }
 
     }
-    #endregionm
+    #endregion
 
     #insert a blank line to set off the results
     Write-Host "`r"

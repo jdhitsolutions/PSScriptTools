@@ -62,9 +62,9 @@ Function Out-ConditionalColor {
             #build an If/ElseIf construct on the fly
             #the Here-strings must be left justified
             $If = @"
- if ($($compare[0])) {
-  `$host.UI.RawUI.ForegroundColor = '$($conditions.item($($compare[0])))'
- }
+    if ($($compare[0])) {
+    `$host.UI.RawUI.ForegroundColor = '$($conditions.item($($compare[0])))'
+    }
 "@
             #now add the remaining comparisons as ElseIf
             for ($i = 1; $i -lt $conditions.count; $i++) {
