@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SKsTe
+online version: https://jdhitsolutions.com/yourls/2b7c6e
 schema: 2.0.0
 ---
 
@@ -51,7 +51,7 @@ PS C:\> $VerbosePreference= "continue"
 PS C:\> $log = New-CustomFileName ".\VerboseLog_%time.txt"
 PS C:\> Write-Detail "This is a verbose log test" | Out-VerboseTee -Path $log
 PS C:\> Get-Content $log
-11/29/2020 08:21:31:0704 [PROCESS] This is a verbose log test
+11/29/2024 08:21:31:0704 [PROCESS] This is a verbose log test
 PS C:\> $verbosePreference = "SilentlyContinue"
 ```
 
@@ -137,7 +137,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

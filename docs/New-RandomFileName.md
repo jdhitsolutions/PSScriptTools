@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31Lt56y
+online version: https://jdhitsolutions.com/yourls/765d5c
 schema: 2.0.0
 ---
 
@@ -39,14 +39,14 @@ This command does not create the file, it only generates a name for you to use.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> New-RandomFileName
 fykxecvh.ipw
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> New-RandomFileName -extension dat
@@ -55,7 +55,7 @@ emevgq3r.dat
 
 Specify a file extension.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> New-RandomFileName -extension log -UseHomeFolder
@@ -64,7 +64,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log
 
 Create a random file name using the user's home folder. In Windows, this will be the Documents folder.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
@@ -137,7 +137,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

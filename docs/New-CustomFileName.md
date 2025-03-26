@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31LsDoS
+online version: https://jdhitsolutions.com/yourls/c4db66
 schema: 2.0.0
 ---
 
@@ -45,14 +45,14 @@ Another option, is to turn the entire custom name into upper or lower case.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> New-CustomFileName %computername_%day%monthname%yr-%time.log
 COWPC_28Nov20-142138.log
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> New-CustomFileName %dayofweek-%####.dat
@@ -61,7 +61,7 @@ Tuesday-3128.dat
 
 Create a custom file name using the day of the week and a 4 digit random number.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> New-CustomFileName %username-%string.tmp -Case Upper
@@ -70,7 +70,7 @@ JEFF-Z0XUXMFS.TMP
 
 Create an upper case custom file name. The %string placeholder will be replaced with a random 8 character string.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS C:\> Join-Path c:\work (New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower)
@@ -79,7 +79,7 @@ c:\work\2020nov-log-bovine320[jeff].txt
 
 Create a lower case filename using Join-Path. This command does not create the file, it only generates a name for you to use.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> 1..10 | foreach-object {
@@ -176,7 +176,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

@@ -35,10 +35,10 @@ Function Get-FolderSizeInfo {
             try {
                 $di = [System.IO.DirectoryInfo]::new($path)
                 if ($hidden) {
-                    $top = ($di.GetDirectories()).Where( { $_.attributes -notmatch 'ReparsePoint'})
+                    $top = ($di.GetDirectories()).Where( { $_.attributes -NotMatch 'ReparsePoint'})
                 }
                 else {
-                    $top = ($di.GetDirectories()).Where( { $_.attributes -notmatch 'hidden|ReparsePoint' })
+                    $top = ($di.GetDirectories()).Where( { $_.attributes -NotMatch 'hidden|ReparsePoint' })
                 }
                 $top
                 foreach ($t in $top) {
@@ -113,7 +113,7 @@ Function Get-FolderSizeInfo {
                     }
                     else {
                         #get files in current location
-                        $data = $($d.GetFiles()).Where({ $_.attributes -notmatch 'hidden|ReparsePoint' })
+                        $data = $($d.GetFiles()).Where({ $_.attributes -NotMatch 'hidden|ReparsePoint' })
                     }
 
                     Write-Verbose "Found $($data.count) files"
@@ -145,7 +145,7 @@ Function Get-FolderSizeInfo {
                                     $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles())
                                 }
                                 else {
-                                    $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles()).where({ $_.Attributes -notmatch 'Hidden' })
+                                    $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles()).where({ $_.Attributes -NotMatch 'Hidden' })
                                 }
                                 Write-Verbose "Found $($data.count) files"
                                 if ($data -AND $data.count -gt 1) {

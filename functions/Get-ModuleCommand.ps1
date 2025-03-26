@@ -36,9 +36,9 @@ Function Get-ModuleCommand {
 
             $cmds = @()
             Write-Verbose "Getting exported functions"
-            $cmds += $module.Exportedfunctions.keys | Where-Object { $_ -like "$CommandName" } | Get-Command
+            $cmds += $module.ExportedFunctions.keys | Where-Object { $_ -like "$CommandName" } | Get-Command
             Write-Verbose "Getting exported cmdlets"
-            $cmds += $module.Exportedcmdlets.keys | Where-Object { $_ -like "$CommandName" } | Get-Command
+            $cmds += $module.ExportedCmdlets.keys | Where-Object { $_ -like "$CommandName" } | Get-Command
 
             Write-Verbose "Found $($cmds.count) functions and/or cmdlets"
 
@@ -140,9 +140,9 @@ Function Get-ModuleCommand {
 Register-ArgumentCompleter -CommandName Get-ModuleCommand -ParameterName Name -ScriptBlock {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
 
-    (Get-Module -Name "$wordtoComplete*").name |
+    (Get-Module -Name "$WordToComplete*").name |
     ForEach-Object {
-        # completion text,listitem text,result type,Tooltip
+        # completion text,listItem text,result type,Tooltip
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }

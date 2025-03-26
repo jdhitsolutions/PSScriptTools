@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31VAIHR
+online version: https://jdhitsolutions.com/yourls/986690
 schema: 2.0.0
 ---
 
@@ -33,45 +33,44 @@ This is an enhanced, PowerShell version of the WHERE command from the traditiona
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
-PS C:\> Get-Fileitem notepad.exe
-
-C:\Windows\system32\notepad.exe
+PS C:\> Get-FileItem notepad.exe
 C:\Windows\notepad.exe
+C:\Windows\System32\notepad.exe
+C:\Windows\System32\notepad.exe
+C:\Windows\notepad.exe
+C:\Users\Jeff\AppData\Local\Microsoft\WindowsApps\notepad.exe
 ```
 
-Find notepad.exe in %PATH% and return the full file name. This is the default behavior.
+Find notepad.exe in %PATH% and return the complete file name. This is the default behavior.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
-PS C:\> PSWhere foo.exe -quiet
-
+PS C:\> PSWhere foo.exe -Quiet
 False
 ```
 
 Search for foo.exe and return $True if found. This command is using the PSWhere alias.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-FileItem "^\d+\S+\.txt" -Regex -Path c:\scripts -full
 
-Directory: C:\scripts
+    Directory: C:\Scripts
 
-
-Mode                LastWriteTime     Length Name
-----                -------------     ------ ----
--a---         12/5/2007   2:19 PM      30146 1000FemaleNames.txt
--a---         12/5/2007   2:19 PM      29618 1000MaleNames.txt
--a---          6/2/2010  11:02 AM      31206 1000names.txt
--a---          6/3/2010   8:52 AM       3154 100names.txt
--a---         4/13/2012  10:27 AM       3781 13ScriptBlocks-v2.txt
--a---         8/13/2010  10:41 AM       3958 13ScriptBlocks.txt
--a---          2/7/2011   1:37 PM      78542 2500names.txt
--a---          2/8/2011   9:43 AM     157396 5000names.txt
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a---          10/28/2021  9:36 AM          30145 1000FemaleNames.txt
+-a---           12/5/2007  2:19 PM          29618 1000MaleNames.txt
+-a---            6/2/2010 11:02 AM          31206 1000names.txt
+-a---            6/3/2010  8:52 AM           3154 100names.txt
+-a---           5/28/2014  1:38 PM           1601 100NewUsers.txt
+-a---           2/17/2015  4:47 PM           2300 2015.txt
+-a---            2/7/2011  1:37 PM          78542 2500names.txt
 ```
 
 Find all TXT files in C:\Scripts that start with a number and display full file information.
@@ -210,7 +209,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

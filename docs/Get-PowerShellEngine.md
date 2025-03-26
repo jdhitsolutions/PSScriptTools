@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SKmLm
+online version: https://jdhitsolutions.com/yourls/f713ea
 schema: 2.0.0
 ---
 
@@ -19,23 +19,21 @@ Get-PowerShellEngine [-Detail]
 
 ## DESCRIPTION
 
-Use this command to find the path to the PowerShell executable, or engine that is running your current session.
-The default is to provide the path only. But you can also get detailed information
+Use this command to find the path to the PowerShell executable, or engine that is running your current session. The default is to provide the path only. But you can also get detailed information
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-PowerShellEngine
 C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-PowerShellEngine -detail
-
 
 Path           : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
 FileVersion    : 10.0.15063.0 (WinBuild.160101.0800)
@@ -49,23 +47,22 @@ Platform       :
 
 This result is from running in the Visual Studio Code integrated PowerShell terminal.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-PowerShellEngine -detail
 
-
 Path           : C:\Program Files\PowerShell\7\pwsh.exe
-FileVersion    : 7.1.0.0
-PSVersion      : 7.1.0
-ProductVersion : 7.1.0 SHA: d2953dcaf8323b95371380639ced00dac4ed209f
+FileVersion    : 7.5.0.500
+PSVersion      : 7.5.0
+ProductVersion : 7.5.0 SHA: 99dab561892364d82d4965068f7f8b175e768b1b+99dab561892364d82d4965068f7f8b175e768b1b
 Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
 Platform       : Win32NT
 ```
 
-This result is from running in a PowerShell 7 session on Windows 10
+This result is from running in a PowerShell 7 session on Windows 11.
 
 ## PARAMETERS
 
@@ -95,7 +92,7 @@ Accept wildcard characters: False
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

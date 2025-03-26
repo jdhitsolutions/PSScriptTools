@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31UsW0W
+online version: https://jdhitsolutions.com/yourls/4b4622
 schema: 2.0.0
 ---
 
@@ -31,7 +31,7 @@ They are applied in this order:
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> "P@ssw0rd" | Format-String -Reverse
@@ -39,7 +39,7 @@ PS C:\> "P@ssw0rd" | Format-String -Reverse
 dr0wss@P
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> "P@ssw0rd" | Format-String -Reverse -Randomize
@@ -47,7 +47,7 @@ PS C:\> "P@ssw0rd" | Format-String -Reverse -Randomize
 rs0Pd@ws
 ```
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> $env:computername | Format-String -Case Lower
@@ -55,7 +55,7 @@ PS C:\> $env:computername | Format-String -Case Lower
 win81-ent-01
 ```
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS C:\> Format-String "p*wer2she!!" -Case Alternate
@@ -63,7 +63,7 @@ PS C:\> Format-String "p*wer2she!!" -Case Alternate
 P*WeR2ShE!!
 ```
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> Format-String "alphabet" -Randomize -Replace @{a="@";e=3} `
@@ -72,7 +72,7 @@ PS C:\> Format-String "alphabet" -Randomize -Replace @{a="@";e=3} `
 3bPl@tH@
 ```
 
-### EXAMPLE 6
+### Example 6
 
 ```powershell
 PS C:\> "pOWERSHELL" | Format-String -Case Toggle
@@ -184,7 +184,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

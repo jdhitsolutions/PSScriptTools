@@ -23,7 +23,7 @@ When using git, it creates a hidden folder for change tracking. Because the file
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\Scripts\PiedPiper> Get-GitSize
@@ -35,7 +35,7 @@ C:\scripts\PiedPiper                            751       6859.9834
 
 Get the size of the .git folder from the current path.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-ChildItem c:\scripts -Directory | Get-GitSize |
@@ -54,7 +54,7 @@ WIN10DSK2    DscWorkshop       24   5590511
 Get the directories under C:\Scripts that have a .git folder and sort on the Size property in descending order.
 Then select the first 5 directories and use the specified properties.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS S:\PSReleaseTools> Get-GitSize | Format-Table -view mb
@@ -98,7 +98,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 This is a variation of code posted at https://gist.github.com/jdhitsolutions/cbdc7118f24ba551a0bb325664415649
 

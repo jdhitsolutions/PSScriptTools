@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SLyhD
+online version: https://jdhitsolutions.com/yourls/c5336b
 schema: 2.0.0
 ---
 
@@ -26,7 +26,7 @@ This command is intended to convert a long PowerShell expression with named para
 ### Example 1
 
 ```powershell
-PS C:\> $text ="Get-Winevent -listlog p* -computername SRV1 -erroraction stop"
+PS C:\> $text ="Get-WinEvent -ListLog p* -computername SRV1 -ErrorAction stop"
 PS C:\> Convert-CommandToHashtable -Text $text | Set-Clipboard
 ```
 
@@ -65,7 +65,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/2vxGyUP
+online version: https://jdhitsolutions.com/yourls/a70fb6
 schema: 2.0.0
 ---
 
@@ -39,16 +39,16 @@ You might find this command useful when building a hashtable that you intend to 
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Rename-Hashtable -name MyHash -key Name -newKey Computername
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
-PS C:\> $newhash = Get-Service spooler |
+PS C:\> $newHash = Get-Service spooler |
 ConvertTo-HashTable |
 Rename-Hashtable -Key Machinename -NewKey Computername
 ```
@@ -204,7 +204,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 This code was first described at http://jdhitsolutions.com/blog/2013/01/Rename-Hashtable-key-revised
 

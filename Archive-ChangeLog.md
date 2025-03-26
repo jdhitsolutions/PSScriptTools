@@ -518,7 +518,7 @@ This file contains older change history. It is maintained for reference purposes
 - Raised minimum PowerShell version to 5.1.
 - Modified manifest to support both `Desktop` and `Core`.
 - Added `Remove-Runspace`.
-- Modified `ConvertTo-WPFGrid` to autosize the display and support an automatic refresh.
+- Modified `ConvertTo-WPFGrid` to AutoSize the display and support an automatic refresh.
 - Modified `ConvertTo-WPFGrid` to use a runspace. (Issue #22)
 - Updated `README.md`.
 - Updated help documentation.

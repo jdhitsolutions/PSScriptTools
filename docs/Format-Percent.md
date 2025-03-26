@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31UsX50
+online version: https://jdhitsolutions.com/yourls/a65b1c
 schema: 2.0.0
 ---
 
@@ -33,7 +33,7 @@ This command calculates a percentage of a value from a total, with the formula: 
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Format-Percent -value 1234.567 -total 5000 -decimal 4
@@ -43,7 +43,7 @@ PS C:\> Format-Percent -value 1234.567 -total 5000 -decimal 4
 
 Calculate a percentage from 1234.567 out of 5000 (i.e. 1234.567/5000) to 4 decimal points.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-CimInstance Win32_OperatingSystem -computer chi-dc04 |
@@ -56,7 +56,7 @@ PSComputerName             TotalVisibleMemorySize           PctFreeMem
 chi-dc04                                  1738292                23.92
 ```
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-CimInstance Win32_OperatingSystem -computer chi-dc04 |
@@ -151,7 +151,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

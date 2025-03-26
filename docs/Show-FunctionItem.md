@@ -13,7 +13,7 @@ Show a function in written form.
 
 ## SYNTAX
 
-```yamnl
+```yaml
 Show-FunctionItem [-Name] <String> [<CommonParameters>]
 ```
 
@@ -23,7 +23,7 @@ This command will display a loaded function as it might look in a code editor. Y
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Show-FunctionItem prompt
@@ -38,7 +38,7 @@ Function Prompt {
 } #close prompt
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Show-FunctionItem Copy-Zip | Out-File c:\Scripts\copy-zip.ps1
@@ -76,7 +76,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

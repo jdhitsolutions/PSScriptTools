@@ -468,7 +468,7 @@ Function Get-CimClassListing {
 
     Process {
         if ($CimSession.TestConnection([ref]$ci, [ref]$ce)) {
-            $CimSession.EnumerateClasses($Namespace,"").where({($_.CimClassName -Like $Name) -AND ($_.CimClassName -notmatch "^__") -AND $_.CimClassName -NotLike $Exclude}) | ForEach-Object {
+            $CimSession.EnumerateClasses($Namespace,"").where({($_.CimClassName -Like $Name) -AND ($_.CimClassName -NotMatch "^__") -AND $_.CimClassName -NotLike $Exclude}) | ForEach-Object {
                 [PSCustomObject]@{
                     PSTypeName = 'cimClassListing'
                     Namespace  = $_.CimSystemProperties.Namespace

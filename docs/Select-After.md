@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/3phhAAm
+online version: https://jdhitsolutions.com/yourls/6a39a9
 schema: 2.0.0
 ---
 
@@ -27,17 +27,17 @@ Select-After is a simplified version of Select-Object. The premise is that you c
 ### Example 1
 
 ```powershell
-PS C:\> Get-ChildItem c:\work -file | Select-After "11/1/2022"
+PS C:\> Get-ChildItem c:\work -file | Select-After "11/1/2024"
 
 
     Directory: C:\work
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           11/4/2022 11:36 AM           5008 ipperf.csv
+-a---           11/4/2024 11:36 AM           5008 ipperf.csv
 ```
 
-Select all objects that have been modified after 11/1/2022. This example is using the default -Property value of LastWriteTime.
+Select all objects that have been modified after 11/1/2024. This example is using the default -Property value of LastWriteTime.
 
 ### Example 2
 
@@ -119,7 +119,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

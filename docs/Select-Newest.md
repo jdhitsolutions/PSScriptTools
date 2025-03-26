@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/36x3YIG
+online version: https://jdhitsolutions.com/yourls/117478
 schema: 2.0.0
 ---
 
@@ -34,7 +34,7 @@ PS C:\> Get-ChildItem c:\work -file | Select-Newest 1
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           11/4/2022 11:36 AM           5008 ipperf.csv
+-a---           11/4/2024 11:36 AM           5008 ipperf.csv
 ```
 
 Get the newest file in the Work folder. This example is using the default -Property parameter value of LastWriteTime.
@@ -125,7 +125,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

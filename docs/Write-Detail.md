@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31UuI26
+online version: https://jdhitsolutions.com/yourls/af83f2
 schema: 2.0.0
 ---
 
@@ -49,7 +49,7 @@ If you don't specify a prefix, it will default to PROCESS.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Write-Detail "Getting file information" -Prefix Process
@@ -57,6 +57,13 @@ PS C:\> Write-Detail "Getting file information" -Prefix Process
 ```
 
 Normally you would use this command in a function, but here is an example from the console so that you can see what to expect.
+
+### Example 2
+
+```powershell
+PS C:\> Write-Detail -message "Initializing variables" -Prefix Begin -time
+01:25:29:8700 [BEGIN] Initializing variables
+```
 
 ## PARAMETERS
 
@@ -95,7 +102,7 @@ Accept wildcard characters: False
 
 ### -Date
 
-Display a date value like 9/15/2020 11:36:41.
+Display a date value like 9/15/2024 11:36:41.
 
 ```yaml
 Type: SwitchParameter
@@ -139,7 +146,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

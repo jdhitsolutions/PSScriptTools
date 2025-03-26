@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31TAilb
+online version: https://jdhitsolutions.com/yourls/b36e28
 schema: 2.0.0
 ---
 
@@ -30,7 +30,7 @@ This command requires a Windows platform that supports WPF.
 ### Example 1
 
 ```powershell
-PS C:\> test-expressionform
+PS C:\> Test-ExpressionForm
 ```
 
 Launch the form.
@@ -51,7 +51,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
+
 This command was first explained at https://github.com/jdhitsolutions/Test-Expression/blob/master/docs/Test-ExpressionForm.md
 
 ## RELATED LINKS

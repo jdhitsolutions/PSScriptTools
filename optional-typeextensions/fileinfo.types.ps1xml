@@ -1,11 +1,5 @@
 <!--
-This file was created with Export-PSTypeExtension from the
-PSTypeExtensionTools module which you can install from
-the PowerShell Gallery.
-
-Use Update-TypeData to import this file in your PowerShell session.
-
-Created 06/30/2021 11:25:52
+Alias and script properties designed to extend the file object. There is also a PropertySet called AgeInfo.
 -->
 <Types>
   <Type>
@@ -39,6 +33,16 @@ Created 06/30/2021 11:25:52
         <Name>Modified</Name>
         <ReferencedMemberName>LastWriteTime</ReferencedMemberName>
       </AliasProperty>
+      <PropertySet>
+        <Name>AgeInfo</Name>
+        <ReferencedProperties>
+          <Name>Directory</Name>
+          <Name>Name</Name>
+          <Name>Size</Name>
+          <Name>LastWriteTime</Name>
+          <Name>ModifiedAge</Name>
+        </ReferencedProperties>
+      </PropertySet>
     </Members>
   </Type>
 </Types>

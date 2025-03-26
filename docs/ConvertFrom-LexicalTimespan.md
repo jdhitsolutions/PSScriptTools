@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/37C3gJJ
+online version: https://jdhitsolutions.com/yourls/2bf285
 schema: 2.0.0
 ---
 
@@ -19,7 +19,7 @@ ConvertFrom-LexicalTimespan [-String] <String> [-AsString] [<CommonParameters>]
 
 ## DESCRIPTION
 
-When working with some XML data, such as that from scheduled tasks, timespans or durations are stored in a lexical format like P0DT0H0M47S. You can use this command to convert that value into a timespan object.
+When working with some XML data, such as that from scheduled tasks, time spans or durations are stored in a lexical format like P0DT0H0M47S. You can use this command to convert that value into a timespan object.
 
 ## EXAMPLES
 
@@ -46,11 +46,11 @@ TotalMilliseconds : 47000
 
 ```powershell
 PS C:\> Get-ScheduledTask -TaskName DailyWatcher |
-Select-Object Taskname,
+Select-Object TaskName,
 @{Name="ExecutionLimit";Expression = `
 { ConvertFrom-LexicalTimespan $_.settings.ExecutionTimeLimit }}
 
-Taskname     ExecutionLimit
+TaskName     ExecutionLimit
 --------     --------------
 DailyWatcher 3.00:00:00
 ```
@@ -105,7 +105,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

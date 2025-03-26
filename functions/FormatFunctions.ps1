@@ -144,7 +144,7 @@ Function Format-Value {
             }
         } #switch parameterset name
 
-        if ($PSCmdlet.ParameterSetName -notmatch "Currency|Number") {
+        if ($PSCmdlet.ParameterSetName -NotMatch "Currency|Number") {
             Write-Verbose "STATUS: Reformatting $value"
             if ($decimal) {
                 Write-Verbose "..to $decimal decimal places"

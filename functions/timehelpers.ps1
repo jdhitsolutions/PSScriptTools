@@ -171,7 +171,7 @@ Function Get-MyTimeInfo {
     $tObj = New-Object -TypeName PSObject -Property $hash
     $tObj.PSObject.TypeNames.insert(0, "myTimeInfo")
 
-    $cities = $tObj.PSObject.properties.where( {$_.name -notmatch 'utc|now'}).Name
+    $cities = $tObj.PSObject.properties.where( {$_.name -NotMatch 'utc|now'}).Name
     if ($AsTable) {
         Write-Verbose "Formatting output as a table"
         $tObj | Format-Table -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String

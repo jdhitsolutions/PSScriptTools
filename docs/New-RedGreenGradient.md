@@ -41,7 +41,7 @@ Sort-Object -property DriveLetter |
 Select-Object -property DriveLetter, FileSystemLabel,
 @{Name="FreeGB";Expression={Format-Value -input $_.SizeRemaining -unit GB}},
 @{Name = "PctFree"; Expression = {
-$pct = Format-Percent -value $_.sizeremaining -total $_.size -decimal 2;
+$pct = Format-Percent -value $_.Sizeremaining -total $_.Size -decimal 2;
 "{1} {0}" -f $(New-RedGreenGradient -percent ($pct/100) -step 6),$pct}}
 
 DriveLetter FileSystemLabel FreeGB PctFree
@@ -116,7 +116,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

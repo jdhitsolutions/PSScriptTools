@@ -61,7 +61,7 @@ Function Find-CimClass {
                 Try {
                     $classes = $CimSession.EnumerateClasses($ns,"").where({$_.CimClassName -like $ClassName})
                     if ($classes -AND $Exclude) {
-                        $classes.Where( { $_.cimClassName -notmatch $Exclude }) | Sort-Object -Property CimClassName
+                        $classes.Where( { $_.cimClassName -NotMatch $Exclude }) | Sort-Object -Property CimClassName
                     }
                     else {
                         $classes | Sort-Object -Property CimClassName

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31RilUa
+online version: https://jdhitsolutions.com/yourls/12ea57
 schema: 2.0.0
 ---
 
@@ -39,7 +39,7 @@ Note: This is an update to an older function in my library. I seem to recall I f
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Show-Tree C:\Work -Depth 2
@@ -67,10 +67,10 @@ C:\work
 
 Shows the directory tree structure, recursing down two levels.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
-PS C:\>Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProp *
+PS C:\> Show-Tree HKLM:\SOFTWARE\Microsoft\.NETFramework -Depth 2 -ShowProp *
 
 HKLM:\SOFTWARE\Microsoft\.NETFramework
 +-- Enable64Bit = 1
@@ -97,7 +97,7 @@ HKLM:\SOFTWARE\Microsoft\.NETFramework
 
 Shows the hierarchy of registry keys and values (-ShowProperty), recursing down two levels.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Show-Tree WSMan: -ShowItem
@@ -282,7 +282,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

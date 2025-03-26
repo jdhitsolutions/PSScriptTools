@@ -23,7 +23,7 @@ You can use this function to create a quick function definition directly from th
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> New-FunctionItem -name ToTitle -scriptblock {param([string]$Text)
@@ -34,7 +34,7 @@ CommandType     Name                   Version    Source
 Function        ToTitle
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> {Get-Date -format g | Set-Clipboard} | New-FunctionItem -name Copy-Date
@@ -154,7 +154,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

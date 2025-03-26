@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://jdhitsolutions.com/yourls/2e4fbe
 schema: 2.0.0
 ---
 
@@ -113,6 +113,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### cimClassPropertyQualifier
 
 ## NOTES
+
 
 ## RELATED LINKS
 

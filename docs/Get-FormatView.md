@@ -45,7 +45,7 @@ The default view should be the first one listed for each format type. With this 
 ### Example 2
 
 ```powershell
-PS C:\> (Get-Service bits).gettype() | Get-FormatView
+PS C:\> (Get-Service bits).GetType() | Get-FormatView
 
 
    Type: System.ServiceProcess.ServiceController
@@ -136,7 +136,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 This command relies on data provided by Get-FormatData. Some object types might be stored in PowerShell in unexpected ways. This command should have an alias of gfv.
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

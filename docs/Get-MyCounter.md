@@ -36,23 +36,23 @@ PS C:\> Get-Counter -list "system" | Get-MyCounter
 
 Timestamp             Category Counter                           Value
 ---------             -------- -------                           -----
-11/4/2020 10:48:47 AM system   file read operations/sec       203.3096
-11/4/2020 10:48:47 AM system   file write operations/sec      252.6566
-11/4/2020 10:48:47 AM system   file control operations/sec    197.3879
-11/4/2020 10:48:47 AM system   file read bytes/sec         206336.5281
-11/4/2020 10:48:47 AM system   file write bytes/sec         56409.5271
-11/4/2020 10:48:47 AM system   file control bytes/sec       10452.6787
-11/4/2020 10:48:47 AM system   context switches/sec          6068.6924
-11/4/2020 10:48:47 AM system   system calls/sec             17854.7266
-11/4/2020 10:48:47 AM system   file data operations/sec       455.9662
-11/4/2020 10:48:47 AM system   system up time               73056.4005
-11/4/2020 10:48:47 AM system   processor queue length                0
-11/4/2020 10:48:47 AM system   processes                           301
-11/4/2020 10:48:47 AM system   threads                            4502
-11/4/2020 10:48:47 AM system   alignment fixups/sec                  0
-11/4/2020 10:48:47 AM system   exception dispatches/sec         6.9086
-11/4/2020 10:48:47 AM system   floating emulations/sec               0
-11/4/2020 10:48:47 AM system   % registry quota in use          4.0327
+11/4/2024 10:48:47 AM system   file read operations/sec       203.3096
+11/4/2024 10:48:47 AM system   file write operations/sec      252.6566
+11/4/2024 10:48:47 AM system   file control operations/sec    197.3879
+11/4/2024 10:48:47 AM system   file read bytes/sec         206336.5281
+11/4/2024 10:48:47 AM system   file write bytes/sec         56409.5271
+11/4/2024 10:48:47 AM system   file control bytes/sec       10452.6787
+11/4/2024 10:48:47 AM system   context switches/sec          6068.6924
+11/4/2024 10:48:47 AM system   system calls/sec             17854.7266
+11/4/2024 10:48:47 AM system   file data operations/sec       455.9662
+11/4/2024 10:48:47 AM system   system up time               73056.4005
+11/4/2024 10:48:47 AM system   processor queue length                0
+11/4/2024 10:48:47 AM system   processes                           301
+11/4/2024 10:48:47 AM system   threads                            4502
+11/4/2024 10:48:47 AM system   alignment fixups/sec                  0
+11/4/2024 10:48:47 AM system   exception dispatches/sec         6.9086
+11/4/2024 10:48:47 AM system   floating emulations/sec               0
+11/4/2024 10:48:47 AM system   % registry quota in use          4.0327
 ```
 
 Get all of the System counters with Get-Counter and pipe them to Get-MyCounter.
@@ -67,33 +67,33 @@ PS C:\> Get-MyCounter -computername server18 | Format-table -view category
 
 Computername    Timestamp             Counter                          Value
 ------------    ---------             -------                          -----
-SERVER18        11/4/2020 11:20:09 AM bytes total/sec              2662.0477
+SERVER18        11/4/2024 11:20:09 AM bytes total/sec              2662.0477
 
    Category: network interface(intel[r] wi-fi 6 ax201 160mhz)
 
 Computername    Timestamp             Counter                          Value
 ------------    ---------             -------                          -----
-SERVER18        11/4/2020 11:20:09 AM bytes total/sec                      0
+SERVER18        11/4/2024 11:20:09 AM bytes total/sec                      0
 
    Category: processor(_total)
 
 Computername    Timestamp             Counter                          Value
 ------------    ---------             -------                          -----
-SERVER18        11/4/2020 11:20:09 AM % processor time                1.4158
+SERVER18        11/4/2024 11:20:09 AM % processor time                1.4158
 
    Category: memory
 
 Computername    Timestamp             Counter                          Value
 ------------    ---------             -------                          -----
-SERVER18        11/4/2020 11:20:09 AM % committed bytes in use       40.5214
-SERVER18        11/4/2020 11:20:09 AM cache faults/sec                     0
+SERVER18        11/4/2024 11:20:09 AM % committed bytes in use       40.5214
+SERVER18        11/4/2024 11:20:09 AM cache faults/sec                     0
 
    Category: physicaldisk(_total)
 
 Computername    Timestamp             Counter                          Value
 ------------    ---------             -------                          -----
-SERVER18        11/4/2020 11:20:09 AM % disk time                     0.0217
-SERVER18        11/4/2020 11:20:09 AM current disk queue length            0
+SERVER18        11/4/2024 11:20:09 AM % disk time                     0.0217
+SERVER18        11/4/2024 11:20:09 AM current disk queue length            0
 ```
 
 Get the default counter set and pipe to Get-MyCounter to get values for the local host.
@@ -101,7 +101,7 @@ Get the default counter set and pipe to Get-MyCounter to get values for the loca
 ### Example 3
 
 ```powershell
-PS C:\> $c = (Get-Counter -list logicaldisk).PathsWithinstances |
+PS C:\> $c = (Get-Counter -list logicaldisk).PathsWithInstances |
 Where-Object {$_ -match "\(c:\)\\%"}
 PS C:\> Get-MyCounter -Counter $c -ComputerName SERVER18,SERVER2 |
 Format-Table -view category
@@ -110,16 +110,16 @@ Format-Table -view category
 
 Computername    Timestamp             Counter                          Value
 ------------    ---------             -------                          -----
-SERVER18        11/4/2020 10:50:03 AM % free space                   48.3822
-SERVER2         11/4/2020 10:50:04 AM % free space                   54.5916
-SERVER18        11/4/2020 10:50:03 AM % disk time                     1.4669
-SERVER2         11/4/2020 10:50:04 AM % disk time                     5.3787
-SERVER18        11/4/2020 10:50:03 AM % disk read time                0.8467
-SERVER2         11/4/2020 10:50:04 AM % disk read time                     0
-SERVER18        11/4/2020 10:50:03 AM % disk write time               0.6203
-SERVER2         11/4/2020 10:50:04 AM % disk write time               5.3787
-SERVER18        11/4/2020 10:50:03 AM % idle time                    98.5846
-SERVER2         11/4/2020 10:50:04 AM % idle time                    93.3567
+SERVER18        11/4/2024 10:50:03 AM % free space                   48.3822
+SERVER2         11/4/2024 10:50:04 AM % free space                   54.5916
+SERVER18        11/4/2024 10:50:03 AM % disk time                     1.4669
+SERVER2         11/4/2024 10:50:04 AM % disk time                     5.3787
+SERVER18        11/4/2024 10:50:03 AM % disk read time                0.8467
+SERVER2         11/4/2024 10:50:04 AM % disk read time                     0
+SERVER18        11/4/2024 10:50:03 AM % disk write time               0.6203
+SERVER2         11/4/2024 10:50:04 AM % disk write time               5.3787
+SERVER18        11/4/2024 10:50:03 AM % idle time                    98.5846
+SERVER2         11/4/2024 10:50:04 AM % idle time                    93.3567
 
 PS C:\> Get-MyCounter -Counter $c -ComputerName SERVER18,SERVER2 |
 Sort-Object Computername
@@ -128,21 +128,21 @@ Sort-Object Computername
 
 Timestamp             Category        Counter             Value
 ---------             --------        -------             -----
-11/4/2020 10:50:35 AM logicaldisk(c:) % free space      48.3822
-11/4/2020 10:50:35 AM logicaldisk(c:) % disk time        0.0263
-11/4/2020 10:50:35 AM logicaldisk(c:) % disk read time        0
-11/4/2020 10:50:35 AM logicaldisk(c:) % disk write time  0.0263
-11/4/2020 10:50:35 AM logicaldisk(c:) % idle time       99.9435
+11/4/2024 10:50:35 AM logicaldisk(c:) % free space      48.3822
+11/4/2024 10:50:35 AM logicaldisk(c:) % disk time        0.0263
+11/4/2024 10:50:35 AM logicaldisk(c:) % disk read time        0
+11/4/2024 10:50:35 AM logicaldisk(c:) % disk write time  0.0263
+11/4/2024 10:50:35 AM logicaldisk(c:) % idle time       99.9435
 
    Computername: SERVER2
 
 Timestamp             Category        Counter             Value
 ---------             --------        -------             -----
-11/4/2020 10:50:37 AM logicaldisk(c:) % free space      54.5916
-11/4/2020 10:50:37 AM logicaldisk(c:) % disk time             0
-11/4/2020 10:50:37 AM logicaldisk(c:) % disk read time        0
-11/4/2020 10:50:37 AM logicaldisk(c:) % disk write time       0
-11/4/2020 10:50:37 AM logicaldisk(c:) % idle time       99.0114
+11/4/2024 10:50:37 AM logicaldisk(c:) % free space      54.5916
+11/4/2024 10:50:37 AM logicaldisk(c:) % disk time             0
+11/4/2024 10:50:37 AM logicaldisk(c:) % disk read time        0
+11/4/2024 10:50:37 AM logicaldisk(c:) % disk write time       0
+11/4/2024 10:50:37 AM logicaldisk(c:) % idle time       99.0114
 ```
 
 The first command gets a collection of logical disk counters for drive C. The second command gets performance counter data for two remote computers and formats the results using a custom view. The last command repeats the process but sorts the result by the computer name.
@@ -262,7 +262,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

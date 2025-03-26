@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--A custom formatting outline-->
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>default</Name>
+            <ViewSelectedBy>
+                <TypeName>PSScriptToolsTypeExtension</TypeName>
+            </ViewSelectedBy>
+            <CustomControl>
+                <CustomEntries>
+                    <CustomEntry>
+                        <CustomItem>
+                            <ExpressionBinding>
+                                <ScriptBlock>
+                                    "$([char]27)[1;32mTypeName   :$([char]27)[0m {0}" -f $_.Type
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                             <NewLine/>
+                             <ExpressionBinding>
+                                <ScriptBlock>
+                                    "$([char]27)[1;32mDescription:$([char]27)[0m $([char]27)[3m{0}$([char]27)[0m" -f $_.Description
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                            <NewLine/>
+                            <ExpressionBinding>
+                                <ScriptBlock>
+                                    $_.members |
+                                    Foreach-Object -begin {
+                                        $col1 = "MemberType"
+                                        $col2 = "MemberName"
+                                        "`n    $([char]27)[1;32m{0}$([char]27)[0m    $([char]27)[1;32m{1}$([char]27)[0m" -f $col1,$col2
+                                        "    $([char]27)[1;32m{0}$([char]27)[0m    $([char]27)[1;32m{1}$([char]27)[0m" -f ("-"*$col1.length),("-"*$col2.length)
+                                        } -process {
+                                        "{0} {1}" -f $_.MemberType.PadLeft(17),$_.MemberName
+                                    } | Out-String
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                        </CustomItem>
+                    </CustomEntry>
+                </CustomEntries>
+            </CustomControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

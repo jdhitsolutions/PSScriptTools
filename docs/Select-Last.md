@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SGKce
+online version: https://jdhitsolutions.com/yourls/d4e36b
 schema: 2.0.0
 ---
 
@@ -26,7 +26,7 @@ When using this command, there is a trade-off of convenience for performance. Fo
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> dir c:\scripts\*.ps1 | last 5 -property lastwritetime
@@ -36,16 +36,16 @@ Directory: C:\scripts
 
 Mode                LastWriteTime         Length Name
 ----                -------------         ------ ----
--a----        1/11/2020   7:18 PM           1818 demo-v5Classes.ps1
--a----        1/11/2020   7:20 PM           1255 demo-v5DSCClassResource.ps1
--a----        1/14/2020  12:58 PM           1967 Demo-ParamTest.ps1
--a----        1/15/2020   9:23 AM            971 Get-WorkflowVariable.ps1
--a----        1/15/2020  12:08 PM           1555 Cost.ps1
+-a----        1/11/2024   7:18 PM           1818 demo-v5Classes.ps1
+-a----        1/11/2024   7:20 PM           1255 demo-v5DSCClassResource.ps1
+-a----        1/14/2024  12:58 PM           1967 Demo-ParamTest.ps1
+-a----        1/15/2024   9:23 AM            971 Get-WorkflowVariable.ps1
+-a----        1/15/2024  12:08 PM           1555 Cost.ps1
 ```
 
 Get the last 5 ps1 files sorted on the LastWritetime property. This example is using the alias 'last' for Select-Last.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> 1..10 | Select-Last 3 -skip 1
@@ -153,7 +153,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

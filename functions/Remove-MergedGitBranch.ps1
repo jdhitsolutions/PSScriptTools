@@ -21,7 +21,7 @@ Function Remove-MergedBranch {
         $t = git status 2>$null
         if ($t) {
             #get branches
-            $branches = (git branch --merged $MainBranch | Where-Object {$_ -notmatch "^\*|$MainBranch"})
+            $branches = (git branch --merged $MainBranch | Where-Object {$_ -NotMatch "^\*|$MainBranch"})
             if ($branches.count -ge 1) {
                 Write-Verbose "Found $($branches.count) branches"
                 $repo = Split-Path . -Leaf

@@ -13,7 +13,7 @@ Display an ANSI progress bar.
 
 ## SYNTAX
 
-```
+```yaml
 Write-ANSIProgress [-PercentComplete] <Double> [-ProgressColor <String>] [-BarSymbol <String>]
  [-Position <Coordinates>] [-ToHost] [<CommonParameters>]
 ```
@@ -180,6 +180,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -194,7 +195,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 This command will not work in the PowerShell ISE. The verbose output should only be used when troubleshooting a display problem.
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

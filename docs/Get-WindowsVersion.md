@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31QKsTt
+online version: https://jdhitsolutions.com/yourls/3e66f0
 schema: 2.0.0
 ---
 
@@ -28,22 +28,20 @@ This command is an alternative to using Get-CimInstance and querying the Win32_O
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
-PS C:\>Get-WindowsVersion
-
-
-   Computername: WINDESK11
+PS C:\> Get-WindowsVersion
+   Computername: PROSPERO
 
 ProductName                    EditionID             Release Build  InstalledUTC
 -----------                    ---------             ------- -----  ------------
-Microsoft Windows 11 Pro       Professional             22H2 22622  5/12/2022 1:01:53 PM
+Microsoft Windows 11 Pro       Professional             24H2 26100  6/17/2024 1:30:52 AM
 ```
 
 Query the local host.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-WindowsVersion -Computername srv1,srv2,win10 -Credential $art
@@ -52,23 +50,23 @@ PS C:\> Get-WindowsVersion -Computername srv1,srv2,win10 -Credential $art
 
 ProductName                    EditionID             Release Build  InstalledUTC
 -----------                    ---------             ------- -----  ------------
-Microsoft Windows 10           Enterprise               21H2 19044  8/26/2022 4:25:49 PM
+Microsoft Windows 10           EnterpriseEval           22H2 19045  2/10/2025 2:48:00 PM
 Enterprise
-
-
-   Computername: SRV2
-
-ProductName                    EditionID             Release Build  InstalledUTC
------------                    ---------             ------- -----  ------------
-Microsoft Windows Server 2016  ServerStandard                 14393  8/26/2022 4:26:00 PM
-Standard
 
 
    Computername: SRV1
 
 ProductName                    EditionID             Release Build  InstalledUTC
 -----------                    ---------             ------- -----  ------------
-Microsoft Windows Server 2016  ServerStandard                14393  8/26/2022 4:25:54 PM
+Microsoft Windows Server 2019  ServerStandardEval            17763  2/10/2025 2:48:01 PM
+Standard
+
+
+   Computername: SRV2
+
+ProductName                    EditionID             Release Build  InstalledUTC
+-----------                    ---------             ------- -----  ------------
+Microsoft Windows Server 2019  ServerStandardEval            17763  2/10/2025 2:48:06 PM
 Standard
 ```
 
@@ -79,13 +77,13 @@ Get Windows version information from remote computers using an alternate credent
 ```powershell
 PS C:\> Get-WindowsVersion -Computername Dom1 | Select-Object *
 
-ProductName    : Microsoft Windows Server 2016 Standard
+ProductName    : Microsoft Windows Server 2019 Standard
 ReleaseVersion :
 EditionID      : ServerStandard
-ReleaseID      : 1607
-Build          : 14393.693
-Branch         : rs1_release
-InstalledUTC   : 8/26/2022 4:17:05 PM
+ReleaseID      : 1809
+Build          : 17763.253
+Branch         : rs5_release
+InstalledUTC   : 2/10/2025 2:39:17 PM
 Computername   : DOM1
 ```
 
@@ -101,7 +99,7 @@ Type the NETBIOS name, IP address, or fully qualified domain name of one or more
 
 To use an IP address in the value of ComputerName , the command must include the Credential parameter. Also, the computer must be configured for HTTPS transport or the IP address of the remote computer must be included in the WinRM TrustedHosts list on the local computer. For instructions for adding a computer name to the TrustedHosts list, see "How to Add a Computer to the Trusted Host List" in about_Remote_Troubleshooting.
 
-On Windows Vista and later versions of the Windows operating system, to include the local computer in the value of ComputerName , you must open Windows PowerShell by using the Run as administrator option.
+On Windows Vista and later versions of the Windows operating system, to include the local computer in the value of ComputerName, you must open Windows PowerShell by using the Run as administrator option.
 
 ```yaml
 Type: String[]
@@ -220,7 +218,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

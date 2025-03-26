@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31XfFER
+online version: https://jdhitsolutions.com/yourls/920e91
 schema: 2.0.0
 ---
 
@@ -24,7 +24,7 @@ Using Get-Command, this function will return information about parameters for an
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-ParameterInfo Export-Clixml
@@ -54,7 +54,7 @@ Path                            True         0           System.String
 
 Return parameter information for Export-Clixml using the default table view.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-ParameterInfo mkdir | Select-Object Name,Type,Position,ParameterSet
@@ -72,7 +72,7 @@ Path       System.String[]                              0        pathSet
 
 Get selected parameter information for the mkdir command.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-ParameterInfo Test-WSMan | Format-List
@@ -156,7 +156,6 @@ PS C:\> Get-ParameterInfo -Command Get-Counter -Parameter computername
 
    ParameterSet: __AllParameterSets
 
-
 Name                            : computername
 Aliases                         : Cn
 Mandatory                       : False
@@ -215,7 +214,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

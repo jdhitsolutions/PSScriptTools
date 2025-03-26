@@ -33,8 +33,8 @@ PS C:\> Get-LastModifiedFile -Path c:\work
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---          11/30/2021  1:52 PM           2010 a.txt
--a---          11/30/2021  1:52 PM           5640 b.txt
+-a---          11/30/2024  1:52 PM           2010 a.txt
+-a---          11/30/2024  1:52 PM           5640 b.txt
 ```
 
 The default behavior is to find all files modified in the last 24 hours.
@@ -48,13 +48,13 @@ PS C:\> Get-LastModifiedFile -Path c:\scripts -Filter *.ps1 -Interval Months -In
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---          11/19/2021  2:36 PM           1434 calendar-prompt.ps1
--a---          10/11/2021 11:26 AM           1376 ChangeOSCaption.ps1
--a---           8/27/2021  8:06 AM           2754 Check-ModuleUpdate.ps1
--a---           9/17/2021  9:23 AM           1822 CleanJobs.ps1
--a---           7/14/2021 10:36 AM            436 Clear-Win11Recommended.ps1
--a---          10/18/2021  5:24 PM           5893 ComingSoon.ps1
--a---          10/25/2021  5:23 PM           4966 Configure-PSVirtualMachine.ps1
+-a---          11/19/2024  2:36 PM           1434 calendar-prompt.ps1
+-a---          10/11/2024 11:26 AM           1376 ChangeOSCaption.ps1
+-a---           8/27/2024  8:06 AM           2754 Check-ModuleUpdate.ps1
+-a---           9/17/2024  9:23 AM           1822 CleanJobs.ps1
+-a---           7/14/2024 10:36 AM            436 Clear-Win11Recommended.ps1
+-a---          10/18/2024  5:24 PM           5893 ComingSoon.ps1
+-a---          10/25/2024  5:23 PM           4966 Configure-PSVirtualMachine.ps1
 ...
 ```
 
@@ -157,9 +157,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-This command was first described at https://jdhitsolutions.com/blog/powershell/8622/finding-modified-files-with-powershell/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+This command was first described at https://jdhitsolutions.com/blog/powershell/8622/finding-modified-files-with-powershell/
 
 ## RELATED LINKS
 

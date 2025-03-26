@@ -40,7 +40,7 @@ The escape character will depend on whether you are running Windows PowerShell o
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Show-ANSISequence
@@ -60,7 +60,7 @@ PS C:\> Show-ANSISequence
 
 The output will be formatted using the corresponding ANSI escape sequence as seen in PowerShell 7.x.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Show-ANSISequence -Foreground -Type simple
@@ -73,10 +73,9 @@ PS C:\> Show-ANSISequence -Foreground -Type simple
 `e[34mHello`e[0m    `e[35mHello`e[0m    `e[36mHello`e[0m
 `e[90mHello`e[0m    `e[91mHello`e[0m    `e[92mHello`e[0m
 `e[94mHello`e[0m    `e[95mHello`e[0m    `e[96mHello`e[0m
-
 ```
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Show-ANSISequence -RGB 225,100,50
@@ -86,7 +85,7 @@ PS C:\> Show-ANSISequence -RGB 225,100,50
 
 Show an RGB ANSI sequence. The output will be formatted using the sequence.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS C:\> Show-ANSISequence -RGB 225,100,50 -AsString | Set-Clipboard
@@ -210,7 +209,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 Learn more about ANSI sequences at https://en.wikipedia.org/wiki/ANSI_escape_code
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

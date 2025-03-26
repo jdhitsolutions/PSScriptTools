@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31PAuBP
+online version: https://jdhitsolutions.com/yourls/259243
 schema: 2.0.0
 ---
 
@@ -53,8 +53,8 @@ You can let the command auto-detect the value and divide with an appropriate val
 ```powershell
 PS C:\> Get-CimInstance -class win32_logicaldisk -filter "DriveType=3" |
 Select-Object DeviceID,
-@{Name="SizeGB";Expression={$_.size | Format-Value -unit GB}},
-@{Name="FreeGB";Expression={$_.freespace | Format-Value -unit GB -decimal 2}}
+@{Name="SizeGB";Expression={$_.Size | Format-Value -unit GB}},
+@{Name="FreeGB";Expression={$_.FreeSpace | Format-Value -unit GB -decimal 2}}
 
 DeviceID             SizeGB                     FreeGB
 --------             ------                     ------
@@ -215,7 +215,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

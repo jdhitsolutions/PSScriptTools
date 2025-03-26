@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31QKACr
+online version: https://jdhitsolutions.com/yourls/9d4917
 schema: 2.0.0
 ---
 
@@ -27,20 +27,20 @@ If you are querying the local computer, all other parameters will be ignored.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-WindowsVersionString -Computername win10 -credential company\artd
-WIN10 Windows 10 Enterprise (OS Build 15063.1418)
+WIN10 Microsoft Windows 10 Enterprise Version Enterprise (OS Build 19045.5608)
 ```
 
 Get a string version of Windows version information from a remote computer and use an alternate credential.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-WindowsVersionString
-BOVINE320 Windows 10 Pro Version Professional (OS Build 17763.253)
+PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26100.3613)
 ```
 
 Get version information for the local host.
@@ -57,7 +57,7 @@ Type the NETBIOS name, IP address, or fully qualified domain name of one or more
 
 To use an IP address in the value of ComputerName , the command must include the Credential parameter. Also, the computer must be configured for HTTPS transport or the IP address of the remote computer must be included in the WinRM TrustedHosts list on the local computer. For instructions for adding a computer name to the TrustedHosts list, see "How to Add a Computer to the Trusted Host List" in about_Remote_Troubleshooting.
 
-On Windows Vista and later versions of the Windows operating system, to include the local computer in the value of ComputerName , you must open Windows PowerShell by using the Run as administrator option.
+On Windows Vista and later versions of the Windows operating system, to include the local computer in the value of ComputerName, you must open Windows PowerShell by using the Run as administrator option.
 
 ```yaml
 Type: String[]
@@ -175,7 +175,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

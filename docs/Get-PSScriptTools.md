@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/3acixBH
+online version: https://jdhitsolutions.com/yourls/237adc
 schema: 2.0.0
 ---
 
@@ -33,6 +33,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
+v3.0.0
 
    Verb: Add
 
@@ -71,6 +72,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
+v3.0.0
 
    Verb: Compare
 
@@ -100,6 +102,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
+v3.0.0
 
    Verb:Select
 
@@ -147,7 +150,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

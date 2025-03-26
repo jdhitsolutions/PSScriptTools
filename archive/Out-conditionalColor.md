@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SFLZy
+online version:
 schema: 2.0.0
 ---
 
@@ -70,7 +70,7 @@ NOTE: This command has been marked as deprecated and will be removed in a future
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Service -DisplayName windows* |
@@ -79,7 +79,7 @@ Out-ConditionalColor -propertyconditions @{Stopped='Red'} -property Status
 
 Get all services where the display name starts with windows and display stopped services in red.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-Service -DisplayName windows* |
@@ -88,7 +88,7 @@ Out-ConditionalColor @{Stopped='Red'} status -ov winstop
 
 Repeat the previous example, but also save the output to the variable winstop. When you look at $Winstop you'll see the services, but they won't be colorized. This example uses the parameters positionally.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-EventLog system -newest 50 |
@@ -98,7 +98,7 @@ Enter a property name: entrytype
 
 Get the newest 50 entries from the System event log. Display errors in red and warnings in yellow. If you don't specify a property you will be prompted.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS C:\> $c =[ordered]@{
@@ -109,7 +109,7 @@ PS C:\> $c =[ordered]@{
 
 The first command creates an ordered hashtable based on the Length property.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> dir c:\scripts\*.doc,c:\scripts\*.pdf,c:\scripts\*.xml |
@@ -199,9 +199,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
-
+https://jdhitsolutions.com/yourls/newsletter
 Originally published at: http://jdhitsolutions.com/blog/powershell/3462/friday-fun-Out-ConditionalColor/
+
 
 ## RELATED LINKS
 

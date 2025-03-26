@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://jdhitsolutions.com/yourls/078584
 schema: 2.0.0
 ---
 
@@ -27,7 +27,7 @@ This command is a faster alternative to Get-CimClass. It will only list the clas
 ### Example 1
 
 ```powershell
-PS C:\> get-CimClassListing -Namespace Root\RSOP
+PS C:\> Get-CimClassListing -Namespace Root\RSOP
 
 
    Namespace: Root/RSOP
@@ -73,6 +73,7 @@ You can exclude classnames using wildcards.
 ## PARAMETERS
 
 ### -CimSession
+
 Specify a computer name or an existing CimSession object.
 
 ```yaml
@@ -88,6 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -Exclude
+
 Enter a pattern for class names to EXCLUDE from the results.
 You can use wildcards.
 
@@ -104,6 +106,7 @@ Accept wildcard characters: True
 ```
 
 ### -Namespace
+
 Specify the class namespace beginning with ROOT.
 
 ```yaml
@@ -119,6 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -130,6 +134,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### cimClassListing
 
 ## NOTES
+
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

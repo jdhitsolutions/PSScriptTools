@@ -141,9 +141,9 @@ Function Convert-HashtableToCode {
             }
 
         }  -Process {
-            Write-Verbose "Testing value type $($_.value.gettype().name) for key $($_.key)"
+            Write-Verbose "Testing value type $($_.value.GetType().name) for key $($_.key)"
             #determine if the value needs to be enclosed in quotes
-            if ($_.value.gettype().name -match "Int|double") {
+            if ($_.value.GetType().name -match "Int|double") {
                 Write-Verbose "..is a numeric"
                 $value = $_.value
             }
@@ -306,11 +306,11 @@ Function Convert-CommandToHashtable {
                 $v = "`$True"
             }
             else {
-                While ($astTokens[$i + 1].Kind -notmatch 'Parameter|EndOfInput') {
+                While ($astTokens[$i + 1].Kind -NotMatch 'Parameter|EndOfInput') {
                     $i++
                     #test if value is a string and if it is quoted, if not include quotes
-                    #if ($astTokens[$i].Kind -eq "Identifier" -AND $astTokens[$i].Text -notmatch """\w+.*""" -AND $astTokens[$i].Text -notmatch "'\w+.*'") {
-                    if ($astTokens[$i].Text -match "\D" -AND $astTokens[$i].Text -notmatch """\w+.*""" -AND $astTokens[$i].Text -notmatch "'\w+.*'") {
+                    #if ($astTokens[$i].Kind -eq "Identifier" -AND $astTokens[$i].Text -NotMatch """\w+.*""" -AND $astTokens[$i].Text -NotMatch "'\w+.*'") {
+                    if ($astTokens[$i].Text -match "\D" -AND $astTokens[$i].Text -NotMatch """\w+.*""" -AND $astTokens[$i].Text -NotMatch "'\w+.*'") {
                         #ignore commas and variables
                         if ($astTokens[$i].Kind -match 'Comma|Variable') {
                             $value = $astTokens[$i].Text

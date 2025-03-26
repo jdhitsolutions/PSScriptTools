@@ -3,13 +3,33 @@
 This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
+
+## [3.0.0] - 2025-03-26
+
+### Added
+
+- Added command `Get-FileExtensionInfo`.
+- Added command `Get-TypeConstructor` with an alias of `ctor` and a custom formatting file.
+- Added commands `Get-PSScriptToolsTypeExtension` and `Import-PSScriptToolTypeExtension
+- Added custom type extension file for `MeasureInfo` objects.
+
 ### Changed
+
+- Updated formatting for `Get-PSProfile` to display profiles not found in red.
+- Updating formatting for `Get-ModuleCommand` to display aliases using the command color and italicized.
+- Modified `Convert-EventLogRecord` ([Issue #153](https://github.com/jdhitsolutions/PSScriptTools/issues/154))
+- Merged [PR#153](https://github.com/jdhitsolutions/PSScriptTools/pull/153) Thanks [@jaols](https://github.com/jaols)
 - Changed required module from the soon to be deprecated `ThreadJob` to `Microsoft.PowerShell.ThreadJob`.
+- Major help updates and corrections.
+- Updated `README.md`.
 
 ### Removed
+
 - Removed sample script `today.ps1` because `ConvertTo-ASCIIArt` is no longer part of this module.
 
 ### Fixed
+
+- Fixed download link in `Save-GitSetup`.
 - Corrected wrong type name for the `FilePath` parameter in `Test-WithCulture`.
 - Corrected a bug in `Get-PSWhoIs` that was failing when no organization information was present. [Issue #151](https://github.com/jdhitsolutions/PSScriptTools/issues/151)
 - Corrected code typo on `Trace-Message`.
@@ -138,7 +158,8 @@ This file contains the most recent change history for the PSScriptTools module.
 
 If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md) online.
 
-[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.50.0..HEAD
+[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v3.0.0..HEAD
+[3.0.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.50.0..v3.0.0
 [2.50.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.49.0..v2.50.0
 [2.49.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.48.0..v2.49.0
 [v2.48.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.47.0..v2.48.0

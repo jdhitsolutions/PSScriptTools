@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31UsaRA
+online version: https://jdhitsolutions.com/yourls/86d9fd
 schema: 2.0.0
 ---
 
@@ -23,28 +23,34 @@ Use this command to compare module versions between what is installed against an
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
-PS C:\> Compare-Module | Where-object {$_.UpdateNeeded}
+PS C:\> Compare-Module | Where-Oject {$_.UpdateNeeded}
 
-Name             : DNSSuffix
-OnlineVersion    : 0.4.1
-InstalledVersion : 0.2.0
-PublishedDate    : 10/22/2018 8:21:46 PM
+Name             : ActiveDirectoryDsc
+OnlineVersion    : 6.6.2
+InstalledVersion : 6.2.0,6.0.1
+PublishedDate    : 3/17/2025 4:41:19 PM
 UpdateNeeded     : True
 
-Name             : InvokeBuild
-OnlineVersion    : 5.4.2
-InstalledVersion : 3.2.2
-PublishedDate    : 12/7/2018 1:30:46 AM
+Name             : ComputerManagementDsc
+OnlineVersion    : 10.0.0
+InstalledVersion : 9.0.0,8.5.0,8.4.0
+PublishedDate    : 1/25/2025 3:17:04 PM
+UpdateNeeded     : True
+
+Name             : DynamicTitle
+OnlineVersion    : 0.4.0
+InstalledVersion : 0.3.0
+PublishedDate    : 7/10/2023 1:15:44 PM
 UpdateNeeded     : True
 ...
 ```
 
 List all modules that could be updated.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Compare-Module | Where UpdateNeeded |
@@ -54,36 +60,35 @@ Foreach-Object { Update-Module $_.name }
 
 Compare modules and send results to Out-GridView. Use Out-GridView as an object picker to decide what modules to update.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Compare-Module -name xWin* | Format-Table
 
-Name           OnlineVersion InstalledVersion PublishedDate         UpdateNeeded
-----           ------------- ---------------- -------------         ------------
-xWindowsUpdate 2.7.0.0       2.7.0.0,2.5.0.0  7/12/2017 10:43:54 PM        False
-xWinEventLog   1.2.0.0       1.2.0.0          6/13/2018 8:06:45 PM         False
+Name           OnlineVersion InstalledVersion PublishedDate        UpdateNeeded
+----           ------------- ---------------- -------------        ------------
+xWindowsUpdate 2.8.0.0       2.8.0.0          4/3/2019 10:53:09 PM        False
 ```
 
 Compare all modules that start with xWin* and display results in a table format.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
-PS C:\> get-dscresource xAD* | Select-Object moduleName -Unique |
+PS C:\> Get-DSCResource xAD* | Select-Object moduleName -Unique |
 Compare-Module
 
 Name             : xActiveDirectory
-OnlineVersion    : 2.22.0.0
-InstalledVersion : 2.16.0.0,2.14.0.0
-PublishedDate    : 10/25/2018 5:25:24 PM
-UpdateNeeded     : True
+OnlineVersion    : 3.0.0.0
+InstalledVersion : 3.0.0.0
+PublishedDate    : 6/26/2019 9:34:27 PM
+UpdateNeeded     : False
 
 Name             : xAdcsDeployment
 OnlineVersion    : 1.4.0.0
-InstalledVersion : 1.1.0.0,1.0.0.0
+InstalledVersion : 1.4.0.0
 PublishedDate    : 12/20/2017 10:10:43 PM
-UpdateNeeded     : True
+UpdateNeeded     : False
 ```
 
 Get all DSC Resources that start with xAD and select the corresponding module name. Since the module name will be listed for every resource, get a unique list and pipe that to Compare-Module.
@@ -137,7 +142,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

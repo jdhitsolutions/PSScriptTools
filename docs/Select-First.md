@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31VhYb9
+online version: https://jdhitsolutions.com/yourls/8124ac
 schema: 2.0.0
 ---
 
@@ -26,7 +26,7 @@ When using this command, there is a trade-off of convenience for performance. Fo
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Process | Select-First 3 -property WS -descending
@@ -38,7 +38,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
    1051      88   231216     234728  1175    61.88   8324   1 powershell_ise
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> 1..10 | Select-First 3 -Skip 2
@@ -146,7 +146,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

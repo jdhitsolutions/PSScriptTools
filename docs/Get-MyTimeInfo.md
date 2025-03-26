@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31RGxG0
+online version: https://jdhitsolutions.com/yourls/864c12
 schema: 2.0.0
 ---
 
@@ -30,82 +30,64 @@ This command was added in v2.3.0.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
-P{S C:\>Get-MyTimeInfo
+PS C:\> Get-MyTimeInfo
 
-
-Now               : 3/4/2020 1:28:43 PM
-Home              : 3/4/2020 1:28:43 PM
-UTC               : 3/4/2020 6:28:43 PM
-Singapore         : 3/5/2020 2:28:43 AM
-Seattle           : 3/4/2020 10:28:43 AM
-Stockholm         : 3/4/2020 7:28:43 PM
-IsDaylightSavings : False
+Now               : 3/26/2025 11:27:14 AM
+Home              : 3/26/2025 11:27:14 AM
+UTC               : 3/26/2025 3:27:14 PM
+Singapore         : 3/26/2025 11:27:14 PM
+Seattle           : 3/26/2025 8:27:14 AM
+Stockholm         : 3/26/2025 4:27:14 PM
+IsDaylightSavings : True
 ```
 
 The default output is a custom object with each timezone as a property.
 
-### EXAMPLE 2
-
-```powershell
-Get-MyTimeInfo -AsTable
-
-   Now: 03/04/2020 13:28:11
-   UTC: 03/04/2020 18:28:11
-
-Home                Singapore           Seattle              Stockholm           IsDaylightSavings
-----                ---------           -------              ---------           -----------------
-3/4/2020 1:28:11 PM 3/5/2020 2:28:11 AM 3/4/2020 10:28:11 AM 3/4/2020 7:28:11 PM             False
-```
-
-Display current time information as a table. The output is a string.
-
-### EXAMPLE 3
+### Example 2
 
 ```powershell
 PS C:\> Get-MyTimeInfo -AsList
 
-   Now: 03/04/2020 13:27:03
-   UTC: 03/04/2020 18:27:03
+   Now: 03/26/2025 11:28:29
+   UTC: 03/26/2025 15:28:29
 
-
-Home              : 3/4/2020 1:27:03 PM
-Singapore         : 3/5/2020 2:27:03 AM
-Seattle           : 3/4/2020 10:27:03 AM
-Stockholm         : 3/4/2020 7:27:03 PM
-IsDaylightSavings : False
+Home              : 3/26/2025 11:28:29 AM
+Singapore         : 3/26/2025 11:28:29 PM
+Seattle           : 3/26/2025 8:28:29 AM
+Stockholm         : 3/26/2025 4:28:29 PM
+IsDaylightSavings : True
 ```
 
-Get current time info formatted as a list.
+Get current time info formatted as a list. You can also try the AsTable parameter.
 
-### EXAMPLE 4
+### Example 3
 
 ```powershell
 PS C:\> $loc = [ordered]@{"Hong Kong"="China Standard Time";Honolulu="Hawaiian Standard Time";Mumbai = "India Standard Time"}
 
 PS C:\> Get-MyTimeInfo -Locations $loc -ft
 
-   Now: 03/04/2020 13:26:23
-   UTC: 03/04/2020 18:26:23
+   Now: 03/26/2025 11:29:33
+   UTC: 03/26/2025 15:29:33
 
-Home                Hong Kong           Honolulu            Mumbai               IsDaylightSavings
-----                ---------           --------            ------               -----------------
-3/4/2020 1:26:23 PM 3/5/2020 2:26:23 AM 3/4/2020 8:26:23 AM 3/4/2020 11:56:23 PM             False
+Home                  Hong Kong             Honolulu             Mumbai              DaylightSavings
+----                  ---------             --------             ------               --------------
+3/26/2025 11:29:33 AM 3/26/2025 11:29:33 PM 3/26/2025 5:29:33 AM 3/26/2025 8:59:33 PM           True
 ```
 
-Using a custom location hashtable, get time zone information formatted as a table. This example is using the -ft alias for the AsTable parameter.
-Even though this is formatted as a table the actual output is a string.
+Using a custom location hashtable, get time zone information formatted as a table. This example is using the -ft alias for the AsTable parameter. Even though this is formatted as a table the actual output is a string.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "central standard time" | Select Now,Home,Seattle,'New Zealand'
 
-Now                 Home                 Seattle              New Zealand
----                 ----                 -------              -----------
-3/4/2020 1:18:36 PM 3/4/2020 12:18:36 PM 3/4/2020 10:18:36 AM 3/5/2020 7:18:36 AM
+Now                   Home                  Seattle              New Zealand
+---                   ----                  -------              -----------
+3/26/2025 11:30:36 AM 3/26/2025 10:30:36 AM 3/26/2025 8:30:36 AM 3/27/2025 4:30:36 AM
 ```
 
 This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.
@@ -229,7 +211,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

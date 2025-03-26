@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/314L8W9
+online version: https://jdhitsolutions.com/yourls/bb432d
 schema: 2.0.0
 ---
 
@@ -27,32 +27,33 @@ Use the Message property for more information.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
-PS C:\> Get-WinEvent -FilterHashtable @{Logname = 'security';ID=5059} |
+PS C:\> Get-WinEvent -FilterHashtable @{LogName = 'security';ID=5059} |
 Convert-EventLogRecord | Select-Object -Property TimeCreated,Subject*,
 Computername
 
-TimeCreated       : 1/20/2020 10:48:45 AM
-SubjectUserSid    : S-1-5-83-1-2951761591-1086169693-630393256-923523501
-SubjectUserName   : AFF04EB7-A25D-40BD-A809-9325ADD90B37
-SubjectDomainName : NT VIRTUAL MACHINE
-SubjectLogonId    : 0x7cbf5
-Computername      : Bovine320
+TimeCreated       : 3/26/2025 9:03:41 AM
+SubjectUserSid    : S-1-5-21-3465062479-264850141-705915528-1001
+SubjectUserName   : Jeff
+SubjectDomainName : PROSPERO
+SubjectLogonId    : 0x34cb5c
+Computername      : Prospero
 
-TimeCreated       : 1/20/2020 10:48:45 AM
-SubjectUserSid    : S-1-5-83-1-2951761591-1086169693-630393256-923523501
-SubjectUserName   : AFF04EB7-A25D-40BD-A809-9325ADD90B37
-SubjectDomainName : NT VIRTUAL MACHINE
-SubjectLogonId    : 0x7cbf5
-Computername      : Bovine320
+TimeCreated       : 3/26/2025 9:03:41 AM
+SubjectUserSid    : S-1-5-21-3465062479-264850141-705915528-1001
+SubjectUserName   : Jeff
+SubjectDomainName : PROSPERO
+SubjectLogonId    : 0x34cb5c
+Computername      : Prospero
+...
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
-PS C:\> Get-WinEvent -FilterHashtable @{Logname = 'security';ID=4624} `
+PS C:\> Get-WinEvent -FilterHashtable @{LogName = 'security';ID=4624} `
 -MaxEvents 100 -computername win10 | Convert-EventLogRecord |
 Where-Object {$_.LogonType -eq 3} |
 Select-Object -first 10 -property TargetUsername,IPAddress,
@@ -60,24 +61,24 @@ TimeCreated,Computername | Format-Table
 
 TargetUserName  IpAddress                 TimeCreated           Computername
 --------------  ---------                 -----------           ------------
-ArtD           fe80::ddae:8ade:c3ff:e584 1/20/2020 12:05:12 PM WIN10.Company.Pri
-WIN10$         -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
-WIN10$         -                         1/20/2020 11:56:52 AM WIN10.Company.Pri
-WIN10$          -                        1/20/2020 11:56:52 AM WIN10.Company.Pri
-WIN10$          -                        1/20/2020 11:56:51 AM WIN10.Company.Pri
-ArtD           192.168.3.10              1/20/2020 11:45:31 AM WIN10.Company.Pri
-WIN10$         ::1                       1/20/2020 11:39:52 AM WIN10.Company.Pri
-ArtD           192.168.3.10              1/20/2020 11:35:49 AM WIN10.Company.Pri
-ArtD           192.168.3.10              1/20/2020 11:34:36 AM WIN10.Company.Pri
-ArtD           192.168.3.10              1/20/2020 11:32:06 AM WIN10.Company.Pri
+ArtD           fe80::ddae:8ade:c3ff:e584 1/20/2025 12:05:12 PM WIN10.Company.Pri
+WIN10$         -                         1/20/2025 11:56:52 AM WIN10.Company.Pri
+WIN10$         -                         1/20/2025 11:56:52 AM WIN10.Company.Pri
+WIN10$          -                        1/20/2025 11:56:52 AM WIN10.Company.Pri
+WIN10$          -                        1/20/2025 11:56:51 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2025 11:45:31 AM WIN10.Company.Pri
+WIN10$         ::1                       1/20/2025 11:39:52 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2025 11:35:49 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2025 11:34:36 AM WIN10.Company.Pri
+ArtD           192.168.3.10              1/20/2025 11:32:06 AM WIN10.Company.Pri
 ```
 
 This example filters on a property added by this command to only show interactive logons.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
-PS C:\> Get-WinEvent -FilterHashtable @{Logname ='system';
+PS C:\> Get-WinEvent -FilterHashtable @{LogName ='system';
 ID =7040} -MaxEvent 10 | Convert-EventlogRecord |
 Select-Object -Property TimeCreated,@{Name="Service";Expression={$_.param4}},
 @{Name="OriginalState";Expression = {$_.param2}},
@@ -85,40 +86,40 @@ Select-Object -Property TimeCreated,@{Name="Service";Expression={$_.param4}},
 
 TimeCreated          Service          OriginalState NewState     Computername
 -----------          -------          ------------- --------     ------------
-1/20/2020 9:26:08 AM BITS             demand start  auto start   Bovine320
-1/20/2020 5:47:17 AM BITS             auto start    demand start Bovine320
-1/20/2020 5:45:11 AM BITS             demand start  auto start   Bovine320
-1/20/2020 1:44:31 AM BITS             auto start    demand start Bovine320
-1/20/2020 1:42:30 AM BITS             demand start  auto start   Bovine320
-1/19/2020 8:53:37 PM BITS             auto start    demand start Bovine320
-1/17/2020 8:27:10 PM TrustedInstaller demand start  auto start   Bovine320
-1/17/2020 8:27:10 PM TrustedInstaller auto start    demand start Bovine320
-1/17/2020 8:26:29 PM TrustedInstaller demand start  auto start   Bovine320
-1/17/2020 8:26:20 PM TrustedInstaller auto start    demand start Bovine320
+3/26/2025 9:03:23 AM BITS             auto start    demand start Prospero
+3/26/2025 9:01:20 AM BITS             demand start  auto start   Prospero
+3/26/2025 9:00:32 AM TrustedInstaller auto start    demand start Prospero
+3/26/2025 8:54:48 AM BITS             auto start    demand start Prospero
+3/26/2025 8:51:13 AM BITS             demand start  auto start   Prospero
+3/26/2025 8:50:41 AM WslInstaller     auto start    disabled     Prospero
+3/26/2025 5:09:35 AM BITS             auto start    demand start Prospero
+3/26/2025 5:07:35 AM BITS             demand start  auto start   Prospero
+3/26/2025 4:34:26 AM BITS             auto start    demand start Prospero
+3/26/2025 4:31:49 AM BITS             demand start  auto start   Prospero
 ```
 
 Once you know the type of data, you can customize the output or build a script around it.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
-PS C:\> Get-WinEvent -FilterHashtable @{Logname = "Application";
+PS C:\> Get-WinEvent -FilterHashtable @{LogName = "Application";
 ID=17137} -MaxEvents 1 | Convert-EventLogRecord
 
 LogName       : Application
 RecordType    : Information
-TimeCreated   : 1/20/2020 2:31:52 PM
-ID            : 17137
+TimeCreated   : 3/26/2025 9:04:02 AM
+RecordID      : 17137
 RawProperties : {TickleEventDB}
 Message       : Starting up database 'TickleEventDB'.
 Keywords      : {Classic}
 Source        : MSSQL$SQLEXPRESS
-Computername  : Bovine320
+Computername  : Prospero
 ```
 
 This record doesn't have structured extra data. The replacement strings are stored as text so the command displays the data using the RawProperties property.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> $all = New-PSSession -ComputerName 'win10','srv1','srv2','dom1'
@@ -127,14 +128,14 @@ PS C:\> Invoke-Command -ScriptBlock {
  New-item -Path Function: -Name $using:local.name -Value $using:local.ScriptBlock
  } -Session $all
 PS C:\> Invoke-Command {
-    Get-WinEvent -FilterHashtable @{Logname='security';id=4624} -MaxEvents 10 |
+    Get-WinEvent -FilterHashtable @{LogName='security';id=4624} -MaxEvents 10 |
     Convert-EventLogRecord |
     Select-Object -Property Computername,Time*,TargetUser*,
     TargetDomainName,Subject*} -session $all -HideComputerName |
     Select-Object -Property * -ExcludeProperty runspaceID
 
 Computername      : WIN10.Company.Pri
-TimeCreated       : 1/20/2020 5:21:17 PM
+TimeCreated       : 1/20/2025 5:21:17 PM
 TargetUserSid     : S-1-5-18
 TargetUserName    : SYSTEM
 TargetDomainName  : NT AUTHORITY
@@ -144,7 +145,7 @@ SubjectDomainName : COMPANY
 SubjectLogonId    : 0x3e7
 
 Computername      : WIN10.Company.Pri
-TimeCreated       : 1/20/2020 5:18:51 PM
+TimeCreated       : 1/20/2025 5:18:51 PM
 TargetUserSid     : S-1-5-18
 TargetUserName    : SYSTEM
 TargetDomainName  : NT AUTHORITY
@@ -154,7 +155,7 @@ SubjectDomainName : COMPANY
 SubjectLogonId    : 0x3e7
 
 Computername      : WIN10.Company.Pri
-TimeCreated       : 1/20/2020 5:16:07 PM
+TimeCreated       : 1/20/2025 5:16:07 PM
 TargetUserSid     : S-1-5-21-278538743-3177530655-100218012-1105
 TargetUserName    : ArtD
 TargetDomainName  : COMPANY.PRI
@@ -197,7 +198,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### PSCustomObject
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

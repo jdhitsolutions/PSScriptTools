@@ -34,7 +34,7 @@ PS C:\>Export-PSAnsiFileMap -PassThru
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---          12/28/2020  1:02 PM           1631 psansifilemap.json
+-a---          12/28/2024  1:02 PM           1631 psansifilemap.json
 ```
 
 ## PARAMETERS
@@ -102,7 +102,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

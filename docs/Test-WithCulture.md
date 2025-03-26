@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31TyFnk
+online version: https://jdhitsolutions.com/yourls/15101d
 schema: 2.0.0
 ---
 
@@ -49,7 +49,7 @@ PS C\> Test-WithCulture fr-fr -Scriptblock {
   Get-winEvent -log system -max 500 |
   Select-Object -Property TimeCreated,ID,OpCodeDisplayName,Message |
   Sort-Object -property TimeCreated |
-  Group-Object {$_.timecreated.toshortdatestring()} -noelement
+  Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement
   }
 
 Count Name
@@ -143,7 +143,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

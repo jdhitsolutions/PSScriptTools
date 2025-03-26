@@ -38,7 +38,9 @@
                 <PropertyName>Name</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Alias</PropertyName>
+                <ScriptBlock>
+                 "$([char]27)[3;93m{0}$([char]27)[0m" -f $_.Alias
+                 </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Synopsis</PropertyName>
@@ -145,7 +147,7 @@
         <!--
             You can also use a scriptblock to define a custom property name.
             You must have a Label tag.
-            <ScriptBlock>$_.machinename.ToUpper()</ScriptBlock>
+            <ScriptBlock>$_.MachineName.ToUpper()</ScriptBlock>
             <Label>Computername</Label>
 
             Use <Label> to set the displayed value.

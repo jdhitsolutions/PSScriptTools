@@ -40,7 +40,7 @@ The command in this module includes custom format and type extensions. See help 
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-TypeMember DateTime
@@ -72,7 +72,7 @@ Minute               Property   Int32
 
 Static items will be shown in green. Enum properties will be shown in orange.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-TypeMember DateTime -StaticOnly
@@ -91,7 +91,7 @@ FromFileTime    Method     DateTime       True
 ...
 ```
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-TypeMember system.io.fileinfo -MemberType Property
@@ -113,7 +113,7 @@ FullName          Property   String
 
 Get only properties for System.IO.FileInfo.
 
-### EXAMPLE
+### Example 4
 
 ```powershell
 PS C:\> Get-TypeMember datetime -MemberName add* | Format-Table -view syntax
@@ -136,10 +136,10 @@ AddYears        DateTime   $obj.AddYears(\[Int32\]value)
 
 Use the custom table view to see method syntax.
 
-### EXAMPLE
+### Example 5
 
 ```powershell
-PS C:\> Get-TypeMember system.io.path -static | Where-Object membertype -eq 'method' | Select-Object methodsyntax
+PS C:\> Get-TypeMember system.io.path -static | Where-Object MemberType -eq 'method' | Select-Object MethodSyntax
 
 Name                        ReturnType     IsStatic Syntax
 ----                        ----------     -------- ------
@@ -234,8 +234,10 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 
 [Get-Member]()
+
+[Get-TypeConstructor](Get-TypeConstructor.md)

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SFfe4
+online version: https://jdhitsolutions.com/yourls/0b8283
 schema: 2.0.0
 ---
 
@@ -30,12 +30,9 @@ Note that if the site is busy you may get an error. If that happens, wait a minu
 ```powershell
 PS C:\> Get-TZData Australia/Hobart
 
-PS C:\> Get-TZData Australia/Hobart
-
 Timezone                        Label        Offset     DST                  Time
 --------                        -----        ------     ---                  ----
-Australia/Hobart                AEDT       11:00:00    True  3/16/2020 5:35:46 AM
-```
+Australia/Hobart                AEDT       11:00:00    True  3/27/2025 2:44:24 AM```
 
 Get time zone information for Hobart.
 
@@ -44,17 +41,16 @@ Get time zone information for Hobart.
 ```powershell
 PS C:\> Get-TZData Asia/Tokyo -Raw
 
-
-week_number  : 11
+week_number  : 13
 utc_offset   : +09:00
-unixtime     : 1552674997
+unixtime     : 1743003902
 timezone     : Asia/Tokyo
 dst_until    :
 dst_from     :
 dst          : False
-day_of_year  : 75
-day_of_week  : 6
-datetime     : 2020-03-16T03:36:37.829505+09:00
+day_of_year  : 86
+day_of_week  : 4
+datetime     : 2025-03-27T00:45:02.000000+09:00
 abbreviation : JST
 ```
 
@@ -65,18 +61,16 @@ Get time zone information for Tokyo as a raw format.
 ```powershell
 PS C:\> Get-TZList Antarctica | Get-TZData | Sort-Object Offset
 
-Timezone                        Label        Offset     DST                  Time
---------                        -----        ------     ---                  ----
-Antarctica/Rothera               -03      -03:00:00   False  3/15/2020 3:39:59 PM
-Antarctica/Palmer                -03      -03:00:00   False  3/15/2020 3:39:59 PM
-Antarctica/Troll                 +00       00:00:00   False  3/15/2020 6:40:00 PM
-Antarctica/Syowa                 +03       03:00:00   False  3/15/2020 9:39:59 PM
-Antarctica/Mawson                +05       05:00:00   False 3/15/2020 11:39:59 PM
-Antarctica/Vostok                +06       06:00:00   False 3/16/2020 12:40:00 AM
-Antarctica/Davis                 +07       07:00:00   False  3/16/2020 1:39:58 AM
-Antarctica/Casey                 +08       08:00:00   False  3/16/2020 2:39:58 AM
-Antarctica/DumontDUrville        +10       10:00:00   False  3/16/2020 4:39:58 AM
-Antarctica/Macquarie             +11       11:00:00   False  3/16/2020 5:39:58 AM
+Timezone                        Label        Offset     DST                 Time
+--------                        -----        ------     ---                 ----
+Antarctica/Palmer                -03      -03:00:00   False …26/2025 12:45:23 PM
+Antarctica/Rothera               -03      -03:00:00   False …26/2025 12:45:23 PM
+Antarctica/Troll                 +00       00:00:00   False 3/26/2025 3:45:23 PM
+Antarctica/Mawson                +05       05:00:00   False 3/26/2025 8:45:23 PM
+Antarctica/Vostok                +05       05:00:00   False 3/26/2025 8:45:23 PM
+Antarctica/Davis                 +07       07:00:00   False …26/2025 10:45:23 PM
+Antarctica/Casey                 +08       08:00:00   False …26/2025 11:45:23 PM
+Antarctica/Macquarie            AEDT       11:00:00    True 3/27/2025 2:45:23 AM
 ```
 
 Get all time zone areas in Antarctica and pipe them to Get-TZData to retrieve the details.
@@ -86,7 +80,7 @@ Get all time zone areas in Antarctica and pipe them to Get-TZData to retrieve th
 ```powershell
 PS C:\> Get-TZData Europe/Rome | ConvertTo-LocalTime -Datetime "3/15/2020 4:00PM"
 
-Friday, March 15, 2020 11:00:00 AM
+Saturday, March 15, 2025 11:00:00 AM
 ```
 
 Convert the datetime in Rome to local time, which in this example is Eastern time.
@@ -142,7 +136,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell:http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell:https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

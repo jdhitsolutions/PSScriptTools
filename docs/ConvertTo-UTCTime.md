@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31RGrOE
+online version: https://jdhitsolutions.com/yourls/fcd685
 schema: 2.0.0
 ---
 
@@ -30,19 +30,18 @@ This command was introduced in v2.3.0.
 ```powershell
 PS C:\> Get-Date
 
-Monday, December 28, 2020 7:43:13 PM
-
+Wednesday, March 26, 2025 11:01:57 AM
 
 PS C:\> ConvertTo-UTCTime
 
-Tuesday, December 29, 2020 12:43:37 AM
+Wednesday, March 26, 2025 3:02:13 PM
 ```
 
 ### Example 2
 
 ```powershell
 PS C:\> ConvertTo-UTCTime -asString
-2020-12-29 00:44:01Z
+2025-03-26 15:02:29Z
 ```
 
 ## PARAMETERS
@@ -65,7 +64,7 @@ Accept wildcard characters: False
 
 ### -AsString
 
-Convert the date-time value to a sortable string. This is the same thing as running a command like "{0:u}" -f (Get-Date).ToUniversaltime()
+Convert the date-time value to a sortable string. This is the same thing as running a command like "{0:u}" -f (Get-Date).ToUniversalTime()
 
 ```yaml
 Type: SwitchParameter
@@ -93,7 +92,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

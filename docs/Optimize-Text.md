@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SFF48
+online version: https://jdhitsolutions.com/yourls/140455
 schema: 2.0.0
 ---
 
@@ -39,7 +39,7 @@ Finally, you can use the -Filter parameter to specify a regular expression patte
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Content c:\scripts\computers.txt
@@ -63,11 +63,10 @@ app02
 
 The first example shows a malformed text file. In the second command, it has been optimized or normalized.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
-PS C:\> Get-Content c:\scripts\computers.txt |
-Optimize-Text -property computername
+PS C:\> Get-Content c:\scripts\computers.txt | Optimize-Text -property computername
 
 computername
 ------------
@@ -80,12 +79,12 @@ app02
 
 Using the same text file, the command creates a custom object using the Computername property.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-Content computers.txt | Optimize-Text -prop computername |
 Where-Object {Test-Connection $_.computername -count 1 -ea SilentlyContinue} |
-Get-Service bits | Select-Object Name,Status,Machinename
+Get-Service bits | Select-Object Name,Status,MachineName
 
 Name                          Status MachineName
 ----                          ------ -----------
@@ -96,11 +95,10 @@ bits                          Running app02
 
 Optimize the computer names in computers.txt and add a Computername property. Test each computer, ignoring those that fail, and get the Bits service on the ones that can be pinged.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
-PS C:\> Get-Content .\ChicagoServers.txt |
-Optimize-Text -Ignore "#" -Property ComputerName
+PS C:\> Get-Content .\ChicagoServers.txt | Optimize-Text -Ignore "#" -Property ComputerName
 
 ComputerName
 ------------
@@ -116,7 +114,7 @@ chi-db01
 
 Optimize the text file ignoring any lines that start with the # character.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> Get-Content .\ChicagoServers.txt |
@@ -243,7 +241,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 This function was originally described at http://jdhitsolutions.com/blog/2014/09/using-optimized-text-files-in-powershell
 

@@ -35,16 +35,16 @@ CommandType     Name                                 Version    Source
 Alias           abt -> Get-AboutInfo
 Alias           bv -> Brave
 Alias           cal -> Get-Calendar                  1.11.0     PSCalendar
-Alias           cc -> Copy-Command                   2.27.0     PSScriptTools
-Alias           cfn -> New-CustomFileName            2.27.0     PSScriptTools
+Alias           cc -> Copy-Command                   3.0.0      PSScriptTools
+Alias           cfn -> New-CustomFileName            3.0.0      PSScriptTools
 Alias           CFS -> ConvertFrom-String            3.1.0.0    Microsoft.Po...
-Alias           cft -> ConvertFrom-Text              2.27.0     PSScriptTools
-Alias           chc -> Convert-HashTableToCode       2.27.0     PSScriptTools
-Alias           che -> Copy-HelpExample              2.27.0     PSScriptTools
+Alias           cft -> ConvertFrom-Text              3.0.0      PSScriptTools
+Alias           chc -> Convert-HashTableToCode       3.0.0      PSScriptTools
+Alias           che -> Copy-HelpExample              3.0.0      PSScriptTools
 Alias           cl -> Create-List
-Alias           clr -> Convert-EventLogRecord        2.27.0     PSScriptTools
-Alias           clt -> ConvertTo-LocalTime           2.27.0     PSScriptTools
-Alias           cmo -> Compare-Module                2.27.0     PSScriptTools
+Alias           clr -> Convert-EventLogRecord        3.0.0      PSScriptTools
+Alias           clt -> ConvertTo-LocalTime           3.0.0      PSScriptTools
+Alias           cmo -> Compare-Module                3.0.0      PSScriptTools
 ...
 ```
 
@@ -111,7 +111,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

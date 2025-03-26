@@ -13,7 +13,7 @@ Filter for unique objects.
 
 ## SYNTAX
 
-```
+```yaml
 Get-PSUnique [-InputObject] <Object> [-Property <String[]>] [<CommonParameters>]
 ```
 
@@ -25,7 +25,7 @@ This command works best with simple objects. Objects with nested objects as prop
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> $clean = Import-CSV c:\data\newinfo.csv | Get-PSUnique
@@ -81,7 +81,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

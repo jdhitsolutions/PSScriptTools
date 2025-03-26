@@ -255,7 +255,7 @@ Function Test-ExpressionForm {
                 #write-host "running" -ForegroundColor green
 
                 $form.Dispatcher.invoke([action] {
-                        if ($sb.Text -notmatch "\w") {
+                        if ($sb.Text -NotMatch "\w") {
                             Write-Warning "You must enter something to test!"
                             Return
                         }

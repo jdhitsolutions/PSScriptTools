@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31Ty8Sm
+online version: https://jdhitsolutions.com/yourls/1c1c19
 schema: 2.0.0
 ---
 
@@ -26,7 +26,7 @@ For best results, run this in the PowerShell ISE or Visual Studio code, the copi
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Copy-Command Get-Process Get-MyProcess
@@ -34,18 +34,18 @@ PS C:\> Copy-Command Get-Process Get-MyProcess
 
 Create a copy of Get-Process called Get-MyProcess.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
-PS C:\> Copy-Command Get-Eventlog -asproxy -useforwardhelp
+PS C:\> Copy-Command Get-Eventlog -AsOroxy -UseForwardHelp
 ```
 
 Create a proxy function for Get-Eventlog and use forwarded help links.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
-PS C:\> Copy-Command Get-ADComputer Get-MyADComputer -includedynamic
+PS C:\> Copy-Command Get-ADComputer Get-MyADComputer -IncludeDynamic
 ```
 
 Create a wrapper function for Get-ADComputer called Get-MyADComputer. Due to the way the Active Directory cmdlets are written, most parameters appear to be dynamic so you need to include dynamic parameters otherwise there will be no parameters in the final function.
@@ -146,7 +146,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

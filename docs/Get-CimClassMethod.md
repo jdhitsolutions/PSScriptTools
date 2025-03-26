@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version:
+online version: https://jdhitsolutions.com/yourls/6e7f5b
 schema: 2.0.0
 ---
 
@@ -57,6 +57,7 @@ You can get a single method by name.
 ## PARAMETERS
 
 ### -CimSession
+
 Specify a computer name or an existing CimSession object.
 
 ```yaml
@@ -72,7 +73,8 @@ Accept wildcard characters: False
 ```
 
 ### -ClassName
-Specify a CIM Class
+
+Specify a CIM Class.
 
 ```yaml
 Type: String
@@ -87,6 +89,7 @@ Accept wildcard characters: False
 ```
 
 ### -Method
+
 Specify a method name.
 Wildcards are permitted.
 
@@ -103,6 +106,7 @@ Accept wildcard characters: True
 ```
 
 ### -Namespace
+
 Specify the class namespace beginning with ROOT
 
 ```yaml
@@ -118,6 +122,7 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -129,6 +134,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### CimClassMethod
 
 ## NOTES
+
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

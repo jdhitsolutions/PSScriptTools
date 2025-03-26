@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SF1ne
+online version: https://jdhitsolutions.com/yourls/9990e3
 schema: 2.0.0
 ---
 
@@ -25,25 +25,25 @@ The default behavior is to write an object to the pipeline, but you can use the 
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-PSWho
 
-User            : Desk01\Jeff
-Elevated        : False
-Computername    : Desk01
-OperatingSystem : Microsoft Windows 10 Pro [64-bit]
-OSVersion       : 10.0.19042
-PSVersion       : 5.1.19041.906
-Edition         : Desktop
+User            : PROSPERO\Jeff
+Elevated        : True
+Computername    : PROSPERO
+OperatingSystem : Microsoft Windows 11 Pro [64-bit]
+OSVersion       : 10.0.26100
+PSVersion       : 7.5.0
+Edition         : Core
 PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : RemoteSigned
 Culture         : English (United States)
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS /home/jhicks> Get-PSWho
@@ -59,31 +59,6 @@ PSHost          : ConsoleHost
 WSMan           : 3.0
 ExecutionPolicy : Unrestricted
 Culture         : Invariant Language (Invariant Country)
-```
-
-### EXAMPLE 3
-
-```powershell
-PS C:\> Get-PSWho
-
-User            : DESK11\Jeff
-Elevated        : True
-Computername    : DESK11
-OperatingSystem : Microsoft Windows 11 Pro [64-bit]
-OSVersion       : 10.0.22623
-PSVersion       : 7.3.3
-Edition         : Core
-PSHost          : ConsoleHost
-WSMan           : 3.0
-ExecutionPolicy : RemoteSigned
-Culture         : English (United States)
-
-```
-
-### EXAMPLE 4
-
-```powershell
-PS C:\> Get-PSWho -asString | Set-Content c:\test\who.txt
 ```
 
 ## PARAMETERS
@@ -120,7 +95,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

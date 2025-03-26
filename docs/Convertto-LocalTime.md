@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31VABfp
+online version: https://jdhitsolutions.com/yourls/a421ca
 schema: 2.0.0
 ---
 
@@ -29,9 +29,9 @@ The parameter for DaylightSavingTime is to indicate that the remote location is 
 ### Example 1
 
 ```powershell
-PS C:\> ConvertTo-LocalTime "3/15/2019 7:00AM" 8:00:00
+PS C:\> ConvertTo-LocalTime "3/15/2025 7:00AM" 8:00:00
 
-Thursday, March 14, 2019 7:00:00 PM
+Friday, March 14, 2025 7:00:00 PM
 ```
 
 Convert a time that is in Singapore to local (Eastern) time.
@@ -51,7 +51,7 @@ SupportsDaylightSavingTime : False
 
 PS C:\> ConvertTo-LocalTime "10:00AM" -10:00:00
 
-Thursday, March 14, 2019 4:00:00 PM
+Friday, March 14, 2025 4:00:00 PM
 ```
 
 In this example, the user is first determining the UTC offset for Hawaii. Then 10:00AM in Honolulu, is converted to local time which in this example is in the Eastern Time zone.
@@ -120,7 +120,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

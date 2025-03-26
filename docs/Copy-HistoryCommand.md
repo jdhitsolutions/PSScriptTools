@@ -43,7 +43,8 @@ Copy the last command to the clipboard.
 
 ```powershell
 PS C:\> Copy-HistoryCommand 25 -PassThru
-get-process -computername $computer | sort ws -Descending | select -first 3
+Get-Process -computername $computer | Sort-Object ws -Descending |
+Select-Object -first 3
 ```
 
 Copy the command from history item 25 to the clipboard and also pass it to the pipeline.
@@ -153,8 +154,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:
-http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

@@ -148,9 +148,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Look at $PSSamplePath\Get-Status.ps1 for a demonstration of this command in a function. The buttons have key acclerators of Q and S.
+Look at $PSSamplePath\Get-Status.ps1 for a demonstration of this command in a function. The buttons have key accelerators of Q and S.
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

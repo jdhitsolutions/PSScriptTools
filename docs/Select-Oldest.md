@@ -34,7 +34,7 @@ PS C:\> Get-ChildItem c:\work -file | Select-oldest 1
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           10/6/2022  4:03 PM           2986 labsummary.format.ps1xml
+-a---           10/6/2024  4:03 PM           2986 labsummary.format.ps1xml
 
 ```
 
@@ -43,7 +43,7 @@ Get the oldest file in the Work folder. This example is using the default -Prope
 ### Example 2
 
 ```powershell
-PS C:\> Get-Process | where-object name -notmatch "idle|System" |
+PS C:\> Get-Process | where-object name -NotMatch "idle|System" |
 oldest 10 -Property starttime
 
  NPM(K)    PM(M)      WS(M)     CPU(s)      Id  SI ProcessName
@@ -126,7 +126,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

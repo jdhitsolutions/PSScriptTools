@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31Vi0zN
+online version: https://jdhitsolutions.com/yourls/812715
 schema: 2.0.0
 ---
 
@@ -33,20 +33,18 @@ Test-Expression [-Expression] <ScriptBlock> [-ArgumentList <Object[]>]
 
 This command will test a PowerShell expression or scriptblock for a specified number of times and calculate the average runtime, in milliseconds, over all the tests. The output will also show the median and trimmed values.
 
-The median is calculated by sorting the values in ascending order and selecting the value in the center of the array.
-If the array has an even number of elements then the median is the average of the two values in the center.
-The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.
+The median is calculated by sorting the values in ascending order and selecting the value in the center of the array. If the array has an even number of elements then the median is the average of the two values in the center. The trimmed value will toss out the lowest and highest values and average the remaining values. This may be the most accurate indication as it will eliminate any small values which might come from caching and any large values which may come a temporary shortage of resources. You will only get a value if you run more than 1 test.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\> $cred = Get-credential globomantics\administrator
+PS C:\> $cred = Get-Credential globomantics\administrator
 PS C:\> $c = "chi-dc01","chi-dc04"
 PS C:\> Test-Expression {
   param ([string[]]$computer,$cred)
-  get-wmiobject win32_logicaldisk -computername $computer -credential $cred
+  Get-CimInstance win32_logicaldisk -computername $computer -credential $cred
   } -argumentList $c,$cred
 
 
@@ -122,7 +120,7 @@ Include the tested expression in the output.
 ### Example 4
 
 ```powershell
-PS C:\> $j=Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
+PS C:\> $j = Test-Expression { get-eventlog -list } -count 10 -Interval 5 -AsJob
 PS C:\> $j | Receive-Job -keep
 
 Tests        : 10
@@ -301,7 +299,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
+
 This command was first described at https://github.com/jdhitsolutions/Test-Expression/blob/master/docs/Test-Expression.md)
 
 ## RELATED LINKS

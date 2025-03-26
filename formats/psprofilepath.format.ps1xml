@@ -42,7 +42,14 @@ format type data generated 09/11/2020 10:48:56 by BOVINE320\Jeff
                 <PropertyName>Path</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Exists</PropertyName>
+                <ScriptBlock>
+                 If ($_.Exists) {
+                   $_.Exists
+                 }
+                 else {
+                  "$([char]27)[91m{0}$([char]27)" -f $_.Exists
+                 }
+                 </ScriptBlock>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

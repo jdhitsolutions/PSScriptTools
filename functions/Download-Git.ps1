@@ -17,7 +17,7 @@ Function Save-GitSetup {
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
             #download the latest 64bit version of Git for Windows
-            $uri = 'https://git-scm.com/download/win'
+            $uri = 'https://git-scm.com/downloads/win'
 
             Write-Verbose "Getting latest version of git from $uri"
             #get the web page

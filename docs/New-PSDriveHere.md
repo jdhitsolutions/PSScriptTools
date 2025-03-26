@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SGnOS
+online version: https://jdhitsolutions.com/yourls/8cb9e3
 schema: 2.0.0
 ---
 
@@ -35,7 +35,7 @@ This command will not write anything to the pipeline unless you use -PassThru.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```PowerShell
 PS C:\users\jeff\documents\Enterprise Mgmt Webinar\> New-PSDriveHere
@@ -43,7 +43,7 @@ PS C:\users\jeff\documents\Enterprise Mgmt Webinar\> New-PSDriveHere
 
 This will create a new PSDrive called Webinar rooted to the current location.
 
-### EXAMPLE 2
+### Example 2
 
 ```powerShell
 PS C:\users\jeff\documents\Enterprise Mgmt Webinar\> New-PSDriveHere -first
@@ -51,7 +51,7 @@ PS C:\users\jeff\documents\Enterprise Mgmt Webinar\> New-PSDriveHere -first
 
 This will create a new PSDrive called Enterprise rooted to the current location.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> New-PSDriveHere HKLM:\software\microsoft -PassThru |
@@ -60,7 +60,7 @@ Select-Object -Expandproperty Name
 microsoft
 ```
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS C:\> New-PSDriveHere -Path "\\NAS\files\powershell" -Name PSFiles
@@ -68,7 +68,7 @@ PS C:\> New-PSDriveHere -Path "\\NAS\files\powershell" -Name PSFiles
 
 Create a new PSDrive called PSFiles rooted to the specified path.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\Users\Jeff\Documents\DeepDive\> New-PSDriveHere . DeepDive -setlocation
@@ -209,7 +209,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 Originally published at http://jdhitsolutions.com/blog/2010/08/New-PSDriveHere/
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31UtHXQ
+online version: https://jdhitsolutions.com/yourls/016d0b
 schema: 2.0.0
 ---
 
@@ -35,19 +35,18 @@ This command requires a Windows platform.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
-PS C:\> $name = Invoke-Inputbox -prompt "Enter a user name" -title "New User"
+PS C:\> $name = Invoke-InputBox -prompt "Enter a user name" -title "New User"
 ```
 
-Display an graphical inputbox with a given prompt and title. The entered value will be saved to $name.
+Display an graphical inputBox with a given prompt and title. The entered value will be saved to $name.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
-PS C:\> $pass = Invoke-Inputbox -prompt "Enter a new password"
--title "New User" -asSecureString -background red
+PS C:\> $pass = Invoke-InputBox -prompt "Enter a new password" -title "New User" -asSecureString -background red
 ```
 
 Get a secure string value from the user. This example also changes the form background to red.
@@ -134,7 +133,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

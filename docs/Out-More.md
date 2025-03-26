@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31OtYvh
+online version: https://jdhitsolutions.com/yourls/5593a0
 schema: 2.0.0
 ---
 
@@ -27,7 +27,7 @@ Note that you may encounter an error message when quitting prematurely, especial
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Process | Out-More -count 10
@@ -47,7 +47,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 
 Display processes in groups of 10.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> dir c:\work -file -Recurse | Out-More -ClearScreen | tee -Variable work
@@ -113,7 +113,7 @@ Accept wildcard characters: False
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 This command was first demonstrated at http://jdhitsolutions.com/blog/powershell/4707/a-better-powershell-more/
 

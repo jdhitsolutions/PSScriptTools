@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Custom script properties to use with Measure-Object to make it easier to format the Sum and Average values.
+-->
+<Types>
+  <Type>
+    <Name>Microsoft.PowerShell.Commands.GenericMeasureInfo</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>SumKB</Name>
+        <GetScriptBlock>[math]::Round($this.sum/1kb,4)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>SumMB</Name>
+        <GetScriptBlock>[math]::Round($this.sum/1mb,4)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>SumGB</Name>
+        <GetScriptBlock>[math]::Round($this.sum/1gb,4)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>AverageKB</Name>
+        <GetScriptBlock>[math]::Round($this.Average/1kb,4)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>AverageMB</Name>
+        <GetScriptBlock>[math]::Round($this.Average/1mb,4)</GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>AverageGB</Name>
+        <GetScriptBlock>[math]::Round($this.Average/1gb,4)</GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>

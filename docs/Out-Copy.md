@@ -45,14 +45,14 @@ Even if your command doesn't write anything to the pipeline, Out-Copy will still
 ### Example 3
 
 ```powershell
-PS C:\> Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3" |
-Out-Copy -commandonly
+PS C:\> Get-CimInstance -class win32_logicaldisk -filter "DriveType = 3" |
+Out-Copy -CommandOnly
 ```
 
 This will run the Get-CimInstance command and write results to the pipeline.
 But the only text that will be copied to the clipboard is:
 
-Get-CimInstance -class win32_logicaldisk -filter "drivetype = 3"
+Get-CimInstance -class win32_logicaldisk -filter "DriveType = 3"
 
 ### Example 4
 
@@ -143,7 +143,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell:http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell:https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

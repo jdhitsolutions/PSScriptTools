@@ -157,7 +157,7 @@ Author : $env:username
         #dynamically insert the command's module if one exists
         $text = @"
 #requires -version $(([regex]"\d+\.\d+").match($PSVersionTable.PSVersion).value)
-$(if ($gcm.modulename -AND $gcm.modulename -notmatch "Microsoft\.PowerShell\.\w+") { "#requires -module $($gcm.modulename)" })
+$(if ($gcm.modulename -AND $gcm.modulename -NotMatch "Microsoft\.PowerShell\.\w+") { "#requires -module $($gcm.modulename)" })
 
 $myComment
 

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31QKJ8X
+online version: https://jdhitsolutions.com/yourls/a1c82a
 schema: 2.0.0
 ---
 
@@ -26,7 +26,7 @@ The original hashtables will not be modified.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> $a=@{Name="Jeff";Count=3;Color="Green"}
@@ -47,7 +47,7 @@ Computer                       HAL
 Count                          3
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\>$c = Join-Hashtable $a $b -force
@@ -128,7 +128,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

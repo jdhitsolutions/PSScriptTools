@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31PAvFT
+online version: https://jdhitsolutions.com/yourls/650472
 schema: 2.0.0
 ---
 
@@ -24,7 +24,7 @@ This function will return all variables not defined by PowerShell or by this fun
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-MyVariable
@@ -40,7 +40,7 @@ r    {1, 2, 3, 4...}        Object[]
 
 Depending on the value and how PowerShell chooses to display it, you may not see the type.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Get-MyVariable | Select-Object name,type
@@ -53,7 +53,7 @@ foo  Int32
 r    Object[]
 ```
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-MyVariable | Export-Clixml myvar.xml
@@ -63,13 +63,13 @@ ForEach-Object {set-variable -Name $_.name -Value $_.value}
 
 You can then import this XML file in another session to restore these variables.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS C:\> function foo {
      c:\scripts\Get-MyVariable2.ps1;
      $a=4;$b=2;$c=$a*$b;
-     Get-MyVariable -notypeinformation -scope 1 -verbose;
+     Get-MyVariable -NoTypeInformation -scope 1 -verbose;
      $c
      }
 
@@ -91,7 +91,7 @@ VERBOSE: Finished getting my variables
 
 This sample function dot sources the script with this function. Within the function, Get-MyVariable is called specifying scope 1, or the parent scope. Scope 0 would be the scope of the Get-MyVariable function. Here's the result.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> Get-MyVariable | where {$_.type -eq "Scriptblock"} |
@@ -106,7 +106,7 @@ run                                gsv | where {$_.status -eq "running"}
 up                                 Param(\[string\]$computername=$env:com...
 ```
 
- Get all my variables that are scriptblocks.
+ Get all my variables that are script blocks.
 
 ## PARAMETERS
 
@@ -157,9 +157,10 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 An earlier version of this function is described at http://jdhitsolutions.com/blog/2012/05/get-my-variable-revisited
+
 
 ## RELATED LINKS
 

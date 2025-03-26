@@ -23,28 +23,21 @@ Use this command to compare script versions between what is installed against an
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Compare-Script | Where-object {$_.UpdateNeeded}
 
-Name             : DNSSuffix
-OnlineVersion    : 0.4.1
-InstalledVersion : 0.2.0
-PublishedDate    : 10/22/2020 8:21:46 PM
+Name             : winfetch
+OnlineVersion    : 2.5.1
+InstalledVersion : 1.0
+PublishedDate    : 8/26/2023 8:12:46 PM
 UpdateNeeded     : True
-
-Name             : InvokeBuild
-OnlineVersion    : 5.4.2
-InstalledVersion : 3.2.2
-PublishedDate    : 12/7/2020 1:30:46 AM
-UpdateNeeded     : True
-...
 ```
 
 List all scripts that could be updated.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Compare-Script | Where UpdateNeeded |
@@ -103,7 +96,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

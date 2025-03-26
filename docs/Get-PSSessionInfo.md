@@ -19,7 +19,7 @@ Get-PSSessionInfo [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will provide a snapshot of the current PowerShell session. The Runtime and Memory properties are defined by script so if you save the result to a variable, you will get current values everytime you look at the variable.
+This command will provide a snapshot of the current PowerShell session. The Runtime and Memory properties are defined by script so if you save the result to a variable, you will get current values every time you look at the variable.
 
 ## EXAMPLES
 
@@ -31,7 +31,7 @@ PS C:\> Get-PSSessionInfo
 ProcessID   : 1112
 Command     : "C:\Program Files\PowerShell\7\pwsh.exe" -noprofile
 Host        : ConsoleHost
-Started     : 4/9/2021 9:36:13 AM
+Started     : 4/9/2024 9:36:13 AM
 PSVersion   : 7.1.3
 Elevated    : True
 Parent      : System.Diagnostics.Process (WindowsTerminal)
@@ -49,7 +49,7 @@ PS /home> Get-PSSessionInfo
 ProcessID   : 71
 Command     : pwsh
 Host        : ConsoleHost
-Started     : 04/09/2021 09:38:55
+Started     : 04/09/2024 09:38:55
 PSVersion   : 7.1.3
 Elevated    : False
 Parent      : System.Diagnostics.Process (bash)
@@ -77,7 +77,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 This command has an alias of gsin.
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31Nn21e
+online version: https://jdhitsolutions.com/yourls/ed89f2
 schema: 2.0.0
 ---
 
@@ -42,7 +42,7 @@ The command does not create a text file. You need to pipe results from this comm
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Service Bits,Winrm |
@@ -52,7 +52,7 @@ ConvertTo-Markdown -title "Service Check" -PreContent "## $($env:computername)"`
 
 Create markdown output from a Get-Service command and save the output to a file.
 
-### EXAMPLE 2
+### Example 2
 
 ````powershell
 PS C:\> $computers = "srv1","srv2","srv4"
@@ -80,7 +80,7 @@ PS C:\>$out | Set-Content c:\work\report.md
 
 Here is an example that creates a series of markdown fragments for each computer and in the end creates a markdown document. The commands are shown at a PowerShell prompt, but you are likely to put them in a PowerShell script file.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -AsList
@@ -103,7 +103,7 @@ PS C:\> Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent 
 
 Create a "list" table with output from the Get-WindowsVersion command.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
 PS C:\> Get-Service | Sort-Object -property DisplayName |

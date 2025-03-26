@@ -42,9 +42,9 @@ Write-Detail "Processing data" | Write-Verbose
 $grouped | Add-Member -MemberType ScriptProperty -Name Size -Value { ($this.group | Measure-Object -Property length -Sum).sum }
 
 $c = [ordered]@{
-    { $psitem.size -ge 1MB }   = "red"
-    { $psitem.size -ge 250KB } = "yellow"
-    { $psitem.size -le 10KB }  = "green"
+    { $psitem.Size -ge 1MB }   = "red"
+    { $psitem.Size -ge 250KB } = "yellow"
+    { $psitem.Size -le 10KB }  = "green"
 }
 
 $grouped | Sort-Object -Property Name | Out-ConditionalColor -Conditions $c -OutVariable data

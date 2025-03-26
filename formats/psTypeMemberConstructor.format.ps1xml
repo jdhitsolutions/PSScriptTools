@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--A custom formatting outline-->
+<Configuration>
+    <ViewDefinitions>
+        <View>
+            <Name>default</Name>
+            <ViewSelectedBy>
+                <TypeName>psTypeMemberConstructor</TypeName>
+            </ViewSelectedBy>
+            <CustomControl>
+                <CustomEntries>
+                    <CustomEntry>
+                        <CustomItem>
+                            <ExpressionBinding>
+                                <ScriptBlock>
+                                    foreach ($item in $_) {
+                                        if ($item.parameters) {
+                                            $p = @()
+                                            foreach ($pm in $item.parameters) {
+                                                #if the name is contains mixed casing ignore it otherwise convert to title case
+                                                if ($pm.ParameterName -cMatch '[A-Z]') {
+                                                    $name = $pm.ParameterName
+                                                }
+                                                else {
+                                                    $name = ConvertTo-TitleCase $pm.ParameterName
+                                                }
+                                                $p += "[$((Get-PSReadLineOption).TypeColor){0}$([char]27)[0m]$((Get-PSReadLineOption).VariableColor)`${1}$([char]27)[0m)" -f $pm.ParameterType, $Name
+                                            } #foreach pm
+                                        }
+                                        else {
+                                            $p = $Null
+                                        }
+                                        if ($item.Parameters.count -ge 3) {
+                                            #display larger parameter sets vertically
+                                            $join = ",`n`t`t`t"
+                                        }
+                                        else {
+                                            $join = ","
+                                        }
+                                        '[{0}]::new({1})' -f $item.Type,  ($p -join $join)
+                                    }
+
+                                </ScriptBlock>
+                            </ExpressionBinding>
+                            <NewLine/>
+                        </CustomItem>
+                    </CustomEntry>
+                </CustomEntries>
+            </CustomControl>
+        </View>
+    </ViewDefinitions>
+</Configuration>

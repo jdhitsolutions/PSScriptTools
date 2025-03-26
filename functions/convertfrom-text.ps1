@@ -4,7 +4,7 @@ Function ConvertFrom-Text {
     Param(
         [Parameter(Position = 0, Mandatory, HelpMessage = "Enter a regular expression pattern that uses named captures")]
         [ValidateScript( {
-            if (($_.GetGroupNames() | Where-Object {$_ -notmatch "^\d{1}$"}).Count -ge 1) {
+            if (($_.GetGroupNames() | Where-Object {$_ -NotMatch "^\d{1}$"}).Count -ge 1) {
                 $True
             }
             else {
@@ -50,7 +50,7 @@ Function ConvertFrom-Text {
             $ProgressPreference = "SilentlyContinue"
         }
         #Get the defined capture names
-        $names = $pattern.GetGroupNames() | Where-Object {$_ -notmatch "^\d+$"}
+        $names = $pattern.GetGroupNames() | Where-Object {$_ -NotMatch "^\d+$"}
         Write-Verbose "$((Get-Date).TimeOfDay) Using names: $($names -join ',')"
 
         #define a hashtable of parameters to splat with Write-Progress

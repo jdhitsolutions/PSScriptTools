@@ -30,9 +30,7 @@ The command output will use a wide format by default. However, other wide views 
 ```powershell
 PS C:\> Get-DirectoryInfo
 
-
    Path: C:\
-
 
 gemfonts [15]                   PerfLogs [0]
 Pluralsight [17]                Presentations [1]
@@ -53,7 +51,6 @@ PS C:\> Get-DirectoryInfo -Path D:\ | Format-Wide -View sizemb
 
    Path: D:\
 
-
 autolab [0MB]                                            backtemp [0MB]
 Backup [0.01MB]                                          Backups [140.49MB]
 bovine320 [0MB]                                          Databases [0MB]
@@ -64,7 +61,7 @@ temp [10.67MB]                                           video [83.56MB]
 VMDisks [68053MB]                                        VMs [0MB]
 ```
 
-Using one of the alternate Format-Wide views. Other views are size and sizekb.
+Using one of the alternate Format-Wide views. Other views are Size and SizeKb.
 
 ### Example 3
 
@@ -160,7 +157,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

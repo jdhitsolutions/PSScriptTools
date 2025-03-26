@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31PzBsZ
+online version: https://jdhitsolutions.com/yourls/44067f
 schema: 2.0.0
 ---
 
@@ -33,7 +33,7 @@ This command will create a character or text-based border around a line of text.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Add-Border "PowerShell Wins!"
@@ -43,7 +43,7 @@ PS C:\> Add-Border "PowerShell Wins!"
 ********************
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> Add-Border "PowerShell Wins!" -tab 1
@@ -55,7 +55,7 @@ PS C:\> Add-Border "PowerShell Wins!" -tab 1
 
 Note that this example may not format properly in all consoles.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Add-Border "PowerShell Wins!" -character "-" -insertBlanks
@@ -67,10 +67,10 @@ PS C:\> Add-Border "PowerShell Wins!" -character "-" -insertBlanks
 --------------------
 ```
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
-PS C:\> Add-Border -textblock (Get-Service win* | Out-String).trim()
+PS C:\> Add-Border -TextBlock (Get-Service win* | Out-String).trim()
 
 **********************************************************************
 * Status   Name               DisplayName                            *
@@ -84,7 +84,7 @@ PS C:\> Add-Border -textblock (Get-Service win* | Out-String).trim()
 
 Create a border around the output of a Get-Service command.
 
-### EXAMPLE 5
+### Example 5
 
 ```powershell
 PS C:\> Add-Border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m"
@@ -100,10 +100,10 @@ PS C:\> Add-Border -Text $t -ANSIBorder "$([char]0x1b)[38;5;47m"
 
 This will write a color version of the text and border. You would this type of ANSI syntax for Windows PowerShell. In PowerShell 7, you can use the same syntax or the much easier "`e[38;5;47m".
 
-### EXAMPLE 6
+### Example 6
 
 ```powershell
-PS C:\> Add-Border -textblock (Get-PSWho -AsString ).trim() -ANSIBorder
+PS C:\> Add-Border -TextBlock (Get-PSWho -AsString ).trim() -ANSIBorder
 "`e[38;5;214m" -Character ([char]0x25CA) -ANSIText "`e[38;5;225m"
 
 ◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊◊
@@ -251,7 +251,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

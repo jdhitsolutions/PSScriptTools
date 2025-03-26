@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/2O8y50B
+online version: https://jdhitsolutions.com/yourls/42ce51
 schema: 2.0.0
 ---
 
@@ -20,9 +20,7 @@ Save-GitSetup [[-Path] <String>] [-PassThru] [<CommonParameters>]
 ## DESCRIPTION
 
 Non-Windows platforms have package management that make it easy to install newer versions of git.
-This command is for Windows platforms.
-You can run this command to download the latest 64bit version of Git for Windows.
-You will need to manually install it.
+This command is for Windows platforms. You can run this command to download the latest 64bit version of Git for Windows. You will need to manually install it.
 
 ## EXAMPLES
 
@@ -35,7 +33,7 @@ C:\> Save-GitSetup -Path c:\work -PassThru
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---          12/28/2020  7:29 PM       48578904 Git-2.29.2.3-64-bit.exe
+-a---           3/26/2025 10:50 AM       70287136 Git-2.49.0-64-bit.exe
 ```
 
 ## PARAMETERS
@@ -88,7 +86,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

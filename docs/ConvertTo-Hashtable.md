@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31SG9Y2
+online version: https://jdhitsolutions.com/yourls/8dbc36
 schema: 2.0.0
 ---
 
@@ -24,11 +24,11 @@ This command will take an object and create a hashtable based on its properties.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Process -id $pid |
-Select-Object name,id,handles,workingset |
+Select-Object name,id,handles,WorkingSet |
 ConvertTo-Hashtable
 
 Name                           Value
@@ -39,7 +39,7 @@ Id                             3456
 Handles                        958
 ```
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> $hash = Get-Service spooler |
@@ -62,12 +62,12 @@ DisplayName                    Print Spooler
 
 This created a hashtable from the Spooler service object, skipping empty properties and excluding CanStop and CanPauseAndContinue.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-Service bits |
 Select-Object Name,DisplayName,Status,
-@{Name="Computername";Expression={$_.Machinename}} |
+@{Name="Computername";Expression={$_.MachineName}} |
 ConvertTo-Hashtable -Alphabetical
 
 Name                           Value
@@ -161,7 +161,7 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 This was originally described at: http://jdhitsolutions.com/blog/2013/01/convert-powershell-object-to-hashtable-revised
 

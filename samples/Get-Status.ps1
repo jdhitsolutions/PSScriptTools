@@ -93,7 +93,7 @@ Function Get-Status {
                 Trace-Message  "Querying $($cimParams.ClassNamer)"
                 Get-CimInstance @cimParams | ForEach-Object {
                     $name = "PctFree{0}" -f $_.deviceid.substring(0, 1)
-                    $pctFree = [math]::Round(($_.FreeSpace / $_.size) * 100, 2)
+                    $pctFree = [math]::Round(($_.FreeSpace / $_.Size) * 100, 2)
                     $hash.add($name, $pctFree)
                 }
 

@@ -51,7 +51,7 @@ Get module commands using the default formatted view. You can install this modul
 ### Example 2
 
 ```powershell
-PS C:\> Get-ModuleCommand smbshare -ListAvailable | Format-List
+PS C:\> Get-ModuleCommand SmbShare -ListAvailable | Format-List
 
 
 ModuleName : SmbShare
@@ -78,8 +78,6 @@ Using the default list view.
 ```powershell
 PS C:\> Get-ModuleCommand PSScriptTools | Format-Table -view verb
 
-
-
    Verb: Add
 
 Name             Alias        Type        Synopsis
@@ -103,7 +101,7 @@ Display commands using a custom table view called 'Verb'.
 ```powershell
 PS C:\ Get-ModuleCommand PSScriptTools | Format-Table -view version
 
-   ModuleName: PSScriptTools [v2.41.0]
+   ModuleName: PSScriptTools [v3.0.0]
 
 Name                        Alias             Compatible      PSVersion
 ----                        -----             ----------      ---------
@@ -190,7 +188,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 

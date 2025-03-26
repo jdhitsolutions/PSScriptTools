@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: http://bit.ly/31TxZyi
+online version: https://jdhitsolutions.com/yourls/66cb30
 schema: 2.0.0
 ---
 
@@ -53,7 +53,7 @@ This command requires a Windows platform.
 
 ## EXAMPLES
 
-### EXAMPLE 1
+### Example 1
 
 ```powershell
 PS C:\> Get-Process | Sort-Object WS -Descending |
@@ -63,7 +63,7 @@ ConvertTo-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 
 Get the top 20 processes based on the value of the WorkingSet property and display selected properties in the WPF Grid. The contents will automatically refresh every 20 seconds. You will need to manually close the form.
 
-### EXAMPLE 2
+### Example 2
 
 ```powershell
 PS C:\> $vmhost = "CHI-HVR2"
@@ -71,24 +71,24 @@ PS C:\> Get-VM -computername $VMHost | Select Name,State,Uptime,
 @{Name="AssignedMB";Expression={$_.MemoryAssigned/1mb -as [int]}},
 @{Name="DemandMB";Expression={$_.MemoryDemand/1mb -as [int]}} |
 ConvertTo-WPFGrid -title "VM Report $VMHost" -timeout 30 -refresh
--uselocalvariable VMHost
+-UseLocalVariable VMHost
 ```
 
 Get Hyper-V virtual machine information and refresh every 30 seconds. Because the command is using a locally defined variable it is also being used in the form. Note that this would be written as one long pipelined expression. It is formatted here for the sake of the help documentation.
 
-### EXAMPLE 3
+### Example 3
 
 ```powershell
 PS C:\> Get-VMData -host CHI-HVR2 |
-ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -useprofile
+ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -UseProfile
 ```
 
 This example uses a hypothetical command that might be defined in a PowerShell profile script. ConvertTo-WPFGrid will load the profile scripts so that the data can be updated every 60 seconds.
 
-### EXAMPLE 4
+### Example 4
 
 ```powershell
-PS C:\> (Get-ProcessData -Computername $computers).where({$_.workingset -ge 100mb}) |
+PS C:\> (Get-ProcessData -Computername $computers).where({$_.WorkingSet -ge 100mb}) |
 ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30
 ```
 
@@ -256,7 +256,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: http://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 
