@@ -1,4 +1,41 @@
 Function ConvertTo-Markdown {
+    <#
+    .SYNOPSIS
+    Converts PowerShell output into Markdown formatted text.
+    .DESCRIPTION
+    The ConvertTo-Markdown function takes PowerShell objects and converts them into Markdown formatted text.
+    It can output the data in three different formats:
+    - Plain text (default)
+    - Markdown table
+    - Two-column list
+    .PARAMETER InputObject
+    The PowerShell object(s) to convert to Markdown. Accepts pipeline input.
+    .PARAMETER Title
+    Adds a title at the beginning of the output using Markdown H1 formatting (# Title).
+    .PARAMETER PreContent
+    Text to insert before the main content. Useful for adding descriptions or context.
+    .PARAMETER PostContent
+    Text to append after the main content.
+    .PARAMETER Width
+    The width of the text output when using the default text format. Must be at least 10 characters wide.
+    Default value is 80.
+    .PARAMETER AsTable
+    Formats the output as a Markdown table. Best used with objects that have consistent properties.
+    .PARAMETER AsList
+    Formats the output as a two-column Markdown table showing property names and their values.
+    .INPUTS
+    System.Object
+    .OUTPUTS
+    System.String
+    .EXAMPLE
+    Get-Process | Select-Object -First 5 | ConvertTo-Markdown -Title "Process List"
+    .EXAMPLE
+    Get-Service | Select-Object -First 3 | ConvertTo-Markdown -AsTable
+    .EXAMPLE
+    Get-ComputerInfo | Select-Object WindowsProductName,OsVersion | ConvertTo-Markdown -AsList
+    .LINK
+    https://github.com/jdhitsolutions/PSScriptTools
+    #>
     [cmdletbinding(DefaultParameterSetName = "text")]
     [OutputType([string[]])]
     [alias('ctm')]
