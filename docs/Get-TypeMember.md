@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://bit.ly/3JVpGLB
+online version: https://jdhitsolutions.com/yourls/cff650
 schema: 2.0.0
 ---
 
@@ -94,7 +94,7 @@ FromFileTime    Method     DateTime       True
 ### Example 3
 
 ```powershell
-PS C:\> Get-TypeMember system.io.fileinfo -MemberType Property
+PS C:\> Get-TypeMember System.IO.FileInfo -MemberType Property
 
    Type: System.IO.FileInfo
 
@@ -119,19 +119,20 @@ Get only properties for System.IO.FileInfo.
 PS C:\> Get-TypeMember datetime -MemberName add* | Format-Table -view syntax
 
         Type: System.DateTime
+   Type: System.DateTime
 
 Name            ReturnType Syntax
 ----            ---------- ------
-Add             DateTime   $obj.Add(\[TimeSpan\]value)
-AddDays         DateTime   $obj.AddDays(\[Double\]value)
-AddHours        DateTime   $obj.AddHours(\[Double\]value)
-AddMicroseconds DateTime   $obj.AddMicroseconds(\[Double\]value)
-AddMilliseconds DateTime   $obj.AddMilliseconds(\[Double\]value)
-AddMinutes      DateTime   $obj.AddMinutes(\[Double\]value)
-AddMonths       DateTime   $obj.AddMonths(\[Int32\]months)
-AddSeconds      DateTime   $obj.AddSeconds(\[Double\]value)
-AddTicks        DateTime   $obj.AddTicks(\[Int64\]value)
-AddYears        DateTime   $obj.AddYears(\[Int32\]value)
+Add             DateTime   $obj.Add([TimeSpan]value)
+AddDays         DateTime   $obj.AddDays([Double]value)
+AddHours        DateTime   $obj.AddHours([Double]value)
+AddMicroseconds DateTime   $obj.AddMicroseconds([Double]value)
+AddMilliseconds DateTime   $obj.AddMilliseconds([Double]value)
+AddMinutes      DateTime   $obj.AddMinutes([Double]value)
+AddMonths       DateTime   $obj.AddMonths([Int32]months)
+AddSeconds      DateTime   $obj.AddSeconds([Double]value)
+AddTicks        DateTime   $obj.AddTicks([Int64]value)
+AddYears        DateTime   $obj.AddYears([Int32]value)
 ```
 
 Use the custom table view to see method syntax.
@@ -139,7 +140,7 @@ Use the custom table view to see method syntax.
 ### Example 5
 
 ```powershell
-PS C:\> Get-TypeMember system.io.path -static | Where-Object MemberType -eq 'method' | Select-Object MethodSyntax
+PS C:\> Get-TypeMember System.IO.Path -static | Where-Object MemberType -eq 'method' | Select-Object MethodSyntax
 
 Name                        ReturnType     IsStatic Syntax
 ----                        ----------     -------- ------

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://bit.ly/2SSgQCM
+online version: https://jdhitsolutions.com/yourls/f93f83
 schema: 2.0.0
 ---
 
@@ -30,8 +30,6 @@ NOTE: If you are using the Windows Terminal and are at the bottom of the screen,
 
 ```powershell
 PS C:\> Write-ANSIProgress -BarSymbol Block -PercentComplete .78 -ToHost
-
- 78% ███████████████████████████████████████
 ```
 
 This will build a progress bar using a block symbol and the default ANSI color escape. The output will be to the host, not the pipeline.

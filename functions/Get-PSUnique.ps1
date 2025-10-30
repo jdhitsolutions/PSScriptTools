@@ -43,15 +43,6 @@ Function Get-PSUnique {
 
             }
         }
-        <# foreach ($item in $InputObject) {
-            if ($UniqueList.Exists( { -not(Compare-Object $args[0].PSObject.properties.value $item.PSObject.Properties.value) })) {
-                Write-Debug "[$((Get-Date).TimeOfDay) PROCESS] Skipping: $($item |Out-String)"
-            }
-            else {
-                Write-Debug "[$((Get-Date).TimeOfDay) PROCESS] Adding as unique: $($item | Out-String)"
-                $UniqueList.add($item)
-            }
-        } #>
     } #process
 
     End {

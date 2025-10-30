@@ -698,7 +698,8 @@ Foreach-Object { Update-Script $_.name }</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression with multiple parameters and you would like to turn it into splatting code.</maml:para>
+      <maml:para>This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression with multiple parameters and you would like to turn it into splatting code. For best results, the command expression should use parameter names and not rely on positional parameters.</maml:para>
+      <maml:para>The command may produce an invalid hashtable with complex expressions as parameter values.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -759,10 +760,22 @@ Foreach-Object { Update-Script $_.name }</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $text ="Get-WinEvent -ListLog p* -computername SRV1 -ErrorAction stop"
+        <dev:code>PS C:\&gt; $text = "Get-WinEvent -ListLog p* -computername SRV1 -ErrorAction stop"
 PS C:\&gt; Convert-CommandToHashtable -Text $text | Set-Clipboard</dev:code>
         <dev:remarks>
           <maml:para>The $text variable might be a line of code from your script. The second line converts into a splatting sequence and copies it to the Windows clipboard so you can paste it back into your script. You could create a VS Code task sequence using this function.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Convert-CommandToHashtable -Text (h 149).Commandline
+$paramHash = @{
+  path = "c:\work"
+  filter = "*.ps1"
+  recurse = $True
+}</dev:code>
+        <dev:remarks>
+          <maml:para>Convert command 149 from command history into a hashtable.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -1108,7 +1121,7 @@ CreatedOn                      BOVINE320</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command has not been tested with large or complex hashtables, so you might need to manually edit the output to meet your tastes or requirements.</maml:para>
+      <maml:para>Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command has not been tested with large or complex hashtables, so you might need to manually edit the output to meet your requirements.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1354,7 +1367,7 @@ Running processes: 306</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3qfPnwj</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/e41450</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -2077,9 +2090,7 @@ Monday, March 4, 2020 1:00:00 PM</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Process -id $pid |
-Select-Object name,id,handles,WorkingSet |
-ConvertTo-Hashtable
+        <dev:code>PS C:\&gt; Get-Process -id $pid | Select-Object name,id,handles,WorkingSet | ConvertTo-Hashtable
 
 Name                           Value
 ----                           -----
@@ -2914,7 +2925,7 @@ Al Fresco</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3gQclWl</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/7011bb</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -3829,7 +3840,7 @@ Please select items to copy to the clipboard by number. Separate multiple entrie
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3dlKTfI</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/740c69</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Help</maml:linkText>
@@ -4026,7 +4037,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3nPKjwX</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/8993e3</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-History</maml:linkText>
@@ -4170,7 +4181,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2FpejNh</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/db6584</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Copy-Item</maml:linkText>
@@ -4318,7 +4329,7 @@ Mode                 LastWriteTime         Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/361o7Y9</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/33a505</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSAnsiFileMap</maml:linkText>
@@ -6648,7 +6659,7 @@ Get-Item -LiteralPath &lt;string[]&gt; [-Filter &lt;string&gt;] [-Include &lt;st
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2H0mgti</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/8179d4</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Help</maml:linkText>
@@ -6843,7 +6854,7 @@ PostSetup         5    15275</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2GU4iIK</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/4c623c</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
@@ -7028,7 +7039,7 @@ Extension Count TotalSize Smallest   Average  Largest
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3f50Wjs</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/b35e8a</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-FolderSizeInfo</maml:linkText>
@@ -7288,7 +7299,7 @@ False</dev:code>
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---          10/28/2021  9:36 AM          30145 1000FemaleNames.txt
+-a---           4/15/2025  9:13 AM          30154 1000FemaleNames.txt
 -a---           12/5/2007  2:19 PM          29618 1000MaleNames.txt
 -a---            6/2/2010 11:02 AM          31206 1000names.txt
 -a---            6/3/2010  8:52 AM           3154 100names.txt
@@ -7674,7 +7685,7 @@ System.ServiceProcess.ServiceController         {service, service, Ansi}</dev:co
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3dw2Nwo</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/6bc198</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-FormatData</maml:linkText>
@@ -7803,7 +7814,7 @@ C:\scripts\PSReleaseTools                       440          3.0588</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3bj81JZ</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/0e78eb</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
@@ -8029,7 +8040,7 @@ Mode                 LastWriteTime         Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3FbzOu3</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/ba32af</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-ChildItem</maml:linkText>
@@ -8060,38 +8071,7 @@ Mode                 LastWriteTime         Length Name
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-ModuleCommand</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>FullyQualifiedName</maml:name>
-          <maml:description>
-            <maml:para>Specifies names of modules in the form of ModuleSpecification objects. The FullyQualifiedName parameter accepts a module name that is specified in the following formats:</maml:para>
-            <maml:para>@{ModuleName = "modulename"; ModuleVersion = "version_number"}</maml:para>
-            <maml:para>@{ModuleName = "modulename"; ModuleVersion = "version_number"; Guid = "GUID"}</maml:para>
-            <maml:para>ModuleName and ModuleVersion are required, but Guid is optional.</maml:para>
-            <maml:para>You cannot specify the FullyQualifiedName parameter in the same command as a Name parameter.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">ModuleSpecification</command:parameterValue>
-          <dev:type>
-            <maml:name>ModuleSpecification</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>ListAvailable</maml:name>
-          <maml:description>
-            <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module finds modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
-            <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>Get-ModuleCommand</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
           <maml:name>Name</maml:name>
           <maml:description>
             <maml:para>The name of an installed module.</maml:para>
@@ -8108,6 +8088,7 @@ Mode                 LastWriteTime         Length Name
           <maml:description>
             <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module finds modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
             <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
+            <maml:para>If you have multiple versions of the module, you might get duplicated entries.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -8115,30 +8096,27 @@ Mode                 LastWriteTime         Length Name
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="named" aliases="none">
+          <maml:name>CommandName</maml:name>
+          <maml:description>
+            <maml:para>Command name to search for</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>FullyQualifiedName</maml:name>
-        <maml:description>
-          <maml:para>Specifies names of modules in the form of ModuleSpecification objects. The FullyQualifiedName parameter accepts a module name that is specified in the following formats:</maml:para>
-          <maml:para>@{ModuleName = "modulename"; ModuleVersion = "version_number"}</maml:para>
-          <maml:para>@{ModuleName = "modulename"; ModuleVersion = "version_number"; Guid = "GUID"}</maml:para>
-          <maml:para>ModuleName and ModuleVersion are required, but Guid is optional.</maml:para>
-          <maml:para>You cannot specify the FullyQualifiedName parameter in the same command as a Name parameter.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">ModuleSpecification</command:parameterValue>
-        <dev:type>
-          <maml:name>ModuleSpecification</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ListAvailable</maml:name>
         <maml:description>
           <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module finds modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
           <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
+          <maml:para>If you have multiple versions of the module, you might get duplicated entries.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -8147,10 +8125,22 @@ Mode                 LastWriteTime         Length Name
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="0" aliases="none">
         <maml:name>Name</maml:name>
         <maml:description>
           <maml:para>The name of an installed module.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="named" aliases="none">
+        <maml:name>CommandName</maml:name>
+        <maml:description>
+          <maml:para>Command name to search for</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -8190,22 +8180,32 @@ Mode                 LastWriteTime         Length Name
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-ModuleCommand PSCalendar
 
+   ModuleName: PSCalendar [v2.10.1]
 
-   ModuleName: PSCalendar [v2.9.0]
-
-Name             Alias Synopsis
-----             ----- --------
-Get-Calendar     cal   Displays a visual representation of a calendar.
-Show-Calendar    scal  Display a colorized calendar month in the console.
-Show-GuiCalendar gcal  Display a WPF-based calendar</dev:code>
+Name                           Alias                        Synopsis
+----                           -----                        --------
+Export-PSCalendarConfiguration Save-PSCalendarConfiguration Save the current calendar configuration
+                                                            settings to a file.
+Get-Calendar                   cal                          Displays a visual representation of a
+                                                            calendar.
+Get-MonthName                  mon                          Get the list of month names.
+Get-NCalendar                  ncal                         Display a Linux-style ncal calendar.
+Get-PSCalendarConfiguration                                 Get the current PSCalendar ANSI
+                                                            configuration.
+Set-PSCalendarConfiguration                                 Modify the PSCalendar ANSI
+                                                            configuration.
+Show-Calendar                  scal                         Display a colorized calendar month in
+                                                            the console.
+Show-GuiCalendar               gcal                         Display a WPF-based calendar.
+Show-PSCalendarHelp                                         Display a help PDF file for the
+                                                            PSCalendar module.</dev:code>
         <dev:remarks>
-          <maml:para>Get module commands using the default formatted view. You can install this module from the PowerShell Gallery.</maml:para>
+          <maml:para>Get module commands using the default formatted view. You can install the PSCalendar module from the PowerShell Gallery.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-ModuleCommand SmbShare -ListAvailable | Format-List
-
 
 ModuleName : SmbShare
 Name       : Block-SmbShareAccess
@@ -8252,14 +8252,13 @@ Compare-Module  cmo             Function    Compare PowerShell module versions.
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\ Get-ModuleCommand PSScriptTools | Format-Table -view version
 
-   ModuleName: PSScriptTools [v3.0.0]
+   ModuleName: PSScriptTools [v3.1.0]
 
-Name                        Alias             Compatible      PSVersion
-----                        -----             ----------      ---------
-Add-Border                  ab                {Desktop, Core}       5.1
-Compare-Module              cmo               {Desktop, Core}       5.1
-Compare-Script              csc               {Desktop, Core}       5.1
-Convert-CommandToHashtable                    {Desktop, Core}       5.1
+Name                              Alias             Compatible      PSVersion
+----                              -----             ----------      ---------
+Add-Border                        ab                {Desktop, Core}       5.1
+Compare-Module                    cmo               {Desktop, Core}       5.1
+Compare-Script                    csc               {Desktop, Core}       5.1
 ...</dev:code>
         <dev:remarks>
           <maml:para>Using the custom table view 'version'.</maml:para>
@@ -8269,7 +8268,7 @@ Convert-CommandToHashtable                    {Desktop, Core}       5.1
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2Kfjm1Q</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/71e8ba</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Command</maml:linkText>
@@ -8717,7 +8716,7 @@ Timestamp             Category        Counter             Value
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2JS5NZ1</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/8ff794</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Counter</maml:linkText>
@@ -9548,7 +9547,7 @@ Exists       : False</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/33UwYKo</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/84301a</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -9606,7 +9605,7 @@ Exists       : False</dev:code>
       </command:returnValue>
       <command:returnValue>
         <dev:type>
-          <maml:name>PSCustomObject</maml:name>
+          <maml:name>PSEngine</maml:name>
         </dev:type>
         <maml:description>
           <maml:para></maml:para>
@@ -9631,26 +9630,10 @@ C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe</dev:code>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-PowerShellEngine -detail
 
-Path           : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
-FileVersion    : 10.0.15063.0 (WinBuild.160101.0800)
-PSVersion      : 5.1.15063.502
-ProductVersion : 10.0.15063.0
-Edition        : Desktop
-Host           : Visual Studio Code Host
-Culture        : en-US
-Platform       :</dev:code>
-        <dev:remarks>
-          <maml:para>This result is from running in the Visual Studio Code integrated PowerShell terminal.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-PowerShellEngine -detail
-
 Path           : C:\Program Files\PowerShell\7\pwsh.exe
 FileVersion    : 7.5.0.500
 PSVersion      : 7.5.0
-ProductVersion : 7.5.0 SHA: 99dab561892364d82d4965068f7f8b175e768b1b+99dab561892364d82d4965068f7f8b175e768b1b
+ProductVersion : 7.5.0 SHA: 99dab561892364d82d4965068f7f8b175e768b1b+99dab561892364d82d4965068f7...
 Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
@@ -9740,7 +9723,7 @@ Text         \.((txt)|(log)|(htm(l)?))$  `e[38;2;58;120;255m`e[38;2;58;120;255m
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3sKBrcR</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/fe1951</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-PSAnsiFileMap</maml:linkText>
@@ -9796,24 +9779,28 @@ Text         \.((txt)|(log)|(htm(l)?))$  `e[38;2;58;120;255m`e[38;2;58;120;255m
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-PSLocation
 
-Temp       : C:\Users\Jeff\AppData\Local\Temp\
-Home       : C:\Users\Jeff\Documents
-Desktop    : C:\Users\Jeff\Desktop
-PowerShell : C:\Users\Jeff\Documents\WindowsPowerShell
-PSHome     : C:\Windows\System32\WindowsPowerShell\v1.0</dev:code>
+Home        : C:\Users\Jeff
+Documents   : C:\Users\Jeff\Documents
+Temp        : C:\Users\Jeff\AppData\Local\Temp\
+Desktop     : C:\Users\Jeff\Desktop
+PowerShell  : C:\Users\Jeff\Documents\PowerShell
+PSHome      : C:\Program Files\PowerShell\7
+ModulePaths : {C:\Users\Jeff\Documents\PowerShell\Modules, C:\Program Files\PowerShell\Modules,...}</dev:code>
         <dev:remarks>
-          <maml:para>Results on a Windows system.</maml:para>
+          <maml:para>Results on a Windows system running PowerShell 7</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-PSLocation
+        <dev:code>PS /home&gt; Get-PSLocation
 
-Temp       : /tmp/
-Home       : /home/jeff
-Desktop    :
-PowerShell : /home/jeff/.config/powershell
-PSHome     : /opt/microsoft/powershell/7</dev:code>
+Home        : /home/jeff
+Documents   :
+Temp        : /tmp/
+Desktop     :
+PowerShell  : /home/jeff/.config/powershell
+PSHome      : /opt/microsoft/powershell/7
+ModulePaths : {/home/jeff/.local/share/powershell/Modules, /usr/local/share/powershell/Modules, ...}</dev:code>
         <dev:remarks>
           <maml:para>Results on a Linux system running PowerShell.</maml:para>
         </dev:remarks>
@@ -9844,7 +9831,7 @@ PSHome     : /opt/microsoft/powershell/7</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed for Windows-based systems to show all possible PowerShell profile scripts. Including those for VS Code and the PowerShell ISE.</maml:para>
+      <maml:para>This command is designed to show all possible PowerShell profile scripts. Including those for VS Code and the PowerShell ISE.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -9884,62 +9871,80 @@ PSHome     : /opt/microsoft/powershell/7</dev:code>
 
    Name: PowerShell
 
-Scope                  Path                                                                Exists
------                  ----                                                                ------
-AllUsersCurrentHost    C:\Program Files\PowerShell\7\Microsoft.PowerShell_profile.ps1      False
-AllUsersAllHosts       C:\Program Files\PowerShell\7\profile.ps1                           False
-CurrentUserAllHosts    C:\Users\Jeff\Documents\PowerShell\profile.ps1                      True
-CurrentUserCurrentHost C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 True
-
+Scope                  Exists Path
+-----                  ------ ----
+AllUsersAllHosts       True   C:\Program Files\PowerShell\7\profile.ps1
+AllUsersCurrentHost    False  C:\Program Files\PowerShell\7\Microsoft.PowerShel…
+CurrentUserAllHosts    True   C:\Users\Jeff\Documents\PowerShell\profile.ps1
+CurrentUserCurrentHost True   C:\Users\Jeff\Documents\PowerShell\Microsoft.Powe…
 
    Name: Windows PowerShell
 
-Scope                  Path                                                                        Exists
------                  ----                                                                        ------
-AllUsersCurrentHost    C:\WINDOWS\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1 True
-AllUsersAllHosts       C:\WINDOWS\System32\WindowsPowerShell\v1.0\profile.ps1                      True
-CurrentUserAllHosts    C:\Users\Jeff\Documents\WindowsPowerShell\profile.ps1                       True
-CurrentUserCurrentHost C:\Users\Jeff\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1  True
-
+Scope                  Exists Path
+-----                  ------ ----
+AllUsersAllHosts       True   C:\WINDOWS\System32\WindowsPowerShell\v1.0\profil…
+AllUsersCurrentHost    False  C:\WINDOWS\System32\WindowsPowerShell\v1.0\Micros…
+CurrentUserAllHosts    True   C:\Users\Jeff\Documents\WindowsPowerShell\profile…
+CurrentUserCurrentHost True   C:\Users\Jeff\Documents\WindowsPowerShell\Microso…
 
    Name: VSCode PowerShell
 
-Scope                  Path                                                            Exists
------                  ----                                                            ------
-CurrentUserCurrentHost C:\Users\Jeff\Documents\PowerShell\Microsoft.VSCode_profile.ps1 True
-AllUsersCurrentHost    C:\Program Files\PowerShell\7\Microsoft.VSCode_profile.ps1      False
-...</dev:code>
+Scope                  Exists Path
+-----                  ------ ----
+AllUsersCurrentHost    False  C:\Program Files\PowerShell\7\Microsoft.VSCode_pr…
+CurrentUserCurrentHost True   C:\Users\Jeff\Documents\PowerShell\Microsoft.VSCo…
+
+   Name: VSCode Windows PowerShell
+
+Scope                  Exists Path
+-----                  ------ ----
+AllUsersCurrentHost    False  C:\WINDOWS\System32\WindowsPowerShell\v1.0\Micros…
+CurrentUserCurrentHost True   C:\Users\Jeff\Documents\WindowsPowerShell\Microso…
+
+   Name: PowerShell ISE
+
+Scope                  Exists Path
+-----                  ------ ----
+AllUsersCurrentHost    True   C:\WINDOWS\System32\WindowsPowerShell\v1.0\Micros…
+CurrentUserCurrentHost True   C:\Users\Jeff\Documents\WindowsPowerShell\Microso…</dev:code>
         <dev:remarks>
-          <maml:para>The command has a default formatted table view.</maml:para>
+          <maml:para>The command has a default formatted table view. Files that don't exist will be shown in Red.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-PSProfile | Where-Object Exists | Format-List
 
-
    Name: PowerShell
 
+Scope        : AllUsersAllHosts
+Path         : C:\Program Files\PowerShell\7\profile.ps1
+Exists       : True
+LastModified : 2/23/2022 1:27:30 PM
 
 Scope        : CurrentUserAllHosts
 Path         : C:\Users\Jeff\Documents\PowerShell\profile.ps1
 Exists       : True
-LastModified : 9/9/2020 2:35:45 PM
+LastModified : 10/5/2020 3:50:19 PM
 
 Scope        : CurrentUserCurrentHost
-Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
+Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.p
+               s1
 Exists       : True
-LastModified : 9/9/2020 2:03:44 PM
-
+LastModified : 10/5/2020 3:50:19 PM
 
 
    Name: Windows PowerShell
 
-
-Scope        : AllUsersCurrentHost
-Path         : C:\WINDOWS\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell_profile.ps1
+Scope        : AllUsersAllHosts
+Path         : C:\WINDOWS\System32\WindowsPowerShell\v1.0\profile.ps1
 Exists       : True
-LastModified : 10/9/2020 4:08:35 PM
+LastModified : 2/23/2022 1:54:55 PM
+
+Scope        : CurrentUserAllHosts
+Path         : C:\Users\Jeff\Documents\WindowsPowerShell\profile.ps1
+Exists       : True
+LastModified : 10/5/2020 3:49:25 PM
 ...</dev:code>
         <dev:remarks>
           <maml:para>The command has a default list view.</maml:para>
@@ -9949,7 +9954,11 @@ LastModified : 10/9/2020 4:08:35 PM
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3dqVRjO</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/d4ded2</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSLocation</maml:linkText>
+        <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -10319,7 +10328,7 @@ MemoryMB    : 133</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3xOCRFb</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/0ccf73</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Host</maml:linkText>
@@ -10436,7 +10445,7 @@ MemoryMB    : 133</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3FcGibX</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/c10e02</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Compare-Object</maml:linkText>
@@ -10696,6 +10705,24 @@ WARNING: No constructors found for Int32</dev:code>
           <maml:para>The function has an alias of ctor for convenience. Note there is no period.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; $c = ctor system.io.fileinfo
+PS C:\&gt; $c | Select-Object *
+
+Type               Parameters
+----               ----------
+System.IO.FileInfo @{ParameterType=string; ParameterName=fileName}
+
+PS C:\ $c.parameters
+
+ParameterType ParameterName
+------------- -------------
+System.String fileName</dev:code>
+        <dev:remarks>
+          <maml:para>View the full details of the constructor.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -10922,7 +10949,7 @@ FromFileTime    Method     DateTime       True
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TypeMember system.io.fileinfo -MemberType Property
+        <dev:code>PS C:\&gt; Get-TypeMember System.IO.FileInfo -MemberType Property
 
    Type: System.IO.FileInfo
 
@@ -10946,26 +10973,27 @@ FullName          Property   String
         <dev:code>PS C:\&gt; Get-TypeMember datetime -MemberName add* | Format-Table -view syntax
 
         Type: System.DateTime
+   Type: System.DateTime
 
 Name            ReturnType Syntax
 ----            ---------- ------
-Add             DateTime   $obj.Add(\[TimeSpan\]value)
-AddDays         DateTime   $obj.AddDays(\[Double\]value)
-AddHours        DateTime   $obj.AddHours(\[Double\]value)
-AddMicroseconds DateTime   $obj.AddMicroseconds(\[Double\]value)
-AddMilliseconds DateTime   $obj.AddMilliseconds(\[Double\]value)
-AddMinutes      DateTime   $obj.AddMinutes(\[Double\]value)
-AddMonths       DateTime   $obj.AddMonths(\[Int32\]months)
-AddSeconds      DateTime   $obj.AddSeconds(\[Double\]value)
-AddTicks        DateTime   $obj.AddTicks(\[Int64\]value)
-AddYears        DateTime   $obj.AddYears(\[Int32\]value)</dev:code>
+Add             DateTime   $obj.Add([TimeSpan]value)
+AddDays         DateTime   $obj.AddDays([Double]value)
+AddHours        DateTime   $obj.AddHours([Double]value)
+AddMicroseconds DateTime   $obj.AddMicroseconds([Double]value)
+AddMilliseconds DateTime   $obj.AddMilliseconds([Double]value)
+AddMinutes      DateTime   $obj.AddMinutes([Double]value)
+AddMonths       DateTime   $obj.AddMonths([Int32]months)
+AddSeconds      DateTime   $obj.AddSeconds([Double]value)
+AddTicks        DateTime   $obj.AddTicks([Int64]value)
+AddYears        DateTime   $obj.AddYears([Int32]value)</dev:code>
         <dev:remarks>
           <maml:para>Use the custom table view to see method syntax.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TypeMember system.io.path -static | Where-Object MemberType -eq 'method' | Select-Object MethodSyntax
+        <dev:code>PS C:\&gt; Get-TypeMember System.IO.Path -static | Where-Object MemberType -eq 'method' | Select-Object MethodSyntax
 
 Name                        ReturnType     IsStatic Syntax
 ----                        ----------     -------- ------
@@ -10985,7 +11013,7 @@ GetFullPath                 System.String      True $obj.GetFullPath([String]...
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3JVpGLB</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/cff650</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Member</maml:linkText>
@@ -12675,7 +12703,7 @@ Count                          3</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/33RWeAV</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/f31f14</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-RedGreenGradient</maml:linkText>
@@ -13130,7 +13158,7 @@ Function        ToTitle</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2UuSKlN</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/2dbeac</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Show-FunctionItem</maml:linkText>
@@ -13946,7 +13974,7 @@ PS DeepDive:\&gt;</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3JX8R0w</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/40e246</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSDynamicParameterForm</maml:linkText>
@@ -14014,7 +14042,7 @@ PS DeepDive:\&gt;</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3HNNcpU</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/bd78bc</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-PSDynamicParameter</maml:linkText>
@@ -14830,7 +14858,7 @@ DriveLetter FileSystemLabel FreeGB PctFree
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/33WapF8</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/bea6f3</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-ANSIBar</maml:linkText>
@@ -15255,7 +15283,7 @@ False</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2SOrYRh</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/1bfe64</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Help</maml:linkText>
@@ -15765,7 +15793,7 @@ Out-Copy -CommandOnly</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2K6oY1D</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/749052</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Out-String</maml:linkText>
@@ -16301,7 +16329,7 @@ Deleted branch patch-254 (was 75f6ab8).</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3crxxg9</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/fadd2b</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>git.exe</maml:linkText>
@@ -16462,7 +16490,7 @@ Deleted branch patch-254 (was 75f6ab8).</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/397cVuZ</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/47e9dc</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-PSAnsiFileMapEntry</maml:linkText>
@@ -17463,7 +17491,7 @@ Mode                 LastWriteTime         Length Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3nkqnjm</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/4c68ad</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Select-After</maml:linkText>
@@ -18213,7 +18241,7 @@ oldest 10 -Property starttime
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2IyQPqx</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/32be2e</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Select-Newest</maml:linkText>
@@ -18424,7 +18452,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3zE4LFO</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/9de734</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Set-Location</maml:linkText>
@@ -18636,7 +18664,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/394kL8m</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/b842f7</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSAnsiFileMap</maml:linkText>
@@ -18922,7 +18950,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3Ix5s77</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/5cb585</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Write-ANSIProgress</maml:linkText>
@@ -19021,7 +19049,7 @@ Function Prompt {
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3qqnX5p</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/503842</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-FunctionItem</maml:linkText>
@@ -20093,6 +20121,7 @@ OS           : Microsoft Windows 10 Pro</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This command will test if the current session is running elevated, or as Administrator. On Windows platforms, the command uses the NET Framework to determine if the user is running as Administrator. On non-Windows systems, the command is checking the user's UID value.</maml:para>
+      <maml:para>This command has an alias of isAdmin.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -20138,7 +20167,7 @@ True</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2Uy3Vu5</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/e1c162</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSWho</maml:linkText>
@@ -20610,7 +20639,7 @@ Count Name
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/3nb3b74</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/796fb9</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Write-Verbose</maml:linkText>
@@ -20791,9 +20820,7 @@ Count Name
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Write-ANSIProgress -BarSymbol Block -PercentComplete .78 -ToHost
-
- 78% ███████████████████████████████████████</dev:code>
+        <dev:code>PS C:\&gt; Write-ANSIProgress -BarSymbol Block -PercentComplete .78 -ToHost</dev:code>
         <dev:remarks>
           <maml:para>This will build a progress bar using a block symbol and the default ANSI color escape. The output will be to the host, not the pipeline.</maml:para>
         </dev:remarks>
@@ -20859,7 +20886,7 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://bit.ly/2SSgQCM</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/f93f83</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-ANSIBar</maml:linkText>

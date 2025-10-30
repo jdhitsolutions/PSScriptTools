@@ -4,7 +4,11 @@ Function Convert-HashtableString {
     [OutputType([System.Collections.Hashtable])]
 
     Param(
-        [parameter(Mandatory, HelpMessage = "Enter your hashtable string", ValueFromPipeline)]
+        [parameter(
+            Mandatory,
+            ValueFromPipeline,
+            HelpMessage = "Enter your hashtable string"
+        )]
         [ValidateNotNullOrEmpty()]
         [string]$Text
     )
@@ -14,7 +18,6 @@ Function Convert-HashtableString {
     } #begin
 
     Process {
-
         $tokens = $null
         $err = $null
         $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$tokens, [ref]$err)
@@ -26,7 +29,7 @@ Function Convert-HashtableString {
         else {
             $data.SafeGetValue()
         }
-    }
+    } #process
 
     End {
         Write-Verbose "[END    ] Ending: $($MyInvocation.MyCommand)"
@@ -35,7 +38,6 @@ Function Convert-HashtableString {
 }
 
 Function ConvertTo-Hashtable {
-
     [cmdletbinding()]
     [OutputType([System.Collections.Specialized.OrderedDictionary])]
     [OutputType([System.Collections.Hashtable])]
@@ -62,12 +64,12 @@ Function ConvertTo-Hashtable {
             a GetType() method which is what I would normally use.
         #>
 
-        $TypeName = [system.type]::GetTypeArray($InputObject).name
+        $TypeName = [System.Type]::GetTypeArray($InputObject).name
         Write-Verbose "Converting an object of type $TypeName"
 
         #get property names using Get-Member
-        $names = $InputObject | Get-Member -MemberType properties |
-        Select-Object -ExpandProperty name
+        #29 Oct 2025 Modified to get property names using PSObject
+        $names = $InputObject.PSObject.Properties.Name
 
         if ($Alphabetical) {
             Write-Verbose "Sort property names alphabetically"
@@ -75,7 +77,8 @@ Function ConvertTo-Hashtable {
         }
 
         #define an empty hash table
-        if ($Ordered) {
+        #29 Oct 2025, an alphabetical sorted hash table must be ordered
+        if ($Ordered -OR $Alphabetical) {
             Write-Verbose "Creating an ordered hashtable"
             $hash = [ordered]@{ }
         }
@@ -114,7 +117,8 @@ Function Convert-HashtableToCode {
     Param(
         [Parameter(Position = 0, ValueFromPipeline, Mandatory)]
         [ValidateNotNullOrEmpty()]
-        [hashtable]$Hashtable,
+        [ValidateScript({($_ -is [hashtable]) -or ($_ -is [ordered])})]
+        [object]$Hashtable,
 
         [Parameter(ParameterSetName = "psd1")]
         [Alias("tab")]
@@ -151,7 +155,7 @@ Function Convert-HashtableToCode {
                 #assuming all the members of the array are of the same type
                 Write-Verbose "..is an array"
                 #test if an array of numbers otherwise treat as strings
-                if ($_.value[0].Gettype().name -match "int|double") {
+                if ($_.value[0].GetType().name -match "int|double") {
                     $value = "@($($_.value -join ','))"
                 }
                 elseif ($_.value[0].GetType().name -eq "Hashtable") {
@@ -163,7 +167,7 @@ Function Convert-HashtableToCode {
                         #format nested hashtables with @() Issue #91
                         $tables = Foreach ($t in $_.value) {
                             $in = "`t"*$($indent+1)
-                            "{0}{1}" -f $in,(Convert-HashTableToCode -Indent $($indent+2) -Hashtable $t).trimend()
+                            "{0}{1}" -f $in,(Convert-HashTableToCode -Indent $($indent+2) -Hashtable $t).TrimEnd()
                         }
                         $joined = ($tables -join ",`n").TrimEnd()
                         $close = "`t"*$indent
@@ -198,8 +202,8 @@ Function Convert-HashtableToCode {
                 $out += "$($_.key) = $value;"
             }
             else {
-                $tabcount = "`t" * $Indent
-                $out += "$tabcount$($_.key) = $value `n"
+                $tabCount = "`t" * $Indent
+                $out += "$tabCount$($_.key) = $value `n"
             }
         }  -end {
             if ($inline) {
@@ -208,8 +212,8 @@ Function Convert-HashtableToCode {
                 $out += "}"
             }
             else {
-                $tabcount = "`t" * ($Indent - 1)
-                $out += "$tabcount}`n"
+                $tabCount = "`t" * ($Indent - 1)
+                $out += "$tabCount}`n"
             }
             $out
         }
@@ -228,7 +232,7 @@ Function Join-Hashtable {
         [switch]$Force
     )
 
-    #create clones of hashtables so originals are not modified
+    #create clones of hash tables so originals are not modified
     $Primary = $First.Clone()
     $Secondary = $Second.Clone()
 
@@ -275,33 +279,38 @@ Function Convert-CommandToHashtable {
         [string]$Text
     )
 
-    Set-StrictMode -Version latest
+    #Set-StrictMode -Version latest
 
     New-Variable astTokens -force
     New-Variable astErr -force
 
     #trim spaces
     $Text = $Text.trim()
-    Write-Verbose "Converting $text"
+    Write-Verbose "Parsing $text using the AST"
 
     $ast = [System.Management.Automation.Language.Parser]::ParseInput($Text, [ref]$astTokens, [ref]$astErr)
+    Write-Information $ast -Tags ast
+    Write-Information $astTokens -Tags tokens
 
     #resolve the command name
-    $cmdType = Get-Command $asttokens[0].text
+    $cmdType = Get-Command $astTokens[0].text
     if ($cmdType.CommandType -eq 'Alias') {
         $cmd = $cmdType.ResolvedCommandName
     }
     else {
         $cmd = $cmdType.Name
     }
+    Write-Verbose "Resolved command to $cmd"
 
     #last item is end of input token
     $r = for ($i = 1; $i -lt $astTokens.count - 1 ; $i++) {
         if ($astTokens[$i].ParameterName) {
             $p = $astTokens[$i].ParameterName
+            Write-Verbose "Processing parameter $p"
             $v = ""
             #check next token
             if ($astTokens[$i + 1].Kind -match 'Parameter|EndOfInput') {
+                Write-Verbose "Detected [Switch] parameter"
                 #the parameter must be a switch
                 $v = "`$True"
             }
@@ -310,19 +319,34 @@ Function Convert-CommandToHashtable {
                     $i++
                     #test if value is a string and if it is quoted, if not include quotes
                     #if ($astTokens[$i].Kind -eq "Identifier" -AND $astTokens[$i].Text -NotMatch """\w+.*""" -AND $astTokens[$i].Text -NotMatch "'\w+.*'") {
-                    if ($astTokens[$i].Text -match "\D" -AND $astTokens[$i].Text -NotMatch """\w+.*""" -AND $astTokens[$i].Text -NotMatch "'\w+.*'") {
-                        #ignore commas and variables
-                        if ($astTokens[$i].Kind -match 'Comma|Variable') {
-                            $value = $astTokens[$i].Text
+                        if ($astTokens[$i].Text -match "\D" -AND $astTokens[$i].Text -NotMatch """\w+.*""" -AND $astTokens[$i].Text -NotMatch "'\w+.*'") {
+                            #ignore commas and variables
+                            if ($astTokens[$i].Kind -match 'Comma|Variable') {
+                                Write-Verbose "Comma or Variable"
+                                $value = $astTokens[$i].Text
+                            }
+                            elseif ($astTokens[$i].Kind -eq "AtCurly") {
+                            #30 Oct 2025 Detect and properly format a hashtable
+                            #this won't handle nested hashtables
+                            Write-Verbose "Hashtable detected"
+                            $hash = $astTokens[$i].Text
+                            do {
+                                $i++
+                                $hash += $astTokens[$i].Text
+                            } until ($astTokens[$i].Kind -eq "RCurly")
+                            Write-Verbose $hash
+                            $value = $hash
                         }
                         else {
                             #Assume text and quote it
+                            Write-Verbose "Assuming text and quoting it"
                             $value = """$($astTokens[$i].Text)"""
                         }
                     }
                     else {
                         $value = $astTokens[$i].Text
                     }
+                    Write-Verbose "Using value $value"
                     $v += $value
                 } #while
             }
@@ -337,7 +361,7 @@ Function Convert-CommandToHashtable {
 
     } #for
 
-    $hashtext = @"
+    $hashText = @"
 `$paramHash = @{
 $r
 }
@@ -345,7 +369,7 @@ $r
 $cmd @paramHash
 "@
 
-    $hashtext
+    $hashText
 
 
 }
@@ -442,7 +466,7 @@ Function Rename-Hashtable {
                 $tempHash = $var.Value.Clone()
 
                 if ($PSCmdlet.ShouldProcess($NewKey, "Replace key $key")) {
-                    Write-Verbose "Writing the new hashtable to variable named $hashname"
+                    Write-Verbose "Writing the new hashtable to variable named $hashName"
                     #create a key with the new name using the value from the old key
                     Write-Verbose "Adding new key $newKey to the temporary hashtable"
                     $tempHash.Add($NewKey, $tempHash.$Key)
@@ -467,16 +491,16 @@ Function Rename-Hashtable {
                 } Until (($varHash.GetEnumerator().name)[$i] -eq $Key)
 
                 #save the current value
-                $val = $varhash.item($i)
+                $val = $varHash.item($i)
 
                 if ($PSCmdlet.ShouldProcess($NewKey, "Replace key $key at $i")) {
                     #remove at the index number
-                    $varhash.RemoveAt($i)
+                    $varHash.RemoveAt($i)
                     #insert the new value at the index number
-                    $varhash.Insert($i, $NewKey, $val)
+                    $varHash.Insert($i, $NewKey, $val)
                     Write-Verbose "Writing the new hashtable to variable named $name"
                     Write-Verbose ($varHash | Out-String)
-                    Set-Variable -Name $name -Value $varhash -Scope $Scope -Force -PassThru:$PassThru |
+                    Set-Variable -Name $name -Value $varHash -Scope $Scope -Force -PassThru:$PassThru |
                     Select-Object -ExpandProperty Value
                 }
             }

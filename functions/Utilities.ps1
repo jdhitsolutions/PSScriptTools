@@ -1,11 +1,14 @@
 Function Get-PowerShellEngine {
     [CmdletBinding()]
+    [OutputType("String", "PSEngine")]
     Param([switch]$Detail)
 
     #get the current PowerShell process and the file that launched it
     $engine = Get-Process -id $pid | Get-Item
+
     if ($Detail) {
         [PSCustomObject]@{
+            PSTypeName     = "PSEngine"
             Path           = $engine.FullName
             FileVersion    = $engine.VersionInfo.FileVersion
             PSVersion      = $PSVersionTable.PSVersion.ToString()
@@ -302,98 +305,14 @@ Function Set-ConsoleTitle {
     } #end
 
 } #close Set-ConsoleTitle
-
-<#
-Function Set-ConsoleColor {
-    #This command is marked as deprecated 3/3/2023
-    #9 June 2024 this command has been removed from the module
-    [cmdletbinding(SupportsShouldProcess)]
-    [OutputType("None")]
-
-    Param(
-        [Parameter(HelpMessage = "Specify a foreground console color")]
-        [ValidateNotNullOrEmpty()]
-        [alias("fg")]
-        [System.ConsoleColor]$Foreground,
-        [Parameter( HelpMessage = "Specify a background console color")]
-        [ValidateNotNullOrEmpty()]
-        [alias("bg")]
-        [System.ConsoleColor]$Background,
-        [Alias("cls")]
-        [switch]$ClearScreen,
-        [switch]$PassThru
-    )
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-    } #begin
-
-    Process {
-        if ($host.Name -ne "ConsoleHost") {
-            Write-Warning "This command must be run from a PowerShell console session. Not the PowerShell ISE or Visual Studio Code or similar environments."
-            #bail out
-        }
-
-        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Bound Parameters"
-        $PSBoundParameters | Out-String | Write-Verbose
-
-        # ! There are issues with this if PSReadline is running
-
-        if (Get-Module -name PSReadline) {
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Detected PSReadline Module is loaded"
-            Write-Warning "You appear to be running the PSReadline module. Please use Set-PSReadlineOption or related command to modify the console."
-            #make sure we don't clear the screen
-            $ClearScreen = $False
-        }
-        else {
-            if ($Foreground) {
-                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Configuring console foreground color to $Foreground"
-                if ($PSCmdlet.ShouldProcess($Foreground)) {
-                    $host.UI.RawUI.ForegroundColor = $Foreground
-                    $modified = $True
-                }
-            }
-            if ($Background) {
-                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Configuring console background color to $Background"
-                if ($PSCmdlet.ShouldProcess($Background)) {
-                    $host.UI.RawUI.BackgroundColor = $Background
-                    $modified = $True
-                }
-            }
-        }
-    } #process
-
-    End {
-        if ($ClearScreen) {
-            Clear-Host
-        }
-        #only PassThru if asked for and if a change was made.
-        if ($PassThru -AND $modified) {
-            $host.UI.RawUI | Select-Object -Property ForegroundColor, BackgroundColor
-        }
-        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
-    } #end
-
-} #close Set-ConsoleTitle
- #>
-#This command is not exported
-
-<#
-You use this function like this:
-$newrunspace = <code>
-$pscmd = [powershell]::create()
-
-add commands to $pscmd
-$pscmd.runspace = $newrunspace
-$handle = $pscmd.beginInvoke()
-
-Start a thread job to test if runspace is being used and close it if it is finished
-New-RunspaceCleanUpJob -handle $handle -powershell $pscmd -sleepinterval 30
-#>
 Function New-RunspaceCleanupJob {
     [cmdletbinding()]
     [OutputType("None", "ThreadJob")]
     Param(
-        [Parameter(Mandatory, HelpMessage = "This should be the System.Management.Automation.Runspaces.AsyncResult object from the BeginInvoke() method.")]
+        [Parameter(
+            Mandatory,
+            HelpMessage = "This should be the System.Management.Automation.Runspaces.AsyncResult object from the BeginInvoke() method."
+        )]
         [ValidateNotNullOrEmpty()]
         [object]$Handle,
         [Parameter(Mandatory)]

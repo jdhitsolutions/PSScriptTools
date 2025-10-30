@@ -64,7 +64,7 @@ PS C:\> Get-FileItem "^\d+\S+\.txt" -Regex -Path c:\scripts -full
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---          10/28/2021  9:36 AM          30145 1000FemaleNames.txt
+-a---           4/15/2025  9:13 AM          30154 1000FemaleNames.txt
 -a---           12/5/2007  2:19 PM          29618 1000MaleNames.txt
 -a---            6/2/2010 11:02 AM          31206 1000names.txt
 -a---            6/3/2010  8:52 AM           3154 100names.txt

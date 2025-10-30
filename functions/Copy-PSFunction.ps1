@@ -13,13 +13,18 @@
 
 Function Copy-PSFunction {
     [cmdletbinding()]
-    [OutputType("Deserialized.System.Management.Automation.FunctionInfo")]
-    [Alias("cpfun")]
+    [OutputType('Deserialized.System.Management.Automation.FunctionInfo')]
+    [Alias('cpfun')]
     Param(
-        [Parameter(Position = 1, Mandatory, ValueFromPipeline, HelpMessage = "Enter the name of a local function.")]
+        [Parameter(
+            Position = 1,
+            Mandatory,
+            ValueFromPipeline,
+            HelpMessage = 'Enter the name of a local function.'
+        )]
         [ValidateNotNullOrEmpty()]
         [string[]]$Name,
-        [Parameter(Mandatory, HelpMessage = "Specify an existing PSSession")]
+        [Parameter(Mandatory, HelpMessage = 'Specify an existing PSSession')]
         [System.Management.Automation.Runspaces.PSSession]$Session,
         [switch]$Force
     )
@@ -33,22 +38,21 @@ Function Copy-PSFunction {
             $funPath = Join-Path -Path Function: -ChildPath $item
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Validating $funPath"
             if (Test-Path -Path $funPath) {
-                    Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Copying $item to $($session.computername)"
-                    $f = $(Get-Item -Path $funPath).scriptblock
-                    Invoke-Command -scriptblock { New-Item -Name $using:item -Path Function: -Value $($using:f) -force:$using:force} -session $Session
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Copying $item to $($session.computername)"
+                $f = $(Get-Item -Path $funPath).scriptblock
+                Invoke-Command -ScriptBlock { New-Item -Name $using:item -Path Function: -Value $($using:f) -Force:$using:force } -Session $Session
 
-                } #if Test-Path
-                Else {
-                    Write-Warning "Can't find a local function called $item."
-                }
+            } #if Test-Path
+            Else {
+                Write-Warning "Can't find a local function called $item."
+            }
 
-            } #foreach item
+        } #foreach item
 
-        } #process
+    } #process
 
-        End {
-            Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
+    End {
+        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
+    } #end
 
-        } #end
-
-    } #close Copy-PSFunction
+} #close Copy-PSFunction

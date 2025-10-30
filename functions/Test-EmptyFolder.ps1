@@ -1,13 +1,19 @@
 Function Test-EmptyFolder {
     [CmdletBinding()]
-    [OutputType("Boolean", "EmptyFolder")]
+    [OutputType('Boolean', 'EmptyFolder')]
 
     Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter a file system path like C:\Scripts.", ValueFromPipeline, ValueFromPipelineByPropertyName)]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
+            HelpMessage = 'Enter a file system path like C:\Scripts.'
+        )]
         [ValidateNotNullOrEmpty()]
-        [alias("PSPath")]
+        [alias('PSPath')]
         [string[]]$Path,
-        [Parameter(HelpMessage = "Write a test object to the pipeline")]
+        [Parameter(HelpMessage = 'Write a test object to the pipeline')]
         [switch]$PassThru
     )
 
@@ -24,26 +30,26 @@ Function Test-EmptyFolder {
 
                 $d = [System.IO.DirectoryInfo]::new($cPath)
 
-                If ($PSVersionTable.PSVersion.major -gt 5  ) {
+                If ($PSVersionTable.PSVersion.major -gt 5 ) {
                     #this .NET class is not available in Windows PowerShell 5.1
                     $opt = [System.IO.EnumerationOptions]::new()
                     $opt.RecurseSubdirectories = $True
-                    $opt.AttributesToSkip = "SparseFile", "ReparsePoint"
+                    $opt.AttributesToSkip = 'SparseFile', 'ReparsePoint'
 
                     Try {
-                        $files = $d.GetFiles("*", $opt)
+                        $files = $d.GetFiles('*', $opt)
                     }
                     Catch {
                         Write-Warning $_.exception.message
                     }
                 } #if newer that Windows PowerShell 5.1
                 else {
-                    Write-Verbose "Using legacy code"
+                    Write-Verbose 'Using legacy code'
                     Try {
-                        $files = $d.GetFiles("*", "AllDirectories")
+                        $files = $d.GetFiles('*', 'AllDirectories')
                     }
                     Catch {
-                         Write-Warning $_.exception.message
+                        Write-Warning $_.exception.message
                     }
                 }
 
@@ -56,10 +62,10 @@ Function Test-EmptyFolder {
                 }
                 if ($PassThru) {
                     [PSCustomObject]@{
-                        PSTypeName = 'EmptyFolder'
-                        Path       = $cPath
-                        Name       = (Split-Path -Path $Cpath -leaf)
-                        IsEmpty    = $Empty
+                        PSTypeName   = 'EmptyFolder'
+                        Path         = $cPath
+                        Name         = (Split-Path -Path $cPath -Leaf)
+                        IsEmpty      = $Empty
                         Computername = [System.Environment]::MachineName
                     }
                 }

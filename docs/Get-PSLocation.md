@@ -28,25 +28,29 @@ This command will write an object to the pipeline that displays the values of co
 ```powershell
 PS C:\> Get-PSLocation
 
-Temp       : C:\Users\Jeff\AppData\Local\Temp\
-Home       : C:\Users\Jeff\Documents
-Desktop    : C:\Users\Jeff\Desktop
-PowerShell : C:\Users\Jeff\Documents\WindowsPowerShell
-PSHome     : C:\Windows\System32\WindowsPowerShell\v1.0
+Home        : C:\Users\Jeff
+Documents   : C:\Users\Jeff\Documents
+Temp        : C:\Users\Jeff\AppData\Local\Temp\
+Desktop     : C:\Users\Jeff\Desktop
+PowerShell  : C:\Users\Jeff\Documents\PowerShell
+PSHome      : C:\Program Files\PowerShell\7
+ModulePaths : {C:\Users\Jeff\Documents\PowerShell\Modules, C:\Program Files\PowerShell\Modules,...}
 ```
 
-Results on a Windows system.
+Results on a Windows system running PowerShell 7
 
 ### Example 2
 
 ```powershell
-PS C:\> Get-PSLocation
+PS /home> Get-PSLocation
 
-Temp       : /tmp/
-Home       : /home/jeff
-Desktop    :
-PowerShell : /home/jeff/.config/powershell
-PSHome     : /opt/microsoft/powershell/7
+Home        : /home/jeff
+Documents   :
+Temp        : /tmp/
+Desktop     :
+PowerShell  : /home/jeff/.config/powershell
+PSHome      : /opt/microsoft/powershell/7
+ModulePaths : {/home/jeff/.local/share/powershell/Modules, /usr/local/share/powershell/Modules, ...}
 ```
 
 Results on a Linux system running PowerShell.

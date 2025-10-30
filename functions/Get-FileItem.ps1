@@ -1,6 +1,5 @@
 
 Function Get-FileItem {
-
     [cmdletbinding(DefaultParameterSetName = "Default")]
     [OutputType("System.IO.FileInfo", "System.Boolean")]
     [alias("pswhere")]
@@ -127,7 +126,7 @@ Function Get-FileItem {
             }
         } #if test path
         Else {
-            Write-Warning "Failed to verify $Path"
+            Write-Warning "Failed to verify path location $Path"
         }
     } #foreach
 

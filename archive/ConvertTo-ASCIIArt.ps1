@@ -42,10 +42,10 @@ Function ConvertTo-ASCIIArt {
 }
 
 Register-ArgumentCompleter -CommandName ConvertTo-ASCIIArt -ParameterName Font -ScriptBlock {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+    param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
 
     (Invoke-RestMethod https://artii.herokuapp.com/fonts_list).split() |
-        Where-Object { $_ -like "$wordToComplete*" } |
+        Where-Object { $_ -like "$WordToComplete*" } |
         ForEach-Object {
             [System.Management.Automation.CompletionResult]::new($_.Trim(), $_.Trim(), 'ParameterValue', $_)
         }

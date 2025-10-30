@@ -35,7 +35,20 @@
             <Wrap />
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>Name</PropertyName>
+                <ScriptBlock>
+                  If ($IsCoreClr) {
+                    $link = (Get-Help $_.Name).RelatedLinks.NavigationLink.uri | Select-Object -first 1
+                    if ($link) {
+                    "{0}{1}{2}" -f $PSStyle.Foreground.Cyan,$PSStyle.FormatHyperlink($_.name,$link),$PSStyle.Reset
+                    }
+                    else {
+                      $_.Name
+                    }
+                  }
+                  else {
+                      $_.Name
+                  }
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <ScriptBlock>

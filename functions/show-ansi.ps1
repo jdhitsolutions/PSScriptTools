@@ -64,7 +64,14 @@ Function Show-ANSISequence {
         Write-Debug "CoreCLR"
         $esc = "`e"
         $EscText = '`e'
-        $max = 3
+        #adjust the display width based on the console size
+        $max = if ($Host.UI.RawUI.WindowSize.Width -le 80) {
+          3
+        }
+        else {
+          4
+        }
+
     }
     else {
         Write-Debug "Desktop"

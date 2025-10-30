@@ -14,7 +14,7 @@ format type data generated 09/11/2020 10:48:56 by BOVINE320\Jeff
         <Label>Name</Label>
       </GroupBy>
       <TableControl>
-        <AutoSize />
+          <AutoSize />
         <TableHeaders>
           <TableColumnHeader>
             <Label>Scope</Label>
@@ -22,13 +22,13 @@ format type data generated 09/11/2020 10:48:56 by BOVINE320\Jeff
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Path</Label>
-            <Width>66</Width>
+            <Label>Exists</Label>
+            <Width>11</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Exists</Label>
-            <Width>9</Width>
+            <Label>Path</Label>
+            <Width>66</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
         </TableHeaders>
@@ -39,17 +39,17 @@ format type data generated 09/11/2020 10:48:56 by BOVINE320\Jeff
                 <PropertyName>Scope</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Path</PropertyName>
-              </TableColumnItem>
-              <TableColumnItem>
                 <ScriptBlock>
                  If ($_.Exists) {
                    $_.Exists
                  }
                  else {
-                  "$([char]27)[91m{0}$([char]27)" -f $_.Exists
+                  "$([char]27)[91m{0}$([char]27)[0m" -f $_.Exists
                  }
                  </ScriptBlock>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Path</PropertyName>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>

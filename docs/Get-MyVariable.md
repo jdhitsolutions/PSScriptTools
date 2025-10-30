@@ -14,13 +14,14 @@ Get all user-defined variables.
 ## SYNTAX
 
 ```yaml
-Get-MyVariable [[-Scope] <String>] [-NoTypeInformation] [<CommonParameters>]
+Get-MyVariable [[-Scope] <String>] [-IncludeTypeInformation] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local, or a number 0 through 5. The command will also display the value type for each variable. If you want to suppress this output use the -NoTypeInformation switch.
+This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local, or a number 0 through 5. The command will also display the value type for each variable.
 
+Beginning with version 3.1.0, you can opt in and include a script property that shows the variable type name. This is a breaking change from the previous -NoTypeInformation parameter.
 
 ## EXAMPLES
 
@@ -29,36 +30,41 @@ This function will return all variables not defined by PowerShell or by this fun
 ```powershell
 PS C:\> Get-MyVariable
 
-NName Value                  Type
----- -----                  ----
-a    bits                   ServiceController
-dt   10/22/2020 10:49:38 AM DateTime
-foo  123                    Int32
-r    {1, 2, 3, 4...}        Object[]
+Name                           Value
+----                           -----
+dt                             10/29/2025 2:19:40 PM
+j                              {AarSvc_9521e3b, ADPSvc, ALG, AppIDSvc…}
+n                              foo
+PSSamplePath                   C:\scripts\PSScriptTools\Samples
+PSSpecialChar                  {[DarkShade, ▓], [Section, §], [DownTriangle, ▼]…
+var                            123
 ...
 ```
 
-Depending on the value and how PowerShell chooses to display it, you may not see the type.
+Get all variables defined by the user in the global scope.
 
 ### Example 2
 
 ```powershell
-PS C:\> Get-MyVariable | Select-Object name,type
+PS C:\> Get-MyVariable -IncludeTypeInformation | Select-Object Name,Type,Value
 
-Name Type
----- ----
-a    ServiceController
-dt   DateTime
-foo  Int32
-r    Object[]
+Name          Type      Value
+----          ----      -----
+dt            DateTime  10/29/2025 2:19:40 PM
+j             Object[]  {AarSvc_9521e3b, ADPSvc, ALG, AppIDSvc…}
+n             String    foo
+PSSamplePath  String    C:\scripts\PSScriptTools\Samples
+PSSpecialChar Hashtable {[DarkShade, ▓], [Section, §], [DownTriangle, ▼], [Blac…
+var           Int32     123
 ```
+
+Get user defined variable and show the corresponding type name.
 
 ### Example 3
 
 ```powershell
-PS C:\> Get-MyVariable | Export-Clixml myvar.xml
-PS C:\> import-clixml .\myvar.xml |
-ForEach-Object {set-variable -Name $_.name -Value $_.value}
+PS C:\> Get-MyVariable | Export-Clixml MyVar.xml
+PS C:\> Import-Clixml .\MyVar.xml | ForEach-Object {Set-Variable -Name $_.name -Value $_.value}
 ```
 
 You can then import this XML file in another session to restore these variables.
@@ -69,7 +75,7 @@ You can then import this XML file in another session to restore these variables.
 PS C:\> function foo {
      c:\scripts\Get-MyVariable2.ps1;
      $a=4;$b=2;$c=$a*$b;
-     Get-MyVariable -NoTypeInformation -scope 1 -verbose;
+     Get-MyVariable  -scope 1 -verbose;
      $c
      }
 
@@ -94,8 +100,7 @@ This sample function dot sources the script with this function. Within the funct
 ### Example 5
 
 ```powershell
-PS C:\> Get-MyVariable | where {$_.type -eq "Scriptblock"} |
-Select-Object name,value
+PS C:\> Get-MyVariable | where {$_.type -eq "Scriptblock"} | Select-Object name,value
 
 Name                               Value
 ----                               -----
@@ -126,9 +131,9 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -NoTypeInformation
+### -IncludeTypeInformation
 
-If specified, suppress the type information for each variable value.
+Add a script property that displays the corresponding type name of the variable. This parameter was added in version 3.1.0.
 
 ```yaml
 Type: SwitchParameter
@@ -137,15 +142,14 @@ Aliases:
 
 Required: False
 Position: Named
-Default value: False
+Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable.
-For more information, see about_CommonParameters (http://go.microsoft.com/fwlink/?LinkID=113216).
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
@@ -160,7 +164,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 An earlier version of this function is described at http://jdhitsolutions.com/blog/2012/05/get-my-variable-revisited
-
 
 ## RELATED LINKS
 

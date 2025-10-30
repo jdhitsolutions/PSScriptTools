@@ -19,18 +19,35 @@ Convert-CommandToHashtable [-Text] <String> [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression with multiple parameters and you would like to turn it into splatting code.
+This command is intended to convert a long PowerShell expression with named parameters into a splatting alternative. The central concept is that you are editing a script file with a lengthy PowerShell expression with multiple parameters and you would like to turn it into splatting code. For best results, the command expression should use parameter names and not rely on positional parameters.
+
+The command may produce an invalid hashtable with complex expressions as parameter values.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\> $text ="Get-WinEvent -ListLog p* -computername SRV1 -ErrorAction stop"
+PS C:\> $text = "Get-WinEvent -ListLog p* -computername SRV1 -ErrorAction stop"
 PS C:\> Convert-CommandToHashtable -Text $text | Set-Clipboard
 ```
 
 The $text variable might be a line of code from your script. The second line converts into a splatting sequence and copies it to the Windows clipboard so you can paste it back into your script. You could create a VS Code task sequence using this function.
+
+### Example 2
+
+```powershell
+PS C:\> Convert-CommandToHashtable -Text (h 149).Commandline
+$paramHash = @{
+  path = "c:\work"
+  filter = "*.ps1"
+  recurse = $True
+}
+
+Get-ChildItem @paramHash
+```
+
+Convert command 149 from command history into a hashtable.
 
 ## PARAMETERS
 

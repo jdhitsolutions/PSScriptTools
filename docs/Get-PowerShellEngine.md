@@ -35,27 +35,10 @@ C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
 ```powershell
 PS C:\> Get-PowerShellEngine -detail
 
-Path           : C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
-FileVersion    : 10.0.15063.0 (WinBuild.160101.0800)
-PSVersion      : 5.1.15063.502
-ProductVersion : 10.0.15063.0
-Edition        : Desktop
-Host           : Visual Studio Code Host
-Culture        : en-US
-Platform       :
-```
-
-This result is from running in the Visual Studio Code integrated PowerShell terminal.
-
-### Example 3
-
-```powershell
-PS C:\> Get-PowerShellEngine -detail
-
 Path           : C:\Program Files\PowerShell\7\pwsh.exe
 FileVersion    : 7.5.0.500
 PSVersion      : 7.5.0
-ProductVersion : 7.5.0 SHA: 99dab561892364d82d4965068f7f8b175e768b1b+99dab561892364d82d4965068f7f8b175e768b1b
+ProductVersion : 7.5.0 SHA: 99dab561892364d82d4965068f7f8b175e768b1b+99dab561892364d82d4965068f7...
 Edition        : Core
 Host           : ConsoleHost
 Culture        : en-US
@@ -88,7 +71,7 @@ Accept wildcard characters: False
 
 ### System.String
 
-### PSCustomObject
+### PSEngine
 
 ## NOTES
 

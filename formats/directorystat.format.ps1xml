@@ -99,10 +99,10 @@ which can be installed from the PowerShell Gallery
             <WideItem>
                <ScriptBlock>
               If ($host.name -match 'console|code|remotehost') {
-              "$([char]27)[92m{0}$([char]27)[0m [$([char]27)[38;5;147m{1}MB$([char]27)[0m]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              "$([char]27)[92m{0}$([char]27)[0m [$([char]27)[38;5;147m{1}KB$([char]27)[0m]" -f $_.Name,([math]::Round($_.filesize/1kb,2))
               }
               else {
-              "{0} [{1}MB]" -f $_.Name,([math]::Round($_.filesize/1mb,2))
+              "{0} [{1}KB]" -f $_.Name,([math]::Round($_.filesize/1kb,2))
               }
               </ScriptBlock>
             </WideItem>

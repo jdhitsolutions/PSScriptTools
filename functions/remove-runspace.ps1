@@ -55,7 +55,7 @@ Function Remove-Runspace {
 
 
 Register-ArgumentCompleter -CommandName Remove-Runspace -ParameterName Runspace -ScriptBlock {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+    param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
 
     (Get-Runspace).where( {$_.RunspaceAvailability -ne 'busy'}).name|
         foreach-object {

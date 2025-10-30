@@ -11,12 +11,12 @@ Function Get-CimClassProperty {
         )]
         [ArgumentCompleter({
                 #argument completer uses local classes to populate the list
-                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+                param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameters)
                 if ($fakeBoundParameters.NameSpace -match '^root') {
-                    (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "*$wordToComplete*" }
+                    (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "*$WordToComplete*" }
                 }
                 else {
-                    (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "*$wordToComplete*" }
+                    (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "*$WordToComplete*" }
                 }
             })]
         [ValidateNotNullOrEmpty()]
@@ -115,12 +115,12 @@ Function Get-CimClassPropertyQualifier {
             HelpMessage = 'Specify a CIM Class'
         )]
         [ArgumentCompleter({
-                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+                param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameters)
                 if ($fakeBoundParameters.NameSpace -match '^root') {
-                    (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$wordToComplete*" }
+                    (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$WordToComplete*" }
                 }
                 else {
-                    (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$wordToComplete*" }
+                    (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$WordToComplete*" }
                 }
             })]
         [ValidateNotNullOrEmpty()]
@@ -208,12 +208,12 @@ Function Get-CimClassMethod {
             HelpMessage = 'Specify a CIM Class'
         )]
         [ArgumentCompleter({
-                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+                param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameters)
                 if ($fakeBoundParameters.NameSpace -match '^root') {
-                    (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$wordToComplete*" }
+                    (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$WordToComplete*" }
                 }
                 else {
-                    (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$wordToComplete*" }
+                    (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$WordToComplete*" }
                 }
             })]
         [ValidateNotNullOrEmpty()]
@@ -371,12 +371,12 @@ Function Get-CimMember {
         [Parameter(ParameterSetName = 'property', Position = 0)]
         [Parameter(ParameterSetName = 'method', Position = 0)]
         [ArgumentCompleter({
-                param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameters)
+                param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameters)
                 if ($fakeBoundParameters.NameSpace -match '^root') {
-                (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$wordToComplete*" }
+                (Get-CimClass -Namespace $fakeBoundParameters.NameSpace ).Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$WordToComplete*" }
                 }
                 else {
-                (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$wordToComplete*" }
+                (Get-CimClass -Namespace 'Root\Cimv2').Where({ $_.CimClassName -notMatch '^__' }).CimClassName | Where-Object { $_ -like "$WordToComplete*" }
                 }
             })]
         [Alias('CimClassName')]
@@ -517,11 +517,11 @@ Start-ThreadJob {
 } | Out-Null
 
 Register-ArgumentCompleter -CommandName Get-CimMember,Get-CimClassMethod, Get-CimClassProperty, Get-CimClassPropertyQualifier,Get-CimClassListing -ParameterName Namespace -ScriptBlock {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+    param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
 
     $CimNamespaceList = Get-Content $env:TEMP\CimNamespaceList.txt
-    #PowerShell code to populate $wordToComplete
-    ($CimNamespaceList).Where({ $_ -like "*$wordToComplete*" }) |
+    #PowerShell code to populate $WordToComplete
+    ($CimNamespaceList).Where({ $_ -like "*$WordToComplete*" }) |
     ForEach-Object {
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }

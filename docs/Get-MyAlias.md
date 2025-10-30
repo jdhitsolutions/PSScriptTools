@@ -14,7 +14,7 @@ Get non-default aliases defined in the current session.
 ## SYNTAX
 
 ```yaml
-Get-MyAlias [-NoModule] [<CommonParameters>]
+Get-MyAlias [-Name <String>] [-NoModule] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -79,6 +79,19 @@ np   notepad       ReadOnly
 
 Get your aliases and pipe to format table using a custom view defined by the PSScriptTools module.
 
+### Example 4
+
+```powershell
+PS C:\> Get-MyAlias gr* | Select Name,Definition
+
+Name Definition
+---- ----------
+grep C:\Program Files\Git\usr\bin\grep.exe
+grok Get-Help
+```
+
+Get my aliases by name.
+
 ## PARAMETERS
 
 ### -NoModule
@@ -95,6 +108,22 @@ Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
+```
+
+### -Name
+
+Specify an alias by name
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: True
 ```
 
 ### CommonParameters

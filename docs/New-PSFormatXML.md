@@ -14,17 +14,15 @@ Create or modify a format.ps1xml file.
 ## SYNTAX
 
 ```yaml
-New-PSFormatXML [-InputObject] <Object> [[-Properties] <Object[]>]
-[-Typename <String>] [[-FormatType] <String>] [[-ViewName] <String>]
-[-Path] <String> [-GroupBy <String>] [-Wrap] [-Append]
- [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSFormatXML [-InputObject] <Object> [[-Properties] <Object[]>] [-Typename <String>]
+ [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-GroupBy <String>] [-Wrap] [-NoComments] [-Append] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
 When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, such as a table or list. Or you may want to have different views that display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.
 
-Note that the table and wide views are set to Autosize. However, the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.
+Note that the table and wide views are set to AutoSize. However, the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the AutoSize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.
 
 Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine-tune it. The file will have notes on how to substitute script blocks. Although, beginning with v2.31.0, you can specify a hashtable as a custom property name just as you can with Select-Object.
 
@@ -37,26 +35,26 @@ If you run this command inside the Visual Studio Code PowerShell Integrated Cons
 ### Example 1
 
 ```powershell
-PS C:\> $tname = "myThing"
+PS C:\> $tName = "myThing"
 PS C:\> $obj = [PSCustomObject]@{
-    PSTypeName   = $tname
+    PSTypeName   = $tName
     Name         = "Jeff"
     Date         = (Get-Date)
     Computername = $env:computername
-    OS           = (Get-Ciminstance Win32_OperatingSystem ).caption
+    OS           = (Get-CimInstance Win32_OperatingSystem ).caption
 }
 PS C:\> $upParams = @{
- TypeName = $tname
+ TypeName = $tName
  MemberType = "ScriptProperty"
  MemberName = "Runtime"
- Value = {(Get-Date) - [datetime]"1/1/2020"}
+ Value = {(Get-Date) - [datetime]"1/1/2025"}
  Force = $True
 }
 PS C:\> Update-TypeData @upParams
 PS C:\> $obj
 
 Name         : Jeff
-Date         : 2/10/2020 8:49:10 AM
+Date         : 2/10/2025 8:49:10 AM
 Computername : BOVINE320
 OS           : Microsoft Windows 10 Pro
 Runtime      : 40.20:49:43.9205882
@@ -67,7 +65,7 @@ This example begins be creating a custom object. You might normally do this in a
 ### Example 2
 
 ```powershell
-PS C:\> $fmt = "C:\scripts\$tname.format.ps1xml"
+PS C:\> $fmt = "C:\scripts\$tName.format.ps1xml"
 PS C:\> $obj | New-PSFormatXML -Prop Name,Date,Computername,OS -Path $fmt
 PS C:\> $obj | New-PSFormatXML -Prop Name,OS,Runtime -view runtime -Path $fmt -append
 PS C:\> $obj | New-PSFormatXML -FormatType List -Path $fmt -append
@@ -78,12 +76,12 @@ The object is then piped to New-PSFormatXML to generate a new format.ps1xml file
 ### Example 3
 
 ```powershell
-PS C:\> Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
+PS C:\> Update-FormatData -AppendPath "C:\work\$tName.format.ps1xml"
 PS C:\> $obj
 
 Name Date                 Computername Operating System
 ---- ----                 ------------ ----------------
-Jeff 2/10/2020 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
+Jeff 2/10/2025 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
 
 PS C:\> $obj | Format-Table -View runtime
 
@@ -95,7 +93,7 @@ PS C:\> $obj | Format-List
 
 
 Name            : Jeff
-Date            : Sunday, February 10, 2020
+Date            : Sunday, February 10, 2025
 Computername    : BOVINE320
 OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01
@@ -107,8 +105,8 @@ After the format.ps1xml file is applied, the object can be formatted as designed
 
 ```powershell
 PS C:\> $obj | New-PSFormatXML -view computer -Group Computername
--Path "c:\work\$tname.format.ps1xml" -append
-PS C:\> Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
+-Path "c:\work\$tName.format.ps1xml" -append
+PS C:\> Update-FormatData -AppendPath "C:\work\$tName.format.ps1xml"
 PS C:\> $obj | Format-Table -View computer
 
 
@@ -116,7 +114,7 @@ PS C:\> $obj | Format-Table -View computer
 
 Name Date                  OS                       Runtime
 ---- ----                  --                       -------
-Jeff 2/10/2020 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481
+Jeff 2/10/2025 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481
 ```
 
 This adds another view called Computer that groups objects on the Computername property.
@@ -143,7 +141,7 @@ Get-Service | Sort-Object Status | Format-Wide -view Status
 
 ```powershell
 PS C:\> '' | Select-Object -Property Name,Size,Date,Count,Age |
-New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml
+New-PSFormatXML -Typename myThing -Path c:\scripts\myThing.format.ps1xml
 ```
 
 This is an example of creating a formatting file from an empty object. Normally, you would first define your object and verify it has all the properties you need, and then you would create the formatting file. But you may want to create the formatting file in parallel using an older technique like this.
@@ -177,39 +175,6 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Confirm
-
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -FormatType
-
-Specify whether to create a table, list, or wide view.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: Table, List, Wide
-
-Required: False
-Position: 2
-Default value: Table
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
@@ -269,42 +234,10 @@ Enter a set of properties to include. If you don't specify anything then all pro
 ```yaml
 Type: Object[]
 Parameter Sets: (All)
-Aliases:
+Aliases: Property
 
 Required: False
 Position: 1
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -ViewName
-
-Enter the name of your view.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: default
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-
-Shows what would happen if the cmdlet runs. The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
 Default value: None
 Accept pipeline input: False
 Accept wildcard characters: False
@@ -350,6 +283,87 @@ Wrap long lines. This only applies to Tables.
 Type: SwitchParameter
 Parameter Sets: (All)
 Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -FormatType
+
+Specify whether to create a table, list, or wide view.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: Table, List, Wide
+
+Required: False
+Position: 2
+Default value: Table
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -NoComments
+
+By default, the command will insert comments with guidance on how to make changes to the file. Use this parameter if you do not want to  include the default comments.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ViewName
+
+Enter the name of your view.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: 3
+Default value: default
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -WhatIf
+
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: wi
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Confirm
+
+Prompts you for confirmation before running the cmdlet.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases: cf
 
 Required: False
 Position: Named

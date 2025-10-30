@@ -1,5 +1,4 @@
 Function Copy-HistoryCommand {
-
     [CmdletBinding(SupportsShouldProcess)]
     [alias("ch")]
     [OutputType("None", "System.String")]
@@ -15,14 +14,13 @@ Function Copy-HistoryCommand {
 
     Process {
         $idString = $id -join ','
-        Write-Verbose "[PROCESS] Getting command line from history item: $idstring"
-        $cmdstring = (Get-History -Id $($id)).CommandLine
-        If ($PSCmdlet.ShouldProcess("ID #$idstring")) {
-            $cmdstring | Microsoft.PowerShell.Management\Set-Clipboard
-
+        Write-Verbose "[PROCESS] Getting command line from history item: $idString"
+        $cmdString = (Get-History -Id $($id)).CommandLine
+        If ($PSCmdlet.ShouldProcess("ID #$idString")) {
+            $cmdString | Microsoft.PowerShell.Management\Set-Clipboard
             If ($PassThru) {
                 #write the command to the pipeline
-                $cmdstring
+                $cmdString
             } #If PassThru
         }
     } #process
@@ -36,7 +34,7 @@ Function Copy-HistoryCommand {
 
 Register-ArgumentCompleter -CommandName Copy-HistoryCommand -ParameterName Id -ScriptBlock {
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
-   Get-History | Where-Object { $_.id -like "$wordtocomplete*" } |
+   Get-History | Where-Object { $_.id -like "$wordToComplete*" } |
     ForEach-Object {
         # completion text,listitem text,result type,Tooltip
         [System.Management.Automation.CompletionResult]::new($_.id, $_.id, 'ParameterValue', $_.commandline)

@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://bit.ly/33RWeAV
+online version: https://jdhitsolutions.com/yourls/f31f14
 schema: 2.0.0
 ---
 

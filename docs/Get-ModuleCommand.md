@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://bit.ly/2Kfjm1Q
+online version: https://jdhitsolutions.com/yourls/71e8ba
 schema: 2.0.0
 ---
 
@@ -13,16 +13,8 @@ Get a summary of module commands.
 
 ## SYNTAX
 
-### name (Default)
-
 ```yaml
-Get-ModuleCommand [-Name] <String> [-ListAvailable] [<CommonParameters>]
-```
-
-### fqdn
-
-```yaml
-Get-ModuleCommand -FullyQualifiedName <ModuleSpecification> [-ListAvailable] [<CommonParameters>]
+Get-ModuleCommand [-Name] <String> [-CommandName <String>] [-ListAvailable] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,23 +28,33 @@ This is an alternative to Get-Command to make it easier to see at a glance what 
 ```powershell
 PS C:\> Get-ModuleCommand PSCalendar
 
+   ModuleName: PSCalendar [v2.10.1]
 
-   ModuleName: PSCalendar [v2.9.0]
-
-Name             Alias Synopsis
-----             ----- --------
-Get-Calendar     cal   Displays a visual representation of a calendar.
-Show-Calendar    scal  Display a colorized calendar month in the console.
-Show-GuiCalendar gcal  Display a WPF-based calendar
+Name                           Alias                        Synopsis
+----                           -----                        --------
+Export-PSCalendarConfiguration Save-PSCalendarConfiguration Save the current calendar configuration
+                                                            settings to a file.
+Get-Calendar                   cal                          Displays a visual representation of a
+                                                            calendar.
+Get-MonthName                  mon                          Get the list of month names.
+Get-NCalendar                  ncal                         Display a Linux-style ncal calendar.
+Get-PSCalendarConfiguration                                 Get the current PSCalendar ANSI
+                                                            configuration.
+Set-PSCalendarConfiguration                                 Modify the PSCalendar ANSI
+                                                            configuration.
+Show-Calendar                  scal                         Display a colorized calendar month in
+                                                            the console.
+Show-GuiCalendar               gcal                         Display a WPF-based calendar.
+Show-PSCalendarHelp                                         Display a help PDF file for the
+                                                            PSCalendar module.
 ```
 
-Get module commands using the default formatted view. You can install this module from the PowerShell Gallery.
+Get module commands using the default formatted view. You can install the PSCalendar module from the PowerShell Gallery.
 
 ### Example 2
 
 ```powershell
 PS C:\> Get-ModuleCommand SmbShare -ListAvailable | Format-List
-
 
 ModuleName : SmbShare
 Name       : Block-SmbShareAccess
@@ -101,14 +103,13 @@ Display commands using a custom table view called 'Verb'.
 ```powershell
 PS C:\ Get-ModuleCommand PSScriptTools | Format-Table -view version
 
-   ModuleName: PSScriptTools [v3.0.0]
+   ModuleName: PSScriptTools [v3.1.0]
 
-Name                        Alias             Compatible      PSVersion
-----                        -----             ----------      ---------
-Add-Border                  ab                {Desktop, Core}       5.1
-Compare-Module              cmo               {Desktop, Core}       5.1
-Compare-Script              csc               {Desktop, Core}       5.1
-Convert-CommandToHashtable                    {Desktop, Core}       5.1
+Name                              Alias             Compatible      PSVersion
+----                              -----             ----------      ---------
+Add-Border                        ab                {Desktop, Core}       5.1
+Compare-Module                    cmo               {Desktop, Core}       5.1
+Compare-Script                    csc               {Desktop, Core}       5.1
 ...
 ```
 
@@ -116,35 +117,13 @@ Using the custom table view 'version'.
 
 ## PARAMETERS
 
-### -FullyQualifiedName
-
-Specifies names of modules in the form of ModuleSpecification objects. The FullyQualifiedName parameter accepts a module name that is specified in the following formats:
-
-@{ModuleName = "modulename"; ModuleVersion = "version_number"}
-
-@{ModuleName = "modulename"; ModuleVersion = "version_number"; Guid = "GUID"}
-
-ModuleName and ModuleVersion are required, but Guid is optional.
-
-You cannot specify the FullyQualifiedName parameter in the same command as a Name parameter.
-
-```yaml
-Type: ModuleSpecification
-Parameter Sets: fqdn
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### -ListAvailable
 
 Indicates that this cmdlet gets all installed modules. Get-Module finds modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.
 
 ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.
+
+If you have multiple versions of the module, you might get duplicated entries.
 
 ```yaml
 Type: SwitchParameter
@@ -164,18 +143,32 @@ The name of an installed module.
 
 ```yaml
 Type: String
-Parameter Sets: name
+Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
+Accept wildcard characters: True
+```
+
+### -CommandName
+Command name to search for
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: True
 ```
 
 ### CommonParameters
-
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS

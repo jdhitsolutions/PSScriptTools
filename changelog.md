@@ -3,6 +3,34 @@
 This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
+### Added
+- Added the parameter `NoComments` to `New-PSFormatXml` to suppress the default helper comments.
+- Added a parameter alias `Property` for `Properties` in `New-PSFormatXML`.
+- Added a parameter alias `Property` for `Properties` in `New-PSFormatXML`.
+- Added alias `isAdmin` to `Test-IsElevated`.
+
+### Changed
+- Updated `Convert-CommandToHashTable` to better handle a hashtable as a paremeter value.
+- Updated `ConvertTo-Hashtable` to using PSObject` to get property names.
+- Updated `ConvertTo-Hashtable` to make an alphabetically sorted hashtable an ordered hashtable.
+- Updated `Convert-HashtableToCode` to accept a standard or ordered hashtable as input.
+- Revised `Get-MyVariable`. Removed the `-NoTypeInformation` and made it opt-in with -IncludeTypeInformation`. __This is a breaking change.__
+- Revised `Get-MyVariable` to get initial variables from a new PowerShell instance.
+- Revised `Get-MyAlias` to let user specify a name. The new version also skips aliases from common modules like PSReadline and Microsoft.PowerShell.PSResourceGet.
+- Revised formatting for `Get-ModuleCommand` to add a link to online help for each command if running PowerShell 7.
+- Updated `New-PSFormatXML` to incorporate a suggestion from [@scriptingstudio](https://github.com/scriptingstudio). [[Issue #155](https://github.com/jdhitsolutions/PSScriptTools/issues/155)]
+- Updated `Get-PSProfile` to support non-Windows platforms. Reformatted the default table view.
+- Updated `README`.
+- Updated `Get-PSLocation` to include locations in `%PSModulePath%` Also corrected values for `HOME` and `Documents`. These changes also meant updating the custom formatting file..
+- Updated `Get-PowerShellEngine` to define a type name (`PSEngine`) when writing a detailed object.
+- Modified `Show-ANSISequence` to adjust number of columns to display in PowerShell 7.
+- Code cleanup.
+- Help updates.
+- Replaced bit.ly online help links.
+
+### Fixed
+- Fixed bug in `Get-ModuleCommand` that failed to retrieve all command aliases.
+- Fixed error in DirectoryStat sizeKB format view that wasn't showing values in KB
 
 ## [3.0.0] - 2025-03-26
 

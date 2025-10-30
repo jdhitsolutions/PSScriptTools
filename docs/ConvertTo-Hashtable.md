@@ -27,9 +27,7 @@ This command will take an object and create a hashtable based on its properties.
 ### Example 1
 
 ```powershell
-PS C:\> Get-Process -id $pid |
-Select-Object name,id,handles,WorkingSet |
-ConvertTo-Hashtable
+PS C:\> Get-Process -id $pid | Select-Object name,id,handles,WorkingSet | ConvertTo-Hashtable
 
 Name                           Value
 ----                           -----

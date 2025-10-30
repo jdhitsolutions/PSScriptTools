@@ -6,9 +6,11 @@ Function Get-ModuleCommand {
     Param(
         [Parameter(
             Position = 0,
+            Mandatory,
             HelpMessage = "The name of an installed/available module",
             ValueFromPipelineByPropertyName
         )]
+        [ValidateNotNullOrEmpty()]
         [SupportsWildcards()]
         [string]$Name,
 
@@ -16,6 +18,7 @@ Function Get-ModuleCommand {
             HelpMessage = "Command name to search for"
         )]
         [SupportsWildcards()]
+        [ValidateNotNullOrEmpty()]
         [string]$CommandName,
 
         [switch]$ListAvailable
@@ -45,7 +48,7 @@ Function Get-ModuleCommand {
             $out = foreach ($cmd in $cmds) {
                 Write-Verbose "Processing $($cmd.name)"
                 #get aliases, ignoring errors for those commands without one
-                $alias = (Get-Alias -Definition $cmd.Name -ErrorAction SilentlyContinue).name
+                $alias = (Get-Alias -Definition $cmd.Name -ErrorAction SilentlyContinue).name -join ","
 
                 #it is assumed you have updated help
                 [PSCustomObject]@{
@@ -138,7 +141,7 @@ Function Get-ModuleCommand {
 } #close function
 
 Register-ArgumentCompleter -CommandName Get-ModuleCommand -ParameterName Name -ScriptBlock {
-    param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
+    param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
 
     (Get-Module -Name "$WordToComplete*").name |
     ForEach-Object {

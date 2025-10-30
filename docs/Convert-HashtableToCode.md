@@ -16,26 +16,25 @@ Convert a hashtable to a string representation.
 ### psd1 (Default)
 
 ```yaml
-Convert-HashtableToCode [-Hashtable] <Hashtable> [-Indent <Int32>]
-[<CommonParameters>]
+Convert-HashtableToCode [-Hashtable] <Object> [-Indent <Int32>] [<CommonParameters>]
 ```
 
 ### inline
 
 ```yaml
-Convert-HashtableToCode [-Hashtable] <Hashtable> [-Inline] [<CommonParameters>]
+Convert-HashtableToCode [-Hashtable] <Object> [-Inline] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command has not been tested with large or complex hashtables, so you might need to manually edit the output to meet your tastes or requirements.
+Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command has not been tested with large or complex hash tables, so you might need to manually edit the output to meet your requirements.
 
 ## EXAMPLES
 
 ### Example 1
 
 ```powershell
-PS C:\> $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
+PS C:\> $h = [ordered]@{Name="SRV1";Asset=123454;Location="Omaha"}
 PS C:\> Convert-HashtableToCode $h
 @{
         Name = 'SRV1'
@@ -44,7 +43,7 @@ PS C:\> Convert-HashtableToCode $h
 }
 ```
 
-Convert a hashtable object to a string equivalent that you can copy into your script.
+Convert an ordered hashtable object to a string equivalent that you can copy into your script.
 
 ### Example 2
 
@@ -63,7 +62,7 @@ Create an inline string version of the hashtable.
 A hashtable to convert. It can be standard or ordered hashtable.
 
 ```yaml
-Type: Hashtable
+Type: Object
 Parameter Sets: (All)
 Aliases:
 
@@ -76,7 +75,7 @@ Accept wildcard characters: False
 
 ### -Indent
 
-Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hashtables.
+Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hash tables.
 
 ```yaml
 Type: Int32

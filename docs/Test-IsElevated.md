@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://bit.ly/2Uy3Vu5
+online version: https://jdhitsolutions.com/yourls/e1c162
 schema: 2.0.0
 ---
 
@@ -20,6 +20,8 @@ Test-IsElevated [<CommonParameters>]
 ## DESCRIPTION
 
 This command will test if the current session is running elevated, or as Administrator. On Windows platforms, the command uses the NET Framework to determine if the user is running as Administrator. On non-Windows systems, the command is checking the user's UID value.
+
+This command has an alias of isAdmin.
 
 ## EXAMPLES
 

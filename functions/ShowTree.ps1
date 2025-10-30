@@ -1,5 +1,4 @@
 ﻿function Show-Tree {
-
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     [alias('pstree', 'shtree')]
 
@@ -319,7 +318,7 @@
     Process {
         Write-Verbose "Detected parameter set $($PSCmdlet.ParameterSetName)"
         if ($PSCmdlet.ParameterSetName -eq 'Path') {
-            # In the -Path (non-literal) resolve path in case if it is wildcarded.
+            # In the -Path (non-literal) resolve path in case if it is wild carded.
             $resolvedPaths = @($Path | Resolve-Path | ForEach-Object { $_.Path })
         }
         else {

@@ -1,66 +1,59 @@
-
-Function Get-MyVariable {
+function Get-MyVariable {
 
     [cmdletbinding()]
-    [OutputType([System.Management.Automation.PSVariable])]
-    [Alias("gmv")]
+    [OutputType('System.Management.Automation.PSVariable', 'System.Management.Automation.LocalVariable')]
+    [alias('gmv')]
 
-    Param(
+    param(
         [Parameter(Position = 0)]
-        [ValidateSet("Global", "Local", "Script", "Private", 0, 1, 2, 3)]
+        [ValidateSet('Global', 'Local', 'Script', 'Private', 0, 1, 2, 3)]
         [ValidateNotNullOrEmpty()]
-        [string]$Scope = "Global",
-        [switch]$NoTypeInformation
-    )
+        [string]$Scope = 'Global',
+        [switch]$IncludeTypeInformation
+        )
 
-    Write-Verbose "Getting system defined variables"
-    #get all global variables from the initial session state
+    Write-Verbose 'Getting system defined variables'
 
-    $PSVariables = [system.collections.generic.list[string]]::New()
-    ((Get-Runspace 1).initialsessionstate.variables.name).foreach( { $PSVariables.Add($_) })
+    #create Powershell runspace
+    $ps = [powershell]::Create()
+    [void]$ps.commands.AddCommand('Get-Variable')
+    $out = $ps.invoke()
+    $PSVariables = $out.name
+    $ps.Dispose()
 
-    Write-Verbose "Found $($psvariables.count) initial state variables"
+    Write-Verbose "Found $($PSVariables.count) default variables"
 
-    $skip = '?', 'args','ConsoleFileName', 'Error', 'esc',
-    'ExecutionContext', 'false', 'HOME', 'Host', 'input', 'MaximumAliasCount',
-    'MaximumDriveCount', 'MaximumErrorCount', 'MaximumFunctionCount', 'MaximumHistoryCount',
-    'MaximumVariableCount', 'MyInvocation', 'null', 'PassThru', 'PID', 'PROFILE',
-    'PSBoundParameters', 'PSCommandPath', 'PSCulture', 'PSDefaultParameterValues', 'PSEdition',
-    'PSGetPath', 'PSHOME', 'PSScriptRoot', 'PSUICulture', 'PSVersionTable',
-    'PWD', 'ShellId', 'true', 'verify', 'skip', 'scope', 'this', 'LastExitCode',
-    '_', 'EnabledExperimentalFeatures'
-
-    $skip.Foreach({ $PSVariables.Add($_) })
-
-    #exclude variables defined by the PSScriptTools module
-    $modVar = "PSAnsiFileMap","PSSamplePath","PSSpecialChar"
-    $modvar.Foreach({ $PSVariables.Add($_) })
     <#
-          find all the variables where the name isn't in the variable we just created
-          and also isn't a system variable generated after the shell has been running
-          and also any from this function
-        #>
+    find all the variables where the name isn't in the variable we just created
+    and also isn't a system variable generated after the shell has been running
+    and also any from this function
+    #>
 
     Write-Verbose "Getting current variables in $Scope scope"
     $variables = Get-Variable -Scope $Scope
+    Write-Verbose "Found $($variables.count) variables in scope: $scope"
 
-    Write-Verbose "Found $($variables.count) variables"
-    Write-Verbose "Filtering variables"
+    Write-Verbose 'Filtering variables'
+    #define variables to also exclude. Some of will exist in scripting scopes
+    $skip = 'LastExitCode', '_', 'PSScriptRoot',
+    'skip', 'PSCmdlet', 'PSVariables', 'variables', 'Scope',
+    'args', 'input', 'MyInvocation', 'Profile', 'PSBoundParameters',
+    'PSCommandPath'
 
-    #filter out some automatic variables
-    $filtered = $variables | Where-Object { $psvariables -NotContains $_.name }
+    $PSVariables += $skip
+    $out = $variables.Where({ $PSVariables -notcontains $_.name })
 
-    if ($NoTypeInformation) {
-        #write results without object types
-        $filtered
+    if ($IncludeTypeInformation) {
+        Write-Verbose "Adding type information"
+        $out | Add-Member -MemberType ScriptProperty -Name Type -value {$this.Value.GetType().Name} -Force
+        $out
     }
     else {
-        #add type information for each variable
-        Write-Verbose "Adding value type"
-        $filtered | Select-Object Name, Value, @{Name = "Type"; Expression = { $_.Value.GetType().Name } }
+        Write-Verbose "Writing default variables to the pipeline"
+        $out
     }
 
-    Write-Verbose "Finished getting my variables"
+    Write-Verbose 'Finished getting my variables'
 
 } #end function
 

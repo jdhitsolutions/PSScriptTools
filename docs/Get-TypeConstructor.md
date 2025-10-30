@@ -67,6 +67,25 @@ WARNING: No constructors found for Int32
 
 The function has an alias of ctor for convenience. Note there is no period.
 
+### Example 5
+
+```powershell
+PS C:\> $c = ctor system.io.fileinfo
+PS C:\> $c | Select-Object *
+
+Type               Parameters
+----               ----------
+System.IO.FileInfo @{ParameterType=string; ParameterName=fileName}
+
+PS C:\ $c.parameters
+
+ParameterType ParameterName
+------------- -------------
+System.String fileName
+```
+
+View the full details of the constructor.
+
 ## PARAMETERS
 
 ### -TypeName

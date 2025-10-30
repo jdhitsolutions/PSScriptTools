@@ -1,8 +1,7 @@
-#test if running elevated
-
 Function Test-IsElevated {
     [cmdletbinding()]
     [OutputType("Boolean")]
+    [Alias("isAdmin")]
     Param()
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"

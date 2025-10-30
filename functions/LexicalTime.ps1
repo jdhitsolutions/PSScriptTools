@@ -10,7 +10,12 @@ Function ConvertTo-LexicalTimeSpan {
     [cmdletbinding()]
     [OutputType("String")]
     Param(
-        [Parameter(Position = 0, Mandatory,HelpMessage = "Enter a TimeSpan object", ValueFromPipeline)]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            HelpMessage = "Enter a TimeSpan object"
+        )]
         [ValidateNotNullOrEmpty()]
         [TimeSpan]$TimeSpan
     )
@@ -39,7 +44,12 @@ Function ConvertFrom-LexicalTimeSpan {
     [cmdletbinding()]
     [OutputType("string", "TimeSpan")]
     Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter a lexical time string like P23DT3H43M. This is case-sensitive.", ValueFromPipeline)]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            HelpMessage = "Enter a lexical time string like P23DT3H43M. This is case-sensitive."
+        )]
         [ValidateNotNullOrEmpty()]
         [string]$String,
         [Parameter(HelpMessage = "Format the TimeSpan as a string")]

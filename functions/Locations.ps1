@@ -17,19 +17,21 @@ Function Get-PSLocation {
         $ps = Split-Path $profile
     }
     elseif ($IsCoreCLR) {
-        $ps = Split-Path (pwsh -noprofile -nologo {$profile})
+        $ps = Split-Path (pwsh -noprofile -nologo { $profile })
     }
     else {
-        $ps = Split-Path (powershell -noprofile -nologo {$profile})
+        $ps = Split-Path (powershell -noprofile -nologo { $profile })
     }
 
     [PSCustomObject]@{
-        PSTypename = "psLocation"
-        Home       = [Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
-        Temp       = [system.io.path]::GetTempPath()
-        Desktop    = [environment]::GetFolderPath("Desktop")
-        PowerShell = $ps
-        PSHome     = $PSHome
+        PSTypename  = 'psLocation'
+        Home        = [environment]::GetFolderPath("UserProfile")
+        Documents   = [Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
+        Temp        = [System.IO.Path]::GetTempPath()
+        Desktop     = [Environment]::GetFolderPath('Desktop')
+        PowerShell  = $ps
+        PSHome      = $PSHome
+        ModulePaths = $env:PSModulePath -split [System.IO.Path]::PathSeparator
     }
 
 } #close Get-PSLocation

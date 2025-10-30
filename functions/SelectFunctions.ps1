@@ -53,7 +53,7 @@ Function Select-First {
         }
         #verify property
         if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumeSystem.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -63,10 +63,10 @@ Function Select-First {
     } #process
 
     End {
-        If ($sortparams) {
+        If ($sortParams) {
             Write-Verbose "[END    ] Sort parameters"
             Write-Verbose ($sortParams | Out-String)
-            $data = $data | Sort-Object @sortparams
+            $data = $data | Sort-Object @sortParams
         }
         $data | Microsoft.PowerShell.Utility\Select-Object -First $first -Skip $skip
 
@@ -129,7 +129,7 @@ Function Select-Last {
         }
         #verify property
         if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumeSystem.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -138,10 +138,10 @@ Function Select-Last {
     } #process
 
     End {
-        If ($sortparams) {
+        If ($sortParams) {
             Write-Verbose "[END    ] Sorting parameters"
             Write-Verbose ($sortParams | Out-String)
-            $data = $data | Sort-Object @sortparams
+            $data = $data | Sort-Object @sortParams
         }
         $data | Select-Object -Last $Last -Skip $skip
 
@@ -174,7 +174,7 @@ Function Select-After {
     process {
         #verify property
         if ($InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -211,7 +211,7 @@ Function Select-Before {
     process {
         #verify property
         if ($InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -252,7 +252,7 @@ function Select-Newest {
         }
         #verify property
         if ($InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -295,7 +295,7 @@ function Select-Oldest {
         }
         #verify property
         if ($InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [system.argumentexception]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {

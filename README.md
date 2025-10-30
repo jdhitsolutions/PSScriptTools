@@ -130,59 +130,33 @@ If the function relies on external or additional files, you will have to copy th
 
 ### [Get-PSProfile](docs/Get-PSProfile.md)
 
-This command is designed for Windows systems and makes it easy to identify all possible PowerShell profile scripts. Including those for hosts such as VSCode or the PowerShell ISE. The command writes a custom object to the pipeline which has defined formatting. The default view is a table.
+This command is designed to make it easy to identify all possible PowerShell profile scripts. Including those for hosts such as VSCode or the PowerShell ISE. The command writes a custom object to the pipeline which has defined formatting. The default view is a table.
 
-```dos
-PS C:\> Get-PSProfile
+![Get-PSProfile Windows](images/get-psprofile-windows.png)
 
-   Name: PowerShell
-
-Scope                  Path                                                                Exists
------                  ----                                                                ------
-AllUsersCurrentHost    C:\Program Files\PowerShell\7\Microsoft.PowerShell_profile.ps1      False
-AllUsersAllHosts       C:\Program Files\PowerShell\7\profile.ps1                           False
-CurrentUserAllHosts    C:\Users\Jeff\Documents\PowerShell\profile.ps1                      True
-CurrentUserCurrentHost C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1 True
-
-
-   Name: Windows PowerShell
-
-Scope                  Path                                                                Exists
------                  ----                                                                ------
-AllUsersCurrentHost    C:\WINDOWS\System32\WindowsPowerShell\v1.0\Microsoft.PowerShell...  True
-AllUsersAllHosts       C:\WINDOWS\System32\WindowsPowerShell\v1.0\profile.ps1              True
-CurrentUserAllHosts    C:\Users\Jeff\Documents\WindowsPowerShell\profile.ps1               True
-CurrentUserCurrentHost C:\Users\Jeff\Documents\WindowsPowerShell\Microsoft.PowerShell_p... True
-```
+![Get-PSProfile Linux](images/get-psprofile-linux.png)
 
 There is also a list view.
 
 ```dos
-PS C:\> Get-PSProfile | Where-Object {$_.name -eq 'powershell'} | Format-List
-
+PS C:\> Get-PSProfile | Where-Object {$_.name -eq 'powershell' -AND $_.Exists} | Format-List
 
    Name: PowerShell
 
-
-Scope        : AllUsersCurrentHost
-Path         : C:\Program Files\PowerShell\7\Microsoft.PowerShell_profile.ps1
-Exists       : False
-LastModified :
-
 Scope        : AllUsersAllHosts
 Path         : C:\Program Files\PowerShell\7\profile.ps1
-Exists       : False
-LastModified :
+Exists       : True
+LastModified : 2/23/2022 1:27:30 PM
 
 Scope        : CurrentUserAllHosts
 Path         : C:\Users\Jeff\Documents\PowerShell\profile.ps1
 Exists       : True
-LastModified : 9/9/2024 2:35:45 PM
+LastModified : 10/5/2020 3:50:19 PM
 
 Scope        : CurrentUserCurrentHost
 Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.ps1
 Exists       : True
-LastModified : 9/9/2024 2:03:44 PM
+LastModified : 10/5/2020 3:50:19 PM
 ```
 
 ### [Get-MyAlias](docs/Get-MyAlias.md)
@@ -212,21 +186,24 @@ This is an alternative to `Get-Command` to make it easier to see at a glance wha
 ```dos
 PS C:\> Get-ModuleCommand PSCalendar -ListAvailable
 
-   ModuleName: PSCalendar [v2.9.0]
+   ModuleName: PSCalendar [v2.10.1]
 
-Name                        Alias Synopsis
-----                        ----- --------
-Get-Calendar                cal   Displays a visual representation of a
-                                  calendar.
-Get-MonthName                     Get the list of month names.
-Get-NCalendar               ncal  Display a Linux-style ncal calendar.
-Get-PSCalendarConfiguration       Get the current PSCalendar ANSI configuration.
-Set-PSCalendarConfiguration       Modify the PSCalendar ANSI configuration.
-Show-Calendar               scal  Display a colorized calendar month in the
-                                  console.
-Show-GuiCalendar            gcal  Display a WPF-based calendar.
-Show-PSCalendarHelp               Display a help PDF file for the PSCalendar
-                                  module.
+Name                           Alias                        Synopsis
+----                           -----                        --------
+Export-PSCalendarConfiguration Save-PSCalendarConfiguration Save the current calendar configuration
+                                                            settings to a file.
+Get-Calendar                   cal                          Displays a visual representation of a
+                                                            calendar.
+Get-MonthName                  mon                          Get the list of month names.
+Get-NCalendar                  ncal                         Display a Linux-style ncal calendar.
+Get-PSCalendarConfiguration                                 Get the current PSCalendar ANSI
+                                                            configuration.
+Set-PSCalendarConfiguration                                 Modify the PSCalendar ANSI
+                                                            configuration.
+Show-Calendar                  scal                         Display a colorized calendar month in
+                                                            the console.
+Show-GuiCalendar               gcal                         Display a WPF-based calendar.
+Show-PSCalendarHelp                                         Display a help PDF file for the PSCalendar module.
 ```
 
 There are also alternate table views.
@@ -234,45 +211,41 @@ There are also alternate table views.
 ```dos
 PS C:\> Get-ModuleCommand PSCalendar | Format-Table -View verb
 
+   Verb: Export
+
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+Export-PSCalendarConfiguration Save-PSCalendar Function    Save the current calendar configuration
+                               Configuration               settings to a file.
+
    Verb: Get
 
 Name                           Alias           Type        Synopsis
 ----                           -----           ----        --------
-Get-Calendar                   cal             Function    Displays a visual
-                                                           representation of a
+Get-Calendar                   cal             Function    Displays a visual representation of a
                                                            calendar.
-Get-MonthName                                  Function    Get the list of
-                                                           month names.
-Get-NCalendar                  ncal            Function    Display a
-                                                           Linux-style ncal
-                                                           calendar.
-Get-PSCalendarConfiguration                    Function    Get the current
-                                                           PSCalendar ANSI
+Get-MonthName                  mon             Function    Get the list of month names.
+Get-NCalendar                  ncal            Function    Display a Linux-style ncal calendar.
+Get-PSCalendarConfiguration                    Function    Get the current PSCalendar ANSI
                                                            configuration.
-
 
    Verb: Set
 
 Name                           Alias           Type        Synopsis
 ----                           -----           ----        --------
-Set-PSCalendarConfiguration                    Function    Modify the
-                                                           PSCalendar ANSI
+Set-PSCalendarConfiguration                    Function    Modify the PSCalendar ANSI
                                                            configuration.
-
 
    Verb: Show
 
 Name                           Alias           Type        Synopsis
 ----                           -----           ----        --------
-Show-Calendar                  scal            Function    Display a colorized
-                                                           calendar month in
+Show-Calendar                  scal            Function    Display a colorized calendar month in
                                                            the console.
-Show-GuiCalendar               gcal            Function    Display a WPF-based
-                                                           calendar.
-Show-PSCalendarHelp                            Function    Display a help PDF
-                                                           file for the
+Show-GuiCalendar               gcal            Function    Display a WPF-based calendar.
+Show-PSCalendarHelp                            Function    Display a help PDF file for the
                                                            PSCalendar module.
-```
+                                                           ```
 
 Get module commands using the default formatted view. There is also a default view for `Format-List`.
 
@@ -608,9 +581,9 @@ You can also get detailed information.
 
 ![Windows PowerShell](images/get-powershellengine1.png)
 
-![PowerShell Core on Windows](images/get-powershellengine2.png)
+![PowerShell 7 on Windows](images/get-powershellengine2.png)
 
-![PowerShell Core on Linux](images/get-powershellengine3.png)
+![PowerShell 7 on Linux](images/get-powershellengine3.png)
 
 Results will vary depending on whether you are running PowerShell on Windows or non-Windows systems.
 
