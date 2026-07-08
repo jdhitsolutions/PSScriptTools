@@ -7,6 +7,10 @@ Function Save-GitSetup {
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ Test-Path $_ })]
         [string]$Path = $env:TEMP,
+
+        [Parameter(HelpMessage = "Download the ARM64 standalone version")]
+        [switch]$ARM64,
+
         [Parameter(HelpMessage = "Show the downloaded file.")]
         [switch]$PassThru
     )
@@ -17,14 +21,23 @@ Function Save-GitSetup {
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
             #download the latest 64bit version of Git for Windows
-            $uri = 'https://git-scm.com/downloads/win'
+            # https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-64-bit.exe
+            $uri = 'https://git-scm.com/install/windows'
 
             Write-Verbose "Getting latest version of git from $uri"
             #get the web page
             $page = Invoke-WebRequest -Uri $uri -UseBasicParsing -DisableKeepAlive -ErrorAction Stop
-
+            Write-Information $page -Tags data
             #get the download link
-            $dl = ($page.links | Where-Object outerhtml -match 'git-.*-64-bit.exe' | Select-Object -first 1 * ).href
+            if ($ARM64) {
+                Write-Verbose "Downloading ARM64"
+                $dl = ($page.links | Where-Object outerHTML -match 'git-.*-Arm64.exe' | Select-Object -first 1 * ).href
+            }
+            else {
+                Write-Verbose "Downloading x64"
+                $dl = ($page.links | Where-Object outerHTML -match 'git-.*-64-bit.exe' | Select-Object -first 1 * ).href
+            }
+            Write-Information $dl -Tags data
             Write-Verbose "Found download link $dl"
 
             #split out the filename

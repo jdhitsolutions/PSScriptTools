@@ -21,6 +21,8 @@ Get-PathVariable [[-Scope] <String>] [<CommonParameters>]
 
 Use this command to test the locations specified in the %PATH% environment variable. On Windows platforms, you can distinguish between settings set per machine and those set per user. On non-Windows platforms, the scope will be Process.
 
+This command has an alias of Get-Path.
+
 ## EXAMPLES
 
 ### Example 1
@@ -39,6 +41,8 @@ Machine Jeff     C:\WINDOWS\system32                             True
 Machine Jeff     C:\WINDOWS\System32\Wbem                        True
 ...
 ```
+
+Paths that don't exist will be shown in red.
 
 ### Example 2
 

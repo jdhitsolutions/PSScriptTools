@@ -148,7 +148,7 @@ Function Get-TypeConstructor {
             HelpMessage = 'Specify a .NET type name like DateTime'
         )]
         [ValidateNotNullOrEmpty()]
-        [type]$TypeName
+        [Type]$TypeName
     )
 
     Begin {
@@ -179,7 +179,7 @@ Function Get-TypeConstructor {
             } #foreach c
         } #if Constructors found
         else {
-            Write-Warning "No constructors found for $($typename.name)"
+            Write-Warning "No constructors found for [$($typename.FullName)]. This may be a static class or an [Enum]."
         }
     } #process
 

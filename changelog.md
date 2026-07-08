@@ -4,13 +4,20 @@ This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
 ### Added
+- Added an alias of `Get-Path` to `Get-PathVariable`.
+- Added a parameter to `Get-ParameterInfo` to show parameters by parameter set.
+- Added command `Show-HiddenMember`.
 - Added the parameter `NoComments` to `New-PSFormatXml` to suppress the default helper comments.
-- Added a parameter alias `Property` for `Properties` in `New-PSFormatXML`.
 - Added a parameter alias `Property` for `Properties` in `New-PSFormatXML`.
 - Added alias `isAdmin` to `Test-IsElevated`.
 
 ### Changed
-- Updated `Convert-CommandToHashTable` to better handle a hashtable as a paremeter value.
+- Updated formatting for `Get-PathVariable` to highlight paths that don't exist in red.
+- Updates to sample script files.
+- Updated `Save-GitSetup` to support downloading the ARM64 standalone setup file.
+- Updated warning in `Get-TypeConstructor` to use type full name.
+- Minor formatting update for `Get-TypeConstructor`.
+- Updated `Convert-CommandToHashTable` to better handle a hashtable as a parameter value.
 - Updated `ConvertTo-Hashtable` to using PSObject` to get property names.
 - Updated `ConvertTo-Hashtable` to make an alphabetically sorted hashtable an ordered hashtable.
 - Updated `Convert-HashtableToCode` to accept a standard or ordered hashtable as input.
@@ -28,9 +35,15 @@ This file contains the most recent change history for the PSScriptTools module.
 - Help updates.
 - Replaced bit.ly online help links.
 
+### Removed
+- Marked `Write-Detail` as deprecated and archived. __This might be a breaking change__
+
 ### Fixed
+- Updated `Copy-HelpExample` to better handle changes in PowerShell 7 help.
+- Corrected download link in `Save-GitSetup`.
+- Fixed bug in formatting output from `Get-TypeConstructor`.
 - Fixed bug in `Get-ModuleCommand` that failed to retrieve all command aliases.
-- Fixed error in DirectoryStat sizeKB format view that wasn't showing values in KB
+- Fixed error in DirectoryStat sizeKB format view that wasn't showing values in KB.
 
 ## [3.0.0] - 2025-03-26
 

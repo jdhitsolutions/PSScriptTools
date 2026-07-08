@@ -15,7 +15,12 @@ Function Get-ParameterInfo {
         [ValidateNotNullOrEmpty()]
         [Alias('name')]
         [string]$Command,
-        [string]$Parameter
+        [Parameter(HelpMessage = "Specify a parameter by name")]
+        [ValidateNotNullOrEmpty()]
+        [string]$Parameter,
+        [Parameter(HelpMessage = "Specify a parameter set name")]
+        [ValidateNotNullOrEmpty()]
+        [string]$ParameterSet
     )
 
     Begin {
@@ -38,6 +43,7 @@ Function Get-ParameterInfo {
             'PipelineVariable',
             'ProgressAction'
         )
+
     } #begin
 
     Process {
@@ -61,7 +67,6 @@ Function Get-ParameterInfo {
         # Explicitly calling base, to prevent .count from being shadowed
         #
         if ($data.PSBase.Count -gt 0) {
-
             #$data is a hash table
             if ($Parameter) {
                 Write-Verbose "Getting parameter $Parameter"
@@ -105,11 +110,12 @@ Function Get-ParameterInfo {
                         }
 
                         #write a custom object to the pipeline
-                        [PSCustomObject]@{
+
+                        $r = [PSCustomObject]@{
                             PSTypeName                      = 'PSParameterInfo'
                             Name                            = $name
                             Aliases                         = $aliases
-                            Mandatory                       = $attributes.mandatory
+                            Mandatory                       = $attributes.Mandatory
                             Position                        = $position
                             ValueFromPipeline               = $attributes.ValueFromPipeline
                             ValueFromPipelineByPropertyName = $attributes.ValueFromPipelineByPropertyName
@@ -117,6 +123,14 @@ Function Get-ParameterInfo {
                             IsDynamic                       = $IsDynamic
                             ParameterSet                    = $attributes.ParameterSetName
                         }
+
+                        if ($r.ParameterSet -match "__All|\b$ParameterSet\b") {
+                            $r
+                        }
+                        elseif (-Not $ParameterSet) {
+                            $r
+                        }
+
                     } #foreach set
                     #Save output so it can be sorted by parameter set. Issue #138
                 } | Sort-Object -Property ParameterSet,Position,Name

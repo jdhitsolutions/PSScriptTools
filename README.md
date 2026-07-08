@@ -606,6 +606,8 @@ User    Jeff     C:\Program Files (x86)\Vale\                              True
 ...
 ```
 
+Paths that no longer exist will be displayed in red. This command has an alias of `Get-Path`.
+
 ## File Tools
 
 ### [Get-LastModifiedFile](docs/Get-LastModifiedFile.md)
@@ -1536,7 +1538,7 @@ Set the title bar of the current PowerShell console window.
 ```powershell
 if (Test-IsAdministrator) {
   Set-ConsoleTitle "Administrator:  $($PSVersionTable.PSVersion)"
-  }
+}
 ```
 
 ### [Add-Border](docs/Add-Border.md)
@@ -1762,6 +1764,51 @@ System.Int32  x
 System.Int32  y
 System.Int32  width
 System.Int32  height
+```
+
+### [Show-HiddenMember](docs/Show-HiddenMember.md)
+
+By design, PowerShell will hide parts of an object that have very little relevance to scripting or interactive PowerShell use. Often, these are .NET properties and methods that are automatically added. You can see them using Get-Member -Force. This command is designed to simplify the process.
+
+```dos
+ PS C:\> "powershell" | Show-HiddenMember
+
+       Type: System.String
+
+    Name                    MemberType
+    ----                    ----------
+    pstypenames           CodeProperty
+    psadapted                MemberSet
+    psbase                   MemberSet
+    psextended               MemberSet
+    psobject                 MemberSet
+    get_Chars                   Method
+    get_Length                  Method
+```
+
+This command is especially useful with custom commands.
+
+```dos
+PS C:\> Get-PSWorkItem | Show-HiddenMember -MemberType Property
+
+       Type: PSWorkItem
+
+    Name                    MemberType
+    ----                    ----------
+    TaskID                    Property
+```
+
+The `Get-PSWorkItem` command is from the [PSWorkItem](https://github.com/jdhitsolutions/PSWorkitem)module. It uses a custom class. `Show-HiddenMember` reveals a hidden property. Once you know the name, you can use it.
+
+```dos
+PS C:\> Get-PSWorkItem | Select-Object TaskID,Due
+
+TaskID                               Due
+------                               ---
+4bad9e29-a5a9-4a16-aa9b-f180995e298a 12/31/2025 5:00:00 PM
+d8fdba1f-e046-429a-8225-9cbbe927e366 6/18/2026 7:26:08 AM
+226022de-4c91-4014-985e-34ee18ce0eda 6/26/2026 6:40:00 AM
+...
 ```
 
 ### [New-PSDynamicParameter](docs/New-PSDynamicParameter.md)
@@ -2070,6 +2117,8 @@ Copy-HelpExample Stop-Service -UseGridView
 
 If you are running this in the PowerShell ISE this is the default behavior, even if you don't specify the parameter.
 
+> _This command makes its best guess at identifying code samples in the help content. If the help is malformed or deviates from the expected norm, you might not see any help examples._
+
 ### [Get-GitSize](docs/Get-GitSize.md)
 
 Use this command to determine how much space the hidden `.git` folder is consuming.
@@ -2129,20 +2178,17 @@ When writing PowerShell commands, sometimes the culture you are running under be
 
 ```dos
 PS C:\> Test-WithCulture fr-fr -Scriptblock {
-    Get-winEvent -log system -max 500 |
-    Select-Object -Property TimeCreated,ID,OpCodeDisplayName,Message |
-    Sort-Object -property TimeCreated |
-    Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement}
+  Get-winEvent -log system -max 500 |
+  Select-Object -Property TimeCreated,ID,OpCodeDisplayName,Message |
+  Sort-Object -property TimeCreated |
+  Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement
+}
 
 Count Name
 ----- ----
-  165 10/07/2024
-  249 11/07/2024
-   17 12/07/2024
-   16 13/07/2024
-   20 14/07/2024
-   26 15/07/2024
-    7 16/07/2024
+   22 06/07/2026
+  371 07/07/2026
+  107 08/07/2026
 ```
 
 ### [Copy-Command](docs/Copy-Command.md)
@@ -2188,7 +2234,7 @@ The custom object looks like this by default:
 PS C:\> $obj
 
 Name         : Jeff
-Date         : 2/10/2024 8:49:10 PM
+Date         : 2/10/2026 8:49:10 PM
 Computername : BOVINE320
 OS           : Microsoft Windows 10 Pro
 Runtime      : 40.20:49:43.9205882
@@ -2224,7 +2270,7 @@ PS C:\> $obj
 
 Name Date                 Computername Operating System
 ---- ----                 ------------ ----------------
-Jeff 2/10/2024 8:49:10 PM BOVINE320    Microsoft Windows 10 Pro
+Jeff 2/10/2026 8:49:10 PM BOVINE320    Microsoft Windows 10 Pro
 
 PS C:\> $obj | Format-Table -View runtime
 
@@ -2236,7 +2282,7 @@ PS C:\> $obj | Format-List
 
 
 Name            : Jeff
-Date            : Sunday, February 10, 2024
+Date            : Sunday, February 10, 2026
 Computername    : BOVINE320
 OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01
@@ -2292,7 +2338,13 @@ PS C:\> Save-GitSetup -Path c:\work -PassThru
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           1/23/2024  4:31 PM       46476880 Git-2.25.0-64-bit.exe
+-a---            7/8/2026 11:49 AM       65449488 Git-2.55.0.2-64-bit.exe
+```
+
+You can also opt to download the ARM64 standalone installer.
+
+```powershell
+Save-GitSetup -Path D:\temp -ARM64
 ```
 
 You will need to manually install the file. Or you can try something like this:
@@ -2350,7 +2402,7 @@ Root\PEH
 
 ### [Get-CimClassList](docs/Get-CimClassList.md)
 
-Sometimes `Get-CimClass` is overkill when all you want is a list of class names under a given namespace. `Get-CimClassList` is designed to quickly give you a list of class names. You can filter by name and exclude.
+Sometimes `Get-CimClass` is overkill when all you want is a list of class names under a given namespace. `Get-CimClassList` is designed to quickly give you a list of class names. You can filter by name and exclude names.
 
 ```dos
 PS C:\> Get-CimClassListing *usb*  -Exclude cim*
@@ -2462,7 +2514,7 @@ read True  Boolean EnableOverride, ToSubclass
 
 ## ANSI Tools
 
-Note: ANSI tools related to the filesystem are not loaded on computers where `PSStyle` is detected.
+Note: ANSI tools related to the filesystem are not loaded on computers when `$PSStyle` is detected.
 
 This module includes several custom format files for common objects like services. You can run `Get-Service` and pipe it to the custom table view.
 
@@ -2750,13 +2802,13 @@ You also have new script properties
 PS C:\> Get-ChildItem C:\Scripts\SharedProfileDefault.ps1 | Select-Object Name,Size,SizeKB,SizeMB,Created,CreatedAge,Modified,ModifiedAge
 
 Name        : SharedProfileDefault.ps1
-Size        : 3288
-SizeKB      : 3.21
+Size        : 4424
+SizeKB      : 4.32
 SizeMB      : 0
-Created     : 8/17/2023 8:47:13 AM
-CreatedAge  : 586.05:33:54.5461727
-Modified    : 3/21/2025 9:29:40 AM
-ModifiedAge : 4.04:51:27.6225204
+Created     : 4/6/2025 6:02:07 PM
+CreatedAge  : 457.21:18:59.7209014
+Modified    : 3/13/2026 5:08:16 PM
+ModifiedAge : 116.22:12:50.2662403
 ```
 
 There is also a custom property set.
@@ -2766,9 +2818,9 @@ PS C:\> Get-ChildItem C:\Scripts\SharedProfileDefault.ps1 | Select-Object AgeInf
 
 Directory     : C:\Scripts
 Name          : SharedProfileDefault.ps1
-Size          : 3288
-LastWriteTime : 3/21/2025 9:29:40 AM
-ModifiedAge   : 4.04:52:29.3136140
+Size          : 4424
+LastWriteTime : 3/13/2026 5:08:16 PM
+ModifiedAge   : 116.22:13:10.6561017
 ```
 
 #### System.Diagnostics.Process
@@ -2788,7 +2840,7 @@ Select-Object -first 5 -Property ID,Name,Runtime
 820 csrss         20:44:44.7760844
 ```
 
-The Idle process will have a null value for this property.
+The Idle process will have a null value for the Runtime property.
 
 #### Microsoft.PowerShell.Commands.GenericMeasureInfo
 
@@ -2844,10 +2896,15 @@ I've created a PDF version of this document which I thought you might find usefu
 
 ## Deprecated Commands
 
-The following commands have been removed as of v2.50.0.
+The following commands have been removed as of v2.50.0:
 
-- [Set-ConsoleColor](docs/Set-ConsoleColor.md)
-- [Out-ConditionalColor](docs/Out-ConditionalColor.md)
+- Set-ConsoleColor
+- Out-ConditionalColor
+- ConvertTo-ASCIIArt
+
+The following commands have been removed as of v3.1.0:
+
+- Write-Detail
 
 ## Related Modules
 

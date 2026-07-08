@@ -773,7 +773,9 @@ $paramHash = @{
   path = "c:\work"
   filter = "*.ps1"
   recurse = $True
-}</dev:code>
+}
+
+Get-ChildItem @paramHash</dev:code>
         <dev:remarks>
           <maml:para>Convert command 149 from command history into a hashtable.</maml:para>
         </dev:remarks>
@@ -1121,7 +1123,7 @@ CreatedOn                      BOVINE320</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command has not been tested with large or complex hashtables, so you might need to manually edit the output to meet your requirements.</maml:para>
+      <maml:para>Use this command to convert a hashtable into its text or string equivalent. It is assumed that any array values contain items of the same type. This command has not been tested with large or complex hash tables, so you might need to manually edit the output to meet your requirements.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1131,9 +1133,9 @@ CreatedOn                      BOVINE320</dev:code>
           <maml:description>
             <maml:para>A hashtable to convert. It can be standard or ordered hashtable.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
-            <maml:name>Hashtable</maml:name>
+            <maml:name>Object</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1141,7 +1143,7 @@ CreatedOn                      BOVINE320</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="tab">
           <maml:name>Indent</maml:name>
           <maml:description>
-            <maml:para>Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hashtables.</maml:para>
+            <maml:para>Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hash tables.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -1158,9 +1160,9 @@ CreatedOn                      BOVINE320</dev:code>
           <maml:description>
             <maml:para>A hashtable to convert. It can be standard or ordered hashtable.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
-            <maml:name>Hashtable</maml:name>
+            <maml:name>Object</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
@@ -1184,9 +1186,9 @@ CreatedOn                      BOVINE320</dev:code>
         <maml:description>
           <maml:para>A hashtable to convert. It can be standard or ordered hashtable.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">Hashtable</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
-          <maml:name>Hashtable</maml:name>
+          <maml:name>Object</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
@@ -1194,7 +1196,7 @@ CreatedOn                      BOVINE320</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="tab">
         <maml:name>Indent</maml:name>
         <maml:description>
-          <maml:para>Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hashtables.</maml:para>
+          <maml:para>Specify the number of tabs to indent. You shouldn't need to specify this parameter. It exists for situations where there are nested hash tables.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -1244,7 +1246,7 @@ CreatedOn                      BOVINE320</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $h = @{Name="SRV1";Asset=123454;Location="Omaha"}
+        <dev:code>PS C:\&gt; $h = [ordered]@{Name="SRV1";Asset=123454;Location="Omaha"}
 PS C:\&gt; Convert-HashtableToCode $h
 @{
         Name = 'SRV1'
@@ -1252,7 +1254,7 @@ PS C:\&gt; Convert-HashtableToCode $h
         Location = 'Omaha'
 }</dev:code>
         <dev:remarks>
-          <maml:para>Convert a hashtable object to a string equivalent that you can copy into your script.</maml:para>
+          <maml:para>Convert an ordered hashtable object to a string equivalent that you can copy into your script.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -3674,6 +3676,7 @@ ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -Initializ
     </command:details>
     <maml:description>
       <maml:para>This command is intended to make it easier to copy code snippets from help examples to the clipboard. You can select one or more examples which have been trimmed of comments, blank lines and most prompts. Some code examples contain the output or have several lines of code. You will need to manually delete what you don't want. If this command is run on a Windows system you have a dynamic parameter to use Out-GridView to display your choices. When prompted enter a comma-separated list of the examples you wish to copy. Otherwise, the command will display a console-based menu. Note that if you are using the PowerShell ISE you will be forced to use Out-GridView.</maml:para>
+      <maml:para>This command makes its best guess at identifying code samples in the help content. If the help is malformed or deviates from the expected norm, you might not see any help examples</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -8307,6 +8310,18 @@ Compare-Script                    csc               {Desktop, Core}       5.1
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specify an alias by name</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -8321,6 +8336,18 @@ Compare-Script                    csc               {Desktop, Core}       5.1
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specify an alias by name</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -8398,6 +8425,18 @@ cl   Create-List   None
 np   notepad       ReadOnly</dev:code>
         <dev:remarks>
           <maml:para>Get your aliases and pipe to format table using a custom view defined by the PSScriptTools module.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyAlias gr* | Select Name,Definition
+
+Name Definition
+---- ----------
+grep C:\Program Files\Git\usr\bin\grep.exe
+grok Get-Help</dev:code>
+        <dev:remarks>
+          <maml:para>Get my aliases by name.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -9006,7 +9045,8 @@ Now                   Home                  Seattle              New Zealand
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local, or a number 0 through 5. The command will also display the value type for each variable. If you want to suppress this output use the -NoTypeInformation switch.</maml:para>
+      <maml:para>This function will return all variables not defined by PowerShell or by this function itself. The default is to return all user-created variables from the global scope but you can also specify a scope such as script, local, or a number 0 through 5. The command will also display the value type for each variable.</maml:para>
+      <maml:para>Beginning with version 3.1.0, you can opt in and include a script property that shows the variable type name. This is a breaking change from the previous -NoTypeInformation parameter.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -9024,9 +9064,9 @@ Now                   Home                  Seattle              New Zealand
           <dev:defaultValue>Global</dev:defaultValue>
         </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>NoTypeInformation</maml:name>
+          <maml:name>IncludeTypeInformation</maml:name>
           <maml:description>
-            <maml:para>If specified, suppress the type information for each variable value.</maml:para>
+            <maml:para>Add a script property that displays the corresponding type name of the variable. This parameter was added in version 3.1.0.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -9050,9 +9090,9 @@ Now                   Home                  Seattle              New Zealand
         <dev:defaultValue>Global</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>NoTypeInformation</maml:name>
+        <maml:name>IncludeTypeInformation</maml:name>
         <maml:description>
-          <maml:para>If specified, suppress the type information for each variable value.</maml:para>
+          <maml:para>Add a script property that displays the corresponding type name of the variable. This parameter was added in version 3.1.0.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -9093,36 +9133,39 @@ Now                   Home                  Seattle              New Zealand
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-MyVariable
 
-NName Value                  Type
----- -----                  ----
-a    bits                   ServiceController
-dt   10/22/2020 10:49:38 AM DateTime
-foo  123                    Int32
-r    {1, 2, 3, 4...}        Object[]
+Name                           Value
+----                           -----
+dt                             10/29/2025 2:19:40 PM
+j                              {AarSvc_9521e3b, ADPSvc, ALG, AppIDSvc…}
+n                              foo
+PSSamplePath                   C:\scripts\PSScriptTools\Samples
+PSSpecialChar                  {[DarkShade, ▓], [Section, §], [DownTriangle, ▼]…
+var                            123
 ...</dev:code>
         <dev:remarks>
-          <maml:para>Depending on the value and how PowerShell chooses to display it, you may not see the type.</maml:para>
+          <maml:para>Get all variables defined by the user in the global scope.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-MyVariable | Select-Object name,type
+        <dev:code>PS C:\&gt; Get-MyVariable -IncludeTypeInformation | Select-Object Name,Type,Value
 
-Name Type
----- ----
-a    ServiceController
-dt   DateTime
-foo  Int32
-r    Object[]</dev:code>
+Name          Type      Value
+----          ----      -----
+dt            DateTime  10/29/2025 2:19:40 PM
+j             Object[]  {AarSvc_9521e3b, ADPSvc, ALG, AppIDSvc…}
+n             String    foo
+PSSamplePath  String    C:\scripts\PSScriptTools\Samples
+PSSpecialChar Hashtable {[DarkShade, ▓], [Section, §], [DownTriangle, ▼], [Blac…
+var           Int32     123</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Get user defined variable and show the corresponding type name.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-MyVariable | Export-Clixml myvar.xml
-PS C:\&gt; import-clixml .\myvar.xml |
-ForEach-Object {set-variable -Name $_.name -Value $_.value}</dev:code>
+        <dev:code>PS C:\&gt; Get-MyVariable | Export-Clixml MyVar.xml
+PS C:\&gt; Import-Clixml .\MyVar.xml | ForEach-Object {Set-Variable -Name $_.name -Value $_.value}</dev:code>
         <dev:remarks>
           <maml:para>You can then import this XML file in another session to restore these variables.</maml:para>
         </dev:remarks>
@@ -9132,7 +9175,7 @@ ForEach-Object {set-variable -Name $_.name -Value $_.value}</dev:code>
         <dev:code>PS C:\&gt; function foo {
      c:\scripts\Get-MyVariable2.ps1;
      $a=4;$b=2;$c=$a*$b;
-     Get-MyVariable -NoTypeInformation -scope 1 -verbose;
+     Get-MyVariable  -scope 1 -verbose;
      $c
      }
 
@@ -9156,8 +9199,7 @@ VERBOSE: Finished getting my variables
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-MyVariable | where {$_.type -eq "Scriptblock"} |
-Select-Object name,value
+        <dev:code>PS C:\&gt; Get-MyVariable | where {$_.type -eq "Scriptblock"} | Select-Object name,value
 
 Name                               Value
 ----                               -----
@@ -9200,7 +9242,7 @@ up                                 Param(\[string\]$computername=$env:com...</de
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. Get-ParameterInfo returns a custom object with the most useful information an administrator might need to know. See examples.</maml:para>
+      <maml:para>Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. Get-ParameterInfo returns a custom object with the most useful information an administrator might want to know. See examples.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -9229,6 +9271,18 @@ up                                 Param(\[string\]$computername=$env:com...</de
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ParameterSet</maml:name>
+          <maml:description>
+            <maml:para>Specify a parameter set name. The output will also include parameters that belong to all parameter sets.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -9248,6 +9302,18 @@ up                                 Param(\[string\]$computername=$env:com...</de
         <maml:name>Parameter</maml:name>
         <maml:description>
           <maml:para></maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ParameterSet</maml:name>
+        <maml:description>
+          <maml:para>Specify a parameter set name. The output will also include parameters that belong to all parameter sets.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -9293,9 +9359,9 @@ Name            Aliases         Mandatory    Position    Type
 ----            -------         ---------    --------    ----
 Depth                           False        Named       System.Int32
 Encoding                        False        Named       System.Text.Encoding
-Force                           False        Named       System.Management.Auto…
-InputObject                     True         Named       System.Management.Auto…
-NoClobber       NoOverwrite     False        Named       System.Management.Auto…
+Force                           False        Named       System.Management.Auto...
+InputObject                     True         Named       System.Management.Auto...
+NoClobber       NoOverwrite     False        Named       System.Management.Auto...
 
    ParameterSet: ByLiteralPath
 
@@ -9318,9 +9384,9 @@ Path                            True         0           System.String</dev:code
 
 Name       Type                                         Position ParameterSet
 ----       ----                                         -------- ------------
-Credential System.Management.Automation.PSCredential    Named    __AllParameter…
-Force      System.Management.Automation.SwitchParameter Named    __AllParameter…
-Value      System.Object                                Named    __AllParameter…
+Credential System.Management.Automation.PSCredential    Named    __AllParameter...
+Force      System.Management.Automation.SwitchParameter Named    __AllParameter...
+Value      System.Object                                Named    __AllParameter...
 Path       System.String[]                              0        nameSet
 Name       System.String                                Named    nameSet
 Path       System.String[]                              0        pathSet</dev:code>
@@ -9422,6 +9488,56 @@ ValueFromPipelineByPropertyName : False</dev:code>
           <maml:para>Get details on the Computername parameter of the Get-Counter cmdlet.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ParameterInfo Invoke-Command | Select ParameterSet -Unique
+
+ParameterSet
+------------
+__AllParameterSets
+ComputerName
+ContainerId
+FilePathComputerName
+FilePathContainerId
+FilePathRunspace
+FilePathSSHHost
+FilePathSSHHostHash
+FilePathUri
+FilePathVMId
+FilePathVMName
+InProcess
+Session
+SSHHost
+SSHHostHashParam
+Uri
+VMId
+VMName</dev:code>
+        <dev:remarks>
+          <maml:para>Get the list of parameter set names.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 6 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ParameterInfo Get-Service -ParameterSet DisplayName
+
+   ParameterSet: __AllParameterSets
+
+Name              Aliases           Mandatory    Position    Type
+----              -------           ---------    --------    ----
+DependentServi... DS                False        Named       System.Management.Auto...
+Exclude                             False        Named       System.String[]
+Include                             False        Named       System.String[]
+RequiredServic... SDO,ServicesDe... False        Named       System.Management.Auto...
+
+   ParameterSet: DisplayName
+
+Name              Aliases           Mandatory    Position    Type
+----              -------           ---------    --------    ----
+DisplayName                         True         Named       System.String[]</dev:code>
+        <dev:remarks>
+          <maml:para>Get all parameters that belong to the DisplayName parameter set. The output will also include parameters that belong to all parameter sets.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -9449,6 +9565,7 @@ ValueFromPipelineByPropertyName : False</dev:code>
     </command:details>
     <maml:description>
       <maml:para>Use this command to test the locations specified in the %PATH% environment variable. On Windows platforms, you can distinguish between settings set per machine and those set per user. On non-Windows platforms, the scope will be Process.</maml:para>
+      <maml:para>This command has an alias of Get-Path.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -9527,7 +9644,7 @@ Machine Jeff     C:\WINDOWS\system32                             True
 Machine Jeff     C:\WINDOWS\System32\Wbem                        True
 ...</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Paths that don't exist will be shown in red.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -10688,9 +10805,9 @@ Culture         : Invariant Language (Invariant Country)</dev:code>
         <dev:code>PS C:\&gt; Get-TypeConstructor system.drawing.rectangle
 
 [System.Drawing.Rectangle]::new([System.Int32]$X),
-                        [System.Int32]$Y),
-                        [System.Int32]$Width),
-                        [System.Int32]$Height))
+                [System.Int32]$Y),
+                [System.Int32]$Width),
+                [System.Int32]$Height))
 
 [System.Drawing.Rectangle]::new([System.Drawing.Point]$Location),[System.Drawing.Size]$Size))</dev:code>
         <dev:remarks>
@@ -10700,7 +10817,7 @@ Culture         : Invariant Language (Invariant Country)</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; ctor int32
-WARNING: No constructors found for Int32</dev:code>
+WARNING: No constructors found for [System.Int32]. This may be a static class or an [Enum].</dev:code>
         <dev:remarks>
           <maml:para>The function has an alias of ctor for convenience. Note there is no period.</maml:para>
         </dev:remarks>
@@ -11021,6 +11138,10 @@ GetFullPath                 System.String      True $obj.GetFullPath([String]...
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-TypeConstructor</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Show-HiddenMember</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -14065,7 +14186,7 @@ PS DeepDive:\&gt;</dev:code>
     </command:details>
     <maml:description>
       <maml:para>When defining custom objects with a new typename, PowerShell by default will display all properties. However, you may wish to have a specific default view, such as a table or list. Or you may want to have different views that display the object differently. Format directives are stored in format.ps1xml files which can be tedious to create. This command simplifies that process.</maml:para>
-      <maml:para>Note that the table and wide views are set to Autosize. However, the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the Autosize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.</maml:para>
+      <maml:para>Note that the table and wide views are set to AutoSize. However, the table definition will include best guesses for column widths. If you prefer a more granular approach you can delete the AutoSize tag and experiment with varying widths. Don't forget to run Update-FormatData to load your new file. You may need to start a new PowerShell session to fully test changes.</maml:para>
       <maml:para>Pipe an instance of your custom object to this function and it will generate a format.ps1xml file based on either all the properties or a subset that you provide. You can repeat the process to add additional views. When finished, edit the format.ps1xml file and fine-tune it. The file will have notes on how to substitute script blocks. Although, beginning with v2.31.0, you can specify a hashtable as a custom property name just as you can with Select-Object.</maml:para>
       <maml:para>Even though this command was written to make it easier when writing modules that might use custom objects, you can use this command to define additional views for standard objects such as files and processes. See Examples.</maml:para>
       <maml:para>If you run this command inside the Visual Studio Code PowerShell Integrated Console and use -PassThru, the new file will automatically be opened in your editor.</maml:para>
@@ -14085,7 +14206,7 @@ PS DeepDive:\&gt;</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="Property">
           <maml:name>Properties</maml:name>
           <maml:description>
             <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created. Ideally, you will specify an instance of the object that contains a value for all the properties you want to use.</maml:para>
@@ -14149,32 +14270,10 @@ PS DeepDive:\&gt;</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>PassThru</maml:name>
           <maml:description>
             <maml:para>Write the ps1xml file object to the pipeline. If you run this command inside the VS Code PowerShell integrated console, or the PowerShell ISE and use this parameter, the file will be opened in the editor.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -14217,6 +14316,39 @@ PS DeepDive:\&gt;</dev:code>
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>NoComments</maml:name>
+          <maml:description>
+            <maml:para>By default, the command will insert comments with guidance on how to make changes to the file. Use this parameter if you do not want to  include the default comments.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+          <maml:name>WhatIf</maml:name>
+          <maml:description>
+            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+          <maml:name>Confirm</maml:name>
+          <maml:description>
+            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -14231,30 +14363,6 @@ PS DeepDive:\&gt;</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-        <maml:name>Confirm</maml:name>
-        <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
-        <maml:name>FormatType</maml:name>
-        <maml:description>
-          <maml:para>Specify whether to create a table, list, or wide view.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>Table</dev:defaultValue>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
         <maml:name>InputObject</maml:name>
@@ -14292,7 +14400,7 @@ PS DeepDive:\&gt;</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="Property">
         <maml:name>Properties</maml:name>
         <maml:description>
           <maml:para>Enter a set of properties to include. If you don't specify anything then all properties will be used. When creating a Wide view you should only specify a single property. If you specify an invalid property name, the ps1xml file will NOT be created. Ideally, you will specify an instance of the object that contains a value for all the properties you want to use.</maml:para>
@@ -14303,30 +14411,6 @@ PS DeepDive:\&gt;</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
-        <maml:name>ViewName</maml:name>
-        <maml:description>
-          <maml:para>Enter the name of your view.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>default</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-        <maml:name>WhatIf</maml:name>
-        <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Typename</maml:name>
@@ -14356,6 +14440,66 @@ PS DeepDive:\&gt;</dev:code>
         <maml:name>Wrap</maml:name>
         <maml:description>
           <maml:para>Wrap long lines. This only applies to Tables.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="none">
+        <maml:name>FormatType</maml:name>
+        <maml:description>
+          <maml:para>Specify whether to create a table, list, or wide view.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Table</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>NoComments</maml:name>
+        <maml:description>
+          <maml:para>By default, the command will insert comments with guidance on how to make changes to the file. Use this parameter if you do not want to  include the default comments.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="3" aliases="none">
+        <maml:name>ViewName</maml:name>
+        <maml:description>
+          <maml:para>Enter the name of your view.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>default</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
+        <maml:name>WhatIf</maml:name>
+        <maml:description>
+          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
+        <maml:name>Confirm</maml:name>
+        <maml:description>
+          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -14401,26 +14545,26 @@ PS DeepDive:\&gt;</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $tname = "myThing"
+        <dev:code>PS C:\&gt; $tName = "myThing"
 PS C:\&gt; $obj = [PSCustomObject]@{
-    PSTypeName   = $tname
+    PSTypeName   = $tName
     Name         = "Jeff"
     Date         = (Get-Date)
     Computername = $env:computername
-    OS           = (Get-Ciminstance Win32_OperatingSystem ).caption
+    OS           = (Get-CimInstance Win32_OperatingSystem ).caption
 }
 PS C:\&gt; $upParams = @{
- TypeName = $tname
+ TypeName = $tName
  MemberType = "ScriptProperty"
  MemberName = "Runtime"
- Value = {(Get-Date) - [datetime]"1/1/2020"}
+ Value = {(Get-Date) - [datetime]"1/1/2025"}
  Force = $True
 }
 PS C:\&gt; Update-TypeData @upParams
 PS C:\&gt; $obj
 
 Name         : Jeff
-Date         : 2/10/2020 8:49:10 AM
+Date         : 2/10/2025 8:49:10 AM
 Computername : BOVINE320
 OS           : Microsoft Windows 10 Pro
 Runtime      : 40.20:49:43.9205882</dev:code>
@@ -14430,7 +14574,7 @@ Runtime      : 40.20:49:43.9205882</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $fmt = "C:\scripts\$tname.format.ps1xml"
+        <dev:code>PS C:\&gt; $fmt = "C:\scripts\$tName.format.ps1xml"
 PS C:\&gt; $obj | New-PSFormatXML -Prop Name,Date,Computername,OS -Path $fmt
 PS C:\&gt; $obj | New-PSFormatXML -Prop Name,OS,Runtime -view runtime -Path $fmt -append
 PS C:\&gt; $obj | New-PSFormatXML -FormatType List -Path $fmt -append</dev:code>
@@ -14440,12 +14584,12 @@ PS C:\&gt; $obj | New-PSFormatXML -FormatType List -Path $fmt -append</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
+        <dev:code>PS C:\&gt; Update-FormatData -AppendPath "C:\work\$tName.format.ps1xml"
 PS C:\&gt; $obj
 
 Name Date                 Computername Operating System
 ---- ----                 ------------ ----------------
-Jeff 2/10/2020 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
+Jeff 2/10/2025 8:49:10 AM BOVINE320    Microsoft Windows 10 Pro
 
 PS C:\&gt; $obj | Format-Table -View runtime
 
@@ -14457,7 +14601,7 @@ PS C:\&gt; $obj | Format-List
 
 
 Name            : Jeff
-Date            : Sunday, February 10, 2020
+Date            : Sunday, February 10, 2025
 Computername    : BOVINE320
 OperatingSystem : Microsoft Windows 10 Pro
 Runtime         : 40.21:12:01</dev:code>
@@ -14468,8 +14612,8 @@ Runtime         : 40.21:12:01</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $obj | New-PSFormatXML -view computer -Group Computername
--Path "c:\work\$tname.format.ps1xml" -append
-PS C:\&gt; Update-FormatData -appendpath "C:\work\$tname.format.ps1xml"
+-Path "c:\work\$tName.format.ps1xml" -append
+PS C:\&gt; Update-FormatData -AppendPath "C:\work\$tName.format.ps1xml"
 PS C:\&gt; $obj | Format-Table -View computer
 
 
@@ -14477,7 +14621,7 @@ PS C:\&gt; $obj | Format-Table -View computer
 
 Name Date                  OS                       Runtime
 ---- ----                  --                       -------
-Jeff 2/10/2020 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481</dev:code>
+Jeff 2/10/2025 8:49:10 AM Microsoft Windows 10 Pro 40.20:56:24.5411481</dev:code>
         <dev:remarks>
           <maml:para>This adds another view called Computer that groups objects on the Computername property.</maml:para>
         </dev:remarks>
@@ -14501,7 +14645,7 @@ PS C:\&gt; Update-FormatData $params.path</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 6 --------------------------</maml:title>
         <dev:code>PS C:\&gt; '' | Select-Object -Property Name,Size,Date,Count,Age |
-New-PSFormatXML -Typename myThing -Path c:\scripts\mything.format.ps1xml</dev:code>
+New-PSFormatXML -Typename myThing -Path c:\scripts\myThing.format.ps1xml</dev:code>
         <dev:remarks>
           <maml:para>This is an example of creating a formatting file from an empty object. Normally, you would first define your object and verify it has all the properties you need, and then you would create the formatting file. But you may want to create the formatting file in parallel using an older technique like this.</maml:para>
         </dev:remarks>
@@ -15985,9 +16129,9 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
       <maml:para>You might use it like this in a script.</maml:para>
       <maml:para>Begin {</maml:para>
       <maml:para>    $log = New-RandomFilename -useTemp -extension log</maml:para>
-      <maml:para>    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin | Tee-Verbose $log</maml:para>
-      <maml:para>    Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append</maml:para>
-      <maml:para>    Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append</maml:para>
+      <maml:para>    "Starting $($MyInvocation.MyCommand)" -Prefix begin | Tee-Verbose $log</maml:para>
+      <maml:para>    "Logging verbose output to $log" -prefix begin | Tee-Verbose $log -append</maml:para>
+      <maml:para>    "Initializing data array" -Prefix begin | Tee-Verbose $log -append</maml:para>
       <maml:para>    $data = @()</maml:para>
       <maml:para>} #begin</maml:para>
       <maml:para>When the command is run with -Verbose you will see the verbose output and it will be saved to the specified log file.</maml:para>
@@ -16124,7 +16268,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $VerbosePreference= "continue"
 PS C:\&gt; $log = New-CustomFileName ".\VerboseLog_%time.txt"
-PS C:\&gt; Write-Detail "This is a verbose log test" | Out-VerboseTee -Path $log
+PS C:\&gt; "This is a verbose log test" | Out-VerboseTee -Path $log
 PS C:\&gt; Get-Content $log
 11/29/2024 08:21:31:0704 [PROCESS] This is a verbose log test
 PS C:\&gt; $verbosePreference = "SilentlyContinue"</dev:code>
@@ -16140,10 +16284,6 @@ PS C:\&gt; $verbosePreference = "SilentlyContinue"</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Write-Verbose</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Write-Detail</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
@@ -17058,7 +17198,7 @@ Rename-Hashtable -Key Machinename -NewKey Computername</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>Non-Windows platforms have package management that make it easy to install newer versions of git. This command is for Windows platforms. You can run this command to download the latest 64bit version of Git for Windows. You will need to manually install it.</maml:para>
+      <maml:para>Non-Windows platforms have package management that make it easy to install newer versions of git. This command is for Windows platforms where tools like winget are not an option. You can run this command to download the latest 64bit or ARM64 standalone setup file of Git for Windows. You will need to manually install it.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -17079,6 +17219,17 @@ Rename-Hashtable -Key Machinename -NewKey Computername</dev:code>
           <maml:name>PassThru</maml:name>
           <maml:description>
             <maml:para>Show the downloaded file.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ARM64</maml:name>
+          <maml:description>
+            <maml:para>Download the ARM64 standalone version</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -17112,6 +17263,18 @@ Rename-Hashtable -Key Machinename -NewKey Computername</dev:code>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>$env:TEMP</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ARM64</maml:name>
+        <maml:description>
+          <maml:para>Download the ARM64 standalone version</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
@@ -17150,15 +17313,29 @@ Rename-Hashtable -Key Machinename -NewKey Computername</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>C:\&gt; Save-GitSetup -Path c:\work -PassThru
+        <dev:code>PS C:\&gt; Save-GitSetup -Path c:\work -PassThru
 
     Directory: C:\work
 
 Mode                 LastWriteTime         Length Name
 ----                 -------------         ------ ----
--a---           3/26/2025 10:50 AM       70287136 Git-2.49.0-64-bit.exe</dev:code>
+-a---            7/8/2026 11:49 AM       65449488 Git-2.55.0.2-64-bit.exe
+
+PS C:\&gt; Save-GitSetup -Path D:\temp -ARM64 -Verbose
+VERBOSE: [11:53:49.2899082 BEGIN  ] Starting Test-IsPSWindows
+VERBOSE: [11:53:49.2901318 END    ] Ending Test-IsPSWindows
+VERBOSE: Getting latest version of git from https://git-scm.com/install/windows
+VERBOSE: WebRequest: v1.1 GET https://git-scm.com/install/windows
+VERBOSE: WebResponse: 200 OK with text/html payload
+VERBOSE: Downloading ARM64
+VERBOSE: Found download link https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe
+VERBOSE: Downloading D:\temp\Git-2.55.0.2-arm64.exe from https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe
+VERBOSE: WebRequest: v1.1 GET https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe output to D:\temp\Git-2.55.0.2-arm64.exe
+VERBOSE: WebResponse: 200 OK with application/octet-stream payload with body size 60.31 MB (63,236,912 bytes)
+VERBOSE: File Name: Git-2.55.0.2-arm64.exe
+VERBOSE: Download complete</dev:code>
         <dev:remarks>
-          <maml:para></maml:para>
+          <maml:para>Downloading the ARM64 setup file.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -18402,11 +18579,11 @@ oldest 10 -Property starttime
       <command:verb>Set</command:verb>
       <command:noun>LocationToFile</command:noun>
       <maml:description>
-        <maml:para>Change your script editor terminal location. Only valid in VSCode or the ISE.</maml:para>
+        <maml:para>Change your script editor terminal location.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will only be available if you import the PSScriptTools module into an integrated PowerShell terminal in Visual Studio Code or the PowerShell ISE. It is designed to set the location of the terminal to the same directory as the active file. Run the command or its aliases in the integrated terminal. Use the aliases sd or jmp.</maml:para>
+      <maml:para>This command will only be available if you import the PSScriptTools module into an integrated PowerShell terminal in Visual Studio Code. It is designed to set the location of the terminal to the same directory as the active file. Run the command or its aliases in the integrated terminal. Use the aliases sd or jmp.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -18972,7 +19149,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will display a loaded function as it might look in a code editor. You could use this command to export a loaded function to a file.</maml:para>
+      <maml:para>This command will display a loaded function as it might look in a code editor. You could use this command to export a loaded function to a file. This command will not work with compiled or binary cmdlets.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -19053,6 +19230,218 @@ Function Prompt {
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-FunctionItem</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Show-HiddenMember</command:name>
+      <command:verb>Show</command:verb>
+      <command:noun>HiddenMember</command:noun>
+      <maml:description>
+        <maml:para>Show an object's hidden members.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>By design, PowerShell will hide parts of an object that have very little relevance to scripting or interactive PowerShell use. Often, these are .NET properties and methods that are automatically added. You can see them using Get-Member -Force. This command is designed to simplify the process.</maml:para>
+      <maml:para>It is expected that you will pipe an object to this command like you do with Get-Member. It is also assumed that if you pipe multiple objects they are all of the same type. Only the first object will be processed.</maml:para>
+      <maml:para>An earlier version of this command was first introduced at LINK</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Show-HiddenMember</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:description>
+            <maml:para>Pipe an object to this command. It is assumed all the objects are of the same type as only the first object will be processed.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+          <dev:type>
+            <maml:name>Object</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>ExcludePropertyMethod</maml:name>
+          <maml:description>
+            <maml:para>Exclude methods like get_Name and set_Name</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>MemberType</maml:name>
+          <maml:description>
+            <maml:para>The default is to show all hidden members, but you can filter by specifying a member type. You can tab-complete the values.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">AliasProperty</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CodeProperty</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Property</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">NoteProperty</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ScriptProperty</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Properties</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">PropertySet</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Method</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">CodeMethod</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ScriptMethod</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Methods</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">ParameterizedProperty</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">MemberSet</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Event</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Dynamic</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">All</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">PSMemberTypes</command:parameterValue>
+          <dev:type>
+            <maml:name>PSMemberTypes</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>All</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>ExcludePropertyMethod</maml:name>
+        <maml:description>
+          <maml:para>Exclude methods like get_Name and set_Name</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:description>
+          <maml:para>Pipe an object to this command. It is assumed all the objects are of the same type as only the first object will be processed.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
+        <dev:type>
+          <maml:name>Object</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>MemberType</maml:name>
+        <maml:description>
+          <maml:para>The default is to show all hidden members, but you can filter by specifying a member type. You can tab-complete the values.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">PSMemberTypes</command:parameterValue>
+        <dev:type>
+          <maml:name>PSMemberTypes</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>All</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Object</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>psHiddenMember</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command has an alias of sm</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; "powershell" | Show-HiddenMember
+
+   Type: System.String
+
+Name                    MemberType
+----                    ----------
+pstypenames           CodeProperty
+psadapted                MemberSet
+psbase                   MemberSet
+psextended               MemberSet
+psobject                 MemberSet
+get_Chars                   Method
+get_Length                  Method</dev:code>
+        <dev:remarks>
+          <maml:para>The default behavior is to show all hidden members.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process -id $pid | Show-HiddenMember -ExcludePropertyMethod
+
+   Type: System.Diagnostics.Process
+
+Name                    MemberType
+----                    ----------
+pstypenames           CodeProperty
+psadapted                MemberSet
+psbase                   MemberSet
+psextended               MemberSet
+psobject                 MemberSet
+PSStandardMembers        MemberSet</dev:code>
+        <dev:remarks>
+          <maml:para>Many classes will have intrinsic .NET methods to get and set properties like get_Name. You can exclude these methods from the output.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSWorkItem | Show-HiddenMember -MemberType Property
+
+   Type: PSWorkItem
+
+Name                    MemberType
+----                    ----------
+TaskID                    Property
+
+PS C:\&gt; Get-PSWorkItem | Select-Object TaskID,Due
+
+TaskID                               Due
+------                               ---
+4bad9e29-a5a9-4a16-aa9b-f180995e298a 12/31/2025 5:00:00 PM
+d8fdba1f-e046-429a-8225-9cbbe927e366 6/18/2026 7:26:08 AM
+226022de-4c91-4014-985e-34ee18ce0eda 6/26/2026 6:40:00 AM
+...</dev:code>
+        <dev:remarks>
+          <maml:para>The Get-PSWorkItem command is from the PSWorkItem (https://github.com/jdhitsolutions/PSWorkitem)module. It uses a custom class. Show-HiddenMember reveals a hidden property. Once you know the name, you can use it.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/2c344b</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-Member</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-TypeMember</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -20407,7 +20796,7 @@ True</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Test-WithCulture de-de -Scriptblock {(Get-Date).addDays(90)}
-Montag, 14. Oktober 2020 08:59:01</dev:code>
+06.10.2026 15:01:50</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -20419,17 +20808,13 @@ Montag, 14. Oktober 2020 08:59:01</dev:code>
   Select-Object -Property TimeCreated,ID,OpCodeDisplayName,Message |
   Sort-Object -property TimeCreated |
   Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement
-  }
+}
 
 Count Name
 ----- ----
-  165 10/07/2020
-  249 11/07/2020
-   17 12/07/2020
-   16 13/07/2020
-   20 14/07/2020
-   26 15/07/2020
-    7 16/07/2020</dev:code>
+   22 06/07/2026
+  371 07/07/2026
+  107 08/07/2026</dev:code>
         <dev:remarks>
           <maml:para></maml:para>
         </dev:remarks>
@@ -20898,205 +21283,6 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Show-ANSISequence</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
-      <command:name>Write-Detail</command:name>
-      <command:verb>Write</command:verb>
-      <command:noun>Detail</command:noun>
-      <maml:description>
-        <maml:para>Write a detailed message string.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>This command is designed to be used within your functions and scripts to make it easier to write a detailed message that you can use as verbose output. The assumption is that you are using an advanced function with Begin, Process, and End scriptblocks. You can create a detailed message to indicate what part of the code is being executed. The output can include a full-time stamp, or a time string which includes a millisecond value.</maml:para>
-      <maml:para>In a script you might use it like this in a Begin block:</maml:para>
-      <maml:para>    $pfx = "BEGIN"</maml:para>
-      <maml:para>    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix $pfx | Write-Verbose</maml:para>
-      <maml:para>    Write-Detail "PS $($PSVersionTable.PSVersion)" -Prefix $pfx | Write-Verbose</maml:para>
-      <maml:para>If you don't specify a prefix, it will default to PROCESS.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Write-Detail</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
-          <maml:name>Message</maml:name>
-          <maml:description>
-            <maml:para>The message to display after the time stamp and prefix.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Prefix</maml:name>
-          <maml:description>
-            <maml:para>Indicate whether you are in the BEGIN, PROCESS, or END script block. Although you can specify any text. It will be displayed in upper case.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>PROCESS</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Date</maml:name>
-          <maml:description>
-            <maml:para>Display a date value like 9/15/2024 11:36:41.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>Write-Detail</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
-          <maml:name>Message</maml:name>
-          <maml:description>
-            <maml:para>The message to display after the time stamp and prefix.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Prefix</maml:name>
-          <maml:description>
-            <maml:para>Indicate whether you are in the BEGIN, PROCESS, or END script block. Although you can specify any text. It will be displayed in upper case.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>PROCESS</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Time</maml:name>
-          <maml:description>
-            <maml:para>Display a time value with milliseconds like 11:37:01:4029.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
-        <maml:name>Message</maml:name>
-        <maml:description>
-          <maml:para>The message to display after the time stamp and prefix.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Prefix</maml:name>
-        <maml:description>
-          <maml:para>Indicate whether you are in the BEGIN, PROCESS, or END script block. Although you can specify any text. It will be displayed in upper case.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>PROCESS</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Date</maml:name>
-        <maml:description>
-          <maml:para>Display a date value like 9/15/2024 11:36:41.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Time</maml:name>
-        <maml:description>
-          <maml:para>Display a time value with milliseconds like 11:37:01:4029.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>None</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>System.String</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Write-Detail "Getting file information" -Prefix Process
-[PROCESS] Getting file information</dev:code>
-        <dev:remarks>
-          <maml:para>Normally you would use this command in a function, but here is an example from the console so that you can see what to expect.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Write-Detail -message "Initializing variables" -Prefix Begin -time
-01:25:29:8700 [BEGIN] Initializing variables</dev:code>
-        <dev:remarks>
-          <maml:para></maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://jdhitsolutions.com/yourls/af83f2</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Write-Verbose</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

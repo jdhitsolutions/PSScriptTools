@@ -10,15 +10,16 @@ Function Get-DiskData {
     )
 
     Begin {
-        Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix BEGIN -Time | Write-Verbose
+        $log = New-RandomFilename -useTemp -extension log
+        "Starting $($MyInvocation.MyCommand)" | Tee-Verbose -path $log
     } #begin
 
     Process {
-        Write-Detail "Processing $($computername.ToUpper())" -Prefix PROCESS -Time | Write-Verbose
+        "Processing $($computername.ToUpper())" | Tee-Verbose -path $log -append
         Try {
             $data = Get-CimInstance -Class Win32_logicaldisk -Filter "DriveType=3" -ComputerName $Computername -ErrorAction Stop
             $data | ForEach-Object {
-                Write-Detail "Calculating PctFree for $($_.DeviceID)" -Prefix PROCESS -Time | Write-Verbose
+                "Calculating PctFree for $($_.DeviceID)" | Tee-Verbose -path $log -append
                 $_ | Add-Member -MemberType ScriptProperty -Name PctFree -Value { Format-Percent -Value $this.FreeSpace -Total $this.Size -Decimal 2 } -Force
             }
             $data
@@ -29,7 +30,8 @@ Function Get-DiskData {
     } #process
 
     End {
-        Write-Detail "Ending $($MyInvocation.MyCommand)" -Prefix END -Time | Write-Verbose
+        Write-Verbose "Verbose log can be found at $log"
+        "Ending $($MyInvocation.MyCommand)" | Tee-Verbose -path $log -Append
     } #end
 
 }

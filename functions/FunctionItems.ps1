@@ -75,6 +75,6 @@ $($item.ScriptBlock)
         $out
     } #if
     else {
-        Write-Warning "Failed to find a function called $name"
+        Write-Warning "Failed to find a loaded *function* called $(ConvertTo-TitleCase $name). This command will not work with binary cmdlets."
     }
 }

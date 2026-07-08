@@ -45,7 +45,14 @@ format type data generated 05/21/2020 13:35:40 by BOVINE320\Jeff
                 <PropertyName>UserName</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Path</PropertyName>
+                <ScriptBlock>
+                  If (-Not $_.Exists) {
+                    "$([char]27)[91m$($_.Path)$([char]27)[0m"
+                  }
+                  else {
+                    $_.Path
+                  }
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Exists</PropertyName>

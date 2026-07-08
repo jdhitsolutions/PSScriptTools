@@ -1,5 +1,6 @@
 Function Get-PathVariable {
     [cmdletbinding()]
+    [Alias('Get-Path')]
     [OutputType("EnvPath")]
     Param(
         [ValidateSet("All", "User", "Machine")]

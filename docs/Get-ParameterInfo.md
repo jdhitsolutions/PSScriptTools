@@ -14,13 +14,12 @@ Retrieve command parameter information.
 ## SYNTAX
 
 ```yaml
-Get-ParameterInfo [-Command] <String> [-Parameter <String>]
-[<CommonParameters>]
+Get-ParameterInfo [-Command] <String> [-Parameter <String>] [-ParameterSet <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. Get-ParameterInfo returns a custom object with the most useful information an administrator might need to know. See examples.
+Using Get-Command, this function will return information about parameters for any loaded cmdlet or function. The common parameters like Verbose and ErrorAction are omitted. Get-ParameterInfo returns a custom object with the most useful information an administrator might want to know. See examples.
 
 ## EXAMPLES
 
@@ -35,9 +34,9 @@ Name            Aliases         Mandatory    Position    Type
 ----            -------         ---------    --------    ----
 Depth                           False        Named       System.Int32
 Encoding                        False        Named       System.Text.Encoding
-Force                           False        Named       System.Management.Auto…
-InputObject                     True         Named       System.Management.Auto…
-NoClobber       NoOverwrite     False        Named       System.Management.Auto…
+Force                           False        Named       System.Management.Auto...
+InputObject                     True         Named       System.Management.Auto...
+NoClobber       NoOverwrite     False        Named       System.Management.Auto...
 
    ParameterSet: ByLiteralPath
 
@@ -61,13 +60,12 @@ PS C:\> Get-ParameterInfo mkdir | Select-Object Name,Type,Position,ParameterSet
 
 Name       Type                                         Position ParameterSet
 ----       ----                                         -------- ------------
-Credential System.Management.Automation.PSCredential    Named    __AllParameter…
-Force      System.Management.Automation.SwitchParameter Named    __AllParameter…
-Value      System.Object                                Named    __AllParameter…
+Credential System.Management.Automation.PSCredential    Named    __AllParameter...
+Force      System.Management.Automation.SwitchParameter Named    __AllParameter...
+Value      System.Object                                Named    __AllParameter...
 Path       System.String[]                              0        nameSet
 Name       System.String                                Named    nameSet
 Path       System.String[]                              0        pathSet
-
 ```
 
 Get selected parameter information for the mkdir command.
@@ -168,6 +166,58 @@ ValueFromPipelineByPropertyName : False
 
 Get details on the Computername parameter of the Get-Counter cmdlet.
 
+### Example 5
+
+```powershell
+PS C:\> Get-ParameterInfo Invoke-Command | Select ParameterSet -Unique
+
+ParameterSet
+------------
+__AllParameterSets
+ComputerName
+ContainerId
+FilePathComputerName
+FilePathContainerId
+FilePathRunspace
+FilePathSSHHost
+FilePathSSHHostHash
+FilePathUri
+FilePathVMId
+FilePathVMName
+InProcess
+Session
+SSHHost
+SSHHostHashParam
+Uri
+VMId
+VMName
+```
+
+Get the list of parameter set names.
+
+### Example 6
+
+```powershell
+PS C:\> Get-ParameterInfo Get-Service -ParameterSet DisplayName
+
+   ParameterSet: __AllParameterSets
+
+Name              Aliases           Mandatory    Position    Type
+----              -------           ---------    --------    ----
+DependentServi... DS                False        Named       System.Management.Auto...
+Exclude                             False        Named       System.String[]
+Include                             False        Named       System.String[]
+RequiredServic... SDO,ServicesDe... False        Named       System.Management.Auto...
+
+   ParameterSet: DisplayName
+
+Name              Aliases           Mandatory    Position    Type
+----              -------           ---------    --------    ----
+DisplayName                         True         Named       System.String[]
+```
+
+Get all parameters that belong to the DisplayName parameter set. The output will also include parameters that belong to all parameter sets.
+
 ## PARAMETERS
 
 ### -Command
@@ -187,6 +237,22 @@ Accept wildcard characters: False
 ```
 
 ### -Parameter
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -ParameterSet
+
+Specify a parameter set name. The output will also include parameters that belong to all parameter sets.
 
 ```yaml
 Type: String

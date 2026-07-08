@@ -242,3 +242,5 @@ Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 [Get-Member]()
 
 [Get-TypeConstructor](Get-TypeConstructor.md)
+
+[Show-HiddenMember](Show-HiddenMember.md)

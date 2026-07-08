@@ -49,9 +49,9 @@ This type doesn't need any parameters to create a new instance.
 PS C:\> Get-TypeConstructor system.drawing.rectangle
 
 [System.Drawing.Rectangle]::new([System.Int32]$X),
-                        [System.Int32]$Y),
-                        [System.Int32]$Width),
-                        [System.Int32]$Height))
+                [System.Int32]$Y),
+                [System.Int32]$Width),
+                [System.Int32]$Height))
 
 [System.Drawing.Rectangle]::new([System.Drawing.Point]$Location),[System.Drawing.Size]$Size))
 ```
@@ -62,7 +62,7 @@ Constructors with more than three parameters will be displayed in a list to make
 
 ```powershell
 PS C:\> ctor int32
-WARNING: No constructors found for Int32
+WARNING: No constructors found for [System.Int32]. This may be a static class or an [Enum].
 ```
 
 The function has an alias of ctor for convenience. Note there is no period.

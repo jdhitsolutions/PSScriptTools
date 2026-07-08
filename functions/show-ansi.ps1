@@ -1,224 +1,230 @@
-Function Show-ANSISequence {
-    [cmdletbinding(DefaultParameterSetName = "basic")]
+function Show-ANSISequence {
+    [cmdletbinding(DefaultParameterSetName = 'basic')]
     [OutputType([System.String])]
 
-    Param(
-        [Parameter(ParameterSetName = "basic", HelpMessage = "Display basic ANSI escape sequences. This is the default setting.")]
+    param(
+        [Parameter(ParameterSetName = 'basic', HelpMessage = 'Display basic ANSI escape sequences. This is the default setting.')]
         [switch]$Basic,
-        [Parameter(ParameterSetName = "foreback", HelpMessage = "Display foreground ANSI escape sequences")]
+        [Parameter(ParameterSetName = 'foreback', HelpMessage = 'Display foreground ANSI escape sequences')]
         [switch]$Foreground,
-        [Parameter(ParameterSetName = "foreback", HelpMessage = "Display background ANSI escape sequences")]
+        [Parameter(ParameterSetName = 'foreback', HelpMessage = 'Display background ANSI escape sequences')]
         [switch]$Background,
-        [Parameter(ParameterSetName = "foreback")]
-        [ValidateSet("All", "Simple", "8Bit")]
-        [string]$Type = "All",
-        [Parameter(ParameterSetName = "RGB", HelpMessage = "Specify an array of RGB values between 0 and 255")]
+        [Parameter(ParameterSetName = 'foreback')]
+        [ValidateSet('All', 'Simple', '8Bit')]
+        [string]$Type = 'All',
+        [Parameter(ParameterSetName = 'RGB', HelpMessage = 'Specify an array of RGB values between 0 and 255')]
         [int[]]$RGB,
-        [Parameter(HelpMessage = "Show the value as an unformatted string")]
+        [Parameter(HelpMessage = 'Show the value as an unformatted string')]
         [switch]$AsString
     )
 
-    Write-Verbose "Starting $($MyInvocation.MyCommand)"
-    Write-Debug "Using parameter set $($PSCmdlet.ParameterSetName)"
-    Write-Debug "Bound parameters"
-    $PSBoundParameters | Out-String | Write-Debug
+    begin {
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Debug "Using parameter set $($PSCmdlet.ParameterSetName)"
+        Write-Debug 'Bound parameters'
+        $PSBoundParameters | Out-String | Write-Debug
 
-    #default to Basic even if the user doesn't specify the -Basic parameter
-    if ($PSCmdlet.ParameterSetName -eq 'basic') {
-        $Basic = $True
-    }
-    elseif ($PSCmdlet.ParameterSetName -eq 'foreback') {
-        Write-Debug "Testing bound parameters"
-        #9/15/2022 Fixed logic to avoid including Foreground unless specified. Issue #130 JDH
-        if ( (-Not ($PSBoundParameters.ContainsKey('foreground'))) -AND (-Not ($PSBoundParameters.ContainsKey('background')))) {
-            #default to foreground Issue # 110
-            Write-Debug "Setting Foreground as default"
-            $Foreground = $True
+        # a private function to display results in columns on the screen
+        function display {
+            param([object]$all, [int]$Max)
+
+            $c = 1
+            [string]$row = ''
+
+            for ($i = 0; $i -le $all.count; $i++) {
+                if ($c -gt $max) {
+                    $row
+                    $c = 1
+                    $row = ''
+                    #need to reset $i otherwise the entry gets omitted
+                    # Issue #125
+                    $i--
+                }
+                else {
+                    $row += "$($all[$i]) `t"
+                    $c++
+                }
+            }
+        } #display function
+    } #begin
+    process {
+
+        #default to Basic even if the user doesn't specify the -Basic parameter
+        if ($PSCmdlet.ParameterSetName -eq 'basic') {
+            $Basic = $True
         }
-    }
+        elseif ($PSCmdlet.ParameterSetName -eq 'foreback') {
+            Write-Debug 'Testing bound parameters'
+            #9/15/2022 Fixed logic to avoid including Foreground unless specified. Issue #130 JDH
+            if ( (-not ($PSBoundParameters.ContainsKey('foreground'))) -and (-not ($PSBoundParameters.ContainsKey('background')))) {
+                #default to foreground Issue # 110
+                Write-Debug 'Setting Foreground as default'
+                $Foreground = $True
+            }
+        }
 
-    # a private function to display results in columns on the screen
-    Function display {
-        Param([object]$all, [int]$Max)
-
-        $c = 1
-        [string]$row = ""
-
-        for ($i = 0; $i -le $all.count; $i++) {
-            if ($c -gt $max) {
-                $row
-                $c = 1
-                $row = ""
-                #need to reset $i otherwise the entry gets omitted
-                # Issue #125
-                $i--
+        if ($IsCoreCLR) {
+            Write-Debug 'CoreCLR'
+            $esc = "`e"
+            $EscText = '`e'
+            #adjust the display width based on the console size
+            $max = if ($Host.UI.RawUI.WindowSize.Width -le 80) {
+                3
             }
             else {
-                $row += "$($all[$i]) `t"
-                $c++
+                4
             }
-        }
-    } #display function
 
-    if ($IsCoreCLR) {
-        Write-Debug "CoreCLR"
-        $esc = "`e"
-        $EscText = '`e'
-        #adjust the display width based on the console size
-        $max = if ($Host.UI.RawUI.WindowSize.Width -le 80) {
-          3
         }
         else {
-          4
+            Write-Debug 'Desktop'
+            $esc = $([char]27)
+            $EscText = '$([char]27)'
+            $max = 2
         }
 
-    }
-    else {
-        Write-Debug "Desktop"
-        $esc = $([char]27)
-        $EscText = '$([char]27)'
-        $max = 2
-    }
+        #region basic
+        if ($basic) {
+            Write-Debug 'Get basic settings'
+            Add-Border 'Basic Sequences' -ANSIText "$esc[1m" | Write-Host
 
-    #region basic
-    if ($basic) {
-        Write-Debug "Get basic settings"
-        Add-Border "Basic Sequences" -ANSIText "$esc[1m" | Write-Host
+            $BasicHash = @{
+                1 = 'Bold'
+                2 = 'Faint'
+                3 = 'Italic'
+                4 = 'Underline'
+                5 = 'SlowBlink'
+                6 = 'RapidBlink'
+                7 = 'Reverse'
+                9 = 'CrossedOut'
+            }
 
-        $BasicHash = @{
-            1 = "Bold"
-            2 = "Faint"
-            3 = "Italic"
-            4 = "Underline"
-            5 = "SlowBlink"
-            6 = "RapidBlink"
-            7 = "Reverse"
-            9 = "CrossedOut"
+            $BasicHash.GetEnumerator() | ForEach-Object {
+                $sequence = "$EscText[$($_.name)m$($_.value)$EscText[0m"
+                if ($AsString) {
+                    $sequence
+                }
+                else {
+                    "$esc[$($_.name)m$sequence$esc[0m"
+                }
+            }
+        }
+        #endregion
+
+        #region foreground
+
+        if ($Foreground) {
+            Write-Debug 'Getting foreground'
+            if ($Type -match 'All|Simple') {
+                Add-Border 'Foreground' -ANSIText "$esc[93m" | Write-Host
+                $n = [System.Collections.Generic.list[int]]::new()
+                30..37 | ForEach-Object { $n.Add($_) }
+                90..97 | ForEach-Object { $n.Add($_) }
+
+                $all = $n | ForEach-Object {
+                    $sequence = "$EscText[$($_)mHello$EscText[0m"
+                    if ($AsString) {
+                        $sequence
+                    }
+                    else {
+                        "$esc[$($_)m$sequence$esc[0m"
+                    }
+                }
+
+                display -all $all -Max $max
+
+                Write-Host "`n"
+            }
+            if ($Type -match 'All|8bit') {
+                Add-Border '8-Bit Foreground' -ANSIText "$esc[38;5;10m" | Write-Host
+                $all = 1..255 | ForEach-Object {
+                    $sequence = "$EscText[38;5;$($_)mHello$EscText[0m"
+                    if ($AsString) {
+                        $sequence
+                    }
+                    else {
+                        "$esc[38;5;$($_)m$sequence$esc[0m"
+                    }
+                }
+                display -all $all -Max $max
+            }
+        }
+        #endregion
+
+        #region background
+        if ($Background) {
+            Write-Debug 'Getting background'
+            if ($Type -match 'All|Simple') {
+                Add-Border 'Background' -ANSIText "$esc[46m" | Write-Host
+                $n = 40..47
+                $n += 100..107
+                $all = $n | ForEach-Object {
+                    $sequence = "$EscText[$($_)mHello$EscText[0m"
+                    if ($AsString) {
+                        $sequence
+                    }
+                    else {
+                        "$esc[1;$($_)m$sequence$esc[0m"
+                    }
+                }
+
+                display -all $all -Max $max
+
+                Write-Host "`n"
+            }
+
+            if ($Type -match 'All|8bit') {
+                Add-Border '8-Bit Background' -ANSIText "$esc[7;38;5;10m" | Write-Host
+                $all = 1..255 | ForEach-Object {
+                    $sequence = "$EscText[48;5;$($_)mHello$EscText[0m"
+                    if ($AsString) {
+                        $sequence
+                    }
+                    else {
+                        "$esc[1;48;5;$($_)m$sequence$esc[0m"
+                    }
+                }
+                display -all $all -Max $max
+            }
         }
 
-        $BasicHash.GetEnumerator() | ForEach-Object {
-            $sequence = "$EscText[$($_.name)m$($_.value)$EscText[0m"
+        #endregion
+
+        #region RGB
+
+        if ($RGB) {
+            Write-Debug 'Using RBG values'
+            if ($rgb.count -ne 3) {
+                Write-Warning 'Wrong number of arguments. Specify RED,GREEN and BLUE values'
+                return
+            }
+            $test = $rgb | Where-Object { $_ -gt 255 }
+            if ($test.count -gt 0) {
+                Write-Warning 'Detected a value above 255'
+                return $rgb
+            }
+
+            $r = $rgb[0]
+            $g = $rgb[1]
+            $b = $rgb[2]
+
+            Write-Host "`r"
+            $sequence = "$EscText[38;2;$r;$g;$($b)m256 Color (R:$r)(G:$g)(B:$b)$EscText[0m"
             if ($AsString) {
                 $sequence
             }
             else {
-                "$esc[$($_.name)m$sequence$esc[0m"
-            }
-        }
-    }
-    #endregion
-
-    #region foreground
-
-    If ($Foreground) {
-        Write-Debug "Getting foreground"
-        if ($Type -match "All|Simple") {
-            Add-Border "Foreground" -ANSIText "$esc[93m" | Write-Host
-            $n = [System.Collections.Generic.list[int]]::new()
-            30..37 | ForEach-Object {$n.Add($_)}
-            90..97 | ForEach-Object {$n.Add($_)}
-
-            $all = $n | ForEach-Object {
-                $sequence = "$EscText[$($_)mHello$EscText[0m"
-                if ($AsString) {
-                    $sequence
-                }
-                else {
-                    "$esc[$($_)m$sequence$esc[0m"
-                }
+                "$esc[38;2;$r;$g;$($b)m$sequence$esc[0m"
             }
 
-            display -all $all -Max $max
-
-            Write-Host "`n"
         }
-        if ($Type -match "All|8bit") {
-            Add-Border "8-Bit Foreground" -ANSIText "$esc[38;5;10m" | Write-Host
-            $all = 1..255 | ForEach-Object {
-                $sequence = "$EscText[38;5;$($_)mHello$EscText[0m"
-                if ($AsString) {
-                    $sequence
-                }
-                else {
-                    "$esc[38;5;$($_)m$sequence$esc[0m"
-                }
-            }
-            display -all $all -Max $max
-        }
-    }
-    #endregion
+        #endregion
 
-    #region background
-    If ($Background) {
-        Write-Debug "Getting background"
-        if ($Type -match "All|Simple") {
-            Add-Border "Background" -ANSIText "$esc[46m" | Write-Host
-            $n = 40..47
-            $n += 100..107
-            $all = $n | ForEach-Object {
-                $sequence = "$EscText[$($_)mHello$EscText[0m"
-                if ($AsString) {
-                    $sequence
-                }
-                else {
-                    "$esc[1;$($_)m$sequence$esc[0m"
-                }
-            }
-
-            display -all $all -Max $max
-
-            Write-Host "`n"
-        }
-
-        if ($Type -match "All|8bit") {
-            Add-Border "8-Bit Background" -ANSIText "$esc[7;38;5;10m" | Write-Host
-            $all = 1..255 | ForEach-Object {
-                $sequence = "$EscText[48;5;$($_)mHello$EscText[0m"
-                if ($AsString) {
-                    $sequence
-                }
-                else {
-                    "$esc[1;48;5;$($_)m$sequence$esc[0m"
-                }
-            }
-            display -all $all -Max $max
-        }
-    }
-
-    #endregion
-
-    #region RGB
-
-    if ($RGB) {
-        Write-Debug "Using RBG values"
-        if ($rgb.count -ne 3) {
-            Write-Warning "Wrong number of arguments. Specify RED,GREEN and BLUE values"
-            return
-        }
-        $test = $rgb | Where-Object { $_ -gt 255 }
-        if ($test.count -gt 0) {
-            Write-Warning "Detected a value above 255"
-            return $rgb
-        }
-
-        $r = $rgb[0]
-        $g = $rgb[1]
-        $b = $rgb[2]
-
+        #insert a blank line to set off the results
         Write-Host "`r"
-        $sequence = "$EscText[38;2;$r;$g;$($b)m256 Color (R:$r)(G:$g)(B:$b)$EscText[0m"
-        if ($AsString) {
-            $sequence
-        }
-        else {
-            "$esc[38;2;$r;$g;$($b)m$sequence$esc[0m"
-        }
-
+    } #process
+    end {
+        Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
-    #endregion
 
-    #insert a blank line to set off the results
-    Write-Host "`r"
-
-    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }

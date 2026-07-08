@@ -24,7 +24,7 @@
                                                 else {
                                                     $name = ConvertTo-TitleCase $pm.ParameterName
                                                 }
-                                                $p += "[$((Get-PSReadLineOption).TypeColor){0}$([char]27)[0m]$((Get-PSReadLineOption).VariableColor)`${1}$([char]27)[0m)" -f $pm.ParameterType, $Name
+                                                $p += "[$((Get-PSReadLineOption).TypeColor){0}$([char]27)[0m]$((Get-PSReadLineOption).VariableColor)`${1}$([char]27)[0m" -f $pm.ParameterType, $Name
                                             } #foreach pm
                                         }
                                         else {
@@ -32,14 +32,13 @@
                                         }
                                         if ($item.Parameters.count -ge 3) {
                                             #display larger parameter sets vertically
-                                            $join = ",`n`t`t`t"
+                                            $join = ",`n`t`t"
                                         }
                                         else {
                                             $join = ","
                                         }
                                         '[{0}]::new({1})' -f $item.Type,  ($p -join $join)
                                     }
-
                                 </ScriptBlock>
                             </ExpressionBinding>
                             <NewLine/>

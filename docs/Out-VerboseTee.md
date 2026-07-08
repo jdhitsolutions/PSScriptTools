@@ -30,11 +30,11 @@ Begin {
 
     $log = New-RandomFilename -useTemp -extension log
 
-    Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin | Tee-Verbose $log
+    "Starting $($MyInvocation.MyCommand)" -Prefix begin | Tee-Verbose $log
 
-    Write-Detail "Logging verbose output to $log" -prefix begin | Tee-Verbose -append
+    "Logging verbose output to $log" -prefix begin | Tee-Verbose $log -append
 
-    Write-Detail "Initializing data array" -Prefix begin | Tee-Verbose $log -append
+    "Initializing data array" -Prefix begin | Tee-Verbose $log -append
 
     $data = @()
 
@@ -49,7 +49,7 @@ When the command is run with -Verbose you will see the verbose output and it wil
 ```powershell
 PS C:\> $VerbosePreference= "continue"
 PS C:\> $log = New-CustomFileName ".\VerboseLog_%time.txt"
-PS C:\> Write-Detail "This is a verbose log test" | Out-VerboseTee -Path $log
+PS C:\> "This is a verbose log test" | Out-VerboseTee -Path $log
 PS C:\> Get-Content $log
 11/29/2024 08:21:31:0704 [PROCESS] This is a verbose log test
 PS C:\> $verbosePreference = "SilentlyContinue"
@@ -142,7 +142,5 @@ Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 ## RELATED LINKS
 
 [Write-Verbose]()
-
-[Write-Detail]()
 
 [Tee-Object]()

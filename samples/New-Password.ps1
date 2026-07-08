@@ -10,7 +10,6 @@ Function New-Password {
         [string]$SeedText
     )
     Begin {
-        Write-Detail "Starting $($MyInvocation.MyCommand)" -Prefix begin | Write-Verbose
         $hash = @{
             a = "@"
             q = "$"
@@ -27,19 +26,17 @@ Function New-Password {
     } #begin
 
     Process {
-        Write-Detail "Using seed '$SeedText'" | Write-Verbose
         Format-String $SeedText -Randomize -Replace $hash -Case Alternate | Tee-Object -FilePath $tmpfile -Append
     } #process
 
     End {
-        Write-Detail "See $tmpfile for results." -Prefix end | Write-Verbose
-        Write-Detail "Ending $($MyInvocation.MyCommand)" -Prefix end | Write-Verbose
+        #NOT USED
     } #end
 
 } #close New-Password
 
 
-'applepies','PSMaster','skldjgb23' | New-Password -verbose
+'applepies','PSMaster','skldjgb23' | New-Password
 # New-Password PowerShell
 
 # New-Password 'password' | New-Password

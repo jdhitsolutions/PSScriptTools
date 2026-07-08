@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Change your script editor terminal location. Only valid in VSCode or the ISE.
+Change your script editor terminal location.
 
 ## SYNTAX
 
@@ -19,7 +19,7 @@ Set-LocationToFile [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will only be available if you import the PSScriptTools module into an integrated PowerShell terminal in Visual Studio Code or the PowerShell ISE. It is designed to set the location of the terminal to the same directory as the active file. Run the command or its aliases in the integrated terminal. Use the aliases sd or jmp.
+This command will only be available if you import the PSScriptTools module into an integrated PowerShell terminal in Visual Studio Code. It is designed to set the location of the terminal to the same directory as the active file. Run the command or its aliases in the integrated terminal. Use the aliases sd or jmp.
 
 ## EXAMPLES
 

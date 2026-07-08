@@ -115,15 +115,15 @@ if ($psEditor) {
     Register-EditorCommand @rParams
 
     Write-Verbose 'Adding Set-LocationToFile'
+    # 8 July 2026 Revised to only support VS Code
+    #set location to directory of current file
     Function Set-LocationToFile {
-        #set location to directory of current file
         [CmdletBinding()]
         [alias('sd', 'jmp')]
         [OutputType('none')]
         Param ()
 
         if ($host.name -match 'Code') {
-
             $context = $psEditor.GetEditorContext()
             $ThisPath = $context.CurrentFile.Path
             $target = Split-Path -Path $ThisPath
@@ -138,24 +138,23 @@ if ($psEditor) {
         }
     }
 } #VSCode
-elseif ($psISE) {
-    Write-Verbose 'Defining ISE additions'
+    elseif ($psISE) {
+        Write-Verbose 'Defining ISE additions'
 
-    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -NotContains 'ToDo') {
+        if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -NotContains 'ToDo') {
 
-        $action = {
-            $prompt = 'What do you need to do?'
-            $title = 'To Do'
-            $item = Invoke-InputBox -Title $title -Prompt $prompt
-            $todo = "# [$(Get-Date)] TODO: $item"
-            $psISE.CurrentFile.Editor.InsertText($todo)
-            #jump cursor to the end
-            $psISE.CurrentFile.editor.SetCaretPosition($psISE.CurrentFile.Editor.CaretLine, $psISE.CurrentFile.Editor.CaretColumn)
-        }
-        #add the action to the Add-Ons menu
-        $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add('ToDo', $Action, 'Ctrl+Alt+2' ) | Out-Null
+            $action = {
+                $prompt = 'What do you need to do?'
+                $title = 'To Do'
+                $item = Invoke-InputBox -Title $title -Prompt $prompt
+                $todo = "# [$(Get-Date)] TODO: $item"
+                $psISE.CurrentFile.Editor.InsertText($todo)
+                #jump cursor to the end
+                $psISE.CurrentFile.editor.SetCaretPosition($psISE.CurrentFile.Editor.CaretLine, $psISE.CurrentFile.Editor.CaretColumn)
+            }
+            #add the action to the Add-Ons menu
+            $psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add('ToDo', $Action, 'Ctrl+Alt+2' ) | Out-Null
     }
-
     Function Set-LocationToFile {
         [cmdletbinding()]
         [alias('sd', 'jmp')]

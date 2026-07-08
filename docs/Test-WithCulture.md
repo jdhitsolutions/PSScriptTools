@@ -39,7 +39,7 @@ Note that this command is not an absolute test. There may be commands that fail 
 
 ```powershell
 PS C:\> Test-WithCulture de-de -Scriptblock {(Get-Date).addDays(90)}
-Montag, 14. Oktober 2020 08:59:01
+06.10.2026 15:01:50
 ```
 
 ### Example2
@@ -50,17 +50,13 @@ PS C\> Test-WithCulture fr-fr -Scriptblock {
   Select-Object -Property TimeCreated,ID,OpCodeDisplayName,Message |
   Sort-Object -property TimeCreated |
   Group-Object {$_.TimeCreated.ToShortDateString()} -NoElement
-  }
+}
 
 Count Name
 ----- ----
-  165 10/07/2020
-  249 11/07/2020
-   17 12/07/2020
-   16 13/07/2020
-   20 14/07/2020
-   26 15/07/2020
-    7 16/07/2020
+   22 06/07/2026
+  371 07/07/2026
+  107 08/07/2026
 ```
 
 ## PARAMETERS

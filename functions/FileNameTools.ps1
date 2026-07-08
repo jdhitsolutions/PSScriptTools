@@ -79,15 +79,15 @@ You can create a template string using any of these variables, including the % s
     #convert placeholders to lower case but leave everything else as is
     [regex]$rx = "%\w+(?=%|-|\.|\s|\(|\)|\[|\])"
 
-    Write-Detail "Starting $($MyInvocation.MyCommand)" | Write-Verbose
-    Write-Detail "Processing template: $template" | Write-Verbose
+    "Starting $($MyInvocation.MyCommand)" | Write-Verbose
+    "Processing template: $template" | Write-Verbose
     $rx.matches($Template) | ForEach-Object {
-        Write-Detail "Converting $($_.value) to lower case" | Write-Verbose
+        "Converting $($_.value) to lower case" | Write-Verbose
         $Template = $Template.replace($_.value, $_.value.ToLower())
     }
 
     [string]$filename = $Template
-    Write-Detail "Using filename: $filename" | Write-Verbose
+    "Using filename: $filename" | Write-Verbose
     $now = Get-Date
     if ($env:USERNAME) {
         $user = $env:USERNAME
@@ -119,9 +119,9 @@ You can create a template string using any of these variables, including the % s
     }
 
     $hash.GetEnumerator() | ForEach-Object {
-        Write-Detail "Testing $filename for $($_.key)" | Write-Verbose
+        "Testing $filename for $($_.key)" | Write-Verbose
         if ($filename -match "($($_.key))") {
-            Write-Detail "replacing $($_.key) with $($_.value)" | Write-Verbose
+            "replacing $($_.key) with $($_.value)" | Write-Verbose
             $filename = $filename -replace "($($_.key))", $_.value
         }
     }
@@ -131,11 +131,11 @@ You can create a template string using any of these variables, including the % s
     if ($rx.IsMatch($filename)) {
         $count = $rx.Match($filename).Value.length - 1
         $num = (0..9 | Get-Random -Count 10 | Get-Random -count $count) -join ""
-        Write-Detail "replacing # with $num" | Write-Verbose
+        "replacing # with $num" | Write-Verbose
         $filename = $rx.Replace($filename, $num)
     }
 
-    Write-Detail "Converting case to $Case" | Write-Verbose
+    "Converting case to $Case" | Write-Verbose
     Switch ($Case) {
         "Upper" {
             $filename.ToUpper()
@@ -148,6 +148,6 @@ You can create a template string using any of these variables, including the % s
         }
     } #close switch
 
-    Write-Detail "Ending $($MyInvocation.MyCommand)" | Write-Verbose
+    "Ending $($MyInvocation.MyCommand)" | Write-Verbose
 } #end New-CustomFileName
 

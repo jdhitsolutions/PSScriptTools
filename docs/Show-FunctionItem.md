@@ -19,7 +19,7 @@ Show-FunctionItem [-Name] <String> [<CommonParameters>]
 
 ## DESCRIPTION
 
-This command will display a loaded function as it might look in a code editor. You could use this command to export a loaded function to a file.
+This command will display a loaded function as it might look in a code editor. You could use this command to export a loaded function to a file. This command will not work with compiled or binary cmdlets.
 
 ## EXAMPLES
 
