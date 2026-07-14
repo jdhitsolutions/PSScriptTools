@@ -14,7 +14,8 @@ Get the methods of a CIM class.
 ## SYNTAX
 
 ```yaml
-Get-CimClassMethod [-ClassName] <String> [-Method <String>] [-Namespace <String>] [-CimSession <CimSession>] [<CommonParameters>]
+Get-CimClassMethod [-ClassName] <String> [-Method <String>] [-Namespace <String>]
+[-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

@@ -14,6 +14,7 @@ function Get-MyAlias {
     )
     begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #Get initial aliases
         $ps = [powershell]::Create()

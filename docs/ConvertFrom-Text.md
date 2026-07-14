@@ -16,15 +16,15 @@ Convert structured text to objects.
 ### File (Default)
 
 ```yaml
-ConvertFrom-Text [-Pattern] <Regex> [-Path] <String> [-TypeName <String>]
-[-NoProgress] [<CommonParameters>]
+ConvertFrom-Text [-Pattern] <Regex> [-Path] <String> [-TypeName <String>] [-NoProgress] 
+[<CommonParameters>]
 ```
 
 ### InputObject
 
 ```yaml
-ConvertFrom-Text [-Pattern] <Regex> [-InputObject] <String>
-[-TypeName <String>] [-NoProgress] [<CommonParameters>]
+ConvertFrom-Text [-Pattern] <Regex> [-InputObject] <String> [-TypeName <String>] [-NoProgress]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -38,7 +38,8 @@ The command will write a generic custom object to the pipeline. However, you can
 ### Example 1
 
 ```powershell
-PS C:\> $b = "(?<Date>\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}).*(?<Error>\d+),\s+(?<Step>.*):\s+(?<Action>\w+),\s+(?<Path>(\w+\\)*\w+\.\w+)"
+PS C:\> $b = "(?<Date>\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}).*(?<Error>\d+),\s+(?<Step>.*):
+\s+(?<Action>\w+),\s+(?<Path>(\w+\\)*\w+\.\w+)"
 PS C:\> ConvertFrom-Text -pattern $b -Path C:\windows\DtcInstall.log
 
 Date   : 10-18-2025 10:49
@@ -60,7 +61,8 @@ The first command creates a variable to hold the regular expression pattern that
 ### Example 2
 
 ```powershell
-PS C:\> $wu = "(?<Date>\d{4}-\d{2}-\d{2})\s+(?<Time>(\d{2}:)+\d{3})\s+(?<PID>\d+)\s+(?<TID>\w+)\s+(?<Component>\w+)\s+(?<Message>.*)"
+PS C:\> $wu = "(?<Date>\d{4}-\d{2}-\d{2})\s+(?<Time>(\d{2}:)+\d{3})\s+(?<PID>\d+)
+\s+(?<TID>\w+)\s+(?<Component>\w+)\s+(?<Message>.*)"
 PS C:\> $out = ConvertFrom-Text -pattern $wu -Path C:\Windows\WindowsUpdate.log -NoProgress
 PS C:\> $out | Group-Object Component | Sort-Object Count
 

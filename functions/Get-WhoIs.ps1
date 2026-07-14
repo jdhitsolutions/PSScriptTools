@@ -25,6 +25,7 @@
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $baseURL = 'http://whois.arin.net/rest'
         #default is XML anyway
         $header = @{"Accept" = "application/xml"}

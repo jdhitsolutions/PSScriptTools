@@ -22,8 +22,8 @@ Trace-Message [[-Message] <String>] [<CommonParameters>]
 ### init
 
 ```yaml
-Trace-Message [-Title <String>] [-BackgroundColor <String>] [-Width <Int32>]
-[-Height <Int32>] [<CommonParameters>]
+Trace-Message [-Title <String>] [-BackgroundColor <String>] [-Width <Int32>] [-Height <Int32>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -148,7 +148,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Look at $PSSamplePath\Get-Status.ps1 for a demonstration of this command in a function. The buttons have key accelerators of Q and S.
+Look at $PSSamplePath\\Get-Status.ps1 for a demonstration of this command in a function. The buttons have key accelerators of Q and S.
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 

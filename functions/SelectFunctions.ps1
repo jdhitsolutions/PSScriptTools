@@ -24,6 +24,7 @@ Function Select-First {
     Begin {
 
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         if ($PSBoundParameters.ContainsKey("Property")) {
             $sortParams = @{Property = $Property }
@@ -39,7 +40,7 @@ Function Select-First {
             }
         }
 
-        $data = [System.Collections.generic.list[object]]::new()
+        $data = [System.Collections.Generic.List[object]]::new()
 
         Write-Verbose "[BEGIN  ] Selecting first $First, skipping $skip."
 
@@ -53,7 +54,7 @@ Function Select-First {
         }
         #verify property
         if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [System.ArgumeSystem.ArgumentException]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -101,6 +102,7 @@ Function Select-Last {
 
     Begin {
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         if ($PSBoundParameters.ContainsKey("Property")) {
             $sortParams = @{Property = $Property }
@@ -116,7 +118,7 @@ Function Select-Last {
             }
         }
 
-        $data = [System.Collections.generic.list[object]]::new()
+        $data = [System.Collections.Generic.List[object]]::new()
 
         Write-Verbose "[BEGIN  ] Selecting Last $Last, skipping $skip."
 
@@ -129,7 +131,7 @@ Function Select-Last {
         }
         #verify property
         if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
-            $exception = [System.ArgumeSystem.ArgumentException]::new("Cannot find property $property on the InputObject.")
+            $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
             Throw $exception
         }
         else {
@@ -168,6 +170,7 @@ Function Select-After {
 
     begin {
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "[BEGIN  ] Selecting objects after $after based on the $Property property"
     } #begin
 
@@ -205,6 +208,7 @@ Function Select-Before {
 
     begin {
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "[BEGIN  ] Selecting objects before $before based on the $Property property"
     } #begin
 
@@ -243,7 +247,8 @@ function Select-Newest {
 
     begin {
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        $data = [System.Collections.generic.list[object]]::new()
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
+        $data = [System.Collections.Generic.List[object]]::new()
     } #begin
 
     process {
@@ -286,7 +291,8 @@ function Select-Oldest {
 
     begin {
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        $data = [System.Collections.generic.list[object]]::new()
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
+        $data = [System.Collections.Generic.List[object]]::new()
     } #begin
 
     process {

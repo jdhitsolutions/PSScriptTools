@@ -14,12 +14,13 @@ Get a report of files based on their extension.
 ## SYNTAX
 
 ```yaml
-Get-FileExtensionInfo [[-Path] <String>] [-Recurse] [-Hidden] [-IncludeFiles] [<CommonParameters>]
+Get-FileExtensionInfo [[-Path] <String>] [-Recurse] [-Hidden] [-IncludeFiles]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command will search a given directory and produce a report of all files based on their file extension. This command is only available in PowerShell 7.
+This command will search a given directory and produce a report of all files based on their file extension. This command is only available in PowerShell 7. The command has an alias of gfei.
 
 ## EXAMPLES
 
@@ -59,11 +60,28 @@ Extension Count TotalSize Smallest   Average  Largest
 
 The extension with the largest total size will be highlighted in color.
 
+### Example 2
+
+```powershell
+PS C\> Get-FileExtensionInfo d:\temp | Format-Table -view TotalMB
+
+   Path: D:\temp
+
+Extension       Count      TotalMB
+---------       -----      -------
+.exe                1        60.31
+.json               1            0
+.txt                2        10.57
+.zip                1        79.36
+```
+
+There are additional custom table views of TotalMB and TotalKB.
+
 ## PARAMETERS
 
 ### -Hidden
 
-Include files in hidden folders
+Include files in hidden folders.
 
 ```yaml
 Type: SwitchParameter
@@ -95,7 +113,7 @@ Accept wildcard characters: False
 
 ### -Path
 
-Specify the root directory path to search
+Specify the root directory path to search.
 
 ```yaml
 Type: String

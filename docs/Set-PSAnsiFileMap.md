@@ -14,8 +14,8 @@ Modify or add a PSAnsiFileEntry.
 ## SYNTAX
 
 ```yaml
-Set-PSAnsiFileMap [-Description] <String> [-Pattern <String>] [-Ansi <String>]
-[-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+Set-PSAnsiFileMap [-Description] <String> [-Pattern <String>] [-Ansi <String>] [-PassThru]
+[-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

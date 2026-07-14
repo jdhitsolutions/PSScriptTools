@@ -21,6 +21,7 @@ Function Find-CimClass {
     )
 
     Write-Verbose "[$((Get-Date).TimeOfDay)] Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "[$((Get-Date).TimeOfDay)] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     #the command requires CIM cmdlets which won't work on non-Windows platforms.
 

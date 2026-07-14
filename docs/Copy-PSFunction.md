@@ -14,8 +14,7 @@ Copy a local PowerShell function to a remote session.
 ## SYNTAX
 
 ```yaml
-Copy-PSFunction [-Name] <String[]> -Session <PSSession> [-Force]
-[<CommonParameters>]
+Copy-PSFunction [-Name] <String[]> -Session <PSSession> [-Force] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

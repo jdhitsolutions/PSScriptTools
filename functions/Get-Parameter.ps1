@@ -25,6 +25,7 @@ Function Get-ParameterInfo {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         #define the set of common parameters to exclude
         #I could get these from PowerShell but it is just as easy to list them
         $common = @(

@@ -14,8 +14,8 @@ Show an object's hidden members.
 ## SYNTAX
 
 ```yaml
-Show-HiddenMember [-InputObject] <Object> [-MemberType <PSMemberTypes>] [-ExcludePropertyMethod]
- [<CommonParameters>]
+Show-HiddenMember [-InputObject] <Object> [-MemberType <PSMemberTypes>] 
+[-ExcludePropertyMethod] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

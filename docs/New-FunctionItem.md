@@ -14,7 +14,8 @@ Create a function item from the console.
 ## SYNTAX
 
 ```yaml
-New-FunctionItem [-Name] <String> [-Scriptblock] <ScriptBlock> [[-Description] <String>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-FunctionItem [-Name] <String> [-Scriptblock] <ScriptBlock> [[-Description] <String>]
+[-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

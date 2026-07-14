@@ -269,7 +269,6 @@ Function Invoke-InputBox {
         #bail out
         Return
     }
-
 }
 
 Function Set-ConsoleTitle {
@@ -282,6 +281,7 @@ Function Set-ConsoleTitle {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $width =  ($host.UI.RawUI.MaxWindowSize.Width * 2)
     } #begin
 

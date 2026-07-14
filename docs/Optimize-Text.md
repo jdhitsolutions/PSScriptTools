@@ -16,15 +16,15 @@ Clean and optimize text input.
 ### default (Default)
 
 ```yaml
-Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-Ignore <String>]
-[-ToUpper] [<CommonParameters>]
+Optimize-Text [[-Text] <String[]>] [-Filter <Regex>] [-Ignore <String>] [-ToUpper]
+[<CommonParameters>]
 ```
 
 ### object
 
 ```yaml
-Optimize-Text [[-Text] <String[]>] [-Filter <Regex>][-Ignore <String>]
-[-ToUpper]  [-PropertyName <String>]  [<CommonParameters>]
+Optimize-Text [[-Text] <String[]>] [-Filter <Regex>][-Ignore <String>] [-ToUpper]
+[-PropertyName <String>]  [<CommonParameters>]
 ```
 
 ## DESCRIPTION

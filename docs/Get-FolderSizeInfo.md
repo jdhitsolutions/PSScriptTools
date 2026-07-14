@@ -21,9 +21,9 @@ Get-FolderSizeInfo [-Path] <String[]> [-Hidden] [-EnableLongFileName] [<CommonPa
 
 This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all sub-folders.
 
-Note that this command has been optimized for performance, but if you have a lot of files to count that will take time, especially when using Windows PowerShell. When querying system folders like C:\Windows on a Windows PowerShell platform, you might get better results including hidden files. Due to the nature of the .NET Framework changes, you might see different results for the same folder when run in PowerShell 7 compared to Windows PowerShell 5.1.
+This command has been optimized for performance, but if you have a lot of files to count, that will take time, especially when using Windows PowerShell. When querying system folders like Windows, you might get better results including hidden files. Due to the nature of the .NET Framework changes, you might see different results for the same folder when run in PowerShell 7 compared to Windows PowerShell 5.1.
 
-This command will ignore reparse points, such as symbolic links and junctions.
+Beginning with version 3.1.0, this command will no longer ignore reparse points, such as symbolic links and junctions.
 
 If using on a profile folder, you will most likely get access denied warnings in Windows PowerShell and you can assume those locations will not be counted.
 
@@ -73,14 +73,13 @@ BOVINE320       D:\logs                            134        3.9517
 BOVINE320       D:\2016                              5        1.5608
 ```
 
-Get the top-level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater than 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly.
+Get the top-level directories from D:\\ and pipe them to Get-FolderSizeInfo. Items with a total size of greater than 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly.
 
 ### Example 4
 
 ```powershell
 PS C:\> Get-ChildItem c:\work -Directory | Get-FolderSizeInfo -Hidden |
 Where-Object {$_.TotalSize -ge 2mb} | Format-Table -view name
-
 
    Path: C:\work
 
@@ -92,7 +91,7 @@ PowerShellBooks                 26    4240.3779
 sunday                          47   24540.6523
 ```
 
-Get all sub-folders under C:\work greater than 2MB in size and display using the Name table view.
+Get all sub-folders that are greater than 2MB in total size and display them using the Name table view.
 
 ## PARAMETERS
 
@@ -114,7 +113,7 @@ Accept wildcard characters: False
 
 ### -Path
 
-Enter a file system path like C:\Scripts.
+Enter a filesystem path like C:\\work
 
 ```yaml
 Type: String[]

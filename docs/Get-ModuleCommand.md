@@ -14,7 +14,8 @@ Get a summary of module commands.
 ## SYNTAX
 
 ```yaml
-Get-ModuleCommand [-Name] <String> [-CommandName <String>] [-ListAvailable] [<CommonParameters>]
+Get-ModuleCommand [-Name] <String> [-CommandName <String>] [-ListAvailable]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

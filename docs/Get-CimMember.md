@@ -16,13 +16,15 @@ Get information about CIM class members.
 ### property (Default)
 
 ```yaml
-Get-CimMember [[-ClassName] <String>] [-Property <String>] [-Namespace <String>] [-CimSession <CimSession>] [<CommonParameters>]
+Get-CimMember [[-ClassName] <String>] [-Property <String>] [-Namespace <String>]
+[-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ### method
 
 ```yaml
-Get-CimMember [[-ClassName] <String>] -Method <String> [-Namespace <String>] [-CimSession <CimSession>] [<CommonParameters>]
+Get-CimMember [[-ClassName] <String>] -Method <String> [-Namespace <String>]
+[-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

@@ -16,8 +16,8 @@ Launch a graphical input box.
 ### plain (Default)
 
 ```yaml
-Invoke-InputBox [-Title <String>] [-Prompt <String>]
-[-BackgroundColor <String>] [<CommonParameters>]
+Invoke-InputBox [-Title <String>] [-Prompt <String>] [-BackgroundColor <String>]
+[<CommonParameters>]
 ```
 
 ### secure

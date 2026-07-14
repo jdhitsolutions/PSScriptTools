@@ -4,7 +4,6 @@ originally published at:
 https://gist.github.com/jdhitsolutions/3ecc6193ab0982d907c2db3f7d2bd15d
 #>
 Function Get-PSWho {
-
     [CmdletBinding()]
     [OutputType("PSWho","String")]
     [alias("pswho")]

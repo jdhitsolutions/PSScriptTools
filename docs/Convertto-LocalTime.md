@@ -14,13 +14,13 @@ Convert a foreign time to local.
 ## SYNTAX
 
 ```yaml
-ConvertTo-LocalTime [-Datetime] <DateTime> [-UTCOffset] <TimeSpan>
-[-DaylightSavingTime] [<CommonParameters>]
+ConvertTo-LocalTime [-Datetime] <DateTime> [-UTCOffset] <TimeSpan> [-DaylightSavingTime]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location. You can use Get-Timezone or Get-TZData to help. See examples.
+It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location. You can use Get-Timezone to help. See examples.
 
 The parameter for DaylightSavingTime is to indicate that the remote location is observing DST. You can use this with the location's standard UTC offset, or you can specify an offset that takes DST into account.
 
@@ -92,7 +92,7 @@ Accept wildcard characters: False
 
 ### -DaylightSavingTime
 
-Indicate that the foreign location is using Daylight Saving Time
+Indicate that the foreign location is using Daylight Saving Time.
 
 ```yaml
 Type: SwitchParameter
@@ -129,8 +129,6 @@ Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 [Get-Date]()
 
 [Get-MyTimeInfo](Get-MyTimeInfo.md)
-
-[Get-TZList](Get-TZList.md)
 
 [ConvertFrom-UTCTime](ConvertFrom-UTCTime.md)
 

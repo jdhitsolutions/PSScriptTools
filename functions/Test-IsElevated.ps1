@@ -5,6 +5,8 @@ Function Test-IsElevated {
     Param()
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
+
     if ($ISWindows -OR $PSEdition -eq 'Desktop') {
         Write-Verbose "Windows detected"
         $user = [Security.Principal.WindowsIdentity]::GetCurrent();

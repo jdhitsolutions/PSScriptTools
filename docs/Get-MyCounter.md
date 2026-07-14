@@ -14,9 +14,8 @@ Get performance counter data.
 ## SYNTAX
 
 ```yaml
-Get-MyCounter [[-Counter] <String[]>] [-SampleInterval <Int32>]
-[-MaxSamples <Int64>] [-Continuous] [-ComputerName <String[]>]
-[<CommonParameters>]
+Get-MyCounter [[-Counter] <String[]>] [-SampleInterval <Int32>] [-MaxSamples <Int64>]
+[-Continuous] [-ComputerName <String[]>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

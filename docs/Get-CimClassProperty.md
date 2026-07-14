@@ -17,13 +17,14 @@ Get the properties of a CIM class.
 
 ```yaml
 Get-CimClassProperty [-ClassName] <String> [-Namespace <String>] [-Property <String>]
- [-CimSession <CimSession>] [<CommonParameters>]
+[-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ### key
 
 ```yaml
-Get-CimClassProperty [-ClassName] <String> [-Namespace <String>] [-KeyOnly] [-CimSession <CimSession>] [<CommonParameters>]
+Get-CimClassProperty [-ClassName] <String> [-Namespace <String>] [-KeyOnly]
+[-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

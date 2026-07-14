@@ -1,5 +1,4 @@
 ﻿Function Optimize-Text {
-
     [cmdletbinding(DefaultParameterSetName = "default")]
     [OutputType([System.String], ParameterSetName = "default")]
     [OutputType([PSObject], ParameterSetName = "object")]
@@ -29,6 +28,7 @@
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {
@@ -66,7 +66,7 @@
                         }
                     } #else not ignoring
                 } #if output
-            } #if item matches non-whitespce
+            } #if item matches non-whitespace
         } #foreach
 
     } #process

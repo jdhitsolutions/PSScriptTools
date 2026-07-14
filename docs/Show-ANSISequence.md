@@ -22,8 +22,7 @@ Show-ANSISequence [-Basic] [-AsString] [<CommonParameters>]
 ### foreback
 
 ```yaml
-Show-ANSISequence [-Foreground] [-Background] [-Type <String>] [-AsString]
-[<CommonParameters>]
+Show-ANSISequence [-Foreground] [-Background] [-Type <String>] [-AsString] [<CommonParameters>]
 ```
 
 ### RGB

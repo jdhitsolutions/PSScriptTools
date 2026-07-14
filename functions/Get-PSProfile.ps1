@@ -4,6 +4,7 @@ Function Get-PSProfile {
     Param()
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     #24 April 2025 Revise to support non-Windows systems
 
     if ($IsLinux -OR $IsMacOS) {
@@ -72,11 +73,23 @@ Function Get-PSProfile {
                 Write-Verbose "Testing $($item.value)"
                 if (Test-Path -Path $item.value) {
                     $Exists = $True
-                    $Modified = (Get-Item $item.value).LastWriteTime
+                    $file = Get-Item $item.value
+                    # 8 July 2026 Account for profiles that might be using symbolic links
+                    if ($file.Target) {
+                        $Modified = (Get-Item $file.target).LastWriteTime
+                        #8 July 2026 Add the profile file size
+                        $Size = (Get-Item $file.target).Length
+                    }
+                    else {
+                        $Modified = (Get-Item $item.value).LastWriteTime
+                        #8 July 2026 Add the profile file size
+                        $Size = (Get-Item $item.value).Length
+                    }
                 }
                 else {
                     $Exists = $False
                     $Modified = $null
+                    $Size = $null
                 }
                 #create a custom object
                 [PSCustomObject]@{
@@ -85,6 +98,7 @@ Function Get-PSProfile {
                     Scope        = $item.name
                     Path         = $item.Value
                     Exists       = $Exists
+                    Size         = $Size
                     LastModified = $modified
                     Date         = Get-Date
                 }

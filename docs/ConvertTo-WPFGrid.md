@@ -16,27 +16,25 @@ Send command output to an interactive WPF-based grid.
 ### input (Default)
 
 ```yaml
-ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh]
-[-GridLines <String>] [-InitializationScript <ScriptBlock>]
-[-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
+ConvertTo-WPFGrid [[-Title] <String>] [[-Timeout] <Int32>] [-Refresh] [-GridLines <String>]
+[-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>] [-UseProfile]
+[<CommonParameters>]
 ```
 
 ### Input
 
 ```yaml
-ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>]
-[[-Timeout] <Int32>] [-Refresh] [-GridLines <String>]
-[-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>]
-[-UseProfile] [<CommonParameters>]
+ConvertTo-WPFGrid [[-InputObject] <PSObject>] [[-Title] <String>] [[-Timeout] <Int32>]
+[-Refresh] [-GridLines <String>] [-InitializationScript <ScriptBlock>]
+[-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ### scriptblock
 
 ```yaml
-ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>]
-[[-Timeout] <Int32>] [-Refresh] [-GridLines <String>]
-[-InitializationScript <ScriptBlock>] [-UseLocalVariable <String[]>]
-[-UseProfile] [<CommonParameters>]
+ConvertTo-WPFGrid [-Scriptblock <ScriptBlock>] [[-Title] <String>] [[-Timeout] <Int32>]
+[-Refresh] [-GridLines <String>] [-InitializationScript <ScriptBlock>]
+[-UseLocalVariable <String[]>] [-UseProfile] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

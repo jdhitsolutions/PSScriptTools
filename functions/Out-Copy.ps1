@@ -18,6 +18,7 @@ Function Out-Copy {
 
     Begin {
         Write-Verbose "[$($MyInvocation.MyCommand) BEGIN  ] Starting the command"
+        Write-Verbose "[$($MyInvocation.MyCommand) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #initialize a collection to hold all incoming data
         $data = [system.collections.generic.list[object]]::New()
 

@@ -12,6 +12,7 @@ Function Get-PSUnique {
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Debug "[$((Get-Date).TimeOfDay) BEGIN  ] Initializing list"
         $UniqueList = [System.Collections.Generic.list[object]]::new()
     } #begin

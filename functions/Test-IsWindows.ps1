@@ -4,6 +4,7 @@ Function Test-IsPSWindows {
     Param()
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {

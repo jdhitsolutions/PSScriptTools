@@ -14,8 +14,8 @@ Get files based on last modified data.
 ## SYNTAX
 
 ```yaml
-Get-LastModifiedFile [[-Filter] <String>] [[-Path] <String>]
-[-Interval <String>] [-IntervalCount <Int32>] [-Recurse] [<CommonParameters>]
+Get-LastModifiedFile [[-Filter] <String>] [[-Path] <String>] [-Interval <String>]
+[-IntervalCount <Int32>] [-Recurse] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +58,7 @@ Mode                 LastWriteTime         Length Name
 ...
 ```
 
-Get all .ps1 files in C:\Scripts that have been modified in the last 6 months.
+Get all .ps1 files in C:\\Scripts that have been modified in the last 6 months.
 
 ## PARAMETERS
 

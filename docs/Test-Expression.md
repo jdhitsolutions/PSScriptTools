@@ -16,17 +16,16 @@ Test a PowerShell expression over a period of time.
 ### Interval (Default)
 
 ```yaml
-Test-Expression [-Expression] <ScriptBlock> [-ArgumentList <Object[]>]
-[-Count <Int32>] [-Interval <Double>] [-IncludeExpression] [-AsJob]
-[<CommonParameters>]
+Test-Expression [-Expression] <ScriptBlock> [-ArgumentList <Object[]>] [-Count <Int32>]
+[-Interval <Double>] [-IncludeExpression] [-AsJob] [<CommonParameters>]
 ```
 
 ### Random
 
 ```yaml
-Test-Expression [-Expression] <ScriptBlock> [-ArgumentList <Object[]>]
-[-Count <Int32>] -RandomMinimum <Double> -RandomMaximum <Double>
-[-IncludeExpression] [-AsJob] [<CommonParameters>]
+Test-Expression [-Expression] <ScriptBlock> [-ArgumentList <Object[]>] [-Count <Int32>]
+-RandomMinimum <Double> -RandomMaximum <Double> [-IncludeExpression] [-AsJob]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

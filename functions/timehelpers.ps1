@@ -13,6 +13,7 @@ Function ConvertTo-UTCTime {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     } #begin
 
@@ -51,6 +52,7 @@ Function ConvertFrom-UTCTime {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {
@@ -84,6 +86,7 @@ Function ConvertTo-LocalTime {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {
@@ -108,15 +111,13 @@ Function ConvertTo-LocalTime {
 
 <#
 list time zones
-    [System.TimeZoneinfo]::GetSystemTimeZones() | Out-GridView
+    [System.TimeZoneInfo]::GetSystemTimeZones() | Out-GridView
     or
-    Get-TimeZone -listavailable
+    Get-TimeZone -listAvailable
 time zone IDs are case sensitive
 #>
 
-# http://worldtimeapi.org
 Function Get-MyTimeInfo {
-
     [cmdletbinding()]
     [OutputType("myTimeInfo", "String")]
     [alias("gti")]
@@ -147,6 +148,7 @@ Function Get-MyTimeInfo {
     )
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     $now = $DateTime
     $utc = $now.ToUniversalTime()
@@ -187,109 +189,5 @@ Function Get-MyTimeInfo {
 
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 } #end function
-
-Function Get-TZData {
-    [cmdletbinding()]
-    [OutputType("PSCustomObject", "TimeZoneData")]
-    Param(
-        [Parameter(Position = 0, Mandatory, ValueFromPipeline,
-            HelpMessage = "Enter a timezone location like Pacific/Auckland. It is case sensitive.")]
-        [string]$TimeZoneArea,
-        [parameter(HelpMessage = "Return raw, unformatted data.")]
-        [switch]$Raw
-    )
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        $base = "http://worldtimeapi.org/api/timezone"
-    } #begin
-
-    Process {
-        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting time zone information for $TimeZoneArea "
-        $target = "$base/$TimeZoneArea"
-        Try {
-            $data = Invoke-RestMethod -Uri $target -DisableKeepAlive -UseBasicParsing -ErrorAction Stop -ErrorVariable e
-            if ($data.utc_offset -match "\+") {
-                $offset = ($data.utc_offset.substring(1) -as [timespan])
-            } else {
-                $offset = ($data.utc_offset -as [timespan])
-            }
-        }
-        Catch {
-            Throw $e.InnerException
-        }
-        if ($data -AND $Raw -AND ($psEdition -eq 'Core')) {
-
-            #PowerShell Core automatically converts datetime strings and I want to preserve the raw value
-            $toUTC = ([datetime]$data.datetime).ToUniversalTime().AddHours($offset.hours)
-            [string]$dtString = "{0:s}.{2:ffffff}{1}" -f ([datetime]$toUTC.datetime), ($data.utc_offset),([datetime]$toUTC.DateTime)
-
-            $data | Select-Object week_number, utc_offset, unixtime, timezone,
-            @{Name = "dst_until"; expression = {"{0:s}+00:00" -f ([datetime]$data.dst_until).ToUniversalTime() }},
-            @{Name = "dst_from"; expression = {"{0:s}+00:00" -f ([datetime]$data.dst_from).ToUniversalTime()  }},
-            dst, day_of_year, day_of_week,
-            @{Name = "datetime"; expression = {$dtString}},
-            abbreviation
-        }
-        elseif ($data -AND $Raw -AND ($psEdition -eq 'Desktop')) {
-            $data
-        }
-        elseif ($data) {
-            [PSCustomObject]@{
-                PSTypename         = "TimeZoneData"
-                Timezone           = $data.timezone
-                Abbreviation       = $data.abbreviation
-                Offset             = $offset
-                DaylightSavingTime = $data.dst
-                Time               = ([datetime]"1/1/1970").AddSeconds($data.unixtime).AddHours($offset.hours)
-            }
-        }
-    } #process
-
-    End {
-        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
-
-    } #end
-
-} #close Get-TZData
-
-
-Function Get-TZList {
-    [cmdletbinding(DefaultParameterSetName = "zone")]
-    [OutputType("string")]
-    Param(
-        [Parameter(Position = 0, Mandatory, ValueFromPipeline, HelpMessage = "Specify a timezone area", ParameterSetName = "zone")]
-        [ValidateSet('Africa', 'America', 'Antarctica', 'Asia', 'Atlantic', 'Australia', 'Europe', 'Indian', 'Pacific')]
-        [string]$TimeZoneArea,
-        [Parameter(HelpMessage = "Get a list of all timezone areas", ParameterSetName = "all")]
-        [switch]$All
-    )
-    Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        $base = "http://worldtimeapi.org/api/timezone"
-    } #begin
-
-    Process {
-        if ($all) {
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting all time zones "
-            $target = $base
-        }
-        else {
-            Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting time zones for $TimeZoneArea "
-            $target = "$base/$TimeZoneArea"
-
-        }
-
-        #because of the way the data is returned and in order to write this to the pipeline
-        #so it can be passed to another command, it appears necessary to add a Foreach-Object
-        #output
-        Invoke-RestMethod -Uri $target -DisableKeepAlive -UseBasicParsing | Foreach-Object {$_}
-
-    } #process
-
-    End {
-        Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
-    } #end
-
-} #close Get-TZList
 
 #endregion

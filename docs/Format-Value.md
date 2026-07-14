@@ -16,22 +16,19 @@ Format a numeric value.
 ### Default (Default)
 
 ```yaml
-Format-Value [-InputObject] <Object> [[-Unit] <String>] [-Decimal <Int32>]
-[<CommonParameters>]
+Format-Value [-InputObject] <Object> [[-Unit] <String>] [-Decimal <Int32>] [<CommonParameters>]
 ```
 
 ### Number
 
 ```yaml
-Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-AsNumber]
-[<CommonParameters>]
+Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-AsNumber] [<CommonParameters>]
 ```
 
 ### Auto
 
 ```yaml
-Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-Autodetect]
-[<CommonParameters>]
+Format-Value [-InputObject] <Object> [-Decimal <Int32>] [-Autodetect] [<CommonParameters>]
 ```
 
 ### Currency

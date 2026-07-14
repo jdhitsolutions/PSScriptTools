@@ -53,7 +53,7 @@ Display processes in groups of 10.
 PS C:\> dir c:\work -file -Recurse | Out-More -ClearScreen | tee -Variable work
 ```
 
-List all files in C:\Work and page them to Out-More using the default count, but after clearing the screen first. The results are then piped to Tee-Object which saves them to a variable.
+List all files in C:\\Work and page them to Out-More using the default count, but after clearing the screen first. The results are then piped to Tee-Object which saves them to a variable.
 
 ## PARAMETERS
 

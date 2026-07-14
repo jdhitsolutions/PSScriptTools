@@ -45,6 +45,7 @@ Function ConvertTo-WPFGrid {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         if ($Refresh -AND ($Timeout -lt 5)) {
             Write-Verbose "Detected a timeout value of $Timeout"
             Write-Verbose "Refresh is set to $Refresh"

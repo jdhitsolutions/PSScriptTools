@@ -15,7 +15,8 @@ Create or modify a format.ps1xml file.
 
 ```yaml
 New-PSFormatXML [-InputObject] <Object> [[-Properties] <Object[]>] [-Typename <String>]
- [[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-GroupBy <String>] [-Wrap] [-NoComments] [-Append] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+[[-FormatType] <String>] [[-ViewName] <String>] [-Path] <String> [-GroupBy <String>] [-Wrap]
+[-NoComments] [-Append] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

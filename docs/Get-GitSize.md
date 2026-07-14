@@ -51,8 +51,7 @@ WIN10DSK2    PSGUI             32   6705894
 WIN10DSK2    DscWorkshop       24   5590511
 ```
 
-Get the directories under C:\Scripts that have a .git folder and sort on the Size property in descending order.
-Then select the first 5 directories and use the specified properties.
+Get the directories under C:\\Scripts that have a .git folder and sort on the Size property in descending order. Then select the first 5 directories and use the specified properties.
 
 ### Example 3
 

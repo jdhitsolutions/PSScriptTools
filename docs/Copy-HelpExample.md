@@ -14,8 +14,7 @@ Copy code snippet from help examples.
 ## SYNTAX
 
 ```yaml
-Copy-HelpExample [-Name] <String> [-Path <String>] [-UseGridView]
-[<CommonParameters>]
+Copy-HelpExample [-Name] <String> [-Path <String>] [-UseGridView] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

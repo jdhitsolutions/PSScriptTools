@@ -14,7 +14,7 @@ Select the newest X number of objects after a given datetime.
 ## SYNTAX
 
 ```yaml
-Select-Newest -InputObject <PSObject> [-Newest] <Int32> [-Property <String>]
+Select-Newest -InputObject <PSObject> [-Newest] <Int32> [-Property <String>] 
 [<CommonParameters>]
 ```
 

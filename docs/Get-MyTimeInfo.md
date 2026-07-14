@@ -14,13 +14,12 @@ Display time settings for a collection of locations.
 ## SYNTAX
 
 ```yaml
-Get-MyTimeInfo [[-Locations] <OrderedDictionary>] [-HomeTimeZone <String>]
-[-DateTime <DateTime>] [-AsTable] [-AsList] [<CommonParameters>]
+Get-MyTimeInfo [[-Locations] <OrderedDictionary>] [-HomeTimeZone <String>] [-DateTime <DateTime>] [-AsTable] [-AsList] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is designed to present a console-based version of a world clock. You provide a hashtable of locations and their respective time zones and the command will write a custom object to the pipeline. Be aware that TimeZone names may vary depending on the .NET Framework version. You may need to enumerate using a command like [System.TimeZoneInfo]::GetSystemTimeZones().ID or the Get-TZList command.
+This command is designed to present a console-based version of a world clock. You provide a hashtable of locations and their respective time zones and the command will write a custom object to the pipeline. Be aware that TimeZone names may vary depending on the .NET Framework version. You may need to enumerate using a command like [System.TimeZoneInfo]::GetSystemTimeZones().ID.
 
 A Note on Formatting:
 

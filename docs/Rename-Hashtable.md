@@ -16,15 +16,15 @@ Rename a hashtable key.
 ### Pipeline (Default)
 
 ```yaml
-Rename-Hashtable [-InputObject] <Object> [-Key] <String> [-NewKey] <String>
-[-PassThru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Rename-Hashtable [-InputObject] <Object> [-Key] <String> [-NewKey] <String> [-PassThru]
+[-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### Name
 
 ```yaml
-Rename-Hashtable [-Name] <String> [-Key] <String> [-NewKey] <String>
-[-PassThru] [-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Rename-Hashtable [-Name] <String> [-Key] <String> [-NewKey] <String> [-PassThru]
+[-Scope <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

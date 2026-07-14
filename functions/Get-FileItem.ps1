@@ -47,6 +47,7 @@ Function Get-FileItem {
 
     #This is the main part of Get-FileItem
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose "Searching for $pattern"
     Write-Verbose "Quiet mode is $Quiet"
     Write-Verbose "Full mode is $Full"

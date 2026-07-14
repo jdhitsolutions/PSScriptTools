@@ -14,8 +14,7 @@ Combine two hashtables into one.
 ## SYNTAX
 
 ```yaml
-Join-Hashtable [[-First] <Hashtable>] [[-Second] <Hashtable>] [-Force]
-[<CommonParameters>]
+Join-Hashtable [[-First] <Hashtable>] [[-Second] <Hashtable>] [-Force] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

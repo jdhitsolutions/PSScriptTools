@@ -1,4 +1,4 @@
-#enable verbose messaging in the psm1 file
+#Temporarily enable verbose messaging in the psm1 file if Import-Module is run with -Verbose
 if ($MyInvocation.line -match '-verbose') {
     $VerbosePreference = 'continue'
 }

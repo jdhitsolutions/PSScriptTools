@@ -14,7 +14,8 @@ Import a custom type extension file
 ## SYNTAX
 
 ```yaml
-Import-PSScriptToolsTypeExtension [[-TypeName] <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
+Import-PSScriptToolsTypeExtension [[-TypeName] <String>] [-WhatIf] [-Confirm]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

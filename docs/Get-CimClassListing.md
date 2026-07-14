@@ -15,7 +15,7 @@ A faster way to list CIM classes in a given namespace.
 
 ```yaml
 Get-CimClassListing [[-Namespace] <String>] [[-Exclude] <String>] [[-CimSession] <CimSession>]
- [<CommonParameters>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

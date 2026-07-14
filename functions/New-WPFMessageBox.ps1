@@ -26,7 +26,7 @@ Function New-WPFMessageBox {
 
     if ((Test-IsPSWindows)) {
         # It may not be necessary to add these types but it doesn't hurt to include them
-        # but if they can't be laoded then this function will never work anwyway
+        # but if they can't be loaded then this function will never work anyway
         Try {
 
             Add-Type -AssemblyName PresentationFramework -ErrorAction stop

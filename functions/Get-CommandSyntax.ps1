@@ -19,6 +19,7 @@ Function Get-CommandSyntax {
     )
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     #define a scriptblock to run for each provider
     $test = {

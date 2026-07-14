@@ -16,15 +16,15 @@ Create a new PSDrive at the current location.
 ### Folder (Default)
 
 ```yaml
-New-PSDriveHere [[-Path] <String>] [-First] [-SetLocation] [-PassThru]
-[-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSDriveHere [[-Path] <String>] [-First] [-SetLocation] [-PassThru] [-WhatIf] [-Confirm]
+[<CommonParameters>]
 ```
 
 ### Name
 
 ```yaml
-New-PSDriveHere [[-Path] <String>] [[-Name] <String>] [-SetLocation]
-[-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+New-PSDriveHere [[-Path] <String>] [[-Name] <String>] [-SetLocation] [-PassThru] [-WhatIf]
+ [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

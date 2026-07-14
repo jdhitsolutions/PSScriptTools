@@ -42,7 +42,7 @@ CurrentUserCurrentHost True   C:\Users\Jeff\Documents\PowerShell\Microsoft.Powe�
 Scope                  Exists Path
 -----                  ------ ----
 AllUsersAllHosts       True   C:\WINDOWS\System32\WindowsPowerShell\v1.0\profil…
-AllUsersCurrentHost    False  C:\WINDOWS\System32\WindowsPowerShell\v1.0\Micros…
+AllUsersCurrentHost    True   C:\WINDOWS\System32\WindowsPowerShell\v1.0\Micros…
 CurrentUserAllHosts    True   C:\Users\Jeff\Documents\WindowsPowerShell\profile…
 CurrentUserCurrentHost True   C:\Users\Jeff\Documents\WindowsPowerShell\Microso…
 
@@ -73,39 +73,27 @@ The command has a default formatted table view. Files that don't exist will be s
 ### Example 2
 
 ```powershell
-PS C:\> Get-PSProfile | Where-Object Exists | Format-List
+PS C:\> Get-psprofile | Where {$_.Name -eq 'PowerShell' -and $_.Exists} | Format-List
 
    Name: PowerShell
 
 Scope        : AllUsersAllHosts
 Path         : C:\Program Files\PowerShell\7\profile.ps1
 Exists       : True
-LastModified : 2/23/2022 1:27:30 PM
+Size         : 1323
+LastModified : 5/6/2026 4:02:57 PM
 
 Scope        : CurrentUserAllHosts
 Path         : C:\Users\Jeff\Documents\PowerShell\profile.ps1
 Exists       : True
-LastModified : 10/5/2020 3:50:19 PM
+Size         : 1910
+LastModified : 3/13/2026 4:35:47 PM
 
 Scope        : CurrentUserCurrentHost
-Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.p
-               s1
+Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.p...
 Exists       : True
-LastModified : 10/5/2020 3:50:19 PM
-
-
-   Name: Windows PowerShell
-
-Scope        : AllUsersAllHosts
-Path         : C:\WINDOWS\System32\WindowsPowerShell\v1.0\profile.ps1
-Exists       : True
-LastModified : 2/23/2022 1:54:55 PM
-
-Scope        : CurrentUserAllHosts
-Path         : C:\Users\Jeff\Documents\WindowsPowerShell\profile.ps1
-Exists       : True
-LastModified : 10/5/2020 3:49:25 PM
-...
+Size         : 8215
+LastModified : 5/15/2026 2:48:52 PM
 ```
 
 The command has a default list view.

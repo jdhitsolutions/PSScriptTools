@@ -19,6 +19,7 @@ Function New-ANSIBar {
     )
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose "Using parameter set $($PSCmdlet.ParameterSetName)"
 
     if ($PSCmdlet.ParameterSetName -eq "Standard") {

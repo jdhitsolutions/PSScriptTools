@@ -26,6 +26,7 @@ Function Get-ModuleCommand {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         $PSBoundParameters.Add("ErrorAction", "stop")
 
         #region local functions

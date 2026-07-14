@@ -43,6 +43,7 @@ Function ConvertFrom-Text {
     Begin {
         $begin = Get-Date
         Write-Verbose "$((Get-Date).TimeOfDay) Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "$((Get-Date).TimeOfDay) Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "$((Get-Date).TimeOfDay) Using pattern $($pattern.ToString())"
 
         if ($NoProgress) {

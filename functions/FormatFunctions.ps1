@@ -1,6 +1,5 @@
 ﻿
 Function Format-Percent {
-
     [cmdletbinding(DefaultParameterSetName = "None")]
     [OutputType([Double], ParameterSetName = "None")]
     [OutputType([String], ParameterSetName = "String")]
@@ -23,15 +22,16 @@ Function Format-Percent {
     )
 
     Write-Verbose "STARTING: $($MyInvocation.MyCommand)"
+    Write-Verbose "RUNNING: PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose "STATUS: Calculating percentage from $Value/$Total to $decimal places"
     $result = $Value / $Total
 
     if ($AsString) {
         Write-Verbose "STATUS: Writing string result"
         #use the -F operator to build a percent string to X number of decimal places
-        $pctstring = "{0:p$Decimal}" -f $result
+        $pctString = "{0:p$Decimal}" -f $result
         #remove the space before the % symbol
-        $pctstring.Replace(" ", "")
+        $pctString.Replace(" ", "")
 
     }
     else {
@@ -45,7 +45,6 @@ Function Format-Percent {
 } #end function
 
 Function Format-Value {
-
     [cmdletbinding(DefaultParameterSetName = "Default")]
     [alias("fv")]
 
@@ -71,6 +70,7 @@ Function Format-Value {
 
     Begin {
         Write-Verbose "STARTING: $($MyInvocation.MyCommand)"
+        Write-Verbose "RUNNING: PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "STATUS: Using parameter set $($PSCmdlet.ParameterSetName)"
     } #begin
 
@@ -166,7 +166,6 @@ Function Format-Value {
 }
 
 Function Format-String {
-
     [cmdletbinding()]
     [OutputType([string])]
     [alias("fs")]
@@ -184,6 +183,7 @@ Function Format-String {
 
     Begin {
         Write-Verbose "STARTING: $($MyInvocation.MyCommand)"
+        Write-Verbose "RUNNING: PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "STATUS: Using parameter set $($PSCmdlet.ParameterSetName)"
     } #begin
 

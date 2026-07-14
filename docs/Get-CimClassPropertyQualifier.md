@@ -15,7 +15,7 @@ Get the property qualifiers of a CIM class.
 
 ```yaml
 Get-CimClassPropertyQualifier [-ClassName] <String> [-Property <String>] [-Namespace <String>]
- [-CimSession <CimSession>] [<CommonParameters>]
+[-CimSession <CimSession>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

@@ -1,5 +1,4 @@
 Function New-PSDriveHere {
-
     [cmdletBinding(SupportsShouldProcess = $True, DefaultParameterSetName = "Folder")]
     [OutputType([System.Management.Automation.PSDriveInfo])]
     [Alias("npsd")]
@@ -24,6 +23,7 @@ Function New-PSDriveHere {
     )
 
     Write-Verbose "Starting: $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     Write-Verbose "Getting the location for $path"
     #get the specified location

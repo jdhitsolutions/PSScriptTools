@@ -15,6 +15,7 @@ Function Convert-HashtableString {
 
     Begin {
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {
@@ -130,6 +131,7 @@ Function Convert-HashtableToCode {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         if ($Inline) {
             Write-Verbose "Creating an inline expression"
         }
@@ -375,7 +377,6 @@ $cmd @paramHash
 }
 
 Function Rename-Hashtable {
-
     [cmdletbinding(SupportsShouldProcess, DefaultParameterSetName = "Pipeline")]
     [alias("rht")]
 
@@ -413,7 +414,8 @@ Function Rename-Hashtable {
     )
 
     Begin {
-        Write-Verbose -Message "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "using parameter set $($PSCmdlet.ParameterSetName)"
     }
 

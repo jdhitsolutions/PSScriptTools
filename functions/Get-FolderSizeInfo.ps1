@@ -23,6 +23,7 @@ Function Get-FolderSizeInfo {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #a function to recurse and get all non-hidden directories
         #This function will only be called on Windows PowerShell systems.
@@ -35,10 +36,11 @@ Function Get-FolderSizeInfo {
             try {
                 $di = [System.IO.DirectoryInfo]::new($path)
                 if ($hidden) {
-                    $top = ($di.GetDirectories()).Where( { $_.attributes -NotMatch 'ReparsePoint'})
+                    #10 July 2026 Allow ReparsePoints
+                    $top = ($di.GetDirectories())#.Where( { $_.attributes -NotMatch 'ReparsePoint'})
                 }
                 else {
-                    $top = ($di.GetDirectories()).Where( { $_.attributes -NotMatch 'hidden|ReparsePoint' })
+                    $top = ($di.GetDirectories()).Where( { $_.attributes -NotMatch 'hidden' })
                 }
                 $top
                 foreach ($t in $top) {
@@ -86,10 +88,12 @@ Function Get-FolderSizeInfo {
 
                     if ($hidden) {
                         Write-Verbose 'Including hidden files'
-                        $opt.AttributesToSkip = 'SparseFile', 'ReparsePoint'
+                        $opt.AttributesToSkip = 'SparseFile'
+                        #, 'ReparsePoint'
                     }
                     else {
-                        $opt.AttributesToSkip = 'Hidden','SparseFile', 'ReparsePoint'
+                        $opt.AttributesToSkip = 'Hidden','SparseFile'
+                        #, 'ReparsePoint'
                     }
                     Write-Verbose "Skipping attributes $($opt.AttributesToSkip)"
                     [System.IO.FileInfo[]]$data = $($d.GetFiles('*', $opt))

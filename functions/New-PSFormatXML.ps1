@@ -49,6 +49,7 @@ Function New-PSFormatXML {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #convert the parent path into a real file system path
         $parent = Convert-Path -Path (Split-Path -Path $path)

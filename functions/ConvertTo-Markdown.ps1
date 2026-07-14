@@ -23,6 +23,7 @@ Function ConvertTo-Markdown {
 
     Begin {
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #initialize a collection to hold incoming data
         $data = [System.Collections.Generic.list[object]]::new()
         #initialize a list for markdown text

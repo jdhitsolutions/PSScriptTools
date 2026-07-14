@@ -14,7 +14,7 @@ Select the oldest X number of objects before a given datetime.
 ## SYNTAX
 
 ```yaml
-Select-Oldest -InputObject <PSObject> [-Oldest] <Int32> [-Property <String>]
+Select-Oldest -InputObject <PSObject> [-Oldest] <Int32> [-Property <String>] 
 [<CommonParameters>]
 ```
 

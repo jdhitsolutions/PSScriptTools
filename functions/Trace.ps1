@@ -22,6 +22,7 @@
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         Function _SetTraceMessage {
             [cmdletbinding()]
             Param(

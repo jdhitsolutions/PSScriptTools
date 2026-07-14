@@ -21,6 +21,7 @@ Function Get-FileExtensionInfo {
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #convert the path to a file system path
         $cPath = Convert-Path -Path $Path

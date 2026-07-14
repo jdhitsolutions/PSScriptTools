@@ -16,15 +16,14 @@ A PowerShell version of the Where CLI command.
 ### Default (Default)
 
 ```yaml
-Get-FileItem [-Pattern] <String[]> [-Regex] [-Full] [-Quiet] [-First]
-[<CommonParameters>]
+Get-FileItem [-Pattern] <String[]> [-Regex] [-Full] [-Quiet] [-First] [<CommonParameters>]
 ```
 
 ### Path
 
 ```yaml
-Get-FileItem [-Pattern] <String[]> [-Regex] [-Path <String[]>] [-Recurse]
-[-Full] [-Quiet] [-First] [<CommonParameters>]
+Get-FileItem [-Pattern] <String[]> [-Regex] [-Path <String[]>] [-Recurse] [-Full] [-Quiet]
+[-First] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -58,7 +57,7 @@ Search for foo.exe and return $True if found. This command is using the PSWhere 
 ### Example 3
 
 ```powershell
-PS C:\> Get-FileItem "^\d+\S+\.txt" -Regex -Path c:\scripts -full
+PS C:\> Get-FileItem '^\d+\S+\.txt' -Regex -Path c:\scripts -full
 
     Directory: C:\Scripts
 
@@ -73,7 +72,7 @@ Mode                 LastWriteTime         Length Name
 -a---            2/7/2011  1:37 PM          78542 2500names.txt
 ```
 
-Find all TXT files in C:\Scripts that start with a number and display full file information.
+Find all TXT files in Scripts that start with a number and display full file information.
 
 ## PARAMETERS
 

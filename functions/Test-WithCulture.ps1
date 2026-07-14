@@ -36,7 +36,9 @@ Function Test-WithCulture {
         [Parameter(HelpMessage = "Specify an array of positional arguments to pass to the scriptblock for file.")]
         [object[]]$ArgumentList
     )
+
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose "Testing with culture-language $culture. [$($culture.DisplayName)]"
 
     Write-Verbose "Saving current culture values"

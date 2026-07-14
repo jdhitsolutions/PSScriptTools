@@ -15,7 +15,7 @@ Display an ANSI progress bar.
 
 ```yaml
 Write-ANSIProgress [-PercentComplete] <Double> [-ProgressColor <String>] [-BarSymbol <String>]
- [-Position <Coordinates>] [-ToHost] [<CommonParameters>]
+[-Position <Coordinates>] [-ToHost] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

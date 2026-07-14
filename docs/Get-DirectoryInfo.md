@@ -21,7 +21,9 @@ Get-DirectoryInfo [[-Path] <String>] [-Depth <Int32>] [<CommonParameters>]
 
 This command is designed to provide quick access to top-level directory information. The default behavior is to show the total number of files in the immediate directory. Although the command will also capture the total file size in the immediate directory. You can use the Depth parameter to recurse through a specified number of levels.
 
-The command output will use a wide format by default. However, other wide views are available. See Examples.
+The command output will use a wide format by default. However, other wide views are available. See Examples or run Get-FormatView DirectoryStat to discover them.
+
+If the path does not have any sub-folders, you will not get any results.
 
 ## EXAMPLES
 
@@ -47,7 +49,7 @@ The default output will use ANSI escape sequences.
 ### Example 2
 
 ```powershell
-PS C:\> Get-DirectoryInfo -Path D:\ | Format-Wide -View sizemb
+PS C:\> Get-DirectoryInfo -Path D:\ | Format-Wide -View SizeMB
 
    Path: D:\
 

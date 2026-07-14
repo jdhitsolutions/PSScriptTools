@@ -12,9 +12,10 @@ Function Get-CommandParameter {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
-        $common = "Verbose", "Debug", "erroraction", "warningaction",
-        "informationaction", "errorvariable", "warningvariable", "informationvariable",
-        "outvariable", "outbuffer", "pipelinevariable"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
+        $common = "Verbose", "Debug", "ErrorAction", "WarningAction",
+        "InformationAction", "ErrorVariable", "WarningVariable", "InformationVariable",
+        "OutVariable", "outbuffer", "PipelineVariable"
     } #begin
 
     Process {
@@ -66,6 +67,7 @@ Function Get-CommandMetadata {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     } #begin
 
@@ -112,6 +114,7 @@ Function Copy-Command {
 
     Try {
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "[BEGIN  ] Getting command metadata for $command"
         $gcm = Get-Command -Name $command -ErrorAction Stop
         #allow an alias or command name
@@ -306,5 +309,3 @@ End {
     Write-Verbose "[END    ] $($MyInvocation.MyCommand)"
 
 }#end Copy-Command
-
-

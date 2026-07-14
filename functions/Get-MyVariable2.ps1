@@ -1,5 +1,4 @@
 function Get-MyVariable {
-
     [cmdletbinding()]
     [OutputType('System.Management.Automation.PSVariable', 'System.Management.Automation.LocalVariable')]
     [alias('gmv')]

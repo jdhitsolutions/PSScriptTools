@@ -14,6 +14,7 @@
 
     Begin {
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {

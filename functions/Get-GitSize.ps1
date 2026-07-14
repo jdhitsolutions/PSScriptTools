@@ -4,13 +4,14 @@ Function Get-GitSize {
     [OutputType("gitSize")]
     Param (
         [Parameter(Position = 0, ValueFromPipeline, ValueFromPipelineByPropertyName)]
-        [alias("pspath")]
+        [alias("PSPath")]
         [ValidateScript({Test-Path $_})]
         [string]$Path = "."
     )
 
     Begin {
-        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
     Process {
         $full = Convert-Path -Path $Path

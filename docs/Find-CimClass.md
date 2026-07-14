@@ -14,7 +14,8 @@ Search CIM for a class.
 ## SYNTAX
 
 ```yaml
-Find-CimClass [-ClassName] <String> [-Exclude <String>] [-CimSession <CimSession>] [<CommonParameters>]
+Find-CimClass [-ClassName] <String> [-Exclude <String>] [-CimSession <CimSession>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

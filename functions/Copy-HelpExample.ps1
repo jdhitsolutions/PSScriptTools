@@ -56,6 +56,7 @@ function Copy-HelpExample {
 
     begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #A regex pattern to strip off prompts, comments and empty lines from the code sample
         $rx = [System.Text.RegularExpressions.Regex]::new('(PS.*>)|(#.*)|(^\s$)', 'Multiline')

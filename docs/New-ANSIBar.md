@@ -16,15 +16,14 @@ Display an ANSI colored bar.
 ### standard (Default)
 
 ```yaml
-New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Character <String>]
-[-Gradient] [<CommonParameters>]
+New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Character <String>] [-Gradient]
+[<CommonParameters>]
 ```
 
 ### custom
 
 ```yaml
-New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Custom <Char>] [-Gradient]
-[<CommonParameters>]
+New-ANSIBar -Range <Int32[]> [-Spacing <Int32>] [-Custom <Char>] [-Gradient] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

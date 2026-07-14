@@ -14,6 +14,7 @@ Function Remove-MergedBranch {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {

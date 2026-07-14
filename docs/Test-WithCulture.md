@@ -16,15 +16,15 @@ Test your PowerShell code using a different culture.
 ### scriptblock (Default)
 
 ```yaml
-Test-WithCulture [-Culture] <CultureInfo> [-Scriptblock] <ScriptBlock>
-[-ArgumentList <Object[]>] [<CommonParameters>]
+Test-WithCulture [-Culture] <CultureInfo> [-Scriptblock] <ScriptBlock> [-ArgumentList <Object[]>]
+[<CommonParameters>]
 ```
 
 ### file
 
 ```yaml
-Test-WithCulture [-Culture] <CultureInfo> -FilePath <ScriptBlock>
-[-ArgumentList <Object[]>] [<CommonParameters>]
+Test-WithCulture [-Culture] <CultureInfo> -FilePath <ScriptBlock> [-ArgumentList <Object[]>]
+ [<CommonParameters>]
 ```
 
 ## DESCRIPTION

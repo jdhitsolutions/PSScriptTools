@@ -16,20 +16,22 @@ Convert pipeline output to a markdown document.
 ### text (Default)
 
 ```yaml
-ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>]
-[-PreContent <String[]>] [-PostContent <String[]>] [-Width <Int32>] [<CommonParameters>]
+ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>]
+ [-PostContent <String[]>] [-Width <Int32>] [<CommonParameters>]
 ```
 
 ### table
 
 ```yaml
-ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsTable] [<CommonParameters>]
+ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>]
+[-PostContent <String[]>] [-AsTable] [<CommonParameters>]
 ```
 
 ### list
 
 ```yaml
-ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>] [-PostContent <String[]>] [-AsList] [<CommonParameters>]
+ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>]
+[-PostContent <String[]>] [-AsList] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

@@ -20,6 +20,7 @@ Function Compare-Module {
     Begin {
 
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         $progParam = @{
             Activity         = $MyInvocation.MyCommand
@@ -33,7 +34,6 @@ Function Compare-Module {
     } #begin
 
     Process {
-
         $gmoParams = @{
             ListAvailable = $True
         }

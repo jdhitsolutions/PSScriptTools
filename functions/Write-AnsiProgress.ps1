@@ -29,6 +29,7 @@ Function Write-ANSIProgress {
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #Validate the progress color. The normal parameter validation techniques don't like the regex pattern
         if ( -Not [regex]::IsMatch($ProgressColor, "$([char]27)\[\d+[\d;]+m")) {

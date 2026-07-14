@@ -15,6 +15,7 @@ Function New-RedGreenGradient {
     )
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     $r = 255
     $g = 0
     Write-Verbose "Using a percentage of $Percent"

@@ -1,26 +1,26 @@
 
 
 #an internal function for the actual testing
-Function _TestMe {
-    [cmdletbinding(DefaultParameterSetName = "Interval")]
-    Param(
+function _TestMe {
+    [cmdletbinding(DefaultParameterSetName = 'Interval')]
+    param(
         [scriptblock]$Expression,
-        [object[]]$ArgumentList,
+        [object[]]$argumentList,
         [ValidateScript( { $_ -ge 1 })]
         [int]$Count = 1,
-        [Parameter(ParameterSetName = "Interval")]
+        [Parameter(ParameterSetName = 'Interval')]
         [ValidateRange(0, 60)]
         [double]$Interval = .5,
-        [Parameter(ParameterSetName = "Random", Mandatory)]
-        [Alias("min")]
+        [Parameter(ParameterSetName = 'Random', Mandatory)]
+        [Alias('min')]
         [double]$RandomMinimum,
-        [Parameter(ParameterSetName = "Random", Mandatory)]
-        [Alias("max")]
+        [Parameter(ParameterSetName = 'Random', Mandatory)]
+        [Alias('max')]
         [double]$RandomMaximum,
         [switch]$IncludeExpression
     )
 
-    $TestData = 1..$count | ForEach-Object -begin {
+    $TestData = 1..$count | ForEach-Object -Begin {
         <#
           PowerShell doesn't seem to like passing a scriptblock as an
           argument when using Invoke-Command. It appears to pass it as
@@ -28,15 +28,14 @@ Function _TestMe {
          #>
         $script:TestBlock = [scriptblock]::Create($Expression)
 
-    } -process {
+    } -Process {
         #invoke the scriptblock with any arguments and measure
-        Measure-Command -Expression { $($script:TestBlock).Invoke(@($argumentlist)) } -OutVariable +out
+        Measure-Command -Expression { $($script:TestBlock).Invoke(@($argumentList)) } -OutVariable +out
 
-        #} -outvariable +out
         #pause to mitigate any caching effects
-        if ($RandomMinimum -AND $RandomMaximum) {
+        if ($RandomMinimum -and $RandomMaximum) {
             $sleep = Get-Random -Minimum ($RandomMinimum * 1000) -Maximum ($RandomMaximum * 1000)
-            $TestInterval = "Random"
+            $TestInterval = 'Random'
         }
         else {
             $Sleep = ($Interval * 1000)
@@ -48,12 +47,12 @@ Function _TestMe {
 
     $TestResults = $TestData |
     Measure-Object -Property TotalMilliseconds -Average -Maximum -Minimum |
-    Select-Object -Property @{Name = "Tests"; Expression = { $_.Count } },
-    @{Name = "TestInterval"; Expression = { $TestInterval } },
-    @{Name = "AverageMS"; Expression = { $_.Average } },
-    @{Name = "MinimumMS"; Expression = { $_.Minimum } },
-    @{Name = "MaximumMS"; Expression = { $_.Maximum } },
-    @{Name = "MedianMS"; Expression = {
+    Select-Object -Property @{Name = 'Tests'; Expression = { $_.Count } },
+    @{Name = 'TestInterval'; Expression = { $TestInterval } },
+    @{Name = 'AverageMS'; Expression = { $_.Average } },
+    @{Name = 'MinimumMS'; Expression = { $_.Minimum } },
+    @{Name = 'MaximumMS'; Expression = { $_.Maximum } },
+    @{Name = 'MedianMS'; Expression = {
             #sort the values to calculate the median and trimmed values
             $sort = $out.TotalMilliseconds | Sort-Object
 
@@ -70,7 +69,7 @@ Function _TestMe {
             }
         }
     },
-    @{Name = "TrimmedMS"; Expression = {
+    @{Name = 'TrimmedMS'; Expression = {
             #values must be sorted in ascending order
             $data = $out.TotalMilliseconds | Sort-Object
             #select elements from the second to next to last
@@ -85,62 +84,61 @@ Function _TestMe {
     $TestResults | Add-Member -MemberType NoteProperty -Name OS -Value $OS.caption
 
     if ($IncludeExpression) {
-        Write-Verbose "Adding expression to output"
+        Write-Verbose 'Adding expression to output'
         $TestResults | Add-Member -MemberType NoteProperty -Name Expression -Value $Expression
-        $TestResults | Add-Member -MemberType NoteProperty -Name Arguments -Value $ArgumentList
+        $TestResults | Add-Member -MemberType NoteProperty -Name Arguments -Value $argumentList
     }
 
-    Write-Verbose "Inserting a new type name"
-    $TestResults.PSObject.TypeNames.insert(0, "my.TestResult")
+    Write-Verbose 'Inserting a new type name'
+    $TestResults.PSObject.TypeNames.insert(0, 'my.TestResult')
 
     #write the result to the pipeline
     $testResults
 } #_TestMe function
 
 #exposed functions
-Function Test-Expression {
-
-    [cmdletbinding(DefaultParameterSetName = "Interval")]
-    [alias("tex")]
-    Param(
+function Test-Expression {
+    [cmdletbinding(DefaultParameterSetName = 'Interval')]
+    [alias('tex')]
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
-            HelpMessage = "Enter a scriptblock to test",
+            HelpMessage = 'Enter a scriptblock to test',
             ValueFromPipeline
         )]
-        [Alias("sb")]
+        [Alias('sb')]
         [scriptblock]$Expression,
 
-        [object[]]$ArgumentList,
+        [object[]]$argumentList,
 
         [Parameter(ValueFromPipelineByPropertyName)]
         [ValidateScript( { $_ -ge 1 })]
         [int]$Count = 1,
 
         [Parameter(
-            ParameterSetName = "Interval",
+            ParameterSetName = 'Interval',
             ValueFromPipelineByPropertyName)]
         [ValidateRange(0, 60)]
-        [Alias("sleep")]
+        [Alias('sleep')]
         [double]$Interval = .5,
 
         [Parameter(
-            ParameterSetName = "Random",
+            ParameterSetName = 'Random',
             Mandatory
         )]
-        [Alias("min")]
+        [Alias('min')]
         [double]$RandomMinimum,
 
         [Parameter(
-            ParameterSetName = "Random",
+            ParameterSetName = 'Random',
             Mandatory
         )]
-        [Alias("max")]
+        [Alias('max')]
         [double]$RandomMaximum,
 
         [Parameter(ValueFromPipelineByPropertyName)]
-        [Alias("ie")]
+        [Alias('ie')]
         [switch]$IncludeExpression,
 
         [switch]$AsJob
@@ -148,11 +146,12 @@ Function Test-Expression {
     )
 
     Write-Verbose "Starting: $($MyInvocation.MyCommand)"
+    Write-Verbose "Running: PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose ($PSBoundParameters | Out-String)
-    Write-Verbose "Measuring expression:"
+    Write-Verbose 'Measuring expression:'
     Write-Verbose ($Expression | Out-String)
-    if ($ArgumentList) {
-        Write-Verbose "Arguments: $($ArgumentList -join ",")"
+    if ($argumentList) {
+        Write-Verbose "Arguments: $($argumentList -join ',')"
     }
 
     if ($PSCmdlet.ParameterSetName -eq 'Interval') {
@@ -162,11 +161,11 @@ Function Test-Expression {
         Write-Verbose "$Count time(s) with a random sleep interval between $RandomMinimum seconds and $RandomMaximum seconds."
     }
 
-    If ($AsJob) {
-        Write-Verbose "Running as a background job"
-        [void]$PSBoundParameters.remove("AsJob")
+    if ($AsJob) {
+        Write-Verbose 'Running as a background job'
+        [void]$PSBoundParameters.remove('AsJob')
         Start-Job -ScriptBlock {
-            Param([hashtable]$TestParams)
+            param([hashtable]$TestParams)
 
             <#
           PowerShell doesn't seem to like passing a scriptblock as an
@@ -177,11 +176,11 @@ Function Test-Expression {
             $expression = [scriptblock]::Create($TestParams.Expression)
             $TestParams.Expression = $Expression
             Test-Expression @TestParams
-        } -ArgumentList @($PSBoundParameters) -InitializationScript { Import-Module PSScriptTools}
+        } -ArgumentList @($PSBoundParameters) -InitializationScript { Import-Module PSScriptTools }
 
     }
     else {
-        [void]$PSBoundParameters.remove("AsJob")
+        [void]$PSBoundParameters.remove('AsJob')
         _TestMe @PSBoundParameters
     }
 
@@ -189,32 +188,32 @@ Function Test-Expression {
 
 } #end function
 
-Function Test-ExpressionForm {
+function Test-ExpressionForm {
     [cmdletbinding()]
-    [alias("texf")]
-    Param()
+    [alias('texf')]
+    param()
 
     if ((Test-IsPSWindows)) {
 
         Add-Type -AssemblyName PresentationFramework
-        Add-Type -assemblyName PresentationCore
+        Add-Type -AssemblyName PresentationCore
 
         [xml]$xaml = Get-Content $PSScriptRoot\form.xaml
 
         $reader = New-Object System.Xml.XmlNodeReader $xaml
         $form = [Windows.Markup.XamlReader]::Load($reader)
 
-        $sb = $form.FindName("txtScriptBlock")
-        $count = $form.FindName("txtCount")
-        $results = $form.FindName("tbResults")
-        $slider = $form.FindName("sliderStatic")
-        $radioStatic = $form.FindName("radioStatic")
-        $radioRandom = $form.FindName("radioRandom")
-        $min = $form.FindName("txtMin")
-        $Max = $form.FindName("txtMax")
-        $argumentList = $form.FindName("txtArguments")
-        $run = $form.FindName("btnRun")
-        $quit = $form.FindName("btnQuit")
+        $sb = $form.FindName('txtScriptBlock')
+        $count = $form.FindName('txtCount')
+        $results = $form.FindName('tbResults')
+        $slider = $form.FindName('sliderStatic')
+        $radioStatic = $form.FindName('radioStatic')
+        $radioRandom = $form.FindName('radioRandom')
+        $min = $form.FindName('txtMin')
+        $Max = $form.FindName('txtMax')
+        $argumentList = $form.FindName('txtArguments')
+        $run = $form.FindName('btnRun')
+        $quit = $form.FindName('btnQuit')
 
         #defaults
         $min.Text = 1
@@ -237,27 +236,27 @@ Function Test-ExpressionForm {
 
         $quit.add_click( { $form.close() })
 
-        Function _refresh {
+        function _refresh {
             #this is a function to refresh a UI element
-            Param($element)
+            param($element)
 
-            $element.Dispatcher.invoke("render", [action] {})
+            $element.Dispatcher.invoke('render', [action] {})
             [System.Threading.Thread]::Sleep(50)
 
         }
 
         $run.add_click( {
 
-                $results.text = "Testing...please wait"
+                $results.text = 'Testing...please wait'
                 _refresh $results
 
                 #uncomment for troubleshooting
                 #write-host "running" -ForegroundColor green
 
                 $form.Dispatcher.invoke([action] {
-                        if ($sb.Text -NotMatch "\w") {
-                            Write-Warning "You must enter something to test!"
-                            Return
+                        if ($sb.Text -notmatch '\w') {
+                            Write-Warning 'You must enter something to test!'
+                            return
                         }
 
                         $params = @{
@@ -266,19 +265,19 @@ Function Test-ExpressionForm {
                             IncludeExpression = $True
                         }
 
-                        If ($argumentList.text) {
-                            $params.Add("ArgumentList", ($argumentList.Text -split ","))
+                        if ($argumentList.text) {
+                            $params.Add('argumentList', ($argumentList.Text -split ','))
                         }
 
                         if ($radioStatic.IsChecked) {
                             $interval = [math]::round($slider.value, 1)
-                            $params.Add("interval", $interval)
+                            $params.Add('interval', $interval)
                         }
                         else {
                             [double]$minimum = [math]::Round($min.Text, 1)
                             [double]$maximum = [math]::Round($max.text, 1)
-                            $params.Add("RandomMinimum", $minimum)
-                            $params.Add("RandomMaximum", $maximum)
+                            $params.Add('RandomMinimum', $minimum)
+                            $params.Add('RandomMaximum', $maximum)
                         }
 
                         $form.Cursor = [System.Windows.Input.Cursors]::Wait
@@ -287,7 +286,7 @@ Function Test-ExpressionForm {
 
                         $script:out = Test-Expression @params -ErrorVariable ev
                         if ($script:out) {
-                            $data = ($script:out | Select-Object -property * -exclude OS, Expression, Arguments | Out-String).Trim()
+                            $data = ($script:out | Select-Object -Property * -exclude OS, Expression, Arguments | Out-String).Trim()
                         }
                         else {
                             $data = $ev.exception[0].message
@@ -304,7 +303,7 @@ Function Test-ExpressionForm {
         $script:out
     }
     else {
-        Write-Warning "This command requires a Windows platform that supports WPF."
+        Write-Warning 'This command requires a Windows platform that supports WPF.'
     }
 }
 

@@ -15,8 +15,11 @@ Create a PowerShell function dynamic parameter.
 
 ```yaml
 New-PSDynamicParameter [-ParameterName] <String[]> -Condition <String> [-Mandatory]
-[-DefaultValue <Object[]>] [-Alias <String[]>] [-ParameterType <Type>] [-HelpMessage <String>][-ValueFromPipelineByPropertyName] [-ParameterSetName <String>][-Comment <String>] [-ValidateNotNullOrEmpty] [-ValidateLength <Int32[]>] [-ValidateSet <Object[]>]
-[-ValidateRange <Int32[]>] [-ValidateCount <Int32[]>] [-ValidatePattern <String>] [-ValidateScript <ScriptBlock>] [<CommonParameters>]
+[-DefaultValue <Object[]>] [-Alias <String[]>] [-ParameterType <Type>] [-HelpMessage <String>]
+-ValueFromPipelineByPropertyName] [-ParameterSetName <String>][-Comment <String>]
+-ValidateNotNullOrEmpty] [-ValidateLength <Int32[]>] [-ValidateSet <Object[]>]
+[-ValidateRange <Int32[]>] [-ValidateCount <Int32[]>] [-ValidatePattern <String>]
+[-ValidateScript <ScriptBlock>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -28,16 +31,20 @@ This command will create the code for a dynamic parameter that you can insert in
 ### Example 1
 
 ```powershell
-PS C:\> New-PSDynamicParameter -Condition "$PSEdition -eq 'Core'" -ParameterName ANSI -Alias color -Comment "Create a parameter to use ANSI if running PowerShell 7" -ParameterType switch
+PS C:\> New-PSDynamicParameter -Condition "$PSEdition -eq 'Core'" -ParameterName ANSI
+-Alias color -Comment "Create a parameter to use ANSI if running PowerShell 7"
+-ParameterType switch
 
     DynamicParam {
     # Create a parameter to use ANSI if running PowerShell 7
         If (Core -eq 'Core') {
 
-        $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+        $paramDictionary = New-Object -Type System.Management.Automation.
+        RuntimeDefinedParameterDictionary
 
         # Defining parameter attributes
-        $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+        $attributeCollection = New-Object -Type
+        System.Collections.ObjectModel.Collection[System.Attribute]
         $attributes = New-Object System.Management.Automation.ParameterAttribute
         $attributes.ParameterSetName = '__AllParameterSets'
         $attributeCollection.Add($attributes)
@@ -47,7 +54,8 @@ PS C:\> New-PSDynamicParameter -Condition "$PSEdition -eq 'Core'" -ParameterName
         $attributeCollection.Add($dynalias)
 
         # Defining the runtime parameter
-        $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter('ANSI', [Switch], $attributeCollection)
+        $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter(
+            'ANSI', [Switch], $attributeCollection)
         $paramDictionary.Add('ANSI', $dynParam1)
 
         return $paramDictionary

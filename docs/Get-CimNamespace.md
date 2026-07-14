@@ -13,8 +13,9 @@ Enumerate WMI/CIM namespaces.
 
 ## SYNTAX
 
-```
-Get-CimNamespace [[-Namespace] <String>] [-TopLevelOnly] [-CimSession <CimSession>] [<CommonParameters>]
+```yaml
+Get-CimNamespace [[-Namespace] <String>] [-TopLevelOnly] [-CimSession <CimSession>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

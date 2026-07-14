@@ -15,6 +15,7 @@ Function Get-PSAnsiFileMap {
     Param( )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {
@@ -60,6 +61,7 @@ Function Set-PSAnsiFileMap {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {
@@ -114,6 +116,7 @@ Function Export-PSAnsiFileMap {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $Path = Join-Path -Path $HOME -ChildPath "psansifilemap.json"
     } #begin
 
@@ -150,6 +153,7 @@ Function Remove-PSAnsiFileEntry {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {

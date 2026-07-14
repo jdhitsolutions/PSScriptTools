@@ -23,6 +23,7 @@ Function Get-DirectoryInfo {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #initialize a collection to hold the results
         $data = [System.Collections.Generic.list[object]]::new()

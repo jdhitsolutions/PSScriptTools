@@ -16,16 +16,15 @@ Display a customizable WPF-based message box.
 ### standard (Default)
 
 ```yaml
-New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>]
-[-ButtonSet <String>] [-Background <String>] [-Quiet] [<CommonParameters>]
+New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>] [-ButtonSet <String>]
+ [-Background <String>] [-Quiet] [<CommonParameters>]
 ```
 
 ### custom
 
 ```yaml
 New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>]
-[-CustomButtonSet <OrderedDictionary>] [-Background <String>] [-Quiet]
-[<CommonParameters>]
+[-CustomButtonSet <OrderedDictionary>] [-Background <String>] [-Quiet] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

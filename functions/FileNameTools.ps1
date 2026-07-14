@@ -1,4 +1,3 @@
-
 Function New-RandomFileName {
     [cmdletbinding(DefaultParameterSetName = "none")]
     [Alias("rfn")]

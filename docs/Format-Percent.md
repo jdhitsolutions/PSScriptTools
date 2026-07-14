@@ -16,15 +16,14 @@ Format a value as a percentage.
 ### None (Default)
 
 ```yaml
-Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>]
-[<CommonParameters>]
+Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>] [<CommonParameters>]
 ```
 
 ### String
 
 ```yaml
-Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>]
-[-AsString] [<CommonParameters>]
+Format-Percent [-Value] <Object> [-Total] <Object> [-Decimal <Int32>] [-AsString]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

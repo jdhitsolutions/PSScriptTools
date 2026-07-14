@@ -14,6 +14,7 @@
    )
    Begin {
       Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+      Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
    } #begin
    Process {
       Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting: $text"

@@ -13,6 +13,7 @@ Function Get-FormatView {
     )
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #a regular expression pattern to match on the format type
         [regex]$rx = "Table|List|Wide|Custom"
     } #begin

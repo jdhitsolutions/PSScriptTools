@@ -26,7 +26,7 @@ PowerShell's formatting system includes custom views that display objects in dif
 ### Example 1
 
 ```powershell
-PS C:\> Get-FormatView system.diagnostics.process
+PS C:\> Get-FormatView System.Diagnostics.Process
 
 
    Type: System.Diagnostics.Process

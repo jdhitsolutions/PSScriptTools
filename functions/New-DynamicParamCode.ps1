@@ -57,6 +57,7 @@ Function New-PSDynamicParameter {
 
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $out = @"
     DynamicParam {
     $(If ($comment) { "$([char]35) $comment"})

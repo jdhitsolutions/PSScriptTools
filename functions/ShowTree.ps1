@@ -75,6 +75,7 @@
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         if (-Not $Path -and $PSCmdlet.ParameterSetName -eq 'Path') {
             $Path = Get-Location
         }

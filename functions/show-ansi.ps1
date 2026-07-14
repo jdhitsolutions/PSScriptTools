@@ -20,6 +20,7 @@ function Show-ANSISequence {
 
     begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Debug "Using parameter set $($PSCmdlet.ParameterSetName)"
         Write-Debug 'Bound parameters'
         $PSBoundParameters | Out-String | Write-Debug

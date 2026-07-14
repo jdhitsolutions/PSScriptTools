@@ -44,10 +44,7 @@ VERBOSE: Getting latest version of git from https://git-scm.com/install/windows
 VERBOSE: WebRequest: v1.1 GET https://git-scm.com/install/windows
 VERBOSE: WebResponse: 200 OK with text/html payload
 VERBOSE: Downloading ARM64
-VERBOSE: Found download link https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe
-VERBOSE: Downloading D:\temp\Git-2.55.0.2-arm64.exe from https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe
-VERBOSE: WebRequest: v1.1 GET https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe output to D:\temp\Git-2.55.0.2-arm64.exe
-VERBOSE: WebResponse: 200 OK with application/octet-stream payload with body size 60.31 MB (63,236,912 bytes)
+...
 VERBOSE: File Name: Git-2.55.0.2-arm64.exe
 VERBOSE: Download complete
 ```

@@ -10,7 +10,7 @@ Function Compare-Script {
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
-        [Alias("scriptname")]
+        [Alias("ScriptName")]
         [string]$Name,
         [ValidateNotNullOrEmpty()]
         [string]$Gallery = "PSGallery"
@@ -19,6 +19,7 @@ Function Compare-Script {
     Begin {
 
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
+        Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         $progParam = @{
             Activity         = $MyInvocation.MyCommand

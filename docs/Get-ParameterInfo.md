@@ -14,7 +14,8 @@ Retrieve command parameter information.
 ## SYNTAX
 
 ```yaml
-Get-ParameterInfo [-Command] <String> [-Parameter <String>] [-ParameterSet <String>] [<CommonParameters>]
+Get-ParameterInfo [-Command] <String> [-Parameter <String>] [-ParameterSet <String>]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION

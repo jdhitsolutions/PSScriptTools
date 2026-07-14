@@ -82,6 +82,10 @@ format type data generated 09/11/2020 10:48:56 by BOVINE320\Jeff
                 <PropertyName>Exists</PropertyName>
               </ListItem>
               <ListItem>
+                <Label>Size</Label>
+                <PropertyName>Size</PropertyName>
+              </ListItem>
+              <ListItem>
                 <Label>LastModified</Label>
                 <PropertyName>LastModified</PropertyName>
               </ListItem>

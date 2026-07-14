@@ -50,7 +50,7 @@ C:\work\demos demos   False DESK10
 ...
 ```
 
-Test child folders under C:\work.
+Test child folders in C:\\work.
 
 ### Example 3
 
@@ -67,7 +67,7 @@ What if: Performing the operation "Remove Directory" on target "C:\work\todd".
 What if: Performing the operation "Remove Directory" on target "C:\work\[data]".
 ```
 
-Find all empty sub-folders under C:\Work and pipe them to Remove-Item. This is one way to remove empty folders. The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work\[data] is a non-standard path.
+Find all empty sub-folders C:\\work and pipe them to Remove-Item. This is one way to remove empty folders. The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\\work\\[data] is a non-standard path.
 
 ## PARAMETERS
 
@@ -89,7 +89,7 @@ Accept wildcard characters: False
 
 ### -Path
 
-Enter a file system path like C:\Scripts.
+Enter a file system path like C:\\Scripts.
 
 ```yaml
 Type: String[]

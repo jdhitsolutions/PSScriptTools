@@ -2259,7 +2259,7 @@ P7D</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location. You can use Get-Timezone or Get-TZData to help. See examples.</maml:para>
+      <maml:para>It can be tricky sometimes to see a time in a foreign location and try to figure out what that time is locally. This command attempts to simplify this process. In addition to the remote time, you need the base UTC offset for the remote location. You can use Get-Timezone to help. See examples.</maml:para>
       <maml:para>The parameter for DaylightSavingTime is to indicate that the remote location is observing DST. You can use this with the location's standard UTC offset, or you can specify an offset that takes DST into account.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2292,7 +2292,7 @@ P7D</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dst">
           <maml:name>DaylightSavingTime</maml:name>
           <maml:description>
-            <maml:para>Indicate that the foreign location is using Daylight Saving Time</maml:para>
+            <maml:para>Indicate that the foreign location is using Daylight Saving Time.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -2330,7 +2330,7 @@ P7D</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="dst">
         <maml:name>DaylightSavingTime</maml:name>
         <maml:description>
-          <maml:para>Indicate that the foreign location is using Daylight Saving Time</maml:para>
+          <maml:para>Indicate that the foreign location is using Daylight Saving Time.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -2410,10 +2410,6 @@ Friday, March 14, 2025 4:00:00 PM</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-MyTimeInfo</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Get-TZList</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
@@ -6689,7 +6685,8 @@ Get-Item -LiteralPath &lt;string[]&gt; [-Filter &lt;string&gt;] [-Include &lt;st
     </command:details>
     <maml:description>
       <maml:para>This command is designed to provide quick access to top-level directory information. The default behavior is to show the total number of files in the immediate directory. Although the command will also capture the total file size in the immediate directory. You can use the Depth parameter to recurse through a specified number of levels.</maml:para>
-      <maml:para>The command output will use a wide format by default. However, other wide views are available. See Examples.</maml:para>
+      <maml:para>The command output will use a wide format by default. However, other wide views are available. See Examples or run Get-FormatView DirectoryStat to discover them.</maml:para>
+      <maml:para>If the path does not have any sub-folders, you will not get any results.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -6792,7 +6789,7 @@ work [13]</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-DirectoryInfo -Path D:\ | Format-Wide -View sizemb
+        <dev:code>PS C:\&gt; Get-DirectoryInfo -Path D:\ | Format-Wide -View SizeMB
 
    Path: D:\
 
@@ -6875,7 +6872,7 @@ PostSetup         5    15275</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command will search a given directory and produce a report of all files based on their file extension. This command is only available in PowerShell 7.</maml:para>
+      <maml:para>This command will search a given directory and produce a report of all files based on their file extension. This command is only available in PowerShell 7. The command has an alias of gfei.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -6883,7 +6880,7 @@ PostSetup         5    15275</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Specify the root directory path to search</maml:para>
+            <maml:para>Specify the root directory path to search.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -6895,7 +6892,7 @@ PostSetup         5    15275</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>Hidden</maml:name>
           <maml:description>
-            <maml:para>Include files in hidden folders</maml:para>
+            <maml:para>Include files in hidden folders.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -6931,7 +6928,7 @@ PostSetup         5    15275</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>Hidden</maml:name>
         <maml:description>
-          <maml:para>Include files in hidden folders</maml:para>
+          <maml:para>Include files in hidden folders.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -6955,7 +6952,7 @@ PostSetup         5    15275</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Specify the root directory path to search</maml:para>
+          <maml:para>Specify the root directory path to search.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -7036,6 +7033,22 @@ Extension Count TotalSize Smallest   Average  Largest
 .zip          1  13493443 13493443  13493443 13493443</dev:code>
         <dev:remarks>
           <maml:para>The extension with the largest total size will be highlighted in color.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C\&gt; Get-FileExtensionInfo d:\temp | Format-Table -view TotalMB
+
+   Path: D:\temp
+
+Extension       Count      TotalMB
+---------       -----      -------
+.exe                1        60.31
+.json               1            0
+.txt                2        10.57
+.zip                1        79.36</dev:code>
+        <dev:remarks>
+          <maml:para>There are additional custom table views of TotalMB and TotalKB.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -7296,7 +7309,7 @@ False</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-FileItem "^\d+\S+\.txt" -Regex -Path c:\scripts -full
+        <dev:code>PS C:\&gt; Get-FileItem '^\d+\S+\.txt' -Regex -Path c:\scripts -full
 
     Directory: C:\Scripts
 
@@ -7310,7 +7323,7 @@ Mode                 LastWriteTime         Length Name
 -a---           2/17/2015  4:47 PM           2300 2015.txt
 -a---            2/7/2011  1:37 PM          78542 2500names.txt</dev:code>
         <dev:remarks>
-          <maml:para>Find all TXT files in C:\Scripts that start with a number and display full file information.</maml:para>
+          <maml:para>Find all TXT files in Scripts that start with a number and display full file information.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -7340,8 +7353,8 @@ Mode                 LastWriteTime         Length Name
     </command:details>
     <maml:description>
       <maml:para>This command is an alternative to discovering the size of a folder, or at least an easier method. Use the -Hidden parameter to include hidden files in the output. The measurement will include all files in all sub-folders.</maml:para>
-      <maml:para>Note that this command has been optimized for performance, but if you have a lot of files to count that will take time, especially when using Windows PowerShell. When querying system folders like C:\Windows on a Windows PowerShell platform, you might get better results including hidden files. Due to the nature of the .NET Framework changes, you might see different results for the same folder when run in PowerShell 7 compared to Windows PowerShell 5.1.</maml:para>
-      <maml:para>This command will ignore reparse points, such as symbolic links and junctions.</maml:para>
+      <maml:para>This command has been optimized for performance, but if you have a lot of files to count, that will take time, especially when using Windows PowerShell. When querying system folders like Windows, you might get better results including hidden files. Due to the nature of the .NET Framework changes, you might see different results for the same folder when run in PowerShell 7 compared to Windows PowerShell 5.1.</maml:para>
+      <maml:para>Beginning with version 3.1.0, this command will no longer ignore reparse points, such as symbolic links and junctions.</maml:para>
       <maml:para>If using on a profile folder, you will most likely get access denied warnings in Windows PowerShell and you can assume those locations will not be counted.</maml:para>
     </maml:description>
     <command:syntax>
@@ -7350,7 +7363,7 @@ Mode                 LastWriteTime         Length Name
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="PSPath">
           <maml:name>Path</maml:name>
           <maml:description>
-            <maml:para>Enter a file system path like C:\Scripts.</maml:para>
+            <maml:para>Enter a filesystem path like C:\work</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
           <dev:type>
@@ -7399,7 +7412,7 @@ Mode                 LastWriteTime         Length Name
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="PSPath">
         <maml:name>Path</maml:name>
         <maml:description>
-          <maml:para>Enter a file system path like C:\Scripts.</maml:para>
+          <maml:para>Enter a filesystem path like C:\work</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
         <dev:type>
@@ -7489,14 +7502,13 @@ BOVINE320       D:\rip                               3       11.1546
 BOVINE320       D:\logs                            134        3.9517
 BOVINE320       D:\2016                              5        1.5608</dev:code>
         <dev:remarks>
-          <maml:para>Get the top-level directories from D and pipe them to Get-FolderSizeInfo. Items with a total size of greater than 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly.</maml:para>
+          <maml:para>Get the top-level directories from D:\ and pipe them to Get-FolderSizeInfo. Items with a total size of greater than 1MB are sorted on the total size and then formatted as a table using a built-in view called MB which formats the total size in MB. There are also views named KB,GB and TB to display formatted results accordingly.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-ChildItem c:\work -Directory | Get-FolderSizeInfo -Hidden |
 Where-Object {$_.TotalSize -ge 2mb} | Format-Table -view name
-
 
    Path: C:\work
 
@@ -7507,7 +7519,7 @@ keepass                         15     5839.084
 PowerShellBooks                 26    4240.3779
 sunday                          47   24540.6523</dev:code>
         <dev:remarks>
-          <maml:para>Get all sub-folders under C:\work greater than 2MB in size and display using the Name table view.</maml:para>
+          <maml:para>Get all sub-folders that are greater than 2MB in total size and display them using the Name table view.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -7626,7 +7638,7 @@ sunday                          47   24540.6523</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-FormatView system.diagnostics.process
+        <dev:code>PS C:\&gt; Get-FormatView System.Diagnostics.Process
 
 
    Type: System.Diagnostics.Process
@@ -8773,7 +8785,7 @@ Timestamp             Category        Counter             Value
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is designed to present a console-based version of a world clock. You provide a hashtable of locations and their respective time zones and the command will write a custom object to the pipeline. Be aware that TimeZone names may vary depending on the .NET Framework version. You may need to enumerate using a command like [System.TimeZoneInfo]::GetSystemTimeZones().ID or the Get-TZList command.</maml:para>
+      <maml:para>This command is designed to present a console-based version of a world clock. You provide a hashtable of locations and their respective time zones and the command will write a custom object to the pipeline. Be aware that TimeZone names may vary depending on the .NET Framework version. You may need to enumerate using a command like [System.TimeZoneInfo]::GetSystemTimeZones().ID.</maml:para>
       <maml:para>A Note on Formatting:</maml:para>
       <maml:para>Normally, a PowerShell command should write an object to the pipeline and then you could use Format-Table or Format-List as you wanted. Those commands will continue to work. However, given the way this command writes to the pipeline, that is with dynamically generated properties, it is difficult to create the usual format ps1xml file. To provide some nicer formatting this command has optional parameters to help your format the output. Note that even though it may look like a table, the output object will be a string.</maml:para>
       <maml:para>This command was added in v2.3.0.</maml:para>
@@ -10000,7 +10012,7 @@ CurrentUserCurrentHost True   C:\Users\Jeff\Documents\PowerShell\Microsoft.Powe�
 Scope                  Exists Path
 -----                  ------ ----
 AllUsersAllHosts       True   C:\WINDOWS\System32\WindowsPowerShell\v1.0\profil…
-AllUsersCurrentHost    False  C:\WINDOWS\System32\WindowsPowerShell\v1.0\Micros…
+AllUsersCurrentHost    True   C:\WINDOWS\System32\WindowsPowerShell\v1.0\Micros…
 CurrentUserAllHosts    True   C:\Users\Jeff\Documents\WindowsPowerShell\profile…
 CurrentUserCurrentHost True   C:\Users\Jeff\Documents\WindowsPowerShell\Microso…
 
@@ -10030,39 +10042,27 @@ CurrentUserCurrentHost True   C:\Users\Jeff\Documents\WindowsPowerShell\Microso�
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-PSProfile | Where-Object Exists | Format-List
+        <dev:code>PS C:\&gt; Get-psprofile | Where {$_.Name -eq 'PowerShell' -and $_.Exists} | Format-List
 
    Name: PowerShell
 
 Scope        : AllUsersAllHosts
 Path         : C:\Program Files\PowerShell\7\profile.ps1
 Exists       : True
-LastModified : 2/23/2022 1:27:30 PM
+Size         : 1323
+LastModified : 5/6/2026 4:02:57 PM
 
 Scope        : CurrentUserAllHosts
 Path         : C:\Users\Jeff\Documents\PowerShell\profile.ps1
 Exists       : True
-LastModified : 10/5/2020 3:50:19 PM
+Size         : 1910
+LastModified : 3/13/2026 4:35:47 PM
 
 Scope        : CurrentUserCurrentHost
-Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.p
-               s1
+Path         : C:\Users\Jeff\Documents\PowerShell\Microsoft.PowerShell_profile.p...
 Exists       : True
-LastModified : 10/5/2020 3:50:19 PM
-
-
-   Name: Windows PowerShell
-
-Scope        : AllUsersAllHosts
-Path         : C:\WINDOWS\System32\WindowsPowerShell\v1.0\profile.ps1
-Exists       : True
-LastModified : 2/23/2022 1:54:55 PM
-
-Scope        : CurrentUserAllHosts
-Path         : C:\Users\Jeff\Documents\WindowsPowerShell\profile.ps1
-Exists       : True
-LastModified : 10/5/2020 3:49:25 PM
-...</dev:code>
+Size         : 8215
+LastModified : 5/15/2026 2:48:52 PM</dev:code>
         <dev:remarks>
           <maml:para>The command has a default list view.</maml:para>
         </dev:remarks>
@@ -11148,325 +11148,6 @@ GetFullPath                 System.String      True $obj.GetFullPath([String]...
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
-      <command:name>Get-TZData</command:name>
-      <command:verb>Get</command:verb>
-      <command:noun>TZData</command:noun>
-      <maml:description>
-        <maml:para>Get time zone details.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>This command uses a free and publicly available REST API offered by http://worldtimeapi.org to get information about a time zone. You can use Get-TZList to find an area and this command to display the details. The time zone area name is case-sensitive. The default is to write a custom object to the pipeline, but you also have an option of seeing the raw data that is returned from the API. On PowerShell Core, the raw data will be slightly different.</maml:para>
-      <maml:para>Note that if the site is busy you may get an error. If that happens, wait a minute and try again.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Get-TZData</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-          <maml:name>TimeZoneArea</maml:name>
-          <maml:description>
-            <maml:para>Enter a timezone location like Pacific/Auckland. It is case sensitive. Use Get-TZList to retrieve a list of areas.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Raw</maml:name>
-          <maml:description>
-            <maml:para>Return raw, unformatted data. Due to the way PowerShell Core automatically wants to format date time strings, raw output had to be slightly adjusted.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Raw</maml:name>
-        <maml:description>
-          <maml:para>Return raw, unformatted data. Due to the way PowerShell Core automatically wants to format date time strings, raw output had to be slightly adjusted.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-        <maml:name>TimeZoneArea</maml:name>
-        <maml:description>
-          <maml:para>Enter a timezone location like Pacific/Auckland. It is case sensitive. Use Get-TZList to retrieve a list of areas.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>System.String</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>PSCustomObject</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>TimeZoneData</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell:https://jdhitsolutions.com/yourls/newsletter</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TZData Australia/Hobart
-
-Timezone                        Label        Offset     DST                  Time
---------                        -----        ------     ---                  ----
-Australia/Hobart                AEDT       11:00:00    True  3/27/2025 2:44:24 AM</dev:code>
-        <dev:remarks>
-          <maml:para>Get time zone information for Hobart.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TZData Asia/Tokyo -Raw
-
-week_number  : 13
-utc_offset   : +09:00
-unixtime     : 1743003902
-timezone     : Asia/Tokyo
-dst_until    :
-dst_from     :
-dst          : False
-day_of_year  : 86
-day_of_week  : 4
-datetime     : 2025-03-27T00:45:02.000000+09:00
-abbreviation : JST</dev:code>
-        <dev:remarks>
-          <maml:para>Get time zone information for Tokyo as a raw format.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TZList Antarctica | Get-TZData | Sort-Object Offset
-
-Timezone                        Label        Offset     DST                 Time
---------                        -----        ------     ---                 ----
-Antarctica/Palmer                -03      -03:00:00   False …26/2025 12:45:23 PM
-Antarctica/Rothera               -03      -03:00:00   False …26/2025 12:45:23 PM
-Antarctica/Troll                 +00       00:00:00   False 3/26/2025 3:45:23 PM
-Antarctica/Mawson                +05       05:00:00   False 3/26/2025 8:45:23 PM
-Antarctica/Vostok                +05       05:00:00   False 3/26/2025 8:45:23 PM
-Antarctica/Davis                 +07       07:00:00   False …26/2025 10:45:23 PM
-Antarctica/Casey                 +08       08:00:00   False …26/2025 11:45:23 PM
-Antarctica/Macquarie            AEDT       11:00:00    True 3/27/2025 2:45:23 AM</dev:code>
-        <dev:remarks>
-          <maml:para>Get all time zone areas in Antarctica and pipe them to Get-TZData to retrieve the details.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TZData Europe/Rome | ConvertTo-LocalTime -Datetime "3/15/2020 4:00PM"
-
-Saturday, March 15, 2025 11:00:00 AM</dev:code>
-        <dev:remarks>
-          <maml:para>Convert the datetime in Rome to local time, which in this example is Eastern time.</maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://jdhitsolutions.com/yourls/0b8283</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Get-TZList</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
-      <command:name>Get-TZList</command:name>
-      <command:verb>Get</command:verb>
-      <command:noun>TZList</command:noun>
-      <maml:description>
-        <maml:para>Get a list of time zone areas.</maml:para>
-      </maml:description>
-    </command:details>
-    <maml:description>
-      <maml:para>This command uses a free and publicly available REST API offered by http://worldtimeapi.org to get a list of time zone areas. You can get a list of all areas or by geographic location. Use Get-TZData to then retrieve details. You must have Internet access for this command to work. Note that if the site is busy you may get an error. If that happens, wait a minute and try again.</maml:para>
-    </maml:description>
-    <command:syntax>
-      <command:syntaxItem>
-        <maml:name>Get-TZList</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>All</maml:name>
-          <maml:description>
-            <maml:para>Get a list of all timezone areas</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>Get-TZList</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-          <maml:name>TimeZoneArea</maml:name>
-          <maml:description>
-            <maml:para>Specify a time zone region.</maml:para>
-          </maml:description>
-          <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">Africa</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">America</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Antarctica</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Asia</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Atlantic</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Australia</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Europe</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Indian</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Pacific</command:parameterValue>
-          </command:parameterValueGroup>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-    </command:syntax>
-    <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>All</maml:name>
-        <maml:description>
-          <maml:para>Get a list of all timezone areas</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
-        <maml:name>TimeZoneArea</maml:name>
-        <maml:description>
-          <maml:para>Specify a time zone region.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-    </command:parameters>
-    <command:inputTypes>
-      <command:inputType>
-        <dev:type>
-          <maml:name>System.String</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:inputType>
-    </command:inputTypes>
-    <command:returnValues>
-      <command:returnValue>
-        <dev:type>
-          <maml:name>string</maml:name>
-        </dev:type>
-        <maml:description>
-          <maml:para></maml:para>
-        </maml:description>
-      </command:returnValue>
-    </command:returnValues>
-    <maml:alertSet>
-      <maml:alert>
-        <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-      </maml:alert>
-    </maml:alertSet>
-    <command:examples>
-      <command:example>
-        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TZList -all
-
-Africa/Abidjan
-Africa/Accra
-Africa/Algiers
-Africa/Bissau
-Africa/Cairo
-...</dev:code>
-        <dev:remarks>
-          <maml:para>Get a list of all time zone areas.</maml:para>
-        </dev:remarks>
-      </command:example>
-      <command:example>
-        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TZList Atlantic
-
-Atlantic/Azores
-Atlantic/Bermuda
-Atlantic/Canary
-Atlantic/Cape_Verde
-Atlantic/Faroe
-Atlantic/Madeira
-Atlantic/Reykjavik
-Atlantic/South_Georgia
-Atlantic/Stanley</dev:code>
-        <dev:remarks>
-          <maml:para>Get all time zone areas in the Atlantic region.</maml:para>
-        </dev:remarks>
-      </command:example>
-    </command:examples>
-    <command:relatedLinks>
-      <maml:navigationLink>
-        <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://jdhitsolutions.com/yourls/f0b7c4</maml:uri>
-      </maml:navigationLink>
-      <maml:navigationLink>
-        <maml:linkText>Get-TZData</maml:linkText>
-        <maml:uri></maml:uri>
-      </maml:navigationLink>
-    </command:relatedLinks>
-  </command:command>
-  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
-    <command:details>
       <command:name>Get-WhoIs</command:name>
       <command:verb>Get</command:verb>
       <command:noun>WhoIs</command:noun>
@@ -11784,6 +11465,7 @@ OPENDNS-NET-1 208.67.222.222 Cisco OpenDNS, LLC</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-WindowsVersion
+
    Computername: PROSPERO
 
 ProductName                    EditionID             Release Build  InstalledUTC
@@ -11874,7 +11556,7 @@ Computername   : DOM1</dev:code>
     </command:details>
     <maml:description>
       <maml:para>This is a PowerShell version of the winver.exe utility.T his command uses PowerShell remoting to query the registry on a remote machine to retrieve Windows version information. The parameters are the same as in Invoke-Command. The command writes a string of version information.</maml:para>
-      <maml:para>If you are querying the local computer, all other parameters will be ignored.</maml:para>
+      <maml:para>If you are querying the local computer, all other parameters except UseStyle will be ignored.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -11957,6 +11639,17 @@ Computername   : DOM1</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>Default</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>UseStyle</maml:name>
+          <maml:description>
+            <maml:para>Display the Windows version string using ANSI styles. The style colors are hard-coded.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
@@ -12041,6 +11734,18 @@ Computername   : DOM1</dev:code>
         </dev:type>
         <dev:defaultValue>Default</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>UseStyle</maml:name>
+        <maml:description>
+          <maml:para>Display the Windows version string using ANSI styles. The style colors are hard-coded.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -12079,7 +11784,7 @@ WIN10 Microsoft Windows 10 Enterprise Version Enterprise (OS Build 19045.5608)</
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-WindowsVersionString
-PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26100.3613)</dev:code>
+PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26200.8737)</dev:code>
         <dev:remarks>
           <maml:para>Get version information for the local host.</maml:para>
         </dev:remarks>
@@ -14062,16 +13767,20 @@ PS DeepDive:\&gt;</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-PSDynamicParameter -Condition "$PSEdition -eq 'Core'" -ParameterName ANSI -Alias color -Comment "Create a parameter to use ANSI if running PowerShell 7" -ParameterType switch
+        <dev:code>PS C:\&gt; New-PSDynamicParameter -Condition "$PSEdition -eq 'Core'" -ParameterName ANSI
+-Alias color -Comment "Create a parameter to use ANSI if running PowerShell 7"
+-ParameterType switch
 
     DynamicParam {
     # Create a parameter to use ANSI if running PowerShell 7
         If (Core -eq 'Core') {
 
-        $paramDictionary = New-Object -Type System.Management.Automation.RuntimeDefinedParameterDictionary
+        $paramDictionary = New-Object -Type System.Management.Automation.
+        RuntimeDefinedParameterDictionary
 
         # Defining parameter attributes
-        $attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]
+        $attributeCollection = New-Object -Type
+        System.Collections.ObjectModel.Collection[System.Attribute]
         $attributes = New-Object System.Management.Automation.ParameterAttribute
         $attributes.ParameterSetName = '__AllParameterSets'
         $attributeCollection.Add($attributes)
@@ -14081,7 +13790,8 @@ PS DeepDive:\&gt;</dev:code>
         $attributeCollection.Add($dynalias)
 
         # Defining the runtime parameter
-        $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter('ANSI', [Switch], $attributeCollection)
+        $dynParam1 = New-Object -Type System.Management.Automation.RuntimeDefinedParameter(
+            'ANSI', [Switch], $attributeCollection)
         $paramDictionary.Add('ANSI', $dynParam1)
 
         return $paramDictionary
@@ -17328,10 +17038,7 @@ VERBOSE: Getting latest version of git from https://git-scm.com/install/windows
 VERBOSE: WebRequest: v1.1 GET https://git-scm.com/install/windows
 VERBOSE: WebResponse: 200 OK with text/html payload
 VERBOSE: Downloading ARM64
-VERBOSE: Found download link https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe
-VERBOSE: Downloading D:\temp\Git-2.55.0.2-arm64.exe from https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe
-VERBOSE: WebRequest: v1.1 GET https://github.com/git-for-windows/git/releases/download/v2.55.0.windows.2/Git-2.55.0.2-arm64.exe output to D:\temp\Git-2.55.0.2-arm64.exe
-VERBOSE: WebResponse: 200 OK with application/octet-stream payload with body size 60.31 MB (63,236,912 bytes)
+...
 VERBOSE: File Name: Git-2.55.0.2-arm64.exe
 VERBOSE: Download complete</dev:code>
         <dev:remarks>
@@ -18052,7 +17759,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; dir c:\scripts\*.ps1 | last 5 -property lastwritetime
+        <dev:code>PS C:\&gt; dir c:\scripts\*.ps1 | last 5 -property LastWriteTime
 
 Directory: C:\scripts
 
@@ -18065,7 +17772,7 @@ Mode                LastWriteTime         Length Name
 -a----        1/15/2024   9:23 AM            971 Get-WorkflowVariable.ps1
 -a----        1/15/2024  12:08 PM           1555 Cost.ps1</dev:code>
         <dev:remarks>
-          <maml:para>Get the last 5 ps1 files sorted on the LastWritetime property. This example is using the alias 'last' for Select-Last.</maml:para>
+          <maml:para>Get the last 5 ps1 files sorted on the LastWriteTime property. This example is using the alias 'last' for Select-Last.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -19971,7 +19678,7 @@ C:\work\demo3 demo3    True DESK10
 C:\work\demos demos   False DESK10
 ...</dev:code>
         <dev:remarks>
-          <maml:para>Test child folders under C:\work.</maml:para>
+          <maml:para>Test child folders in C:\work.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -19987,7 +19694,7 @@ What if: Performing the operation "Remove Directory" on target "C:\work\sqlback"
 What if: Performing the operation "Remove Directory" on target "C:\work\todd".
 What if: Performing the operation "Remove Directory" on target "C:\work\[data]".</dev:code>
         <dev:remarks>
-          <maml:para>Find all empty sub-folders under C:\Work and pipe them to Remove-Item. This is one way to remove empty folders. The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work[data] is a non-standard path.</maml:para>
+          <maml:para>Find all empty sub-folders C:\work and pipe them to Remove-Item. This is one way to remove empty folders. The example is piping objects to ForEach-Object so that Remove-Item can use the -LiteralPath parameter, because C:\work\[data] is a non-standard path.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>

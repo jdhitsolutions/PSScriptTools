@@ -16,15 +16,15 @@ Create a text border around a string.
 ### single (Default)
 
 ```yaml
-Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks]
-[-Tab <Int32>] [-ANSIBorder <String>] [-ANSIText <String>] [<CommonParameters>]
+Add-Border [-Text] <String> [-Character <String>] [-InsertBlanks] [-Tab <Int32>]
+[-ANSIBorder <String>] [-ANSIText <String>] [<CommonParameters>]
 ```
 
 ### block
 
 ```yaml
-Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks]
-[-Tab <Int32>] [-ANSIBorder <String>] [-ANSIText <String>] [<CommonParameters>]
+Add-Border [-TextBlock] <String[]> [-Character <String>] [-InsertBlanks] [-Tab <Int32>]
+[-ANSIBorder <String>] [-ANSIText <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION

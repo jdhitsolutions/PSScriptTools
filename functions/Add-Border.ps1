@@ -50,6 +50,7 @@ Function Add-Border {
 
     Begin {
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
+        Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         $tabs = "`t" * $tab
         Write-Verbose "Using a tab of $tab"
 
