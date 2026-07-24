@@ -2,6 +2,22 @@
 This is an alternative function you can use in-place of Get-Member.
 #>
 
+class ResolveType : System.Management.Automation.ArgumentTransformationAttribute {
+    #define a class method that returns an object
+    [object]Transform([System.Management.Automation.EngineIntrinsics]$engineIntrinsics, [object]$inputData) {
+        [regex]$rx = '(?<=\[).*(?=\])'
+        if ($rx.IsMatch($inputData)) {
+            #This will be the new parameter value
+            #write-host "converting to type" -ForegroundColor Magenta
+            return ($rx.Match($inputData).Value -as [Type])
+        } else {
+            #write-host "no change" -ForegroundColor cyan
+            return $inputData
+        }
+    }
+}
+
+#Get-MemberMethod is a private function and not exported
 Function Get-MemberMethod {
     [cmdletbinding()]
     [OutputType('string')]
@@ -14,6 +30,7 @@ Function Get-MemberMethod {
             HelpMessage = 'Specify the typename like System.Diagnostics.Process'
         )]
         [ValidateNotNullOrEmpty()]
+        [ResolveType()]
         [alias('Type')]
         [type]$TypeName,
         [Parameter(
@@ -29,7 +46,6 @@ Function Get-MemberMethod {
     Begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
-
     } #begin
 
     Process {
@@ -43,7 +59,7 @@ Function Get-MemberMethod {
                 '[{0}]{1}' -f $param.ParameterType.Name, $param.name
             }
             # This will include the return type
-            # '{0} {1}({2})' -f $rtype, $method.Name, ($params -join ',')
+            # '{0} {1}({2})' -f $rType, $method.Name, ($params -join ',')
             '$obj.{0}({1})' -f $method.Name, ($params -join ',')
         }
     } #process
@@ -65,6 +81,7 @@ Function Get-TypeMember {
             HelpMessage = 'Specify a .NET type name like DateTime'
         )]
         [ValidateNotNullOrEmpty()]
+        [ResolveType()]
         [type]$TypeName,
         [Parameter(ParameterSetName = 'static', HelpMessage = 'Get only static members.')]
         [switch]$StaticOnly,
@@ -148,6 +165,7 @@ Function Get-TypeConstructor {
             HelpMessage = 'Specify a .NET type name like DateTime'
         )]
         [ValidateNotNullOrEmpty()]
+        [ResolveType()]
         [Type]$TypeName
     )
 

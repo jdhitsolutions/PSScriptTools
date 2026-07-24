@@ -1,5 +1,5 @@
 #requires -version 5.1
-#requires -module PSScripttools
+#requires -module PSScriptTools
 
 $global:traceEnabled = $True
 Trace-Message -title "Getting Counter Markdown" -Width 500 -BackgroundColor "#0fb93a"

@@ -4,7 +4,6 @@
 [CmdletBinding()]
 param()
 function Get-Status {
-
     [cmdletbinding(DefaultParameterSetName = 'name')]
     [alias('gst')]
     param(
@@ -47,7 +46,7 @@ function Get-Status {
         }
         $cimParams = @{
             ErrorAction = 'stop'
-            ClassNamer  = $null
+            ClassName  = $null
         }
 
         if ($PSCmdlet.ParameterSetName -eq 'name') {
@@ -75,10 +74,10 @@ function Get-Status {
                 Computername = $CimSession.computername.ToUpper()
             }
             try {
-                $cimParams.ClassNamer = 'Win32_OperatingSystem'
+                $cimParams.ClassName = 'Win32_OperatingSystem'
                 $cimParams.CimSession = $CimSession
-                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Querying $($cimParams.ClassNamer)"
-                Trace-Message "Querying $($cimParams.ClassNamer)"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Querying $($cimParams.ClassName)"
+                Trace-Message "Querying $($cimParams.ClassName)"
                 $OS = Get-CimInstance @cimParams
                 $uptime = (Get-Date) - $OS.lastBootUpTime
                 $hash.Add('Uptime', $uptime)
@@ -86,11 +85,11 @@ function Get-Status {
                 $pctFreeMem = [math]::Round(($os.FreePhysicalMemory / $os.TotalVisibleMemorySize) * 100, 2)
                 $hash.Add('PctFreeMem', $pctFreeMem)
 
-                $cimParams.ClassNamer = 'Win32_Logicaldisk'
+                $cimParams.ClassName = 'Win32_LogicalDisk'
                 $cimParams.filter = 'DriveType=3'
 
-                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Querying $($cimParams.ClassNamer)"
-                Trace-Message "Querying $($cimParams.ClassNamer)"
+                Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Querying $($cimParams.ClassName)"
+                Trace-Message "Querying $($cimParams.ClassName)"
                 Get-CimInstance @cimParams | ForEach-Object {
                     $name = 'PctFree{0}' -f $_.deviceid.substring(0, 1)
                     $pctFree = [math]::Round(($_.FreeSpace / $_.Size) * 100, 2)
@@ -177,7 +176,7 @@ $data = Get-Status -trace
 $e = "$([char]0x1b)"
 
 # a helper function to format values with ANSI escape codes
-function ansifmt {
+function ansiFmt {
     param([double]$Value)
 
     if ($value -le 20) {
@@ -211,8 +210,8 @@ $out = @"
 $head
 
 Uptime      : $($data.uptime) $e[92m$($PSSpecialChar.UpTriangle)$e[0m
-%FreeMemory : $(ansifmt $mem) $(New-RedGreenGradient -Percent $pctMem -Character $PSSpecialChar.lozenge)
-%FreeC      : $(ansifmt $disk) $(New-RedGreenGradient -Percent $pctDisk -Character $PSSpecialChar.BlackSquare)
+%FreeMemory : $(ansiFmt $mem) $(New-RedGreenGradient -Percent $pctMem -Character $PSSpecialChar.lozenge)
+%FreeC      : $(ansiFmt $disk) $(New-RedGreenGradient -Percent $pctDisk -Character $PSSpecialChar.BlackSquare)
 Date        : $(Get-Date -Format u)
 
 "@

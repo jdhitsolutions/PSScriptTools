@@ -55,6 +55,7 @@ v$ThisVersion
                 Verb       = $fun.Verb #$fun.split("-")[0]
                 Synopsis   = $fun.Synopsis
                 Version    = $fun.version -as [version]
+                Online     = $fun.online
             }
         }
     } #process

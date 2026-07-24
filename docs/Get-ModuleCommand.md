@@ -29,7 +29,7 @@ This is an alternative to Get-Command to make it easier to see at a glance what 
 ```powershell
 PS C:\> Get-ModuleCommand PSCalendar
 
-   ModuleName: PSCalendar [v2.10.1]
+   ModuleName: PSCalendar [v2.11.1]
 
 Name                           Alias                        Synopsis
 ----                           -----                        --------
@@ -50,7 +50,9 @@ Show-PSCalendarHelp                                         Display a help PDF f
                                                             PSCalendar module.
 ```
 
-Get module commands using the default formatted view. You can install the PSCalendar module from the PowerShell Gallery.
+Get module commands using the default formatted view. The Name values will be clickable hyperlinks that open the online help, if your terminal supports it.
+
+You can install the PSCalendar module from the PowerShell Gallery.
 
 ### Example 2
 
@@ -79,23 +81,23 @@ Using the default list view.
 ### Example 3
 
 ```powershell
-PS C:\> Get-ModuleCommand PSScriptTools | Format-Table -view verb
+PS C:\> Get-ModuleCommand PSProjectStatus | Where Verb -match 'get|new' | Format-Table -View verb
 
-   Verb: Add
+   Verb: Get
 
-Name             Alias        Type        Synopsis
-----             -----        ----        --------
-Add-Border                    Function    Create a text border around a string.
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+Get-PSProjectGitStatus         gitstat         Function    Get git project status.
+Get-PSProjectReport                            Function    Manage all your PSProject folders.
+Get-PSProjectStatus            gpstat          Function    Get project status.
+Get-PSProjectTask                              Function    List project tasks
 
+   Verb: New
 
-   Verb: Compare
-
-Name            Alias           Type        Synopsis
-----            -----           ----        --------
-Compare-Module  cmo             Function    Compare PowerShell module versions.
-
-...
-```
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+New-PSProjectStatus            npstat          Function    Create a new PSProjectStatus.
+New-PSProjectTask                              Function    Create a new task in the PSProject file.```
 
 Display commands using a custom table view called 'Verb'.
 
@@ -104,7 +106,7 @@ Display commands using a custom table view called 'Verb'.
 ```powershell
 PS C:\ Get-ModuleCommand PSScriptTools | Format-Table -view version
 
-   ModuleName: PSScriptTools [v3.1.0]
+   ModuleName: PSScriptTools [v3.2.0]
 
 Name                              Alias             Compatible      PSVersion
 ----                              -----             ----------      ---------
@@ -124,7 +126,7 @@ Indicates that this cmdlet gets all installed modules. Get-Module finds modules 
 
 ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.
 
-If you have multiple versions of the module, you might get duplicated entries.
+Beginning with v3.2.0, this parameter will return the first module found which should be the most current version.
 
 ```yaml
 Type: SwitchParameter
@@ -155,7 +157,8 @@ Accept wildcard characters: True
 ```
 
 ### -CommandName
-Command name to search for
+
+Command name to search for.
 
 ```yaml
 Type: String
@@ -170,6 +173,7 @@ Accept wildcard characters: True
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
@@ -181,6 +185,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### ModuleCommand
 
 ## NOTES
+
+This command has an alias of gmc.
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 

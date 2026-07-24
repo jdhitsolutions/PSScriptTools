@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-MyAlias.md
+online version: https://jdhitsolutions.com/yourls/a66dd2
 schema: 2.0.0
 ---
 

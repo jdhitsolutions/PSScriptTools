@@ -1,7 +1,7 @@
 ---
 external help file: PSScriptTools-help.xml
 Module Name: PSScriptTools
-online version: https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Compare-Script.md
+online version: https://jdhitsolutions.com/yourls/d95890
 schema: 2.0.0
 ---
 
@@ -56,7 +56,7 @@ The name of a script to check. Wildcards are permitted.
 ```yaml
 Type: String
 Parameter Sets: (All)
-Aliases: scriptname
+Aliases: ScriptName
 
 Required: False
 Position: 1

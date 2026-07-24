@@ -28,7 +28,7 @@ Often you need to create a new instance of a .NET type and you need to know what
 ```powershell
 PS C:\> Get-TypeConstructor System.Drawing.SolidBrush
 
-[System.Drawing.SolidBrush]::new([System.Drawing.Color]$Color))
+[System.Drawing.SolidBrush]::new([System.Drawing.Color]$Color)
 ```
 
 The default formatting will using color to highlight the parameter name you would need.
@@ -46,14 +46,14 @@ This type doesn't need any parameters to create a new instance.
 ### Example 3
 
 ```powershell
-PS C:\> Get-TypeConstructor system.drawing.rectangle
+PS C:\> Get-TypeConstructor System.Drawing.Rectangle
 
-[System.Drawing.Rectangle]::new([System.Int32]$X),
-                [System.Int32]$Y),
-                [System.Int32]$Width),
-                [System.Int32]$Height))
+[System.Drawing.Rectangle]::new([System.Int32]$X,
+                [System.Int32]$Y,
+                [System.Int32]$Width,
+                [System.Int32]$Height)
 
-[System.Drawing.Rectangle]::new([System.Drawing.Point]$Location),[System.Drawing.Size]$Size))
+[System.Drawing.Rectangle]::new([System.Drawing.Point]$Location,[System.Drawing.Size]$Size)
 ```
 
 Constructors with more than three parameters will be displayed in a list to make it easier to read.
@@ -90,7 +90,7 @@ View the full details of the constructor.
 
 ### -TypeName
 
-Specify a .NET type name like DateTime
+Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].
 
 ```yaml
 Type: Type

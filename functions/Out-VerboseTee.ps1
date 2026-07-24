@@ -10,8 +10,8 @@ Function Out-VerboseTee {
         [switch]$Append
     )
     Begin {
-        #turn on verbose pipeline since if you are running this command you intend for it to be on
-        $VerbosePreference = "continue"
+        #inherit verbose preference
+        $VerbosePreference = $PSCmdlet.GetVariableValue("VerbosePreference")
     }
     Process {
         #only run if Verbose is turned on

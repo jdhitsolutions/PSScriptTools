@@ -1,21 +1,39 @@
 function Show-ANSISequence {
     [cmdletbinding(DefaultParameterSetName = 'basic')]
+    [alias("sas")]
     [OutputType([System.String])]
 
     param(
-        [Parameter(ParameterSetName = 'basic', HelpMessage = 'Display basic ANSI escape sequences. This is the default setting.')]
+        [Parameter(
+            ParameterSetName = 'basic',
+            HelpMessage = 'Display basic ANSI escape sequences. This is the default setting.'
+        )]
         [switch]$Basic,
-        [Parameter(ParameterSetName = 'foreback', HelpMessage = 'Display foreground ANSI escape sequences')]
+        [Parameter(
+            ParameterSetName = 'foreback',
+            HelpMessage = 'Display foreground ANSI escape sequences'
+        )]
         [switch]$Foreground,
-        [Parameter(ParameterSetName = 'foreback', HelpMessage = 'Display background ANSI escape sequences')]
+        [Parameter(
+            ParameterSetName = 'foreback',
+            HelpMessage = 'Display background ANSI escape sequences'
+        )]
         [switch]$Background,
         [Parameter(ParameterSetName = 'foreback')]
         [ValidateSet('All', 'Simple', '8Bit')]
         [string]$Type = 'All',
-        [Parameter(ParameterSetName = 'RGB', HelpMessage = 'Specify an array of RGB values between 0 and 255')]
+        [Parameter(
+            ParameterSetName = 'RGB',
+            HelpMessage = 'Specify an array of RGB values between 0 and 255'
+        )]
         [int[]]$RGB,
         [Parameter(HelpMessage = 'Show the value as an unformatted string')]
-        [switch]$AsString
+        [switch]$AsString,
+
+        [Parameter(ParameterSetName = "foreback",HelpMessage = "Page the display")]
+        [switch]$Paging,
+        [Parameter(ParameterSetName = "foreback",HelpMessage = "The number of items to display per page. This parameter has no effect unless used with -Paging")]
+        [int]$PageCount = 20
     )
 
     begin {
@@ -49,7 +67,6 @@ function Show-ANSISequence {
         } #display function
     } #begin
     process {
-
         #default to Basic even if the user doesn't specify the -Basic parameter
         if ($PSCmdlet.ParameterSetName -eq 'basic') {
             $Basic = $True
@@ -73,21 +90,20 @@ function Show-ANSISequence {
                 3
             }
             else {
-                4
+                5
             }
-
         }
         else {
             Write-Debug 'Desktop'
             $esc = $([char]27)
             $EscText = '$([char]27)'
-            $max = 2
+            $max = 3
         }
 
         #region basic
         if ($basic) {
             Write-Debug 'Get basic settings'
-            Add-Border 'Basic Sequences' -ANSIText "$esc[1m" | Write-Host
+            Add-Border "Basic Sequences" -ANSIText "$esc[1;92m" -ANSIBorder "$esc[93m" | Write-Host
 
             $BasicHash = @{
                 1 = 'Bold'
@@ -132,7 +148,13 @@ function Show-ANSISequence {
                     }
                 }
 
-                display -all $all -Max $max
+                #22 July 2026 page the output using the module's Out-More command
+                If ($Paging) {
+                    display -all $all -Max $max | Out-More -count $PageCount
+                }
+                else {
+                    display -all $all -Max $max
+                }
 
                 Write-Host "`n"
             }
@@ -147,7 +169,12 @@ function Show-ANSISequence {
                         "$esc[38;5;$($_)m$sequence$esc[0m"
                     }
                 }
-                display -all $all -Max $max
+                If ($Paging) {
+                    display -all $all -Max $max | Out-More -count $PageCount
+                }
+                else {
+                    display -all $all -Max $max
+                }
             }
         }
         #endregion
@@ -169,7 +196,12 @@ function Show-ANSISequence {
                     }
                 }
 
-                display -all $all -Max $max
+                If ($Paging) {
+                    display -all $all -Max $max | Out-More -count $PageCount
+                }
+                else {
+                    display -all $all -Max $max
+                }
 
                 Write-Host "`n"
             }
@@ -185,7 +217,12 @@ function Show-ANSISequence {
                         "$esc[1;48;5;$($_)m$sequence$esc[0m"
                     }
                 }
-                display -all $all -Max $max
+                If ($Paging) {
+                    display -all $all -Max $max | Out-More -count $PageCount
+                }
+                else {
+                    display -all $all -Max $max
+                }
             }
         }
 

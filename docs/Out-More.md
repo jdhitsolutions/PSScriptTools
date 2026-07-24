@@ -14,7 +14,7 @@ Send "pages" of objects to the pipeline.
 ## SYNTAX
 
 ```yaml
-Out-More [-InputObject] <Object[]> [[-Count] <Int32>] [-ClearScreen]
+Out-More [-InputObject] <Object[]> [[-Count] <Int32>] [-ClearScreen] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -30,7 +30,7 @@ Note that you may encounter an error message when quitting prematurely, especial
 ### Example 1
 
 ```powershell
-PS C:\> Get-Process | Out-More -count 10
+PS C:\> Get-Process | Out-More 10
 
 Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 -------  ------    -----      ----- -----   ------     --  -- -----------
@@ -73,12 +73,12 @@ Accept wildcard characters: False
 
 ### -Count
 
-The number of objects to group as a page.
+The number of objects to group as a page. This is an approximation that depends on how the input objects are formatted.
 
 ```yaml
 Type: Int32
 Parameter Sets: (All)
-Aliases: i
+Aliases: i, page
 
 Required: False
 Position: 2
@@ -103,6 +103,10 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### CommonParameters
+
+This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+
 ## INPUTS
 
 ### System.Object
@@ -114,8 +118,6 @@ Accept wildcard characters: False
 ## NOTES
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
-
-This command was first demonstrated at http://jdhitsolutions.com/blog/powershell/4707/a-better-powershell-more/
 
 ## RELATED LINKS
 

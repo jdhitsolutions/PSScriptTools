@@ -1,4 +1,4 @@
-#requires -version 5.1
+#requires -version 7.4
 #requires -module PSScriptTools
 
 #this is a demonstration script
@@ -29,19 +29,12 @@ $grouped = $files | Group-Object -Property {
 }
 $grouped | Add-Member -MemberType ScriptProperty -Name Size -Value { ($this.group | Measure-Object -Property length -Sum).sum }
 
-$c = [ordered]@{
-    { $PSItem.Size -ge 1MB }   = "red"
-    { $PSItem.Size -ge 250KB } = "yellow"
-    { $PSItem.Size -le 10KB }  = "green"
-}
+Format-BorderBox -Text "Folder Usage: $path" -BorderColor $PSStyle.Formatting.Verbose
 
-$grouped | Sort-Object -Property Name | Out-ConditionalColor -Conditions $c -OutVariable data
-
+$grouped | Sort-Object -Property Name
 Set-Content -Path $log -Value "Usage Report for $Path"
 Add-Content -Path $log -Value (Get-Date)
 $data | Select-Object Count, Name, Size | Out-String | Add-Content -Path $log
-
-$PSDefaultParameterValues.Remove("write-detail:date")
 
 if ($Transcript -AND (Test-Path $Transcript)) {
     Stop-Transcript

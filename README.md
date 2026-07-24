@@ -2,7 +2,7 @@
 
 ![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)
 
-![](images/pstoolbox-256.jpeg)
+![ ](images/pstoolbox-256.jpeg)
 
 ## Abstract
 
@@ -56,6 +56,68 @@ Uninstall-Module PSScriptTools -AllVersions
 - [Compatibility](#compatibility)
 
 ## General Tools
+
+These commands are designed to either streamline common PowerShell tasks or add new functionality.
+
+### [Get-ProcessTree](docs/Get-ProcessTree.md)
+
+`Get-ProcessTree` is intended to show you a hierarch of processes. In other words, a process tree. The command takes a process ID and iterates through its parents.
+
+```powershell
+PS C:\> Get-ProcessTree 10156
+
+NPM(K)  PM(K)  WS(K)   CPU(s)    Id SI ProcessName                 StartTime
+------  -----  -----   ------    -- -- -----------                 ---------
+    41 190584 264452   249.17 18244  1 WindowsTerminal  7/21/2026 9:26:26 AM
+   155 447784 591468 1,360.58 18320  1 pwsh             7/21/2026 9:26:27 AM
+    30  61704  87424     0.31 10156  1 powershell      7/22/2026 12:54:09 PM
+```
+
+The oldest "parent" will be listed first.
+
+You can also get processes with the associated user name.
+
+```powershell
+PS C:\> Get-ProcessTree 7732 -IncludeUserName
+
+ WS(K) CPU(s)    Id UserName            ProcessName            StartTime
+ ----- ------    -- --------            -----------            ---------
+ 14660  12.88  2000                     services    7/21/2026 8:58:18 AM
+ 11432   0.12  5492 NT AUTHORITY\SYSTEM sshd        7/21/2026 8:58:20 AM
+ 13336   0.02  9788 NT AUTHORITY\SYSTEM sshd        7/22/2026 1:04:58 PM
+ 13532   0.02 27668 Cadenza\roygbiv     sshd        7/22/2026 1:05:02 PM
+ 10280   0.03 25996 Cadenza\roygbiv     cmd         7/22/2026 1:05:02 PM
+110160   1.31  7732 Cadenza\roygbiv     pwsh        7/22/2026 1:05:03 PM
+```
+
+You can use any process property name.
+
+```powershell
+PS C:\> Get-ProcessTree 7732 | Select ID,Name,@{Name="Runtime";Expression = { New-Timespan -start $_.StartTime -end (Get-Date)}},Path | Format-Table
+
+   Id Name     Runtime            Path
+   -- ----     -------            ----
+ 2000 services 1.04:10:12.3658062
+ 5492 sshd     1.04:10:10.7142182 C:\Windows\System32\OpenSSH\sshd.exe
+ 9788 sshd     00:03:32.3461489   C:\Windows\System32\OpenSSH\sshd.exe
+27668 sshd     00:03:27.7697884   C:\Windows\System32\OpenSSH\sshd.exe
+25996 cmd      00:03:27.7487386   c:\windows\system32\cmd.exe
+ 7732 pwsh     00:03:27.7088487   c:\progra~1\powershell\7\pwsh.exe
+```
+
+### [Show-ProcessTree](docs/Show-ProcessTree.md)
+
+As an alternative, you can display the process tree in a graphical format using ANSI styling.
+
+![Show-ProcessTree](images/show-processtree.png)
+
+You can also request user name information.
+
+![Show-ProcessTree with Username](images/show-processtree-user.png)
+
+As you can see, the command also works cross-platform.
+
+> __The process tree commands require PowerShell 7.__
 
 ### [Get-MyCounter](docs/Get-MyCounter.md)
 
@@ -245,7 +307,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
 |_|                  |_|
-v3.1.0
+v3.2.0
 
    Verb: Add
 
@@ -262,6 +324,8 @@ Compare-Script                                 Compare PowerShell script version
 ...
 ```
 
+Beginning with version 3.2.0, in PowerShell 7, the Name will be a clickable hyperlink that opens the command's online help.
+
 You also have an option to filter by verb.
 
 ```dos
@@ -271,33 +335,41 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
 |_|                  |_|
-v3.1.0
+v3.2.0
 
    Verb: Test
 
-Name                        Alias              Synopsis
-----                        -----              --------
-Test-EmptyFolder                               Test if a folder is empty of files.
-Test-Expression             tex                Test a PowerShell expression ove...
-Test-ExpressionForm         texf               Display a graphical test form fo...
-Test-IsElevated             isAdmin            Test if the current user is runn...
-Test-IsPSWindows                               Test if running PowerShell on a ...
-Test-WithCulture                               Test your PowerShell code using ...
+Name                                Alias              Synopsis
+----                                -----              --------
+Test-EmptyFolder                                       Test if a folder is empty of files.
+Test-Expression                     tex                Test a PowerShell expression over a period...
+Test-ExpressionForm                 texf               Display a graphical test form for Test-Exp...
+Test-IsElevated                     isAdmin            Test if the current user is running elevated.
+Test-IsEnum                                            Test if a .NET class is an enum.
+Test-IsPSWindows                                       Test if running PowerShell on a Windows pl...
+Test-WithCulture                                       Test your PowerShell code using a different culture.
 ```
 
 Here's another way you could use this command to list functions with defined aliases in the PSScriptTools module.
 
 ```dos
 PS C:\> Get-PSScriptTools | Where-Object alias |
-Select-Object Name,alias,Synopsis
+Select-Object Name,Alias,Online
 
-Name                   Alias Synopsis
-----                   ----- --------
-Compare-Module         cmo   Compare PowerShell module versions.
-Convert-EventLogRecord clr   Convert EventLogRecords to structured objects
-ConvertFrom-Text       cft   Convert structured text to objects.
-ConvertFrom-UTCTime    frut  Convert a datetime value from universal
-ConvertTo-LocalTime    clt   Convert a foreign time to local
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name                       Alias          Online
+----                       -----          ------
+Add-Border                 ab             https://jdhitsolutions.com/yourls/44067f
+Compare-Module             cmo            https://jdhitsolutions.com/yourls/86d9fd
+Convert-EventLogRecord     clr            https://jdhitsolutions.com/yourls/bb432d
+Convert-HashtableToCode    chc            https://jdhitsolutions.com/yourls/22ae24
+Convert-HtmlToAnsi         cha            https://jdhitsolutions.com/yourls/e41450
 ...
 ```
 
@@ -548,7 +620,7 @@ Begin {
 } #begin
 ```
 
-When the command is run with -Verbose you will see the verbose output **and** it will be saved to the specified log file.
+When the command is run with -Verbose you will see the verbose output __and__ it will be saved to the specified log file.
 
 ### [Remove-Runspace](docs/Remove-Runspace.md)
 
@@ -616,6 +688,8 @@ User    Jeff     C:\Program Files (x86)\Vale\                              True
 Paths that no longer exist will be displayed in red. This command has an alias of `Get-Path`.
 
 ## File Tools
+
+Working with files is a common PowerShell task. The PSScriptTools module includes several commands and features to enhance this task or make it easier.
 
 ### [Get-LastModifiedFile](docs/Get-LastModifiedFile.md)
 
@@ -926,6 +1000,8 @@ The full command name is `Set-LocationToFile` but you'll find it easier to use t
 
 ## Graphical Tools
 
+Even though we think of PowerShell as a text-oriented console, it can support graphical elements. You can use these commands to add some graphical style to your scripts or PowerShell experience. Some of these commands will require a Windows platform.
+
 ### [Invoke-InputBox](docs/Invoke-InputBox.md)
 
 This function is a graphical replacement for `Read-Host`. It creates a simple WPF form that you can use to get user input. The value of the text box will be written to the pipeline.
@@ -945,7 +1021,7 @@ Invoke-InputBox -Prompt "Enter a password for $Name" -AsSecureString
 
 ![secure input box](images/ibx-2.png)
 
-This example also demonstrates that you can change the form's background color. This function will **not** work on non-Windows systems.
+This example also demonstrates that you can change the form's background color. This function will __not__ work on non-Windows systems.
 
 ### [New-WPFMessageBox](docs/New-WPFMessageBox.md)
 
@@ -1004,6 +1080,8 @@ ConvertTo-WPFGrid -Refresh -timeout 20 -Title "Top Processes"
 Note that in v2.4.0 the form layout was modified and may not be reflected in these screenshots.
 
 ## Hashtable Tools
+
+These are commands designed to make it easier to do more with hashtables.
 
 ### [Convert-CommandToHashtable](docs/Convert-CommandToHashtable.md)
 
@@ -1418,6 +1496,8 @@ These functions were first described at [https://jdhitsolutions.com/blog/powersh
 
 ## Console Utilities
 
+These are commands designed to optimize or enhance your PowerShell console experience.
+
 ### [Get-PSSessionInfo](docs/Get-PSSessionInfo.md)
 
 `Get-PSSessionInfo` will display a summary of your current PowerShell session. It should work on all platforms.
@@ -1454,7 +1534,7 @@ Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id  SI ProcessName
 
 ### [Out-More](docs/Out-More.md)
 
-This command provides a PowerShell alternative to the cmd.exe **MORE** command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
+This command provides a PowerShell alternative to the cmd.exe __MORE__ command, which doesn't work in the PowerShell ISE. When you have screens of information, you can page it with this function.
 
 ```powershell
 Get-Service | Out-More
@@ -1481,9 +1561,9 @@ This command will create a character or text-based border around a line of text.
 ```dos
 PS C:\> Add-Border ([Environment]::MachineName)
 
-*********
+__*
 * WIN11 *
-*********
+__*
 ```
 
 Starting in v2.23.0 you can also use ANSI escape sequences to color the text and/or the border.
@@ -1503,6 +1583,26 @@ Add-Border @params
 This example assumes you are running PowerShell 7.
 
 ![ANSI diamond border](images/add-border-ansi3.png)
+
+### [Format-BorderBox](docs/Format-BorderBox.md)
+
+Another option is to use `Format-BorderBox` to create a lined border around a block of text.
+
+```powershell
+"{0} - {1}" -f [Environment]::MachineName.ToUpper(),(Get-PSWho).OSVersion | Format-BorderBox
+```
+
+![Format-BorderBox](images/format-borderbox-linux.png)
+
+You can optionally add a title.
+
+![Format-BorderBox Reporting](images/format-borderbox.png)
+
+You can change the line color using any ANSI or PSStyle color. The text can be passed as an array of strings. It is recommended that you trim lines of leading and trailing spaces.
+
+![Format-BorderBox with title](images/format-borderbox-trimmed.png)
+
+The command has an alias of *fbx*.
 
 ### [Show-Tree](docs/Show-Tree.md)
 
@@ -1625,6 +1725,8 @@ The command will highlight properties that are enumerations.
 
 The highlighting only works in the console and VSCode.
 
+> _Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo]_.
+
 The output includes a property set type extension.
 
 ```dos
@@ -1692,6 +1794,8 @@ System.Int32  y
 System.Int32  width
 System.Int32  height
 ```
+
+> _Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo]_.
 
 ### [Show-HiddenMember](docs/Show-HiddenMember.md)
 
@@ -1946,7 +2050,7 @@ Function Get-Status {
         }
     } #begin
       Process {
-        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using parameter set 
+        Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Using parameter set
         $($PSCmdlet.ParameterSetName)"
         Trace-Message -message "Using parameter set: $($PSCmdlet.ParameterSetName)"
         #code ...
@@ -2274,6 +2378,59 @@ You will need to manually install the downloaded file. Or you can try something 
 Save-GitSetup -Path c:\work -PassThru | Invoke-Item
 ```
 
+### [Show-Enum](docs/Show-Enum.md)
+
+Use this command to display the names and values of a .NET enum class.
+
+```powershell
+PS C:\> Show-Enum ConsoleColor
+
+   Typename: System.ConsoleColor
+
+Name        Value
+----        -----
+Black           0
+DarkBlue        1
+DarkGreen       2
+DarkCyan        3
+DarkRed         4
+DarkMagenta     5
+DarkYellow      6
+Gray            7
+DarkGray        8
+Blue            9
+Green          10
+Cyan           11
+Red            12
+Magenta        13
+Yellow         14
+White          15
+```
+
+### [Test-IsEnum](docs/Test-IsEnum.md)
+
+For scripting purposes, you might need a simple way to test if a given .NET class is an enum. `Test-IsEnum` returns a simple Boolean result.
+
+```powershell
+PS C:\> Test-IsEnum DateTime
+False
+PS C:\> Test-IsEnum DayofWeek
+True
+PS C:\> if (Test-IsEnum System.IO.DriveType) { Show-Enum System.IO.DriveType}
+
+   Typename: System.IO.DriveType
+
+Name            Value
+----            -----
+Unknown             0
+NoRootDirectory     1
+Removable           2
+Fixed               3
+Network             4
+CDRom               5
+Ram                 6
+```
+
 ## CIM Tools
 
 The module includes a set of commands to work with CIM and are alternatives to `Get-CimClass`. The information from `Get-CimClass` is helpful, but you often need to take steps to format the results to be something meaningful. These commands aim to simplify the process.
@@ -2447,7 +2604,7 @@ This will display the service status color-coded.
 
 ![ServiceAnsi](images/serviceansi.png)
 
-**ANSI formatting will only work in a PowerShell 5.1 console window or VS Code. It will not display properly in the PowerShell ISE or older versions of PowerShell.**
+__ANSI formatting will only work in a PowerShell 5.1 console window or VS Code. It will not display properly in the PowerShell ISE or older versions of PowerShell.__
 
 ### PSAnsiMap
 
@@ -2625,11 +2782,55 @@ You can also view foreground and or background settings.
 
 ![show ANSI foreground](images/show-ansi-foreground.png)
 
+The number of columns displayed depends on the width of your PowerShell console.
+
 You can even use an RGB value.
 
 ![show ANSI RGB sequence](images/show-ansi-rgb.png)
 
 The escape character will match what is acceptable in your version of PowerShell. These screenshots are showing PowerShell 7.
+
+Beginning with version 3.2.0, you can opt to page the output.
+
+![Show ANSI in a paged format](images/show-ansi-paged.png)
+
+### [New-ANSIHyperlink](docs/New-ANSIHyperlink.md)
+
+In PowerShell 7, you can use $PSStyle.FormatHyperLink() to create a string with a hyperlink. This method is based on an underlying ANSI escape sequence. This command uses that same sequence so that you can create a hyperlinked string in Windows PowerShell. By default, the link will have a solid underline.
+
+![Basic ANSI hyperlink](images/new-ansihyperlink-basic.png)
+
+The command also makes it easier to add other styling.
+
+![Styled ANSI hyperlink](images/new-ansihyperlink-styled.png)
+
+Optionally, you can use AsString to see a text version of the string with escape sequence markers.
+
+```powershell
+PS C:\> New-ANSIHyperlink "powershell.org" -Link "https://powershell.org" -Style "`e[3;38;5;111m" -AsString
+`e]8;;https://powershell.org`e\`e[4m`e[3;38;5;111mpowershell.org`e[0m`e[0m`e]8;;`e\`e[0m
+```
+
+You could use this command to create interesting and interactive output.
+
+```powershell
+Get-Command -module PSIntro | Foreach-Object -Begin {
+  $mod = Get-Module PSIntro
+  $label = "`n{0} [v{1}]" -f $mod.Name,$mod.Version
+  New-AnsiHyperlink $label -uri $mod.ProjectUri -style "`e[1;38;5;85m"
+  "`e[3m{0}`e[0m" -f $mod.Description
+} -process {
+  $h = Get-Help $_.Name
+  $link = $h.relatedLinks.NavigationLink | Where uri | First 1 |
+  New-ANSIHyperlink -DisplayText $_.Name -style "`e[3;38;5;45m"
+  [PSCustomObject]@{
+    Name = $link
+      Synopsis = $h.Synopsis
+  }
+ }
+```
+
+![Module info with ANSI hyperlinks](images/module-info-with-links.png)
 
 ## Other Module Features
 
@@ -2641,7 +2842,7 @@ The module includes several custom `format.ps1xml` files that define additional 
 
 For example, there is a custom table view for Aliases.
 
-```dos
+```powershell
 PS C:\> Get-Alias | Sort-Object Source | Format-Table -view Source
 
    Source:
@@ -2672,7 +2873,7 @@ fhx                  Format-Hex
 CFS                  ConvertFrom-String
 
 
-   Source: PSScriptTools 3.0.0
+   Source: PSScriptTools 3.2.0
 
 Name                 Definition
 ----                 ----------
@@ -2808,7 +3009,7 @@ This PowerShell module contains several functions you might use to enhance your 
 dir $PSSamplePath
 ```
 
-The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered **AS-IS** and are for demonstration purposes only.
+The samples provide suggestions on how you might use some of the commands in this module. The scripts are offered __AS-IS__ and are for demonstration purposes only.
 
 ![ProcessPercent.ps1](images/processpercent.png)
 
@@ -2843,4 +3044,4 @@ If you find this module useful, you might also want to look at my PowerShell too
 
 ## Compatibility
 
-Where possible, module commands have been tested with PowerShell 7, but not on every platform. If you encounter problems, have suggestions, or have other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will **not** be running these commands on any edition of PowerShell Core, i.e. PowerShell 6.
+Where possible, module commands have been tested with PowerShell 7, but not on every platform. If you encounter problems, have suggestions, or have other feedback, please post an [issue](https://github.com/jdhitsolutions/PSScriptTools/issues). It is assumed you will __not__ be running these commands on any edition of PowerShell Core, i.e. PowerShell 6.

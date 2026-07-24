@@ -4,7 +4,12 @@
 Function New-Password {
     [cmdletbinding()]
     Param(
-        [Parameter(Position = 0, Mandatory, ValueFromPipeline, HelpMessage = "Enter a 8+ character string to 'seed' the password.")]
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
+            HelpMessage = "Enter a 8+ character string to 'seed' the password."
+        )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { $_.length -ge 8 })]
         [string]$SeedText

@@ -66,8 +66,7 @@ P*WeR2ShE!!
 ### Example 5
 
 ```powershell
-PS C:\> Format-String "alphabet" -Randomize -Replace @{a="@";e=3} `
--Case Alternate
+PS C:\> Format-String "alphabet" -Randomize -Replace @{a="@";e=3} -Case Alternate
 
 3bPl@tH@
 ```

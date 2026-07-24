@@ -17,7 +17,7 @@ Function Get-DiskData {
     Process {
         "Processing $($computername.ToUpper())" | Tee-Verbose -path $log -append
         Try {
-            $data = Get-CimInstance -Class Win32_logicaldisk -Filter "DriveType=3" -ComputerName $Computername -ErrorAction Stop
+            $data = Get-CimInstance -Class Win32_LogicalDisk -Filter "DriveType=3" -ComputerName $Computername -ErrorAction Stop
             $data | ForEach-Object {
                 "Calculating PctFree for $($_.DeviceID)" | Tee-Verbose -path $log -append
                 $_ | Add-Member -MemberType ScriptProperty -Name PctFree -Value { Format-Percent -Value $this.FreeSpace -Total $this.Size -Decimal 2 } -Force

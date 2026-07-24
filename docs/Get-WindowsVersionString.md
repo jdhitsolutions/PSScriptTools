@@ -9,7 +9,7 @@ schema: 2.0.0
 
 ## SYNOPSIS
 
-Get Windows version information.
+Get Windows version information as a formatted string.
 
 ## SYNTAX
 
@@ -43,6 +43,15 @@ PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26200.8737)
 ```
 
 Get version information for the local host.
+
+### Example 3
+
+```powershell
+PS C:\> Get-WindowsVersionString -UseStyle
+PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26200.8737)
+```
+
+The string will be formatted with pre-defined ANSI style sequences.
 
 ## PARAMETERS
 
@@ -188,6 +197,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ## NOTES
+
+This command has an alias of wvers.
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 

@@ -3,6 +3,33 @@
 This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
+### Added
+- Added command `Write-PSHorizontalRule` with an alias of `pshr`.
+- Added command `Format-BorderBox` with an alias of `fbx`.
+- Added alias `wvers` for `Get-WindowsVersionString`.
+- Added alias `sas` for `Show-AnsiSequence`.
+- Added command `New-ANSIHyperLink` with an alias of `ahl` to make it easier to create a string with an embedded hyperlink.
+- Added OnRemove event to the root module to clean up global variables and type extensions when removing the module from your PowerShell session.
+- Added command `Get-ProcessTree` with an alias of `gpt` This command requires PowerShell 7.
+- Added command `Show-ProcessTree` with an alias of `spt` This command requires PowerShell 7.
+- Added commands for working with `[Enum]` classes. `Test-IsEnum` will return a simple Boolean value if the type is an enum. `Show-Enum` will display the enum values and their corresponding integer values. Output is formatted with a new custom format file `enumInfo.format.ps1xml`.
+
+### Changed
+- Updated `Get-ModuleCommand` to only return the first module when using `ListAvailable`.
+- Updated `Show-Tree` to display tree lines in bright green when using `InColor`.
+- Updated `Out-More` so that the `Count` parameter is now positional. Also added a second alias of `page` for the `Count` parameter.
+- Updated PSScriptTools JSON data to include the online help link.
+- Updated formatting for PSScriptTools in PowerShell 7 to add a link to online help for the command.
+- Updated formatting for `Get-PSScriptTools` to display aliases italicized and in color.
+- Updated `Show-AnsiSequence` to increase the number of displayed columns.
+- Updated `Show-AnsiSequence` to include optional parameters to page the output using `Out-More`.
+- Update TypeMember functions with a custom transformation so that the user can specify a type name like `DateTime` or `[DateTime]`.
+- Updated sample scripts.
+- Updated `README`.
+- Updates to help documentation.
+
+### Fixed
+- Fixed missing alias, `gmc` for `Get-ModuleCommand`.
 
 ## [3.1.0] - 2026-07-14
 
@@ -19,7 +46,7 @@ This file contains the most recent change history for the PSScriptTools module.
 
 - Updated `Get-FolderSizeInfo` to include ReparsePoints. __This is a potential breaking change__.
 - Update README code samples to better fit the margins of the help PDF.
-- Updated verbose outpout in commands to include PowerShell version information.
+- Updated verbose output in commands to include PowerShell version information.
 - Re-structured `Get-PSScriptTools`.
 - Updated `Get-PSProfile` and list view to show file size.
 - Updated `Get-PSProfile` to test for link target and use that for file size and last modified values.
@@ -100,7 +127,7 @@ This file contains the most recent change history for the PSScriptTools module.
 
 - Ongoing and general code cleanup.
 - Removed previously deprecated commands `Set-ConsoleColor` and `Out-ConditionalColor`.
-- Changed `Get-PSScriptTools to use saved data from a JSON file instead of building the data from `Get-Command`, `Get-Alias`, and `Get-Help`. This also fixes display problems with the Synopsis property in Linux.
+- Changed `Get-PSScriptTools` to use saved data from a JSON file instead of building the data from `Get-Command`, `Get-Alias`, and `Get-Help`. This also fixes display problems with the Synopsis property in Linux.
 - Changed `Write-ANSIProgress` by adding a parameter to write to the host and not the pipeline.
 - Updated `README`.
 
@@ -119,14 +146,14 @@ This file contains the most recent change history for the PSScriptTools module.
 
 ### Changed
 
-- Modified module manifest to remove version logic on function export. Now exporting everything. If there is an OS limitation, try to handle it on a per-command basis. **This may be a breaking change**.
+- Modified module manifest to remove version logic on function export. Now exporting everything. If there is an OS limitation, try to handle it on a per-command basis. __This may be a breaking change__.
 - Changed PDF manual theme from `github` to `github.dark`.
 - Updated `Get-ParameterInfo` to recognize `ProgressAction` as a common parameter. This parameter was add in PowerShell 7.
 - Updated the default table view for output from `Get-ModuleCommand` to include the module version number.
 - Modified `Show-Tree` to better handle multi-string and binary values in the registry.
 - Modified `Show-Tree` to use `PSStyle.FileInfo` for color information if detected. ([Issue #147](https://github.com/jdhitsolutions/PSScriptTools/issues/147))
 - Updated `README.md`
-- Revised `Get-FolderSizeInfo` to be more consistent between PowerShell versions. The command will skip counting all reparse points. **This may be a breaking change**. ([Issue #145](https://github.com/jdhitsolutions/PSScriptTools/issues/145))
+- Revised `Get-FolderSizeInfo` to be more consistent between PowerShell versions. The command will skip counting all reparse points. __This may be a breaking change__. ([Issue #145](https://github.com/jdhitsolutions/PSScriptTools/issues/145))
 - Re-wrote `Find-CimClass` to use `CimSession`.
 - Revised `Get-ParameterInfo` to sort the output by default using ParameterSet, Position, and Name
 - Help updates.

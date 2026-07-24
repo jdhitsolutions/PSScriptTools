@@ -4,741 +4,895 @@
     "Alias": "ab",
     "Verb": "Add",
     "Synopsis": "Create a text border around a string.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/44067f"
   },
   {
     "Name": "Compare-Module",
     "Alias": "cmo",
     "Verb": "Compare",
     "Synopsis": "Compare PowerShell module versions.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/86d9fd"
   },
   {
     "Name": "Compare-Script",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Compare",
     "Synopsis": "Compare PowerShell script versions.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/d95890"
   },
   {
     "Name": "Convert-CommandToHashtable",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Convert",
     "Synopsis": "Convert a PowerShell expression into a splatting equivalent.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/c5336b"
   },
   {
     "Name": "Convert-EventLogRecord",
     "Alias": "clr",
     "Verb": "Convert",
     "Synopsis": "Convert EventLogRecords to structured objects.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/bb432d"
   },
   {
     "Name": "Convert-HashtableString",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Convert",
     "Synopsis": "Convert a hashtable string into a hashtable object.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/59c4ce"
   },
   {
     "Name": "Convert-HashtableToCode",
     "Alias": "chc",
     "Verb": "Convert",
     "Synopsis": "Convert a hashtable to a string representation.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/22ae24"
   },
   {
     "Name": "Convert-HtmlToAnsi",
     "Alias": "cha",
     "Verb": "Convert",
     "Synopsis": "Convert an HTML color code to ANSI.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "h"
   },
   {
     "Name": "ConvertFrom-LexicalTimeSpan",
-    "Alias": null,
+    "Alias": "",
     "Verb": "ConvertFrom",
     "Synopsis": "Convert a lexical timespan into a PowerShell timespan.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/2bf285"
   },
   {
     "Name": "ConvertFrom-Text",
     "Alias": "cft",
     "Verb": "ConvertFrom",
     "Synopsis": "Convert structured text to objects.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/abe4d5"
   },
   {
     "Name": "ConvertFrom-UTCTime",
     "Alias": "frut",
     "Verb": "ConvertFrom",
     "Synopsis": "Convert a datetime value from universal.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/ba6489"
   },
   {
     "Name": "ConvertTo-Hashtable",
-    "Alias": null,
+    "Alias": "",
     "Verb": "ConvertTo",
     "Synopsis": "Convert an object into a hashtable.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/8dbc36"
   },
   {
     "Name": "ConvertTo-LexicalTimeSpan",
-    "Alias": null,
+    "Alias": "",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a timespan to lexical time.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/98d08a"
   },
   {
     "Name": "ConvertTo-LocalTime",
     "Alias": "clt",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a foreign time to local.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/a421ca"
   },
   {
     "Name": "ConvertTo-Markdown",
     "Alias": "ctm",
     "Verb": "ConvertTo",
     "Synopsis": "Convert pipeline output to a markdown document.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/ed89f2"
   },
   {
     "Name": "ConvertTo-TitleCase",
-    "Alias": "title totc",
+    "Alias": "title,totc",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a string to title case.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "h"
   },
   {
     "Name": "ConvertTo-UTCTime",
     "Alias": "tout",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a local datetime to universal time.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/fcd685"
   },
   {
     "Name": "ConvertTo-WPFGrid",
     "Alias": "cwg",
     "Verb": "ConvertTo",
     "Synopsis": "Send command output to an interactive WPF-based grid.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/66cb30"
   },
   {
     "Name": "Copy-Command",
     "Alias": "cc",
     "Verb": "Copy",
     "Synopsis": "Copy a PowerShell command.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/1c1c19"
   },
   {
     "Name": "Copy-HelpExample",
     "Alias": "che",
     "Verb": "Copy",
     "Synopsis": "Copy code snippet from help examples.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/740c69"
   },
   {
     "Name": "Copy-HistoryCommand",
     "Alias": "ch",
     "Verb": "Copy",
     "Synopsis": "Copy a history command line to the clipboard.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/8993e3"
   },
   {
     "Name": "Copy-PSFunction",
     "Alias": "cpfun",
     "Verb": "Copy",
     "Synopsis": "Copy a local PowerShell function to a remote session.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/db6584"
   },
   {
     "Name": "Export-PSAnsiFileMap",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Export",
     "Synopsis": "Export a PSAnsiFileMap to a file.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/33a505"
   },
   {
     "Name": "Find-CimClass",
     "Alias": "fcc",
     "Verb": "Find",
     "Synopsis": "Search CIM for a class.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/173186"
+  },
+  {
+    "Name": "Format-BorderBox",
+    "Alias": "fbx",
+    "Verb": "Format",
+    "Synopsis": "Display text in a lined border box.",
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/d06a7d"
   },
   {
     "Name": "Format-Percent",
     "Alias": "fp",
     "Verb": "Format",
     "Synopsis": "Format a value as a percentage.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/a65b1c"
   },
   {
     "Name": "Format-String",
     "Alias": "fs",
     "Verb": "Format",
     "Synopsis": "Options for formatting strings.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/4b4622"
   },
   {
     "Name": "Format-Value",
     "Alias": "fv",
     "Verb": "Format",
     "Synopsis": "Format a numeric value.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/259243"
   },
   {
     "Name": "Get-CimClassListing",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "A faster way to list CIM classes in a given namespace.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/078584"
   },
   {
     "Name": "Get-CimClassMethod",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the methods of a CIM class.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/6e7f5b"
   },
   {
     "Name": "Get-CimClassProperty",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the properties of a CIM class.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/33f673"
   },
   {
     "Name": "Get-CimClassPropertyQualifier",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the property qualifiers of a CIM class.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/2e4fbe"
   },
   {
     "Name": "Get-CimMember",
     "Alias": "cmm",
     "Verb": "Get",
     "Synopsis": "Get information about CIM class members.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/3a81c8"
   },
   {
     "Name": "Get-CimNamespace",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Enumerate WMI/CIM namespaces.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/e0d44a"
   },
   {
     "Name": "Get-CommandSyntax",
     "Alias": "gsyn",
     "Verb": "Get",
     "Synopsis": "Get provider-specific command syntax.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/8179d4"
   },
   {
     "Name": "Get-DirectoryInfo",
     "Alias": "dw",
     "Verb": "Get",
     "Synopsis": "Get directory information.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/4c623c"
   },
   {
     "Name": "Get-FileExtensionInfo",
     "Alias": "gfei",
     "Verb": "Get",
     "Synopsis": "Get a report of files based on their extension.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/b35e8a"
   },
   {
     "Name": "Get-FileItem",
     "Alias": "pswhere",
     "Verb": "Get",
     "Synopsis": "A PowerShell version of the Where CLI command.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/986690"
   },
   {
     "Name": "Get-FolderSizeInfo",
     "Alias": "gsi",
     "Verb": "Get",
     "Synopsis": "Get folder size information.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/2459ce"
   },
   {
     "Name": "Get-FormatView",
     "Alias": "gfv",
     "Verb": "Get",
     "Synopsis": "Get defined format views.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/6bc198"
   },
   {
     "Name": "Get-GitSize",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the size of .git folder.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/0e78eb"
   },
   {
     "Name": "Get-LastModifiedFile",
     "Alias": "glm",
     "Verb": "Get",
     "Synopsis": "Get files based on last modified data.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/ba32af"
   },
   {
     "Name": "Get-ModuleCommand",
-    "Alias": null,
+    "Alias": "gmc",
     "Verb": "Get",
     "Synopsis": "Get a summary of module commands.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/71e8ba"
   },
   {
     "Name": "Get-MyAlias",
     "Alias": "gma",
     "Verb": "Get",
     "Synopsis": "Get non-default aliases defined in the current session.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/a66dd2"
   },
   {
     "Name": "Get-MyCounter",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get performance counter data.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/8ff794"
   },
   {
     "Name": "Get-MyTimeInfo",
     "Alias": "gti",
     "Verb": "Get",
     "Synopsis": "Display time settings for a collection of locations.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/864c12"
   },
   {
     "Name": "Get-MyVariable",
     "Alias": "gmv",
     "Verb": "Get",
     "Synopsis": "Get all user-defined variables.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/650472"
   },
   {
     "Name": "Get-ParameterInfo",
     "Alias": "gpi",
     "Verb": "Get",
     "Synopsis": "Retrieve command parameter information.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/920e91"
   },
   {
     "Name": "Get-PathVariable",
     "Alias": "Get-Path",
     "Verb": "Get",
     "Synopsis": "Get information from locations in %PATH%.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "h"
   },
   {
     "Name": "Get-PowerShellEngine",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the path to the current PowerShell engine.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/f713ea"
+  },
+  {
+    "Name": "Get-ProcessTree",
+    "Alias": "gpt",
+    "Verb": "Get",
+    "Synopsis": "Get a process tree.",
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/4925b0"
   },
   {
     "Name": "Get-PSAnsiFileMap",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Display the PSAnsiFileMap.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/fe1951"
   },
   {
     "Name": "Get-PSLocation",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get common location values.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/1e55c2"
   },
   {
     "Name": "Get-PSProfile",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get PowerShell profile locations.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/d4ded2"
   },
   {
     "Name": "Get-PSScriptTools",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get a summary of PSScriptTools commands.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/237adc"
   },
   {
     "Name": "Get-PSScriptToolsTypeExtension",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get available custom type extensions",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/01064c"
   },
   {
     "Name": "Get-PSSessionInfo",
     "Alias": "gsin",
     "Verb": "Get",
     "Synopsis": "Get details about the current PowerShell session.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/0ccf73"
   },
   {
     "Name": "Get-PSUnique",
     "Alias": "gpsu",
     "Verb": "Get",
     "Synopsis": "Filter for unique objects.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/c10e02"
   },
   {
     "Name": "Get-PSWho",
     "Alias": "pswho",
     "Verb": "Get",
     "Synopsis": "Get PowerShell user summary information.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/9990e3"
   },
   {
     "Name": "Get-TypeConstructor",
     "Alias": "ctor",
     "Verb": "Get",
     "Synopsis": "Get constructor details for a .NET type.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/9825a9"
   },
   {
     "Name": "Get-TypeMember",
     "Alias": "gtm",
     "Verb": "Get",
     "Synopsis": "Get type member information.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/cff650"
   },
   {
     "Name": "Get-WhoIs",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Get",
     "Synopsis": "Lookup WhoIS data for a given IPv4 address.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/a244fa"
   },
   {
     "Name": "Get-WindowsVersion",
     "Alias": "wver",
     "Verb": "Get",
     "Synopsis": "Get Windows version information.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/3e66f0"
   },
   {
     "Name": "Get-WindowsVersionString",
-    "Alias": null,
+    "Alias": "wvers",
     "Verb": "Get",
-    "Synopsis": "Get Windows version information.",
-    "Version": "3.1.0"
+    "Synopsis": "Get Windows version information as a formatted string.",
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/9d4917"
   },
   {
     "Name": "Import-PSScriptToolsTypeExtension",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Import",
     "Synopsis": "Import a custom type extension file",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/98f4be"
   },
   {
     "Name": "Invoke-InputBox",
     "Alias": "ibx",
     "Verb": "Invoke",
     "Synopsis": "Launch a graphical input box.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/016d0b"
   },
   {
     "Name": "Join-Hashtable",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Join",
     "Synopsis": "Combine two hashtables into one.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/a1c82a"
   },
   {
     "Name": "New-ANSIBar",
     "Alias": "nab",
     "Verb": "New",
     "Synopsis": "Display an ANSI colored bar.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/f31f14"
+  },
+  {
+    "Name": "New-ANSIHyperlink",
+    "Alias": "ahl",
+    "Verb": "New",
+    "Synopsis": "Create an ANSI string with a hyperlink.",
+    "Version": "3.2.0",
+    "Online": "h"
   },
   {
     "Name": "New-CustomFileName",
-    "Alias": null,
+    "Alias": "",
     "Verb": "New",
     "Synopsis": "Create a custom file name based on a template.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/c4db66"
   },
   {
     "Name": "New-FunctionItem",
     "Alias": "nfi",
     "Verb": "New",
     "Synopsis": "Create a function item from the console.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/2dbeac"
   },
   {
     "Name": "New-PSDriveHere",
     "Alias": "npsd",
     "Verb": "New",
     "Synopsis": "Create a new PSDrive at the current location.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/8cb9e3"
   },
   {
     "Name": "New-PSDynamicParameter",
     "Alias": "ndp",
     "Verb": "New",
     "Synopsis": "Create a PowerShell function dynamic parameter.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/40e246"
   },
   {
     "Name": "New-PSDynamicParameterForm",
     "Alias": "dpf",
     "Verb": "New",
     "Synopsis": "Launch a WPF front-end to New-PSDynamicParameter.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/bd78bc"
   },
   {
     "Name": "New-PSFormatXML",
     "Alias": "nfx",
     "Verb": "New",
     "Synopsis": "Create or modify a format.ps1xml file.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/c8dc45"
   },
   {
     "Name": "New-RandomFileName",
-    "Alias": null,
+    "Alias": "",
     "Verb": "New",
     "Synopsis": "Create a random file name.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/765d5c"
   },
   {
     "Name": "New-RedGreenGradient",
-    "Alias": null,
+    "Alias": "",
     "Verb": "New",
     "Synopsis": "Create an ANSI gradient from red to green.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/bea6f3"
   },
   {
     "Name": "New-WPFMessageBox",
     "Alias": "nmb",
     "Verb": "New",
     "Synopsis": "Display a customizable WPF-based message box.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/726dd9"
   },
   {
     "Name": "Open-PSScriptToolsHelp",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Open",
     "Synopsis": "Open the PSScriptTools PDF manual.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/1bfe64"
   },
   {
     "Name": "Optimize-Text",
     "Alias": "ot",
     "Verb": "Optimize",
     "Synopsis": "Clean and optimize text input.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/140455"
   },
   {
     "Name": "Out-Copy",
     "Alias": "oc",
     "Verb": "Out",
     "Synopsis": "Send command output to the pipeline and clipboard.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/749052"
   },
   {
     "Name": "Out-More",
     "Alias": "om",
     "Verb": "Out",
     "Synopsis": "Send \"pages\" of objects to the pipeline.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/5593a0"
   },
   {
     "Name": "Out-VerboseTee",
-    "Alias": "Tee-Verbose tv",
+    "Alias": "Tee-Verbose,tv",
     "Verb": "Out",
     "Synopsis": "Write to the Verbose stream and a file.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/2b7c6e"
   },
   {
     "Name": "Remove-MergedBranch",
     "Alias": "rmb",
     "Verb": "Remove",
     "Synopsis": "Removed merged git branches.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/fadd2b"
   },
   {
     "Name": "Remove-PSAnsiFileEntry",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Remove",
     "Synopsis": "Remove a PSAnsiFileMap entry.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/47e9dc"
   },
   {
     "Name": "Remove-Runspace",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Remove",
     "Synopsis": "Remove a runspace from your session.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/8721e0"
   },
   {
     "Name": "Rename-Hashtable",
     "Alias": "rht",
     "Verb": "Rename",
     "Synopsis": "Rename a hashtable key.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/a70fb6"
   },
   {
     "Name": "Save-GitSetup",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Save",
     "Synopsis": "Download the latest 64bit version of Git for Windows.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/42ce51"
   },
   {
     "Name": "Select-After",
     "Alias": "after",
     "Verb": "Select",
     "Synopsis": "Select objects after a given datetime.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/6a39a9"
   },
   {
     "Name": "Select-Before",
     "Alias": "before",
     "Verb": "Select",
     "Synopsis": "Select objects before a given datetime.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/4c68ad"
   },
   {
     "Name": "Select-First",
     "Alias": "First",
     "Verb": "Select",
     "Synopsis": "Select the first X number of objects.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/8124ac"
   },
   {
     "Name": "Select-Last",
     "Alias": "Last",
     "Verb": "Select",
     "Synopsis": "Select the last X number of objects.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/d4e36b"
   },
   {
     "Name": "Select-Newest",
     "Alias": "newest",
     "Verb": "Select",
     "Synopsis": "Select the newest X number of objects after a given datetime.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/117478"
   },
   {
     "Name": "Select-Oldest",
     "Alias": "oldest",
     "Verb": "Select",
     "Synopsis": "Select the oldest X number of objects before a given datetime.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/32be2e"
   },
   {
     "Name": "Set-ConsoleTitle",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Set",
     "Synopsis": "Set the console title text.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/3adc9c"
   },
   {
     "Name": "Set-LocationToFile",
-    "Alias": "jmp sd",
+    "Alias": "jmp,sd",
     "Verb": "Set",
     "Synopsis": "Change your script editor terminal location.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/9de734"
   },
   {
     "Name": "Set-PSAnsiFileMap",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Set",
     "Synopsis": "Modify or add a PSAnsiFileEntry.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/b842f7"
   },
   {
     "Name": "Show-ANSISequence",
-    "Alias": null,
+    "Alias": "sas",
     "Verb": "Show",
     "Synopsis": "Display ANSI escape sequences.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/5cb585"
+  },
+  {
+    "Name": "Show-Enum",
+    "Alias": "",
+    "Verb": "Show",
+    "Synopsis": "Display an enum's names and values.",
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/1f9841"
   },
   {
     "Name": "Show-FunctionItem",
     "Alias": "sfi",
     "Verb": "Show",
     "Synopsis": "Show a function in written form.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/503842"
   },
   {
     "Name": "Show-HiddenMember",
     "Alias": "sm",
     "Verb": "Show",
     "Synopsis": "Show an object's hidden members.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/2c344b"
+  },
+  {
+    "Name": "Show-ProcessTree",
+    "Alias": "spt",
+    "Verb": "Show",
+    "Synopsis": "Display a graphical process tree.",
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/6073d5"
   },
   {
     "Name": "Show-Tree",
-    "Alias": "pstree shtree",
+    "Alias": "pstree,shtree",
     "Verb": "Show",
     "Synopsis": "Shows the specified path as a tree.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/12ea57"
   },
   {
     "Name": "Test-EmptyFolder",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Test",
     "Synopsis": "Test if a folder is empty of files.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/525f6d"
   },
   {
     "Name": "Test-Expression",
     "Alias": "tex",
     "Verb": "Test",
     "Synopsis": "Test a PowerShell expression over a period of time.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/812715"
   },
   {
     "Name": "Test-ExpressionForm",
     "Alias": "texf",
     "Verb": "Test",
     "Synopsis": "Display a graphical test form for Test-Expression.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/b36e28"
   },
   {
     "Name": "Test-IsElevated",
     "Alias": "isAdmin",
     "Verb": "Test",
     "Synopsis": "Test if the current user is running elevated.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/e1c162"
+  },
+  {
+    "Name": "Test-IsEnum",
+    "Alias": "",
+    "Verb": "Test",
+    "Synopsis": "Test if a .NET class is an enum.",
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/a654eb"
   },
   {
     "Name": "Test-IsPSWindows",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Test",
     "Synopsis": "Test if running PowerShell on a Windows platform.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "h"
   },
   {
     "Name": "Test-WithCulture",
-    "Alias": null,
+    "Alias": "",
     "Verb": "Test",
     "Synopsis": "Test your PowerShell code using a different culture.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/15101d"
   },
   {
     "Name": "Trace-Message",
     "Alias": "trace",
     "Verb": "Trace",
     "Synopsis": "Create a graphical trace window.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/796fb9"
   },
   {
     "Name": "Write-ANSIProgress",
     "Alias": "wap",
     "Verb": "Write",
     "Synopsis": "Display an ANSI progress bar.",
-    "Version": "3.1.0"
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/f93f83"
   }
 ]

@@ -33,10 +33,7 @@ Get-TypeMember [-TypeName] <Type> -MemberName <String> [<CommonParameters>]
 
 ## DESCRIPTION
 
-This is an alternative to using Get-Member.
-Specify a type name to see a simple view of an object's members.
-The output will only show native members, including static methods, but not those added by PowerShell such as ScriptProperties.
-The command in this module includes custom format and type extensions. See help examples.
+This is an alternative to using Get-Member. Specify a type name to see a simple view of an object's members. The output will only show native members, including static methods, but not those added by PowerShell such as ScriptProperties. The command in this module includes custom format and type extensions. See help examples.
 
 ## EXAMPLES
 
@@ -160,7 +157,7 @@ MethodSyntax is a custom property set for Get-TypeMember output.
 
 ### -TypeName
 
-Specify a .NET type name like DateTime
+Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].
 
 ```yaml
 Type: Type

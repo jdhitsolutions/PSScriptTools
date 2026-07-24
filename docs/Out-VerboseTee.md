@@ -14,13 +14,13 @@ Write to the Verbose stream and a file.
 ## SYNTAX
 
 ```yaml
-Out-VerboseTee -Value <Object> [-Path] <String> [-Encoding <Encoding>] [-Append] 
+Out-VerboseTee -Value <Object> [-Path] <String> [-Encoding <Encoding>] [-Append]
 [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.
+This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. It will not capture Verbose output from commands like Get-CimInstance.
 
 This command has an alias of Tee-Verbose.
 

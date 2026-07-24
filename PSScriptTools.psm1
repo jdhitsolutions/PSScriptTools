@@ -195,4 +195,12 @@ Function Open-PSScriptToolsHelp {
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }
 
+#21 July 2026 Add OnRemove event to clean up module
+$onRemoveScript = {
+    Remove-TypeData -TypeName psTypeMember
+    Remove-Variable PSSamplePath -Scope Global
+    Remove-Variable PSSpecialChar -Scope Global
+}
+$ExecutionContext.SessionState.Module.OnRemove += $OnRemoveScript
+
 $VerbosePreference = 'SilentlyContinue'

@@ -1,5 +1,4 @@
 Function Compare-Script {
-
     [cmdletbinding()]
     [OutputType("PSCustomObject")]
     [alias("csc")]
@@ -17,7 +16,6 @@ Function Compare-Script {
     )
 
     Begin {
-
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -33,7 +31,6 @@ Function Compare-Script {
     } #begin
 
     Process {
-
         $gscParams = @{}
         if ($Name) {
             $gscParams.Add("Name", $Name)

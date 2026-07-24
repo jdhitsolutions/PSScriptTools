@@ -1,13 +1,13 @@
 Function Get-ModuleCommand {
     [cmdletbinding(DefaultParameterSetName = "name")]
-    [Alias("gmh")]
+    [Alias("gmc")]
     [OutputType("ModuleCommand")]
 
     Param(
         [Parameter(
             Position = 0,
             Mandatory,
-            HelpMessage = "The name of an installed/available module",
+            HelpMessage = "The name of an installed/available module.",
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
@@ -15,12 +15,13 @@ Function Get-ModuleCommand {
         [string]$Name,
 
         [Parameter(
-            HelpMessage = "Command name to search for"
+            HelpMessage = "Command name to search for."
         )]
         [SupportsWildcards()]
         [ValidateNotNullOrEmpty()]
         [string]$CommandName,
 
+        [Parameter(HelpMessage = "Get the newest version not currently loaded in your session.,")]
         [switch]$ListAvailable
     )
 
@@ -77,7 +78,7 @@ Function Get-ModuleCommand {
     Process {
         If ([string]::IsNullOrEmpty($Name) -and [string]::IsNullOrEmpty($CommandName)) {
             if ($ListAvailable) {
-                $out = Get-Module -ListAvailable | ForEach-Object {
+                $out = Get-Module -ListAvailable | First 1 | ForEach-Object {
                     [PSCustomObject]@{
                         PSTypeName = "ModuleCommand"
                         Name       = $_.name
@@ -120,7 +121,8 @@ Function Get-ModuleCommand {
             if ([string]::IsNullOrEmpty($Name)) { $Name = "*" }
 
             if ($ListAvailable) {
-                $out = Get-Module -Name $Name -ListAvailable | ForEach-Object {
+                #24 July 2026 Only get the first module which should be the most current
+                $out = Get-Module -Name $Name -ListAvailable | First 1 | ForEach-Object {
                     #We need to rebind to object (reason unknown!!)
                     getModuleInfo -module $_ -CommandName $CommandName
                 }

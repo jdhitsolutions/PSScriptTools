@@ -11,21 +11,21 @@ format type data generated 02/27/2020 10:21:29 by BOVINE320\Jeff
         <TypeName>PSScriptTool</TypeName>
       </ViewSelectedBy>
       <GroupBy>
-         <ScriptBlock>
-         if ($host.name -match 'console|code|remotehost') {
-         "$([char]27)[38;5;226m$($_.verb)$([char]27)[0m"
+        <ScriptBlock>
+         if ($host.name -match 'console|code|RemoteHost') {
+          "$([char]27)[38;5;226m$($_.verb)$([char]27)[0m"
          }
          else {
            $_.verb
          }
-         </ScriptBlock>
+        </ScriptBlock>
         <Label>Verb</Label>
       </GroupBy>
       <TableControl>
         <TableHeaders>
           <TableColumnHeader>
             <Label>Name</Label>
-            <Width>27</Width>
+            <Width>35</Width>
             <Alignment>left</Alignment>
           </TableColumnHeader>
           <TableColumnHeader>
@@ -43,10 +43,33 @@ format type data generated 02/27/2020 10:21:29 by BOVINE320\Jeff
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>Name</PropertyName>
+                <ScriptBlock>
+                if ($host.name -match 'console|code|RemoteHost' -AND $ISCoreCLR) {
+                  <!--
+                  22 July 2026
+                  insert a link to online help if running PowerShell 7. I
+                  can't this to format properly in Windows PowerShell even though the
+                  syntax is correct.
+                  -->
+                  $link = $_.Online
+                  $text = $_.Name
+                    <!--"$([char]27)]8;;$link$([char]27)\$($text)$([char]27)]8;;$([char]27)[0m"-->
+                    "{0}$link{1}$text{0}{1}{2}" -f "$([char]27)]8;;","$([char]27)\","$([char]27)[0m"
+                  }
+                  else {
+                    $_.Name
+                  }
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Alias</PropertyName>
+                <ScriptBlock>
+                  if ($host.name -match 'console|code|RemoteHost') {
+                    "$([char]27)[3;38;5;123m$($_.alias)$([char]27)[0m"
+                  }
+                  else {
+                    $_.alias
+                  }
+                </ScriptBlock>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Synopsis</PropertyName>

@@ -255,4 +255,6 @@ Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 
+[Format-BorderBox](FormatBorderBox.md)
+
 [New-ANSIBar](New-ANSIBar.md)

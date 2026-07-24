@@ -369,6 +369,10 @@
         <maml:uri>https://jdhitsolutions.com/yourls/44067f</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
+        <maml:linkText>Format-BorderBox</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
         <maml:linkText>New-ANSIBar</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
@@ -568,7 +572,7 @@ UpdateNeeded     : False</dev:code>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Compare-Script</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="1" aliases="scriptname">
+        <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="1" aliases="ScriptName">
           <maml:name>Name</maml:name>
           <maml:description>
             <maml:para>The name of a script to check. Wildcards are permitted.</maml:para>
@@ -595,7 +599,7 @@ UpdateNeeded     : False</dev:code>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="1" aliases="scriptname">
+      <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="True (ByPropertyName)" position="1" aliases="ScriptName">
         <maml:name>Name</maml:name>
         <maml:description>
           <maml:para>The name of a script to check. Wildcards are permitted.</maml:para>
@@ -672,7 +676,7 @@ Foreach-Object { Update-Script $_.name }</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Compare-Script.md</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/d95890</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Find-Script</maml:linkText>
@@ -1724,7 +1728,8 @@ DailyWatcher 3.00:00:00</dev:code>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $b = "(?&lt;Date&gt;\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}).*(?&lt;Error&gt;\d+),\s+(?&lt;Step&gt;.*):\s+(?&lt;Action&gt;\w+),\s+(?&lt;Path&gt;(\w+\\)*\w+\.\w+)"
+        <dev:code>PS C:\&gt; $b = "(?&lt;Date&gt;\d{2}-\d{2}-\d{4}\s\d{2}:\d{2}).*(?&lt;Error&gt;\d+),\s+(?&lt;Step&gt;.*):
+\s+(?&lt;Action&gt;\w+),\s+(?&lt;Path&gt;(\w+\\)*\w+\.\w+)"
 PS C:\&gt; ConvertFrom-Text -pattern $b -Path C:\windows\DtcInstall.log
 
 Date   : 10-18-2025 10:49
@@ -1745,7 +1750,8 @@ Path   : com\complus\dtc\dtc\msdtcstp\msdtcplugin.cpp
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $wu = "(?&lt;Date&gt;\d{4}-\d{2}-\d{2})\s+(?&lt;Time&gt;(\d{2}:)+\d{3})\s+(?&lt;PID&gt;\d+)\s+(?&lt;TID&gt;\w+)\s+(?&lt;Component&gt;\w+)\s+(?&lt;Message&gt;.*)"
+        <dev:code>PS C:\&gt; $wu = "(?&lt;Date&gt;\d{4}-\d{2}-\d{2})\s+(?&lt;Time&gt;(\d{2}:)+\d{3})\s+(?&lt;PID&gt;\d+)
+\s+(?&lt;TID&gt;\w+)\s+(?&lt;Component&gt;\w+)\s+(?&lt;Message&gt;.*)"
 PS C:\&gt; $out = ConvertFrom-Text -pattern $wu -Path C:\Windows\WindowsUpdate.log -NoProgress
 PS C:\&gt; $out | Group-Object Component | Sort-Object Count
 
@@ -4516,6 +4522,168 @@ ProtectionTechnologyStatus          {}                   {PackedXml, SchemaV...
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Format-BorderBox</command:name>
+      <command:verb>Format</command:verb>
+      <command:noun>BorderBox</command:noun>
+      <maml:description>
+        <maml:para>Display text in a lined border box.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>Use this command to display a block of text in a colored lined border box. You can use ANSI or PSStyle to specify the line color. It is recommended that the lines of text are trimmed of extra spaces.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Format-BorderBox</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>Text</maml:name>
+          <maml:description>
+            <maml:para>Enter the text to be displayed in the box. You can enter an array of strings including blank lines. It is recommended that you trim lines of extra spaces.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+          <maml:name>Title</maml:name>
+          <maml:description>
+            <maml:para>Enter an optional title.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="bc">
+          <maml:name>BorderColor</maml:name>
+          <maml:description>
+            <maml:para>Specify an ANSI or PSStyle sequence for the border color. The default is bright green.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="bc">
+        <maml:name>BorderColor</maml:name>
+        <maml:description>
+          <maml:para>Specify an ANSI or PSStyle sequence for the border color. The default is bright green.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>Text</maml:name>
+        <maml:description>
+          <maml:para>Enter the text to be displayed in the box. You can enter an array of strings including blank lines. It is recommended that you trim lines of extra spaces.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
+        <maml:name>Title</maml:name>
+        <maml:description>
+          <maml:para>Enter an optional title.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command has an alias of fbx.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-WindowsVersionString  | Format-BorderBox -Title "OS Information"
+
+╭──OS Information─────────────────────────────────────────────────────────────╮
+│ CADENZA Microsoft Windows 11 Pro Version Professional (OS Build 26200.8894) │
+╰─────────────────────────────────────────────────────────────────────────────╯</dev:code>
+        <dev:remarks>
+          <maml:para>Display Windows version information in a lined box. The default border color is bright green. Note that the border may not be displayed properly in PowerShell help.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; (pswho -AsString).split("`n").Trim() | fbx -Title PSWho -bc "`e[38;5;192m"
+
+╭──PSWho────────────────────────────────────────────────────────────╮
+│ User            : Cadenza\jeff                                    │
+│ Elevated        : True                                            │
+│ Computername    : CADENZA                                         │
+│ OperatingSystem : Microsoft Windows 11 Pro [ARM 64-bit Processor] │
+│ OSVersion       : 10.0.26200                                      │
+│ PSVersion       : 7.6.4                                           │
+│ Edition         : Core                                            │
+│ PSHost          : ConsoleHost                                     │
+│ WSMan           : 3.0                                             │
+│ ExecutionPolicy : RemoteSigned                                    │
+│ Culture         : English (United States)                         │
+╰───────────────────────────────────────────────────────────────────╯</dev:code>
+        <dev:remarks>
+          <maml:para>The command needs an array of trimmed strings. This example is using command and parameter aliases.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/d06a7d</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Add-Border</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Format-Percent</command:name>
       <command:verb>Format</command:verb>
       <command:noun>Percent</command:noun>
@@ -4924,8 +5092,7 @@ P*WeR2ShE!!</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Format-String "alphabet" -Randomize -Replace @{a="@";e=3} `
--Case Alternate
+        <dev:code>PS C:\&gt; Format-String "alphabet" -Randomize -Replace @{a="@";e=3} -Case Alternate
 
 3bPl@tH@</dev:code>
         <dev:remarks>
@@ -8103,7 +8270,7 @@ Mode                 LastWriteTime         Length Name
           <maml:description>
             <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module finds modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
             <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
-            <maml:para>If you have multiple versions of the module, you might get duplicated entries.</maml:para>
+            <maml:para>Beginning with v3.2.0, this parameter will return the first module found which should be the most current version.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -8114,7 +8281,7 @@ Mode                 LastWriteTime         Length Name
         <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="named" aliases="none">
           <maml:name>CommandName</maml:name>
           <maml:description>
-            <maml:para>Command name to search for</maml:para>
+            <maml:para>Command name to search for.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -8131,7 +8298,7 @@ Mode                 LastWriteTime         Length Name
         <maml:description>
           <maml:para>Indicates that this cmdlet gets all installed modules. Get-Module finds modules in paths listed in the PSModulePath environment variable. Without this parameter, Get-ModuleCommand gets only the modules that are both listed in the PSModulePath environment variable, and that are loaded in the current session.</maml:para>
           <maml:para>ListAvailable does not return information about modules that are not found in the PSModulePath environment variable, even if those modules are loaded in the current session.</maml:para>
-          <maml:para>If you have multiple versions of the module, you might get duplicated entries.</maml:para>
+          <maml:para>Beginning with v3.2.0, this parameter will return the first module found which should be the most current version.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -8155,7 +8322,7 @@ Mode                 LastWriteTime         Length Name
       <command:parameter required="false" variableLength="true" globbing="true" pipelineInput="False" position="named" aliases="none">
         <maml:name>CommandName</maml:name>
         <maml:description>
-          <maml:para>Command name to search for</maml:para>
+          <maml:para>Command name to search for.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -8187,6 +8354,7 @@ Mode                 LastWriteTime         Length Name
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>This command has an alias of gmc.</maml:para>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -8195,7 +8363,7 @@ Mode                 LastWriteTime         Length Name
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-ModuleCommand PSCalendar
 
-   ModuleName: PSCalendar [v2.10.1]
+   ModuleName: PSCalendar [v2.11.1]
 
 Name                           Alias                        Synopsis
 ----                           -----                        --------
@@ -8215,7 +8383,8 @@ Show-GuiCalendar               gcal                         Display a WPF-based 
 Show-PSCalendarHelp                                         Display a help PDF file for the
                                                             PSCalendar module.</dev:code>
         <dev:remarks>
-          <maml:para>Get module commands using the default formatted view. You can install the PSCalendar module from the PowerShell Gallery.</maml:para>
+          <maml:para>Get module commands using the default formatted view. The Name values will be clickable hyperlinks that open the online help, if your terminal supports it.</maml:para>
+          <maml:para>You can install the PSCalendar module from the PowerShell Gallery.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -8243,22 +8412,23 @@ Synopsis   : Ends forcibly the SMB session.
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ModuleCommand PSScriptTools | Format-Table -view verb
+        <dev:code>PS C:\&gt; Get-ModuleCommand PSProjectStatus | Where Verb -match 'get|new' | Format-Table -View verb
 
-   Verb: Add
+   Verb: Get
 
-Name             Alias        Type        Synopsis
-----             -----        ----        --------
-Add-Border                    Function    Create a text border around a string.
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+Get-PSProjectGitStatus         gitstat         Function    Get git project status.
+Get-PSProjectReport                            Function    Manage all your PSProject folders.
+Get-PSProjectStatus            gpstat          Function    Get project status.
+Get-PSProjectTask                              Function    List project tasks
 
+   Verb: New
 
-   Verb: Compare
-
-Name            Alias           Type        Synopsis
-----            -----           ----        --------
-Compare-Module  cmo             Function    Compare PowerShell module versions.
-
-...</dev:code>
+Name                           Alias           Type        Synopsis
+----                           -----           ----        --------
+New-PSProjectStatus            npstat          Function    Create a new PSProjectStatus.
+New-PSProjectTask                              Function    Create a new task in the PSProject file.</dev:code>
         <dev:remarks>
           <maml:para>Display commands using a custom table view called 'Verb'.</maml:para>
         </dev:remarks>
@@ -8267,7 +8437,7 @@ Compare-Module  cmo             Function    Compare PowerShell module versions.
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\ Get-ModuleCommand PSScriptTools | Format-Table -view version
 
-   ModuleName: PSScriptTools [v3.1.0]
+   ModuleName: PSScriptTools [v3.2.0]
 
 Name                              Alias             Compatible      PSVersion
 ----                              -----             ----------      ---------
@@ -8455,7 +8625,7 @@ grok Get-Help</dev:code>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
-        <maml:uri>https://github.com/jdhitsolutions/PSScriptTools/blob/master/docs/Get-MyAlias.md</maml:uri>
+        <maml:uri>https://jdhitsolutions.com/yourls/a66dd2</maml:uri>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Alias</maml:linkText>
@@ -9793,6 +9963,161 @@ Platform       : Win32NT</dev:code>
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Get-ProcessTree</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>ProcessTree</command:noun>
+      <maml:description>
+        <maml:para>Get a process tree.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command will display a process tree for a given process ID. The command will display a list of processes in order from parent to child. In other words, the oldest parent process will be listed first. The last process in the output will be the process you queried.</maml:para>
+      <maml:para>This command requires PowerShell 7.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Get-ProcessTree</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="ProcessID, PID">
+          <maml:name>ID</maml:name>
+          <maml:description>
+            <maml:para>Specify a process ID.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>IncludeUserName</maml:name>
+          <maml:description>
+            <maml:para>Include the process owner.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="ProcessID, PID">
+        <maml:name>ID</maml:name>
+        <maml:description>
+          <maml:para>Specify a process ID.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>IncludeUserName</maml:name>
+        <maml:description>
+          <maml:para>Include the process owner.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSProcessTree</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSProcessTree#User</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command has an alias of gpt.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ProcessTree $pid
+
+NPM(K)  PM(K)  WS(K) CPU(s)    Id SI ProcessName                 StartTime
+------  -----  ----- ------    -- -- -----------                 ---------
+    39 183136 250092 146.75 18244  1 WindowsTerminal  7/21/2026 9:26:26 AM
+   156 274552 434676  76.81 14680  1 pwsh            7/21/2026 10:17:56 AM</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-ProcessTree 7916 -IncludeUserName
+
+ WS(K) CPU(s)    Id UserName            ProcessName            StartTime
+ ----- ------    -- --------            -----------            ---------
+ 14708  11.48  2000                     services    7/21/2026 8:58:18 AM
+ 11432   0.12  5492 NT AUTHORITY\SYSTEM sshd        7/21/2026 8:58:20 AM
+ 13408   0.03 14088 NT AUTHORITY\SYSTEM sshd        7/22/2026 9:12:50 AM
+ 13668   0.03 25856 Cadenza\jeff        sshd        7/22/2026 9:12:54 AM
+ 10328   0.05 13512 Cadenza\jeff        cmd         7/22/2026 9:12:54 AM
+104060   1.45  7916 Cadenza\jeff        pwsh        7/22/2026 9:12:54 AM</dev:code>
+        <dev:remarks>
+          <maml:para>Get the process tree including the user name.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; gpt $pid | Select ID,ProcessName,HandleCount,Path
+
+   Id ProcessName HandleCount Path
+   -- ----------- ----------- ----
+12828 Code               1105 C:\Users\jeff\AppData\Local\Programs\Microsoft VS Code\Code.exe
+27332 Code                286 C:\Users\jeff\AppData\Local\Programs\Microsoft VS Code\Code.exe
+20736 pwsh               1168 C:\Program Files\PowerShell\7\pwsh.exe</dev:code>
+        <dev:remarks>
+          <maml:para>This example is run from an integrated VSCode terminal using the command alias, gpt. You can use any process property.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/4925b0</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Show-ProcessTree</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Get-PSAnsiFileMap</command:name>
       <command:verb>Get</command:verb>
       <command:noun>PSAnsiFileMap</command:noun>
@@ -10157,7 +10482,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-&lt;
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
-v3.0.0
+v3.2.0
 
    Verb: Add
 
@@ -10183,7 +10508,7 @@ Convert-HashtableString                    Convert a hashtable string into a...
 Convert-HashtableToCode                    Convert a hashtable to a string r...
 ...</dev:code>
         <dev:remarks>
-          <maml:para>The header is written to the host and not the pipeline.</maml:para>
+          <maml:para>The header is written to the host and not the pipeline. In PowerShell 7, the command name will be a clickable hyperlink that points to the online help for the command.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
@@ -10195,7 +10520,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-&lt;
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
-v3.0.0
+v3.2.0
 
    Verb: Compare
 
@@ -10224,7 +10549,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-&lt;
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
-v3.0.0
+v3.2.0
 
    Verb:Select
 
@@ -10238,6 +10563,29 @@ Select-Newest               newest               Select the newest X number ...
 Select-Oldest               oldest               Select the oldest X number ...</dev:code>
         <dev:remarks>
           <maml:para>Get all module commands that use the Select verb.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSScriptTools -verb test | Select Name,Alias,Online
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-&lt;
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name                Alias   Online
+----                -----   ------
+Test-EmptyFolder            https://jdhitsolutions.com/yourls/525f6d
+Test-Expression     tex     https://jdhitsolutions.com/yourls/812715
+Test-ExpressionForm texf    https://jdhitsolutions.com/yourls/b36e28
+Test-IsElevated     isAdmin https://jdhitsolutions.com/yourls/e1c162
+Test-IsEnum                 https://jdhitsolutions.com/yourls/a654eb
+Test-IsPSWindows            https://jdhitsolutions.com/yourls/c102e6
+Test-WithCulture            https://jdhitsolutions.com/yourls/15101d</dev:code>
+        <dev:remarks>
+          <maml:para>The output is an object with properties you might want to use.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -10731,7 +11079,7 @@ Culture         : Invariant Language (Invariant Country)</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
           <maml:name>TypeName</maml:name>
           <maml:description>
-            <maml:para>Specify a .NET type name like DateTime</maml:para>
+            <maml:para>Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
           <dev:type>
@@ -10746,7 +11094,7 @@ Culture         : Invariant Language (Invariant Country)</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
         <maml:name>TypeName</maml:name>
         <maml:description>
-          <maml:para>Specify a .NET type name like DateTime</maml:para>
+          <maml:para>Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
         <dev:type>
@@ -10786,7 +11134,7 @@ Culture         : Invariant Language (Invariant Country)</dev:code>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-TypeConstructor System.Drawing.SolidBrush
 
-[System.Drawing.SolidBrush]::new([System.Drawing.Color]$Color))</dev:code>
+[System.Drawing.SolidBrush]::new([System.Drawing.Color]$Color)</dev:code>
         <dev:remarks>
           <maml:para>The default formatting will using color to highlight the parameter name you would need.</maml:para>
         </dev:remarks>
@@ -10802,14 +11150,14 @@ Culture         : Invariant Language (Invariant Country)</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-TypeConstructor system.drawing.rectangle
+        <dev:code>PS C:\&gt; Get-TypeConstructor System.Drawing.Rectangle
 
-[System.Drawing.Rectangle]::new([System.Int32]$X),
-                [System.Int32]$Y),
-                [System.Int32]$Width),
-                [System.Int32]$Height))
+[System.Drawing.Rectangle]::new([System.Int32]$X,
+                [System.Int32]$Y,
+                [System.Int32]$Width,
+                [System.Int32]$Height)
 
-[System.Drawing.Rectangle]::new([System.Drawing.Point]$Location),[System.Drawing.Size]$Size))</dev:code>
+[System.Drawing.Rectangle]::new([System.Drawing.Point]$Location,[System.Drawing.Size]$Size)</dev:code>
         <dev:remarks>
           <maml:para>Constructors with more than three parameters will be displayed in a list to make it easier to read.</maml:para>
         </dev:remarks>
@@ -10870,7 +11218,7 @@ System.String fileName</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>TypeName</maml:name>
           <maml:description>
-            <maml:para>Specify a .NET type name like DateTime</maml:para>
+            <maml:para>Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
           <dev:type>
@@ -10896,7 +11244,7 @@ System.String fileName</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>TypeName</maml:name>
           <maml:description>
-            <maml:para>Specify a .NET type name like DateTime</maml:para>
+            <maml:para>Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
           <dev:type>
@@ -10923,7 +11271,7 @@ System.String fileName</dev:code>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
           <maml:name>TypeName</maml:name>
           <maml:description>
-            <maml:para>Specify a .NET type name like DateTime</maml:para>
+            <maml:para>Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
           <dev:type>
@@ -10950,7 +11298,7 @@ System.String fileName</dev:code>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
         <maml:name>TypeName</maml:name>
         <maml:description>
-          <maml:para>Specify a .NET type name like DateTime</maml:para>
+          <maml:para>Specify a .NET type name like DateTime. Beginning with version 3.2.0 you can also specify a value like [DateTime] or [System.IO.FileInfo].</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
         <dev:type>
@@ -11551,7 +11899,7 @@ Computername   : DOM1</dev:code>
       <command:verb>Get</command:verb>
       <command:noun>WindowsVersionString</command:noun>
       <maml:description>
-        <maml:para>Get Windows version information.</maml:para>
+        <maml:para>Get Windows version information as a formatted string.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
@@ -11769,6 +12117,7 @@ Computername   : DOM1</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>This command has an alias of wvers.</maml:para>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -11787,6 +12136,14 @@ WIN10 Microsoft Windows 10 Enterprise Version Enterprise (OS Build 19045.5608)</
 PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26200.8737)</dev:code>
         <dev:remarks>
           <maml:para>Get version information for the local host.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-WindowsVersionString -UseStyle
+PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26200.8737)</dev:code>
+        <dev:remarks>
+          <maml:para>The string will be formatted with pre-defined ANSI style sequences.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -12542,6 +12899,202 @@ Count                          3</dev:code>
       <maml:navigationLink>
         <maml:linkText>Show-ANSISequence</maml:linkText>
         <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-ANSIHyperlink</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>ANSIHyperlink</command:noun>
+      <maml:description>
+        <maml:para>Create an ANSI string with a hyperlink.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>In PowerShell 7, you can use $PSStyle.FormatHyperLink() to create a string with a hyperlink. This method is based on an underlying ANSI escape sequence. This command uses that same sequence so that you can create a hyperlinked string in Windows PowerShell. The command also makes it easier to add other styling. By default, the link will have a solid underline.</maml:para>
+      <maml:para>Optionally, you can use AsString to see a text version of the string with escape sequence markers.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-ANSIHyperlink</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="Text, LinkText">
+          <maml:name>DisplayText</maml:name>
+          <maml:description>
+            <maml:para>The text to display in the link. Do not include any ANSI sequences.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="Url, Uri">
+          <maml:name>Link</maml:name>
+          <maml:description>
+            <maml:para>The URL link. This should be an http://, https://, or file:// link. The command will not validate the link.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>AsString</maml:name>
+          <maml:description>
+            <maml:para>Display the ANSI string as a plain text string.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Style</maml:name>
+          <maml:description>
+            <maml:para>Specify an optional ANSI style sequence. The command will automatically use a solid underline. You don't need to include the closing reset.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>AsString</maml:name>
+        <maml:description>
+          <maml:para>Display the ANSI string as a plain text string.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="Text, LinkText">
+        <maml:name>DisplayText</maml:name>
+        <maml:description>
+          <maml:para>The text to display in the link. Do not include any ANSI sequences.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="1" aliases="Url, Uri">
+        <maml:name>Link</maml:name>
+        <maml:description>
+          <maml:para>The URL link. This should be an http://, https://, or file:// link. The command will not validate the link.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Style</maml:name>
+        <maml:description>
+          <maml:para>Specify an optional ANSI style sequence. The command will automatically use a solid underline. You don't need to include the closing reset.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>string</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-ANSIHyperlink "powershell.org" -Link "https://powershell.org"
+powershell.org</dev:code>
+        <dev:remarks>
+          <maml:para>The output will be an underlined string with a clickable link, assuming you are using a terminal that supports it.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:&gt; New-ANSIHyperlink "powershell.org" -Link "https://powershell.org" -Style "`e[3;93m"</dev:code>
+        <dev:remarks>
+          <maml:para>The string will be styled in yellow and italicized.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; New-ANSIHyperlink "powershell.org" -Link "https://powershell.org" -AsString
+`e]8;;https://powershell.org`e\`e[4mpowershell.org`e[0m`e]8;;`e\`e[0m</dev:code>
+        <dev:remarks>
+          <maml:para>Display a plaintext version of the string with escape sequences indicated. The indicated escape character will depend if you are running Windows PowerShell or PowerShell 7.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Command -module PSIntro | Foreach-Object {
+    $h = Get-Help $_.Name
+    $link = $h.relatedLinks.NavigationLink | Where uri | First 1 |
+    New-ANSIHyperlink -DisplayText $_.Name -style "`e[3;38;5;45m"
+    [PSCustomObject]@{
+    Name = $link
+        Synopsis = $h.Synopsis
+    }
+ }
+
+Name              Synopsis
+----              --------
+Add-PSIntro       Add Start-PSIntro to your PowerShell profile.
+Get-ModuleStatus  Get key module status
+Get-ProfileStatus Get the status of PowerShell profile scripts for the current host.
+Get-PSIntro       Display a PowerShell welcome screen
+New-PSProfile     Create a new PowerShell profile script.
+Start-PSTutorial  Start an interactive PowerShell tutorial</dev:code>
+        <dev:remarks>
+          <maml:para>Go through the help for every command in the PSIntro module and write custom output where the command name is a clickable link to the online help content.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/7f73b9</maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
   </command:command>
@@ -15696,10 +16249,10 @@ Out-Copy -CommandOnly</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i">
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i, page">
           <maml:name>Count</maml:name>
           <maml:description>
-            <maml:para>The number of objects to group as a page.</maml:para>
+            <maml:para>The number of objects to group as a page. This is an approximation that depends on how the input objects are formatted.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
@@ -15734,10 +16287,10 @@ Out-Copy -CommandOnly</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i">
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="2" aliases="i, page">
         <maml:name>Count</maml:name>
         <maml:description>
-          <maml:para>The number of objects to group as a page.</maml:para>
+          <maml:para>The number of objects to group as a page. This is an approximation that depends on how the input objects are formatted.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
@@ -15782,13 +16335,12 @@ Out-Copy -CommandOnly</dev:code>
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-        <maml:para>This command was first demonstrated at http://jdhitsolutions.com/blog/powershell/4707/a-better-powershell-more/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Process | Out-More -count 10
+        <dev:code>PS C:\&gt; Get-Process | Out-More 10
 
 Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
 -------  ------    -----      ----- -----   ------     --  -- -----------
@@ -18576,6 +19128,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
     <maml:description>
       <maml:para>This script is designed to make it easy to see ANSI escape sequences and how they will display in your PowerShell session. Use the -AsString parameter to write simple strings to the pipeline which makes it easier to copy items to the clipboard.</maml:para>
       <maml:para>The escape character will depend on whether you are running Windows PowerShell or PowerShell 7.x. For best results, you need to run this command in a PowerShell session and host that supports ANSI escape sequences.</maml:para>
+      <maml:para>The number of columns displayed depends on the width of your console window.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -18649,6 +19202,29 @@ PS C:\Scripts\Foo\&gt;</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Paging</maml:name>
+          <maml:description>
+            <maml:para>Page the display using Out-More.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>PageCount</maml:name>
+          <maml:description>
+            <maml:para>The number of items to display per page. This parameter has no effect unless used with -Paging.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
@@ -18751,6 +19327,30 @@ PS C:\Scripts\Foo\&gt;</dev:code>
         </dev:type>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Paging</maml:name>
+        <maml:description>
+          <maml:para>Page the display using Out-More.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>PageCount</maml:name>
+        <maml:description>
+          <maml:para>The number of items to display per page. This parameter has no effect unless used with -Paging.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -18774,6 +19374,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>This command has an alias of sas.</maml:para>
         <maml:para>Learn more about ANSI sequences at https://en.wikipedia.org/wiki/ANSI_escape_code</maml:para>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
       </maml:alert>
@@ -18830,6 +19431,13 @@ PS C:\Scripts\Foo\&gt;</dev:code>
           <maml:para>Repeat the previous example but write the output as a plain string and copy it to the clipboard.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\ Show-ANSISequence -background -paging</dev:code>
+        <dev:remarks>
+          <maml:para>Output is displayed in pages using Out-More. You can adjust the number of items using the -PageCount parameter.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -18842,6 +19450,126 @@ PS C:\Scripts\Foo\&gt;</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>New-ANSIBar</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Show-Enum</command:name>
+      <command:verb>Show</command:verb>
+      <command:noun>Enum</command:noun>
+      <maml:description>
+        <maml:para>Display an enum's names and values.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is intended to make it easier to discover an enum's names and values.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Show-Enum</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="Class, PropertyType">
+          <maml:name>EnumType</maml:name>
+          <maml:description>
+            <maml:para>Specify an enum type name like ConsoleColor.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
+          <dev:type>
+            <maml:name>Type</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="Class, PropertyType">
+        <maml:name>EnumType</maml:name>
+        <maml:description>
+          <maml:para>Specify an enum type name like ConsoleColor.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
+        <dev:type>
+          <maml:name>Type</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Type</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>enumInfo</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Show-Enum Dayofweek
+
+   Typename: System.DayOfWeek
+
+Name      Value
+----      -----
+Sunday        0
+Monday        1
+Tuesday       2
+Wednesday     3
+Thursday      4
+Friday        5
+Saturday      6</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Show-Enum System.Globalization.CultureTypes
+
+   Typename: System.Globalization.CultureTypes
+
+Name                   Value
+----                   -----
+NeutralCultures            1
+SpecificCultures           2
+InstalledWin32Cultures     4
+AllCultures                7
+UserCustomCulture          8
+ReplacementCultures       16
+WindowsOnlyCultures       32
+FrameworkCultures         64</dev:code>
+        <dev:remarks>
+          <maml:para>You might need to include the full type name.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/1f9841</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Test-IsEnum</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -19149,6 +19877,141 @@ d8fdba1f-e046-429a-8225-9cbbe927e366 6/18/2026 7:26:08 AM
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-TypeMember</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Show-ProcessTree</command:name>
+      <command:verb>Show</command:verb>
+      <command:noun>ProcessTree</command:noun>
+      <maml:description>
+        <maml:para>Display a graphical process tree.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This is a wrapper function for Get-ProcessTree. It will display the tree in a graphical format. This command uses ANSI sequences and requires PowerShell 7.,</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Show-ProcessTree</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="ProcessID, PID">
+          <maml:name>ID</maml:name>
+          <maml:description>
+            <maml:para>Specify a process ID.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>IncludeUserName</maml:name>
+          <maml:description>
+            <maml:para>Include the process owner.</maml:para>
+          </maml:description>
+          <dev:type>
+            <maml:name>SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="ProcessID, PID">
+        <maml:name>ID</maml:name>
+        <maml:description>
+          <maml:para>Specify a process ID.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>IncludeUserName</maml:name>
+        <maml:description>
+          <maml:para>Include the process owner.</maml:para>
+        </maml:description>
+        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command has an alias of spt.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Show-ProcessTree $pid
+
++WindowsTerminal -&gt; ID: 18244 StartTime: 7/21/2026 9:26:26 AM
+ │
+ └────:pwsh -&gt; ID: 14680 StartTime: 7/21/2026 10:17:56 AM</dev:code>
+        <dev:remarks>
+          <maml:para>Show the process tree for the current PowerShell process in a graphical format. The output will be styled with color.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-Process pwsh | where si -eq 0 | Show-ProcessTree -IncludeUserName
+
++services -&gt; ID: 2000 StartTime: 7/21/2026 8:58:18 AM []
+ │
+ └────:sshd -&gt; ID: 5492 StartTime: 7/21/2026 8:58:20 AM [NT AUTHORITY\SYSTEM]
+      │
+      └────:sshd -&gt; ID: 14088 StartTime: 7/22/2026 9:12:50 AM [NT AUTHORITY\SYSTEM]
+            │
+            └────:sshd -&gt; ID: 25856 StartTime: 7/22/2026 9:12:54 AM [Cadenza\jeff]
+                  │
+                  └────:cmd -&gt; ID: 13512 StartTime: 7/22/2026 9:12:54 AM [Cadenza\jeff]
+                        │
+                        └────:pwsh -&gt; ID: 7916 StartTime: 7/22/2026 9:12:54 AM [Cadenza\jeff]</dev:code>
+        <dev:remarks>
+          <maml:para>Output can include the process user name.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/6073d5</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-ProcessTree</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -20267,6 +21130,123 @@ True</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-PSWho</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Test-IsEnum</command:name>
+      <command:verb>Test</command:verb>
+      <command:noun>IsEnum</command:noun>
+      <maml:description>
+        <maml:para>Test if a .NET class is an enum.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This is a simple command to test if a .NET class is an enum.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Test-IsEnum</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="Class, PropertyType">
+          <maml:name>EnumType</maml:name>
+          <maml:description>
+            <maml:para>Specify an enum type name like ConsoleColor</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
+          <dev:type>
+            <maml:name>Type</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="0" aliases="Class, PropertyType">
+        <maml:name>EnumType</maml:name>
+        <maml:description>
+          <maml:para>Specify an enum type name like ConsoleColor</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Type</command:parameterValue>
+        <dev:type>
+          <maml:name>Type</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Type</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>Boolean</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Test-IsEnum DateTime
+False</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; if (Test-IsEnum ConsoleColor) { Show-Enum ConsoleColor}
+
+   Typename: System.ConsoleColor
+
+Name        Value
+----        -----
+Black           0
+DarkBlue        1
+DarkGreen       2
+DarkCyan        3
+DarkRed         4
+DarkMagenta     5
+DarkYellow      6
+Gray            7
+DarkGray        8
+Blue            9
+Green          10
+Cyan           11
+Red            12
+Magenta        13
+Yellow         14
+White          15</dev:code>
+        <dev:remarks>
+          <maml:para>Because the command writes a boolean result, it is easy to use in an If statement.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/a654eb</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Show-Enum</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

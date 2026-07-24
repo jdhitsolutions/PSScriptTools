@@ -14,7 +14,7 @@ format type data generated 09/11/2020 10:48:56 by BOVINE320\Jeff
         <Label>Name</Label>
       </GroupBy>
       <TableControl>
-          <AutoSize />
+          <AutoSize/>
         <TableHeaders>
           <TableColumnHeader>
             <Label>Scope</Label>

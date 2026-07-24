@@ -33,7 +33,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
-v3.0.0
+v3.2.0
 
    Verb: Add
 
@@ -60,7 +60,7 @@ Convert-HashtableToCode                    Convert a hashtable to a string r...
 ...
 ```
 
-The header is written to the host and not the pipeline.
+The header is written to the host and not the pipeline. In PowerShell 7, the command name will be a clickable hyperlink that points to the online help for the command.
 
 ### Example 2
 
@@ -72,7 +72,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
-v3.0.0
+v3.2.0
 
    Verb: Compare
 
@@ -102,7 +102,7 @@ ___ ___ ___         _      _  _____        _
 |  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
 |_| |___/___\__|_| |_| .__/\__||_|\___\___/_/__/
 |_|
-v3.0.0
+v3.2.0
 
    Verb:Select
 
@@ -117,6 +117,30 @@ Select-Oldest               oldest               Select the oldest X number ...
 ```
 
 Get all module commands that use the Select verb.
+
+### Example 4
+
+```powershell
+PS C:\> Get-PSScriptTools -verb test | Select Name,Alias,Online
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name                Alias   Online
+----                -----   ------
+Test-EmptyFolder            https://jdhitsolutions.com/yourls/525f6d
+Test-Expression     tex     https://jdhitsolutions.com/yourls/812715
+Test-ExpressionForm texf    https://jdhitsolutions.com/yourls/b36e28
+Test-IsElevated     isAdmin https://jdhitsolutions.com/yourls/e1c162
+Test-IsEnum                 https://jdhitsolutions.com/yourls/a654eb
+Test-IsPSWindows            https://jdhitsolutions.com/yourls/c102e6
+Test-WithCulture            https://jdhitsolutions.com/yourls/15101d
+```
+
+The output is an object with properties you might want to use.
 
 ## PARAMETERS
 

@@ -30,9 +30,12 @@ Function Out-More {
     Param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [object[]]$InputObject,
+
+        [parameter(Position = 0,HelpMessage = "Specify the approximate number of items to page.")]
         [ValidateRange(1, 1000)]
-        [Alias("i")]
+        [Alias("i","page")]
         [int]$Count = 50,
+
         [Alias("cls")]
         [Switch]$ClearScreen
     )
@@ -55,6 +58,14 @@ Function Out-More {
         $Ready = $False
         $Quit = $False
 
+        #22 July 2026 ANSI code to clear the prompt when displaying the next page
+        Function _clearPrompt {
+            $e = [char]27
+            "$($e)[2A"
+            "$($e)[K"
+            "$($e)[3A"
+            "$($e)[1G"
+        }
     } #begin
 
     Process {
@@ -91,16 +102,18 @@ Function Out-More {
                 if ($r.Length -eq 0 -OR $r -match "^m") {
                     #don't really do anything
                     $Asked = $True
+                    _clearPrompt
                 }
                 else {
                     Switch -Regex ($r) {
-
                         "^n" {
+                            _clearPrompt
                             $ShowNext = $True
                             $InputObject
                             $Asked = $True
                         }
                         "^a" {
+                            _clearPrompt
                             $InputObject
                             $Asked = $True
                             $ShowAll = $True
@@ -109,6 +122,7 @@ Function Out-More {
                             #bail out
                             $Asked = $True
                             $Quit = $True
+                            $ShowAll = $True
                         }
                         Default {
                             $Asked = $False
@@ -125,7 +139,7 @@ Function Out-More {
     } #process
 
     End {
-        #test if data is from a get-help command in
+        #test if data is from a Get-Help command in
         #which case it will be a single string that needs
         #to be broken apart
 

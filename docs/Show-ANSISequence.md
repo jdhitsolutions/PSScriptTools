@@ -22,7 +22,7 @@ Show-ANSISequence [-Basic] [-AsString] [<CommonParameters>]
 ### foreback
 
 ```yaml
-Show-ANSISequence [-Foreground] [-Background] [-Type <String>] [-AsString] [<CommonParameters>]
+Show-ANSISequence [-Foreground] [-Background] [-Type <String>] [-AsString] [-Paging] [-PageCount <Int32>] [<CommonParameters>]
 ```
 
 ### RGB
@@ -36,6 +36,8 @@ Show-ANSISequence [-RGB <Int32[]>] [-AsString] [<CommonParameters>]
 This script is designed to make it easy to see ANSI escape sequences and how they will display in your PowerShell session. Use the -AsString parameter to write simple strings to the pipeline which makes it easier to copy items to the clipboard.
 
 The escape character will depend on whether you are running Windows PowerShell or PowerShell 7.x. For best results, you need to run this command in a PowerShell session and host that supports ANSI escape sequences.
+
+The number of columns displayed depends on the width of your console window.
 
 ## EXAMPLES
 
@@ -91,6 +93,14 @@ PS C:\> Show-ANSISequence -RGB 225,100,50 -AsString | Set-Clipboard
 ```
 
 Repeat the previous example but write the output as a plain string and copy it to the clipboard.
+
+### Example 5
+
+```powershell
+PS C:\ Show-ANSISequence -background -paging
+```
+
+Output is displayed in pages using Out-More. You can adjust the number of items using the -PageCount parameter.
 
 ## PARAMETERS
 
@@ -160,8 +170,7 @@ Accept wildcard characters: False
 
 ### -RGB
 
-Display an RGB ANSI sequence.
-You must pass an array of values for Red,Blue, and Green.
+Display an RGB ANSI sequence. You must pass an array of values for Red,Blue, and Green.
 Each value must be between 0 and 255.
 
 ```yaml
@@ -192,6 +201,38 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -Paging
+
+Page the display using Out-More.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: foreback
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -PageCount
+
+The number of items to display per page. This parameter has no effect unless used with -Paging.
+
+```yaml
+Type: Int32
+Parameter Sets: foreback
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
 ### CommonParameters
 
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
@@ -204,7 +245,9 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ### System.String
 
-## Notes
+## NOTES
+
+This command has an alias of sas.
 
 Learn more about ANSI sequences at https://en.wikipedia.org/wiki/ANSI_escape_code
 

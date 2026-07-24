@@ -118,7 +118,7 @@ function Get-WindowsVersion {
 function Get-WindowsVersionString {
     [cmdletbinding()]
     [OutputType('System.String')]
-
+    [alias('wvers')]
     param (
         [Parameter(
             Position = 0,

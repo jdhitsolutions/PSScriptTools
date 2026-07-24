@@ -10,6 +10,7 @@
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
+        [ValidateScript({Test-Path -Path $_})]
         [alias('FullName')]
         [string[]]$Path = '.',
 
@@ -19,6 +20,7 @@
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
+        [ValidateScript({Test-Path -LiteralPath $_})]
         [string[]]$LiteralPath,
 
         [Parameter(Position = 1)]
@@ -35,6 +37,7 @@
 
         [Parameter(HelpMessage = 'Display item properties. Use * to show all properties or specify a comma separated list.')]
         [alias('properties')]
+        [ValidateNotNullOrEmpty()]
         [string[]]$ShowProperty
     )
     DynamicParam {
@@ -109,7 +112,12 @@
             $teeChar = if ($IsLast[-1]) { '\' } else { '+' }
             $str += "$teeChar"
             $str += '-' * ($IndentSize - 1)
-            $str
+            if ($Colorize) {
+                "$([char]27)[92m$str$([char]27)[0m"
+            }
+            else {
+                $str
+            }
 
             Write-Verbose "Ending $($MyInvocation.MyCommand)"
         }
