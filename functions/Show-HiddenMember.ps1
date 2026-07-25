@@ -1,13 +1,13 @@
 function Show-HiddenMember {
     [cmdletbinding()]
-    [OutputType("psHiddenMember")]
+    [OutputType('psHiddenMember')]
     [Alias('sm')]
-    
+
     param(
         [Parameter(
-            Position = 0, 
-            Mandatory, 
-            ValueFromPipeline, 
+            Position = 0,
+            Mandatory,
+            ValueFromPipeline,
             HelpMessage = 'Pipe an object to this command'
         )]
         [Object]$InputObject,
@@ -16,6 +16,9 @@ function Show-HiddenMember {
         [Switch]$ExcludePropertyMethod
     )
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         $count = 0
     } #begin
     process {
@@ -33,17 +36,17 @@ function Show-HiddenMember {
             if ($all -and $normal) {
                 $diff = Compare-Object -ReferenceObject $normal -DifferenceObject $all -Property Name, MemberType |
                 Select-Object Name, MemberType, @{Name = 'Type'; Expression = { $InputObject.GetType().FullName } } |
-               Foreach-Object {
-                #insert a custom type name
-                $_.PSObject.TypeNames.Insert(0,'psHiddenMember')
-                $_
-                } 
+                ForEach-Object {
+                    #insert a custom type name
+                    $_.PSObject.TypeNames.Insert(0, 'psHiddenMember')
+                    $_
+                }
             }
             elseif ((-not $normal) -and $all) {
                 $diff = $all | Select-Object Name, MemberType, @{Name = 'Type'; Expression = { $InputObject.GetType().FullName } } |
-                Foreach-Object {
+                ForEach-Object {
                     #insert a custom type name
-                    $_.PSObject.TypeNames.Insert(0,'psHiddenMember')
+                    $_.PSObject.TypeNames.Insert(0, 'psHiddenMember')
                     $_
                 }
             }
@@ -64,3 +67,5 @@ function Show-HiddenMember {
         #this script block is unused
     }
 }
+
+#EOF

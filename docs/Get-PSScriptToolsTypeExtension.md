@@ -29,7 +29,8 @@ The PSScriptTools module includes several custom type extensions that you can im
 PS C:\> Get-PSScriptToolsTypeExtension -TypeName *file*
 
 TypeName   : System.IO.FileInfo
-Description: Alias and script properties designed to extend the file object. There is also a PropertySet called AgeInfo.
+Description: Alias and script properties designed to extend the file object. There is
+also a PropertySet called AgeInfo.
 
     MemberType    MemberName
     ----------    ----------

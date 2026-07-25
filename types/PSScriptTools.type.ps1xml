@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Types>
+  <Type>
+    <Name>PSScriptTool</Name>
+    <Members>
+      <AliasProperty>
+        <Name>Help</Name>
+        <ReferencedMemberName>Online</ReferencedMemberName>
+      </AliasProperty>
+      <PropertySet>
+        <Name>TagInfo</Name>
+        <ReferencedProperties>
+          <Name>Name</Name>
+          <Name>Alias</Name>
+          <Name>Tags</Name>
+          <Name>Synopsis</Name>
+          <Name>Help</Name>
+        </ReferencedProperties>
+      </PropertySet>
+    </Members>
+  </Type>
+</Types>

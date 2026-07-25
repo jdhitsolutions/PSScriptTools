@@ -33,11 +33,17 @@ Function New-ANSIHyperlink {
         )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi,scripting
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
     Process {
+        if ($Host.Name -eq 'Windows PowerShell ISE Host') {
+            Write-Warning "This command is not supported in the PowerShell ISE"
+            return
+        }
         if ($Style) {
             If ($Style -match "^$([char]27).*m") {
                 $styleString = $Style -Replace [char]27,"{esc}"
@@ -73,3 +79,4 @@ Function New-ANSIHyperlink {
     } #end
 
 } #close New-ANSIHyperlink
+#EOF

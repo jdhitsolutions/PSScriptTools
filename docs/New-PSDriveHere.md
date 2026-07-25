@@ -55,7 +55,7 @@ This will create a new PSDrive called Enterprise rooted to the current location.
 
 ```powershell
 PS C:\> New-PSDriveHere HKLM:\software\microsoft -PassThru |
-Select-Object -Expandproperty Name
+Select-Object -ExpandProperty Name
 
 microsoft
 ```
@@ -71,7 +71,7 @@ Create a new PSDrive called PSFiles rooted to the specified path.
 ### Example 5
 
 ```powershell
-PS C:\Users\Jeff\Documents\DeepDive\> New-PSDriveHere . DeepDive -setlocation
+PS C:\Users\Jeff\Documents\DeepDive\> New-PSDriveHere . DeepDive -SetLocation
 PS DeepDive:\>
 ```
 
@@ -206,8 +206,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.Management.Automation.PSDrive
 
 ## NOTES
-
-Originally published at http://jdhitsolutions.com/blog/2010/08/New-PSDriveHere/
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 

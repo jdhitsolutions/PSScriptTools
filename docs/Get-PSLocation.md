@@ -50,7 +50,7 @@ Temp        : /tmp/
 Desktop     :
 PowerShell  : /home/jeff/.config/powershell
 PSHome      : /opt/microsoft/powershell/7
-ModulePaths : {/home/jeff/.local/share/powershell/Modules, /usr/local/share/powershell/Modules, ...}
+ModulePaths : {/home/jeff/.local/share/powershell/Modules, /usr/local/share/powershell/...}
 ```
 
 Results on a Linux system running PowerShell.

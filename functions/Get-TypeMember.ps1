@@ -10,7 +10,8 @@ class ResolveType : System.Management.Automation.ArgumentTransformationAttribute
             #This will be the new parameter value
             #write-host "converting to type" -ForegroundColor Magenta
             return ($rx.Match($inputData).Value -as [Type])
-        } else {
+        }
+        else {
             #write-host "no change" -ForegroundColor cyan
             return $inputData
         }
@@ -18,11 +19,11 @@ class ResolveType : System.Management.Automation.ArgumentTransformationAttribute
 }
 
 #Get-MemberMethod is a private function and not exported
-Function Get-MemberMethod {
+function Get-MemberMethod {
     [cmdletbinding()]
     [OutputType('string')]
     [alias('gmm')]
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -43,12 +44,14 @@ Function Get-MemberMethod {
         [string]$MethodName
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing method $MethodName from $($TypeName.Name)"
 
         $methods = $TypeName.GetMember($MethodName).Where({ $_.MemberType -eq 'method' })
@@ -64,17 +67,17 @@ Function Get-MemberMethod {
         }
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Get-MemberMethod
 
-Function Get-TypeMember {
+function Get-TypeMember {
     [cmdletbinding(DefaultParameterSetName = 'member')]
     [OutputType('psTypeMember')]
     [Alias('gtm')]
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -100,35 +103,38 @@ Function Get-TypeMember {
         [string]$MemberName
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
 
         #define the appropriate filter
         if ($MemberName) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering by member name $MemberName"
-            $filter = { (-Not $_.IsSpecialName) -AND ($_.Name -Like $MemberName) }
+            $filter = { (-not $_.IsSpecialName) -and ($_.Name -like $MemberName) }
         }
         elseif ($StaticOnly) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for Static methods"
-            $filter = { -Not $_.IsSpecialName -AND $_.IsStatic }
+            $filter = { -not $_.IsSpecialName -and $_.IsStatic }
         }
         elseif ($MemberType) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for $MemberType methods"
-            $filter = { -Not $_.IsSpecialName -AND $_.MemberType -eq $MemberType }
+            $filter = { -not $_.IsSpecialName -and $_.MemberType -eq $MemberType }
         }
         elseif ($EnumOnly) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for Enum properties"
-            $filter = { -Not $_.IsSpecialName -AND $_.propertyType.IsEnum }
+            $filter = { -not $_.IsSpecialName -and $_.propertyType.IsEnum }
         }
         elseif ($force) {
 
         }
         else {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Filtering for all non-special members"
-            $filter = { -Not $_.IsSpecialName -AND -Not $_.IsVirtual }
+            $filter = { -not $_.IsSpecialName -and -not $_.IsVirtual }
         }
     } #begin
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing $($typename.name)"
         #Create the output
         $typeName.GetMembers() | Where-Object $filter |
@@ -149,16 +155,16 @@ Function Get-TypeMember {
             }
         } #Foreach-Object
     } #process
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 } #close function
 
-Function Get-TypeConstructor {
+function Get-TypeConstructor {
     [cmdletbinding(DefaultParameterSetName = 'member')]
     [OutputType('psTypeMemberConstructor')]
-    [alias("ctor")]
-    Param (
+    [alias('ctor')]
+    param (
         [Parameter(
             Position = 0,
             Mandatory,
@@ -169,21 +175,24 @@ Function Get-TypeConstructor {
         [Type]$TypeName
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing $($typename.name)"
         $Constructors = $typename.GetConstructors()
         if ($Constructors) {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($Constructors.count) constructors"
-            Foreach ($c in $Constructors) {
+            foreach ($c in $Constructors) {
                 $cParams = $c.GetParameters()
                 if ($cParams) {
                     $newParams = $cParams | Select-Object ParameterType,
-                    @{Name="ParameterName";Expression = { $_.Name}}
+                    @{Name = 'ParameterName'; Expression = { $_.Name } }
                 }
                 else {
                     $newParams = @()
@@ -201,7 +210,9 @@ Function Get-TypeConstructor {
         }
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 } #close function
+
+#EOF

@@ -1,15 +1,15 @@
-Function Select-First {
+function Select-First {
     [CmdletBinding()]
-    [Alias("First")]
+    [Alias('First')]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [PSObject]$InputObject,
 
-        [Parameter(Position = 0, Mandatory, HelpMessage = "How many items do you want to select?")]
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'How many items do you want to select?')]
         [ValidateRange(0, 2147483647)]
         [int]$First,
 
-        [Parameter(Position = 1, HelpMessage = "Select a property to sort on before selecting the first number of objects.")]
+        [Parameter(Position = 1, HelpMessage = 'Select a property to sort on before selecting the first number of objects.')]
         [ValidateNotNullOrEmpty()]
         [string]$Property,
 
@@ -21,22 +21,23 @@ Function Select-First {
         [switch]$Descending
     )
 
-    Begin {
-
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = select
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
-        if ($PSBoundParameters.ContainsKey("Property")) {
+        if ($PSBoundParameters.ContainsKey('Property')) {
             $sortParams = @{Property = $Property }
             Write-Verbose "[BEGIN  ] Sorting on $Property"
         }
-        if ($PSBoundParameters.ContainsKey("Descending")) {
+        if ($PSBoundParameters.ContainsKey('Descending')) {
             if ($sortParams) {
-                $sortParams.Add("Descending", $True)
+                $sortParams.Add('Descending', $True)
             }
             else {
                 #it is possible to sort without a property say on a string or number
-                $sortParams = @{"Descending" = $True }
+                $sortParams = @{'Descending' = $True }
             }
         }
 
@@ -46,16 +47,16 @@ Function Select-First {
 
     } #begin
 
-    Process {
+    process {
 
         #save input objects so they can be sorted
         if ($data.count -eq 0) {
-            Write-Verbose "[PROCESS] Processing input"
+            Write-Verbose '[PROCESS] Processing input'
         }
         #verify property
-        if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
+        if ($property -and $InputObject.PSObject.properties.name -notcontains $property) {
             $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
-            Throw $exception
+            throw $exception
         }
         else {
             $data.add($InputObject)
@@ -63,9 +64,9 @@ Function Select-First {
 
     } #process
 
-    End {
-        If ($sortParams) {
-            Write-Verbose "[END    ] Sort parameters"
+    end {
+        if ($sortParams) {
+            Write-Verbose '[END    ] Sort parameters'
             Write-Verbose ($sortParams | Out-String)
             $data = $data | Sort-Object @sortParams
         }
@@ -77,18 +78,18 @@ Function Select-First {
 
 } #end function Select-First
 
-Function Select-Last {
+function Select-Last {
     [CmdletBinding()]
-    [Alias("Last")]
+    [Alias('Last')]
     param(
         [Parameter(Mandatory, ValueFromPipeline )]
         [PSObject]$InputObject,
 
-        [Parameter(Position = 0, Mandatory, HelpMessage = "How many items do you want to select?")]
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'How many items do you want to select?')]
         [ValidateRange(0, 2147483647)]
         [int]$Last,
 
-        [Parameter(Position = 1, HelpMessage = "Sort on this property and then select the last number of items")]
+        [Parameter(Position = 1, HelpMessage = 'Sort on this property and then select the last number of items')]
         [ValidateNotNullOrEmpty()]
         [string]$Property,
 
@@ -100,21 +101,23 @@ Function Select-Last {
         [switch]$Descending
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = select
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
-        if ($PSBoundParameters.ContainsKey("Property")) {
+        if ($PSBoundParameters.ContainsKey('Property')) {
             $sortParams = @{Property = $Property }
             Write-Verbose "[BEGIN  ] Sorting on $Property"
         }
-        if ($PSBoundParameters.ContainsKey("Descending")) {
+        if ($PSBoundParameters.ContainsKey('Descending')) {
             if ($sortParams) {
-                $sortParams.Add("Descending", $True)
+                $sortParams.Add('Descending', $True)
             }
             else {
                 #it is possible to sort without a property say on a string or number
-                $sortParams = @{"Descending" = $True }
+                $sortParams = @{'Descending' = $True }
             }
         }
 
@@ -124,24 +127,24 @@ Function Select-Last {
 
     } #begin
 
-    Process {
+    process {
         #save input objects so they can be sorted
         if ($data.count -eq 0) {
-            Write-Verbose "[PROCESS] Processing input"
+            Write-Verbose '[PROCESS] Processing input'
         }
         #verify property
-        if ($property -AND $InputObject.PSObject.properties.name -NotContains $property) {
+        if ($property -and $InputObject.PSObject.properties.name -notcontains $property) {
             $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
-            Throw $exception
+            throw $exception
         }
         else {
             $data.add($InputObject)
         }
     } #process
 
-    End {
-        If ($sortParams) {
-            Write-Verbose "[END    ] Sorting parameters"
+    end {
+        if ($sortParams) {
+            Write-Verbose '[END    ] Sorting parameters'
             Write-Verbose ($sortParams | Out-String)
             $data = $data | Sort-Object @sortParams
         }
@@ -153,22 +156,24 @@ Function Select-Last {
 
 } #end function Select-Last
 
-Function Select-After {
+function Select-After {
     [CmdletBinding()]
-    [alias("after")]
+    [alias('after')]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [PSObject]$InputObject,
 
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the cutoff date")]
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter the cutoff date')]
         [DateTime]$After,
 
-        [Parameter(HelpMessage = "Enter the property name to select on. It needs to be a datetime object.")]
+        [Parameter(HelpMessage = 'Enter the property name to select on. It needs to be a datetime object.')]
         [ValidateNotNullOrEmpty()]
-        [string]$Property = "LastWriteTime"
+        [string]$Property = 'LastWriteTime'
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = select
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "[BEGIN  ] Selecting objects after $after based on the $Property property"
@@ -176,9 +181,9 @@ Function Select-After {
 
     process {
         #verify property
-        if ($InputObject.PSObject.properties.name -NotContains $property) {
+        if ($InputObject.PSObject.properties.name -notcontains $property) {
             $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
-            Throw $exception
+            throw $exception
         }
         else {
             $InputObject | Where-Object { $_.$property -ge $After }
@@ -191,22 +196,24 @@ Function Select-After {
 
 } #end function
 
-Function Select-Before {
+function Select-Before {
     [CmdletBinding()]
-    [alias("before")]
+    [alias('before')]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [PSObject]$InputObject,
 
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the cutoff date")]
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter the cutoff date')]
         [DateTime]$Before,
 
-        [Parameter(HelpMessage = "Enter the property name to select on. It must be a datetime object.")]
+        [Parameter(HelpMessage = 'Enter the property name to select on. It must be a datetime object.')]
         [ValidateNotNullOrEmpty()]
-        [string]$Property = "LastWriteTime"
+        [string]$Property = 'LastWriteTime'
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = select
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "[BEGIN  ] Selecting objects before $before based on the $Property property"
@@ -214,9 +221,9 @@ Function Select-Before {
 
     process {
         #verify property
-        if ($InputObject.PSObject.properties.name -NotContains $property) {
+        if ($InputObject.PSObject.properties.name -notcontains $property) {
             $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
-            Throw $exception
+            throw $exception
         }
         else {
             $InputObject | Where-Object { $_.$property -le $Before }
@@ -231,21 +238,23 @@ Function Select-Before {
 
 function Select-Newest {
     [CmdletBinding()]
-    [alias("newest")]
+    [alias('newest')]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [PSObject]$InputObject,
 
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the number of newest items to get")]
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter the number of newest items to get')]
         [ValidateRange(0, 2147483647)]
         [Int]$Newest,
 
-        [Parameter(HelpMessage = "Enter the property name to select on. It must be a datetime object.")]
+        [Parameter(HelpMessage = 'Enter the property name to select on. It must be a datetime object.')]
         [ValidateNotNullOrEmpty()]
-        [string]$Property = "LastWriteTime"
+        [string]$Property = 'LastWriteTime'
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = select
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $data = [System.Collections.Generic.List[object]]::new()
@@ -253,12 +262,12 @@ function Select-Newest {
 
     process {
         if ($data.count -eq 0) {
-            Write-Verbose "[PROCESS] Processing input"
+            Write-Verbose '[PROCESS] Processing input'
         }
         #verify property
-        if ($InputObject.PSObject.properties.name -NotContains $property) {
+        if ($InputObject.PSObject.properties.name -notcontains $property) {
             $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
-            Throw $exception
+            throw $exception
         }
         else {
             $data.add($InputObject)
@@ -275,21 +284,23 @@ function Select-Newest {
 
 function Select-Oldest {
     [CmdletBinding()]
-    [alias("oldest")]
+    [alias('oldest')]
     param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [PSObject]$InputObject,
 
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the number of Oldest items to get")]
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter the number of Oldest items to get')]
         [ValidateRange(0, 2147483647)]
         [Int]$Oldest,
 
-        [Parameter(HelpMessage = "Enter the property name to select on. It must be a datetime object.")]
+        [Parameter(HelpMessage = 'Enter the property name to select on. It must be a datetime object.')]
         [ValidateNotNullOrEmpty()]
-        [string]$Property = "LastWriteTime"
+        [string]$Property = 'LastWriteTime'
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = select
         Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $data = [System.Collections.Generic.List[object]]::new()
@@ -297,12 +308,12 @@ function Select-Oldest {
 
     process {
         if ($data.count -eq 0) {
-            Write-Verbose "[PROCESS] Processing input"
+            Write-Verbose '[PROCESS] Processing input'
         }
         #verify property
-        if ($InputObject.PSObject.properties.name -NotContains $property) {
+        if ($InputObject.PSObject.properties.name -notcontains $property) {
             $exception = [System.ArgumentException]::new("Cannot find property $property on the InputObject.")
-            Throw $exception
+            throw $exception
         }
         else {
             $data.add($InputObject)
@@ -316,3 +327,5 @@ function Select-Oldest {
     } #end
 }
 
+
+#EOF

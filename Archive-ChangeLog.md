@@ -2,6 +2,63 @@
 
 This file contains older change history. It is maintained for reference purposes.
 
+## 2.49.0 - 2024-06-06
+
+### Added
+
+- Modified `ConvertTo-Markdown` to use `Property` and `Value` headings when converting to a list.
+- Added CimMember functions `Get-CimNamespace`, `Get-CimClassMethod`, `Get-CimClassProperty`, `Get-CimClassPropertyQualifier`, `Get-CimClassName` and `Get-CimMember`. ([Issue #137](https://github.com/jdhitsolutions/PSScriptTools/issues/137))
+- Added custom formatting for `Get-CimClassName`.
+- Added the module `ThreadJob` as a module dependency to the manifest.
+
+### Changed
+
+- Modified module manifest to remove version logic on function export. Now exporting everything. If there is an OS limitation, try to handle it on a per-command basis. __This may be a breaking change__.
+- Changed PDF manual theme from `github` to `github.dark`.
+- Updated `Get-ParameterInfo` to recognize `ProgressAction` as a common parameter. This parameter was add in PowerShell 7.
+- Updated the default table view for output from `Get-ModuleCommand` to include the module version number.
+- Modified `Show-Tree` to better handle multi-string and binary values in the registry.
+- Modified `Show-Tree` to use `PSStyle.FileInfo` for color information if detected. ([Issue #147](https://github.com/jdhitsolutions/PSScriptTools/issues/147))
+- Updated `README.md`
+- Revised `Get-FolderSizeInfo` to be more consistent between PowerShell versions. The command will skip counting all reparse points. __This may be a breaking change__. ([Issue #145](https://github.com/jdhitsolutions/PSScriptTools/issues/145))
+- Re-wrote `Find-CimClass` to use `CimSession`.
+- Revised `Get-ParameterInfo` to sort the output by default using ParameterSet, Position, and Name
+- Help updates.
+
+### Fixed
+
+- Revised `Get-WindowsVersion` to handle non-English cultures. ([Issue #142](https://github.com/jdhitsolutions/PSScriptTools/issues/142))
+- Fixed bug in `Convert-EventLogRecord` that failed on duplicate property name `ID`. ([Issue #143](https://github.com/jdhitsolutions/Scripts/issues/143))
+
+## [v2.48.0] - 2023-07-28
+
+### Added
+
+- Added parameter `ProviderName` to `Get-CommandSyntax to let the user specify a provider.` [Issue #139](https://github.com/jdhitsolutions/PSScriptTools/issues/139)
+
+### Changed
+
+- Modified `Get-ParameterInfo` to sort output by parameter set. [Issue #138](https://github.com/jdhitsolutions/PSScriptTools/issues/138)
+- Modified the format file for `psparameterinfo` objects to use a table as the default.
+- Added `EnumOnly` parameter to `Get-TypeMember` [Issue #135](https://github.com/jdhitsolutions/PSScriptTools/issues/135)
+- Help updates
+
+## v2.47.0 - 2023-05-25
+
+### Changed
+
+- Added missing online help links.
+- Updated module description in the manifest.
+- Added `EnableLN` parameter alias to `Get-FolderSizeInfo`.
+- Help updates.
+- Update `Get-TypeMember` to identify properties that are enumerations.
+- Updated format file for `Get-TypeMember` to highlight enum properties.
+- Updated `README.md`.
+
+### Deprecated
+
+- Marked `Out-ConditionalColor` and `Set-ConsoleColor` as deprecated. They will be removed in a future release.
+
 ## v2.46.0 - 2023-03-03
 
 ### Changed

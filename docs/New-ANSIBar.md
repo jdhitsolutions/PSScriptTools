@@ -32,6 +32,8 @@ You can use this command to create colorful bars using ANSI escape sequences bas
 
 You can learn more about ANSI escape codes at https://en.wikipedia.org/wiki/ANSI_escape_code.
 
+This command will not run in the Windows PowerShell ISE.
+
 ## EXAMPLES
 
 ### Example 1

@@ -1,52 +1,54 @@
-Function Test-WithCulture {
-    [cmdletbinding(DefaultParameterSetName = "scriptblock")]
-    Param (
+function Test-WithCulture {
+    [cmdletbinding(DefaultParameterSetName = 'scriptblock')]
+    param (
         [Parameter(
             Position = 0,
             Mandatory,
-            HelpMessage = "Enter a new culture like de-de"
-            )]
+            HelpMessage = 'Enter a new culture like de-de'
+        )]
         [ValidateNotNullOrEmpty()]
         [System.Globalization.CultureInfo]$Culture,
         [Parameter(
             Position = 1,
-            ParameterSetName = "scriptblock",
+            ParameterSetName = 'scriptblock',
             Mandatory,
-            HelpMessage = "Enter a scriptblock to execute using the specified culture"
-            )]
+            HelpMessage = 'Enter a scriptblock to execute using the specified culture'
+        )]
         [ValidateNotNullOrEmpty()]
         [scriptblock]$Scriptblock,
         [Parameter(
-            ParameterSetName = "file",
+            ParameterSetName = 'file',
             Mandatory,
-            HelpMessage = "Enter the path to a PowerShell script file to execute using the specified culture"
-            )]
+            HelpMessage = 'Enter the path to a PowerShell script file to execute using the specified culture'
+        )]
         [ValidateNotNullOrEmpty()]
         [ValidatePattern('\.ps1$')]
         [ValidateScript( {
-            if (Test-Path $_ ) {
-                $True
-            }
-            else {
-                throw "Failed to find the file $_."
-                $false
-            }
-        })]
+                if (Test-Path $_ ) {
+                    $True
+                }
+                else {
+                    throw "Failed to find the file $_."
+                    $false
+                }
+            })]
         [string]$FilePath,
-        [Parameter(HelpMessage = "Specify an array of positional arguments to pass to the scriptblock for file.")]
+        [Parameter(HelpMessage = 'Specify an array of positional arguments to pass to the scriptblock for file.')]
         [object[]]$ArgumentList
     )
+    #tags are used for categorizing the command
+    #cmdTags = scripting
 
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose "Testing with culture-language $culture. [$($culture.DisplayName)]"
 
-    Write-Verbose "Saving current culture values"
+    Write-Verbose 'Saving current culture values'
     #save current culture values
     $OldCulture = $PSCulture
     $OldUICulture = $PSUICulture
 
-    Write-Verbose "Setting the new culture"
+    Write-Verbose 'Setting the new culture'
     [System.Threading.Thread]::CurrentThread.CurrentCulture = $culture
     [System.Threading.Thread]::CurrentThread.CurrentUICulture = $culture
 
@@ -54,25 +56,25 @@ Function Test-WithCulture {
     Write-Verbose "Using PowerShell $($PSVersionTable.PSVersion)"
     Write-Verbose "Current Thread Culture = $([System.Threading.Thread]::CurrentThread.CurrentCulture)"
     Write-Verbose "Current Thread UICulture = $([System.Threading.Thread]::CurrentThread.CurrentUICulture)"
-    [void]$PSBoundParameters.remove("Culture")
-    [void]$PSBoundParameters.add("ErrorAction", "stop")
-    Try {
+    [void]$PSBoundParameters.remove('Culture')
+    [void]$PSBoundParameters.add('ErrorAction', 'stop')
+    try {
         #run the command
-        if ($PSCmdlet.ParameterSetName -eq "scriptblock") {
+        if ($PSCmdlet.ParameterSetName -eq 'scriptblock') {
             Write-Verbose "Testing $scriptblock"
         }
         else {
-            Write-Verbose "Adding computername parameter"
-            $PSBoundParameters.add("ComputerName", "localhost")
+            Write-Verbose 'Adding computername parameter'
+            $PSBoundParameters.add('ComputerName', 'localhost')
             Write-Verbose "Invoking file $Filepath"
         }
         Invoke-Command @PSBoundParameters
     }
-    Catch {
+    catch {
         Write-Warning "There was a problem. $($_.exception.message)"
     }
-    Finally {
-        Write-Verbose "Restoring original settings"
+    finally {
+        Write-Verbose 'Restoring original settings'
         #roll culture settings back - erring on the side of caution.
         [System.Threading.Thread]::CurrentThread.CurrentCulture = $OldCulture
         [System.Threading.Thread]::CurrentThread.CurrentUICulture = $OldUICulture
@@ -84,11 +86,12 @@ Register-ArgumentCompleter -CommandName Test-WithCulture -ParameterName Culture 
     param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
 
     $CultHash = @{ }
-    [System.Globalization.CultureInfo]::GetCultures("AllCulture") |
-    Foreach-object { $CultHash.add($_.name, $_.DisplayName)}
+    [System.Globalization.CultureInfo]::GetCultures('AllCulture') |
+    ForEach-Object { $CultHash.add($_.name, $_.DisplayName) }
 
     ($CultHash.GetEnumerator()).where( { $_.key -match "^$WordToComplete" }) |
     ForEach-Object {
         [System.Management.Automation.CompletionResult]::new($_.name, $_.name, 'ParameterValue', $_.value)
     }
 }
+#EOF

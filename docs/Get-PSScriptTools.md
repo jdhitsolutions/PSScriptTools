@@ -14,12 +14,12 @@ Get a summary of PSScriptTools commands.
 ## SYNTAX
 
 ```yaml
-Get-PSScriptTools [-Verb <String>] [<CommonParameters>]
+Get-PSScriptTools [-Verb <String>] [-Tag <String>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-You can use this command to get a summary display of functions included in the PSScriptTools module. Use the -Verb parameter to filter the output.
+You can use this command to get a summary display of functions included in the PSScriptTools module. Use the -Verb and -Tag parameters to filter the output.
 
 ## EXAMPLES
 
@@ -142,11 +142,71 @@ Test-WithCulture            https://jdhitsolutions.com/yourls/15101d
 
 The output is an object with properties you might want to use.
 
+### Example 5
+
+```powershell
+PS C:\> Get-PSScriptTools -Tag ansi -verb Get | Format-Table -View tags
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name                     Alias Tags            Synopsis
+----                     ----- ----            --------
+Get-CimMember            cmm   {ansi}          Get information about CIM cl....
+Get-PSAnsiFileMap              {ansi}          Display the PSAnsiFileMap.
+Get-WindowsVersionString wvers {general, ansi} Get Windows version informati...
+```
+
+Beginning with v3.2.0, you can also filter on a predefined list of tags that categorize each command. You can also use a new formatted table view called tags.
+
+### Example 6
+
+```powershell
+PS C:\> Get-PSScriptTools -verb export | Select tagInfo
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name     : Export-PSAnsiFileMap
+Alias    :
+Tags     : {ansi}
+Synopsis : Export a PSAnsiFileMap to a file.
+Help     : https://jdhitsolutions.com/yourls/33a505
+```
+
+You can also use the tagInfo property set.
+
 ## PARAMETERS
 
 ### -Verb
 
 Filter commands based on a standard PowerShell verb.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Tag
+
+Filter commands based on command tag. Valid values:
+
+'ansi','cim','console','editor','file','format','general','graphical','hashtable','other','scripting','select','time'
+
+Even though a command might have multiple tags, you can only filter on a single one.
 
 ```yaml
 Type: String

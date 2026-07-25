@@ -129,7 +129,11 @@ Accept wildcard characters: False
 
 ### -EnableLongFileName
 
-Enable support for long file and folder names. Read https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation?tabs=registry to learn more.
+Enable support for long file and folder names. Read:
+
+https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation
+
+to learn more.
 
 ```yaml
 Type: SwitchParameter

@@ -13,6 +13,8 @@ function Get-MyAlias {
         [switch]$NoModule
     )
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -25,8 +27,8 @@ function Get-MyAlias {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Detected $($defaultAliases.count) initial aliases."
 
         #get defined aliases from my commonly used modules
-        $moduleList = "Microsoft.Powershell.PSResourceGet","Microsoft.PowerShell.ConsoleGuiTools","CimCmdlets",
-        "Hyper-V","PSReadline","Pester"
+        $moduleList = 'Microsoft.Powershell.PSResourceGet', 'Microsoft.PowerShell.ConsoleGuiTools', 'CimCmdlets',
+        'Hyper-V', 'PSReadline', 'Pester'
         $moduleAliases = (Get-Command -mod $moduleList -CommandType Alias )
         Write-Information $moduleAliases -Tags ModuleAliases
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Adding $($moduleAliases.count) module defined aliases"
@@ -39,7 +41,7 @@ function Get-MyAlias {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting all aliases that are NOT part of the initial session."
         if ($NoModule) {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Filtering out aliases that belong to a module."
-            (Get-Alias -Name $Name -OutVariable defined).Where( {($DefaultAliases.Name -notcontains $_.name) -and (-not $_.Source) })
+            (Get-Alias -Name $Name -OutVariable defined).Where( { ($DefaultAliases.Name -notcontains $_.name) -and (-not $_.Source) })
         }
         else {
             (Get-Alias -Name $Name -OutVariable defined).Where({ $DefaultAliases.Name -notcontains $_.name })
@@ -53,3 +55,4 @@ function Get-MyAlias {
 
 } #close Get-MyAlias
 
+#EOF

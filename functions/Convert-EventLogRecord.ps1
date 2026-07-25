@@ -1,8 +1,8 @@
-﻿Function Convert-EventLogRecord {
+﻿function Convert-EventLogRecord {
     [cmdletbinding()]
     [alias('clr')]
 
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -12,12 +12,14 @@
         [System.Diagnostics.Eventing.Reader.EventLogRecord[]]$LogRecord
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         foreach ($record in $LogRecord) {
             Write-Verbose "[PROCESS] Processing event id $($record.ID) from $($record.LogName) log on $(($record.MachineName).ToUpper())"
             Write-Verbose '[PROCESS] Creating XML data'
@@ -101,7 +103,8 @@
         } #foreach record
     } #process
 
-    End {
+    end {
         Write-Verbose "[END    ] Ending: $($MyInvocation.MyCommand)"
     } #end
 }
+#EOF

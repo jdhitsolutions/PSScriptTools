@@ -2,24 +2,26 @@
 
 using namespace System.Collections.generic
 
-Function Get-FileExtensionInfo {
+function Get-FileExtensionInfo {
     [cmdletbinding()]
-    [alias("gfei")]
-    [OutputType("FileExtensionInfo")]
-    Param(
-        [Parameter(Position = 0, HelpMessage = "Specify the root directory path to search")]
+    [alias('gfei')]
+    [OutputType('FileExtensionInfo')]
+    param(
+        [Parameter(Position = 0, HelpMessage = 'Specify the root directory path to search')]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Test-Path $_ })]
-        [string]$Path = ".",
-        [Parameter(HelpMessage = "Recurse through all folders.")]
+        [string]$Path = '.',
+        [Parameter(HelpMessage = 'Recurse through all folders.')]
         [switch]$Recurse,
-        [Parameter(HelpMessage = "Include files in hidden folders")]
+        [Parameter(HelpMessage = 'Include files in hidden folders')]
         [switch]$Hidden,
-        [Parameter(HelpMessage = "Add the corresponding collection of files")]
+        [Parameter(HelpMessage = 'Add the corresponding collection of files')]
         [Switch]$IncludeFiles
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = file
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -27,11 +29,11 @@ Function Get-FileExtensionInfo {
         $cPath = Convert-Path -Path $Path
         #capture the current date and time for the audit date
         $report = Get-Date
-        Try {
+        try {
             $enumOpt = [System.IO.EnumerationOptions]::new()
         }
-        Catch {
-            Throw "This commands requires PowerShell 7."
+        catch {
+            throw 'This commands requires PowerShell 7.'
         }
 
         if ($Recurse) {
@@ -47,7 +49,7 @@ Function Get-FileExtensionInfo {
 
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing $cPath"
         $dir = Get-Item -Path $cpath
         $files = $dir.getfiles('*', $enumOpt)
@@ -62,7 +64,7 @@ Function Get-FileExtensionInfo {
 
             #create a custom object
             $out = [PSCustomObject]@{
-                PSTypeName   = "FileExtensionInfo"
+                PSTypeName   = 'FileExtensionInfo'
                 Path         = $cPath
                 Extension    = $item.Name
                 Count        = $item.Count
@@ -79,9 +81,9 @@ Function Get-FileExtensionInfo {
         }
     } #process
 
-    End {
+    end {
         #mark the extension with the largest total size
-        ($list | Sort-Object -Property TotalSize,Count)[-1].IsLargest = $true
+        ($list | Sort-Object -Property TotalSize, Count)[-1].IsLargest = $true
         #write the results to the pipeline
         $list
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
@@ -90,3 +92,5 @@ Function Get-FileExtensionInfo {
 
 Update-TypeData -TypeName FileExtensionInfo -MemberType AliasProperty -MemberName Total -Value TotalSize -Force
 
+
+#EOF

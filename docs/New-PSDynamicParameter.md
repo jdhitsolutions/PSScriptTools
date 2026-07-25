@@ -16,8 +16,8 @@ Create a PowerShell function dynamic parameter.
 ```yaml
 New-PSDynamicParameter [-ParameterName] <String[]> -Condition <String> [-Mandatory]
 [-DefaultValue <Object[]>] [-Alias <String[]>] [-ParameterType <Type>] [-HelpMessage <String>]
--ValueFromPipelineByPropertyName] [-ParameterSetName <String>][-Comment <String>]
--ValidateNotNullOrEmpty] [-ValidateLength <Int32[]>] [-ValidateSet <Object[]>]
+[-ValueFromPipelineByPropertyName] [-ParameterSetName <String>] [-Comment <String>]
+[-ValidateNotNullOrEmpty] [-ValidateLength <Int32[]>] [-ValidateSet <Object[]>]
 [-ValidateRange <Int32[]>] [-ValidateCount <Int32[]>] [-ValidatePattern <String>]
 [-ValidateScript <ScriptBlock>] [<CommonParameters>]
 ```
@@ -220,8 +220,7 @@ Accept wildcard characters: False
 
 ### -Comment
 
-Enter an optional comment for your dynamic parameter.
-It will be inserted into your code as a comment.
+Enter an optional comment for your dynamic parameter. It will be inserted into your code as a comment.
 
 ```yaml
 Type: String
@@ -253,8 +252,7 @@ Accept wildcard characters: False
 
 ### -ValidateLength
 
-Enter a minimum and maximum string length for this parameter value
-as an array of comma-separated set values.
+Enter a minimum and maximum string length for this parameter value as an array of comma-separated set values.
 
 ```yaml
 Type: Int32[]
@@ -270,7 +268,7 @@ Accept wildcard characters: False
 
 ### -ValidateSet
 
-Enter a set of parameter validations values
+Enter a set of parameter validations values.
 
 ```yaml
 Type: Object[]
@@ -286,8 +284,7 @@ Accept wildcard characters: False
 
 ### -ValidateRange
 
-Enter a set of parameter range validations values as a
-comma-separated list from minimum to maximum
+Enter a set of parameter range validations values as a comma-separated list from minimum to maximum.
 
 ```yaml
 Type: Int32[]
@@ -303,8 +300,7 @@ Accept wildcard characters: False
 
 ### -ValidateCount
 
-Enter a set of parameter count validations values as a
-comma-separated list from minimum to maximum
+Enter a set of parameter count validations values as a comma-separated list from minimum to maximum.
 
 ```yaml
 Type: Int32[]
@@ -320,7 +316,7 @@ Accept wildcard characters: False
 
 ### -ValidatePattern
 
-Enter a parameter validation regular expression pattern
+Enter a parameter validation regular expression pattern.
 
 ```yaml
 Type: String
@@ -336,8 +332,7 @@ Accept wildcard characters: False
 
 ### -ValidateScript
 
-Enter a parameter validation scriptblock.
-If using the form, enter the scriptblock text.
+Enter a parameter validation scriptblock. If using the form, enter the scriptblock text.
 
 ```yaml
 Type: ScriptBlock

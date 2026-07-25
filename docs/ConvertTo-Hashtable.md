@@ -161,8 +161,6 @@ For more information, see about_CommonParameters (http://go.microsoft.com/fwlink
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
-This was originally described at: http://jdhitsolutions.com/blog/2013/01/convert-powershell-object-to-hashtable-revised
-
 ## RELATED LINKS
 
 [About_Hash_Tables]()

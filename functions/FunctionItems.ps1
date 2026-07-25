@@ -1,8 +1,8 @@
-Function New-FunctionItem {
+function New-FunctionItem {
     [cmdletbinding(SupportsShouldProcess)]
     [OutputType('None', 'System.Management.Automation.FunctionInfo')]
     [alias('nfi')]
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -19,30 +19,32 @@ Function New-FunctionItem {
         [string]$Description,
         [switch]$PassThru
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
         Write-Verbose "[$((Get-Date).TimeOfDay)] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay)] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay)] Creating function $Name"
         $new = New-Item -Path function: -Name "global:$Name"-Value $ScriptBlock -Force
-        if ($new -AND $Description) {
+        if ($new -and $Description) {
             $new.Description = $Description
         }
-        If ($new -AND $PassThru) {
+        if ($new -and $PassThru) {
             $new
         }
     }
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay)] Ending $($MyInvocation.MyCommand)"
     } #end
 }
 
-Function Show-FunctionItem {
+function Show-FunctionItem {
     [CmdletBinding()]
     [alias('sfi')]
     [OutputType('String')]
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -50,14 +52,18 @@ Function Show-FunctionItem {
         )]
         [ValidateNotNullOrEmpty()]
         #Add an argument completer to get the names of functions from the Function: PSDrive
-        [ArgumentCompleter({param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
-            Get-ChildItem -path Function:\ | where {$_.Name -like "*$WordToComplete*"} |
-            ForEach-Object {
-                [System.Management.Automation.CompletionResult]::new($_.Name, $_.Name, 'ParameterValue', $_.Source)
-            }
-        })]
+        [ArgumentCompleter({ param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
+                Get-ChildItem -Path Function:\ | where { $_.Name -like "*$WordToComplete*" } |
+                ForEach-Object {
+                    [System.Management.Automation.CompletionResult]::new($_.Name, $_.Name, 'ParameterValue', $_.Source)
+                }
+            })]
         [string]$Name
     )
+
+    #tags are used for categorizing the command
+    #cmdTags = scripting
+
 
     Write-Verbose "Getting Function $Name"
     if (Test-Path Function:$Name) {
@@ -79,3 +85,5 @@ $($item.ScriptBlock)
         Write-Warning "Failed to find a loaded *function* called $(ConvertTo-TitleCase $name). This command will not work with binary cmdlets."
     }
 }
+
+#EOF

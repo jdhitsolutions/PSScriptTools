@@ -1,14 +1,16 @@
-Function Get-PowerShellEngine {
+function Get-PowerShellEngine {
     [CmdletBinding()]
-    [OutputType("String", "PSEngine")]
-    Param([switch]$Detail)
+    [OutputType('String', 'PSEngine')]
+    param([switch]$Detail)
 
+    #tags are used for categorizing the command
+    #cmdTags = general
     #get the current PowerShell process and the file that launched it
-    $engine = Get-Process -id $pid | Get-Item
+    $engine = Get-Process -Id $pid | Get-Item
 
     if ($Detail) {
         [PSCustomObject]@{
-            PSTypeName     = "PSEngine"
+            PSTypeName     = 'PSEngine'
             Path           = $engine.FullName
             FileVersion    = $engine.VersionInfo.FileVersion
             PSVersion      = $PSVersionTable.PSVersion.ToString()
@@ -24,23 +26,25 @@ Function Get-PowerShellEngine {
     }
 }
 
-Function Out-More {
+function Out-More {
     [cmdletbinding()]
-    [alias("om")]
-    Param(
+    [alias('om')]
+    param(
         [Parameter(Mandatory, ValueFromPipeline)]
         [object[]]$InputObject,
 
-        [parameter(Position = 0,HelpMessage = "Specify the approximate number of items to page.")]
+        [parameter(Position = 0, HelpMessage = 'Specify the approximate number of items to page.')]
         [ValidateRange(1, 1000)]
-        [Alias("i","page")]
+        [Alias('i', 'page')]
         [int]$Count = 50,
 
-        [Alias("cls")]
+        [Alias('cls')]
         [Switch]$ClearScreen
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = console
         if ($ClearScreen) {
             Clear-Host
         }
@@ -49,7 +53,7 @@ Function Out-More {
         Write-Verbose "Using a count of $count"
 
         #initialize an array to hold objects
-        Write-Verbose "Initializing data array"
+        Write-Verbose 'Initializing data array'
         $data = @()
 
         #initialize some variables to control flow
@@ -59,7 +63,7 @@ Function Out-More {
         $Quit = $False
 
         #22 July 2026 ANSI code to clear the prompt when displaying the next page
-        Function _clearPrompt {
+        function _clearPrompt {
             $e = [char]27
             "$($e)[2A"
             "$($e)[K"
@@ -68,22 +72,22 @@ Function Out-More {
         }
     } #begin
 
-    Process {
+    process {
         if ($Quit) {
-            Write-Verbose "Quitting"
-            Break
+            Write-Verbose 'Quitting'
+            break
         }
         elseif ($ShowAll) {
             $InputObject
         }
         elseif ($ShowNext) {
-            Write-Verbose "Show Next"
+            Write-Verbose 'Show Next'
             $ShowNext = $False
             $Ready = $True
             $data = , $InputObject
         }
         elseif ($data.count -lt $count) {
-            Write-Verbose "Adding data"
+            Write-Verbose 'Adding data'
             $data += $InputObject
         }
         else {
@@ -94,43 +98,43 @@ Function Out-More {
             $Ready = $True
         }
 
-        If ($Ready) {
+        if ($Ready) {
             #pause
-            Do {
-                Write-Host "[M]ore [A]ll [N]ext [Q]uit " -ForegroundColor Green -NoNewline
+            do {
+                Write-Host '[M]ore [A]ll [N]ext [Q]uit ' -ForegroundColor Green -NoNewline
                 $r = Read-Host
-                if ($r.Length -eq 0 -OR $r -match "^m") {
+                if ($r.Length -eq 0 -or $r -match '^m') {
                     #don't really do anything
                     $Asked = $True
                     _clearPrompt
                 }
                 else {
-                    Switch -Regex ($r) {
-                        "^n" {
+                    switch -Regex ($r) {
+                        '^n' {
                             _clearPrompt
                             $ShowNext = $True
                             $InputObject
                             $Asked = $True
                         }
-                        "^a" {
+                        '^a' {
                             _clearPrompt
                             $InputObject
                             $Asked = $True
                             $ShowAll = $True
                         }
-                        "^q" {
+                        '^q' {
                             #bail out
                             $Asked = $True
                             $Quit = $True
                             $ShowAll = $True
                         }
-                        Default {
+                        default {
                             $Asked = $False
                         }
                     } #Switch
 
                 } #else
-            } Until ($Asked)
+            } until ($Asked)
 
             $Ready = $False
             $Asked = $False
@@ -138,24 +142,24 @@ Function Out-More {
 
     } #process
 
-    End {
+    end {
         #test if data is from a Get-Help command in
         #which case it will be a single string that needs
         #to be broken apart
 
         if ([regex]::Matches($data, "`n").count -gt 1) {
-            [void]$PSBoundParameters.remove("InputObject")
-            Write-Verbose "Splitting input and re-running through Out-More"
+            [void]$PSBoundParameters.remove('InputObject')
+            Write-Verbose 'Splitting input and re-running through Out-More'
             $data.split("`n") | Out-More @PSBoundParameters
         }
-        elseif ($data[0].PSObject.TypeNames -contains "MamlCommandHelpInfo") {
-            Write-Verbose "Help output detected"
-            [void]$PSBoundParameters.remove("InputObject")
+        elseif ($data[0].PSObject.TypeNames -contains 'MamlCommandHelpInfo') {
+            Write-Verbose 'Help output detected'
+            [void]$PSBoundParameters.remove('InputObject')
             ($data | Out-String).split("`n") | Out-More @PSBoundParameters
         }
         #display whatever is left in $data
-        if ($data -AND -Not $ShowAll) {
-            Write-Verbose "Displaying remaining data"
+        if ($data -and -not $ShowAll) {
+            Write-Verbose 'Displaying remaining data'
             $data
         }
         Write-Verbose "Ending: $($MyInvocation.MyCommand)"
@@ -163,34 +167,36 @@ Function Out-More {
 
 } #end Out-More
 
-Function Invoke-InputBox {
-    [cmdletbinding(DefaultParameterSetName = "plain")]
-    [alias("ibx")]
+function Invoke-InputBox {
+    [cmdletbinding(DefaultParameterSetName = 'plain')]
+    [alias('ibx')]
     [OutputType([System.String], ParameterSetName = 'plain')]
     [OutputType([System.Security.SecureString], ParameterSetName = 'secure')]
 
-    Param(
-        [Parameter(ParameterSetName = "secure")]
-        [Parameter(HelpMessage = "Enter the title for the input box. No more than 25 characters.",
-            ParameterSetName = "plain")]
+    param(
+        [Parameter(ParameterSetName = 'secure')]
+        [Parameter(HelpMessage = 'Enter the title for the input box. No more than 25 characters.',
+            ParameterSetName = 'plain')]
 
         [ValidateNotNullOrEmpty()]
-        [ValidateScript( {$_.length -le 25})]
-        [string]$Title = "User Input",
+        [ValidateScript( { $_.length -le 25 })]
+        [string]$Title = 'User Input',
 
-        [Parameter(ParameterSetName = "secure")]
-        [Parameter(HelpMessage = "Enter a prompt. No more than 50 characters.", ParameterSetName = "plain")]
+        [Parameter(ParameterSetName = 'secure')]
+        [Parameter(HelpMessage = 'Enter a prompt. No more than 50 characters.', ParameterSetName = 'plain')]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript( {$_.length -le 50})]
-        [string]$Prompt = "Please enter a value:",
+        [ValidateScript( { $_.length -le 50 })]
+        [string]$Prompt = 'Please enter a value:',
 
-        [Parameter(HelpMessage = "Use to mask the entry and return a secure string.",
-            ParameterSetName = "secure")]
+        [Parameter(HelpMessage = 'Use to mask the entry and return a secure string.',
+            ParameterSetName = 'secure')]
         [switch]$AsSecureString,
 
-        [string]$BackgroundColor = "White"
+        [string]$BackgroundColor = 'White'
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = graphical
     if ((Test-IsPSWindows)) {
         Add-Type -AssemblyName PresentationFramework
         Add-Type -AssemblyName PresentationCore
@@ -210,7 +216,7 @@ Function Invoke-InputBox {
 
         $label = New-Object System.Windows.Controls.Label
         $label.Content = "    $Prompt"
-        $label.HorizontalAlignment = "left"
+        $label.HorizontalAlignment = 'left'
         $stack.AddChild($label)
 
         if ($AsSecureString) {
@@ -221,7 +227,7 @@ Function Invoke-InputBox {
         }
 
         $InputBox.Width = 300
-        $InputBox.HorizontalAlignment = "center"
+        $InputBox.HorizontalAlignment = 'center'
 
         $stack.AddChild($InputBox)
 
@@ -230,11 +236,11 @@ Function Invoke-InputBox {
         $stack.AddChild($space)
 
         $btn = New-Object System.Windows.Controls.Button
-        $btn.Content = "_OK"
+        $btn.Content = '_OK'
 
         $btn.Width = 65
-        $btn.HorizontalAlignment = "center"
-        $btn.VerticalAlignment = "bottom"
+        $btn.HorizontalAlignment = 'center'
+        $btn.VerticalAlignment = 'bottom'
 
         #add an event handler
         $btn.Add_click( {
@@ -253,11 +259,11 @@ Function Invoke-InputBox {
         $stack.AddChild($space2)
 
         $btn2 = New-Object System.Windows.Controls.Button
-        $btn2.Content = "_Cancel"
+        $btn2.Content = '_Cancel'
 
         $btn2.Width = 65
-        $btn2.HorizontalAlignment = "center"
-        $btn2.VerticalAlignment = "bottom"
+        $btn2.HorizontalAlignment = 'center'
+        $btn2.VerticalAlignment = 'bottom'
 
         #add an event handler
         $btn2.Add_click( {
@@ -279,29 +285,31 @@ Function Invoke-InputBox {
         $script:myInput
     }
     else {
-        Write-Warning "Sorry. This command requires a Windows platform."
+        Write-Warning 'Sorry. This command requires a Windows platform.'
         #bail out
-        Return
+        return
     }
 }
 
-Function Set-ConsoleTitle {
+function Set-ConsoleTitle {
     [cmdletbinding(SupportsShouldProcess)]
-    [OutputType("None")]
-    Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the title for the console window.")]
+    [OutputType('None')]
+    param(
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter the title for the console window.')]
         [ValidateNotNullOrEmpty()]
         [string]$Title
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = console
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
-        $width =  ($host.UI.RawUI.MaxWindowSize.Width * 2)
+        $width = ($host.UI.RawUI.MaxWindowSize.Width * 2)
     } #begin
 
-    Process {
-        if ($host.Name -ne "ConsoleHost") {
-            Write-Warning "This command must be run from a PowerShell console session. Not the PowerShell ISE or Visual Studio Code or similar environments."
+    process {
+        if ($host.Name -ne 'ConsoleHost') {
+            Write-Warning 'This command must be run from a PowerShell console session. Not the PowerShell ISE or Visual Studio Code or similar environments.'
         }
         elseif (($title.length -ge $width)) {
             Write-Warning "Your title is too long. It needs to be less than $width to fit your current console."
@@ -314,43 +322,46 @@ Function Set-ConsoleTitle {
         }
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Set-ConsoleTitle
-Function New-RunspaceCleanupJob {
+function New-RunspaceCleanupJob {
     [cmdletbinding()]
-    [OutputType("None", "ThreadJob")]
-    Param(
+    [OutputType('None', 'ThreadJob')]
+    param(
         [Parameter(
             Mandatory,
-            HelpMessage = "This should be the System.Management.Automation.Runspaces.AsyncResult object from the BeginInvoke() method."
+            HelpMessage = 'This should be the System.Management.Automation.Runspaces.AsyncResult object from the BeginInvoke() method.'
         )]
         [ValidateNotNullOrEmpty()]
         [object]$Handle,
         [Parameter(Mandatory)]
         [ValidateNotNullOrEmpty()]
         [System.Management.Automation.PowerShell]$PowerShell,
-        [Parameter(HelpMessage = "Specify a sleep interval in seconds")]
+        [Parameter(HelpMessage = 'Specify a sleep interval in seconds')]
         [ValidateRange(5, 600)]
         [int32]$SleepInterval = 10,
-        [Parameter(HelpMessage = "Pass the thread job object to the pipeline")]
+        [Parameter(HelpMessage = 'Pass the thread job object to the pipeline')]
         [switch]$PassThru
     )
+
+    #tags are used for categorizing the command
+    #cmdTags = scripting
 
     $job = Start-ThreadJob -ScriptBlock {
         param($handle, $ps, $sleep)
         #the Write-Host lines are so that if you look at the results of  the thread job
         #you'll see something you can use for debugging or troubleshooting.
         Write-Host "[$(Get-Date)] Sleeping in $sleep second loops"
-        Write-Host "Watching this runspace"
-        Write-Host ($ps.runspace | Select-Object -property * | Out-String)
+        Write-Host 'Watching this runspace'
+        Write-Host ($ps.runspace | Select-Object -Property * | Out-String)
         #loop until the handle shows as completed, sleeping the the specified
         #number of seconds
         do {
             Start-Sleep -Seconds $sleep
-        } Until ($handle.IsCompleted)
+        } until ($handle.IsCompleted)
         Write-Host "[$(Get-Date)] Closing runspace"
 
         $ps.runspace.close()
@@ -366,3 +377,4 @@ Function New-RunspaceCleanupJob {
         $job
     }
 }
+#EOF

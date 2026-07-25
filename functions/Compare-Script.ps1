@@ -16,6 +16,8 @@ Function Compare-Script {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -106,3 +108,5 @@ Function Compare-Script {
     } #end
 
 } #close function
+
+#EOF

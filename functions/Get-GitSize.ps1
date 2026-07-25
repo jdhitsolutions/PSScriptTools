@@ -1,32 +1,39 @@
 
-Function Get-GitSize {
+function Get-GitSize {
     [cmdletbinding()]
-    [OutputType("gitSize")]
-    Param (
-        [Parameter(Position = 0, ValueFromPipeline, ValueFromPipelineByPropertyName)]
-        [alias("PSPath")]
-        [ValidateScript({Test-Path $_})]
-        [string]$Path = "."
+    [OutputType('gitSize')]
+    param (
+        [Parameter(
+            Position = 0,
+            ValueFromPipeline,
+            ValueFromPipelineByPropertyName
+        )]
+        [alias('PSPath')]
+        [ValidateScript({ Test-Path $_ })]
+        [string]$Path = '.'
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
-    Process {
+    process {
         $full = Convert-Path -Path $Path
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Processing path $full"
-        $git = Join-Path -Path $full -ChildPath ".git"
+        $git = Join-Path -Path $full -ChildPath '.git'
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Testing $git"
         if (Test-Path -Path $git) {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Measuring $git"
             #get the total size of all files in the .git folder
             #$stat = Get-ChildItem -Path $git -Recurse -File | Measure-Object -Property length -sum
             #1 March 2023 - switched to Get-FolderSizeInfo which is faster -JDH
-            $stat = Get-FolderSizeInfo -Path $git -hidden
+            $stat = Get-FolderSizeInfo -Path $git -Hidden
             [PSCustomObject]@{
-                PSTypeName   = "gitSize"
-                Name         = (Split-Path -Path $full -leaf)
+                PSTypeName   = 'gitSize'
+                Name         = (Split-Path -Path $full -Leaf)
                 Path         = $full
                 Files        = $stat.TotalFiles
                 Size         = $stat.TotalSize
@@ -39,7 +46,9 @@ Function Get-GitSize {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Did not find $git"
         }
     } #process
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
+
+#EOF

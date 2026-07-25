@@ -18,6 +18,8 @@ function Get-ProcessTree {
   )
 
   begin {
+    #tags are used for categorizing the command
+    #cmdTags = general
     Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     if ($MyInvocation.CommandOrigin -eq 'Runspace') {
       #Hide this  when the command is called from another command
@@ -100,6 +102,8 @@ function Show-ProcessTree {
   )
 
   begin {
+    #tags are used for categorizing the command
+    #cmdTags = ansi,general
     Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
     Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -152,3 +156,4 @@ function Show-ProcessTree {
     Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
   } #end
 }
+#EOF

@@ -6,10 +6,15 @@ function Get-PSScriptTools {
     [OutputType('PSScriptTool')]
     param(
         [Parameter(HelpMessage = 'Filter commands based on a standard verb.')]
-        [string]$Verb
+        [string]$Verb,
+        [Parameter(HelpMessage = 'Filter commands based on command tag.')]
+        [ValidateSet('ansi','cim','console','editor','file','format','general','graphical','hashtable','other','scripting','select','time')]
+        [string]$Tag
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $thisCmd = Get-Command $MyInvocation.MyCommand
@@ -36,14 +41,17 @@ v$ThisVersion
             Write-Host $h
         }
 
-        #Write-Host $h -ForegroundColor Yellow
-
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting PSScriptTool data for $thisModule from $ToolDataPath"
         #$ToolDataPath is defined in the root psm1 file
         $ModuleFunctions = Get-Content -Path $ToolDataPath | ConvertFrom-Json
         if ($Verb) {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Filtering on verb $(ConvertTo-TitleCase $Verb)"
             $ModuleFunctions = $ModuleFunctions.where{ $_.verb -match $Verb }
+        }
+        if ($Tag) {
+            #25 July 2026 Add a secondary filter on tags
+             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Filtering on tag $(ConvertTo-TitleCase $Tag)"
+            $ModuleFunctions = $ModuleFunctions.where{ $_.tags -contains $Tag }
         }
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($ModuleFunctions.count) functions matching your criteria"
 
@@ -56,6 +64,7 @@ v$ThisVersion
                 Synopsis   = $fun.Synopsis
                 Version    = $fun.version -as [version]
                 Online     = $fun.online
+                Tags       = $fun.tags
             }
         }
     } #process
@@ -154,3 +163,4 @@ v$ThisVersion
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }
 #>
+#EOF

@@ -33,6 +33,8 @@ Function Get-LastModifiedFile {
         [switch]$Recurse
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = file
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     $msg ="Searching {0} for {1} files modified in the last {2} {3}." -f (Convert-Path $Path),$filter,$IntervalCount,$Interval
@@ -69,3 +71,4 @@ Function Get-LastModifiedFile {
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }
 
+#EOF

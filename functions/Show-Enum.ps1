@@ -16,12 +16,15 @@ function Show-Enum {
                 Write-Warning "[$_] does not appear to be an Enum."
                 return $False
             }
-            }
+        }
         )]
         [alias('Class', 'PropertyType')]
         [Type]$EnumType
     )
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -57,6 +60,8 @@ function Test-IsEnum {
         [Type]$EnumType
     )
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -68,3 +73,4 @@ function Test-IsEnum {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
+#EOF

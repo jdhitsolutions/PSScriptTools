@@ -11,11 +11,11 @@
 # Invoke-Command { Get-Foo } -session $s
 
 
-Function Copy-PSFunction {
+function Copy-PSFunction {
     [cmdletbinding()]
     [OutputType('Deserialized.System.Management.Automation.FunctionInfo')]
     [Alias('cpfun')]
-    Param(
+    param(
         [Parameter(
             Position = 1,
             Mandatory,
@@ -28,12 +28,14 @@ Function Copy-PSFunction {
         [System.Management.Automation.Runspaces.PSSession]$Session,
         [switch]$Force
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         foreach ($item in $Name) {
             #verify the function Exists
             $funPath = Join-Path -Path Function: -ChildPath $item
@@ -44,7 +46,7 @@ Function Copy-PSFunction {
                 Invoke-Command -ScriptBlock { New-Item -Name $using:item -Path Function: -Value $($using:f) -Force:$using:force } -Session $Session
 
             } #if Test-Path
-            Else {
+            else {
                 Write-Warning "Can't find a local function called $item."
             }
 
@@ -52,8 +54,9 @@ Function Copy-PSFunction {
 
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Copy-PSFunction
+#EOF

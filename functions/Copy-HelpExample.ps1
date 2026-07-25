@@ -55,6 +55,9 @@ function Copy-HelpExample {
     } #dynamic param
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -81,12 +84,12 @@ function Copy-HelpExample {
         if ($help.examples.example.count -gt 0) {
             #8 July 2026 Help in PowerShell 7 is structured differently
 
-            if ($help.examples.example.code -match "\w+") {
+            if ($help.examples.example.code -match '\w+') {
                 $choices = $help.examples.example | Select-Object -Property Title,
                 @{Name = 'CodeSample'; Expression = { ($rx.replace($_.code, '')).trim() } }
             }
             elseif ($help.examples.example.introduction -match "```powershell" ) {
-                 $choices = $help.examples.example | Select-Object -Property Title,
+                $choices = $help.examples.example | Select-Object -Property Title,
                 @{Name = 'CodeSample'; Expression = { ($codeRx.Match($_.introduction.text)).value.trim() } }
             }
 
@@ -131,7 +134,7 @@ Some example code includes the output.
                 if ($hash.Keys.count -gt 0) {
 
                     #prompt the user for a choice
-                    $r = Read-Host "`n$([char]0x1b)[38;5;46mPlease select items to copy to the clipboard by number. Separate multiple entries with a comma. Press Enter alone to cancel$([char]0x1b)[0m"
+                    $r = Read-Host "`n$([char]0x1b)[38;5;46mPlease select items to copy to the clipboard by number. Separate multiple entries with a comma.`nPress Enter alone to cancel$([char]0x1b)[0m"
 
                     if ($r -match ',') {
                         $items = $r.split(',')
@@ -167,3 +170,5 @@ Some example code includes the output.
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end
 } #end function
+
+#EOF

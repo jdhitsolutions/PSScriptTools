@@ -1,11 +1,11 @@
 
 #search WMI for a class
-Function Find-CimClass {
+function Find-CimClass {
     [CmdletBinding()]
     [alias('fcc')]
     [OutputType([Microsoft.Management.Infrastructure.CimClass])]
 
-    Param(
+    param(
         [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter the name of a CIM/WMI class. Wildcards are permitted.')]
         [ValidateNotNullOrEmpty()]
         [string]$ClassName,
@@ -19,6 +19,9 @@ Function Find-CimClass {
         [Alias('CN')]
         [CimSession]$CimSession = $ENV:COMPUTERNAME
     )
+
+    #tags are used for categorizing the command
+    #cmdTags = cim
 
     Write-Verbose "[$((Get-Date).TimeOfDay)] Starting $($MyInvocation.MyCommand)"
     Write-Verbose "[$((Get-Date).TimeOfDay)] Running under PowerShell version $($PSVersionTable.PSVersion)"
@@ -59,16 +62,16 @@ Function Find-CimClass {
                 $progParams.CurrentOperation = "processing \\$($CimSession.ComputerName.ToUpper())\$ns"
                 Write-Progress @progParams
                 Write-Verbose "[$((Get-Date).TimeOfDay)] Searching namespace $ns"
-                Try {
-                    $classes = $CimSession.EnumerateClasses($ns,"").where({$_.CimClassName -like $ClassName})
-                    if ($classes -AND $Exclude) {
-                        $classes.Where( { $_.cimClassName -NotMatch $Exclude }) | Sort-Object -Property CimClassName
+                try {
+                    $classes = $CimSession.EnumerateClasses($ns, '').where({ $_.CimClassName -like $ClassName })
+                    if ($classes -and $Exclude) {
+                        $classes.Where( { $_.cimClassName -notmatch $Exclude }) | Sort-Object -Property CimClassName
                     }
                     else {
                         $classes | Sort-Object -Property CimClassName
                     }
                 }
-                Catch {
+                catch {
                     #ignore error if class not found
                 }
             } #foreach ns
@@ -83,3 +86,4 @@ Function Find-CimClass {
     Write-Verbose "[$((Get-Date).TimeOfDay)] Ending $($MyInvocation.MyCommand)"
 
 } #close function
+#EOF

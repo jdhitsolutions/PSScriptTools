@@ -46,7 +46,8 @@ Display an graphical inputBox with a given prompt and title. The entered value w
 ### Example 2
 
 ```powershell
-PS C:\> $pass = Invoke-InputBox -prompt "Enter a new password" -title "New User" -asSecureString -background red
+PS C:\> $pass = Invoke-InputBox -prompt "Enter a new password" -title "New User"
+-asSecureString -background red
 ```
 
 Get a secure string value from the user. This example also changes the form background to red.

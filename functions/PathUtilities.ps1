@@ -1,26 +1,28 @@
-Function Get-PathVariable {
+function Get-PathVariable {
     [cmdletbinding()]
     [Alias('Get-Path')]
-    [OutputType("EnvPath")]
-    Param(
-        [ValidateSet("All", "User", "Machine")]
-        [string]$Scope = "All"
+    [OutputType('EnvPath')]
+    param(
+        [ValidateSet('All', 'User', 'Machine')]
+        [string]$Scope = 'All'
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = general
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     #private helper function to create the custom object
-    Function NewEnvPath {
+    function NewEnvPath {
         [cmdletbinding()]
-        Param(
+        param(
             [Parameter(ValueFromPipeline)]
             [string]$Path, [string]$Scope
         )
 
-        Process {
+        process {
             [PSCustomObject]@{
-                PSTypeName   = "EnvPath"
+                PSTypeName   = 'EnvPath'
                 Scope        = $Scope
                 Computername = [System.Environment]::MachineName
                 UserName     = [System.Environment]::UserName
@@ -31,45 +33,45 @@ Function Get-PathVariable {
     } #newEnvPath
 
     $user = {
-        Write-Verbose "Getting USER paths"
+        Write-Verbose 'Getting USER paths'
         #filter out blanks if path ends in a splitter
-        $paths = [System.Environment]::GetEnvironmentVariable("PATH", "User") -split $splitter | Where-Object { $_ }
+        $paths = [System.Environment]::GetEnvironmentVariable('PATH', 'User') -split $splitter | Where-Object { $_ }
         Write-Verbose "Found $($paths.count) path entries"
         $paths | NewEnvPath -Scope User
     }
 
     $machine = {
-        Write-Verbose "Getting MACHINE paths"
-        $paths = [System.Environment]::GetEnvironmentVariable("PATH", "Machine") -split $splitter | Where-Object { $_ }
+        Write-Verbose 'Getting MACHINE paths'
+        $paths = [System.Environment]::GetEnvironmentVariable('PATH', 'Machine') -split $splitter | Where-Object { $_ }
         Write-Verbose "Found $($paths.count) path entries"
         $paths | NewEnvPath -Scope Machine
     }
 
     $lx = {
-        Write-Verbose "Getting ALL paths (Non-Windows)"
-        $paths = [System.Environment]::GetEnvironmentVariable("PATH", "Process") -split $splitter | Where-Object { $_ }
+        Write-Verbose 'Getting ALL paths (Non-Windows)'
+        $paths = [System.Environment]::GetEnvironmentVariable('PATH', 'Process') -split $splitter | Where-Object { $_ }
         Write-Verbose "Found $($paths.count) path entries"
-        $paths | NewEnvPath -scope "Process"
+        $paths | NewEnvPath -scope 'Process'
     }
 
     Write-Verbose "Using scope setting of $Scope"
     #get the path separator character specific to this operating system
     $splitter = [System.IO.Path]::PathSeparator
 
-    if ($IsLinux -OR $IsMacOS) {
-        Invoke-Command -scriptblock $lx
+    if ($IsLinux -or $IsMacOS) {
+        Invoke-Command -ScriptBlock $lx
     }
-    elseif ($scope -eq "User") {
-        Invoke-Command -scriptblock $user
+    elseif ($scope -eq 'User') {
+        Invoke-Command -ScriptBlock $user
     }
-    elseif ($scope -eq "Machine") {
-        Invoke-Command -scriptblock $machine
+    elseif ($scope -eq 'Machine') {
+        Invoke-Command -ScriptBlock $machine
     }
     else {
-        Write-Verbose "Getting ALL paths (Windows)"
+        Write-Verbose 'Getting ALL paths (Windows)'
         $paths = @()
-        $paths += Invoke-Command -scriptblock $user
-        $paths += Invoke-Command -scriptblock $machine
+        $paths += Invoke-Command -ScriptBlock $user
+        $paths += Invoke-Command -ScriptBlock $machine
         Write-Verbose "Found $($paths.count) path entries"
         $paths
     }
@@ -77,3 +79,5 @@ Function Get-PathVariable {
 
 } #end function
 
+
+#EOF

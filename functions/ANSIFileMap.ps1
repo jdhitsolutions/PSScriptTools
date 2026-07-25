@@ -14,6 +14,8 @@ Function Get-PSAnsiFileMap {
     [OutputType("PSAnsiFileEntry")]
     Param( )
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -60,6 +62,8 @@ Function Set-PSAnsiFileMap {
         [switch]$PassThru
     )
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -115,6 +119,8 @@ Function Export-PSAnsiFileMap {
         [switch]$PassThru
     )
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $Path = Join-Path -Path $HOME -ChildPath "psansifilemap.json"
@@ -152,6 +158,8 @@ Function Remove-PSAnsiFileEntry {
         [switch]$PassThru
     )
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -180,3 +188,4 @@ Function Remove-PSAnsiFileEntry {
     } #end
 
 } #close Remove-PSAnsiFileEntry
+#EOF

@@ -22,6 +22,8 @@ Function Format-BorderBox {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = console,graphical
         $e = [char]27
         $reset = "$e[0m"
         #define the box line elements
@@ -36,6 +38,10 @@ Function Format-BorderBox {
         $list = [System.Collections.Generic.List[string]]::new()
     } #begin
     Process {
+        if ($Host.Name -eq 'Windows PowerShell ISE Host') {
+            Write-Warning "This command is not supported in the PowerShell ISE"
+            return
+        }
         foreach ($line in $Text) {
             $list.Add($line)
         }
@@ -62,3 +68,4 @@ Function Format-BorderBox {
         $box
     } #end
 }
+#EOF

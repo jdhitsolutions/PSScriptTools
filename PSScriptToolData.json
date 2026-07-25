@@ -4,6 +4,10 @@
     "Alias": "ab",
     "Verb": "Add",
     "Synopsis": "Create a text border around a string.",
+    "Tags": [
+      "console",
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/44067f"
   },
@@ -12,6 +16,9 @@
     "Alias": "cmo",
     "Verb": "Compare",
     "Synopsis": "Compare PowerShell module versions.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/86d9fd"
   },
@@ -20,6 +27,9 @@
     "Alias": "",
     "Verb": "Compare",
     "Synopsis": "Compare PowerShell script versions.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/d95890"
   },
@@ -28,6 +38,10 @@
     "Alias": "",
     "Verb": "Convert",
     "Synopsis": "Convert a PowerShell expression into a splatting equivalent.",
+    "Tags": [
+      "hashtable",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/c5336b"
   },
@@ -36,6 +50,9 @@
     "Alias": "clr",
     "Verb": "Convert",
     "Synopsis": "Convert EventLogRecords to structured objects.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/bb432d"
   },
@@ -44,6 +61,10 @@
     "Alias": "",
     "Verb": "Convert",
     "Synopsis": "Convert a hashtable string into a hashtable object.",
+    "Tags": [
+      "hashtable",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/59c4ce"
   },
@@ -52,6 +73,10 @@
     "Alias": "chc",
     "Verb": "Convert",
     "Synopsis": "Convert a hashtable to a string representation.",
+    "Tags": [
+      "hashtable",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/22ae24"
   },
@@ -60,14 +85,21 @@
     "Alias": "cha",
     "Verb": "Convert",
     "Synopsis": "Convert an HTML color code to ANSI.",
+    "Tags": [
+      "ansi",
+      "scripting"
+    ],
     "Version": "3.2.0",
-    "Online": "h"
+    "Online": "https://jdhitsolutions.com/yourls/e41450"
   },
   {
     "Name": "ConvertFrom-LexicalTimeSpan",
     "Alias": "",
     "Verb": "ConvertFrom",
     "Synopsis": "Convert a lexical timespan into a PowerShell timespan.",
+    "Tags": [
+      "time"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/2bf285"
   },
@@ -76,6 +108,10 @@
     "Alias": "cft",
     "Verb": "ConvertFrom",
     "Synopsis": "Convert structured text to objects.",
+    "Tags": [
+      "general",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/abe4d5"
   },
@@ -84,6 +120,10 @@
     "Alias": "frut",
     "Verb": "ConvertFrom",
     "Synopsis": "Convert a datetime value from universal.",
+    "Tags": [
+      "time",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/ba6489"
   },
@@ -92,6 +132,10 @@
     "Alias": "",
     "Verb": "ConvertTo",
     "Synopsis": "Convert an object into a hashtable.",
+    "Tags": [
+      "hashtable",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/8dbc36"
   },
@@ -100,6 +144,9 @@
     "Alias": "",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a timespan to lexical time.",
+    "Tags": [
+      "time"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/98d08a"
   },
@@ -108,6 +155,10 @@
     "Alias": "clt",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a foreign time to local.",
+    "Tags": [
+      "time",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/a421ca"
   },
@@ -116,6 +167,9 @@
     "Alias": "ctm",
     "Verb": "ConvertTo",
     "Synopsis": "Convert pipeline output to a markdown document.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/ed89f2"
   },
@@ -124,14 +178,21 @@
     "Alias": "title,totc",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a string to title case.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
-    "Online": "h"
+    "Online": "https://jdhitsolutions.com/yourls/7011bb"
   },
   {
     "Name": "ConvertTo-UTCTime",
     "Alias": "tout",
     "Verb": "ConvertTo",
     "Synopsis": "Convert a local datetime to universal time.",
+    "Tags": [
+      "time",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/fcd685"
   },
@@ -140,6 +201,9 @@
     "Alias": "cwg",
     "Verb": "ConvertTo",
     "Synopsis": "Send command output to an interactive WPF-based grid.",
+    "Tags": [
+      "graphical"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/66cb30"
   },
@@ -148,6 +212,9 @@
     "Alias": "cc",
     "Verb": "Copy",
     "Synopsis": "Copy a PowerShell command.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/1c1c19"
   },
@@ -156,6 +223,9 @@
     "Alias": "che",
     "Verb": "Copy",
     "Synopsis": "Copy code snippet from help examples.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/740c69"
   },
@@ -164,6 +234,9 @@
     "Alias": "ch",
     "Verb": "Copy",
     "Synopsis": "Copy a history command line to the clipboard.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/8993e3"
   },
@@ -172,6 +245,9 @@
     "Alias": "cpfun",
     "Verb": "Copy",
     "Synopsis": "Copy a local PowerShell function to a remote session.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/db6584"
   },
@@ -180,6 +256,9 @@
     "Alias": "",
     "Verb": "Export",
     "Synopsis": "Export a PSAnsiFileMap to a file.",
+    "Tags": [
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/33a505"
   },
@@ -188,6 +267,9 @@
     "Alias": "fcc",
     "Verb": "Find",
     "Synopsis": "Search CIM for a class.",
+    "Tags": [
+      "cim"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/173186"
   },
@@ -196,6 +278,10 @@
     "Alias": "fbx",
     "Verb": "Format",
     "Synopsis": "Display text in a lined border box.",
+    "Tags": [
+      "console",
+      "graphical"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/d06a7d"
   },
@@ -204,6 +290,9 @@
     "Alias": "fp",
     "Verb": "Format",
     "Synopsis": "Format a value as a percentage.",
+    "Tags": [
+      "format"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/a65b1c"
   },
@@ -212,6 +301,9 @@
     "Alias": "fs",
     "Verb": "Format",
     "Synopsis": "Options for formatting strings.",
+    "Tags": [
+      "format"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/4b4622"
   },
@@ -220,6 +312,9 @@
     "Alias": "fv",
     "Verb": "Format",
     "Synopsis": "Format a numeric value.",
+    "Tags": [
+      "format"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/259243"
   },
@@ -228,6 +323,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "A faster way to list CIM classes in a given namespace.",
+    "Tags": [
+      "cim"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/078584"
   },
@@ -236,6 +334,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the methods of a CIM class.",
+    "Tags": [
+      "cim"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/6e7f5b"
   },
@@ -244,6 +345,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the properties of a CIM class.",
+    "Tags": [
+      "cim"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/33f673"
   },
@@ -252,6 +356,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the property qualifiers of a CIM class.",
+    "Tags": [
+      "cim"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/2e4fbe"
   },
@@ -260,6 +367,9 @@
     "Alias": "cmm",
     "Verb": "Get",
     "Synopsis": "Get information about CIM class members.",
+    "Tags": [
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/3a81c8"
   },
@@ -268,6 +378,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Enumerate WMI/CIM namespaces.",
+    "Tags": [
+      "cim"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/e0d44a"
   },
@@ -276,6 +389,9 @@
     "Alias": "gsyn",
     "Verb": "Get",
     "Synopsis": "Get provider-specific command syntax.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/8179d4"
   },
@@ -284,6 +400,9 @@
     "Alias": "dw",
     "Verb": "Get",
     "Synopsis": "Get directory information.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/4c623c"
   },
@@ -292,6 +411,9 @@
     "Alias": "gfei",
     "Verb": "Get",
     "Synopsis": "Get a report of files based on their extension.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/b35e8a"
   },
@@ -300,6 +422,9 @@
     "Alias": "pswhere",
     "Verb": "Get",
     "Synopsis": "A PowerShell version of the Where CLI command.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/986690"
   },
@@ -308,6 +433,9 @@
     "Alias": "gsi",
     "Verb": "Get",
     "Synopsis": "Get folder size information.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/2459ce"
   },
@@ -316,6 +444,9 @@
     "Alias": "gfv",
     "Verb": "Get",
     "Synopsis": "Get defined format views.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/6bc198"
   },
@@ -324,6 +455,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the size of .git folder.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/0e78eb"
   },
@@ -332,6 +466,9 @@
     "Alias": "glm",
     "Verb": "Get",
     "Synopsis": "Get files based on last modified data.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/ba32af"
   },
@@ -340,6 +477,9 @@
     "Alias": "gmc",
     "Verb": "Get",
     "Synopsis": "Get a summary of module commands.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/71e8ba"
   },
@@ -348,6 +488,9 @@
     "Alias": "gma",
     "Verb": "Get",
     "Synopsis": "Get non-default aliases defined in the current session.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/a66dd2"
   },
@@ -356,6 +499,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get performance counter data.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/8ff794"
   },
@@ -364,6 +510,9 @@
     "Alias": "gti",
     "Verb": "Get",
     "Synopsis": "Display time settings for a collection of locations.",
+    "Tags": [
+      "time"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/864c12"
   },
@@ -372,6 +521,10 @@
     "Alias": "gmv",
     "Verb": "Get",
     "Synopsis": "Get all user-defined variables.",
+    "Tags": [
+      "general",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/650472"
   },
@@ -380,6 +533,9 @@
     "Alias": "gpi",
     "Verb": "Get",
     "Synopsis": "Retrieve command parameter information.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/920e91"
   },
@@ -388,14 +544,20 @@
     "Alias": "Get-Path",
     "Verb": "Get",
     "Synopsis": "Get information from locations in %PATH%.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
-    "Online": "h"
+    "Online": "https://jdhitsolutions.com/yourls/84301a"
   },
   {
     "Name": "Get-PowerShellEngine",
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get the path to the current PowerShell engine.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/f713ea"
   },
@@ -404,6 +566,9 @@
     "Alias": "gpt",
     "Verb": "Get",
     "Synopsis": "Get a process tree.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/4925b0"
   },
@@ -412,6 +577,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Display the PSAnsiFileMap.",
+    "Tags": [
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/fe1951"
   },
@@ -420,6 +588,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get common location values.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/1e55c2"
   },
@@ -428,6 +599,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get PowerShell profile locations.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/d4ded2"
   },
@@ -436,6 +610,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get a summary of PSScriptTools commands.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/237adc"
   },
@@ -444,6 +621,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Get available custom type extensions",
+    "Tags": [
+      "other"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/01064c"
   },
@@ -452,6 +632,9 @@
     "Alias": "gsin",
     "Verb": "Get",
     "Synopsis": "Get details about the current PowerShell session.",
+    "Tags": [
+      "console"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/0ccf73"
   },
@@ -460,6 +643,9 @@
     "Alias": "gpsu",
     "Verb": "Get",
     "Synopsis": "Filter for unique objects.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/c10e02"
   },
@@ -468,6 +654,9 @@
     "Alias": "pswho",
     "Verb": "Get",
     "Synopsis": "Get PowerShell user summary information.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/9990e3"
   },
@@ -476,6 +665,9 @@
     "Alias": "ctor",
     "Verb": "Get",
     "Synopsis": "Get constructor details for a .NET type.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/9825a9"
   },
@@ -484,6 +676,9 @@
     "Alias": "gtm",
     "Verb": "Get",
     "Synopsis": "Get type member information.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/cff650"
   },
@@ -492,6 +687,9 @@
     "Alias": "",
     "Verb": "Get",
     "Synopsis": "Lookup WhoIS data for a given IPv4 address.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/a244fa"
   },
@@ -500,6 +698,9 @@
     "Alias": "wver",
     "Verb": "Get",
     "Synopsis": "Get Windows version information.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/3e66f0"
   },
@@ -508,6 +709,10 @@
     "Alias": "wvers",
     "Verb": "Get",
     "Synopsis": "Get Windows version information as a formatted string.",
+    "Tags": [
+      "general",
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/9d4917"
   },
@@ -516,6 +721,9 @@
     "Alias": "",
     "Verb": "Import",
     "Synopsis": "Import a custom type extension file",
+    "Tags": [
+      "other"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/98f4be"
   },
@@ -524,6 +732,9 @@
     "Alias": "ibx",
     "Verb": "Invoke",
     "Synopsis": "Launch a graphical input box.",
+    "Tags": [
+      "graphical"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/016d0b"
   },
@@ -532,6 +743,10 @@
     "Alias": "",
     "Verb": "Join",
     "Synopsis": "Combine two hashtables into one.",
+    "Tags": [
+      "hashtable",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/a1c82a"
   },
@@ -540,6 +755,10 @@
     "Alias": "nab",
     "Verb": "New",
     "Synopsis": "Display an ANSI colored bar.",
+    "Tags": [
+      "ansi",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/f31f14"
   },
@@ -548,14 +767,21 @@
     "Alias": "ahl",
     "Verb": "New",
     "Synopsis": "Create an ANSI string with a hyperlink.",
+    "Tags": [
+      "ansi",
+      "scripting"
+    ],
     "Version": "3.2.0",
-    "Online": "h"
+    "Online": "https://jdhitsolutions.com/yourls/7f73b9"
   },
   {
     "Name": "New-CustomFileName",
     "Alias": "",
     "Verb": "New",
     "Synopsis": "Create a custom file name based on a template.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/c4db66"
   },
@@ -564,6 +790,9 @@
     "Alias": "nfi",
     "Verb": "New",
     "Synopsis": "Create a function item from the console.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/2dbeac"
   },
@@ -572,6 +801,9 @@
     "Alias": "npsd",
     "Verb": "New",
     "Synopsis": "Create a new PSDrive at the current location.",
+    "Tags": [
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/8cb9e3"
   },
@@ -580,6 +812,9 @@
     "Alias": "ndp",
     "Verb": "New",
     "Synopsis": "Create a PowerShell function dynamic parameter.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/40e246"
   },
@@ -588,6 +823,9 @@
     "Alias": "dpf",
     "Verb": "New",
     "Synopsis": "Launch a WPF front-end to New-PSDynamicParameter.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/bd78bc"
   },
@@ -596,6 +834,9 @@
     "Alias": "nfx",
     "Verb": "New",
     "Synopsis": "Create or modify a format.ps1xml file.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/c8dc45"
   },
@@ -604,6 +845,9 @@
     "Alias": "",
     "Verb": "New",
     "Synopsis": "Create a random file name.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/765d5c"
   },
@@ -612,6 +856,11 @@
     "Alias": "",
     "Verb": "New",
     "Synopsis": "Create an ANSI gradient from red to green.",
+    "Tags": [
+      "console",
+      "graphical",
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/bea6f3"
   },
@@ -620,6 +869,9 @@
     "Alias": "nmb",
     "Verb": "New",
     "Synopsis": "Display a customizable WPF-based message box.",
+    "Tags": [
+      "graphical"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/726dd9"
   },
@@ -628,6 +880,9 @@
     "Alias": "",
     "Verb": "Open",
     "Synopsis": "Open the PSScriptTools PDF manual.",
+    "Tags": [
+      "other"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/1bfe64"
   },
@@ -636,6 +891,10 @@
     "Alias": "ot",
     "Verb": "Optimize",
     "Synopsis": "Clean and optimize text input.",
+    "Tags": [
+      "file",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/140455"
   },
@@ -644,6 +903,9 @@
     "Alias": "oc",
     "Verb": "Out",
     "Synopsis": "Send command output to the pipeline and clipboard.",
+    "Tags": [
+      "console"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/749052"
   },
@@ -652,6 +914,9 @@
     "Alias": "om",
     "Verb": "Out",
     "Synopsis": "Send \"pages\" of objects to the pipeline.",
+    "Tags": [
+      "console"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/5593a0"
   },
@@ -660,6 +925,10 @@
     "Alias": "Tee-Verbose,tv",
     "Verb": "Out",
     "Synopsis": "Write to the Verbose stream and a file.",
+    "Tags": [
+      "general",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/2b7c6e"
   },
@@ -668,6 +937,9 @@
     "Alias": "rmb",
     "Verb": "Remove",
     "Synopsis": "Removed merged git branches.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/fadd2b"
   },
@@ -676,6 +948,9 @@
     "Alias": "",
     "Verb": "Remove",
     "Synopsis": "Remove a PSAnsiFileMap entry.",
+    "Tags": [
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/47e9dc"
   },
@@ -684,6 +959,10 @@
     "Alias": "",
     "Verb": "Remove",
     "Synopsis": "Remove a runspace from your session.",
+    "Tags": [
+      "general",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/8721e0"
   },
@@ -692,6 +971,10 @@
     "Alias": "rht",
     "Verb": "Rename",
     "Synopsis": "Rename a hashtable key.",
+    "Tags": [
+      "hashtable",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/a70fb6"
   },
@@ -700,6 +983,9 @@
     "Alias": "",
     "Verb": "Save",
     "Synopsis": "Download the latest 64bit version of Git for Windows.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/42ce51"
   },
@@ -708,6 +994,9 @@
     "Alias": "after",
     "Verb": "Select",
     "Synopsis": "Select objects after a given datetime.",
+    "Tags": [
+      "select"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/6a39a9"
   },
@@ -716,6 +1005,9 @@
     "Alias": "before",
     "Verb": "Select",
     "Synopsis": "Select objects before a given datetime.",
+    "Tags": [
+      "select"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/4c68ad"
   },
@@ -724,6 +1016,9 @@
     "Alias": "First",
     "Verb": "Select",
     "Synopsis": "Select the first X number of objects.",
+    "Tags": [
+      "select"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/8124ac"
   },
@@ -732,6 +1027,9 @@
     "Alias": "Last",
     "Verb": "Select",
     "Synopsis": "Select the last X number of objects.",
+    "Tags": [
+      "select"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/d4e36b"
   },
@@ -740,6 +1038,9 @@
     "Alias": "newest",
     "Verb": "Select",
     "Synopsis": "Select the newest X number of objects after a given datetime.",
+    "Tags": [
+      "select"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/117478"
   },
@@ -748,6 +1049,9 @@
     "Alias": "oldest",
     "Verb": "Select",
     "Synopsis": "Select the oldest X number of objects before a given datetime.",
+    "Tags": [
+      "select"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/32be2e"
   },
@@ -756,6 +1060,9 @@
     "Alias": "",
     "Verb": "Set",
     "Synopsis": "Set the console title text.",
+    "Tags": [
+      "console"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/3adc9c"
   },
@@ -764,6 +1071,10 @@
     "Alias": "jmp,sd",
     "Verb": "Set",
     "Synopsis": "Change your script editor terminal location.",
+    "Tags": [
+      "editor",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/9de734"
   },
@@ -772,6 +1083,9 @@
     "Alias": "",
     "Verb": "Set",
     "Synopsis": "Modify or add a PSAnsiFileEntry.",
+    "Tags": [
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/b842f7"
   },
@@ -780,6 +1094,9 @@
     "Alias": "sas",
     "Verb": "Show",
     "Synopsis": "Display ANSI escape sequences.",
+    "Tags": [
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/5cb585"
   },
@@ -788,6 +1105,9 @@
     "Alias": "",
     "Verb": "Show",
     "Synopsis": "Display an enum's names and values.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/1f9841"
   },
@@ -796,6 +1116,9 @@
     "Alias": "sfi",
     "Verb": "Show",
     "Synopsis": "Show a function in written form.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/503842"
   },
@@ -804,6 +1127,9 @@
     "Alias": "sm",
     "Verb": "Show",
     "Synopsis": "Show an object's hidden members.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/2c344b"
   },
@@ -812,6 +1138,10 @@
     "Alias": "spt",
     "Verb": "Show",
     "Synopsis": "Display a graphical process tree.",
+    "Tags": [
+      "ansi",
+      "general"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/6073d5"
   },
@@ -820,6 +1150,11 @@
     "Alias": "pstree,shtree",
     "Verb": "Show",
     "Synopsis": "Shows the specified path as a tree.",
+    "Tags": [
+      "console",
+      "graphical",
+      "ansi"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/12ea57"
   },
@@ -828,6 +1163,9 @@
     "Alias": "",
     "Verb": "Test",
     "Synopsis": "Test if a folder is empty of files.",
+    "Tags": [
+      "file"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/525f6d"
   },
@@ -836,6 +1174,9 @@
     "Alias": "tex",
     "Verb": "Test",
     "Synopsis": "Test a PowerShell expression over a period of time.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/812715"
   },
@@ -844,6 +1185,10 @@
     "Alias": "texf",
     "Verb": "Test",
     "Synopsis": "Display a graphical test form for Test-Expression.",
+    "Tags": [
+      "scripting",
+      "graphical"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/b36e28"
   },
@@ -852,6 +1197,9 @@
     "Alias": "isAdmin",
     "Verb": "Test",
     "Synopsis": "Test if the current user is running elevated.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/e1c162"
   },
@@ -860,6 +1208,9 @@
     "Alias": "",
     "Verb": "Test",
     "Synopsis": "Test if a .NET class is an enum.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/a654eb"
   },
@@ -868,14 +1219,20 @@
     "Alias": "",
     "Verb": "Test",
     "Synopsis": "Test if running PowerShell on a Windows platform.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
-    "Online": "h"
+    "Online": "https://jdhitsolutions.com/yourls/c102e6"
   },
   {
     "Name": "Test-WithCulture",
     "Alias": "",
     "Verb": "Test",
     "Synopsis": "Test your PowerShell code using a different culture.",
+    "Tags": [
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/15101d"
   },
@@ -884,6 +1241,10 @@
     "Alias": "trace",
     "Verb": "Trace",
     "Synopsis": "Create a graphical trace window.",
+    "Tags": [
+      "scripting",
+      "graphical"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/796fb9"
   },
@@ -892,7 +1253,23 @@
     "Alias": "wap",
     "Verb": "Write",
     "Synopsis": "Display an ANSI progress bar.",
+    "Tags": [
+      "ansi",
+      "scripting"
+    ],
     "Version": "3.2.0",
     "Online": "https://jdhitsolutions.com/yourls/f93f83"
+  },
+  {
+    "Name": "Write-PSHorizontalRule",
+    "Alias": "pshr",
+    "Verb": "Write",
+    "Synopsis": "Write a horizontal rule line.",
+    "Tags": [
+      "ansi",
+      "console"
+    ],
+    "Version": "3.2.0",
+    "Online": "https://jdhitsolutions.com/yourls/3c2bd6"
   }
 ]

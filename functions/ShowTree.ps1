@@ -2,7 +2,7 @@
     [CmdletBinding(DefaultParameterSetName = 'Path')]
     [alias('pstree', 'shtree')]
 
-    Param(
+    param(
         [Parameter(
             Position = 0,
             ParameterSetName = 'Path',
@@ -10,7 +10,7 @@
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript({Test-Path -Path $_})]
+        [ValidateScript({ Test-Path -Path $_ })]
         [alias('FullName')]
         [string[]]$Path = '.',
 
@@ -20,7 +20,7 @@
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript({Test-Path -LiteralPath $_})]
+        [ValidateScript({ Test-Path -LiteralPath $_ })]
         [string[]]$LiteralPath,
 
         [Parameter(Position = 1)]
@@ -40,7 +40,7 @@
         [ValidateNotNullOrEmpty()]
         [string[]]$ShowProperty
     )
-    DynamicParam {
+    dynamicparam {
         #define the InColor parameter if the path is a FileSystem path
         if ($PSBoundParameters.ContainsKey('Path')) {
             $here = $PSBoundParameters['Path']
@@ -51,7 +51,7 @@
         else {
             $here = (Get-Location).path
         }
-        if (((Get-Item -Path $here).PSprovider.Name -eq 'FileSystem' ) -OR ((Get-Item -LiteralPath $here).PSprovider.Name -eq 'FileSystem')) {
+        if (((Get-Item -Path $here).PSprovider.Name -eq 'FileSystem' ) -or ((Get-Item -LiteralPath $here).PSprovider.Name -eq 'FileSystem')) {
 
             #define a parameter attribute object
             $attributes = New-Object System.Management.Automation.ParameterAttribute
@@ -76,10 +76,12 @@
         }
     } #DynamicParam
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = console,graphical,ansi
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
-        if (-Not $Path -and $PSCmdlet.ParameterSetName -eq 'Path') {
+        if (-not $Path -and $PSCmdlet.ParameterSetName -eq 'Path') {
             $Path = Get-Location
         }
 
@@ -88,7 +90,7 @@
             #30 May 2024 Use PSStyle.FileInfo if found
             if ($PSStyle.FileInfo) {
                 $script:top = $PSstyle.FileInfo.Directory
-                $script:child =  $PSstyle.FileInfo.Directory
+                $script:child = $PSstyle.FileInfo.Directory
             }
             else {
                 $script:top = ($global:PSAnsiFileMap).where( { $_.description -eq 'TopContainer' }).Ansi
@@ -97,7 +99,7 @@
         }
         function GetIndentString {
             [CmdletBinding()]
-            Param([bool[]]$IsLast)
+            param([bool[]]$IsLast)
 
             Write-Verbose "Starting $($MyInvocation.MyCommand)"
             #  $numPadChars = 1
@@ -124,7 +126,7 @@
 
         function ShowProperty() {
             [cmdletbinding()]
-            Param(
+            param(
                 [string]$Name,
                 [string[]]$Value,
                 [bool[]]$IsLast
@@ -146,7 +148,7 @@
         }
         function ShowItem {
             [CmdletBinding()]
-            Param(
+            param(
                 [string]$Path,
                 [string]$Name,
                 [bool[]]$IsLast,
@@ -169,7 +171,7 @@
             else {
                 $indentStr = GetIndentString $IsLast
                 if ($Color) {
-                    Switch ($ItemType) {
+                    switch ($ItemType) {
                         'TopContainer' {
                             Write-Output "$indentStr$($script:top)$($Name)$([char]27)[0m"
                             #Write-Output "$indentStr$([char]27)[38;2;0;255;255m$("$Name")$([char]27)[0m"
@@ -181,7 +183,7 @@
                         'file' {
                             #30 May 2024 Use PSStyle.FileInfo if found
                             if ($PSStyle.FileInfo) {
-                                if ($name -match "\.exe$") {
+                                if ($name -match '\.exe$') {
                                     Write-Output "$indentStr$($PSStyle.FileInfo.Executable)$($Name)$([char]27)[0m"
                                 }
                                 else {
@@ -193,7 +195,7 @@
                             else {
                                 #only use map items with regex patterns
                                 foreach ($item in ($global:PSAnsiFileMap | Where-Object Pattern)) {
-                                    if ($name -match $item.pattern -AND (-not $done)) {
+                                    if ($name -match $item.pattern -and (-not $done)) {
                                         Write-Verbose "Detected a $($item.description) file"
                                         Write-Output "$indentStr$($item.ansi)$($Name)$([char]27)[0m"
                                         #set a flag indicating we've made a match to stop looking
@@ -202,12 +204,12 @@
                                 }
                             }
                             #no match was found so just write the item.
-                            if (-Not $done) {
+                            if (-not $done) {
                                 Write-Verbose "No ansi match for $Name"
                                 Write-Output "$indentStr$Name$([char]27)[0m"
                             }
                         } #file
-                        Default {
+                        default {
                             Write-Output "$indentStr$Name"
                         }
                     } #switch
@@ -224,17 +226,17 @@
                 $props = @(Get-ItemProperty $Path -ea 0)
                 if ($props[0] -is [PSCustomObject]) {
                     if ($ShowProperty -eq '*') {
-                        $props = @($props[0].PSObject.properties | Where-Object { $excludedProviderNoteProps -NotContains $_.Name })
+                        $props = @($props[0].PSObject.properties | Where-Object { $excludedProviderNoteProps -notcontains $_.Name })
                     }
                     else {
                         $props = @($props[0].PSObject.properties |
-                            Where-Object { $excludedProviderNoteProps -NotContains $_.Name -AND $ShowProperty -contains $_.name })
+                            Where-Object { $excludedProviderNoteProps -notcontains $_.Name -and $ShowProperty -contains $_.name })
                     }
                 }
 
                 for ($i = 0; $i -lt $props.Count; $i++) {
                     $prop = $props[$i]
-                    $IsLast[-1] = ($i -eq $props.count - 1) -and (-Not $HasChildItems)
+                    $IsLast[-1] = ($i -eq $props.count - 1) -and (-not $HasChildItems)
                     #30 May 2024 better accommodate binary values in the registry
                     if ($prop.Value -is [byte[]]) {
                         $Value = 'Binary or byte array'
@@ -255,7 +257,7 @@
 
         function ShowContainer {
             [CmdletBinding()]
-            Param (
+            param (
                 [string]$Path,
                 [string]$Name = $(Split-Path $Path -Leaf),
                 [bool[]]$IsLast = @(),
@@ -273,7 +275,7 @@
                     $rPath = Resolve-Path -LiteralPath $Path -ErrorAction stop
                 }
                 catch {
-                    Throw "Failed to resolve $path. This PSProvider and path may be incompatible with this command."
+                    throw "Failed to resolve $path. This PSProvider and path may be incompatible with this command."
                     #bail out
                     return
                 }
@@ -289,7 +291,7 @@
                 IsLast        = $IsLast
                 hasChildItems = $hasChildItems
                 Color         = $Color
-                ItemType      = If ($isTop) { 'TopContainer' } else { 'ChildContainer' }
+                ItemType      = if ($isTop) { 'TopContainer' } else { 'ChildContainer' }
             }
             ShowItem @sParams
 
@@ -324,7 +326,7 @@
         }
     } #begin
 
-    Process {
+    process {
         Write-Verbose "Detected parameter set $($PSCmdlet.ParameterSetName)"
         if ($PSCmdlet.ParameterSetName -eq 'Path') {
             # In the -Path (non-literal) resolve path in case if it is wild carded.
@@ -351,3 +353,5 @@
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 }
+
+#EOF

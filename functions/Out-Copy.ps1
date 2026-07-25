@@ -1,10 +1,10 @@
 
-Function Out-Copy {
+function Out-Copy {
     [cmdletbinding()]
-    [alias("oc")]
-    Param(
+    [alias('oc')]
+    param(
         [Parameter(
-            Position=0,
+            Position = 0,
             Mandatory,
             ValueFromPipeline
         )]
@@ -12,29 +12,32 @@ Function Out-Copy {
         [ValidateNotNullOrEmpty()]
         [int]$Width = 80,
         [switch]$CommandOnly,
-        [Parameter(HelpMessage = "Include any Ansi formatting.")]
+        [Parameter(HelpMessage = 'Include any Ansi formatting.')]
         [switch]$Ansi
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = console
         Write-Verbose "[$($MyInvocation.MyCommand) BEGIN  ] Starting the command"
         Write-Verbose "[$($MyInvocation.MyCommand) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #initialize a collection to hold all incoming data
         $data = [system.collections.generic.list[object]]::New()
 
         #initialize a here-string for the clipboard copy
-        $Text = @"
-"@
+        $Text = @'
+
+'@
 
         #parse out the Out-Copy command
         $Invoked = $MyInvocation.Line
-        $cmd = $Invoked.substring(0, $invoked.LastIndexOf("|"))
+        $cmd = $Invoked.substring(0, $invoked.LastIndexOf('|'))
         Write-Verbose "[$($MyInvocation.MyCommand) BEGIN  ] Capturing output from: $cmd"
 
         $Idle = $True
     } #begin
 
-    Process {
+    process {
         #only display the verbose message once
         if ($idle) {
             Write-Verbose "[$($MyInvocation.MyCommand) PROCESS] Capturing pipeline input"
@@ -45,20 +48,20 @@ Function Out-Copy {
 
     } #process
 
-    End {
+    end {
         #format data as string
         $DataStrings = $data | Out-String -Width $width
         #write data to the pipeline
         Write-Verbose "[$($MyInvocation.MyCommand) END    ] Here is the captured command output"
-        if ($PSBoundParameters.ContainsKey("Ansi")) {
+        if ($PSBoundParameters.ContainsKey('Ansi')) {
             Write-Verbose "[$($MyInvocation.MyCommand) END    ] Including any Ansi formatting"
         }
         else {
             #strip off ANSI sequences
             Write-Verbose "[$($MyInvocation.MyCommand) END    ] Removing any Ansi formatting"
             [regex]$AnsiOpen = "$([char]0x1b)\[\d+[\d;]+m"
-            [regex]$AnsiClose= "$([char]27)\[0m"
-            $DataStrings = $AnsiOpen.replace($DataStrings,"") -replace $AnsiClose,""
+            [regex]$AnsiClose = "$([char]27)\[0m"
+            $DataStrings = $AnsiOpen.replace($DataStrings, '') -replace $AnsiClose, ''
         }
 
         if ($CommandOnly) {
@@ -79,7 +82,7 @@ Function Out-Copy {
             $text += "`n"
             Write-Verbose "[$($MyInvocation.MyCommand) END    ] Converting data to text"
             #using a regular expression to try and clean up the output
-            $text += $DataStrings  -replace "(?<=\S*)\s+`r`n$", "`r`n"
+            $text += $DataStrings -replace "(?<=\S*)\s+`r`n$", "`r`n"
         }
 
         Write-Verbose "[$($MyInvocation.MyCommand) END    ] Copy text to the clipboard"
@@ -88,3 +91,5 @@ Function Out-Copy {
     } #end
 
 }
+
+#EOF

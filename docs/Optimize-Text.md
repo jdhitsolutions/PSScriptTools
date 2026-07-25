@@ -243,8 +243,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
-This function was originally described at http://jdhitsolutions.com/blog/2014/09/using-optimized-text-files-in-powershell
-
 ## RELATED LINKS
 
 [Get-Content]()

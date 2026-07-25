@@ -15,6 +15,8 @@ Function Convert-HtmlToAnsi {
         [string]$HtmlCode
     )
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi,scripting
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -30,3 +32,4 @@ Function Convert-HtmlToAnsi {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 } #close Convert-HTMLtoANSI
+#EOF

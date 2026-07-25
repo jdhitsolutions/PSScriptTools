@@ -24,6 +24,8 @@ You can use this command to write an ANSI-styled progress bar to the console. Th
 
 NOTE: If you are using the Windows Terminal and are at the bottom of the screen, you may get improperly formatted results. Clear the host and try again.
 
+This command will not run in the Windows PowerShell ISE.
+
 ## EXAMPLES
 
 ### Example 1

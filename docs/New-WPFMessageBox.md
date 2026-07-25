@@ -16,15 +16,16 @@ Display a customizable WPF-based message box.
 ### standard (Default)
 
 ```yaml
-New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>] [-ButtonSet <String>]
- [-Background <String>] [-Quiet] [<CommonParameters>]
+New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>]
+[-ButtonSet <String>] [-Background <String>] [-Quiet] [<CommonParameters>]
 ```
 
 ### custom
 
 ```yaml
 New-WPFMessageBox [-Message] <String> [-Title <String>] [-Icon <String>]
-[-CustomButtonSet <OrderedDictionary>] [-Background <String>] [-Quiet] [<CommonParameters>]
+[-CustomButtonSet <OrderedDictionary>] [-Background <String>] [-Quiet]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -48,7 +49,8 @@ This command requires a Windows platform.
 ### Example 1
 
 ```powershell
-PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
+PS C:\> New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm
+-Icon Question -ButtonSet YesNo
 False
 ```
 
@@ -66,7 +68,9 @@ Display a message box with a crimson background and using the Shield icon. No va
 ### Example 3
 
 ```powershell
-PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
+PS C:\> New-WPFMessageBox -Message "Select a system option from these choices:"
+-Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet (
+[ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})
 ```
 
 Create a custom message box with a user-defined set of buttons.

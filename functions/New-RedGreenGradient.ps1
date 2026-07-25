@@ -1,25 +1,30 @@
 
-Function New-RedGreenGradient {
+function New-RedGreenGradient {
     [cmdletbinding()]
     [OutputType([System.String])]
 
-    Param(
-        [Parameter(Position = 0, HelpMessage = "Specify a percentage as a decimal value like .35")]
-        [ValidateScript( {$_ -le 1})]
+    param(
+        [Parameter(Position = 0, HelpMessage = 'Specify a percentage as a decimal value like .35')]
+        [ValidateScript( { $_ -le 1 })]
         [double]$Percent = 1,
-        [Parameter(HelpMessage = "Specify a relative bar length. The smaller the number the longer the bar.")]
+        [Parameter(HelpMessage = 'Specify a relative bar length. The smaller the number the longer the bar.')]
         [ValidateRange(2, 10)]
         [int]$Step = 5,
-        [Parameter(HelpMessage = "Specify a character to use for the gradient bar")]
+        [Parameter(HelpMessage = 'Specify a character to use for the gradient bar')]
         [char]$Character = 0x2588
     )
-
+    #tags are used for categorizing the command
+    #cmdTags = console,graphical,ansi
+    if ($Host.Name -eq 'Windows PowerShell ISE Host') {
+        Write-Warning 'This command is not supported in the PowerShell ISE'
+        return
+    }
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     $r = 255
     $g = 0
     Write-Verbose "Using a percentage of $Percent"
-    [int]$max = $r*$Percent
+    [int]$max = $r * $Percent
     Write-Verbose "Using a calculated max value of $max"
     [string[]]$out = @()
 
@@ -29,14 +34,16 @@ Function New-RedGreenGradient {
         $r -= $Step
         $g += $Step
         if ($g -ge 256) {
-            Write-Verbose "100% green has been reached"
+            Write-Verbose '100% green has been reached'
             break
         }
     }
 
-    Write-Verbose "Creating final ANSI gradient bar"
-    $out -join ""
+    Write-Verbose 'Creating final ANSI gradient bar'
+    $out -join ''
 
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 } #end function
 
+
+#EOF

@@ -15,6 +15,8 @@ Function Import-PSScriptToolsTypeExtension {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = other
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -49,6 +51,8 @@ Function Get-PSScriptToolsTypeExtension {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = other
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -80,3 +84,5 @@ Function Get-PSScriptToolsTypeExtension {
     } #end
 
 } #close
+
+#EOF

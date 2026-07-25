@@ -9,6 +9,8 @@ Function Copy-HistoryCommand {
         [switch]$PassThru)
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -37,7 +39,8 @@ Register-ArgumentCompleter -CommandName Copy-HistoryCommand -ParameterName Id -S
     param($commandName, $parameterName, $wordToComplete, $commandAst, $fakeBoundParameter)
    Get-History | Where-Object { $_.id -like "$wordToComplete*" } |
     ForEach-Object {
-        # completion text,listitem text,result type,Tooltip
+        # completion text,listItem text,result type,Tooltip
         [System.Management.Automation.CompletionResult]::new($_.id, $_.id, 'ParameterValue', $_.commandline)
     }
 }
+#EOF

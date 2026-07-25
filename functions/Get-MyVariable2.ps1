@@ -9,8 +9,10 @@ function Get-MyVariable {
         [ValidateNotNullOrEmpty()]
         [string]$Scope = 'Global',
         [switch]$IncludeTypeInformation
-        )
+    )
 
+    #tags are used for categorizing the command
+    #cmdTags = general,scripting
     Write-Verbose 'Getting system defined variables'
 
     #create Powershell runspace
@@ -43,12 +45,12 @@ function Get-MyVariable {
     $out = $variables.Where({ $PSVariables -notcontains $_.name })
 
     if ($IncludeTypeInformation) {
-        Write-Verbose "Adding type information"
-        $out | Add-Member -MemberType ScriptProperty -Name Type -value {$this.Value.GetType().Name} -Force
+        Write-Verbose 'Adding type information'
+        $out | Add-Member -MemberType ScriptProperty -Name Type -Value { $this.Value.GetType().Name } -Force
         $out
     }
     else {
-        Write-Verbose "Writing default variables to the pipeline"
+        Write-Verbose 'Writing default variables to the pipeline'
         $out
     }
 
@@ -56,3 +58,5 @@ function Get-MyVariable {
 
 } #end function
 
+
+#EOF

@@ -123,6 +123,9 @@ if ($psEditor) {
         [OutputType('none')]
         Param ()
 
+        #tags are used for categorizing the command
+        #cmdTags = editor,scripting
+
         if ($host.name -match 'Code') {
             $context = $psEditor.GetEditorContext()
             $ThisPath = $context.CurrentFile.Path
@@ -142,7 +145,6 @@ if ($psEditor) {
         Write-Verbose 'Defining ISE additions'
 
         if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -NotContains 'ToDo') {
-
             $action = {
                 $prompt = 'What do you need to do?'
                 $title = 'To Do'
@@ -161,13 +163,15 @@ if ($psEditor) {
         [OutputType('none')]
         Param()
 
+        #tags are used for categorizing the command
+        #cmdTags = editor,scripting
         if ($host.name -match 'ISE') {
             $path = Split-Path -Path $psISE.CurrentFile.FullPath
             Set-Location -Path $path
             Clear-Host
         }
         Else {
-            Write-Warning 'This command must be run the the PowerShell ISE.'
+            Write-Warning 'This command must be run in the PowerShell ISE.'
         }
     }
 }
@@ -177,6 +181,8 @@ if ($psEditor) {
 Function Open-PSScriptToolsHelp {
     [cmdletbinding()]
     Param()
+    #tags are used for categorizing the command
+    #cmdTags = other
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     $pdf = Join-Path -Path $PSScriptRoot -ChildPath PSScriptToolsManual.pdf
     Write-Verbose "Testing the path $pdf"
@@ -204,3 +210,4 @@ $onRemoveScript = {
 $ExecutionContext.SessionState.Module.OnRemove += $OnRemoveScript
 
 $VerbosePreference = 'SilentlyContinue'
+#EOF

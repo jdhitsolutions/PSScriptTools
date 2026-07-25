@@ -1,9 +1,9 @@
 
-Function Get-CommandSyntax {
+function Get-CommandSyntax {
     [cmdletbinding()]
     [alias('gsyn')]
     [OutputType('System.String')]
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -18,12 +18,15 @@ Function Get-CommandSyntax {
         [string]$ProviderName
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = scripting
+
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     #define a scriptblock to run for each provider
     $test = {
-        Param($Provider)
+        param($Provider)
         if ($host.name -match 'console') {
             "$([char]0x1b)[1;4;38;5;155m$($provider.name)$([char]0x1b)[0m"
         }
@@ -70,3 +73,5 @@ Function Get-CommandSyntax {
     }
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }
+
+#EOF

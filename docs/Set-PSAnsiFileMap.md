@@ -35,7 +35,7 @@ Update the ANSI pattern for temporary files. This change will not persist unless
 ### Example 2
 
 ```powershell
-PS C:\> Set-PSAnsiFileMap -Description "Config" -Pattern "\.(yml)$" -Ansi "`e[38;5;25m"ge
+PS C:\> Set-PSAnsiFileMap -Description "Config" -Pattern "\.(yml)$" -Ansi "`e[38;5;25m"
 ```
 
 Add a new PSAnsiFileMap entry. This change will not persist unless you export the map.

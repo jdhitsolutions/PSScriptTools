@@ -16,7 +16,7 @@ Convert structured text to objects.
 ### File (Default)
 
 ```yaml
-ConvertFrom-Text [-Pattern] <Regex> [-Path] <String> [-TypeName <String>] [-NoProgress] 
+ConvertFrom-Text [-Pattern] <Regex> [-Path] <String> [-TypeName <String>] [-NoProgress]
 [<CommonParameters>]
 ```
 
@@ -110,7 +110,7 @@ In this example, the WindowsUpdate log is converted from text to objects using t
 ### Example 3
 
 ```powershell
-PS C:\> Get-Content c:\windows\windowsupdate.log -totalcount 50 |
+PS C:\> Get-Content c:\windows\windowsupdate.log -TotalCount 50 |
 ConvertFrom-Text $wu
 ```
 
@@ -119,7 +119,8 @@ This example gets the first 50 lines from the Windows update log and converts th
 ### Example 4
 
 ```powershell
-PS C:\> $c = "(?<Protocol>\w{3})\s+(?<LocalIP>(\d{1,3}\.){3}\d{1,3}):(?<LocalPort>\d+)\s+(?<ForeignIP>.*):(?<ForeignPort>\d+)\s+(?<State>\w+)?"
+PS C:\> $c = "(?<Protocol>\w{3})\s+(?<LocalIP>(\d{1,3}\.){3}\d{1,3}):(?<LocalPort>\d+)\s+
+(?<ForeignIP>.*):(?<ForeignPort>\d+)\s+(?<State>\w+)?"
 PS C:\> netstat | select -skip 4 | ConvertFrom-Text $c |
 Format-Table -AutoSize
 

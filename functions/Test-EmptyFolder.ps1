@@ -1,8 +1,8 @@
-Function Test-EmptyFolder {
+function Test-EmptyFolder {
     [CmdletBinding()]
     [OutputType('Boolean', 'EmptyFolder')]
 
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -17,12 +17,14 @@ Function Test-EmptyFolder {
         [switch]$PassThru
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = file
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #Begin
 
-    Process {
+    process {
         foreach ($item in $path) {
             $cPath = (Convert-Path -LiteralPath $item)
             Write-Verbose "Measuring $cPath on $([System.Environment]::MachineName)"
@@ -31,30 +33,30 @@ Function Test-EmptyFolder {
 
                 $d = [System.IO.DirectoryInfo]::new($cPath)
 
-                If ($PSVersionTable.PSVersion.major -gt 5 ) {
+                if ($PSVersionTable.PSVersion.major -gt 5 ) {
                     #this .NET class is not available in Windows PowerShell 5.1
                     $opt = [System.IO.EnumerationOptions]::new()
                     $opt.RecurseSubdirectories = $True
                     $opt.AttributesToSkip = 'SparseFile', 'ReparsePoint'
 
-                    Try {
+                    try {
                         $files = $d.GetFiles('*', $opt)
                     }
-                    Catch {
+                    catch {
                         Write-Warning $_.exception.message
                     }
                 } #if newer that Windows PowerShell 5.1
                 else {
                     Write-Verbose 'Using legacy code'
-                    Try {
+                    try {
                         $files = $d.GetFiles('*', 'AllDirectories')
                     }
-                    Catch {
+                    catch {
                         Write-Warning $_.exception.message
                     }
                 }
 
-                If ($files.count -eq 0) {
+                if ($files.count -eq 0) {
                     $Empty = $True
                 }
                 else {
@@ -79,7 +81,8 @@ Function Test-EmptyFolder {
             }
         } #foreach item
     }
-    End {
+    end {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 }
+#EOF

@@ -1,29 +1,33 @@
 ﻿
 #region private functions
-Function Get-CommandParameter {
+function Get-CommandParameter {
     [cmdletbinding()]
 
-    Param(
-        [Parameter(ValueFromPipeline, Mandatory, HelpMessage = "Enter the name of a command")]
+    param(
+        [Parameter(
+            Mandatory,
+            ValueFromPipeline,
+            HelpMessage = 'Enter the name of a command'
+        )]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript( {Get-Command $_})]
+        [ValidateScript( { Get-Command $_ })]
         [string]$Name,
         [string[]]$ParameterName
     )
-    Begin {
+    begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
-        $common = "Verbose", "Debug", "ErrorAction", "WarningAction",
-        "InformationAction", "ErrorVariable", "WarningVariable", "InformationVariable",
-        "OutVariable", "outbuffer", "PipelineVariable"
+        $common = 'Verbose', 'Debug', 'ErrorAction', 'WarningAction',
+        'InformationAction', 'ErrorVariable', 'WarningVariable', 'InformationVariable',
+        'OutVariable', 'outbuffer', 'PipelineVariable'
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting parameter data for $Name "
         $gcm = Get-Command -Name $name -ErrorAction Stop
         if ($gcm.CommandType -eq 'alias') {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Resolving alias $Name "
-            $gcm = Get-Command -name $gcm.ResolvedCommandName
+            $gcm = Get-Command -Name $gcm.ResolvedCommandName
         }
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting parameters for $($gcm.name)"
         $Params = $gcm.parameters
@@ -33,15 +37,15 @@ Function Get-CommandParameter {
             [void]$params.Remove($var)
         }
 
-        $params.keys | foreach-object -Begin {
+        $params.keys | ForEach-Object -Begin {
             $resolved = @()
-        } -process {
+        } -Process {
             $resolved += $gcm.ResolveParameter($_)
         }
 
         if ($ParameterName) {
             foreach ($item in $ParameterName) {
-                $resolved.where( {$_.name -like $item})
+                $resolved.where( { $_.name -like $item })
             }
         }
         else {
@@ -49,7 +53,7 @@ Function Get-CommandParameter {
         }
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
@@ -57,21 +61,21 @@ Function Get-CommandParameter {
 } #close Get-CommandMetadata
 
 
-Function Get-CommandMetadata {
+function Get-CommandMetadata {
     [cmdletbinding()]
-    Param(
-        [Parameter(ValueFromPipeline, Mandatory, HelpMessage = "Enter the name of a command")]
+    param(
+        [Parameter(ValueFromPipeline, Mandatory, HelpMessage = 'Enter the name of a command')]
         [ValidateNotNullOrEmpty()]
-        [ValidateScript( {Get-Command $_})]
+        [ValidateScript( { Get-Command $_ })]
         [string]$Name
     )
-    Begin {
+    begin {
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting command metadata for $Name "
         $gcm = Get-Command -Name $name -ErrorAction Stop
         #allow an alias or command name
@@ -84,7 +88,7 @@ Function Get-CommandMetadata {
         New-Object System.Management.Automation.CommandMetaData $gcm
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
@@ -94,17 +98,24 @@ Function Get-CommandMetadata {
 #endregion
 
 #this is the public command
-Function Copy-Command {
+function Copy-Command {
 
     [cmdletbinding()]
-    [alias("cc")]
+    [alias('cc')]
     [OutputType([System.String[]])]
 
-    Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter the name of a PowerShell command")]
+    param(
+        [Parameter(
+            Position = 0,
+            Mandatory,
+            HelpMessage = 'Enter the name of a PowerShell command'
+        )]
         [ValidateNotNullOrEmpty()]
         [string]$Command,
-        [Parameter(Position = 1, HelpMessage = "Enter the new name for your command using Verb-Noun convention")]
+        [Parameter(
+            Position = 1,
+            HelpMessage = 'Enter the new name for your command using Verb-Noun convention'
+        )]
         [ValidateNotNullOrEmpty()]
         [string]$NewName,
         [switch]$IncludeDynamic,
@@ -112,7 +123,10 @@ Function Copy-Command {
         [switch]$UseForwardHelp
     )
 
-    Try {
+    try {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "[BEGIN  ] Getting command metadata for $command"
@@ -127,7 +141,7 @@ Function Copy-Command {
         Write-Verbose "[BEGIN  ] Resolved command to $cmdName"
         $cmd = New-Object System.Management.Automation.CommandMetaData $gcm
     }
-    Catch {
+    catch {
         Write-Warning "Failed to create command metadata for $command"
         Write-Warning $_.Exception.Message
     }
@@ -149,7 +163,7 @@ This is a copy of:
 
 $(($gcm | Format-Table -AutoSize | Out-String).trim())
 
-Created: $('{0:dd} {0:y}' -f (get-date))
+Created: $('{0:dd} {0:y}' -f (Get-Date))
 Author : $env:username
 
 #>
@@ -159,8 +173,8 @@ Author : $env:username
         #define the beginning of text for the new command
         #dynamically insert the command's module if one exists
         $text = @"
-#requires -version $(([regex]"\d+\.\d+").match($PSVersionTable.PSVersion).value)
-$(if ($gcm.modulename -AND $gcm.modulename -NotMatch "Microsoft\.PowerShell\.\w+") { "#requires -module $($gcm.modulename)" })
+#requires -version $(([regex]'\d+\.\d+').match($PSVersionTable.PSVersion).value)
+$(if ($gcm.ModuleName -AND $gcm.ModuleName -NotMatch 'Microsoft\.PowerShell\.\w+') { "#requires -module $($gcm.ModuleName)" })
 
 $myComment
 
@@ -170,14 +184,14 @@ Function $Name {
 
         #manually copy parameters from original command if param block not found
         #this can happen with dynamic parameters like those in the AD cmdlets
-        if (-Not [System.Management.Automation.ProxyCommand]::GetParamBlock($gcm)) {
-            Write-Verbose "[PROCESS] No param block detected. Looking for dynamic parameters"
+        if (-not [System.Management.Automation.ProxyCommand]::GetParamBlock($gcm)) {
+            Write-Verbose '[PROCESS] No param block detected. Looking for dynamic parameters'
             $IncludeDynamic = $True
         }
 
         if ($IncludeDynamic) {
-            Write-Verbose "[PROCESS] Adding dynamic parameters"
-            $params = $gcm.parameters.GetEnumerator() | where-object { $_.value.IsDynamic}
+            Write-Verbose '[PROCESS] Adding dynamic parameters'
+            $params = $gcm.parameters.GetEnumerator() | Where-Object { $_.value.IsDynamic }
             foreach ($p in $params) {
                 $cmd.Parameters.add($p.key, $p.value)
             }
@@ -185,15 +199,15 @@ Function $Name {
 
         if ($UseForwardHelp) {
             #define a regex to pull forward help from a proxy command
-            [regex]$rx = "\.ForwardHelp.*\s+\.ForwardHelp.*"
-            Write-Verbose "[PROCESS] Using forwarded help"
+            [regex]$rx = '\.ForwardHelp.*\s+\.ForwardHelp.*'
+            Write-Verbose '[PROCESS] Using forwarded help'
             $help = $rx.match([System.Management.Automation.ProxyCommand]::Create($cmd)).Value
         }
         else {
             #if not using the default Forwardhelp links, get comment based help instead
 
             #get help as a comment block
-            $help = [System.Management.Automation.ProxyCommand]::GetHelpComments((get-help $Command))
+            $help = [System.Management.Automation.ProxyCommand]::GetHelpComments((Get-Help $Command))
             #substitute command name
             $help = $help -replace $Command, $NewName
 
@@ -201,7 +215,7 @@ Function $Name {
             $cmd.HelpUri = $null
         }
 
-        Write-Verbose "[PROCESS] Adding Help"
+        Write-Verbose '[PROCESS] Adding Help'
         $Text += @"
 <#
 $help
@@ -215,7 +229,7 @@ $help
         #get parameters
         $NewParameters = [System.Management.Automation.ProxyCommand]::GetParamBlock($cmd)
 
-        Write-Verbose "[PROCESS] Cleaning up parameter names"
+        Write-Verbose '[PROCESS] Cleaning up parameter names'
         [regex]$rx = '\]\r\s+\${(?<var>\w+)}'
         #replace the {variable-name} with just variable-name and joined to type name
         $NewParameters = $rx.Replace($NewParameters, ']$$${var}')
@@ -235,22 +249,22 @@ Begin {
 
 "@
 
-        Write-Verbose "[PROCESS] Adding Begin block"
+        Write-Verbose '[PROCESS] Adding Begin block'
 
         if ($AsProxy) {
             $Text += [System.Management.Automation.ProxyCommand]::GetBegin($cmd)
         }
 
-        $Text += @"
+        $Text += @'
 
 } #begin
 
 Process {
 
 
-"@
+'@
 
-        Write-Verbose "[PROCESS] Adding Process block"
+        Write-Verbose '[PROCESS] Adding Process block'
         if ($AsProxy) {
             $Text += [System.Management.Automation.ProxyCommand]::GetProcess($cmd)
         }
@@ -271,35 +285,35 @@ End {
 
 "@
 
-        Write-Verbose "[PROCESS] Adding End block"
-        If ($AsProxy) {
+        Write-Verbose '[PROCESS] Adding End block'
+        if ($AsProxy) {
             $Text += [System.Management.Automation.ProxyCommand]::GetEnd($cmd)
         }
 
-        $Text += @"
+        $Text += @'
 
 } #end
 
-"@
+'@
 
         #insert closing text
         $Text += @"
 
 } #end function $Name
 "@
-        if ($host.Name -match "PowerShell ISE") {
+        if ($host.Name -match 'PowerShell ISE') {
             #open in a new ISE tab
-            $tab = $psise.CurrentPowerShellTab.Files.Add()
+            $tab = $PSIse.CurrentPowerShellTab.Files.Add()
 
-            Write-Verbose "[END    ] Opening new command in a new ISE tab"
+            Write-Verbose '[END    ] Opening new command in a new ISE tab'
             $tab.editor.InsertText($Text)
 
             #jump to the top
             $tab.Editor.SetCaretPosition(1, 1)
         }
         elseif ($host.name -eq 'Visual Studio Code Host') {
-            $pseditor.workspace.newfile()
-            $pseditor.GetEditorContext().currentfile.insertText($text)
+            $PSEditor.workspace.newfile()
+            $PSEditor.GetEditorContext().CurrentFile.insertText($text)
         }
         else {
             #just write the new command to the pipeline
@@ -309,3 +323,5 @@ End {
     Write-Verbose "[END    ] $($MyInvocation.MyCommand)"
 
 }#end Copy-Command
+
+#EOF

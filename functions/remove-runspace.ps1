@@ -1,13 +1,13 @@
-Function Remove-Runspace {
-    [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = "id")]
-    [OutputType("None")]
+function Remove-Runspace {
+    [CmdletBinding(SupportsShouldProcess, DefaultParameterSetName = 'id')]
+    [OutputType('None')]
 
-    Param (
+    param (
         [Parameter(
             Position = 0,
             Mandatory,
-            ParameterSetName = "id"
-            )]
+            ParameterSetName = 'id'
+        )]
         [ValidateNotNullOrEmpty()]
         [int32]$ID,
 
@@ -15,28 +15,30 @@ Function Remove-Runspace {
             Position = 0,
             Mandatory,
             ValueFromPipeline,
-            ParameterSetName = "runspace"
-            )]
+            ParameterSetName = 'runspace'
+        )]
         [System.Management.Automation.Runspaces.Runspace]$Runspace
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = general,scripting
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         if ($id) {
             Write-Verbose "Getting runspace ID $id"
-            $runspace = Get-Runspace -id $id
+            $runspace = Get-Runspace -Id $id
             if (-not $Runspace) {
-                Throw "Failed to find a runspace with an id of $id"
+                throw "Failed to find a runspace with an id of $id"
             }
 
         }
         Write-Verbose "Removing runspace $($runspace.id)"
         if ($PSCmdlet.ShouldProcess("$($Runspace.id) - $($Runspace.name)")) {
-            if ($Runspace.RunspaceStateInfo -eq "closing" -OR $runspace.RunspaceAvailability -eq "busy") {
+            if ($Runspace.RunspaceStateInfo -eq 'closing' -or $runspace.RunspaceAvailability -eq 'busy') {
                 Write-Warning "Can't remove this runspace in its current state"
                 Write-Warning ($runspace | Out-String)
             }
@@ -48,7 +50,7 @@ Function Remove-Runspace {
     } #process
 
 
-    End {
+    end {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end
 
@@ -58,9 +60,10 @@ Function Remove-Runspace {
 Register-ArgumentCompleter -CommandName Remove-Runspace -ParameterName Runspace -ScriptBlock {
     param($commandName, $parameterName, $WordToComplete, $commandAst, $fakeBoundParameter)
 
-    (Get-Runspace).where( {$_.RunspaceAvailability -ne 'busy'}).name|
-        foreach-object {
+    (Get-Runspace).where( { $_.RunspaceAvailability -ne 'busy' }).name |
+    ForEach-Object {
         # completion text,listitem text,result type,Tooltip
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }
+#EOF

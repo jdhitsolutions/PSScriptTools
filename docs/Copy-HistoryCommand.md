@@ -14,20 +14,17 @@ Copy a history command line to the clipboard.
 ## SYNTAX
 
 ```yaml
-Copy-HistoryCommand [[-ID] <Int32[]>] [-PassThru] [-WhatIf] [-Confirm] [<CommonParameters>]
+Copy-HistoryCommand [[-ID] <Int32[]>] [-PassThru] [-WhatIf] [-Confirm]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
 
-You can use this command to copy the command line from a given PowerShell
-history item to the clipboard.The default item will the be last history
-item. Once copied, you can paste into your following prompt to edit and/or
-re-run.
+You can use this command to copy the command line from a given PowerShell history item to the clipboard.The default item will the be last history item. Once copied, you can paste into your following prompt to edit and/or re-run.
 
 Linux platforms require the xclip utility to be in the path.
 
-Lee Holmes has a similar function called Copy-History in the PowerShell
-Cookbook that lets you copy a range of history commands to the clipboard.
+Lee Holmes has a similar function called Copy-History in the PowerShell Cookbook that lets you copy a range of history commands to the clipboard.
 
 ## ExampleS
 
@@ -153,6 +150,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ### System.String
 
 ## NOTES
+
+This command has an alias of ch.
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 

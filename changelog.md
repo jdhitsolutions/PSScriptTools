@@ -3,7 +3,13 @@
 This file contains the most recent change history for the PSScriptTools module.
 
 ## [Unreleased]
+
+## [3.2.0] - 2026-07-25
+
 ### Added
+
+- Added tag comments and code to label or tag module commands. This information can be used with `Get-PSScriptTools`. Also added a new table view called `tags`.
+- Added a property set called `TagInfo` for `PSScriptTool` objects.
 - Added command `Write-PSHorizontalRule` with an alias of `pshr`.
 - Added command `Format-BorderBox` with an alias of `fbx`.
 - Added alias `wvers` for `Get-WindowsVersionString`.
@@ -15,20 +21,25 @@ This file contains the most recent change history for the PSScriptTools module.
 - Added commands for working with `[Enum]` classes. `Test-IsEnum` will return a simple Boolean value if the type is an enum. `Show-Enum` will display the enum values and their corresponding integer values. Output is formatted with a new custom format file `enumInfo.format.ps1xml`.
 
 ### Changed
+
+- Added end-of-file markers at the end of each script file.
+- Updated `New-RedGreenGradient`, `Show-ANSISequence`, and `New-ANSIBar` to abort if running in the PowerShell ISE.
 - Updated `Get-ModuleCommand` to only return the first module when using `ListAvailable`.
 - Updated `Show-Tree` to display tree lines in bright green when using `InColor`.
 - Updated `Out-More` so that the `Count` parameter is now positional. Also added a second alias of `page` for the `Count` parameter.
 - Updated PSScriptTools JSON data to include the online help link.
 - Updated formatting for PSScriptTools in PowerShell 7 to add a link to online help for the command.
 - Updated formatting for `Get-PSScriptTools` to display aliases italicized and in color.
-- Updated `Show-AnsiSequence` to increase the number of displayed columns.
+- Updated `Show-AnsiSequence` to let the user specify the number of columns to display for Foreground and Background sequences. The default is 3.
 - Updated `Show-AnsiSequence` to include optional parameters to page the output using `Out-More`.
 - Update TypeMember functions with a custom transformation so that the user can specify a type name like `DateTime` or `[DateTime]`.
 - Updated sample scripts.
-- Updated `README`.
 - Updates to help documentation.
+- Updated `README`.
 
 ### Fixed
+
+- Added content about `Copy-HistoryCommand` to the README file. It had been previously accidentally omitted.
 - Fixed missing alias, `gmc` for `Get-ModuleCommand`.
 
 ## [3.1.0] - 2026-07-14
@@ -135,71 +146,12 @@ This file contains the most recent change history for the PSScriptTools module.
 
 - Removed obsolete comment-based help for `New-PSDynamicParameter`.
 
-## [2.49.0] - 2024-06-06
-
-### Added
-
-- Modified `ConvertTo-Markdown` to use `Property` and `Value` headings when converting to a list.
-- Added CimMember functions `Get-CimNamespace`, `Get-CimClassMethod`, `Get-CimClassProperty`, `Get-CimClassPropertyQualifier`, `Get-CimClassName` and `Get-CimMember`. ([Issue #137](https://github.com/jdhitsolutions/PSScriptTools/issues/137))
-- Added custom formatting for `Get-CimClassName`.
-- Added the module `ThreadJob` as a module dependency to the manifest.
-
-### Changed
-
-- Modified module manifest to remove version logic on function export. Now exporting everything. If there is an OS limitation, try to handle it on a per-command basis. __This may be a breaking change__.
-- Changed PDF manual theme from `github` to `github.dark`.
-- Updated `Get-ParameterInfo` to recognize `ProgressAction` as a common parameter. This parameter was add in PowerShell 7.
-- Updated the default table view for output from `Get-ModuleCommand` to include the module version number.
-- Modified `Show-Tree` to better handle multi-string and binary values in the registry.
-- Modified `Show-Tree` to use `PSStyle.FileInfo` for color information if detected. ([Issue #147](https://github.com/jdhitsolutions/PSScriptTools/issues/147))
-- Updated `README.md`
-- Revised `Get-FolderSizeInfo` to be more consistent between PowerShell versions. The command will skip counting all reparse points. __This may be a breaking change__. ([Issue #145](https://github.com/jdhitsolutions/PSScriptTools/issues/145))
-- Re-wrote `Find-CimClass` to use `CimSession`.
-- Revised `Get-ParameterInfo` to sort the output by default using ParameterSet, Position, and Name
-- Help updates.
-
-### Fixed
-
-- Revised `Get-WindowsVersion` to handle non-English cultures. ([Issue #142](https://github.com/jdhitsolutions/PSScriptTools/issues/142))
-- Fixed bug in `Convert-EventLogRecord` that failed on duplicate property name `ID`. ([Issue #143](https://github.com/jdhitsolutions/Scripts/issues/143))
-
-## [v2.48.0] - 2023-07-28
-
-### Added
-
-- Added parameter `ProviderName` to `Get-CommandSyntax to let the user specify a provider.` [Issue #139](https://github.com/jdhitsolutions/PSScriptTools/issues/139)
-
-### Changed
-
-- Modified `Get-ParameterInfo` to sort output by parameter set. [Issue #138](https://github.com/jdhitsolutions/PSScriptTools/issues/138)
-- Modified the format file for `psparameterinfo` objects to use a table as the default.
-- Added `EnumOnly` parameter to `Get-TypeMember` [Issue #135](https://github.com/jdhitsolutions/PSScriptTools/issues/135)
-- Help updates
-
-## [v2.47.0] - 2023-05-25
-
-### Changed
-
-- Added missing online help links.
-- Updated module description in the manifest.
-- Added `EnableLN` parameter alias to `Get-FolderSizeInfo`.
-- Help updates.
-- Update `Get-TypeMember` to identify properties that are enumerations.
-- Updated format file for `Get-TypeMember` to highlight enum properties.
-- Updated `README.md`.
-
-### Deprecated
-
-- Marked `Out-ConditionalColor` and `Set-ConsoleColor` as deprecated. They will be removed in a future release.
-
 ## Archive
 
 If you need to see older change history, look at the [Archive ChangeLog](https://github.com/jdhitsolutions/PSScriptTools/blob/master/Archive-ChangeLog.md) online.
 
-[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v3.1.0..HEAD
+[Unreleased]: https://github.com/jdhitsolutions/PSScriptTools/compare/v3.2.0..HEAD
+[3.2.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v3.1.0..v3.2.0
 [3.1.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v3.0.0..v3.1.0
 [3.0.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.50.0..v3.0.0
 [2.50.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.49.0..v2.50.0
-[2.49.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.48.0..v2.49.0
-[v2.48.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.47.0..v2.48.0
-[v2.47.0]: https://github.com/jdhitsolutions/PSScriptTools/compare/v2.46.0..v2.47.0

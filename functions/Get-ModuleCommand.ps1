@@ -1,13 +1,13 @@
-Function Get-ModuleCommand {
-    [cmdletbinding(DefaultParameterSetName = "name")]
-    [Alias("gmc")]
-    [OutputType("ModuleCommand")]
+function Get-ModuleCommand {
+    [cmdletbinding(DefaultParameterSetName = 'name')]
+    [Alias('gmc')]
+    [OutputType('ModuleCommand')]
 
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
-            HelpMessage = "The name of an installed/available module.",
+            HelpMessage = 'The name of an installed/available module.',
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
@@ -15,20 +15,22 @@ Function Get-ModuleCommand {
         [string]$Name,
 
         [Parameter(
-            HelpMessage = "Command name to search for."
+            HelpMessage = 'Command name to search for.'
         )]
         [SupportsWildcards()]
         [ValidateNotNullOrEmpty()]
         [string]$CommandName,
 
-        [Parameter(HelpMessage = "Get the newest version not currently loaded in your session.,")]
+        [Parameter(HelpMessage = 'Get the newest version not currently loaded in your session.,')]
         [switch]$ListAvailable
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
-        $PSBoundParameters.Add("ErrorAction", "stop")
+        $PSBoundParameters.Add('ErrorAction', 'stop')
 
         #region local functions
         function getModuleInfo {
@@ -40,9 +42,9 @@ Function Get-ModuleCommand {
             Write-Verbose "Using version $($module.version)"
 
             $cmds = @()
-            Write-Verbose "Getting exported functions"
+            Write-Verbose 'Getting exported functions'
             $cmds += $module.ExportedFunctions.keys | Where-Object { $_ -like "$CommandName" } | Get-Command
-            Write-Verbose "Getting exported cmdlets"
+            Write-Verbose 'Getting exported cmdlets'
             $cmds += $module.ExportedCmdlets.keys | Where-Object { $_ -like "$CommandName" } | Get-Command
 
             Write-Verbose "Found $($cmds.count) functions and/or cmdlets"
@@ -50,11 +52,11 @@ Function Get-ModuleCommand {
             $out = foreach ($cmd in $cmds) {
                 Write-Verbose "Processing $($cmd.name)"
                 #get aliases, ignoring errors for those commands without one
-                $alias = (Get-Alias -Definition $cmd.Name -ErrorAction SilentlyContinue).name -join ","
+                $alias = (Get-Alias -Definition $cmd.Name -ErrorAction SilentlyContinue).name -join ','
 
                 #it is assumed you have updated help
                 [PSCustomObject]@{
-                    PSTypeName = "ModuleCommand"
+                    PSTypeName = 'ModuleCommand'
                     Name       = $cmd.name
                     Alias      = $alias
                     Verb       = $cmd.verb
@@ -75,21 +77,21 @@ Function Get-ModuleCommand {
         #endregion
     }
 
-    Process {
-        If ([string]::IsNullOrEmpty($Name) -and [string]::IsNullOrEmpty($CommandName)) {
+    process {
+        if ([string]::IsNullOrEmpty($Name) -and [string]::IsNullOrEmpty($CommandName)) {
             if ($ListAvailable) {
                 $out = Get-Module -ListAvailable | First 1 | ForEach-Object {
                     [PSCustomObject]@{
-                        PSTypeName = "ModuleCommand"
+                        PSTypeName = 'ModuleCommand'
                         Name       = $_.name
-                        Alias      = ""
-                        Verb       = ""
-                        Noun       = ""
+                        Alias      = ''
+                        Verb       = ''
+                        Noun       = ''
                         Synopsis   = $_.Description
                         Type       = $null
                         Version    = $_.version
                         Help       = $_.HelpInfoUri
-                        ModuleName = "Available Modules"
+                        ModuleName = 'Available Modules'
                         ModulePath = $_.Path
                         Compatible = $_.CompatiblePSEditions
                         PSVersion  = $_.PowerShellVersion
@@ -99,16 +101,16 @@ Function Get-ModuleCommand {
             else {
                 $out = Get-InstalledModule | ForEach-Object {
                     [PSCustomObject]@{
-                        PSTypeName = "ModuleCommand"
+                        PSTypeName = 'ModuleCommand'
                         Name       = $_.name
-                        Alias      = ""
-                        Verb       = ""
-                        Noun       = ""
+                        Alias      = ''
+                        Verb       = ''
+                        Noun       = ''
                         Synopsis   = $_.Description
                         Type       = $null
                         Version    = $_.version
                         Help       = $_.HelpInfoUri
-                        ModuleName = "Installed Modules"
+                        ModuleName = 'Installed Modules'
                         ModulePath = $_.Path
                         Compatible = $_.CompatiblePSEditions
                         PSVersion  = $_.PowerShellVersion
@@ -117,8 +119,8 @@ Function Get-ModuleCommand {
             }
         }
         else {
-            if ([string]::IsNullOrEmpty($CommandName)) { $CommandName = "*" }
-            if ([string]::IsNullOrEmpty($Name)) { $Name = "*" }
+            if ([string]::IsNullOrEmpty($CommandName)) { $CommandName = '*' }
+            if ([string]::IsNullOrEmpty($Name)) { $Name = '*' }
 
             if ($ListAvailable) {
                 #24 July 2026 Only get the first module which should be the most current
@@ -137,7 +139,7 @@ Function Get-ModuleCommand {
         #display results sorted by name for better formatting
         $out | Sort-Object -Property ModuleName, Name
     }
-    End {
+    end {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 
@@ -152,3 +154,4 @@ Register-ArgumentCompleter -CommandName Get-ModuleCommand -ParameterName Name -S
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }
+#EOF

@@ -1,27 +1,29 @@
 
 #region set of functions for converting times to and from Universal time
 
-Function ConvertTo-UTCTime {
+function ConvertTo-UTCTime {
     [cmdletbinding()]
-    [alias("tout")]
-    [OutputType([Datetime],[System.String])]
-    Param(
-        [Parameter(ValueFromPipeline, HelpMessage = "Enter a Datetime value")]
+    [alias('tout')]
+    [OutputType([Datetime], [System.String])]
+    param(
+        [Parameter(ValueFromPipeline, HelpMessage = 'Enter a Datetime value')]
         [ValidateNotNullOrEmpty()]
         [datetime]$DateTime = $(Get-Date),
         [switch]$AsString
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = time,scripting
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $DateTime to UTC"
         $utc = $datetime.ToUniversalTime()
         if ($AsString) {
-            "{0:u}" -f $utc
+            '{0:u}' -f $utc
         }
         else {
             $utc
@@ -29,38 +31,40 @@ Function ConvertTo-UTCTime {
 
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
 
     } #end
 
 } #close ConvertTo-UTCTime
 
-Function ConvertFrom-UTCTime {
+function ConvertFrom-UTCTime {
     [cmdletbinding()]
-    [alias("frut")]
+    [alias('frut')]
     [OutputType([datetime])]
 
-    Param(
+    param(
         [Parameter(
             Mandatory,
-            HelpMessage = "Enter a Universal Datetime value",
+            HelpMessage = 'Enter a Universal Datetime value',
             ValueFromPipeline
         )]
         [ValidateNotNullOrEmpty()]
         [datetime]$DateTime
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = time,scripting
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $DateTime UTC to local time"
         $DateTime.ToLocalTime()
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
@@ -70,26 +74,28 @@ Function ConvertFrom-UTCTime {
 
 #region time zone related commands
 # convert a foreign time to local time
-Function ConvertTo-LocalTime {
+function ConvertTo-LocalTime {
     [cmdletbinding()]
-    [alias("clt")]
-    [OutputType("DateTime")]
-    Param(
-        [Parameter(Position = 0, Mandatory, HelpMessage = "Enter a non local date time")]
+    [alias('clt')]
+    [OutputType('DateTime')]
+    param(
+        [Parameter(Position = 0, Mandatory, HelpMessage = 'Enter a non local date time')]
         [datetime]$Datetime,
         [Parameter(Position = 1, Mandatory, HelpMessage = "Enter the location's' UTC Offset", ValueFromPipelineByPropertyName)]
-        [Alias("offset")]
+        [Alias('offset')]
         [timespan]$UTCOffset,
-        [Parameter(HelpMessage = "Indicate that the foreign location is using Daylight Saving Time")]
-        [alias("dst")]
+        [Parameter(HelpMessage = 'Indicate that the foreign location is using Daylight Saving Time')]
+        [alias('dst')]
         [switch]$DaylightSavingTime
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = time,scripting
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Converting $Datetime (UTC $UTCOffset) to local time "
         $u = ($Datetime).AddMinutes( - ($UTCOffset.TotalMinutes))
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] UTC is $u"
@@ -103,7 +109,7 @@ Function ConvertTo-LocalTime {
 
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
@@ -117,36 +123,38 @@ list time zones
 time zone IDs are case sensitive
 #>
 
-Function Get-MyTimeInfo {
+function Get-MyTimeInfo {
     [cmdletbinding()]
-    [OutputType("myTimeInfo", "String")]
-    [alias("gti")]
+    [OutputType('myTimeInfo', 'String')]
+    [alias('gti')]
 
-    Param(
+    param(
         [Parameter(Position = 0)]
         [ValidateNotNullOrEmpty()]
         #limit this to no more than 5 locations
         [System.Collections.Specialized.OrderedDictionary]$Locations = [ordered]@{
-            Singapore = "Singapore Standard Time";
-            Seattle   = "Pacific Standard Time";
-            Stockholm = "Central Europe Standard Time";
+            Singapore = 'Singapore Standard Time';
+            Seattle   = 'Pacific Standard Time';
+            Stockholm = 'Central Europe Standard Time';
         },
         [ValidateNotNullOrEmpty()]
-        [string]$HomeTimeZone = "Eastern Standard Time",
+        [string]$HomeTimeZone = 'Eastern Standard Time',
 
-        [Parameter(HelpMessage = "Specify the datetime value to use. The default is now.")]
+        [Parameter(HelpMessage = 'Specify the datetime value to use. The default is now.')]
         [ValidateNotNullOrEmpty()]
         [datetime]$DateTime = $(Get-Date),
 
         #Display the results as a formatted table. This parameter has an alias of ft.
-        [Alias("ft")]
+        [Alias('ft')]
         [switch]$AsTable,
 
         #Display the results as a formatted list. This parameter has an alias of fl.
-        [Alias("fl")]
+        [Alias('fl')]
         [switch]$AsList
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = time
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -168,22 +176,22 @@ Function Get-MyTimeInfo {
         $hash.Add($_.key, $remote)
     }
 
-    $hash.add("IsDaylightSavings", $now.IsDaylightSavingTime())
+    $hash.add('IsDaylightSavings', $now.IsDaylightSavingTime())
 
     $tObj = New-Object -TypeName PSObject -Property $hash
-    $tObj.PSObject.TypeNames.insert(0, "myTimeInfo")
+    $tObj.PSObject.TypeNames.insert(0, 'myTimeInfo')
 
-    $cities = $tObj.PSObject.properties.where( {$_.name -NotMatch 'utc|now'}).Name
+    $cities = $tObj.PSObject.properties.where( { $_.name -notmatch 'utc|now' }).Name
     if ($AsTable) {
-        Write-Verbose "Formatting output as a table"
-        $tObj | Format-Table -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String
+        Write-Verbose 'Formatting output as a table'
+        $tObj | Format-Table -GroupBy @{Name = 'Now'; expression = { "$($_.Now) `n   UTC: $($_.utc)" } } -Property $cities | Out-String
     }
     elseif ($AsList) {
-        Write-Verbose "Formatting output as a list"
-        $tObj | Format-List -GroupBy @{Name = "Now"; expression = {"$($_.Now) `n   UTC: $($_.utc)"}} -Property $cities | Out-String
+        Write-Verbose 'Formatting output as a list'
+        $tObj | Format-List -GroupBy @{Name = 'Now'; expression = { "$($_.Now) `n   UTC: $($_.utc)" } } -Property $cities | Out-String
     }
     else {
-        Write-Verbose "Writing object to the pipeline"
+        Write-Verbose 'Writing object to the pipeline'
         $tObj
     }
 
@@ -191,3 +199,4 @@ Function Get-MyTimeInfo {
 } #end function
 
 #endregion
+#EOF

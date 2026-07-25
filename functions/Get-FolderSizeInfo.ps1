@@ -1,9 +1,9 @@
-Function Get-FolderSizeInfo {
+function Get-FolderSizeInfo {
     [cmdletbinding()]
     [alias('gsi')]
     [OutputType('FolderSizeInfo')]
 
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -21,15 +21,17 @@ Function Get-FolderSizeInfo {
         [switch]$EnableLongFileName
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = file
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
         #a function to recurse and get all non-hidden directories
         #This function will only be called on Windows PowerShell systems.
-        Function _EnumDir {
+        function _EnumDir {
             [cmdletbinding()]
-            Param([string]$Path, [switch]$Hidden)
+            param([string]$Path, [switch]$Hidden)
             # write-host $path -ForegroundColor cyan
             $path = Convert-Path -LiteralPath $path
             $ErrorActionPreference = 'Stop'
@@ -40,7 +42,7 @@ Function Get-FolderSizeInfo {
                     $top = ($di.GetDirectories())#.Where( { $_.attributes -NotMatch 'ReparsePoint'})
                 }
                 else {
-                    $top = ($di.GetDirectories()).Where( { $_.attributes -NotMatch 'hidden' })
+                    $top = ($di.GetDirectories()).Where( { $_.attributes -notmatch 'hidden' })
                 }
                 $top
                 foreach ($t in $top) {
@@ -51,13 +53,13 @@ Function Get-FolderSizeInfo {
                     _EnumDir @params
                 }
             }
-            Catch {
+            catch {
                 Write-Warning "Failed on $path. $($_.exception.message)."
             }
         } # _EnumDir
     } #Begin
 
-    Process {
+    process {
         foreach ($item in $path) {
             #Enable long file name support Issue #134
             if ($EnableLongFileName) {
@@ -81,7 +83,7 @@ Function Get-FolderSizeInfo {
                 #[System.Collections.ArrayList]::new()
                 $files = [System.Collections.Generic.list[System.IO.FileInfo]]::New()
 
-                If ($PSVersionTable.PSVersion.major -gt 5  ) {
+                if ($PSVersionTable.PSVersion.major -gt 5  ) {
                     #this .NET class is not available in Windows PowerShell 5.1
                     $opt = [System.IO.EnumerationOptions]::new()
                     $opt.RecurseSubdirectories = $True
@@ -92,16 +94,16 @@ Function Get-FolderSizeInfo {
                         #, 'ReparsePoint'
                     }
                     else {
-                        $opt.AttributesToSkip = 'Hidden','SparseFile'
+                        $opt.AttributesToSkip = 'Hidden', 'SparseFile'
                         #, 'ReparsePoint'
                     }
                     Write-Verbose "Skipping attributes $($opt.AttributesToSkip)"
                     [System.IO.FileInfo[]]$data = $($d.GetFiles('*', $opt))
                     Write-Verbose "Found $($data.count) files(s)"
-                    if ($data -AND $data.count -gt 1) {
+                    if ($data -and $data.count -gt 1) {
                         $files.AddRange($data)
                     }
-                    elseif ($data -AND $data.count -eq 1) {
+                    elseif ($data -and $data.count -eq 1) {
                         $files.Add($data[0])
                     }
 
@@ -117,14 +119,14 @@ Function Get-FolderSizeInfo {
                     }
                     else {
                         #get files in current location
-                        $data = $($d.GetFiles()).Where({ $_.attributes -NotMatch 'hidden|ReparsePoint' })
+                        $data = $($d.GetFiles()).Where({ $_.attributes -notmatch 'hidden|ReparsePoint' })
                     }
 
                     Write-Verbose "Found $($data.count) files"
-                    if ($data -AND $data.count -gt 1) {
+                    if ($data -and $data.count -gt 1) {
                         $files.AddRange([System.IO.FileInfo[]]$data)
                     }
-                    elseif ($data -AND $data.count -eq 1) {
+                    elseif ($data -and $data.count -eq 1) {
                         $files.Add($data[0])
                     }
 
@@ -140,35 +142,35 @@ Function Get-FolderSizeInfo {
                     if ($all) {
                         Write-Verbose "Getting files from $($all.count) sub-folders"
 
-                    ($all).Foreach( {
-                            $currentFolder = $_.FullName
-                            Write-Verbose $CurrentFolder
-                            $ErrorActionPreference = 'Stop'
-                            Try {
-                                if ($hidden) {
-                                    $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles())
+                        ($all).Foreach( {
+                                $currentFolder = $_.FullName
+                                Write-Verbose $CurrentFolder
+                                $ErrorActionPreference = 'Stop'
+                                try {
+                                    if ($hidden) {
+                                        $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles())
+                                    }
+                                    else {
+                                        $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles()).where({ $_.Attributes -notmatch 'Hidden' })
+                                    }
+                                    Write-Verbose "Found $($data.count) files"
+                                    if ($data -and $data.count -gt 1) {
+                                        $files.AddRange([System.IO.FileInfo[]]$data)
+                                    }
+                                    elseif ($data -and $data.count -eq 1) {
+                                        $files.Add($data[0])
+                                    }
                                 }
-                                else {
-                                    $data = (([System.IO.DirectoryInfo]$CurrentFolder).GetFiles()).where({ $_.Attributes -NotMatch 'Hidden' })
+                                catch {
+                                    Write-Warning "Failed on $CurrentFolder. $($_.exception.message)."
+                                    #clearing the variable as a precaution
+                                    Clear-Variable data
                                 }
-                                Write-Verbose "Found $($data.count) files"
-                                if ($data -AND $data.count -gt 1) {
-                                    $files.AddRange([System.IO.FileInfo[]]$data)
-                                }
-                                elseif ($data -AND $data.count -eq 1) {
-                                    $files.Add($data[0])
-                                }
-                            }
-                            Catch {
-                                Write-Warning "Failed on $CurrentFolder. $($_.exception.message)."
-                                #clearing the variable as a precaution
-                                Clear-Variable data
-                            }
-                        })
+                            })
                     } #if $all
                 } #else 5.1
 
-                If ($files.count -gt 0) {
+                if ($files.count -gt 0) {
                     Write-Verbose "Found $($files.count) total files"
                     $stats = $Files | Measure-Object -Property length -Sum
                     $totalFiles = $stats.count
@@ -195,7 +197,7 @@ Function Get-FolderSizeInfo {
 
         } #foreach item
     } #process
-    End {
+    end {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 } #close function
@@ -207,3 +209,4 @@ contains 61817 folders
 total size 30.6gb
 size on disk 30.7 gb
 #>
+#EOF

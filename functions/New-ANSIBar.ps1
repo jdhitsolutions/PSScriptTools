@@ -18,6 +18,13 @@ Function New-ANSIBar {
         [switch]$Gradient
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = ansi,scripting
+
+    if ($Host.Name -eq 'Windows PowerShell ISE Host') {
+        Write-Warning "This command is not supported in the PowerShell ISE"
+        return
+    }
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose "Using parameter set $($PSCmdlet.ParameterSetName)"
@@ -69,6 +76,7 @@ Function New-ANSIBar {
     }
     $out -join ""
 
-    Write-Verbose "Starting $($MyInvocation.MyCommand)"
+    Write-Verbose "Ending $($MyInvocation.MyCommand)"
 
 } #close function
+#EOF

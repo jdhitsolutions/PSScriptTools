@@ -4,7 +4,6 @@
 #required Microsoft.PowerShell.Diagnostics module
 
 if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
-
     Class myCounter {
         [string]$Computername
         [string]$Category
@@ -25,7 +24,6 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
 
     # RemoteRegistry service must be running to query remote computers and you need to have admin access
     Function Get-MyCounter {
-
         [CmdletBinding()]
         [OutputType("myCounter")]
         Param(
@@ -51,6 +49,8 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
         )
 
         Begin {
+            #tags are used for categorizing the command
+            #cmdTags = general
             Write-Verbose "[BEGIN  ] Starting $($MyInvocation.MyCommand)"
             Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         } #begin
@@ -79,3 +79,4 @@ if ($IsWindows -OR ($PSEdition -eq 'Desktop')) {
 else {
     Write-Warning "This command requires a Windows platform."
 }
+#EOF

@@ -1,39 +1,39 @@
 
-Function Get-FileItem {
-    [cmdletbinding(DefaultParameterSetName = "Default")]
-    [OutputType("System.IO.FileInfo", "System.Boolean")]
-    [alias("pswhere")]
+function Get-FileItem {
+    [cmdletbinding(DefaultParameterSetName = 'Default')]
+    [OutputType('System.IO.FileInfo', 'System.Boolean')]
+    [alias('pswhere')]
 
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
-            HelpMessage = "Enter a filename or pattern to search for")]
+            HelpMessage = 'Enter a filename or pattern to search for')]
         [ValidateNotNullOrEmpty()]
         [string[]]$Pattern,
         [switch]$Regex,
-        [Parameter(ParameterSetName = "Path")]
+        [Parameter(ParameterSetName = 'Path')]
         [string[]]$Path,
-        [Parameter(ParameterSetName = "Path")]
+        [Parameter(ParameterSetName = 'Path')]
         [switch]$Recurse,
         [switch]$Full,
         [switch]$Quiet,
         [switch]$First
     )
 
-#region private helper function
+    #region private helper function
     <#
  The Resolve-EnvVariable function is used by Get-FileItem to resolve
  any paths that might contain environmental names like %WINDIR% or
  %USERNAME%
     #>
-    Function Resolve-EnvVariable {
+    function Resolve-EnvVariable {
 
         [cmdletbinding()]
-        Param(
+        param(
             [Parameter(Position = 0, Mandatory = $True,
-                HelpMessage = "Enter a string that contains an environmental variable like %WINDIR%")]
-            [ValidatePattern("%\S+%")]
+                HelpMessage = 'Enter a string that contains an environmental variable like %WINDIR%')]
+            [ValidatePattern('%\S+%')]
             [string]$String
         )
 
@@ -43,9 +43,11 @@ Function Get-FileItem {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end Resolve-EnvVariable function
 
-#endregion
+    #endregion
 
     #This is the main part of Get-FileItem
+    #tags are used for categorizing the command
+    #cmdTags = file
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose "Searching for $pattern"
@@ -60,7 +62,7 @@ Function Get-FileItem {
         #use %PATH% system environmental variable
         #split %PATH% and weed out any potential duplicates or null values
         $splitChar = [System.IO.Path]::PathSeparator
-        $paths = $env:PATH.Split($splitChar) | Select-Object -Unique | Where-Object {$_}
+        $paths = $env:PATH.Split($splitChar) | Select-Object -Unique | Where-Object { $_ }
     }
 
     #define a variable to hold results
@@ -69,14 +71,14 @@ Function Get-FileItem {
     #foreach path search for the pattern
     foreach ($path in $paths) {
         #if path has an environmental variable, resolve it first
-        if ($path.Contains("%")) {
-            Write-Verbose "Resolving environmental variables found in the path"
+        if ($path.Contains('%')) {
+            Write-Verbose 'Resolving environmental variables found in the path'
             $path = Resolve-EnvVariable -string $path
         }
 
         #Validate path is still good
         Write-Verbose "Testing $path"
-        If (Test-Path -Path $path) {
+        if (Test-Path -Path $path) {
             Write-Verbose "Searching $path"
 
             #search for each pattern
@@ -88,37 +90,37 @@ Function Get-FileItem {
                     Path          = $path
                     Recurse       = $Recurse
                     Force         = $True
-                    ErrorAction   = "SilentlyContinue"
-                    ErrorVariable = "ev"
+                    ErrorAction   = 'SilentlyContinue'
+                    ErrorVariable = 'ev'
                 }
 
-                if (-Not $regex) {
-                    $dirParams.add("Filter", $p)
+                if (-not $regex) {
+                    $dirParams.add('Filter', $p)
                 }
 
                 Write-Verbose "...for $p"
                 #not thrilled with this structure but it works
                 if ($Regex) {
-                    Write-Verbose "...as regex"
-                    $results += (Get-ChildItem @dirParams).where( {$_.name -match $p})
+                    Write-Verbose '...as regex'
+                    $results += (Get-ChildItem @dirParams).where( { $_.name -match $p })
                 }
-                elseif ($Regex -AND $first) {
-                    Write-Verbose "...as regex"
-                    $results += (Get-ChildItem @dirParams).where( {$_.name -match $p}) |
-                        Select-Object -First 1
+                elseif ($Regex -and $first) {
+                    Write-Verbose '...as regex'
+                    $results += (Get-ChildItem @dirParams).where( { $_.name -match $p }) |
+                    Select-Object -First 1
                 }
                 elseif ($First) {
-                    $results += Get-ChildItem @dirParams | Select-Object -first 1
+                    $results += Get-ChildItem @dirParams | Select-Object -First 1
                 }
                 else {
                     $results += Get-ChildItem @dirParams
                 }
             } #foreach p
-            Write-Verbose "Evaluating results"
+            Write-Verbose 'Evaluating results'
 
             #process errors
             foreach ($item in $ev) {
-                if ($item.exception.getType().name -eq "UnauthorizedAccessException") {
+                if ($item.exception.getType().name -eq 'UnauthorizedAccessException') {
                     Write-Warning $item.exception.message
                 }
                 else {
@@ -126,26 +128,26 @@ Function Get-FileItem {
                 }
             }
         } #if test path
-        Else {
+        else {
             Write-Warning "Failed to verify path location $Path"
         }
     } #foreach
 
     $count = ($results | Measure-Object).count
-    write-verbose "Found $count matches"
+    Write-Verbose "Found $count matches"
 
-    If (($count -gt 0) -And $Quiet) {
+    if (($count -gt 0) -and $Quiet) {
         #if Quiet and results found write $True
         $True
     }
-    elseif (($count -eq 0) -And $Quiet) {
+    elseif (($count -eq 0) -and $Quiet) {
         $False
     }
-    elseif (($count -gt 0) -AND $Full) {
+    elseif (($count -gt 0) -and $Full) {
         #if results found and write file results
         $results
     }
-    Else {
+    else {
         #else just write full name
         ($results).FullName
     }
@@ -154,3 +156,5 @@ Function Get-FileItem {
 
 } #end function
 
+
+#EOF

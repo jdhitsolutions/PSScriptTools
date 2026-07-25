@@ -41,7 +41,7 @@ function Write-PSHorizontalRule {
         [Alias('Caption')]
         [string]$Title,
 
-        [Parameter(HelpMessage = 'Specify the title alignment. This will have effect unless you specify a title.')]
+        [Parameter(HelpMessage = 'Specify the title alignment. This will have no effect unless you specify a title.')]
         [psRuleAlignment]$Alignment = 'Left',
 
         [Parameter(HelpMessage = 'Specify an optional text style for the title. This will have no effect without a title. The default is none.')]
@@ -49,6 +49,8 @@ function Write-PSHorizontalRule {
 
     )
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi,console
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Detected PowerShell host $($host.name)"
@@ -65,6 +67,10 @@ function Write-PSHorizontalRule {
         }
     } #begin
     process {
+        if ($Host.Name -eq 'Windows PowerShell ISE Host') {
+            Write-Warning "This command is not supported in the PowerShell ISE"
+            return
+        }
         #adjust width to allow for style
         $Width -= 2 #$Style.Length
         if ($Title.Length -ge $Width) {
@@ -106,3 +112,4 @@ function Write-PSHorizontalRule {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
+#EOF

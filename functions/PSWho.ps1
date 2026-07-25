@@ -3,16 +3,17 @@
 originally published at:
 https://gist.github.com/jdhitsolutions/3ecc6193ab0982d907c2db3f7d2bd15d
 #>
-Function Get-PSWho {
+function Get-PSWho {
     [CmdletBinding()]
-    [OutputType("PSWho","String")]
-    [alias("pswho")]
+    [OutputType('PSWho', 'String')]
+    [alias('pswho')]
 
-    Param(
+    param(
         [switch]$AsString
     )
-
-    if ($PSVersionTable.PSEdition -eq "desktop" -OR $PSVersionTable.OS -match "Windows") {
+    #tags are used for categorizing the command
+    #cmdTags = general
+    if ($PSVersionTable.PSEdition -eq 'desktop' -or $PSVersionTable.OS -match 'Windows') {
 
         #get some basic information about the operating system
         $CimOS = Get-CimInstance Win32_OperatingSystem -Property Caption, Version, OSArchitecture
@@ -30,15 +31,15 @@ Function Get-PSWho {
         #non-Windows values
         $os = $PSVersionTable.OS
         $lsb = lsb_release -d
-        $OSVer = ($lsb -split ":")[1].Trim()
-        $elevated =  Test-IsElevated
+        $OSVer = ($lsb -split ':')[1].Trim()
+        $elevated = Test-IsElevated
         $user = [System.Environment]::UserName
         $computer = [System.Environment]::MachineName
     }
 
     #object properties will be displayed in the order they are listed here
     $who = [PSCustomObject]@{
-        PSTypeName      = "PSWho"
+        PSTypeName      = 'PSWho'
         User            = $user
         Elevated        = $elevated
         Computername    = $computer
@@ -59,3 +60,4 @@ Function Get-PSWho {
         $who
     }
 } #end Get-PSWho
+#EOF

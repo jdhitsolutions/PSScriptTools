@@ -1,13 +1,16 @@
-Function Test-IsPSWindows {
+function Test-IsPSWindows {
     [cmdletbinding()]
     [OutputType([Boolean])]
-    Param()
-    Begin {
+    param()
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         if ($isWindows) {
             $True
         }
@@ -19,8 +22,9 @@ Function Test-IsPSWindows {
         }
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Test-IsPSWindows
+#EOF

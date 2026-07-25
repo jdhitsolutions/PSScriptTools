@@ -163,8 +163,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
-An earlier version of this function is described at http://jdhitsolutions.com/blog/2012/05/get-my-variable-revisited
-
 ## RELATED LINKS
 
 [Get-Variable]()

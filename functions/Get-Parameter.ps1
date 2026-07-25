@@ -1,10 +1,10 @@
 
-Function Get-ParameterInfo {
+function Get-ParameterInfo {
     [cmdletbinding()]
     [OutputType('PSParameterInfo')]
     [alias('gpi')]
 
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
@@ -15,15 +15,18 @@ Function Get-ParameterInfo {
         [ValidateNotNullOrEmpty()]
         [Alias('name')]
         [string]$Command,
-        [Parameter(HelpMessage = "Specify a parameter by name")]
+        [Parameter(HelpMessage = 'Specify a parameter by name')]
         [ValidateNotNullOrEmpty()]
         [string]$Parameter,
-        [Parameter(HelpMessage = "Specify a parameter set name")]
+        [Parameter(HelpMessage = 'Specify a parameter set name')]
         [ValidateNotNullOrEmpty()]
         [string]$ParameterSet
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         #define the set of common parameters to exclude
@@ -47,9 +50,9 @@ Function Get-ParameterInfo {
 
     } #begin
 
-    Process {
+    process {
         Write-Verbose "Processing $command for parameter information"
-        Try {
+        try {
             #need to take into account that the command might be an alias (Issue #101). 1/21/2021 JDH
             $cmd = Get-Command -Name $command -ErrorAction Stop
             if ($cmd.CommandType -eq 'alias') {
@@ -60,7 +63,7 @@ Function Get-ParameterInfo {
                 $data = $cmd.parameters
             }
         }
-        Catch {
+        catch {
             Write-Warning "Failed to find command $command"
         }
 
@@ -75,12 +78,12 @@ Function Get-ParameterInfo {
                     $params = $Parameter
                 }
                 else {
-                    Throw "Can't find a parameter called $Parameter."
+                    throw "Can't find a parameter called $Parameter."
                 }
             }
             else {
                 Write-Verbose 'Getting parameter all non-common parameters'
-                $params = $data.keys | Where-Object { $common -NotContains $_ }
+                $params = $data.keys | Where-Object { $common -notcontains $_ }
             }
             $count = ($params | Measure-Object).count
             #only keep going if non-common parameters were found
@@ -100,7 +103,7 @@ Function Get-ParameterInfo {
                     foreach ($set in $sets) {
 
                         #retrieve parameter attribute class
-                        $attributes = $data.item($name).Attributes | Where-Object { $_ -is [system.management.automation.parameterAttribute] -AND $_.ParameterSetName -eq $set }
+                        $attributes = $data.item($name).Attributes | Where-Object { $_ -is [system.management.automation.parameterAttribute] -and $_.ParameterSetName -eq $set }
 
                         #a parameter could have different positions in different property sets
                         if ($attributes.position -ge 0) {
@@ -128,13 +131,13 @@ Function Get-ParameterInfo {
                         if ($r.ParameterSet -match "__All|\b$ParameterSet\b") {
                             $r
                         }
-                        elseif (-Not $ParameterSet) {
+                        elseif (-not $ParameterSet) {
                             $r
                         }
 
                     } #foreach set
                     #Save output so it can be sorted by parameter set. Issue #138
-                } | Sort-Object -Property ParameterSet,Position,Name
+                } | Sort-Object -Property ParameterSet, Position, Name
             } #if $count
         } #if $data
         else {
@@ -142,8 +145,10 @@ Function Get-ParameterInfo {
         }
     } #process
 
-    End {
+    end {
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #end function
+
+#EOF

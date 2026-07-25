@@ -49,6 +49,8 @@ Function Add-Border {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = console,ansi
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         $tabs = "`t" * $tab
@@ -69,7 +71,6 @@ Function Add-Border {
     } #begin
 
     Process {
-
         if ($PSCmdlet.ParameterSetName -eq 'single') {
             Write-Verbose "Processing '$text'"
             #get length of text
@@ -179,3 +180,5 @@ Function Add-Border {
     } #end
 
 } #close function
+
+#EOF

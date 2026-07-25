@@ -14,7 +14,8 @@ Display time settings for a collection of locations.
 ## SYNTAX
 
 ```yaml
-Get-MyTimeInfo [[-Locations] <OrderedDictionary>] [-HomeTimeZone <String>] [-DateTime <DateTime>] [-AsTable] [-AsList] [<CommonParameters>]
+Get-MyTimeInfo [[-Locations] <OrderedDictionary>] [-HomeTimeZone <String>]
+[-DateTime <DateTime>] [-AsTable] [-AsList] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -34,12 +35,12 @@ This command was added in v2.3.0.
 ```powershell
 PS C:\> Get-MyTimeInfo
 
-Now               : 3/26/2025 11:27:14 AM
-Home              : 3/26/2025 11:27:14 AM
-UTC               : 3/26/2025 3:27:14 PM
-Singapore         : 3/26/2025 11:27:14 PM
-Seattle           : 3/26/2025 8:27:14 AM
-Stockholm         : 3/26/2025 4:27:14 PM
+Now               : 3/26/2026 11:27:14 AM
+Home              : 3/26/2026 11:27:14 AM
+UTC               : 3/26/2026 3:27:14 PM
+Singapore         : 3/26/2026 11:27:14 PM
+Seattle           : 3/26/2026 8:27:14 AM
+Stockholm         : 3/26/2026 4:27:14 PM
 IsDaylightSavings : True
 ```
 
@@ -50,13 +51,13 @@ The default output is a custom object with each timezone as a property.
 ```powershell
 PS C:\> Get-MyTimeInfo -AsList
 
-   Now: 03/26/2025 11:28:29
-   UTC: 03/26/2025 15:28:29
+   Now: 03/26/2026 11:28:29
+   UTC: 03/26/2026 15:28:29
 
-Home              : 3/26/2025 11:28:29 AM
-Singapore         : 3/26/2025 11:28:29 PM
-Seattle           : 3/26/2025 8:28:29 AM
-Stockholm         : 3/26/2025 4:28:29 PM
+Home              : 3/26/2026 11:28:29 AM
+Singapore         : 3/26/2026 11:28:29 PM
+Seattle           : 3/26/2026 8:28:29 AM
+Stockholm         : 3/26/2026 4:28:29 PM
 IsDaylightSavings : True
 ```
 
@@ -65,28 +66,29 @@ Get current time info formatted as a list. You can also try the AsTable paramete
 ### Example 3
 
 ```powershell
-PS C:\> $loc = [ordered]@{"Hong Kong"="China Standard Time";Honolulu="Hawaiian Standard Time";Mumbai = "India Standard Time"}
-
+PS C:\> $loc = [ordered]@{"Hong Kong"="China Standard Time";Mumbai = "India Standard Time"}
 PS C:\> Get-MyTimeInfo -Locations $loc -ft
 
-   Now: 03/26/2025 11:29:33
-   UTC: 03/26/2025 15:29:33
+   Now: 03/26/2026 11:29:33
+   UTC: 03/26/2026 15:29:33
 
-Home                  Hong Kong             Honolulu             Mumbai              DaylightSavings
-----                  ---------             --------             ------               --------------
-3/26/2025 11:29:33 AM 3/26/2025 11:29:33 PM 3/26/2025 5:29:33 AM 3/26/2025 8:59:33 PM           True
+Home                  Hong Kong             Mumbai               IsDaylightSavings
+----                  ---------             -------              ---+-------------
+3/26/2026 11:29:33 AM 3/26/2026 11:29:33 PM 3/26/2026 8:59:33 PM              True
 ```
 
 Using a custom location hashtable, get time zone information formatted as a table. This example is using the -ft alias for the AsTable parameter. Even though this is formatted as a table the actual output is a string.
 
-### Example 5
+### Example 4
 
 ```powershell
-PS C:\> Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "central standard time" | Select Now,Home,Seattle,'New Zealand'
+PS C:\> Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";
+"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "Central Standard Time" |
+Select Now,Home,Seattle,'New Zealand'
 
 Now                   Home                  Seattle              New Zealand
 ---                   ----                  -------              -----------
-3/26/2025 11:30:36 AM 3/26/2025 10:30:36 AM 3/26/2025 8:30:36 AM 3/27/2025 4:30:36 AM
+3/26/2026 11:30:36 AM 3/26/2026 10:30:36 AM 3/26/2026 8:30:36 AM 3/27/2026 4:30:36 AM
 ```
 
 This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.

@@ -1,44 +1,46 @@
-﻿Function Get-WhoIs {
+﻿function Get-WhoIs {
     [cmdletbinding()]
-    [OutputType("WhoIsResult")]
-    Param (
+    [OutputType('WhoIsResult')]
+    param (
         [parameter(Position = 0,
             Mandatory,
-            HelpMessage = "Enter an IPV4 address to lookup with WhoIs",
+            HelpMessage = 'Enter an IPV4 address to lookup with WhoIs',
             ValueFromPipeline,
             ValueFromPipelineByPropertyName)]
         [ValidateNotNullOrEmpty()]
-        [ValidatePattern("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")]
-         [ValidateScript( {
+        [ValidatePattern('^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$')]
+        [ValidateScript( {
             #verify each octet is valid to simplify the regex
-                $test = ($_.split(".")).where({[int]$_ -gt 255})
-                if ($test) {
-                    Throw "$_ does not appear to be a valid IPv4 address."
-                    $false
-                }
-                else {
-                    $true
-                }
+            $test = ($_.split('.')).where({ [int]$_ -gt 255 })
+            if ($test) {
+                throw "$_ does not appear to be a valid IPv4 address."
+                $false
+            }
+            else {
+                $true
+            }
             })]
         [string]$IPAddress
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $baseURL = 'http://whois.arin.net/rest'
         #default is XML anyway
-        $header = @{"Accept" = "application/xml"}
+        $header = @{'Accept' = 'application/xml' }
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting WhoIs information for $IPAddress"
         $url = "$baseUrl/ip/$IPAddress"
-        Try {
+        try {
             $r = Invoke-RestMethod $url -Headers $header -ErrorAction stop
             Write-Verbose ($r.net | Out-String)
         }
-        Catch {
+        catch {
             $errMsg = "Sorry. There was an error retrieving WhoIs information for $IPAddress. $($_.exception.message)"
             $host.ui.WriteErrorLine($errMsg)
         }
@@ -54,20 +56,22 @@
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating result"
 
             [PSCustomObject]@{
-                PSTypeName             = "WhoIsResult"
+                PSTypeName             = 'WhoIsResult'
                 IP                     = $IPAddress
                 Name                   = $r.net.name
                 RegisteredOrganization = $r.net.orgRef.name
                 City                   = $city
                 StartAddress           = $r.net.StartAddress
                 EndAddress             = $r.net.endAddress
-                NetBlocks              = $r.net.netBlocks.netBlock | foreach-object {"$($_.StartAddress)/$($_.cidrLength)"}
+                NetBlocks              = $r.net.netBlocks.netBlock | ForEach-Object { "$($_.StartAddress)/$($_.cidrLength)" }
                 Updated                = $r.net.updateDate -as [datetime]
             }
         } #If $r.net
     } #Process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
+
+#EOF

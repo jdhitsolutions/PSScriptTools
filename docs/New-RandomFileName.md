@@ -67,7 +67,7 @@ Create a random file name using the user's home folder. In Windows, this will be
 ### Example 4
 
 ```powershell
-PS /mnt/c/scripts> new-randomfilename -home -Extension tmp
+PS /mnt/c/scripts> New-RandomFileMame -home -Extension tmp
 /home/jhicks/oces0epq.tmp
 ```
 

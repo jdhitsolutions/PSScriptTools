@@ -14,7 +14,8 @@ Create an ANSI string with a hyperlink.
 ## SYNTAX
 
 ```yaml
-New-ANSIHyperlink [-DisplayText] <String> [-Link] <String> [-Style <String>] [-AsString] [<CommonParameters>]
+New-ANSIHyperlink [-DisplayText] <String> [-Link] <String> [-Style <String>] [-AsString]
+[<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -22,6 +23,8 @@ New-ANSIHyperlink [-DisplayText] <String> [-Link] <String> [-Style <String>] [-A
 In PowerShell 7, you can use $PSStyle.FormatHyperLink() to create a string with a hyperlink. This method is based on an underlying ANSI escape sequence. This command uses that same sequence so that you can create a hyperlinked string in Windows PowerShell. The command also makes it easier to add other styling. By default, the link will have a solid underline.
 
 Optionally, you can use AsString to see a text version of the string with escape sequence markers.
+
+This command will not run in the Windows PowerShell ISE.
 
 ## EXAMPLES
 

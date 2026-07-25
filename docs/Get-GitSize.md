@@ -99,7 +99,8 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
-This is a variation of code posted at https://gist.github.com/jdhitsolutions/cbdc7118f24ba551a0bb325664415649
+This is a variation of code posted at:
+https://gist.github.com/jdhitsolutions/cbdc7118f24ba551a0bb325664415649
 
 ## RELATED LINKS
 

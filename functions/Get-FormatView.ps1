@@ -1,29 +1,31 @@
 #display a listing of all defined formatting views
 
-Function Get-FormatView {
+function Get-FormatView {
     [cmdletbinding()]
-    [alias("gfv")]
-    [OutputType("PSFormatView")]
-    Param(
-        [Parameter(HelpMessage = "Specify a typename such as System.Diagnostics.Process.",ValueFromPipeline)]
+    [alias('gfv')]
+    [OutputType('PSFormatView')]
+    param(
+        [Parameter(HelpMessage = 'Specify a typename such as System.Diagnostics.Process.', ValueFromPipeline)]
         [ValidateNotNullOrEmpty()]
-        [string]$TypeName = "*",
-        [Parameter(HelpMessage = "Specify the version of PowerShell this cmdlet uses for the formatting data. Enter a two digit number separated by a period.")]
+        [string]$TypeName = '*',
+        [Parameter(HelpMessage = 'Specify the version of PowerShell this cmdlet uses for the formatting data. Enter a two digit number separated by a period.')]
         [system.version]$PowerShellVersion = $PSVersionTable.PSVersion
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #a regular expression pattern to match on the format type
-        [regex]$rx = "Table|List|Wide|Custom"
+        [regex]$rx = 'Table|List|Wide|Custom'
     } #begin
 
-    Process {
-        Try {
-            $data = Get-FormatData -Typename $Typename -PowerShellVersion $PowerShellVersion -errorAction Stop | Sort-Object -Property TypeName
+    process {
+        try {
+            $data = Get-FormatData -TypeName $Typename -PowerShellVersion $PowerShellVersion -ErrorAction Stop | Sort-Object -Property TypeName
         }
-        Catch {
-            Throw $_
+        catch {
+            throw $_
         }
         if ($data) {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Found $($data.count) type definitions"
@@ -36,10 +38,10 @@ Function Get-FormatView {
                     Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting formatting view for $($tn)"
                     foreach ($view in $item.FormatViewDefinition) {
                         [PSCustomObject]@{
-                            PSTypename = "PSFormatView"
-                            Format = $rx.Match($view.Control).value
-                            Name = $view.name
-                            Typename = $tn
+                            PSTypename = 'PSFormatView'
+                            Format     = $rx.Match($view.Control).value
+                            Name       = $view.name
+                            Typename   = $tn
                         }
                     }
                 } #foreach tn
@@ -48,8 +50,9 @@ Function Get-FormatView {
 
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
 } #close Get-FormatView
+#EOF

@@ -26,6 +26,8 @@ function Get-WindowsVersion {
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -133,11 +135,13 @@ function Get-WindowsVersionString {
         [ValidateSet('Default', 'Basic', 'Credssp', 'Digest', 'Kerberos', 'Negotiate', 'NegotiateWithImplicitCredential')]
         [ValidateNotNullOrEmpty()]
         [string]$Authentication = 'default',
-        [Parameter(HelpMessage = "Display an ANSI styled string.")]
+        [Parameter(HelpMessage = 'Display an ANSI styled string.')]
         [switch]$UseStyle
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = general,ansi
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $styleHash = @{
@@ -146,7 +150,7 @@ function Get-WindowsVersionString {
             Build   = "$([char]27)[96m"
             Reset   = "$([char]27)[0m"
         }
-        If ($PSBoundParameters.ContainsKey('UseStyle')) {
+        if ($PSBoundParameters.ContainsKey('UseStyle')) {
             [void]($PSBoundParameters.Remove('UseStyle'))
         }
     } #begin
@@ -158,7 +162,7 @@ function Get-WindowsVersionString {
         #write a version string for each computer
     `   foreach ($result in $results) {
             if ($UseStyle) {
-                '{4}{3}{7} {5}{0} Version {1}{7} {6}(OS Build {2}){7}' -f $result.ProductName, $result.EditionID, $result.build, $result.computername,$styleHash.CN,$styleHash.Version,$styleHash.Build,$styleHash.Reset
+                '{4}{3}{7} {5}{0} Version {1}{7} {6}(OS Build {2}){7}' -f $result.ProductName, $result.EditionID, $result.build, $result.computername, $styleHash.CN, $styleHash.Version, $styleHash.Build, $styleHash.Reset
             }
             else {
                 '{3} {0} Version {1} (OS Build {2})' -f $result.ProductName, $result.EditionID, $result.build, $result.computername
@@ -170,3 +174,4 @@ function Get-WindowsVersionString {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
+#EOF

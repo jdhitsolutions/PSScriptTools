@@ -33,18 +33,18 @@ PS C:\> Get-ModuleCommand PSCalendar
 
 Name                           Alias                        Synopsis
 ----                           -----                        --------
-Export-PSCalendarConfiguration Save-PSCalendarConfiguration Save the current calendar configuration
-                                                            settings to a file.
-Get-Calendar                   cal                          Displays a visual representation of a
-                                                            calendar.
+Export-PSCalendarConfiguration Save-PSCalendarConfiguration Save the current calendar
+                                                            configuration settings to a file.
+Get-Calendar                   cal                          Displays a visual representation
+                                                            of a calendar.
 Get-MonthName                  mon                          Get the list of month names.
 Get-NCalendar                  ncal                         Display a Linux-style ncal calendar.
 Get-PSCalendarConfiguration                                 Get the current PSCalendar ANSI
                                                             configuration.
 Set-PSCalendarConfiguration                                 Modify the PSCalendar ANSI
                                                             configuration.
-Show-Calendar                  scal                         Display a colorized calendar month in
-                                                            the console.
+Show-Calendar                  scal                         Display a colorized calendar month
+                                                            in the console.
 Show-GuiCalendar               gcal                         Display a WPF-based calendar.
 Show-PSCalendarHelp                                         Display a help PDF file for the
                                                             PSCalendar module.
@@ -81,7 +81,8 @@ Using the default list view.
 ### Example 3
 
 ```powershell
-PS C:\> Get-ModuleCommand PSProjectStatus | Where Verb -match 'get|new' | Format-Table -View verb
+PS C:\> Get-ModuleCommand PSProjectStatus | Where Verb -match 'get|new' |
+Format-Table -View verb
 
    Verb: Get
 
@@ -97,7 +98,8 @@ Get-PSProjectTask                              Function    List project tasks
 Name                           Alias           Type        Synopsis
 ----                           -----           ----        --------
 New-PSProjectStatus            npstat          Function    Create a new PSProjectStatus.
-New-PSProjectTask                              Function    Create a new task in the PSProject file.```
+New-PSProjectTask                              Function    Create a new task in the PSProject ...
+```
 
 Display commands using a custom table view called 'Verb'.
 

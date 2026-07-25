@@ -14,7 +14,7 @@ Show an object's hidden members.
 ## SYNTAX
 
 ```yaml
-Show-HiddenMember [-InputObject] <Object> [-MemberType <PSMemberTypes>] 
+Show-HiddenMember [-InputObject] <Object> [-MemberType <PSMemberTypes>]
 [-ExcludePropertyMethod] [<CommonParameters>]
 ```
 
@@ -23,8 +23,6 @@ Show-HiddenMember [-InputObject] <Object> [-MemberType <PSMemberTypes>]
 By design, PowerShell will hide parts of an object that have very little relevance to scripting or interactive PowerShell use. Often, these are .NET properties and methods that are automatically added. You can see them using Get-Member -Force. This command is designed to simplify the process.
 
 It is expected that you will pipe an object to this command like you do with Get-Member. It is also assumed that if you pipe multiple objects they are all of the same type. Only the first object will be processed.
-
-An earlier version of this command was first introduced at LINK
 
 ## EXAMPLES
 
@@ -88,13 +86,13 @@ d8fdba1f-e046-429a-8225-9cbbe927e366 6/18/2026 7:26:08 AM
 ...
 ```
 
-The Get-PSWorkItem command is from the PSWorkItem (https://github.com/jdhitsolutions/PSWorkitem)module. It uses a custom class. Show-HiddenMember reveals a hidden property. Once you know the name, you can use it.
+The Get-PSWorkItem command is from the PSWorkItem (https://github.com/jdhitsolutions/PSWorkitem) module. It uses a custom class. Show-HiddenMember reveals a hidden property. Once you know the name, you can use it.
 
 ## PARAMETERS
 
 ### -ExcludePropertyMethod
 
-Exclude methods like get_Name and set_Name
+Exclude methods like get_Name and set_Name.
 
 ```yaml
 Type: SwitchParameter
@@ -128,12 +126,16 @@ Accept wildcard characters: False
 
 The default is to show all hidden members, but you can filter by specifying a member type. You can tab-complete the values.
 
+Valid Values:
+AliasProperty, CodeProperty, Property, NoteProperty, ScriptProperty,Properties,
+PropertySet, Method, CodeMethod, ScriptMethod, Methods, ParameterizedProperty,MemberSet,
+Event, Dynamic, All
+
 ```yaml
 Type: PSMemberTypes
 Parameter Sets: (All)
 Aliases:
-Accepted values: AliasProperty, CodeProperty, Property, NoteProperty, ScriptProperty, Properties, PropertySet, Method, CodeMethod, ScriptMethod, Methods, ParameterizedProperty, MemberSet, Event, Dynamic, All
-
+Accepted values: see parameter comments
 Required: False
 Position: Named
 Default value: All
@@ -155,7 +157,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-This command has an alias of sm
+This command has an alias of sm.
 
 Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter
 

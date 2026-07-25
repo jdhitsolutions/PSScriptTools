@@ -22,6 +22,8 @@ Format-BorderBox [-Text] <String[]> [[-Title] <String>] [[-BorderColor] <String>
 
 Use this command to display a block of text in a colored lined border box. You can use ANSI or PSStyle to specify the line color. It is recommended that the lines of text are trimmed of extra spaces.
 
+This command will not run in the Windows PowerShell ISE.
+
 ## EXAMPLES
 
 ### Example 1
@@ -129,3 +131,5 @@ Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter
 ## RELATED LINKS
 
 [Add-Border](Add-Border.md)
+
+[Write-PSHorizontalRule](Write-PSHorizontalRule)

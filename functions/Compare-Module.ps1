@@ -1,6 +1,5 @@
 ﻿
 Function Compare-Module {
-
     [cmdletbinding()]
     [OutputType("PSCustomObject")]
     [alias("cmo")]
@@ -11,14 +10,15 @@ Function Compare-Module {
             ValueFromPipelineByPropertyName
         )]
         [ValidateNotNullOrEmpty()]
-        [Alias("modulename")]
+        [Alias("ModuleName")]
         [string]$Name,
         [ValidateNotNullOrEmpty()]
         [string]$Gallery = "PSGallery"
     )
 
     Begin {
-
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "[BEGIN  ] Starting: $($MyInvocation.MyCommand)"
         Write-Verbose "[BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -112,3 +112,5 @@ Function Compare-Module {
 
 } #close function
 
+
+#EOF

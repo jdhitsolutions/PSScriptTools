@@ -50,10 +50,10 @@ PS C:\> Rename-Hashtable -name MyHash -key Name -newKey Computername
 ```powershell
 PS C:\> $newHash = Get-Service spooler |
 ConvertTo-HashTable |
-Rename-Hashtable -Key Machinename -NewKey Computername
+Rename-Hashtable -Key MachineName -NewKey Computername
 ```
 
-This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable. The Machinename key is then renamed to Computername.
+This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable. The MachineName key is then renamed to Computername.
 
 ## PARAMETERS
 
@@ -205,8 +205,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 ## NOTES
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
-
-This code was first described at http://jdhitsolutions.com/blog/2013/01/Rename-Hashtable-key-revised
 
 ## RELATED LINKS
 

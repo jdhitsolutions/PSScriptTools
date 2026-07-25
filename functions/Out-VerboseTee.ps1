@@ -10,6 +10,8 @@ Function Out-VerboseTee {
         [switch]$Append
     )
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = general,scripting
         #inherit verbose preference
         $VerbosePreference = $PSCmdlet.GetVariableValue("VerbosePreference")
     }
@@ -30,3 +32,4 @@ Function Out-VerboseTee {
         $VerbosePreference = "SilentlyContinue"
     }
 } #close Out-VerboseTee
+#EOF

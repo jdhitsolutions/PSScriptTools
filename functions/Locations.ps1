@@ -9,10 +9,12 @@ DESKTOP
 PowerShell (location of $profile)
 #>
 
-Function Get-PSLocation {
+function Get-PSLocation {
     [cmdletbinding()]
-    Param()
+    param()
 
+    #tags are used for categorizing the command
+    #cmdTags = general
     if ($profile) {
         $ps = Split-Path $profile
     }
@@ -25,7 +27,7 @@ Function Get-PSLocation {
 
     [PSCustomObject]@{
         PSTypename  = 'psLocation'
-        Home        = [environment]::GetFolderPath("UserProfile")
+        Home        = [environment]::GetFolderPath('UserProfile')
         Documents   = [Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
         Temp        = [System.IO.Path]::GetTempPath()
         Desktop     = [Environment]::GetFolderPath('Desktop')
@@ -35,3 +37,4 @@ Function Get-PSLocation {
     }
 
 } #close Get-PSLocation
+#EOF

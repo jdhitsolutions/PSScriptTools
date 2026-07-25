@@ -145,6 +145,8 @@ function Test-Expression {
 
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = scripting
     Write-Verbose "Starting: $($MyInvocation.MyCommand)"
     Write-Verbose "Running: PowerShell version $($PSVersionTable.PSVersion)"
     Write-Verbose ($PSBoundParameters | Out-String)
@@ -192,6 +194,9 @@ function Test-ExpressionForm {
     [cmdletbinding()]
     [alias('texf')]
     param()
+
+    #tags are used for categorizing the command
+    #cmdTags = scripting,graphical
 
     if ((Test-IsPSWindows)) {
 
@@ -307,3 +312,5 @@ function Test-ExpressionForm {
     }
 }
 
+
+#EOF

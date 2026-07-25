@@ -1,44 +1,44 @@
-Function New-PSDynamicParameter {
+function New-PSDynamicParameter {
     [cmdletbinding()]
-    [alias("ndp")]
+    [alias('ndp')]
     [OutputType([System.String[]])]
-    Param(
+    param(
         [Parameter(
             Position = 0,
             Mandatory,
             HelpMessage = "Enter the name of your dynamic parameter.`nThis is a required value."
-            )]
+        )]
         [ValidateNotNullOrEmpty()]
-        [alias("Name")]
+        [alias('Name')]
         [string[]]$ParameterName,
         [Parameter(Mandatory, HelpMessage = "Enter an expression that evaluates to True or False.`nThis is code that will go inside an IF statement.`nIf using variables, wrap this in single quotes.`nYou can also enter a placeholder like '`$True' and edit it later.`nThis is a required value.")]
         [ValidateNotNullOrEmpty()]
         [string]$Condition,
-        [Parameter(HelpMessage = "Is this dynamic parameter mandatory?")]
+        [Parameter(HelpMessage = 'Is this dynamic parameter mandatory?')]
         [switch]$Mandatory,
-        [Parameter(HelpMessage = "Enter an optional default value.")]
+        [Parameter(HelpMessage = 'Enter an optional default value.')]
         [object[]]$DefaultValue,
         [Parameter(HelpMessage = "Enter an optional parameter alias.`nSpecify multiple aliases separated by commas.")]
         [string[]]$Alias,
         [Parameter(HelpMessage = "Enter the parameter value type such as String or Int32.`nUse a value like string[] to indicate an array.")]
-        [type]$ParameterType = "string",
-        [Parameter(HelpMessage = "Enter an optional help message.")]
+        [type]$ParameterType = 'string',
+        [Parameter(HelpMessage = 'Enter an optional help message.')]
         [ValidateNotNullOrEmpty()]
         [string]$HelpMessage,
-        [Parameter(HelpMessage = "Does this dynamic parameter take pipeline input by property name?")]
+        [Parameter(HelpMessage = 'Does this dynamic parameter take pipeline input by property name?')]
         [switch]$ValueFromPipelineByPropertyName,
-        [Parameter(HelpMessage = "Enter an optional parameter set name.")]
+        [Parameter(HelpMessage = 'Enter an optional parameter set name.')]
         [ValidateNotNullOrEmpty()]
         [string]$ParameterSetName,
         [Parameter(HelpMessage = "Enter an optional comment for your dynamic parameter.`nIt will be inserted into your code as a comment.")]
         [ValidateNotNullOrEmpty()]
         [string]$Comment,
-        [Parameter(HelpMessage = "Validate that the parameter is not NULL or empty.")]
+        [Parameter(HelpMessage = 'Validate that the parameter is not NULL or empty.')]
         [switch]$ValidateNotNullOrEmpty,
         [Parameter(HelpMessage = "Enter a minimum and maximum string length for this parameter value`nas an array of comma-separated set values.")]
         [ValidateNotNullOrEmpty()]
         [int[]]$ValidateLength,
-        [Parameter(HelpMessage = "Enter a set of parameter validations values")]
+        [Parameter(HelpMessage = 'Enter a set of parameter validations values')]
         [ValidateNotNullOrEmpty()]
         [object[]]$ValidateSet,
         [Parameter(HelpMessage = "Enter a set of parameter range validations values as a`ncomma-separated list from minimum to maximum")]
@@ -47,7 +47,7 @@ Function New-PSDynamicParameter {
         [Parameter(HelpMessage = "Enter a set of parameter count validations values as a`ncomma-separated list from minimum to maximum")]
         [ValidateNotNullOrEmpty()]
         [int[]]$ValidateCount,
-        [Parameter(HelpMessage = "Enter a parameter validation regular expression pattern")]
+        [Parameter(HelpMessage = 'Enter a parameter validation regular expression pattern')]
         [ValidateNotNullOrEmpty()]
         [string]$ValidatePattern,
         [Parameter(HelpMessage = "Enter a parameter validation scriptblock.`nIf using the form, enter the scriptblock text.")]
@@ -55,7 +55,10 @@ Function New-PSDynamicParameter {
         [scriptblock]$ValidateScript
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         $out = @"
@@ -69,17 +72,17 @@ Function New-PSDynamicParameter {
 
     } #begin
 
-    Process {
-        if (-Not $($PSBoundParameters.ContainsKey("ParameterSetName"))) {
-            $PSBoundParameters.Add("ParameterSetName", "__AllParameterSets")
+    process {
+        if (-not $($PSBoundParameters.ContainsKey('ParameterSetName'))) {
+            $PSBoundParameters.Add('ParameterSetName', '__AllParameterSets')
         }
 
         #get validation tests
-        $Validations = $PSBoundParameters.GetEnumerator().Where({ $_.key -match "^Validate" })
+        $Validations = $PSBoundParameters.GetEnumerator().Where({ $_.key -match '^Validate' })
 
         #this is structured for future development where you might need to create
         #multiple dynamic parameters. This feature is incomplete at this time
-        Foreach ($Name in $ParameterName) {
+        foreach ($Name in $ParameterName) {
             Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Defining dynamic parameter $Name [$($ParameterType.name)]"
             $out += "`n        # Defining parameter attributes`n"
             $out += "        `$attributeCollection = New-Object -Type System.Collections.ObjectModel.Collection[System.Attribute]`n"
@@ -106,38 +109,38 @@ Function New-PSDynamicParameter {
                 foreach ($validation in $Validations) {
                     Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] ... $($validation.key)"
                     $out += "`n        # Adding $($validation.key) parameter validation`n"
-                    Switch ($Validation.key) {
-                        "ValidateNotNullOrEmpty" {
+                    switch ($Validation.key) {
+                        'ValidateNotNullOrEmpty' {
                             $out += "        `$v = New-Object System.Management.Automation.ValidateNotNullOrEmptyAttribute`n"
                             $out += "        `$AttributeCollection.Add(`$v)`n"
                         }
-                        "ValidateLength" {
+                        'ValidateLength' {
                             $out += "        `$value = @($($Validation.Value[0]),$($Validation.Value[1]))`n"
                             $out += "        `$v = New-Object System.Management.Automation.ValidateLengthAttribute(`$value)`n"
                             $out += "        `$AttributeCollection.Add(`$v)`n"
                         }
-                        "ValidateSet" {
+                        'ValidateSet' {
                             $join = "'$($Validation.Value -join "','")'"
                             $out += "        `$value = @($join) `n"
                             $out += "        `$v = New-Object System.Management.Automation.ValidateSetAttribute(`$value)`n"
                             $out += "        `$AttributeCollection.Add(`$v)`n"
                         }
-                        "ValidateRange" {
+                        'ValidateRange' {
                             $out += "        `$value = @($($Validation.Value[0]),$($Validation.Value[1]))`n"
                             $out += "        `$v = New-Object System.Management.Automation.ValidateRangeAttribute(`$value)`n"
                             $out += "        `$AttributeCollection.Add(`$v)`n"
                         }
-                        "ValidatePattern" {
+                        'ValidatePattern' {
                             $out += "        `$value = '$($Validation.value)'`n"
                             $out += "        `$v = New-Object System.Management.Automation.ValidatePatternAttribute(`$value)`n"
                             $out += "        `$AttributeCollection.Add(`$v)`n"
                         }
-                        "ValidateScript" {
+                        'ValidateScript' {
                             $out += "        `$value = {$($Validation.value)}`n"
                             $out += "        `$v = New-Object System.Management.Automation.ValidateScriptAttribute(`$value)`n"
                             $out += "        `$AttributeCollection.Add(`$v)`n"
                         }
-                        "ValidateCount" {
+                        'ValidateCount' {
                             $out += "        `$value = @($($Validation.Value[0]),$($Validation.Value[1]))`n"
                             $out += "        `$v = New-Object System.Management.Automation.ValidateCountAttribute(`$value)`n"
                             $out += "        `$AttributeCollection.Add(`$v)`n"
@@ -150,7 +153,7 @@ Function New-PSDynamicParameter {
 
             if ($Alias) {
                 Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Adding parameter alias $($alias -join ',')"
-                Foreach ($item in $alias) {
+                foreach ($item in $alias) {
                     $out += "`n        # Adding a parameter alias`n"
                     $out += "        `$dynalias = New-Object System.Management.Automation.AliasAttribute -ArgumentList '$Item'`n"
                     $out += "        `$attributeCollection.Add(`$dynalias)`n"
@@ -160,8 +163,8 @@ Function New-PSDynamicParameter {
             $out += "`n        # Defining the runtime parameter`n"
 
             #handle the Switch parameter since it uses a slightly different name
-            if ($ParameterType.Name -match "Switch") {
-                $paramType = "Switch"
+            if ($ParameterType.Name -match 'Switch') {
+                $paramType = 'Switch'
             }
             else {
                 $paramType = $ParameterType.Name
@@ -186,7 +189,7 @@ Function New-PSDynamicParameter {
         } #foreach dynamic parameter name
 
     }
-    End {
+    end {
         $out += @"
         return `$paramDictionary
     } # end if
@@ -197,22 +200,25 @@ Function New-PSDynamicParameter {
     } #end
 }
 
-Function New-PSDynamicParameterForm {
+function New-PSDynamicParameterForm {
     [cmdletbinding()]
-    [alias("dpf")]
-    [OutputType("None")]
-    Param()
+    [alias('dpf')]
+    [OutputType('None')]
+    param()
 
-    Try {
+    #tags are used for categorizing the command
+    #cmdTags = scripting
+
+    try {
         Add-`Type -AssemblyName PresentationFramework -ErrorAction stop
         Add-Type -AssemblyName PresentationCore -ErrorAction Stop
     }
-    Catch {
-        Write-Warning "This command is not compatible with this version of PowerShell."
-        Return
+    catch {
+        Write-Warning 'This command is not compatible with this version of PowerShell.'
+        return
     }
     $list = [System.Collections.Generic.list[object]]::new()
-    [xml]$xaml = @"
+    [xml]$xaml = @'
     <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -260,7 +266,7 @@ Function New-PSDynamicParameterForm {
         <TextBox x:Name="ValidateSet" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="16" Margin="117,356,0,0" Text="" TextWrapping="Wrap" VerticalAlignment="Top" Width="328"/>
     </Grid>
 </Window>
-"@
+'@
 
     $reader = New-Object System.Xml.XmlNodeReader $xaml
     $Window = [Windows.Markup.XamlReader]::Load($reader)
@@ -269,57 +275,57 @@ Function New-PSDynamicParameterForm {
     $all = (Get-Command New-PSDynamicParameter).parameters
     #filter out common parameters
     $common = [System.Management.Automation.Cmdlet]::CommonParameters
-    $paramList = $all.GetEnumerator().where({$common -NotContains $_.key}).key
+    $paramList = $all.GetEnumerator().where({ $common -notcontains $_.key }).key
 
     #get controls
     foreach ($item in $paramList) {
-    Write-Verbose "Processing control $item"
-        Try {
+        Write-Verbose "Processing control $item"
+        try {
             $tmp = New-Variable -Name $item -Value ($Window.FindName($item)) -ErrorAction Stop -PassThru
             #add a help tool tip
-            $tip = $all[$item].attributes.where({$_.typeid.name -eq 'ParameterAttribute'}).helpMessage
-            write-Verbose "Found help $tip"
+            $tip = $all[$item].attributes.where({ $_.typeid.name -eq 'ParameterAttribute' }).helpMessage
+            Write-Verbose "Found help $tip"
             $tmp.Value.ToolTip = $tip
             $list.Add((Get-Variable -Name $item))
         }
-        Catch {
+        catch {
             Write-Verbose "Skipping $item"
         }
     }
 
     #hook up code to buttons
-    $OK = $Window.FindName("OK")
+    $OK = $Window.FindName('OK')
     $OK.ToolTip = "Create the dynamic parameter code and copy to the clipboard.`nThis will NOT close the form."
 
     $OK.Add_Click({
-        Write-Verbose "Defining dynamic parameter $($ParameterName.text)"
+            Write-Verbose "Defining dynamic parameter $($ParameterName.text)"
 
-        $splat = @{}
-        $list | where-object {$_.value.text} | foreach-object {
-        $splat.Add($_.Name,$_.value.Text)
-        }
-        #add switches
-        $list | where-object {$_.value.IsChecked} | foreach-object {
-        $splat.Add($_.Name,$True)
-        }
-
-        #turn values into arrays as needed
-        $Names = "ValidateSet","ValidateCount","ValidateRange","ValidateLength"
-        foreach ($n in $names) {
-            if ($splat[$n]) {
-                $splat[$n] = $splat[$n].split(",")
+            $splat = @{}
+            $list | Where-Object { $_.value.text } | ForEach-Object {
+                $splat.Add($_.Name, $_.value.Text)
             }
-        }
+            #add switches
+            $list | Where-Object { $_.value.IsChecked } | ForEach-Object {
+                $splat.Add($_.Name, $True)
+            }
 
-        #convert ValidateScript text into a scriptblock
-        if ($splat["ValidateScript"]) {
-            $splat["ValidateScript"] = [scriptblock]::Create($splat["ValidateScript"])
-        }
-        New-PSDynamicParameter @splat | Set-Clipboard
-        Write-Host "Your dynamic parameter code has been copied to the clipboard. Paste it into your script file." -ForegroundColor Green
-    })
-    $Quit = $Window.FindName("Quit")
-    $Quit.Add_Click({$window.close()})
+            #turn values into arrays as needed
+            $Names = 'ValidateSet', 'ValidateCount', 'ValidateRange', 'ValidateLength'
+            foreach ($n in $names) {
+                if ($splat[$n]) {
+                    $splat[$n] = $splat[$n].split(',')
+                }
+            }
+
+            #convert ValidateScript text into a scriptblock
+            if ($splat['ValidateScript']) {
+                $splat['ValidateScript'] = [scriptblock]::Create($splat['ValidateScript'])
+            }
+            New-PSDynamicParameter @splat | Set-Clipboard
+            Write-Host 'Your dynamic parameter code has been copied to the clipboard. Paste it into your script file.' -ForegroundColor Green
+        })
+    $Quit = $Window.FindName('Quit')
+    $Quit.Add_Click({ $window.close() })
 
     [void]$window.Activate()
     [void]$window.ShowDialog()
@@ -327,12 +333,13 @@ Function New-PSDynamicParameterForm {
 
 #add scripting editor shortcuts or you can run the functions in the editor's console window.
 if ($host.name -eq 'Visual Studio Code Host') {
-    Register-EditorCommand -Name "DynamicParameterForm" -DisplayName "Define a dynamic parameter" -ScriptBlock (Get-Item -Path Function:\New-PSDynamicParameterForm).scriptblock -SuppressOutput
+    Register-EditorCommand -Name 'DynamicParameterForm' -DisplayName 'Define a dynamic parameter' -ScriptBlock (Get-Item -Path Function:\New-PSDynamicParameterForm).scriptblock -SuppressOutput
 }
-elseif ($host.name -match "PowerShell ISE") {
-    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -NotContains "New Dynamic Parameter") {
-        $action = {New-PSDynamicParameterForm}
-        [void]($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add("New Dynamic Parameter", $action, "Ctrl+Alt+D"))
+elseif ($host.name -match 'PowerShell ISE') {
+    if ($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.DisplayName -notcontains 'New Dynamic Parameter') {
+        $action = { New-PSDynamicParameterForm }
+        [void]($psISE.CurrentPowerShellTab.AddOnsMenu.Submenus.Add('New Dynamic Parameter', $action, 'Ctrl+Alt+D'))
     }
 }
 
+#EOF

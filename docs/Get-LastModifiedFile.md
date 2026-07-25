@@ -159,8 +159,6 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
-This command was first described at https://jdhitsolutions.com/blog/powershell/8622/finding-modified-files-with-powershell/
-
 ## RELATED LINKS
 
 [Get-ChildItem]()

@@ -36,9 +36,4 @@ Function Get-DiskData {
 
 }
 
-# Get-DiskData -verbose | Select DeviceID,Size,PctFree
-
-<#
-$condition =  [ordered]@{{$psitem.pctfree -le 40}='yellow'}
-Get-DiskData | Select-object DeviceID,Size,FreeSpace,PctFree,SystemName | Out-ConditionalColor $condition
-#>
+Get-DiskData -verbose | Select DeviceID,Size,PctFree

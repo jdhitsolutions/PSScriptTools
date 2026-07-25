@@ -1,8 +1,8 @@
-Function New-RandomFileName {
-    [cmdletbinding(DefaultParameterSetName = "none")]
-    [Alias("rfn")]
+function New-RandomFileName {
+    [cmdletbinding(DefaultParameterSetName = 'none')]
+    [Alias('rfn')]
     [OutputType([string])]
-    Param(
+    param(
         [parameter(Position = 0)]
         [Parameter(ParameterSetName = 'none')]
         [Parameter(ParameterSetName = 'home')]
@@ -10,20 +10,22 @@ Function New-RandomFileName {
         #enter an extension without the leading period e.g 'bak'
         [string]$Extension,
         [Parameter(ParameterSetName = 'temp')]
-        [alias("temp")]
+        [alias('temp')]
         [Switch]$UseTempFolder,
         [Parameter(ParameterSetName = 'home')]
-        [alias("home")]
+        [alias('home')]
         [Switch]$UseHomeFolder
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = file
     if ($UseTempFolder) {
         $filename = [system.io.path]::GetTempFileName()
     }
     elseif ($UseHomeFolder) {
-         $homeDocs =[Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
-         $filename = Join-Path -Path $homeDocs -ChildPath ([system.io.path]::GetRandomFileName())
-        }
+        $homeDocs = [Environment]::GetFolderPath([Environment+SpecialFolder]::MyDocuments)
+        $filename = Join-Path -Path $homeDocs -ChildPath ([system.io.path]::GetRandomFileName())
+    }
     else {
         $filename = [system.io.path]::GetRandomFileName()
     }
@@ -40,15 +42,15 @@ Function New-RandomFileName {
 } #end New-RandomFilename
 
 
-Function New-CustomFileName {
+function New-CustomFileName {
     [cmdletbinding()]
-    [Alias("cfn")]
+    [Alias('cfn')]
     [OutputType([string])]
-    Param (
+    param (
         [Parameter(
             Position = 0,
             Mandatory,
-            HelpMessage = @"
+            HelpMessage = @'
 You can create a template string using any of these variables, including the % symbol.
 
 - %username
@@ -68,15 +70,17 @@ You can create a template string using any of these variables, including the % s
 - %guid
 - %### - a random number matching the number of # characters
 
-"@)]
+'@)]
         [ValidateNotNullOrEmpty()]
         [string]$Template,
-        [ValidateSet("Lower", "Upper", "Default")]
-        [string]$Case = "Default"
+        [ValidateSet('Lower', 'Upper', 'Default')]
+        [string]$Case = 'Default'
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = file
     #convert placeholders to lower case but leave everything else as is
-    [regex]$rx = "%\w+(?=%|-|\.|\s|\(|\)|\[|\])"
+    [regex]$rx = '%\w+(?=%|-|\.|\s|\(|\)|\[|\])'
 
     "Starting $($MyInvocation.MyCommand)" | Write-Verbose
     "Processing template: $template" | Write-Verbose
@@ -95,7 +99,7 @@ You can create a template string using any of these variables, including the % s
         $user = $env:USER
     }
     else {
-        $user = "Unknown"
+        $user = 'Unknown'
     }
     #this needs to be an ordered hashtable so that the regex replacements
     #will be processed in the right order
@@ -103,17 +107,17 @@ You can create a template string using any of these variables, including the % s
         '%username'     = $user
         '%computername' = [environment]::MachineName
         '%year'         = $now.Year
-        '%yr'           = "{0:yy}" -f $now
-        '%monthname'    = ("{0:MMM}" -f $now)
-        '%month'        = "{0:MM}" -f $now
+        '%yr'           = '{0:yy}' -f $now
+        '%monthname'    = ('{0:MMM}' -f $now)
+        '%month'        = '{0:MM}' -f $now
         '%dayofweek'    = $now.DayOfWeek
-        '%day'          = "{0:dd}" -f $now
-        '%hour24'       = "{0:HH}" -f $now
-        '%hour'         = "{0:hh}" -f $now
-        '%minute'       = "{0:mm}" -f $now
-        '%seconds'      = "{0:ss}" -f $now
-        '%time'         = "{0}{1}{2}" -f $now.hour, $now.minute, $now.Second
-        '%string'       = ([system.io.path]::GetRandomFileName()).split(".")[0]
+        '%day'          = '{0:dd}' -f $now
+        '%hour24'       = '{0:HH}' -f $now
+        '%hour'         = '{0:hh}' -f $now
+        '%minute'       = '{0:mm}' -f $now
+        '%seconds'      = '{0:ss}' -f $now
+        '%time'         = '{0}{1}{2}' -f $now.hour, $now.minute, $now.Second
+        '%string'       = ([system.io.path]::GetRandomFileName()).split('.')[0]
         '%guid'         = [System.Guid]::NewGuid().guid
     }
 
@@ -129,17 +133,17 @@ You can create a template string using any of these variables, including the % s
     [regex]$rx = '%#+'
     if ($rx.IsMatch($filename)) {
         $count = $rx.Match($filename).Value.length - 1
-        $num = (0..9 | Get-Random -Count 10 | Get-Random -count $count) -join ""
+        $num = (0..9 | Get-Random -Count 10 | Get-Random -Count $count) -join ''
         "replacing # with $num" | Write-Verbose
         $filename = $rx.Replace($filename, $num)
     }
 
     "Converting case to $Case" | Write-Verbose
-    Switch ($Case) {
-        "Upper" {
+    switch ($Case) {
+        'Upper' {
             $filename.ToUpper()
         }
-        "Lower" {
+        'Lower' {
             $filename.ToLower()
         }
         default {
@@ -150,3 +154,5 @@ You can create a template string using any of these variables, including the % s
     "Ending $($MyInvocation.MyCommand)" | Write-Verbose
 } #end New-CustomFileName
 
+
+#EOF

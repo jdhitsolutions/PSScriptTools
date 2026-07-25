@@ -32,7 +32,9 @@ PS C:\> Copy-HelpExample -Name Stop-Process
 
 Code Samples
 
-Each help example is numbered to the left. At the prompt below, select the code samples you want to copy to the clipboard. Separate multiple values with a comma.
+Each help example is numbered to the left. At the prompt below,
+select the code samples you want to copy to the clipboard. Separate
+multiple values with a comma.
 
 Some example code includes the output.
 
@@ -78,7 +80,8 @@ Performing operation 'Stop-Process' on Target 'lsass(596)'
 [ADMIN]:  Get-Process -Name "lsass" | Stop-Process -Force
 [ADMIN]:
 
-Please select items to copy to the clipboard by number. Separate multiple entries with a comma. Press Enter alone to cancel:
+Please select items to copy to the clipboard by number. Separate multiple entries with a comma.
+Press Enter alone to cancel:
 ```
 
 The console menu will be displayed using ANSI. Enter a comma separated list of numbers for the items to copy to the clipboard.

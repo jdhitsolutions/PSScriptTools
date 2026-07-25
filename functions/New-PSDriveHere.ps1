@@ -1,27 +1,29 @@
-Function New-PSDriveHere {
-    [cmdletBinding(SupportsShouldProcess = $True, DefaultParameterSetName = "Folder")]
+function New-PSDriveHere {
+    [cmdletBinding(SupportsShouldProcess = $True, DefaultParameterSetName = 'Folder')]
     [OutputType([System.Management.Automation.PSDriveInfo])]
-    [Alias("npsd")]
+    [Alias('npsd')]
 
-    Param(
+    param(
         [Parameter(Position = 0)]
-        [ValidateScript( {Test-Path $_})]
-        [string]$Path = ".",
+        [ValidateScript( { Test-Path $_ })]
+        [string]$Path = '.',
 
-        [Parameter(Position = 1, ParameterSetName = "Name")]
+        [Parameter(Position = 1, ParameterSetName = 'Name')]
         [ValidateNotNullOrEmpty()]
         [string]$Name,
 
-        [Parameter(ParameterSetName = "Folder")]
+        [Parameter(ParameterSetName = 'Folder')]
         [switch]$First,
 
-        [Alias("cd")]
+        [Alias('cd')]
         [switch]$SetLocation,
 
-        [Parameter(HelpMessage="Pass the new PSDrive object to the pipeline.")]
+        [Parameter(HelpMessage = 'Pass the new PSDrive object to the pipeline.')]
         [switch]$PassThru
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = general
     Write-Verbose "Starting: $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -30,17 +32,17 @@ Function New-PSDriveHere {
     $location = Get-Item -Path $path
 
     #did the user specify a name?
-    if ($PSCmdlet.ParameterSetName -eq "Name") {
+    if ($PSCmdlet.ParameterSetName -eq 'Name') {
         Write-Verbose "Defining a new PSDrive with the name $Name."
     } #if $name
     else {
         if ($first) {
-            Write-Verbose "Using the first word in the target location."
-            $pattern = "^\w+"
+            Write-Verbose 'Using the first word in the target location.'
+            $pattern = '^\w+'
         }
         else {
-            Write-Verbose "Using the last word in the target location."
-            $pattern = "\w+$"
+            Write-Verbose 'Using the last word in the target location.'
+            $pattern = '\w+$'
         }
         #Make sure name contains valid characters. This function
         #should work for all but the oddest named folders.
@@ -50,7 +52,7 @@ Function New-PSDriveHere {
         else {
             #The location has something odd about it so bail out
             Write-Warning "$path doesn't meet the criteria"
-            Break
+            break
         }
 
     } #else using part of folder name
@@ -58,7 +60,7 @@ Function New-PSDriveHere {
     #verify a PSDrive doesn't already exist
     Write-Verbose "Testing $($name):"
 
-    If (-not (Test-Path -Path "$($name):")) {
+    if (-not (Test-Path -Path "$($name):")) {
         Write-Verbose "Creating PSDrive for $name"
         #a hash table of parameter values to splat to New-PSDrive
         $paramHash = @{
@@ -70,7 +72,7 @@ Function New-PSDriveHere {
             ErrorAction = 'Stop'
         }
 
-        Try {
+        try {
             $result = New-PSDrive @paramHash
             if ($PassThru) {
                 $result
@@ -80,7 +82,7 @@ Function New-PSDriveHere {
                 Set-Location -Path "$($name):"
             }
         } #try
-        Catch {
+        catch {
             Write-Error $_
         }
 
@@ -95,3 +97,5 @@ Function New-PSDriveHere {
 
 
 
+
+#EOF

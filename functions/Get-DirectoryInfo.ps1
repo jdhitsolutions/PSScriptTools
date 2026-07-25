@@ -1,4 +1,4 @@
-Class DirectoryStat {
+class DirectoryStat {
     [string]$Name
     [string]$Path
     [int64]$FileCount
@@ -8,20 +8,22 @@ Class DirectoryStat {
 } #close class definition
 
 #function that use the class
-Function Get-DirectoryInfo {
+function Get-DirectoryInfo {
     [cmdletbinding()]
-    [alias("dw")]
-    [OutputType("DirectoryStat")]
-    Param(
-        [Parameter(Position = 0,HelpMessage = "Specify the top level path.")]
-        [ValidateScript( { (Test-Path $_ ) -AND ((Get-Item $_).PSProvider.name -eq "FileSystem") })]
-        [string]$Path = ".",
-        [Parameter(HelpMessage = " The Depth parameter determines the number of subdirectory
-    levels to recursively query.")]
+    [alias('dw')]
+    [OutputType('DirectoryStat')]
+    param(
+        [Parameter(Position = 0, HelpMessage = 'Specify the top level path.')]
+        [ValidateScript( { (Test-Path $_ ) -and ((Get-Item $_).PSProvider.name -eq 'FileSystem') })]
+        [string]$Path = '.',
+        [Parameter(HelpMessage = ' The Depth parameter determines the number of subdirectory
+    levels to recursively query.')]
         [int32]$Depth
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = general
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -30,13 +32,13 @@ Function Get-DirectoryInfo {
 
         function _newDirectoryStat {
             [CmdletBinding()]
-            Param(
+            param(
                 [Parameter(ValueFromPipelineByPropertyName, Mandatory)]
                 [string]$PSPath
             )
 
-            Begin {}
-            Process {
+            begin {}
+            process {
                 $path = Convert-Path $PSPath
                 $name = Split-Path -Path $Path -Leaf
                 $stat = Get-ChildItem -Path $path -File | Measure-Object -Property Length -Sum
@@ -52,40 +54,42 @@ Function Get-DirectoryInfo {
             end {}
         }
 
-        Write-Verbose "PSBoundParameters"
+        Write-Verbose 'PSBoundParameters'
         Write-Verbose ($PSBoundParameters | Out-String)
         #build a hashtable of parameters to splat to Get-ChildItem
         $gciParams = @{
             Path      = $Path
             Directory = $True
         }
-        if ($PSBoundParameters["Depth"]) {
-            $gciParams.Add("Depth", $PSBoundParameters["Depth"])
-            $gciParams.Add("Recurse",$True)
+        if ($PSBoundParameters['Depth']) {
+            $gciParams.Add('Depth', $PSBoundParameters['Depth'])
+            $gciParams.Add('Recurse', $True)
         }
 
     } #begin
-    Process {
+    process {
         Write-Verbose "Processing $(Convert-Path $Path)"
         #add each result as a DirectoryStat object to the collection
         $data.Add((Get-ChildItem @gciParams | _newDirectoryStat))
 
     } #Process
 
-    End {
+    end {
         <#
         Use ForEach-Object to write individual DirectoryStat objects
         to the pipeline. Otherwise the output from this command is System.Object[].
         I'll also pre-sort the results alphabetically.
         #>
-        $data | ForEach-Object {$_} | Sort-Object -Property Parent, Name
+        $data | ForEach-Object { $_ } | Sort-Object -Property Parent, Name
         Write-Verbose "Ending $($MyInvocation.MyCommand)"
     }
 }
 
 #define additional type extensions
-Update-TypeData -TypeName DirectoryStat -MemberType ScriptProperty -MemberName NameCount -value {"$($this.name) [$($this.filecount)]"} -force
-Update-TypeData -TypeName DirectoryStat -MemberType ScriptProperty -MemberName NameSize -Value { "$($this.name) [$($this.filesize)]" } -force
+Update-TypeData -TypeName DirectoryStat -MemberType ScriptProperty -MemberName NameCount -Value { "$($this.name) [$($this.filecount)]" } -Force
+Update-TypeData -TypeName DirectoryStat -MemberType ScriptProperty -MemberName NameSize -Value { "$($this.name) [$($this.filesize)]" } -Force
 
-Update-TypeData -TypeName DirectoryStat -DefaultDisplayProperty NameCount -force
-Update-TypeData -TypeName DirectoryStat -DefaultDisplayPropertySet Path,Name,FileCount,FileSize,Parent -Force
+Update-TypeData -TypeName DirectoryStat -DefaultDisplayProperty NameCount -Force
+Update-TypeData -TypeName DirectoryStat -DefaultDisplayPropertySet Path, Name, FileCount, FileSize, Parent -Force
+
+#EOF

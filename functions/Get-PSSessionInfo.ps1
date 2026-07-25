@@ -1,15 +1,17 @@
 # Get details about the current PowerShell session
-Function Get-PSSessionInfo {
+function Get-PSSessionInfo {
     [cmdletbinding()]
-    [Alias("gsin")]
-    [OutputType("PSSessionInfo")]
-    Param()
-    Begin {
+    [Alias('gsin')]
+    [OutputType('PSSessionInfo')]
+    param()
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = console
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Getting information for PSSession $PID "
 
         $proc = Get-Process -Id $PID
@@ -25,7 +27,7 @@ Function Get-PSSessionInfo {
         }
 
         [PSCustomObject]@{
-            PSTypeName = "PSSessionInfo"
+            PSTypeName = 'PSSessionInfo'
             ProcessID  = $PID
             Command    = $cmd
             Host       = $Host.Name
@@ -37,7 +39,7 @@ Function Get-PSSessionInfo {
 
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 
@@ -45,4 +47,6 @@ Function Get-PSSessionInfo {
 
 #add script properties to the custom object
 Update-TypeData -TypeName PSSessionInfo -MemberType ScriptProperty -MemberName Runtime -Value { (Get-Date) - $this.Started } -Force
-Update-TypeData -TypeName PSSessionInfo -MemberType ScriptProperty -MemberName Memory -Value { (Get-Process -Id $this.ProcessID).WorkingSet / 1MB -AS [int32] } -Force
+Update-TypeData -TypeName PSSessionInfo -MemberType ScriptProperty -MemberName Memory -Value { (Get-Process -Id $this.ProcessID).WorkingSet / 1MB -as [int32] } -Force
+
+#EOF

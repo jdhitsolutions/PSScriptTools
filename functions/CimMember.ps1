@@ -43,6 +43,8 @@ Function Get-CimClassProperty {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = cim
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #initialize a list for output. I want to write sorted output to the pipeline.
@@ -144,6 +146,8 @@ Function Get-CimClassPropertyQualifier {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = cim
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -238,6 +242,8 @@ Function Get-CimClassMethod {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = cim
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #initialize a list for output. I want to write sorted output to the pipeline.
@@ -314,6 +320,8 @@ Function Get-CimNamespace {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = cim
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN ] Starting $($MyInvocation.MyCommand)"
 
         #define a private function to do the heavy lifting
@@ -407,6 +415,8 @@ Function Get-CimMember {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN ] Running under PowerShell version $($PSVersionTable.PSVersion)"
     } #begin
@@ -456,6 +466,8 @@ Function Get-CimClassListing {
     )
 
     Begin {
+        #tags are used for categorizing the command
+        #cmdTags = cim
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         #initialize variables for the CimSession connection
@@ -526,3 +538,5 @@ Register-ArgumentCompleter -CommandName Get-CimMember,Get-CimClassMethod, Get-Ci
         [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
     }
 }
+
+#EOF

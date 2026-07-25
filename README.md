@@ -59,6 +59,16 @@ Uninstall-Module PSScriptTools -AllVersions
 
 These commands are designed to either streamline common PowerShell tasks or add new functionality.
 
+### [Copy-HistoryCommand](docs/Copy-HistoryCommand.md)
+
+You can use this command to copy the command line from a given PowerShell history item to the clipboard.The default item will the be last history item. Once copied, you can paste into your following prompt to edit and/or re-run.
+
+```powershell
+PS C:\> Copy-HistoryCommand
+```
+
+Copy the command from the last history item to the clipboard. This command has an alias of `ch`.
+
 ### [Get-ProcessTree](docs/Get-ProcessTree.md)
 
 `Get-ProcessTree` is intended to show you a hierarch of processes. In other words, a process tree. The command takes a process ID and iterates through its parents.
@@ -93,7 +103,8 @@ PS C:\> Get-ProcessTree 7732 -IncludeUserName
 You can use any process property name.
 
 ```powershell
-PS C:\> Get-ProcessTree 7732 | Select ID,Name,@{Name="Runtime";Expression = { New-Timespan -start $_.StartTime -end (Get-Date)}},Path | Format-Table
+PS C:\> Get-ProcessTree 7732 | Select ID,Name,@{Name="Runtime";Expression = {
+  New-Timespan -start $_.StartTime -end (Get-Date)}},Path | Format-Table
 
    Id Name     Runtime            Path
    -- ----     -------            ----
@@ -328,7 +339,7 @@ Beginning with version 3.2.0, in PowerShell 7, the Name will be a clickable hype
 
 You also have an option to filter by verb.
 
-```dos
+```powershell
 PS C:\> Get-PSScriptTools -Verb Test
 ___ ___ ___         _      _  _____        _
 | _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
@@ -350,9 +361,27 @@ Test-IsPSWindows                                       Test if running PowerShel
 Test-WithCulture                                       Test your PowerShell code using a different culture.
 ```
 
+Also beginning with v3.2.0, you can also filter on a predefined list of tags that categorize each command. You can use a new formatted table view called `tags`.
+
+```powershell
+PS C:\> Get-PSScriptTools -Tag ansi -verb Get | Format-Table -View tags
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-<
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name                     Alias Tags            Synopsis
+----                     ----- ----            --------
+Get-CimMember            cmm   {ansi}          Get information about CIM cl....
+Get-PSAnsiFileMap              {ansi}          Display the PSAnsiFileMap.
+Get-WindowsVersionString wvers {general, ansi} Get Windows version informati...
+```
+
 Here's another way you could use this command to list functions with defined aliases in the PSScriptTools module.
 
-```dos
+```powershell
 PS C:\> Get-PSScriptTools | Where-Object alias |
 Select-Object Name,Alias,Online
 
@@ -1602,7 +1631,7 @@ You can change the line color using any ANSI or PSStyle color. The text can be p
 
 ![Format-BorderBox with title](images/format-borderbox-trimmed.png)
 
-The command has an alias of *fbx*.
+The command has an alias of _fbx_.
 
 ### [Show-Tree](docs/Show-Tree.md)
 
@@ -2782,8 +2811,6 @@ You can also view foreground and or background settings.
 
 ![show ANSI foreground](images/show-ansi-foreground.png)
 
-The number of columns displayed depends on the width of your PowerShell console.
-
 You can even use an RGB value.
 
 ![show ANSI RGB sequence](images/show-ansi-rgb.png)
@@ -2831,6 +2858,58 @@ Get-Command -module PSIntro | Foreach-Object -Begin {
 ```
 
 ![Module info with ANSI hyperlinks](images/module-info-with-links.png)
+
+### [Write-PSHorizontalRule](docs/Write-PSHorizontalRule.md)
+
+This command is used to write a horizontal rule line in the console.  The default line length is the console width.
+
+![Default horizontal rule](images/hr-default.png)
+
+The rule line is colored using ANSI. You can specify any ANSI or PSStyle foreground sequence as the style. Optionally, you can insert a title or caption.
+
+![Horizontal rule with title and styled](images/hr-title-styled.png)
+
+By default, the caption will be set to the left, but you can adjust the alignment and style.
+
+The default is a thin line, however you can create a thick like using the LineWeight parameter.
+
+![Horizontal Rule in a report](images/hr-processes.png)
+
+You might use this in a script to add style or more information.
+
+```powershell
+param([int]$Count = 20)
+
+$processes = Get-Process
+$total = ($processes | Measure-Object -Property WS -Sum).sum
+
+$hrParams = @{
+    Title      = ([Environment]::MachineName)
+    TitleStyle = 'italic', 'bold'
+    Alignment  = 'Center'
+    Style      = "$([char]27)[38;5;228m"
+}
+#insert an empty line
+"`n"
+Write-PSHorizontalRule @hrParams
+
+$processes | Sort-Object WS -Descending |
+First $count |
+Format-Table -Property Name, ID, Handles,
+@{Name = 'WS(MB)'; Expression = { Format-Value $_.WS -Unit MB } },
+@{Name = 'PctWS'; Expression = {
+  $pct = Format-Percent -Value $_.ws -Total $total -Decimal 2
+  #scale the percentage for display purposes
+  $bar = New-ANSIBar -Range 210 -Spacing ($pct * 5) -Character BlackSquare
+  '{0:00.00} {1}' -f $pct, $bar
+  }
+}
+Write-PSHorizontalRule -Style $hrParams.Style
+#insert an empty line
+"`n"
+```
+
+![Process Report](images/process-report.png)
 
 ## Other Module Features
 

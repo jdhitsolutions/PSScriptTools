@@ -33,10 +33,18 @@ function Show-ANSISequence {
         [Parameter(ParameterSetName = "foreback",HelpMessage = "Page the display")]
         [switch]$Paging,
         [Parameter(ParameterSetName = "foreback",HelpMessage = "The number of items to display per page. This parameter has no effect unless used with -Paging")]
-        [int]$PageCount = 20
+        [int]$PageCount = 20,
+
+        [Parameter(
+            ParameterSetName = "foreback",
+            HelpMessage = "Specify the number of columns to display for foreground or background sequences."
+        )]
+        [int]$Columns = 3
     )
 
     begin {
+        #tags are used for categorizing the command
+        #cmdTags = ansi
         Write-Verbose "Starting $($MyInvocation.MyCommand)"
         Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Debug "Using parameter set $($PSCmdlet.ParameterSetName)"
@@ -45,13 +53,13 @@ function Show-ANSISequence {
 
         # a private function to display results in columns on the screen
         function display {
-            param([object]$all, [int]$Max)
+            param([object]$all, [int]$Columns)
 
             $c = 1
             [string]$row = ''
 
             for ($i = 0; $i -le $all.count; $i++) {
-                if ($c -gt $max) {
+                if ($c -gt $Columns) {
                     $row
                     $c = 1
                     $row = ''
@@ -85,19 +93,22 @@ function Show-ANSISequence {
             Write-Debug 'CoreCLR'
             $esc = "`e"
             $EscText = '`e'
+            <#
+            25 July 2026 This is now configurable via a parameter
             #adjust the display width based on the console size
-            $max = if ($Host.UI.RawUI.WindowSize.Width -le 80) {
+            $Columns = if ($Host.UI.RawUI.WindowSize.Width -le 80) {
                 3
             }
             else {
                 5
             }
+                #>
         }
         else {
             Write-Debug 'Desktop'
             $esc = $([char]27)
             $EscText = '$([char]27)'
-            $max = 3
+            #$Columns = 3 Removed 25 July 2026
         }
 
         #region basic
@@ -150,10 +161,10 @@ function Show-ANSISequence {
 
                 #22 July 2026 page the output using the module's Out-More command
                 If ($Paging) {
-                    display -all $all -Max $max | Out-More -count $PageCount
+                    display -all $all -Columns $Columns | Out-More -count $PageCount
                 }
                 else {
-                    display -all $all -Max $max
+                    display -all $all -Columns $Columns
                 }
 
                 Write-Host "`n"
@@ -170,10 +181,10 @@ function Show-ANSISequence {
                     }
                 }
                 If ($Paging) {
-                    display -all $all -Max $max | Out-More -count $PageCount
+                    display -all $all -Columns $Columns | Out-More -count $PageCount
                 }
                 else {
-                    display -all $all -Max $max
+                    display -all $all -Columns $Columns
                 }
             }
         }
@@ -197,10 +208,10 @@ function Show-ANSISequence {
                 }
 
                 If ($Paging) {
-                    display -all $all -Max $max | Out-More -count $PageCount
+                    display -all $all -Columns $Columns | Out-More -count $PageCount
                 }
                 else {
-                    display -all $all -Max $max
+                    display -all $all -Columns $Columns
                 }
 
                 Write-Host "`n"
@@ -218,10 +229,10 @@ function Show-ANSISequence {
                     }
                 }
                 If ($Paging) {
-                    display -all $all -Max $max | Out-More -count $PageCount
+                    display -all $all -Columns $Columns | Out-More -count $PageCount
                 }
                 else {
-                    display -all $all -Max $max
+                    display -all $all -Columns $Columns
                 }
             }
         }
@@ -266,3 +277,4 @@ function Show-ANSISequence {
     }
 
 }
+#EOF

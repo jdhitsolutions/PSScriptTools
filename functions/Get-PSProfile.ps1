@@ -1,13 +1,15 @@
-Function Get-PSProfile {
+function Get-PSProfile {
     [cmdletbinding()]
     [OutputType('PSProfilePath')]
-    Param()
+    param()
 
+    #tags are used for categorizing the command
+    #cmdTags = general
     Write-Verbose "Starting $($MyInvocation.MyCommand)"
     Write-Verbose "Running under PowerShell version $($PSVersionTable.PSVersion)"
     #24 April 2025 Revise to support non-Windows systems
 
-    if ($IsLinux -OR $IsMacOS) {
+    if ($IsLinux -or $IsMacOS) {
         $hosts = [ordered]@{
             Name                   = 'PowerShell'
             Command                = 'pwsh'
@@ -60,8 +62,8 @@ Function Get-PSProfile {
         )
     } #if windows
 
-    Foreach ($h in $hosts) {
-        Try {
+    foreach ($h in $hosts) {
+        try {
             #verify command
             Write-Verbose "Processing possible profiles for $($h.name)"
             [void](Get-Command $h.command -ErrorAction stop)
@@ -104,7 +106,7 @@ Function Get-PSProfile {
                 }
             }
         } #Try
-        Catch {
+        catch {
             Write-Warning "Could not find $($h.command) on this computer."
         } #Catch
 
@@ -112,3 +114,4 @@ Function Get-PSProfile {
 
     Write-Verbose "Ending $($MyInvocation.MyCommand)"
 }
+#EOF

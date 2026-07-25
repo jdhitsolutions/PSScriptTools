@@ -1,19 +1,19 @@
 
-Function New-PSFormatXML {
+function New-PSFormatXML {
     [cmdletbinding(SupportsShouldProcess)]
-    [alias("nfx")]
-    [OutputType("None", "System.IO.FileInfo")]
+    [alias('nfx')]
+    [OutputType('None', 'System.IO.FileInfo')]
 
-    Param(
+    param(
         [Parameter(
             Mandatory,
             ValueFromPipeline,
-            HelpMessage = "Specify an object to analyze and generate or update a ps1xml file."
-            )]
+            HelpMessage = 'Specify an object to analyze and generate or update a ps1xml file.'
+        )]
         [object]$InputObject,
 
-        [Parameter(HelpMessage = "Enter a set of properties to include. The default is all. If specifying a Wide entry, only specify a single property.")]
-        [Alias("Property")]
+        [Parameter(HelpMessage = 'Enter a set of properties to include. The default is all. If specifying a Wide entry, only specify a single property.')]
+        [Alias('Property')]
         [ValidateNotNullOrEmpty()]
         [object[]]$Properties,
 
@@ -21,33 +21,36 @@ Function New-PSFormatXML {
         [ValidateNotNullOrEmpty()]
         [string]$Typename,
 
-        [Parameter(HelpMessage = "Specify whether to create a table ,list or wide view")]
-        [ValidateSet("Table", "List", "Wide")]
-        [string]$FormatType = "Table",
+        [Parameter(HelpMessage = 'Specify whether to create a table ,list or wide view')]
+        [ValidateSet('Table', 'List', 'Wide')]
+        [string]$FormatType = 'Table',
 
-        [Parameter(HelpMessage = "Specify the name of the formatted view.")]
+        [Parameter(HelpMessage = 'Specify the name of the formatted view.')]
         [ValidateNotNullOrEmpty()]
-        [string]$ViewName = "default",
+        [string]$ViewName = 'default',
 
-        [Parameter(Mandatory, HelpMessage = "Enter full filename and path for the format.ps1xml file.")]
+        [Parameter(Mandatory, HelpMessage = 'Enter full filename and path for the format.ps1xml file.')]
         [ValidateNotNullOrEmpty()]
         [string]$Path,
 
-        [Parameter(HelpMessage = "Specify a property name to group on.")]
+        [Parameter(HelpMessage = 'Specify a property name to group on.')]
         [ValidateNotNullOrEmpty()]
         [string]$GroupBy,
 
-        [Parameter(HelpMessage = "Wrap long lines. This only applies to Tables.")]
+        [Parameter(HelpMessage = 'Wrap long lines. This only applies to Tables.')]
         [Switch]$Wrap,
 
-        [Parameter(HelpMessage = "Do not include default comments")]
+        [Parameter(HelpMessage = 'Do not include default comments')]
         [switch]$NoComments,
 
-        [Parameter(HelpMessage = "Append the view to an existing file.")]
+        [Parameter(HelpMessage = 'Append the view to an existing file.')]
         [switch]$Append,
         [switch]$PassThru
     )
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
 
@@ -56,7 +59,7 @@ Function New-PSFormatXML {
         #reconstruct the path
         $realPath = Join-Path -Path $parent -ChildPath (Split-Path -Path $path -Leaf)
 
-        if (-Not $Append) {
+        if (-not $Append) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Initializing a new XML document"
             [xml]$Doc = New-Object -TypeName System.Xml.XmlDocument
 
@@ -80,31 +83,31 @@ of the PSScriptTools module.
 https://github.com/jdhitsolutions/PSScriptTools
 
 "@
-            If (-Not $NoComments) {
+            if (-not $NoComments) {
                 [void]$doc.AppendChild($doc.CreateComment($text))
             }
 
             #create Configuration Node
-            $config = $doc.CreateNode("element", "Configuration", $null)
-            $viewDef = $doc.CreateNode("element", "ViewDefinitions", $null)
+            $config = $doc.CreateNode('element', 'Configuration', $null)
+            $viewDef = $doc.CreateNode('element', 'ViewDefinitions', $null)
 
         }
-        elseif ($Append -AND (Test-Path -Path $realPath)) {
+        elseif ($Append -and (Test-Path -Path $realPath)) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Opening format document $realPath"
             [xml]$Doc = Get-Content -Path $realPath
         }
         else {
-            Throw "Failed to find $Path"
+            throw "Failed to find $Path"
         }
-        $view = $doc.CreateNode("element", "View", $null)
+        $view = $doc.CreateNode('element', 'View', $null)
 
-        If (-Not $NoComments) {
+        if (-not $NoComments) {
             [void]$view.AppendChild($doc.CreateComment("Created $(Get-Date) by $env:USERDOMAIN\$env:username"))
         }
-        $name = $doc.CreateElement("Name")
+        $name = $doc.CreateElement('Name')
         $name.InnerText = $viewName
         [void]$view.AppendChild($name)
-        $select = $doc.CreateNode("element", "ViewSelectedBy", $null)
+        $select = $doc.CreateNode('element', 'ViewSelectedBy', $null)
 
         if ($GroupBy) {
             Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Grouping by $GroupBy"
@@ -121,54 +124,54 @@ https://github.com/jdhitsolutions/PSScriptTools
             Use <Label> to set the displayed text.
 
 "@
-            $group = $doc.CreateNode("element", "GroupBy", $null)
-            If (-Not $NoComments) {
+            $group = $doc.CreateNode('element', 'GroupBy', $null)
+            if (-not $NoComments) {
                 [void]$group.AppendChild($doc.CreateComment($groupComment))
             }
-            $groupProp = $doc.CreateNode("element", "PropertyName", $null)
+            $groupProp = $doc.CreateNode('element', 'PropertyName', $null)
             $groupProp.InnerText = $GroupBy
-            $groupLabel = $doc.CreateNode("element", "Label", $null)
+            $groupLabel = $doc.CreateNode('element', 'Label', $null)
             $groupLabel.InnerText = $GroupBy
             [void]$group.AppendChild($groupProp)
             [void]$group.AppendChild($groupLabel)
         }
 
-        Switch ($FormatType) {
-            "Table" {
-                $table = $doc.CreateNode("element", "TableControl", $null)
-                $headers = $doc.CreateNode("element", "TableHeaders", $null)
-                $TableRowEntries = $doc.CreateNode("element", "TableRowEntries", $null)
-                $entry = $doc.CreateNode("element", "TableRowEntry", $null)
+        switch ($FormatType) {
+            'Table' {
+                $table = $doc.CreateNode('element', 'TableControl', $null)
+                $headers = $doc.CreateNode('element', 'TableHeaders', $null)
+                $TableRowEntries = $doc.CreateNode('element', 'TableRowEntries', $null)
+                $entry = $doc.CreateNode('element', 'TableRowEntry', $null)
                 if ($Wrap) {
                     Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Adding Wrap"
-                    $wrapElement = $doc.CreateNode("element", "Wrap", $null)
+                    $wrapElement = $doc.CreateNode('element', 'Wrap', $null)
                     [void]($entry.AppendChild($wrapElement))
                 }
             }
-            "List" {
-                $list = $doc.CreateNode("element", "ListControl", $null)
-                $listEntries = $doc.CreateNode("element", "listEntries", $null)
-                $listEntry = $doc.CreateNode("element", "listEntry", $null)
+            'List' {
+                $list = $doc.CreateNode('element', 'ListControl', $null)
+                $listEntries = $doc.CreateNode('element', 'listEntries', $null)
+                $listEntry = $doc.CreateNode('element', 'listEntry', $null)
             }
-            "Wide" {
-                $Wide = $doc.CreateNode("element", "WideControl", $null)
-                $wideEntries = $doc.CreateNode("element", "WideEntries", $null)
-                $WideEntry = $doc.CreateNode("element", "WideEntry", $null)
+            'Wide' {
+                $Wide = $doc.CreateNode('element', 'WideControl', $null)
+                $wideEntries = $doc.CreateNode('element', 'WideEntries', $null)
+                $WideEntry = $doc.CreateNode('element', 'WideEntry', $null)
             }
         }
         $counter = 0
     } #begin
 
-    Process {
+    process {
         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Counter $counter"
-        If ($counter -eq 0) {
+        if ($counter -eq 0) {
             if ($Typename) {
                 $tName = $TypeName
             }
             else {
                 $tName = $InputObject.PSObject.TypeNames[0]
             }
-            $tNameElement = $doc.CreateElement("TypeName")
+            $tNameElement = $doc.CreateElement('TypeName')
             #you can't use [void] on a property assignment and we don't want to see the XML result
             $tNameElement.InnerText = $tName
             [void]$select.AppendChild($tNameElement)
@@ -186,7 +189,7 @@ https://github.com/jdhitsolutions/PSScriptTools
             $members = @()
             if ($properties) {
                 foreach ($property in $properties) {
-                    if ($property.GetType().Name -match "hashtable") {
+                    if ($property.GetType().Name -match 'hashtable') {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Detected a hashtable defined property called named $($property.name)"
                         $members += $property
                     }
@@ -226,8 +229,8 @@ https://github.com/jdhitsolutions/PSScriptTools
 "@
             if ($FormatType -eq 'Table') {
 
-                $items = $doc.CreateNode("element", "TableColumnItems", $null)
-                If (-Not $NoComments) {
+                $items = $doc.CreateNode('element', 'TableColumnItems', $null)
+                if (-not $NoComments) {
                     [void]$items.AppendChild($doc.CreateComment($comment))
                 }
                 foreach ($member in $members) {
@@ -237,7 +240,7 @@ https://github.com/jdhitsolutions/PSScriptTools
                         $member.Value = "$($member.expression | Out-String)".Trim()
                         $isScriptBlock = $True
                     }
-                    elseif (-Not $member.value) {
+                    elseif (-not $member.value) {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
                         #$member.value = "   "
                         $isScriptBlock = $False
@@ -246,13 +249,13 @@ https://github.com/jdhitsolutions/PSScriptTools
                         $isScriptBlock = $False
                     }
 
-                    $th = $doc.CreateNode("element", "TableColumnHeader", $null)
+                    $th = $doc.CreateNode('element', 'TableColumnHeader', $null)
 
                     Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS]... $($member.name)"
-                    $label = $doc.CreateElement("Label")
+                    $label = $doc.CreateElement('Label')
                     $label.InnerText = $member.Name
                     [void]$th.AppendChild($label)
-                    $width = $doc.CreateElement("Width")
+                    $width = $doc.CreateElement('Width')
                     <#
                         set initial width to value length + 3
                         Use the width of whichever is longer, the name or value
@@ -276,25 +279,25 @@ https://github.com/jdhitsolutions/PSScriptTools
                     $width.InnerText = $longest + 3
                     [void]$th.AppendChild($width)
 
-                    $align = $doc.CreateElement("Alignment")
+                    $align = $doc.CreateElement('Alignment')
                     #$align.InnerText = "left"
                     <#
                     Updated 14 May 2025 based on a suggestion from @scriptingstudio
                     Issue # 155
                     #>
-                    $align.InnerText = if ($member.align -match "left|right|center") {$matches[0]} else {"left"}
+                    $align.InnerText = if ($member.align -match 'left|right|center') { $matches[0] } else { 'left' }
                     [void]$th.AppendChild($align)
                     [void]$headers.AppendChild($th)
 
-                    $tci = $doc.CreateNode("element", "TableColumnItem", $null)
+                    $tci = $doc.CreateNode('element', 'TableColumnItem', $null)
                     if ($isScriptBlock) {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a ScriptBlock element"
-                        $prop = $doc.CreateElement("ScriptBlock")
+                        $prop = $doc.CreateElement('ScriptBlock')
                         $prop.InnerText = "$($member.Value)"
                     }
                     else {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a PropertyName element"
-                        $prop = $doc.CreateElement("PropertyName")
+                        $prop = $doc.CreateElement('PropertyName')
                         $prop.InnerText = $member.name
                     }
                     [void]$tci.AppendChild($prop)
@@ -303,8 +306,8 @@ https://github.com/jdhitsolutions/PSScriptTools
             }
             elseif ($FormatType -eq 'List') {
                 #create a list
-                $items = $doc.CreateNode("element", "ListItems", $null)
-                If (-Not $NoComments) {
+                $items = $doc.CreateNode('element', 'ListItems', $null)
+                if (-not $NoComments) {
                     [void]$items.AppendChild($doc.CreateComment($comment))
                 }
                 foreach ($member in $members) {
@@ -314,26 +317,26 @@ https://github.com/jdhitsolutions/PSScriptTools
                         $member.Value = "$($member.expression | Out-String)".Trim()
                         $isScriptBlock = $True
                     }
-                    elseif (-Not $member.value) {
+                    elseif (-not $member.value) {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] $($member.name) has a null value. Inserting a placeholder."
-                        $member.value = "   "
+                        $member.value = '   '
                         $isScriptBlock = $False
                     }
                     else {
                         $isScriptBlock = $False
                     }
 
-                    $li = $doc.CreateNode("element", "ListItem", $null)
-                    $label = $doc.CreateElement("Label")
+                    $li = $doc.CreateNode('element', 'ListItem', $null)
+                    $label = $doc.CreateElement('Label')
                     $label.InnerText = $member.Name
                     if ($isScriptBlock) {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a ScriptBlock element"
-                        $prop = $doc.CreateElement("ScriptBlock")
+                        $prop = $doc.CreateElement('ScriptBlock')
                         $prop.InnerText = "$($member.Value)"
                     }
                     else {
                         Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a PropertyName element"
-                        $prop = $doc.CreateElement("PropertyName")
+                        $prop = $doc.CreateElement('PropertyName')
                         $prop.InnerText = $member.name
                     }
                     [void]$li.AppendChild($label)
@@ -345,19 +348,19 @@ https://github.com/jdhitsolutions/PSScriptTools
                 #create Wide
                 #there should only be one element in the array
 
-                $item = $doc.CreateNode("element", "WideItem", $null)
-                If (-Not $NoComments) {
+                $item = $doc.CreateNode('element', 'WideItem', $null)
+                if (-not $NoComments) {
                     [void]$item.AppendChild($doc.CreateComment($comment))
                 }
                 Write-Verbose "Using $($members.name)"
                 if ($members.Expression) {
                     Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a ScriptBlock element"
-                    $prop = $doc.CreateElement("ScriptBlock")
+                    $prop = $doc.CreateElement('ScriptBlock')
                     $prop.InnerText = "$($members.Expression)"
                 }
                 else {
                     Write-Verbose "[$((Get-Date).TimeOfDay) PROCESS] Creating a PropertyName element"
-                    $prop = $doc.CreateElement("PropertyName")
+                    $prop = $doc.CreateElement('PropertyName')
                     $prop.InnerText = $member.name
                 }
                 [void]$item.AppendChild($prop)
@@ -366,25 +369,25 @@ https://github.com/jdhitsolutions/PSScriptTools
         else {
             #only display the warning on the first additional object
             if ($counter -eq 1) {
-                Write-Warning "Ignoring additional objects. This command only needs one instance of an object to create the ps1xml file. Your file will still be created."
+                Write-Warning 'Ignoring additional objects. This command only needs one instance of an object to create the ps1xml file. Your file will still be created.'
             }
         }
         $counter++
     } #process
 
-    End {
+    end {
 
-        if (-Not $BadProperty) {
+        if (-not $BadProperty) {
             #don't create the file if a bad property as specified. Issue #111
             Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Finalizing XML"
             #Add elements to each parent
             if ($FormatType -eq 'Table') {
                 [void]$entry.AppendChild($items)
                 [void]$TableRowEntries.AppendChild($entry)
-                If (-Not $NoComments) {
-                [void]$table.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use the defined widths."))
+                if (-not $NoComments) {
+                    [void]$table.AppendChild($doc.CreateComment('Delete the AutoSize node if you want to use the defined widths.'))
                 }
-                $auto = $doc.CreateElement("AutoSize")
+                $auto = $doc.CreateElement('AutoSize')
                 [void]$table.AppendChild($auto)
                 [void]$table.AppendChild($headers)
                 [void]$table.AppendChild($TableRowEntries)
@@ -401,10 +404,10 @@ https://github.com/jdhitsolutions/PSScriptTools
                 #Wide
                 [void]$wideEntries.AppendChild($WideEntry)
                 [void]$WideEntry.AppendChild($item)
-                If (-Not $NoComments) {
-                    [void]$Wide.AppendChild($doc.CreateComment("Delete the AutoSize node if you want to use PowerShell defaults."))
+                if (-not $NoComments) {
+                    [void]$Wide.AppendChild($doc.CreateComment('Delete the AutoSize node if you want to use PowerShell defaults.'))
                 }
-                $auto = $doc.CreateElement("AutoSize")
+                $auto = $doc.CreateElement('AutoSize')
                 [void]$Wide.AppendChild($auto)
                 [void]$Wide.AppendChild($wideEntries)
                 [void]$view.AppendChild($Wide)
@@ -424,12 +427,12 @@ https://github.com/jdhitsolutions/PSScriptTools
             if ($PSCmdlet.ShouldProcess($realPath, "Adding $FormatType view $viewName")) {
                 $doc.Save($realPath)
                 if ($PassThru) {
-                    if ($host.name -match "Visual Studio Code") {
+                    if ($host.name -match 'Visual Studio Code') {
                         #If you run this command in VS Code and specify -PassThru, then open the file
                         #for further editing
                         Open-EditorFile -Path $realPath
                     }
-                    elseif ($host.name -match "PowerShell ISE") {
+                    elseif ($host.name -match 'PowerShell ISE') {
                         psedit $realPath
                     }
                     else {
@@ -444,3 +447,5 @@ https://github.com/jdhitsolutions/PSScriptTools
     } #end
 
 } #close New-PSFormatXML
+
+#EOF

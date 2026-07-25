@@ -1,23 +1,25 @@
 ﻿
-Function Save-GitSetup {
-
+function Save-GitSetup {
     [CmdletBinding()]
-    Param(
-        [Parameter(Position = 0,HelpMessage = "Specify the location to store the downloaded file")]
+    param(
+        [Parameter(Position = 0, HelpMessage = 'Specify the location to store the downloaded file')]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({ Test-Path $_ })]
         [string]$Path = $env:TEMP,
 
-        [Parameter(HelpMessage = "Download the ARM64 standalone version")]
+        [Parameter(HelpMessage = 'Download the ARM64 standalone version')]
         [switch]$ARM64,
 
-        [Parameter(HelpMessage = "Show the downloaded file.")]
+        [Parameter(HelpMessage = 'Show the downloaded file.')]
         [switch]$PassThru
     )
 
+    #tags are used for categorizing the command
+    #cmdTags = scripting
+
     if ( (Test-IsPSWindows)) {
 
-        Try {
+        try {
             [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
             #download the latest 64bit version of Git for Windows
@@ -30,41 +32,43 @@ Function Save-GitSetup {
             Write-Information $page -Tags data
             #get the download link
             if ($ARM64) {
-                Write-Verbose "Downloading ARM64"
-                $dl = ($page.links | Where-Object outerHTML -match 'git-.*-Arm64.exe' | Select-Object -first 1 * ).href
+                Write-Verbose 'Downloading ARM64'
+                $dl = ($page.links | Where-Object outerHTML -Match 'git-.*-Arm64.exe' | Select-Object -First 1 * ).href
             }
             else {
-                Write-Verbose "Downloading x64"
-                $dl = ($page.links | Where-Object outerHTML -match 'git-.*-64-bit.exe' | Select-Object -first 1 * ).href
+                Write-Verbose 'Downloading x64'
+                $dl = ($page.links | Where-Object outerHTML -Match 'git-.*-64-bit.exe' | Select-Object -First 1 * ).href
             }
             Write-Information $dl -Tags data
             Write-Verbose "Found download link $dl"
 
             #split out the filename
-            $filename = Split-Path $dl -leaf
+            $filename = Split-Path $dl -Leaf
 
             #construct a filepath for the download
             $out = Join-Path -Path $path -ChildPath $filename
             Write-Verbose "Downloading $out from $dl"
 
             #download the file
-            Try {
-                Invoke-WebRequest -uri $dl -OutFile $out -UseBasicParsing -DisableKeepAlive -ErrorAction Stop
+            try {
+                Invoke-WebRequest -Uri $dl -OutFile $out -UseBasicParsing -DisableKeepAlive -ErrorAction Stop
             }
-            Catch {
-                Throw $_
+            catch {
+                throw $_
             }
         } #try
 
-        Catch {
-            Throw $_
+        catch {
+            throw $_
         }
-        Write-Verbose "Download complete"
+        Write-Verbose 'Download complete'
         if ($PassThru) {
             Get-Item -Path $out
         }
     } #if windows
     else {
-        Write-Warning "This command is intended for x64 Windows platforms."
+        Write-Warning 'This command is intended for x64 Windows platforms.'
     }
 } #end function
+
+#EOF

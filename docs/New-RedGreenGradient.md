@@ -22,6 +22,8 @@ New-RedGreenGradient [[-Percent] <Double>] [-Step <Int32>] [-Character <Char>]
 
 You can use this command to create an ANSI colored gradient bar running from red to green. By specifying a percentage, you can provide a visual representation. The closer the percent value is to 1 the more green will be displayed. Use the -Step parameter to adjust the bar length. The smaller the step the longer the bar.
 
+This command will not run in the Windows PowerShell ISE.
+
 ## EXAMPLES
 
 ### Example 1

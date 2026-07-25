@@ -73,8 +73,9 @@ Create an upper case custom file name. The %string placeholder will be replaced 
 ### Example 4
 
 ```powershell
-PS C:\> Join-Path c:\work (New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower)
-c:\work\2020nov-log-bovine320[jeff].txt
+PS C:\> $n = New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower
+PS C:\> Join-Path c:\work $n
+c:\work\2026jul-log-bovine320[jeff].txt
 ```
 
 Create a lower case filename using Join-Path. This command does not create the file, it only generates a name for you to use.

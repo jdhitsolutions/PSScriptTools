@@ -22,7 +22,8 @@ Show-ANSISequence [-Basic] [-AsString] [<CommonParameters>]
 ### foreback
 
 ```yaml
-Show-ANSISequence [-Foreground] [-Background] [-Type <String>] [-AsString] [-Paging] [-PageCount <Int32>] [<CommonParameters>]
+Show-ANSISequence [-Foreground] [-Background] [-Type <String>] [-AsString] [-Paging]
+[-PageCount <Int32>] [-Columns <Int32>] [<CommonParameters>]
 ```
 
 ### RGB
@@ -37,7 +38,7 @@ This script is designed to make it easy to see ANSI escape sequences and how the
 
 The escape character will depend on whether you are running Windows PowerShell or PowerShell 7.x. For best results, you need to run this command in a PowerShell session and host that supports ANSI escape sequences.
 
-The number of columns displayed depends on the width of your console window.
+This command will not run in the Windows PowerShell ISE.
 
 ## EXAMPLES
 
@@ -97,10 +98,10 @@ Repeat the previous example but write the output as a plain string and copy it t
 ### Example 5
 
 ```powershell
-PS C:\ Show-ANSISequence -background -paging
+PS C:\ Show-ANSISequence -background -columns 4 -paging
 ```
 
-Output is displayed in pages using Out-More. You can adjust the number of items using the -PageCount parameter.
+Four column output is displayed in pages using Out-More. You can adjust the number of items using the -PageCount parameter.
 
 ## PARAMETERS
 
@@ -229,6 +230,22 @@ Aliases:
 Required: False
 Position: Named
 Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
+
+### -Columns
+
+Specify the number of columns to display for foreground or background sequences.
+
+```yaml
+Type: Int32
+Parameter Sets: foreback
+Aliases:
+
+Required: False
+Position: Named
+Default value: 3
 Accept pipeline input: False
 Accept wildcard characters: False
 ```

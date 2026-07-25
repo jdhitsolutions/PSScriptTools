@@ -1,23 +1,26 @@
 ﻿
-Function Get-PSUnique {
+function Get-PSUnique {
     [cmdletbinding()]
     [alias('gpsu')]
     [OutputType('object')]
-    Param(
+    param(
         [Parameter(Position = 0, Mandatory, ValueFromPipeline)]
         [ValidateNotNullOrEmpty()]
         [object]$InputObject,
         [string[]]$Property
     )
 
-    Begin {
+    begin {
+        #tags are used for categorizing the command
+        #cmdTags = scripting
+
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Starting $($MyInvocation.MyCommand)"
         Write-Verbose "[$((Get-Date).TimeOfDay) BEGIN  ] Running under PowerShell version $($PSVersionTable.PSVersion)"
         Write-Debug "[$((Get-Date).TimeOfDay) BEGIN  ] Initializing list"
         $UniqueList = [System.Collections.Generic.list[object]]::new()
     } #begin
 
-    Process {
+    process {
         if ($Property) {
             foreach ($item in $InputObject) {
                 $props = $item.PSObject.Properties.where{ $_.name -in $Property }
@@ -29,8 +32,8 @@ Function Get-PSUnique {
         }
         else {
             foreach ($item in $InputObject) {
-                Try {
-                    if ($UniqueList.Exists( { -Not ( Compare-Object -ReferenceObject $args[0].PSObject.properties.value -DifferenceObject $item.PSObject.Properties.value )})) {
+                try {
+                    if ($UniqueList.Exists( { -not ( Compare-Object -ReferenceObject $args[0].PSObject.properties.value -DifferenceObject $item.PSObject.Properties.value ) })) {
                         Write-Debug "[$((Get-Date).TimeOfDay) PROCESS] Skipping: $($item |Out-String)"
                     }
                     else {
@@ -38,7 +41,7 @@ Function Get-PSUnique {
                         $UniqueList.add($item)
                     }
                 }
-                Catch {
+                catch {
                     Write-Warning "The input object can't be compared based on the number of properties. Try again using the Property parameter."
                 }
 
@@ -46,10 +49,12 @@ Function Get-PSUnique {
         }
     } #process
 
-    End {
+    end {
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Found $($UniqueList.count) unique objects"
         Write-Debug "[$((Get-Date).TimeOfDay) END    ] Writing results to the pipeline"
         $UniqueList
         Write-Verbose "[$((Get-Date).TimeOfDay) END    ] Ending $($MyInvocation.MyCommand)"
     } #end
 }
+
+#EOF

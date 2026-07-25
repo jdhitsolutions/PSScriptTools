@@ -1798,7 +1798,7 @@ Date       Time         Message
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-Content c:\windows\windowsupdate.log -totalcount 50 |
+        <dev:code>PS C:\&gt; Get-Content c:\windows\windowsupdate.log -TotalCount 50 |
 ConvertFrom-Text $wu</dev:code>
         <dev:remarks>
           <maml:para>This example gets the first 50 lines from the Windows update log and converts that to objects using the pattern from the previous example.</maml:para>
@@ -1806,7 +1806,8 @@ ConvertFrom-Text $wu</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $c = "(?&lt;Protocol&gt;\w{3})\s+(?&lt;LocalIP&gt;(\d{1,3}\.){3}\d{1,3}):(?&lt;LocalPort&gt;\d+)\s+(?&lt;ForeignIP&gt;.*):(?&lt;ForeignPort&gt;\d+)\s+(?&lt;State&gt;\w+)?"
+        <dev:code>PS C:\&gt; $c = "(?&lt;Protocol&gt;\w{3})\s+(?&lt;LocalIP&gt;(\d{1,3}\.){3}\d{1,3}):(?&lt;LocalPort&gt;\d+)\s+
+(?&lt;ForeignIP&gt;.*):(?&lt;ForeignPort&gt;\d+)\s+(?&lt;State&gt;\w+)?"
 PS C:\&gt; netstat | select -skip 4 | ConvertFrom-Text $c |
 Format-Table -AutoSize
 
@@ -2092,7 +2093,6 @@ Monday, March 4, 2020 1:00:00 PM</dev:code>
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-        <maml:para>This was originally described at: http://jdhitsolutions.com/blog/2013/01/convert-powershell-object-to-hashtable-revised</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -2739,7 +2739,7 @@ Friday, March 14, 2025 4:00:00 PM</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershell-resources/</maml:para>
+        <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -2783,7 +2783,8 @@ PS C:\&gt;$out | Set-Content c:\work\report.md</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -AsList
+        <dev:code>PS C:\&gt; Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent
+"## $($env:computername)" -AsList
 
 # OS Summary
 
@@ -3446,7 +3447,8 @@ ConvertTo-WPFGrid -title "VM Data" -refresh -timeout 60 -UseProfile</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
         <dev:code>PS C:\&gt; (Get-ProcessData -Computername $computers).where({$_.WorkingSet -ge 100mb}) |
-ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30</dev:code>
+ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers
+-InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30</dev:code>
         <dev:remarks>
           <maml:para>This command runs a function that is defined in a script file. In order for the form to refresh, it must also dot source the script which is happening with the InitializationScript parameter. The example is also loading the local $computers variable so that it too is available upon refresh.</maml:para>
         </dev:remarks>
@@ -3790,7 +3792,9 @@ ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -Initializ
 
 Code Samples
 
-Each help example is numbered to the left. At the prompt below, select the code samples you want to copy to the clipboard. Separate multiple values with a comma.
+Each help example is numbered to the left. At the prompt below,
+select the code samples you want to copy to the clipboard. Separate
+multiple values with a comma.
 
 Some example code includes the output.
 
@@ -3836,7 +3840,8 @@ Performing operation 'Stop-Process' on Target 'lsass(596)'
 [ADMIN]:  Get-Process -Name "lsass" | Stop-Process -Force
 [ADMIN]:
 
-Please select items to copy to the clipboard by number. Separate multiple entries with a comma. Press Enter alone to cancel:</dev:code>
+Please select items to copy to the clipboard by number. Separate multiple entries with a comma.
+Press Enter alone to cancel:</dev:code>
         <dev:remarks>
           <maml:para>The console menu will be displayed using ANSI. Enter a comma separated list of numbers for the items to copy to the clipboard.</maml:para>
         </dev:remarks>
@@ -3997,6 +4002,7 @@ Please select items to copy to the clipboard by number. Separate multiple entrie
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
+        <maml:para>This command has an alias of ch.</maml:para>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -4531,6 +4537,7 @@ ProtectionTechnologyStatus          {}                   {PackedXml, SchemaV...
     </command:details>
     <maml:description>
       <maml:para>Use this command to display a block of text in a colored lined border box. You can use ANSI or PSStyle to specify the line color. It is recommended that the lines of text are trimmed of extra spaces.</maml:para>
+      <maml:para>This command will not run in the Windows PowerShell ISE.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -4678,6 +4685,10 @@ ProtectionTechnologyStatus          {}                   {PackedXml, SchemaV...
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Add-Border</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Write-PSHorizontalRule</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -7553,7 +7564,9 @@ Mode                 LastWriteTime         Length Name
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="lfn, EnableLN">
           <maml:name>EnableLongFileName</maml:name>
           <maml:description>
-            <maml:para>Enable support for long file and folder names. Read https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation?tabs=registry to learn more.</maml:para>
+            <maml:para>Enable support for long file and folder names. Read:</maml:para>
+            <maml:para>https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation</maml:para>
+            <maml:para>to learn more.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -7591,7 +7604,9 @@ Mode                 LastWriteTime         Length Name
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="lfn, EnableLN">
         <maml:name>EnableLongFileName</maml:name>
         <maml:description>
-          <maml:para>Enable support for long file and folder names. Read https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation?tabs=registry to learn more.</maml:para>
+          <maml:para>Enable support for long file and folder names. Read:</maml:para>
+          <maml:para>https://learn.microsoft.com/windows/win32/fileio/maximum-file-Path-limitation</maml:para>
+          <maml:para>to learn more.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -7949,7 +7964,7 @@ System.ServiceProcess.ServiceController         {service, service, Ansi}</dev:co
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-        <maml:para>This is a variation of code posted at https://gist.github.com/jdhitsolutions/cbdc7118f24ba551a0bb325664415649</maml:para>
+        <maml:para>This is a variation of code posted at: https://gist.github.com/jdhitsolutions/cbdc7118f24ba551a0bb325664415649</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -8180,7 +8195,6 @@ C:\scripts\PSReleaseTools                       440          3.0588</dev:code>
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-        <maml:para>This command was first described at https://jdhitsolutions.com/blog/powershell/8622/finding-modified-files-with-powershell/</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -8367,18 +8381,18 @@ Mode                 LastWriteTime         Length Name
 
 Name                           Alias                        Synopsis
 ----                           -----                        --------
-Export-PSCalendarConfiguration Save-PSCalendarConfiguration Save the current calendar configuration
-                                                            settings to a file.
-Get-Calendar                   cal                          Displays a visual representation of a
-                                                            calendar.
+Export-PSCalendarConfiguration Save-PSCalendarConfiguration Save the current calendar
+                                                            configuration settings to a file.
+Get-Calendar                   cal                          Displays a visual representation
+                                                            of a calendar.
 Get-MonthName                  mon                          Get the list of month names.
 Get-NCalendar                  ncal                         Display a Linux-style ncal calendar.
 Get-PSCalendarConfiguration                                 Get the current PSCalendar ANSI
                                                             configuration.
 Set-PSCalendarConfiguration                                 Modify the PSCalendar ANSI
                                                             configuration.
-Show-Calendar                  scal                         Display a colorized calendar month in
-                                                            the console.
+Show-Calendar                  scal                         Display a colorized calendar month
+                                                            in the console.
 Show-GuiCalendar               gcal                         Display a WPF-based calendar.
 Show-PSCalendarHelp                                         Display a help PDF file for the
                                                             PSCalendar module.</dev:code>
@@ -8412,7 +8426,8 @@ Synopsis   : Ends forcibly the SMB session.
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-ModuleCommand PSProjectStatus | Where Verb -match 'get|new' | Format-Table -View verb
+        <dev:code>PS C:\&gt; Get-ModuleCommand PSProjectStatus | Where Verb -match 'get|new' |
+Format-Table -View verb
 
    Verb: Get
 
@@ -8428,7 +8443,7 @@ Get-PSProjectTask                              Function    List project tasks
 Name                           Alias           Type        Synopsis
 ----                           -----           ----        --------
 New-PSProjectStatus            npstat          Function    Create a new PSProjectStatus.
-New-PSProjectTask                              Function    Create a new task in the PSProject file.</dev:code>
+New-PSProjectTask                              Function    Create a new task in the PSProject ...</dev:code>
         <dev:remarks>
           <maml:para>Display commands using a custom table view called 'Verb'.</maml:para>
         </dev:remarks>
@@ -9151,12 +9166,12 @@ Timestamp             Category        Counter             Value
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-MyTimeInfo
 
-Now               : 3/26/2025 11:27:14 AM
-Home              : 3/26/2025 11:27:14 AM
-UTC               : 3/26/2025 3:27:14 PM
-Singapore         : 3/26/2025 11:27:14 PM
-Seattle           : 3/26/2025 8:27:14 AM
-Stockholm         : 3/26/2025 4:27:14 PM
+Now               : 3/26/2026 11:27:14 AM
+Home              : 3/26/2026 11:27:14 AM
+UTC               : 3/26/2026 3:27:14 PM
+Singapore         : 3/26/2026 11:27:14 PM
+Seattle           : 3/26/2026 8:27:14 AM
+Stockholm         : 3/26/2026 4:27:14 PM
 IsDaylightSavings : True</dev:code>
         <dev:remarks>
           <maml:para>The default output is a custom object with each timezone as a property.</maml:para>
@@ -9166,13 +9181,13 @@ IsDaylightSavings : True</dev:code>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; Get-MyTimeInfo -AsList
 
-   Now: 03/26/2025 11:28:29
-   UTC: 03/26/2025 15:28:29
+   Now: 03/26/2026 11:28:29
+   UTC: 03/26/2026 15:28:29
 
-Home              : 3/26/2025 11:28:29 AM
-Singapore         : 3/26/2025 11:28:29 PM
-Seattle           : 3/26/2025 8:28:29 AM
-Stockholm         : 3/26/2025 4:28:29 PM
+Home              : 3/26/2026 11:28:29 AM
+Singapore         : 3/26/2026 11:28:29 PM
+Seattle           : 3/26/2026 8:28:29 AM
+Stockholm         : 3/26/2026 4:28:29 PM
 IsDaylightSavings : True</dev:code>
         <dev:remarks>
           <maml:para>Get current time info formatted as a list. You can also try the AsTable parameter.</maml:para>
@@ -9180,27 +9195,28 @@ IsDaylightSavings : True</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $loc = [ordered]@{"Hong Kong"="China Standard Time";Honolulu="Hawaiian Standard Time";Mumbai = "India Standard Time"}
-
+        <dev:code>PS C:\&gt; $loc = [ordered]@{"Hong Kong"="China Standard Time";Mumbai = "India Standard Time"}
 PS C:\&gt; Get-MyTimeInfo -Locations $loc -ft
 
-   Now: 03/26/2025 11:29:33
-   UTC: 03/26/2025 15:29:33
+   Now: 03/26/2026 11:29:33
+   UTC: 03/26/2026 15:29:33
 
-Home                  Hong Kong             Honolulu             Mumbai              DaylightSavings
-----                  ---------             --------             ------               --------------
-3/26/2025 11:29:33 AM 3/26/2025 11:29:33 PM 3/26/2025 5:29:33 AM 3/26/2025 8:59:33 PM           True</dev:code>
+Home                  Hong Kong             Mumbai               IsDaylightSavings
+----                  ---------             -------              ---+-------------
+3/26/2026 11:29:33 AM 3/26/2026 11:29:33 PM 3/26/2026 8:59:33 PM              True</dev:code>
         <dev:remarks>
           <maml:para>Using a custom location hashtable, get time zone information formatted as a table. This example is using the -ft alias for the AsTable parameter. Even though this is formatted as a table the actual output is a string.</maml:para>
         </dev:remarks>
       </command:example>
       <command:example>
-        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "central standard time" | Select Now,Home,Seattle,'New Zealand'
+        <maml:title>-------------------------- Example 4 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-MyTimeInfo -Locations ([ordered]@{Seattle="Pacific Standard time";
+"New Zealand" = "New Zealand Standard Time"}) -HomeTimeZone "Central Standard Time" |
+Select Now,Home,Seattle,'New Zealand'
 
 Now                   Home                  Seattle              New Zealand
 ---                   ----                  -------              -----------
-3/26/2025 11:30:36 AM 3/26/2025 10:30:36 AM 3/26/2025 8:30:36 AM 3/27/2025 4:30:36 AM</dev:code>
+3/26/2026 11:30:36 AM 3/26/2026 10:30:36 AM 3/26/2026 8:30:36 AM 3/27/2026 4:30:36 AM</dev:code>
         <dev:remarks>
           <maml:para>This is a handy command when traveling and your laptop is using a locally derived time and you want to see the time in other locations. It is recommended that you set a PSDefaultParameter value for the HomeTimeZone parameter in your PowerShell profile.</maml:para>
         </dev:remarks>
@@ -9307,7 +9323,6 @@ Now                   Home                  Seattle              New Zealand
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-        <maml:para>An earlier version of this function is described at http://jdhitsolutions.com/blog/2012/05/get-my-variable-revisited</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -9892,7 +9907,16 @@ Exists       : False</dev:code>
         <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
-    <command:inputTypes />
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
@@ -9957,6 +9981,10 @@ Platform       : Win32NT</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Get-Process</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Get-PSWho</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>
@@ -10254,7 +10282,7 @@ Temp        : /tmp/
 Desktop     :
 PowerShell  : /home/jeff/.config/powershell
 PSHome      : /opt/microsoft/powershell/7
-ModulePaths : {/home/jeff/.local/share/powershell/Modules, /usr/local/share/powershell/Modules, ...}</dev:code>
+ModulePaths : {/home/jeff/.local/share/powershell/Modules, /usr/local/share/powershell/...}</dev:code>
         <dev:remarks>
           <maml:para>Results on a Linux system running PowerShell.</maml:para>
         </dev:remarks>
@@ -10414,7 +10442,7 @@ LastModified : 5/15/2026 2:48:52 PM</dev:code>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>You can use this command to get a summary display of functions included in the PSScriptTools module. Use the -Verb parameter to filter the output.</maml:para>
+      <maml:para>You can use this command to get a summary display of functions included in the PSScriptTools module. Use the -Verb and -Tag parameters to filter the output.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -10431,6 +10459,20 @@ LastModified : 5/15/2026 2:48:52 PM</dev:code>
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Tag</maml:name>
+          <maml:description>
+            <maml:para>Filter commands based on command tag. Valid values:</maml:para>
+            <maml:para>'ansi','cim','console','editor','file','format','general','graphical','hashtable','other','scripting','select','time'</maml:para>
+            <maml:para>Even though a command might have multiple tags, you can only filter on a single one.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
@@ -10438,6 +10480,20 @@ LastModified : 5/15/2026 2:48:52 PM</dev:code>
         <maml:name>Verb</maml:name>
         <maml:description>
           <maml:para>Filter commands based on a standard PowerShell verb.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Tag</maml:name>
+        <maml:description>
+          <maml:para>Filter commands based on command tag. Valid values:</maml:para>
+          <maml:para>'ansi','cim','console','editor','file','format','general','graphical','hashtable','other','scripting','select','time'</maml:para>
+          <maml:para>Even though a command might have multiple tags, you can only filter on a single one.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -10588,6 +10644,44 @@ Test-WithCulture            https://jdhitsolutions.com/yourls/15101d</dev:code>
           <maml:para>The output is an object with properties you might want to use.</maml:para>
         </dev:remarks>
       </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 5 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSScriptTools -Tag ansi -verb Get | Format-Table -View tags
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-&lt;
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name                     Alias Tags            Synopsis
+----                     ----- ----            --------
+Get-CimMember            cmm   {ansi}          Get information about CIM cl....
+Get-PSAnsiFileMap              {ansi}          Display the PSAnsiFileMap.
+Get-WindowsVersionString wvers {general, ansi} Get Windows version informati...</dev:code>
+        <dev:remarks>
+          <maml:para>Beginning with v3.2.0, you can also filter on a predefined list of tags that categorize each command. You can also use a new formatted table view called tags.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 6 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Get-PSScriptTools -verb export | Select tagInfo
+___ ___ ___         _      _  _____        _
+| _ \ __/ __|__ _ _(_)_ __| |__   _|__ ___| |___
+|  _\__ \__ \ _| '_| | '_ \  _|| |/ _ \ _ \ (_-&lt;
+|_| |___/___\__|_| |_|_.__/\__||_|\___\___/_/__/
+|_|                  |_|
+v3.2.0
+
+Name     : Export-PSAnsiFileMap
+Alias    :
+Tags     : {ansi}
+Synopsis : Export a PSAnsiFileMap to a file.
+Help     : https://jdhitsolutions.com/yourls/33a505</dev:code>
+        <dev:remarks>
+          <maml:para>You can also use the tagInfo property set.</maml:para>
+        </dev:remarks>
+      </command:example>
     </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
@@ -10682,7 +10776,8 @@ Test-WithCulture            https://jdhitsolutions.com/yourls/15101d</dev:code>
         <dev:code>PS C:\&gt; Get-PSScriptToolsTypeExtension -TypeName *file*
 
 TypeName   : System.IO.FileInfo
-Description: Alias and script properties designed to extend the file object. There is also a PropertySet called AgeInfo.
+Description: Alias and script properties designed to extend the file object. There is
+also a PropertySet called AgeInfo.
 
     MemberType    MemberName
     ----------    ----------
@@ -12461,7 +12556,8 @@ PROSPERO Microsoft Windows 11 Pro Version Professional (OS Build 26200.8737)</de
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; $pass = Invoke-InputBox -prompt "Enter a new password" -title "New User" -asSecureString -background red</dev:code>
+        <dev:code>PS C:\&gt; $pass = Invoke-InputBox -prompt "Enter a new password" -title "New User"
+-asSecureString -background red</dev:code>
         <dev:remarks>
           <maml:para>Get a secure string value from the user. This example also changes the form background to red.</maml:para>
         </dev:remarks>
@@ -12662,6 +12758,7 @@ Count                          3</dev:code>
     <maml:description>
       <maml:para>You can use this command to create colorful bars using ANSI escape sequences based on a 256 color scheme. The default behavior is to create a gradient bar that goes from first to last values in the range and then back down again. Or you can create a single gradient that runs from the beginning of the range to the end. You can use one of the default characters or specify a custom one.</maml:para>
       <maml:para>You can learn more about ANSI escape codes at https://en.wikipedia.org/wiki/ANSI_escape_code.</maml:para>
+      <maml:para>This command will not run in the Windows PowerShell ISE.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -12914,6 +13011,7 @@ Count                          3</dev:code>
     <maml:description>
       <maml:para>In PowerShell 7, you can use $PSStyle.FormatHyperLink() to create a string with a hyperlink. This method is based on an underlying ANSI escape sequence. This command uses that same sequence so that you can create a hyperlinked string in Windows PowerShell. The command also makes it easier to add other styling. By default, the link will have a solid underline.</maml:para>
       <maml:para>Optionally, you can use AsString to see a text version of the string with escape sequence markers.</maml:para>
+      <maml:para>This command will not run in the Windows PowerShell ISE.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -13273,8 +13371,9 @@ JEFF-Z0XUXMFS.TMP</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Join-Path c:\work (New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower)
-c:\work\2020nov-log-bovine320[jeff].txt</dev:code>
+        <dev:code>PS C:\&gt; $n = New-CustomFilename "%Year%Monthname-LOG-%computername[%username].txt" -case lower
+PS C:\&gt; Join-Path c:\work $n
+c:\work\2026jul-log-bovine320[jeff].txt</dev:code>
         <dev:remarks>
           <maml:para>Create a lower case filename using Join-Path. This command does not create the file, it only generates a name for you to use.</maml:para>
         </dev:remarks>
@@ -13817,7 +13916,6 @@ Function        ToTitle</dev:code>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>Originally published at http://jdhitsolutions.com/blog/2010/08/New-PSDriveHere/</maml:para>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -13839,7 +13937,7 @@ Function        ToTitle</dev:code>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
         <dev:code>PS C:\&gt; New-PSDriveHere HKLM:\software\microsoft -PassThru |
-Select-Object -Expandproperty Name
+Select-Object -ExpandProperty Name
 
 microsoft</dev:code>
         <dev:remarks>
@@ -13855,7 +13953,7 @@ microsoft</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\Users\Jeff\Documents\DeepDive\&gt; New-PSDriveHere . DeepDive -setlocation
+        <dev:code>PS C:\Users\Jeff\Documents\DeepDive\&gt; New-PSDriveHere . DeepDive -SetLocation
 PS DeepDive:\&gt;</dev:code>
         <dev:remarks>
           <maml:para>Create a new PSDrive and change location to it.</maml:para>
@@ -14036,7 +14134,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ValidateSet</maml:name>
           <maml:description>
-            <maml:para>Enter a set of parameter validations values</maml:para>
+            <maml:para>Enter a set of parameter validations values.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
           <dev:type>
@@ -14048,7 +14146,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ValidateRange</maml:name>
           <maml:description>
-            <maml:para>Enter a set of parameter range validations values as a comma-separated list from minimum to maximum</maml:para>
+            <maml:para>Enter a set of parameter range validations values as a comma-separated list from minimum to maximum.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
           <dev:type>
@@ -14060,7 +14158,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ValidateCount</maml:name>
           <maml:description>
-            <maml:para>Enter a set of parameter count validations values as a comma-separated list from minimum to maximum</maml:para>
+            <maml:para>Enter a set of parameter count validations values as a comma-separated list from minimum to maximum.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
           <dev:type>
@@ -14072,7 +14170,7 @@ PS DeepDive:\&gt;</dev:code>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ValidatePattern</maml:name>
           <maml:description>
-            <maml:para>Enter a parameter validation regular expression pattern</maml:para>
+            <maml:para>Enter a parameter validation regular expression pattern.</maml:para>
           </maml:description>
           <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
           <dev:type>
@@ -14243,7 +14341,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ValidateSet</maml:name>
         <maml:description>
-          <maml:para>Enter a set of parameter validations values</maml:para>
+          <maml:para>Enter a set of parameter validations values.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Object[]</command:parameterValue>
         <dev:type>
@@ -14255,7 +14353,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ValidateRange</maml:name>
         <maml:description>
-          <maml:para>Enter a set of parameter range validations values as a comma-separated list from minimum to maximum</maml:para>
+          <maml:para>Enter a set of parameter range validations values as a comma-separated list from minimum to maximum.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
         <dev:type>
@@ -14267,7 +14365,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ValidateCount</maml:name>
         <maml:description>
-          <maml:para>Enter a set of parameter count validations values as a comma-separated list from minimum to maximum</maml:para>
+          <maml:para>Enter a set of parameter count validations values as a comma-separated list from minimum to maximum.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">Int32[]</command:parameterValue>
         <dev:type>
@@ -14279,7 +14377,7 @@ PS DeepDive:\&gt;</dev:code>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ValidatePattern</maml:name>
         <maml:description>
-          <maml:para>Enter a parameter validation regular expression pattern</maml:para>
+          <maml:para>Enter a parameter validation regular expression pattern.</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
         <dev:type>
@@ -15100,7 +15198,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 4 --------------------------</maml:title>
-        <dev:code>PS /mnt/c/scripts&gt; new-randomfilename -home -Extension tmp
+        <dev:code>PS /mnt/c/scripts&gt; New-RandomFileMame -home -Extension tmp
 /home/jhicks/oces0epq.tmp</dev:code>
         <dev:remarks>
           <maml:para>Create a random file name using the user's home folder on a Linux installation.</maml:para>
@@ -15129,6 +15227,7 @@ C:\Users\Jeff\Documents\kbyw4fda.log</dev:code>
     </command:details>
     <maml:description>
       <maml:para>You can use this command to create an ANSI colored gradient bar running from red to green. By specifying a percentage, you can provide a visual representation. The closer the percent value is to 1 the more green will be displayed. Use the -Step parameter to adjust the bar length. The smaller the step the longer the bar.</maml:para>
+      <maml:para>This command will not run in the Windows PowerShell ISE.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -15602,7 +15701,8 @@ DriveLetter FileSystemLabel FreeGB PctFree
     <command:examples>
       <command:example>
         <maml:title>-------------------------- Example 1 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm -Icon Question -ButtonSet YesNo
+        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Are you sure you want to do this?" -Title Confirm
+-Icon Question -ButtonSet YesNo
 False</dev:code>
         <dev:remarks>
           <maml:para>Display a Yes/No message box. The value of the clicked button will be written to the pipeline. It is assumed you would use this in a script and have logic to determine what to do based on the value.</maml:para>
@@ -15618,7 +15718,9 @@ False</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 3 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Select a system option from these choices:" -Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet ([ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})</dev:code>
+        <dev:code>PS C:\&gt; New-WPFMessageBox -Message "Select a system option from these choices:"
+-Title "You Decide" -Background cornsilk -Icon Warning -CustomButtonSet (
+[ordered]@{"Reboot"=1;"Shutdown"=2;"Cancel"=3})</dev:code>
         <dev:remarks>
           <maml:para>Create a custom message box with a user-defined set of buttons.</maml:para>
         </dev:remarks>
@@ -15924,7 +16026,6 @@ False</dev:code>
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-        <maml:para>This function was originally described at http://jdhitsolutions.com/blog/2014/09/using-optimized-text-files-in-powershell</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -16386,7 +16487,7 @@ Handles  NPM(K)    PM(K)      WS(K) VM(M)   CPU(s)     Id  SI ProcessName
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. You either have to hard code a file name or find some other way to define it in your function or control script. You could pass a value as a parameter or set it as a PSDefaultParameterValue.</maml:para>
+      <maml:para>This command is intended to let you see your verbose output and write the verbose messages to a log file. It will only work if the verbose pipeline is enabled, usually when your command is run with -Verbose. This function is designed to be used within your scripts and functions. It will not capture Verbose output from commands like Get-CimInstance.</maml:para>
       <maml:para>This command has an alias of Tee-Verbose.</maml:para>
       <maml:para>You might use it like this in a script.</maml:para>
       <maml:para>Begin {</maml:para>
@@ -17410,7 +17511,6 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
     <maml:alertSet>
       <maml:alert>
         <maml:para>Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter</maml:para>
-        <maml:para>This code was first described at http://jdhitsolutions.com/blog/2013/01/Rename-Hashtable-key-revised</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples>
@@ -17425,9 +17525,9 @@ What if: Performing the operation "Remove-Runspace" on target "18 - Runspace18".
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
         <dev:code>PS C:\&gt; $newHash = Get-Service spooler |
 ConvertTo-HashTable |
-Rename-Hashtable -Key Machinename -NewKey Computername</dev:code>
+Rename-Hashtable -Key MachineName -NewKey Computername</dev:code>
         <dev:remarks>
-          <maml:para>This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable. The Machinename key is then renamed to Computername.</maml:para>
+          <maml:para>This command uses the ConvertTo-Hashtable command from the PSScriptTools module to turn an object into a hashtable. The MachineName key is then renamed to Computername.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -19091,7 +19191,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 2 --------------------------</maml:title>
-        <dev:code>PS C:\&gt; Set-PSAnsiFileMap -Description "Config" -Pattern "\.(yml)$" -Ansi "`e[38;5;25m"ge</dev:code>
+        <dev:code>PS C:\&gt; Set-PSAnsiFileMap -Description "Config" -Pattern "\.(yml)$" -Ansi "`e[38;5;25m"</dev:code>
         <dev:remarks>
           <maml:para>Add a new PSAnsiFileMap entry. This change will not persist unless you export the map.</maml:para>
         </dev:remarks>
@@ -19128,7 +19228,7 @@ PS C:\Scripts\Foo\&gt;</dev:code>
     <maml:description>
       <maml:para>This script is designed to make it easy to see ANSI escape sequences and how they will display in your PowerShell session. Use the -AsString parameter to write simple strings to the pipeline which makes it easier to copy items to the clipboard.</maml:para>
       <maml:para>The escape character will depend on whether you are running Windows PowerShell or PowerShell 7.x. For best results, you need to run this command in a PowerShell session and host that supports ANSI escape sequences.</maml:para>
-      <maml:para>The number of columns displayed depends on the width of your console window.</maml:para>
+      <maml:para>This command will not run in the Windows PowerShell ISE.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -19225,6 +19325,18 @@ PS C:\Scripts\Foo\&gt;</dev:code>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Columns</maml:name>
+          <maml:description>
+            <maml:para>Specify the number of columns to display for foreground or background sequences.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>3</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
       <command:syntaxItem>
@@ -19351,6 +19463,18 @@ PS C:\Scripts\Foo\&gt;</dev:code>
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Columns</maml:name>
+        <maml:description>
+          <maml:para>Specify the number of columns to display for foreground or background sequences.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>3</dev:defaultValue>
+      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -19433,9 +19557,9 @@ PS C:\Scripts\Foo\&gt;</dev:code>
       </command:example>
       <command:example>
         <maml:title>-------------------------- Example 5 --------------------------</maml:title>
-        <dev:code>PS C:\ Show-ANSISequence -background -paging</dev:code>
+        <dev:code>PS C:\ Show-ANSISequence -background -columns 4 -paging</dev:code>
         <dev:remarks>
-          <maml:para>Output is displayed in pages using Out-More. You can adjust the number of items using the -PageCount parameter.</maml:para>
+          <maml:para>Four column output is displayed in pages using Out-More. You can adjust the number of items using the -PageCount parameter.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -19681,7 +19805,6 @@ Function Prompt {
     <maml:description>
       <maml:para>By design, PowerShell will hide parts of an object that have very little relevance to scripting or interactive PowerShell use. Often, these are .NET properties and methods that are automatically added. You can see them using Get-Member -Force. This command is designed to simplify the process.</maml:para>
       <maml:para>It is expected that you will pipe an object to this command like you do with Get-Member. It is also assumed that if you pipe multiple objects they are all of the same type. Only the first object will be processed.</maml:para>
-      <maml:para>An earlier version of this command was first introduced at LINK</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -19701,7 +19824,7 @@ Function Prompt {
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
           <maml:name>ExcludePropertyMethod</maml:name>
           <maml:description>
-            <maml:para>Exclude methods like get_Name and set_Name</maml:para>
+            <maml:para>Exclude methods like get_Name and set_Name.</maml:para>
           </maml:description>
           <dev:type>
             <maml:name>SwitchParameter</maml:name>
@@ -19713,24 +19836,10 @@ Function Prompt {
           <maml:name>MemberType</maml:name>
           <maml:description>
             <maml:para>The default is to show all hidden members, but you can filter by specifying a member type. You can tab-complete the values.</maml:para>
+            <maml:para>Valid Values: AliasProperty, CodeProperty, Property, NoteProperty, ScriptProperty,Properties, PropertySet, Method, CodeMethod, ScriptMethod, Methods, ParameterizedProperty,MemberSet, Event, Dynamic, All</maml:para>
           </maml:description>
           <command:parameterValueGroup>
-            <command:parameterValue required="false" command:variableLength="false">AliasProperty</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">CodeProperty</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Property</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">NoteProperty</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">ScriptProperty</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Properties</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">PropertySet</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Method</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">CodeMethod</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">ScriptMethod</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Methods</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">ParameterizedProperty</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">MemberSet</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Event</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">Dynamic</command:parameterValue>
-            <command:parameterValue required="false" command:variableLength="false">All</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">see parameter comments</command:parameterValue>
           </command:parameterValueGroup>
           <command:parameterValue required="true" variableLength="false">PSMemberTypes</command:parameterValue>
           <dev:type>
@@ -19745,7 +19854,7 @@ Function Prompt {
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
         <maml:name>ExcludePropertyMethod</maml:name>
         <maml:description>
-          <maml:para>Exclude methods like get_Name and set_Name</maml:para>
+          <maml:para>Exclude methods like get_Name and set_Name.</maml:para>
         </maml:description>
         <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
         <dev:type>
@@ -19770,6 +19879,7 @@ Function Prompt {
         <maml:name>MemberType</maml:name>
         <maml:description>
           <maml:para>The default is to show all hidden members, but you can filter by specifying a member type. You can tab-complete the values.</maml:para>
+          <maml:para>Valid Values: AliasProperty, CodeProperty, Property, NoteProperty, ScriptProperty,Properties, PropertySet, Method, CodeMethod, ScriptMethod, Methods, ParameterizedProperty,MemberSet, Event, Dynamic, All</maml:para>
         </maml:description>
         <command:parameterValue required="true" variableLength="false">PSMemberTypes</command:parameterValue>
         <dev:type>
@@ -19801,7 +19911,7 @@ Function Prompt {
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>This command has an alias of sm</maml:para>
+        <maml:para>This command has an alias of sm.</maml:para>
         <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -19862,7 +19972,7 @@ d8fdba1f-e046-429a-8225-9cbbe927e366 6/18/2026 7:26:08 AM
 226022de-4c91-4014-985e-34ee18ce0eda 6/26/2026 6:40:00 AM
 ...</dev:code>
         <dev:remarks>
-          <maml:para>The Get-PSWorkItem command is from the PSWorkItem (https://github.com/jdhitsolutions/PSWorkitem)module. It uses a custom class. Show-HiddenMember reveals a hidden property. Once you know the name, you can use it.</maml:para>
+          <maml:para>The Get-PSWorkItem command is from the PSWorkItem (https://github.com/jdhitsolutions/PSWorkitem) module. It uses a custom class. Show-HiddenMember reveals a hidden property. Once you know the name, you can use it.</maml:para>
         </dev:remarks>
       </command:example>
     </command:examples>
@@ -21731,6 +21841,7 @@ Count Name
     <maml:description>
       <maml:para>You can use this command to write an ANSI-styled progress bar to the console. The output will be an array of strings. The item may be a blank line. See examples. If you are incorporating this command into a script or function, you may want to use the -ToHost parameter to write the progress bar to the host instead of the pipeline.</maml:para>
       <maml:para>NOTE: If you are using the Windows Terminal and are at the bottom of the screen, you may get improperly formatted results. Clear the host and try again.</maml:para>
+      <maml:para>This command will not run in the Windows PowerShell ISE.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -21970,6 +22081,253 @@ PS C:\&gt; Invoke-Command -scriptblock $sb</dev:code>
       </maml:navigationLink>
       <maml:navigationLink>
         <maml:linkText>Show-ANSISequence</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>Write-PSHorizontalRule</command:name>
+      <command:verb>Write</command:verb>
+      <command:noun>PSHorizontalRule</command:noun>
+      <maml:description>
+        <maml:para>Write a horizontal rule line.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This command is used to write a horizontal rule line in the console. The rule line is colored using ANSI. You can specify any ANSI or PSStyle foreground sequence as the style. The default is a thin line, but you can create a thick like using the LineWeight parameter. The default line length is the console width.</maml:para>
+      <maml:para>Optionally, you can insert a title or caption. By default, the caption will be set to the left, but you can adjust the alignment and style.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Write-PSHorizontalRule</maml:name>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>Width</maml:name>
+          <maml:description>
+            <maml:para>How long do you want the line in character spacing? The value is NOT a percentage. The default is the full window width.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Alignment</maml:name>
+          <maml:description>
+            <maml:para>Specify the title alignment. This will have no effect unless you specify a title. Centered text is approximate and might shorten the line by a few characters.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Left</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Center</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Right</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">psRuleAlignment</command:parameterValue>
+          <dev:type>
+            <maml:name>psRuleAlignment</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Weight">
+          <maml:name>LineWeight</maml:name>
+          <maml:description>
+            <maml:para>Specify the line weight.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">Thin</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">Thick</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">psRuleWeight</command:parameterValue>
+          <dev:type>
+            <maml:name>psRuleWeight</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>Thin</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Style</maml:name>
+          <maml:description>
+            <maml:para>Specify an ANSI or $PSStyle.Foreground setting for the line color. The default is BrightGreen.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>BrightGreen</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Caption">
+          <maml:name>Title</maml:name>
+          <maml:description>
+            <maml:para>Specify an optional caption or title.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>TitleStyle</maml:name>
+          <maml:description>
+            <maml:para>Specify an optional text style for the title. This will have no effect without a title. The default is none. You can specify multiple value to combine them. The Underline style is intentionally omitted.</maml:para>
+          </maml:description>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" command:variableLength="false">none</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">bold</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">faint</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">italic</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">blink</command:parameterValue>
+            <command:parameterValue required="false" command:variableLength="false">reverse</command:parameterValue>
+          </command:parameterValueGroup>
+          <command:parameterValue required="true" variableLength="false">psRuleTextStyle[]</command:parameterValue>
+          <dev:type>
+            <maml:name>psRuleTextStyle[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Alignment</maml:name>
+        <maml:description>
+          <maml:para>Specify the title alignment. This will have no effect unless you specify a title. Centered text is approximate and might shorten the line by a few characters.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">psRuleAlignment</command:parameterValue>
+        <dev:type>
+          <maml:name>psRuleAlignment</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Weight">
+        <maml:name>LineWeight</maml:name>
+        <maml:description>
+          <maml:para>Specify the line weight.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">psRuleWeight</command:parameterValue>
+        <dev:type>
+          <maml:name>psRuleWeight</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>Thin</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Style</maml:name>
+        <maml:description>
+          <maml:para>Specify an ANSI or $PSStyle.Foreground setting for the line color. The default is BrightGreen.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>BrightGreen</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Caption">
+        <maml:name>Title</maml:name>
+        <maml:description>
+          <maml:para>Specify an optional caption or title.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>TitleStyle</maml:name>
+        <maml:description>
+          <maml:para>Specify an optional text style for the title. This will have no effect without a title. The default is none. You can specify multiple value to combine them. The Underline style is intentionally omitted.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">psRuleTextStyle[]</command:parameterValue>
+        <dev:type>
+          <maml:name>psRuleTextStyle[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>Width</maml:name>
+        <maml:description>
+          <maml:para>How long do you want the line in character spacing? The value is NOT a percentage. The default is the full window width.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para></maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para>This command has an alias of pshr.</maml:para>
+        <maml:para>Learn more about PowerShell: http://jdhitsolutions.com/yourls/newsletter</maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples>
+      <command:example>
+        <maml:title>-------------------------- Example 1 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Write-PSHorizontalRule</dev:code>
+        <dev:remarks>
+          <maml:para>Write a thin green line the width of the PowerShell console.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 2 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Write-PSHorizontalRule -Title (Get-Date) -Style $PSStyle.Foreground.Magenta
+-TitleStyle italic -Width 50</dev:code>
+        <dev:remarks>
+          <maml:para>Create a 50 character line with the current date time as an italicized title. The color will be magenta.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>-------------------------- Example 3 --------------------------</maml:title>
+        <dev:code>PS C:\&gt; Write-PSHorizontalRule -Title $env:Computername -Style "`e[38;5;130m"
+-TitleStyle bold,blink -LineWeight Thick -Alignment Center</dev:code>
+        <dev:remarks>
+          <maml:para>Create a brown thick line with the computer name blinking in bold and centered.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://jdhitsolutions.com/yourls/3c2bd6</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Show-ANSISequence</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>Format-BorderBox</maml:linkText>
         <maml:uri></maml:uri>
       </maml:navigationLink>
     </command:relatedLinks>

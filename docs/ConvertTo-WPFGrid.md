@@ -87,7 +87,8 @@ This example uses a hypothetical command that might be defined in a PowerShell p
 
 ```powershell
 PS C:\> (Get-ProcessData -Computername $computers).where({$_.WorkingSet -ge 100mb}) |
-ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers -InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30
+ConvertTo-WPFGrid -Title "Process Report" -UseLocalVariable computers
+-InitializationScript {. C:\scripts\Get-ProcessData.ps1} -Refresh -Timeout 30
 ```
 
 This command runs a function that is defined in a script file. In order for the form to refresh, it must also dot source the script which is happening with the InitializationScript parameter. The example is also loading the local $computers variable so that it too is available upon refresh.

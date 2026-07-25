@@ -17,7 +17,7 @@ Convert pipeline output to a markdown document.
 
 ```yaml
 ConvertTo-Markdown [[-InputObject] <Object>] [-Title <String>] [-PreContent <String[]>]
- [-PostContent <String[]>] [-Width <Int32>] [<CommonParameters>]
+[-PostContent <String[]>] [-Width <Int32>] [<CommonParameters>]
 ```
 
 ### table
@@ -85,7 +85,8 @@ Here is an example that creates a series of markdown fragments for each computer
 ### Example 3
 
 ```powershell
-PS C:\> Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent "## $($env:computername)" -AsList
+PS C:\> Get-WindowsVersion | ConvertTo-Markdown -title "OS Summary" -PreContent
+"## $($env:computername)" -AsList
 
 # OS Summary
 
@@ -252,7 +253,7 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## NOTES
 
-Learn more about PowerShell: https://jdhitsolutions.com/blog/essential-powershell-resources/
+Learn more about PowerShell: https://jdhitsolutions.com/yourls/newsletter
 
 ## RELATED LINKS
 
