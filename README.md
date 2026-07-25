@@ -14,7 +14,7 @@ Please note that code samples have been formatted to _fit an *80-character_ widt
 
 ## Installation
 
-You can get the current release from this repository or install this from the [PowerShell Gallery](https://powershellgallery.com):
+You can get the current release from this repository or install this from the [PowerShell Gallery](https://www.powershellgallery.com/packages/PSScriptTools):
 
 ```powershell
 Install-Module PSScriptTools
