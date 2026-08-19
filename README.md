@@ -2,6 +2,9 @@
 
 ![PSGallery Version](https://img.shields.io/powershellgallery/v/PSScripttools.png?style=for-the-badge&logo=powershell&label=PowerShell%20Gallery)![PSGallery Downloads](https://img.shields.io/powershellgallery/dt/PSScripttools.png?style=for-the-badge&label=Downloads)
 
+![GitHub Repo stars](https://img.shields.io/github/stars/jdhitsolutions/PSScriptTools)
+![GitHub forks](https://img.shields.io/github/forks/jdhitsolutions/PSScriptTools)
+
 ![ ](images/pstoolbox-256.jpeg)
 
 ## Abstract
