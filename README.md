@@ -634,7 +634,7 @@ Culture         : English (United States)
 
 You can also turn this into a text block using the `AsString` parameter. This is helpful when you want to include the output in some type of report.
 
-![PSWho Report](images/Add-Border-ansi2.png)
+![PSWho Report](images/add-border-ansi2.png)
 
 ### [Out-VerboseTee](docs/Out-VerboseTee.md)
 
